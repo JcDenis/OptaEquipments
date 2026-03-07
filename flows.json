@@ -1,0 +1,1296 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Kernel",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "24d06435588a9e0e",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "41c767836b03252b",
+            "aaa4b0dfa4f0d7a8",
+            "a0fc8abe01156f55",
+            "22c1b32b8fa874d6",
+            "05790def660c66fb",
+            "10c82357a69cfd98",
+            "202424f6de068bd4",
+            "d9cafc2c4785ec11",
+            "510f2a33f164e99e",
+            "2102d929ee41f849",
+            "9e8a2ad43394b46a",
+            "52cc1e3bb2f3c739",
+            "ac34264b3567a2e7",
+            "656d1bb6c2a4ab16",
+            "9709fc1ed28ca266",
+            "5bf1eadbbcd87d33",
+            "873789af2da8962c"
+        ],
+        "x": 64,
+        "y": 211.5,
+        "w": 1992,
+        "h": 209.5
+    },
+    {
+        "id": "dcb47b97829a1b78",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "fca5abae49ece464",
+            "76e32feb14c8c8a9",
+            "90fee914285e6f59",
+            "575b91a30deac00d",
+            "a632cf6658ed8cde",
+            "e0c78ed3205bd313",
+            "31e5c0780c8dba35"
+        ],
+        "x": 54,
+        "y": 39,
+        "w": 682,
+        "h": 142
+    },
+    {
+        "id": "216f821485a9eb19",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "e60e4ab7617738c3",
+            "276ea77023fcccae",
+            "7d1b85aa6f413ef9",
+            "a22fb9b1d981984a",
+            "317faf970a630b93",
+            "b9af25a49f30dc52",
+            "926528388ab9caf3",
+            "11afbcf89a1ca675",
+            "fb71d25e90631d8d",
+            "644cf69a372437c2",
+            "9eddf0deb059b1dc",
+            "0fd3e33ded41a4bb"
+        ],
+        "x": 64,
+        "y": 459,
+        "w": 2102,
+        "h": 142
+    },
+    {
+        "id": "08daa9e3c5ed59b4",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094ce",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "10px",
+            "groupGap": "10px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "8px"
+        }
+    },
+    {
+        "id": "f516c1341f0f634c",
+        "type": "mqtt-broker",
+        "name": "noderedrt",
+        "broker": "10.40.0.111",
+        "port": 1883,
+        "clientid": "noderedrt",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fca5abae49ece464",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "boot",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "90fee914285e6f59"
+            ]
+        ]
+    },
+    {
+        "id": "76e32feb14c8c8a9",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "kernel - boot",
+        "links": [],
+        "x": 185,
+        "y": 140,
+        "wires": [
+            [
+                "90fee914285e6f59"
+            ]
+        ]
+    },
+    {
+        "id": "90fee914285e6f59",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "set global automate",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::automate",
+                "pt": "global",
+                "to": "spile",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "a632cf6658ed8cde"
+            ]
+        ]
+    },
+    {
+        "id": "575b91a30deac00d",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "kernel - boot",
+        "mode": "link",
+        "links": [
+            "aaa4b0dfa4f0d7a8"
+        ],
+        "x": 695,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a632cf6658ed8cde",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "wait 50ms",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 80,
+        "wires": [
+            [
+                "575b91a30deac00d",
+                "e0c78ed3205bd313"
+            ]
+        ]
+    },
+    {
+        "id": "e0c78ed3205bd313",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "open gate",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "control",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "open",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 140,
+        "wires": [
+            [
+                "31e5c0780c8dba35"
+            ]
+        ]
+    },
+    {
+        "id": "31e5c0780c8dba35",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "dcb47b97829a1b78",
+        "name": "kernel - gate",
+        "mode": "link",
+        "links": [],
+        "x": 695,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "41c767836b03252b",
+        "type": "q-gate",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "queueCmd": "queue",
+        "defaultCmd": "default",
+        "triggerCmd": "trigger",
+        "flushCmd": "flush",
+        "resetCmd": "reset",
+        "peekCmd": "peek",
+        "dropCmd": "drop",
+        "statusCmd": "status",
+        "maxQueueLength": "100",
+        "keepNewest": false,
+        "qToggle": false,
+        "persist": false,
+        "storeName": "default",
+        "x": 650,
+        "y": 260,
+        "wires": [
+            [
+                "10c82357a69cfd98"
+            ]
+        ]
+    },
+    {
+        "id": "aaa4b0dfa4f0d7a8",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "kernel - mqtt in",
+        "links": [
+            "575b91a30deac00d"
+        ],
+        "x": 105,
+        "y": 260,
+        "wires": [
+            [
+                "a0fc8abe01156f55"
+            ]
+        ]
+    },
+    {
+        "id": "a0fc8abe01156f55",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "set mqtt subscription",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::automate",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "msg.payload & '/#'",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "action",
+                "pt": "msg",
+                "to": "subscribe",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "05790def660c66fb"
+            ]
+        ]
+    },
+    {
+        "id": "22c1b32b8fa874d6",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "kernel - mqtt in - gate",
+        "links": [],
+        "x": 525,
+        "y": 320,
+        "wires": [
+            [
+                "41c767836b03252b"
+            ]
+        ]
+    },
+    {
+        "id": "05790def660c66fb",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "f516c1341f0f634c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "41c767836b03252b"
+            ]
+        ]
+    },
+    {
+        "id": "10c82357a69cfd98",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "delay 10ms",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "202424f6de068bd4"
+            ]
+        ]
+    },
+    {
+        "id": "202424f6de068bd4",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "split mqtt topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "split",
+                "pt": "msg",
+                "to": "$split(msg.topic,'/')",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1040,
+        "y": 260,
+        "wires": [
+            [
+                "510f2a33f164e99e"
+            ]
+        ]
+    },
+    {
+        "id": "d9cafc2c4785ec11",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "kernel - mqtt in",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1920,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "510f2a33f164e99e",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "root",
+        "property": "split[1]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "state",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "name",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "tree",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 1230,
+        "y": 260,
+        "wires": [
+            [
+                "2102d929ee41f849"
+            ],
+            [
+                "9e8a2ad43394b46a"
+            ],
+            [
+                "5bf1eadbbcd87d33"
+            ]
+        ]
+    },
+    {
+        "id": "2102d929ee41f849",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "check split length",
+        "property": "split",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 260,
+        "wires": [
+            [
+                "52cc1e3bb2f3c739"
+            ]
+        ]
+    },
+    {
+        "id": "9e8a2ad43394b46a",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "check split length",
+        "property": "split",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 320,
+        "wires": [
+            [
+                "ac34264b3567a2e7"
+            ]
+        ]
+    },
+    {
+        "id": "52cc1e3bb2f3c739",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "build kernel message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel",
+                "pt": "msg",
+                "to": "{\t    'site':msg.split[2],\t    'room':msg.split[3],\t    'equipment':msg.split[4],\t    'component':msg.split[5],\t    'model':msg.split[6],\t    'device':msg.split[7],\t    'endpoint':msg.split[8],\t    'value':msg.payload,\t    'mqtt':1\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1680,
+        "y": 260,
+        "wires": [
+            [
+                "9709fc1ed28ca266",
+                "d9cafc2c4785ec11"
+            ]
+        ]
+    },
+    {
+        "id": "ac34264b3567a2e7",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "set global names",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel.name[msg.split[2]][msg.split[3]][msg.split[4]][msg.split[5]][msg.split[6]][msg.split[7]][msg.split[8]]",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1670,
+        "y": 320,
+        "wires": [
+            [
+                "d9cafc2c4785ec11"
+            ]
+        ]
+    },
+    {
+        "id": "656d1bb6c2a4ab16",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "kernel - mqtt in",
+        "mode": "link",
+        "links": [
+            "e60e4ab7617738c3"
+        ],
+        "x": 2015,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "9709fc1ed28ca266",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "clean",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "split",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "delete",
+                "p": "qos",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "retain",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1890,
+        "y": 260,
+        "wires": [
+            [
+                "656d1bb6c2a4ab16"
+            ]
+        ]
+    },
+    {
+        "id": "e60e4ab7617738c3",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "kernel - loop",
+        "links": [
+            "656d1bb6c2a4ab16"
+        ],
+        "x": 105,
+        "y": 500,
+        "wires": [
+            [
+                "276ea77023fcccae"
+            ]
+        ]
+    },
+    {
+        "id": "276ea77023fcccae",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has site",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "site",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 240,
+        "y": 500,
+        "wires": [
+            [
+                "7d1b85aa6f413ef9"
+            ]
+        ]
+    },
+    {
+        "id": "7d1b85aa6f413ef9",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has room",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "room",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "a22fb9b1d981984a"
+            ]
+        ]
+    },
+    {
+        "id": "a22fb9b1d981984a",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has equipment",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "equipment",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 620,
+        "y": 500,
+        "wires": [
+            [
+                "317faf970a630b93"
+            ]
+        ]
+    },
+    {
+        "id": "317faf970a630b93",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has component",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "component",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 840,
+        "y": 500,
+        "wires": [
+            [
+                "b9af25a49f30dc52"
+            ]
+        ]
+    },
+    {
+        "id": "b9af25a49f30dc52",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has model",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "model",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 500,
+        "wires": [
+            [
+                "926528388ab9caf3"
+            ]
+        ]
+    },
+    {
+        "id": "926528388ab9caf3",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has device",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "device",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1250,
+        "y": 500,
+        "wires": [
+            [
+                "11afbcf89a1ca675"
+            ]
+        ]
+    },
+    {
+        "id": "11afbcf89a1ca675",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has endpoint",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "endpoint",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1450,
+        "y": 500,
+        "wires": [
+            [
+                "fb71d25e90631d8d"
+            ]
+        ]
+    },
+    {
+        "id": "fb71d25e90631d8d",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "has value",
+        "property": "kernel",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "value",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1640,
+        "y": 500,
+        "wires": [
+            [
+                "644cf69a372437c2"
+            ]
+        ]
+    },
+    {
+        "id": "644cf69a372437c2",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "set global value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel.state[msg.kernel.site][msg.kernel.room][msg.kernel.equipment][msg.kernel.component][msg.kernel.model][msg.kernel.device][msg.kernel.endpoint]",
+                "pt": "global",
+                "to": "kernel.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1840,
+        "y": 500,
+        "wires": [
+            [
+                "9eddf0deb059b1dc",
+                "0fd3e33ded41a4bb"
+            ]
+        ]
+    },
+    {
+        "id": "9eddf0deb059b1dc",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "kernel - loop",
+        "mode": "link",
+        "links": [],
+        "x": 1995,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "0fd3e33ded41a4bb",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "kernel - loop",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2050,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "ca436b16ceb4cb09",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "name": "kernel - tree",
+        "links": [],
+        "x": 185,
+        "y": 720,
+        "wires": [
+            [
+                "15c7561e3c8f4e9c"
+            ]
+        ]
+    },
+    {
+        "id": "15c7561e3c8f4e9c",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "get global tree",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "kernel.tree",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "tree",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 720,
+        "wires": [
+            [
+                "1a4d63bdb897d93b"
+            ]
+        ]
+    },
+    {
+        "id": "1a4d63bdb897d93b",
+        "type": "split",
+        "z": "f6f2187d.f17ca8",
+        "name": "site",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "tree.site",
+        "property": "payload",
+        "x": 530,
+        "y": 720,
+        "wires": [
+            [
+                "754ad37c7a5378c6"
+            ]
+        ]
+    },
+    {
+        "id": "754ad37c7a5378c6",
+        "type": "join",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": "false",
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "x": 890,
+        "y": 720,
+        "wires": [
+            [
+                "0505138e4efaa61b"
+            ]
+        ]
+    },
+    {
+        "id": "0505138e4efaa61b",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "kernel - tree",
+        "mode": "return",
+        "links": [],
+        "x": 1015,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "b4b49687436ab8e8",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 900,
+        "wires": [
+            [
+                "19d4f37bcecc570b"
+            ]
+        ]
+    },
+    {
+        "id": "19d4f37bcecc570b",
+        "type": "link call",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "links": [
+            "ca436b16ceb4cb09"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 490,
+        "y": 900,
+        "wires": [
+            [
+                "86f32763396e283c"
+            ]
+        ]
+    },
+    {
+        "id": "86f32763396e283c",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "8f409ed7774d2202",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1550,
+        "y": 760,
+        "wires": [
+            [
+                "6497f519f0c33973"
+            ]
+        ]
+    },
+    {
+        "id": "6497f519f0c33973",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "delete",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "kernel",
+                "pt": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1730,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5bf1eadbbcd87d33",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "check split length",
+        "property": "split",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "3",
+                "vt": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1430,
+        "y": 380,
+        "wires": [
+            [
+                "873789af2da8962c"
+            ]
+        ]
+    },
+    {
+        "id": "873789af2da8962c",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "24d06435588a9e0e",
+        "name": "set global names",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel.tree[msg.split[2]][msg.split[3]]",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1670,
+        "y": 380,
+        "wires": [
+            [
+                "d9cafc2c4785ec11"
+            ]
+        ]
+    }
+]
