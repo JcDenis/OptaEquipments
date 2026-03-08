@@ -1,0 +1,116 @@
+- id: 852390cb9559e176
+  type: tab
+  label: UI view
+  disabled: false
+  info: ''
+  env: []
+- id: a22ae28641468d18
+  type: ui-dropdown
+  z: 852390cb9559e176
+  group: 1669fa4fe2f204a0
+  name: Site
+  label: Sélectionner un site
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 630
+  'y': 80
+  wires:
+    - - 97b48b10e1fafafa
+- id: 5fa9f98457a1ab5e
+  type: debug
+  z: 852390cb9559e176
+  name: debug 3
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1080
+  'y': 80
+  wires: []
+- id: 3117e4cb1d6eaca3
+  type: change
+  z: 852390cb9559e176
+  name: prepare
+  rules:
+    - t: set
+      p: topic
+      pt: msg
+      to: ui-view
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 80
+  wires:
+    - - 6829c2450480a8f8
+- id: 4f99c7d8a5dd1b70
+  type: link in
+  z: 852390cb9559e176
+  name: ui view - select
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 80
+  wires:
+    - - 3117e4cb1d6eaca3
+- id: 6829c2450480a8f8
+  type: link call
+  z: 852390cb9559e176
+  name: ''
+  links:
+    - 22a6cc8a0964f595
+  linkType: static
+  timeout: '30'
+  x: 460
+  'y': 80
+  wires:
+    - - a22ae28641468d18
+- id: 97b48b10e1fafafa
+  type: change
+  z: 852390cb9559e176
+  name: user site
+  rules:
+    - t: set
+      p: 'client[msg._client.socketId]site'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 800
+  'y': 80
+  wires:
+    - - 5fa9f98457a1ab5e

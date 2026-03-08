@@ -1,0 +1,65 @@
+- id: 64ce08af468b8197
+  type: tab
+  label: UI tree
+  disabled: false
+  info: ''
+  env: []
+- id: 7f71a6461fbd80e4
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  group: 53fb0eee68c8f320
+  name: Sites
+  label: Sélectionner une action
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options:
+    - label: Ajouter un site
+      value: add
+      type: str
+    - label: Modifier un site
+      value: edit
+      type: str
+    - label: Supprimer un site
+      value: delete
+      type: str
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: false
+  msgTrigger: onChange
+  x: 270
+  'y': 80
+  wires:
+    - - 23ab49cd068fcfd2
+- id: 23ab49cd068fcfd2
+  type: debug
+  z: 64ce08af468b8197
+  name: debug 2
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 440
+  'y': 80
+  wires: []
+- id: be594973267232f5
+  type: link in
+  z: 64ce08af468b8197
+  name: 'ui tree - '
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 80
+  wires:
+    - - 7f71a6461fbd80e4

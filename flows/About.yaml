@@ -1,0 +1,154 @@
+- id: fec9762ec7446f3b
+  type: tab
+  label: About
+  disabled: false
+  info: ''
+  env: []
+- id: 24a76fdb38ca6b16
+  type: comment
+  z: fec9762ec7446f3b
+  name: dynamic
+  info: ''
+  x: 100
+  'y': 240
+  wires: []
+- id: bb31ab0ea0de56a6
+  type: comment
+  z: fec9762ec7446f3b
+  name: static
+  info: ''
+  x: 90
+  'y': 40
+  wires: []
+- id: e007e156b5553a5b
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.model.opta = Arduino...
+  info: ''
+  x: 180
+  'y': 120
+  wires: []
+- id: f1eebd103d64d4ce
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.component.run = Fonctionnement
+  info: ''
+  x: 220
+  'y': 80
+  wires: []
+- id: 609a3c5ade7a526d
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.endpoint.opta.i1state = Etat de l'entrée 1
+  info: ''
+  x: 240
+  'y': 160
+  wires: []
+- id: e7763edd8843c965
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.site.S99 = Site de demo
+  info: ''
+  x: 180
+  'y': 280
+  wires: []
+- id: ce38b2df5a50f7a3
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.room.L99 = Ligne de demo
+  info: ''
+  x: 190
+  'y': 320
+  wires: []
+- id: 0995e41c22c3e812
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.equipment.E99 = Equipement de demo
+  info: ''
+  x: 230
+  'y': 360
+  wires: []
+- id: fa5f63c2f72736d0
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.name.link.E99.run = Etat de marche
+  info: ''
+  x: 200
+  'y': 400
+  wires: []
+- id: 0691047e73894c6d
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.link.site.room.equipment.component.model.device.endpoint
+  info: ''
+  x: 280
+  'y': 520
+  wires: []
+- id: 34206cdc5678e03f
+  type: comment
+  z: fec9762ec7446f3b
+  name: kernel.link.S99.L99.E99.run.opta.99.i1state = 1
+  info: ''
+  x: 220
+  'y': 560
+  wires: []
+- id: 01458c18b1194682
+  type: comment
+  z: fec9762ec7446f3b
+  name: value
+  info: ''
+  x: 90
+  'y': 480
+  wires: []
+- id: 941cf0ad0ab7b165
+  type: inject
+  z: fec9762ec7446f3b
+  name: .
+  props:
+    - p: payload
+    - p: topic
+      vt: str
+  repeat: ''
+  crontab: ''
+  once: false
+  onceDelay: 0.1
+  topic: ''
+  payload: ''
+  payloadType: str
+  x: 470
+  'y': 740
+  wires:
+    - - 018746a684c50248
+- id: 018746a684c50248
+  type: change
+  z: fec9762ec7446f3b
+  name: del
+  rules:
+    - t: delete
+      p: kernel.name.component
+      pt: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 650
+  'y': 740
+  wires:
+    - []
+- id: 44245b3eb6db3e71
+  type: comment
+  z: fec9762ec7446f3b
+  name: ui
+  info: ''
+  x: 90
+  'y': 640
+  wires: []
+- id: b79ad9dd7ded8d62
+  type: comment
+  z: fec9762ec7446f3b
+  name: client.id.site
+  info: ''
+  x: 110
+  'y': 680
+  wires: []
