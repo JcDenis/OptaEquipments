@@ -22,7 +22,6 @@
     - 0480b316d029f0ba
     - fe979b02242af9b6
     - 343f72e19cb63063
-    - ece6ebe3a4068f1f
     - 8a9d3294993d4592
     - 29984cf2609351c3
     - cf645c7f47ad3986
@@ -46,9 +45,10 @@
     - a69259142b57e07b
     - 0b4f86391d926a8f
     - f1a4ce3bdf024862
+    - f7bebc020deba752
   x: 104
   'y': 39
-  w: 3372
+  w: 3232
   h: 322
 - id: d8d8a361ac715076
   type: group
@@ -99,7 +99,7 @@
     - 2e82b66355cb7335
   x: 104
   'y': 399
-  w: 4232
+  w: 4032
   h: 322
 - id: 7e8f13051c405b1e
   type: group
@@ -157,7 +157,7 @@
     - c14d8ae49d4fac1f
   x: 104
   'y': 759
-  w: 5332
+  w: 5132
   h: 322
 - id: 771b362aacd557cd
   type: group
@@ -453,35 +453,10 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2400
+  x: 2260
   'y': 140
   wires:
     - - 333ae357f71076ec
-- id: ece6ebe3a4068f1f
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: site id
-  rules:
-    - t: set
-      p: form.id
-      pt: msg
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1710
-  'y': 140
-  wires:
-    - - a69259142b57e07b
 - id: 8a9d3294993d4592
   type: change
   z: 64ce08af468b8197
@@ -493,7 +468,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2190
+  x: 2050
   'y': 80
   wires:
     - - 343f72e19cb63063
@@ -540,7 +515,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2780
+  x: 2640
   'y': 140
   wires:
     - - 97eee541bd4e9655
@@ -560,7 +535,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2360
+  x: 2220
   'y': 200
   wires:
     - - 343f72e19cb63063
@@ -580,7 +555,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2960
+  x: 2820
   'y': 200
   wires:
     - - 97eee541bd4e9655
@@ -615,7 +590,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 2990
+  x: 2850
   'y': 140
   wires:
     - - f3f2a6d3dbb25158
@@ -637,7 +612,7 @@
   x: 1550
   'y': 140
   wires:
-    - - ece6ebe3a4068f1f
+    - - a69259142b57e07b
 - id: 333ae357f71076ec
   type: switch
   z: 64ce08af468b8197
@@ -652,7 +627,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2610
+  x: 2470
   'y': 140
   wires:
     - - cf645c7f47ad3986
@@ -664,15 +639,10 @@
   name: set global name
   rules:
     - t: set
-      p: 'kernel.name.site[msg.form.id]'
+      p: 'kernel.site[msg.form.id]'
       pt: global
       to: form.name
       tot: msg
-    - t: set
-      p: 'kernel.link[msg.form.id]'
-      pt: global
-      to: '{}'
-      tot: jsonata
     - t: set
       p: payload
       pt: msg
@@ -683,7 +653,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3240
+  x: 3100
   'y': 140
   wires:
     - - 902fe68ecf2dae15
@@ -696,8 +666,8 @@
   links:
     - 4e94023e8ba12f50
     - be594973267232f5
-  x: 3435
-  'y': 260
+  x: 3295
+  'y': 140
   wires: []
 - id: 991911fbb65784d5
   type: link call
@@ -734,7 +704,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 2410
+  x: 2270
   'y': 260
   wires:
     - - 25fc58241ab70b84
@@ -759,7 +729,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2790
+  x: 2650
   'y': 260
   wires:
     - - 5d53388977faa547
@@ -794,7 +764,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3000
+  x: 2860
   'y': 260
   wires:
     - - 721821d1377acb65
@@ -813,7 +783,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2630
+  x: 2490
   'y': 260
   wires:
     - - fa6d9718d672de6a
@@ -825,7 +795,7 @@
   name: delete global site
   rules:
     - t: delete
-      p: 'kernel.name.site[msg.form.id]'
+      p: 'kernel.site[msg.form.id]'
       pt: global
     - t: set
       p: payload
@@ -837,7 +807,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3270
+  x: 3130
   'y': 260
   wires:
     - - 902fe68ecf2dae15
@@ -868,7 +838,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2790
+  x: 2650
   'y': 80
   wires:
     - - 97eee541bd4e9655
@@ -889,7 +859,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2360
+  x: 2220
   'y': 320
   wires:
     - - 1668a609c18888db
@@ -909,7 +879,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2960
+  x: 2820
   'y': 320
   wires:
     - - 5d53388977faa547
@@ -1206,11 +1176,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2350
+  x: 2330
   'y': 500
   wires:
-    - - e301a7554e21eab8
-      - 70234a1a26d3386f
+    - - f0cda36bf38c99f7
 - id: 7c81c70a7d8c0857
   type: change
   z: 64ce08af468b8197
@@ -1257,10 +1226,10 @@
   from: ''
   to: ''
   reg: false
-  x: 2520
-  'y': 500
+  x: 2660
+  'y': 560
   wires:
-    - - f0cda36bf38c99f7
+    - - b38534b0c6688412
 - id: b38534b0c6688412
   type: ui-text-input
   z: 64ce08af468b8197
@@ -1286,7 +1255,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 3220
+  x: 3020
   'y': 500
   wires:
     - - dd6435dc93a24bab
@@ -1304,7 +1273,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3450
+  x: 3250
   'y': 500
   wires:
     - - fa2d32ce4e360866
@@ -1330,7 +1299,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3630
+  x: 3430
   'y': 500
   wires:
     - - 44a58e5b9ad1fbfd
@@ -1370,7 +1339,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3180
+  x: 2980
   'y': 560
   wires:
     - - b38534b0c6688412
@@ -1381,15 +1350,15 @@
   name: set global name
   rules:
     - t: set
-      p: 'kernel.name.room[msg.form.id]'
+      p: 'kernel.room[msg.form.id]'
       pt: global
       to: form.name
       tot: msg
     - t: set
-      p: 'kernel.link[msg.form.site][msg.form.id]'
+      p: 'kernel.rooms[msg.form.id]'
       pt: global
-      to: '{}'
-      tot: jsonata
+      to: form.site
+      tot: msg
     - t: set
       p: payload
       pt: msg
@@ -1400,7 +1369,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4120
+  x: 3920
   'y': 500
   wires:
     - - 3cc5c7bd4abc1cb9
@@ -1435,7 +1404,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3860
+  x: 3660
   'y': 500
   wires:
     - - c7f61f22284c02d2
@@ -1449,7 +1418,7 @@
   links:
     - 4e94023e8ba12f50
     - d0be34a90b4e69b0
-  x: 4295
+  x: 4095
   'y': 500
   wires: []
 - id: f12c71a31477b340
@@ -1468,7 +1437,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3820
+  x: 3620
   'y': 560
   wires:
     - - 44a58e5b9ad1fbfd
@@ -1499,7 +1468,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
+  x: 2810
   'y': 440
   wires:
     - - b38534b0c6688412
@@ -1516,7 +1485,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3650
+  x: 3450
   'y': 440
   wires:
     - - 44a58e5b9ad1fbfd
@@ -1526,22 +1495,22 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   name: exists
-  property: kernel.name.site
+  property: kernel.site
   propertyType: global
   rules:
     - t: hask
-      v: form.id
+      v: payload
       vt: msg
     - t: else
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1870
-  'y': 200
+  x: 1710
+  'y': 140
   wires:
     - - 0b4f86391d926a8f
-    - - 343f72e19cb63063
-      - 29984cf2609351c3
+    - - 29984cf2609351c3
+      - f7bebc020deba752
 - id: 0b4f86391d926a8f
   type: change
   z: 64ce08af468b8197
@@ -1558,7 +1527,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2030
+  x: 1890
   'y': 140
   wires:
     - - f1a4ce3bdf024862
@@ -1571,7 +1540,7 @@
   links:
     - 4e94023e8ba12f50
     - be594973267232f5
-  x: 2155
+  x: 2015
   'y': 140
   wires: []
 - id: f0cda36bf38c99f7
@@ -1579,22 +1548,22 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   name: exists
-  property: kernel.name.room
+  property: kernel.room
   propertyType: global
   rules:
     - t: hask
-      v: form.id
+      v: payload
       vt: msg
     - t: else
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2690
-  'y': 560
+  x: 2490
+  'y': 500
   wires:
     - - b7878602c9c36a0d
     - - e301a7554e21eab8
-      - b38534b0c6688412
+      - 70234a1a26d3386f
 - id: b7878602c9c36a0d
   type: change
   z: 64ce08af468b8197
@@ -1611,7 +1580,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2850
+  x: 2650
   'y': 500
   wires:
     - - 8574ce7e34610420
@@ -1624,7 +1593,7 @@
   links:
     - 4e94023e8ba12f50
     - d0be34a90b4e69b0
-  x: 2975
+  x: 2775
   'y': 500
   wires: []
 - id: ec7631a984851cc3
@@ -1662,7 +1631,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 3230
+  x: 3030
   'y': 620
   wires:
     - - 8f4c36ac5d7fccb7
@@ -1682,7 +1651,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3180
+  x: 2980
   'y': 680
   wires:
     - - 964137a9cf949388
@@ -1700,7 +1669,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3470
+  x: 3270
   'y': 620
   wires:
     - - 195b512a3ce5fe57
@@ -1726,7 +1695,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3640
+  x: 3440
   'y': 620
   wires:
     - - 169002e27659ad07
@@ -1761,7 +1730,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3870
+  x: 3670
   'y': 620
   wires:
     - - 1b17eb540ebe89a1
@@ -1772,7 +1741,10 @@
   name: delete global room
   rules:
     - t: delete
-      p: 'kernel.name.room[msg.form.id]'
+      p: 'kernel.room[msg.form.id]'
+      pt: global
+    - t: delete
+      p: 'kernel.rooms[msg.form.id]'
       pt: global
     - t: set
       p: payload
@@ -1784,7 +1756,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4130
+  x: 3930
   'y': 620
   wires:
     - - 3cc5c7bd4abc1cb9
@@ -2181,21 +2153,22 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   name: exists
-  property: kernel.name.equipment
+  property: kernel.equipment
   propertyType: global
   rules:
     - t: hask
-      v: form.id
+      v: payload
       vt: msg
     - t: else
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3670
-  'y': 920
+  x: 3470
+  'y': 860
   wires:
     - - f0c9075234e0050e
-    - - 6f33bdab156eb006
+    - - cb3f4a391c57a61a
+      - a352e2f42e361cda
 - id: f0c9075234e0050e
   type: change
   z: 64ce08af468b8197
@@ -2212,7 +2185,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3830
+  x: 3630
   'y': 860
   wires:
     - - 5b08e73e6fba747e
@@ -2225,7 +2198,7 @@
   links:
     - 4e94023e8ba12f50
     - 6520d4dd35a36d5f
-  x: 3955
+  x: 3755
   'y': 860
   wires: []
 - id: ebb98b7a44b73a6a
@@ -2290,8 +2263,7 @@
   x: 3310
   'y': 860
   wires:
-    - - cb3f4a391c57a61a
-      - a352e2f42e361cda
+    - - 3e6f9808b4a01ad0
 - id: cb3f4a391c57a61a
   type: change
   z: 64ce08af468b8197
@@ -2313,10 +2285,10 @@
   from: ''
   to: ''
   reg: false
-  x: 3490
-  'y': 860
+  x: 3650
+  'y': 920
   wires:
-    - - 3e6f9808b4a01ad0
+    - - 6f33bdab156eb006
 - id: 6f33bdab156eb006
   type: ui-text-input
   z: 64ce08af468b8197
@@ -2342,7 +2314,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 4220
+  x: 4020
   'y': 860
   wires:
     - - aadfc22bf73f878c
@@ -2357,7 +2329,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3990
+  x: 3790
   'y': 800
   wires:
     - - 6f33bdab156eb006
@@ -2377,7 +2349,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 4470
+  x: 4270
   'y': 860
   wires:
     - - c108af4de8677f2d
@@ -2403,7 +2375,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4670
+  x: 4470
   'y': 860
   wires:
     - - 546e576c1573ce77
@@ -2438,7 +2410,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 4940
+  x: 4740
   'y': 860
   wires:
     - - 5fc6dad59828a6d2
@@ -2519,7 +2491,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4160
+  x: 3960
   'y': 920
   wires:
     - - 6f33bdab156eb006
@@ -2539,7 +2511,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4880
+  x: 4680
   'y': 920
   wires:
     - - 546e576c1573ce77
@@ -2550,15 +2522,15 @@
   name: set global name
   rules:
     - t: set
-      p: 'kernel.name.equipment[msg.form.id]'
+      p: 'kernel.equipment[msg.form.id]'
       pt: global
       to: form.name
       tot: msg
     - t: set
-      p: 'kernel.link[msg.form.site][msg.form.room][msg.form.id]'
+      p: 'kernel.equipments[msg.form.id]'
       pt: global
-      to: '{}'
-      tot: jsonata
+      to: form.room
+      tot: msg
     - t: set
       p: payload
       pt: msg
@@ -2569,7 +2541,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5200
+  x: 5000
   'y': 860
   wires:
     - - 9ca41d82ae49b0f7
@@ -2582,7 +2554,7 @@
   links:
     - 4e94023e8ba12f50
     - 6520d4dd35a36d5f
-  x: 5395
+  x: 5195
   'y': 860
   wires: []
 - id: 4f140d58b72fa70f
@@ -2596,7 +2568,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4710
+  x: 4510
   'y': 800
   wires:
     - - 546e576c1573ce77
@@ -2636,7 +2608,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 4230
+  x: 4030
   'y': 980
   wires:
     - - 56af4409b90d6c52
@@ -2654,7 +2626,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 4470
+  x: 4270
   'y': 980
   wires:
     - - 9eb736da069a4190
@@ -2680,7 +2652,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4650
+  x: 4450
   'y': 980
   wires:
     - - e292a383058fd6c2
@@ -2700,7 +2672,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4160
+  x: 3960
   'y': 1040
   wires:
     - - fa5df29273fa72a6
@@ -2735,7 +2707,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 4940
+  x: 4740
   'y': 980
   wires:
     - - a6091b231f78f3e9
@@ -2747,7 +2719,10 @@
   name: delete global room
   rules:
     - t: delete
-      p: 'kernel.name.equipment[msg.form.id]'
+      p: 'kernel.equipment[msg.form.id]'
+      pt: global
+    - t: delete
+      p: 'kernel.equipments[msg.form.id]'
       pt: global
     - t: set
       p: payload
@@ -2759,7 +2734,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5230
+  x: 5030
   'y': 980
   wires:
     - - 9ca41d82ae49b0f7
@@ -4186,7 +4161,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4880
+  x: 4680
   'y': 1040
   wires:
     - - e292a383058fd6c2
@@ -4770,3 +4745,28 @@
   x: 2195
   'y': 2040
   wires: []
+- id: f7bebc020deba752
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: site id
+  rules:
+    - t: set
+      p: form.id
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 200
+  wires:
+    - - 343f72e19cb63063

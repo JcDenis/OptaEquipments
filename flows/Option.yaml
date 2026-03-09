@@ -40,6 +40,7 @@
     - 08f5cb3137a4e1a2
     - 8b6eb44b51c5ced8
     - 0122d830f75733ef
+    - c9c70f260ced4793
   x: 104
   'y': 219
   w: 1322
@@ -75,6 +76,7 @@
     - 5fac26f51e5e19e0
     - ef426a94a2bb3dee
     - 8ffd67d1119cd93e
+    - c58c43ce132486fd
   x: 104
   'y': 399
   w: 1362
@@ -108,7 +110,6 @@
   nodes:
     - b3c8de4154773a34
     - bbb7f823fc1f4481
-    - 60113ddc93d6ee0e
     - 56de5065f0ef82f0
     - d3b49812178562cf
     - af4f0442013c1457
@@ -117,9 +118,11 @@
     - f5f74429fe4c16eb
     - cbe01ed92ad7a4bf
     - 7f3764b9e163929c
+    - 29967920d08a5df9
+    - f72d5db2b65af976
   x: 104
   'y': 759
-  w: 1722
+  w: 1922
   h: 142
 - id: a9c861bdf9fdd630
   type: group
@@ -223,7 +226,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.payload,''value'':msg.option_id}'
+      to: "{\t    'label':msg.payload & ' (' & msg.option_id & ')',\t    'value':msg.option_id\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -259,7 +262,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.name.site
+      to: kernel.site
       tot: global
     - t: set
       p: options
@@ -304,7 +307,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.name.room
+      to: kernel.room
       tot: global
     - t: set
       p: options
@@ -345,7 +348,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.payload,''value'':msg.option_id}'
+      to: "{\t    'label':msg.payload & ' (' & msg.option_id & ')',\t    'value':msg.option_id\t    }"
       tot: jsonata
   action: ''
   property: ''
@@ -503,7 +506,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.name.equipment
+      to: kernel.equipment
       tot: global
     - t: set
       p: options
@@ -544,7 +547,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.payload,''value'':msg.option_id}'
+      to: "{\t    'label':msg.payload & ' (' & msg.option_id & ')',\t    'value':msg.option_id\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -645,7 +648,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.name.model
+      to: describe.model
       tot: global
     - t: set
       p: options
@@ -796,24 +799,6 @@
   'y': 800
   wires:
     - - 56de5065f0ef82f0
-- id: 60113ddc93d6ee0e
-  type: switch
-  z: adb9fbf379118d77
-  g: 8429a00ec08b9d76
-  name: has model
-  property: payload
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 650
-  'y': 860
-  wires:
-    - - d3b49812178562cf
-    - - 223eda7a7bf76755
 - id: 56de5065f0ef82f0
   type: change
   z: adb9fbf379118d77
@@ -823,7 +808,7 @@
     - t: set
       p: payload
       pt: msg
-      to: 'kernel.device[msg.form.model]'
+      to: kernel.device
       tot: global
     - t: set
       p: options
@@ -838,7 +823,7 @@
   x: 470
   'y': 800
   wires:
-    - - 60113ddc93d6ee0e
+    - - d3b49812178562cf
 - id: d3b49812178562cf
   type: split
   z: adb9fbf379118d77
@@ -851,10 +836,10 @@
   stream: false
   addname: option_id
   property: payload
-  x: 840
+  x: 640
   'y': 800
   wires:
-    - - af4f0442013c1457
+    - - 29967920d08a5df9
 - id: af4f0442013c1457
   type: change
   z: adb9fbf379118d77
@@ -871,7 +856,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1020
+  x: 1200
   'y': 800
   wires:
     - - eb3aaa6af3934e70
@@ -892,7 +877,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 1170
+  x: 1370
   'y': 800
   wires:
     - - 7f3764b9e163929c
@@ -915,7 +900,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1510
+  x: 1710
   'y': 860
   wires:
     - - f5f74429fe4c16eb
@@ -927,7 +912,7 @@
   name: option - device
   mode: return
   links: []
-  x: 1635
+  x: 1835
   'y': 800
   wires: []
 - id: cbe01ed92ad7a4bf
@@ -943,7 +928,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1700
+  x: 1900
   'y': 860
   wires: []
 - id: d4d85e7db9b920c1
@@ -1001,7 +986,7 @@
     - t: set
       p: payload
       pt: msg
-      to: 'kernel.name.endpoint[msg.form.model]'
+      to: 'describe.endpoint[msg.form.model]'
       tot: global
     - t: set
       p: options
@@ -1162,7 +1147,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1340
+  x: 1540
   'y': 800
   wires:
     - - 223eda7a7bf76755
@@ -1242,3 +1227,72 @@
   'y': 80
   wires:
     - - 546836b126dc5542
+- id: 29967920d08a5df9
+  type: change
+  z: adb9fbf379118d77
+  g: 8429a00ec08b9d76
+  name: split model
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.option_id,''|'')'
+      tot: jsonata
+    - t: set
+      p: option_model
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: option_id
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 800
+  wires:
+    - - f72d5db2b65af976
+- id: f72d5db2b65af976
+  type: switch
+  z: adb9fbf379118d77
+  g: 8429a00ec08b9d76
+  name: is model
+  property: form.model
+  propertyType: msg
+  rules:
+    - t: eq
+      v: option_model
+      vt: msg
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 1020
+  'y': 800
+  wires:
+    - - af4f0442013c1457
+- id: c9c70f260ced4793
+  type: comment
+  z: adb9fbf379118d77
+  g: 82ce08693206f664
+  name: add site limit
+  info: ''
+  x: 530
+  'y': 300
+  wires: []
+- id: c58c43ce132486fd
+  type: comment
+  z: adb9fbf379118d77
+  g: 0ca8991c60d8e2f2
+  name: add room limit
+  info: ''
+  x: 530
+  'y': 480
+  wires: []
