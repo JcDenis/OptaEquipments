@@ -27,6 +27,38 @@
   willMsg: {}
   userProps: ''
   sessionExpiry: ''
+- id: 68fb8d742e5053db
+  type: ui-base
+  name: SPI Live Equipments
+  path: /dashboard
+  appIcon: ''
+  includeClientData: true
+  acceptsClientConfig:
+    - ui-notification
+    - ui-control
+  showPathInSidebar: false
+  headerContent: dashboard
+  navigationStyle: icon
+  titleBarStyle: fixed
+  showReconnectNotification: true
+  notificationDisplayTime: 1
+  showDisconnectNotification: true
+  allowInstall: false
+- id: ca81bb608c015a0d
+  type: ui-theme
+  name: Default Theme
+  colors:
+    surface: '#ffffff'
+    primary: '#0094ce'
+    bgPage: '#eeeeee'
+    groupBg: '#ffffff'
+    groupOutline: '#cccccc'
+  sizes:
+    density: default
+    pagePadding: 12px
+    groupGap: 12px
+    groupBorderRadius: 4px
+    widgetGap: 12px
 - id: 5287a3b059e7b4ce
   type: ui-page
   name: Arborescence
@@ -34,7 +66,7 @@
   path: /tree
   icon: file-tree
   layout: notebook
-  theme: 08daa9e3c5ed59b4
+  theme: ca81bb608c015a0d
   breakpoints:
     - name: Default
       px: '0'
@@ -50,8 +82,8 @@
       cols: '12'
   order: 2
   className: ''
-  visible: true
-  disabled: false
+  visible: 'true'
+  disabled: 'false'
 - id: 71ccb6fab20261e2
   type: ui-page
   name: Visualisation
@@ -59,7 +91,7 @@
   path: /view
   icon: eye
   layout: notebook
-  theme: 08daa9e3c5ed59b4
+  theme: ca81bb608c015a0d
   breakpoints:
     - name: Default
       px: '0'
@@ -79,7 +111,7 @@
   disabled: 'false'
 - id: 53fb0eee68c8f320
   type: ui-group
-  name: Gestion de sites
+  name: Gestion de site
   page: 5287a3b059e7b4ce
   width: 6
   height: 1
@@ -101,20 +133,51 @@
   visible: 'true'
   disabled: 'false'
   groupType: default
-- id: 68fb8d742e5053db
-  type: ui-base
-  name: SPI Live Equipments
-  path: /dashboard
-  appIcon: ''
-  includeClientData: true
-  acceptsClientConfig:
-    - ui-notification
-    - ui-control
-  showPathInSidebar: false
-  headerContent: dashboard
-  navigationStyle: icon
-  titleBarStyle: fixed
-  showReconnectNotification: true
-  notificationDisplayTime: 1
-  showDisconnectNotification: true
-  allowInstall: false
+- id: dd968c6d9fd51ce8
+  type: ui-group
+  name: Gestion de ligne
+  page: 5287a3b059e7b4ce
+  width: 6
+  height: 1
+  order: 2
+  showTitle: true
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+  groupType: default
+- id: e003b21feb885c70
+  type: ui-group
+  name: Gestion d'équipement
+  page: 5287a3b059e7b4ce
+  width: 6
+  height: 1
+  order: 3
+  showTitle: true
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+  groupType: default
+- id: 72650b0750e04cb4
+  type: ui-group
+  name: Gestion de composant
+  page: 5287a3b059e7b4ce
+  width: 6
+  height: 1
+  order: 5
+  showTitle: true
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+  groupType: default
+- id: 78fc4d50f5e2bcc1
+  type: ui-group
+  name: Gestion de materiel
+  page: 5287a3b059e7b4ce
+  width: 6
+  height: 1
+  order: 4
+  showTitle: true
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+  groupType: default

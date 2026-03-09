@@ -1,0 +1,332 @@
+- id: 135b7308617dad08
+  type: tab
+  label: Model
+  disabled: false
+  info: ''
+  env: []
+- id: 10af438fbe88a4a2
+  type: link in
+  z: 135b7308617dad08
+  name: model - opta
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 120
+  wires:
+    - - 7c0f965bfa55ce1c
+- id: 7c0f965bfa55ce1c
+  type: change
+  z: 135b7308617dad08
+  name: set global model and endpoints
+  rules:
+    - t: set
+      p: kernel.name.model.opta
+      pt: global
+      to: Arduino Findernet Opta Series
+      tot: str
+    - t: set
+      p: kernel.name.endpoint.opta
+      pt: global
+      to: "{\t    'i1state':'Etat entrée 1',\t    'i2state':'Etat entrée 2',\t    'i3state':'Etat entrée 3',\t    'i4state':'Etat entrée 4',\t    'i5state':'Etat entrée 5',\t    'i6state':'Etat entrée 6',\t    'i7state':'Etat entrée 7',\t    'i8state':'Etat entrée 8',\t    'i1pulse':\"Compteur partiel d'impulstions entrée 1\",\t    'i2pulse':\"Compteur partiel d'impulstions entrée 2\",\t    'i3pulse':\"Compteur partiel d'impulstions entrée 3\",\t    'i4pulse':\"Compteur partiel d'impulstions entrée 4\",\t    'i5pulse':\"Compteur partiel d'impulstions entrée 5\",\t    'i6pulse':\"Compteur partiel d'impulstions entrée 6\",\t    'i7pulse':\"Compteur partiel d'impulstions entrée 7\",\t    'i8pulse':\"Compteur partiel d'impulstions entrée 8\",\t    'i1timer':\"Compterur partiel d'heures entrée 1\",\t    'i2timer':\"Compterur partiel d'heures entrée 2\",\t    'i3timer':\"Compterur partiel d'heures entrée 3\",\t    'i4timer':\"Compterur partiel d'heures entrée 4\",\t    'i5timer':\"Compterur partiel d'heures entrée 5\",\t    'i6timer':\"Compterur partiel d'heures entrée 6\",\t    'i7timer':\"Compterur partiel d'heures entrée 7\",\t    'i8timer':\"Compterur partiel d'heures entrée 8\",\t    'o1state':'Commande de sortie 1',\t    'o2state':'Commande de sortie 2',\t    'o3state':'Commande de sortie 3',\t    'o4state':'Commande de sortie 4',\t    'o5state':'Commande de sortie 5',\t    'o6state':'Commande de sortie 6',\t    'o7state':'Commande de sortie 7',\t    'o8state':'Commande de sortie 8'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 350
+  'y': 120
+  wires:
+    - []
+- id: 9b5efe92299bd9ca
+  type: mqtt in
+  z: 135b7308617dad08
+  name: ''
+  topic: opta/#
+  qos: '2'
+  datatype: auto-detect
+  broker: f516c1341f0f634c
+  nl: false
+  rap: true
+  rh: 0
+  inputs: 0
+  x: 170
+  'y': 260
+  wires:
+    - - a905112c62d61806
+- id: 998e8af3faeb5490
+  type: debug
+  z: 135b7308617dad08
+  name: debug 2
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2780
+  'y': 260
+  wires: []
+- id: a905112c62d61806
+  type: change
+  z: 135b7308617dad08
+  name: parse topic
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.topic,''/'')'
+      tot: jsonata
+    - t: set
+      p: mqtt
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: mqtt.device
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: mqtt.endpoint
+      pt: msg
+      to: '(msg.split[2] = ''input'' ? ''i'' : ''o'') & msg.split[4] & msg.split[3]'
+      tot: jsonata
+    - t: set
+      p: mqtt.payload
+      pt: msg
+      to: payload
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 350
+  'y': 260
+  wires:
+    - - e6eaee7eacf151e5
+- id: e1c385497e9d14c1
+  type: switch
+  z: 135b7308617dad08
+  name: device
+  property: kernel.device.opta
+  propertyType: global
+  rules:
+    - t: hask
+      v: mqtt.device
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 530
+  'y': 220
+  wires:
+    - []
+- id: e6eaee7eacf151e5
+  type: change
+  z: 135b7308617dad08
+  name: get links
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.link
+      tot: global
+    - t: set
+      p: kernel
+      pt: msg
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 700
+  'y': 260
+  wires:
+    - - e899ff3a4348d371
+- id: e899ff3a4348d371
+  type: split
+  z: 135b7308617dad08
+  name: site
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.site
+  property: payload
+  x: 870
+  'y': 260
+  wires:
+    - - 42db46435d4f9e9c
+- id: 42db46435d4f9e9c
+  type: split
+  z: 135b7308617dad08
+  name: room
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.room
+  property: payload
+  x: 1030
+  'y': 260
+  wires:
+    - - 0990671c792f53d4
+- id: 0990671c792f53d4
+  type: split
+  z: 135b7308617dad08
+  name: equipment
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.equipement
+  property: payload
+  x: 1210
+  'y': 260
+  wires:
+    - - 0b0be0da1dd9b9f1
+- id: 0b0be0da1dd9b9f1
+  type: split
+  z: 135b7308617dad08
+  name: component
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.component
+  property: payload
+  x: 1410
+  'y': 260
+  wires:
+    - - 36382fe8b2e73e97
+- id: 5a9d4b14d2328ff9
+  type: switch
+  z: 135b7308617dad08
+  name: is model
+  property: kernel.model
+  propertyType: msg
+  rules:
+    - t: eq
+      v: opta
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1760
+  'y': 260
+  wires:
+    - - e28c7b10136fd72d
+- id: 36382fe8b2e73e97
+  type: split
+  z: 135b7308617dad08
+  name: model
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.model
+  property: payload
+  x: 1590
+  'y': 260
+  wires:
+    - - 5a9d4b14d2328ff9
+- id: 06d0d29fa238aaab
+  type: switch
+  z: 135b7308617dad08
+  name: device
+  property: kernel.device
+  propertyType: msg
+  rules:
+    - t: eq
+      v: mqtt.device
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2090
+  'y': 260
+  wires:
+    - - 16f4873dfcb50f66
+- id: e28c7b10136fd72d
+  type: split
+  z: 135b7308617dad08
+  name: device
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.device
+  property: payload
+  x: 1930
+  'y': 260
+  wires:
+    - - 06d0d29fa238aaab
+- id: 16f4873dfcb50f66
+  type: split
+  z: 135b7308617dad08
+  name: endpoint
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.endpoint
+  property: payload
+  x: 2260
+  'y': 260
+  wires:
+    - - 0ca7f056b3adda70
+- id: 0ca7f056b3adda70
+  type: switch
+  z: 135b7308617dad08
+  name: endpoint
+  property: kernel.endpoint
+  propertyType: msg
+  rules:
+    - t: eq
+      v: mqtt.endpoint
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2440
+  'y': 260
+  wires:
+    - - c574608cbbff392b
+- id: c574608cbbff392b
+  type: change
+  z: 135b7308617dad08
+  name: value
+  rules:
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: mqtt.payload
+      tot: msg
+    - t: delete
+      p: parts
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2610
+  'y': 260
+  wires:
+    - - 998e8af3faeb5490
