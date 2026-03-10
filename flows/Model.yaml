@@ -4,30 +4,57 @@
   disabled: false
   info: ''
   env: []
+- id: 44d39e7547289d97
+  type: group
+  z: 135b7308617dad08
+  name: model - opta
+  style:
+    fill: '#0070c0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 10af438fbe88a4a2
+    - 7c0f965bfa55ce1c
+    - 9b5efe92299bd9ca
+    - a905112c62d61806
+    - e1c385497e9d14c1
+    - 5286ca49788e7a4f
+    - 08f4386fc5701e53
+    - 83e2c0eb499a9ef4
+    - 1472ee8de6253740
+    - 5617e3da3b473188
+    - 2f090a650bc8e0b4
+    - 3b74d47526520691
+  x: 94
+  'y': 159
+  w: 932
+  h: 302
 - id: 10af438fbe88a4a2
   type: link in
   z: 135b7308617dad08
-  name: model - opta
+  g: 44d39e7547289d97
+  name: model - opta - describe
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 120
+  'y': 200
   wires:
     - - 7c0f965bfa55ce1c
 - id: 7c0f965bfa55ce1c
   type: change
   z: 135b7308617dad08
+  g: 44d39e7547289d97
   name: set global model and endpoints
   rules:
     - t: set
-      p: describe.model.opta
+      p: '#:(memoryOnly)::describe.model.opta'
       pt: global
       to: Arduino Findernet Opta Series
       tot: str
     - t: set
-      p: describe.endpoint.opta
+      p: '#:(memoryOnly)::describe.endpoint.opta'
       pt: global
-      to: "{\t    'i1state':'Etat entrée 1',\t    'i2state':'Etat entrée 2',\t    'i3state':'Etat entrée 3',\t    'i4state':'Etat entrée 4',\t    'i5state':'Etat entrée 5',\t    'i6state':'Etat entrée 6',\t    'i7state':'Etat entrée 7',\t    'i8state':'Etat entrée 8',\t    'i1pulse':\"Compteur partiel d'impulstions entrée 1\",\t    'i2pulse':\"Compteur partiel d'impulstions entrée 2\",\t    'i3pulse':\"Compteur partiel d'impulstions entrée 3\",\t    'i4pulse':\"Compteur partiel d'impulstions entrée 4\",\t    'i5pulse':\"Compteur partiel d'impulstions entrée 5\",\t    'i6pulse':\"Compteur partiel d'impulstions entrée 6\",\t    'i7pulse':\"Compteur partiel d'impulstions entrée 7\",\t    'i8pulse':\"Compteur partiel d'impulstions entrée 8\",\t    'i1timer':\"Compterur partiel d'heures entrée 1\",\t    'i2timer':\"Compterur partiel d'heures entrée 2\",\t    'i3timer':\"Compterur partiel d'heures entrée 3\",\t    'i4timer':\"Compterur partiel d'heures entrée 4\",\t    'i5timer':\"Compterur partiel d'heures entrée 5\",\t    'i6timer':\"Compterur partiel d'heures entrée 6\",\t    'i7timer':\"Compterur partiel d'heures entrée 7\",\t    'i8timer':\"Compterur partiel d'heures entrée 8\",\t    'o1state':'Commande de sortie 1',\t    'o2state':'Commande de sortie 2',\t    'o3state':'Commande de sortie 3',\t    'o4state':'Commande de sortie 4',\t    'o5state':'Commande de sortie 5',\t    'o6state':'Commande de sortie 6',\t    'o7state':'Commande de sortie 7',\t    'o8state':'Commande de sortie 8'\t}"
+      to: "{\t    'i0state':'Etat entrée 1',\t    'i1state':'Etat entrée 2',\t    'i2state':'Etat entrée 3',\t    'i3state':'Etat entrée 4',\t    'i4state':'Etat entrée 5',\t    'i5state':'Etat entrée 6',\t    'i6state':'Etat entrée 7',\t    'i7state':'Etat entrée 8',\t    'i0pulse':\"Compteur partiel d'impulstions entrée 1\",\t    'i1pulse':\"Compteur partiel d'impulstions entrée 2\",\t    'i2pulse':\"Compteur partiel d'impulstions entrée 3\",\t    'i3pulse':\"Compteur partiel d'impulstions entrée 4\",\t    'i4pulse':\"Compteur partiel d'impulstions entrée 5\",\t    'i5pulse':\"Compteur partiel d'impulstions entrée 6\",\t    'i6pulse':\"Compteur partiel d'impulstions entrée 7\",\t    'i7pulse':\"Compteur partiel d'impulstions entrée 8\",\t    'i0timer':\"Compterur partiel d'heures entrée 1\",\t    'i1timer':\"Compterur partiel d'heures entrée 2\",\t    'i2timer':\"Compterur partiel d'heures entrée 3\",\t    'i3timer':\"Compterur partiel d'heures entrée 4\",\t    'i4timer':\"Compterur partiel d'heures entrée 5\",\t    'i5timer':\"Compterur partiel d'heures entrée 6\",\t    'i6timer':\"Compterur partiel d'heures entrée 7\",\t    'i7timer':\"Compterur partiel d'heures entrée 8\",\t    'o0state':'Commande de sortie 1',\t    'o1state':'Commande de sortie 2',\t    'o2state':'Commande de sortie 3',\t    'o3state':'Commande de sortie 4',\t    'o4state':'Commande de sortie 5',\t    'o5state':'Commande de sortie 6',\t    'o6state':'Commande de sortie 7',\t    'o7state':'Commande de sortie 8'\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -35,12 +62,13 @@
   to: ''
   reg: false
   x: 350
-  'y': 120
+  'y': 200
   wires:
     - []
 - id: 9b5efe92299bd9ca
   type: mqtt in
   z: 135b7308617dad08
+  g: 44d39e7547289d97
   name: ''
   topic: opta/#
   qos: '2'
@@ -58,7 +86,7 @@
   type: debug
   z: 135b7308617dad08
   name: debug 2
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -72,6 +100,7 @@
 - id: a905112c62d61806
   type: change
   z: 135b7308617dad08
+  g: 44d39e7547289d97
   name: parse topic
   rules:
     - t: set
@@ -80,25 +109,12 @@
       to: '$split(msg.topic,''/'')'
       tot: jsonata
     - t: set
-      p: mqtt
+      p: endpoint
       pt: msg
-      to: '{}'
+      to: >-
+        $join(['opta', msg.split[1], (msg.split[2] = 'input' ? 'i' : 'o') &
+        msg.split[4] & msg.split[3]], '|')
       tot: jsonata
-    - t: set
-      p: mqtt.device
-      pt: msg
-      to: 'split[1]'
-      tot: msg
-    - t: set
-      p: mqtt.endpoint
-      pt: msg
-      to: '(msg.split[2] = ''input'' ? ''i'' : ''o'') & msg.split[4] & msg.split[3]'
-      tot: jsonata
-    - t: set
-      p: mqtt.payload
-      pt: msg
-      to: payload
-      tot: msg
     - t: delete
       p: split
       pt: msg
@@ -110,108 +126,25 @@
   x: 350
   'y': 260
   wires:
-    - - e6eaee7eacf151e5
+    - - e1c385497e9d14c1
 - id: e1c385497e9d14c1
   type: switch
   z: 135b7308617dad08
-  name: device
-  property: kernel.device.opta
+  g: 44d39e7547289d97
+  name: has endpoint
+  property: kernel.endpoint
   propertyType: global
   rules:
     - t: hask
-      v: mqtt.device
+      v: endpoint
       vt: msg
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 530
-  'y': 220
-  wires:
-    - []
-- id: e6eaee7eacf151e5
-  type: change
-  z: 135b7308617dad08
-  name: get links
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel.link
-      tot: global
-    - t: set
-      p: kernel
-      pt: msg
-      to: '{}'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 700
+  x: 550
   'y': 260
   wires:
-    - - e899ff3a4348d371
-- id: e899ff3a4348d371
-  type: split
-  z: 135b7308617dad08
-  name: site
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.site
-  property: payload
-  x: 870
-  'y': 260
-  wires:
-    - - 42db46435d4f9e9c
-- id: 42db46435d4f9e9c
-  type: split
-  z: 135b7308617dad08
-  name: room
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.room
-  property: payload
-  x: 1030
-  'y': 260
-  wires:
-    - - 0990671c792f53d4
-- id: 0990671c792f53d4
-  type: split
-  z: 135b7308617dad08
-  name: equipment
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.equipement
-  property: payload
-  x: 1210
-  'y': 260
-  wires:
-    - - 0b0be0da1dd9b9f1
-- id: 0b0be0da1dd9b9f1
-  type: split
-  z: 135b7308617dad08
-  name: component
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.component
-  property: payload
-  x: 1410
-  'y': 260
-  wires:
-    - - 36382fe8b2e73e97
+    - - 08f4386fc5701e53
 - id: 5a9d4b14d2328ff9
   type: switch
   z: 135b7308617dad08
@@ -229,21 +162,6 @@
   'y': 260
   wires:
     - - e28c7b10136fd72d
-- id: 36382fe8b2e73e97
-  type: split
-  z: 135b7308617dad08
-  name: model
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.model
-  property: payload
-  x: 1590
-  'y': 260
-  wires:
-    - - 5a9d4b14d2328ff9
 - id: 06d0d29fa238aaab
   type: switch
   z: 135b7308617dad08
@@ -330,3 +248,144 @@
   'y': 260
   wires:
     - - 998e8af3faeb5490
+- id: 5286ca49788e7a4f
+  type: debug
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: opta - in
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 920
+  'y': 320
+  wires: []
+- id: 08f4386fc5701e53
+  type: change
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: to state
+  rules:
+    - t: set
+      p: state
+      pt: msg
+      to: 'kernel.endpoint[msg.endpoint]'
+      tot: global
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.state,\t    'value':msg.payload,\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: state
+      pt: msg
+    - t: delete
+      p: qos
+      pt: msg
+    - t: delete
+      p: retain
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 740
+  'y': 260
+  wires:
+    - - 5286ca49788e7a4f
+      - 83e2c0eb499a9ef4
+- id: 83e2c0eb499a9ef4
+  type: link out
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: model - opta - in
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 875
+  'y': 260
+  wires: []
+- id: 1472ee8de6253740
+  type: link in
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: model - opta - cmd
+  links:
+    - 050a29c043a85584
+  x: 145
+  'y': 360
+  wires:
+    - - 5617e3da3b473188
+- id: 5617e3da3b473188
+  type: switch
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: model
+  property: kernel.model
+  propertyType: msg
+  rules:
+    - t: eq
+      v: opta
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 270
+  'y': 360
+  wires:
+    - - 2f090a650bc8e0b4
+- id: 2f090a650bc8e0b4
+  type: switch
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: cmd
+  property: kernel.endpoint
+  propertyType: msg
+  rules:
+    - t: regex
+      v: ^(o)
+      vt: str
+      case: false
+    - t: regex
+      v: (reset)$
+      vt: str
+      case: false
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 360
+  wires:
+    - - 3b74d47526520691
+    - - 3b74d47526520691
+- id: 3b74d47526520691
+  type: debug
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: opta - out
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 620
+  'y': 420
+  wires: []

@@ -6,44 +6,35 @@
 - id: 216f821485a9eb19
   type: group
   z: f6f2187d.f17ca8
+  name: kernel - loop
   style:
-    stroke: '#999999'
-    stroke-opacity: '1'
-    fill: none
-    fill-opacity: '1'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
     label: true
-    label-position: nw
-    color: '#a4a4a4'
   nodes:
     - e60e4ab7617738c3
     - 276ea77023fcccae
     - 7d1b85aa6f413ef9
     - a22fb9b1d981984a
-    - 317faf970a630b93
-    - b9af25a49f30dc52
-    - 926528388ab9caf3
-    - 11afbcf89a1ca675
-    - fb71d25e90631d8d
-    - 644cf69a372437c2
     - 9eddf0deb059b1dc
     - 0fd3e33ded41a4bb
-    - 6a149c879cc9671b
-    - fd41faec29e1ad5c
-  x: 64
-  'y': 459
-  w: 2522
-  h: 142
+    - 40abe00e99020b2f
+    - 79c1498fbe448949
+    - 8aee2474b0714e8a
+    - 4855b0bd4a34c6c9
+    - 655727cb36a628bd
+  x: 104
+  'y': 519
+  w: 1502
+  h: 202
 - id: dcb47b97829a1b78
   type: group
   z: f6f2187d.f17ca8
+  name: kernel - boot
   style:
-    stroke: '#999999'
-    stroke-opacity: '1'
-    fill: none
-    fill-opacity: '1'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
     label: true
-    label-position: nw
-    color: '#a4a4a4'
   nodes:
     - fca5abae49ece464
     - 76e32feb14c8c8a9
@@ -52,21 +43,18 @@
     - a632cf6658ed8cde
     - e0c78ed3205bd313
     - 31e5c0780c8dba35
-  x: 74
-  'y': 39
+  x: 114
+  'y': 99
   w: 682
   h: 142
 - id: 24d06435588a9e0e
   type: group
   z: f6f2187d.f17ca8
+  name: kernel - mqtt in
   style:
-    stroke: '#999999'
-    stroke-opacity: '1'
-    fill: none
-    fill-opacity: '1'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
     label: true
-    label-position: nw
-    color: '#a4a4a4'
   nodes:
     - 41c767836b03252b
     - aaa4b0dfa4f0d7a8
@@ -75,19 +63,15 @@
     - 05790def660c66fb
     - 10c82357a69cfd98
     - 202424f6de068bd4
-    - d9cafc2c4785ec11
-    - 510f2a33f164e99e
-    - 2102d929ee41f849
-    - 9e8a2ad43394b46a
-    - 52cc1e3bb2f3c739
-    - ac34264b3567a2e7
-    - 656d1bb6c2a4ab16
-    - 9709fc1ed28ca266
-    - 873789af2da8962c
-  x: 64
-  'y': 219
-  w: 1992
-  h: 202
+    - 451ea07f88244a01
+    - 96b60125fedbd2dd
+    - b488c7fb4ff16174
+    - 9fa05ec4dc7871d1
+    - f22358dfa31523c3
+  x: 104
+  'y': 939
+  w: 1902
+  h: 142
 - id: 32da9b1ae024e8bb
   type: group
   z: f6f2187d.f17ca8
@@ -108,30 +92,83 @@
     - 6640363c796f547b
     - 457bd17747e44d56
     - 4e94023e8ba12f50
-  x: 64
-  'y': 679
+    - 3808fde4099a032e
+  x: 104
+  'y': 1419
   w: 462
-  h: 262
-- id: 873789af2da8962c
-  type: change
+  h: 322
+- id: 3560ed94bd8a03cc
+  type: group
   z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: set global names
-  rules:
-    - t: set
-      p: 'kernel.name[msg.split[2]][msg.split[3]][msg.split[4]]'
-      pt: global
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1670
-  'y': 320
-  wires:
-    - - d9cafc2c4785ec11
+  name: kernel - mqtt out
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - a0931dda301e75ef
+    - 403e19609eb00cac
+    - a2867f8c84273968
+    - 789ef47c455b51f4
+    - 1a1bd4900c1218fd
+    - ad406fd7f7e8dcad
+    - 05df226aae294d31
+  x: 104
+  'y': 759
+  w: 822
+  h: 142
+- id: ede1bcd992279676
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - file
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - d29c391315d7b6cc
+    - 1589f9995713ce70
+    - 64e315c49940ac48
+    - 5e10675adc6c6d67
+    - c24e9a29d0957974
+    - 41deb0018b5a94e5
+    - cc86fe956692ca6f
+    - c26a749118b05f68
+    - 208f67135b531d2d
+    - d5b4e8e17997e033
+    - 3e62a1c9a4d2e61f
+    - 62a937227be99b05
+    - 8c1c5bf80798ae2b
+    - cc258e5789d12e79
+    - ec685ff85f3403d1
+    - 9f484ae35b520c21
+    - 24cd8a5a5db7fd27
+    - 8894c5d4699b0a0c
+    - ab2294164d2f0069
+    - f18599f0cba00a43
+  x: 104
+  'y': 1119
+  w: 1642
+  h: 262
+- id: 6db1b393113d5660
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - cron
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 0a6234b647fb87fc
+    - 527bd0d2254942cb
+    - ddf293f86a1dd28c
+    - 6dfb47bfe7905913
+    - 5def07486f134ced
+    - 9d694324cf6b8842
+  x: 114
+  'y': 279
+  w: 282
+  h: 202
 - id: 0fd3e33ded41a4bb
   type: debug
   z: f6f2187d.f17ca8
@@ -145,8 +182,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2470
-  'y': 560
+  x: 1490
+  'y': 680
   wires: []
 - id: 9eddf0deb059b1dc
   type: link out
@@ -154,33 +191,13 @@
   g: 216f821485a9eb19
   name: kernel - loop
   mode: link
-  links: []
-  x: 2415
-  'y': 500
+  links:
+    - a0931dda301e75ef
+    - 864630b649d844d8
+  x: 1435
+  'y': 620
   wires: []
-- id: 644cf69a372437c2
-  type: change
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: set global value
-  rules:
-    - t: set
-      p: >-
-        kernel.state[msg.kernel.site][msg.kernel.room][msg.kernel.equipment][msg.kernel.component][msg.kernel.model][msg.kernel.device][msg.kernel.endpoint]
-      pt: global
-      to: kernel.value
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2260
-  'y': 500
-  wires:
-    - - 9eddf0deb059b1dc
-      - 0fd3e33ded41a4bb
-- id: fb71d25e90631d8d
+- id: a22fb9b1d981984a
   type: switch
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
@@ -194,134 +211,44 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2060
-  'y': 500
+  x: 640
+  'y': 560
   wires:
-    - - 644cf69a372437c2
-- id: 11afbcf89a1ca675
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: has endpoint
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: endpoint
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1870
-  'y': 500
-  wires:
-    - - fb71d25e90631d8d
-- id: 926528388ab9caf3
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: has device
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: device
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1670
-  'y': 500
-  wires:
-    - - 11afbcf89a1ca675
-- id: b9af25a49f30dc52
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: has model
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: model
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1470
-  'y': 500
-  wires:
-    - - 926528388ab9caf3
-- id: 317faf970a630b93
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: has component
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: component
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1260
-  'y': 500
-  wires:
-    - - b9af25a49f30dc52
-- id: a22fb9b1d981984a
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: has equipment
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: equipment
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1040
-  'y': 500
-  wires:
-    - - 317faf970a630b93
+    - - 4855b0bd4a34c6c9
 - id: 7d1b85aa6f413ef9
   type: switch
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
-  name: has room
+  name: has entity
   property: kernel
   propertyType: msg
   rules:
     - t: hask
-      v: room
+      v: entity
       vt: str
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 840
-  'y': 500
+  x: 460
+  'y': 560
   wires:
     - - a22fb9b1d981984a
 - id: 276ea77023fcccae
   type: switch
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
-  name: has site
+  name: has type
   property: kernel
   propertyType: msg
   rules:
     - t: hask
-      v: site
+      v: type
       vt: str
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 660
-  'y': 500
+  x: 280
+  'y': 560
   wires:
     - - 7d1b85aa6f413ef9
 - id: e60e4ab7617738c3
@@ -331,174 +258,18 @@
   name: kernel - loop
   links:
     - 656d1bb6c2a4ab16
-  x: 105
-  'y': 500
+    - b488c7fb4ff16174
+    - 83e2c0eb499a9ef4
+    - 902fe68ecf2dae15
+    - 3cc5c7bd4abc1cb9
+    - 9ca41d82ae49b0f7
+    - f8543a7df7581b14
+    - 54fd1f2eca676e0d
+    - 8894c5d4699b0a0c
+  x: 145
+  'y': 560
   wires:
-    - - 6a149c879cc9671b
-- id: 9709fc1ed28ca266
-  type: change
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: clean
-  rules:
-    - t: delete
-      p: split
-      pt: msg
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: qos
-      pt: msg
-    - t: delete
-      p: retain
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1890
-  'y': 260
-  wires:
-    - - 656d1bb6c2a4ab16
-- id: 656d1bb6c2a4ab16
-  type: link out
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: kernel - mqtt in
-  mode: link
-  links:
-    - e60e4ab7617738c3
-  x: 2015
-  'y': 260
-  wires: []
-- id: ac34264b3567a2e7
-  type: change
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: set global names
-  rules:
-    - t: set
-      p: 'kernel.name[msg.split[2]][msg.split[3]]'
-      pt: global
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1670
-  'y': 380
-  wires:
-    - - d9cafc2c4785ec11
-- id: 52cc1e3bb2f3c739
-  type: change
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: build kernel message
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'root':'link',\t    'site':msg.split[2],\t    'room':msg.split[3],\t    'equipment':msg.split[4],\t    'component':msg.split[5],\t    'model':msg.split[6],\t    'device':msg.split[7],\t    'endpoint':msg.split[8],\t    'value':msg.payload,\t    'mqtt':1\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1680
-  'y': 260
-  wires:
-    - - 9709fc1ed28ca266
-      - d9cafc2c4785ec11
-- id: 9e8a2ad43394b46a
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: check split length
-  property: split
-  propertyType: msg
-  rules:
-    - t: hask
-      v: '4'
-      vt: num
-    - t: hask
-      v: '3'
-      vt: num
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1430
-  'y': 320
-  wires:
-    - - 873789af2da8962c
-    - - ac34264b3567a2e7
-- id: 2102d929ee41f849
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: check split length
-  property: split
-  propertyType: msg
-  rules:
-    - t: hask
-      v: '8'
-      vt: num
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1430
-  'y': 260
-  wires:
-    - - 52cc1e3bb2f3c739
-- id: 510f2a33f164e99e
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: root
-  property: 'split[1]'
-  propertyType: msg
-  rules:
-    - t: eq
-      v: link
-      vt: str
-    - t: eq
-      v: name
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1230
-  'y': 260
-  wires:
-    - - 2102d929ee41f849
-    - - 9e8a2ad43394b46a
-- id: d9cafc2c4785ec11
-  type: debug
-  z: f6f2187d.f17ca8
-  g: 24d06435588a9e0e
-  name: kernel - mqtt in
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1920
-  'y': 320
-  wires: []
+    - - 276ea77023fcccae
 - id: 202424f6de068bd4
   type: change
   z: f6f2187d.f17ca8
@@ -515,10 +286,10 @@
   from: ''
   to: ''
   reg: false
-  x: 1040
-  'y': 260
+  x: 1240
+  'y': 980
   wires:
-    - - 510f2a33f164e99e
+    - - 451ea07f88244a01
 - id: 10c82357a69cfd98
   type: delay
   z: f6f2187d.f17ca8
@@ -536,10 +307,10 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 830
-  'y': 260
+  x: 870
+  'y': 980
   wires:
-    - - 202424f6de068bd4
+    - - f22358dfa31523c3
 - id: 05790def660c66fb
   type: mqtt in
   z: f6f2187d.f17ca8
@@ -553,8 +324,8 @@
   rap: true
   rh: 0
   inputs: 1
-  x: 490
-  'y': 260
+  x: 530
+  'y': 980
   wires:
     - - 41c767836b03252b
 - id: 22c1b32b8fa874d6
@@ -564,8 +335,8 @@
   name: kernel - mqtt in - gate
   links:
     - 31e5c0780c8dba35
-  x: 525
-  'y': 320
+  x: 565
+  'y': 1040
   wires:
     - - 41c767836b03252b
 - id: a0fc8abe01156f55
@@ -599,8 +370,8 @@
   from: ''
   to: ''
   reg: false
-  x: 280
-  'y': 260
+  x: 320
+  'y': 980
   wires:
     - - 05790def660c66fb
 - id: aaa4b0dfa4f0d7a8
@@ -610,8 +381,8 @@
   name: kernel - mqtt in
   links:
     - 575b91a30deac00d
-  x: 105
-  'y': 260
+  x: 145
+  'y': 980
   wires:
     - - a0fc8abe01156f55
 - id: 31e5c0780c8dba35
@@ -622,8 +393,9 @@
   mode: link
   links:
     - 22c1b32b8fa874d6
-  x: 715
-  'y': 140
+    - ad406fd7f7e8dcad
+  x: 755
+  'y': 200
   wires: []
 - id: e0c78ed3205bd313
   type: change
@@ -646,8 +418,8 @@
   from: ''
   to: ''
   reg: false
-  x: 580
-  'y': 140
+  x: 620
+  'y': 200
   wires:
     - - 31e5c0780c8dba35
 - id: a632cf6658ed8cde
@@ -667,8 +439,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 580
-  'y': 80
+  x: 620
+  'y': 140
   wires:
     - - 575b91a30deac00d
       - e0c78ed3205bd313
@@ -688,8 +460,8 @@
     - 10af438fbe88a4a2
     - 898e323acce8cdc5
     - 1bd9c70a5be52bdc
-  x: 715
-  'y': 80
+  x: 755
+  'y': 140
   wires: []
 - id: 90fee914285e6f59
   type: change
@@ -702,13 +474,18 @@
       pt: global
       to: spile
       tot: str
+    - t: set
+      p: '#:(memoryOnly)::form'
+      pt: global
+      to: '{}'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 370
-  'y': 80
+  x: 410
+  'y': 140
   wires:
     - - a632cf6658ed8cde
 - id: 76e32feb14c8c8a9
@@ -717,8 +494,8 @@
   g: dcb47b97829a1b78
   name: kernel - boot
   links: []
-  x: 205
-  'y': 140
+  x: 245
+  'y': 200
   wires:
     - - 90fee914285e6f59
 - id: fca5abae49ece464
@@ -737,133 +514,10 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 170
-  'y': 80
+  x: 210
+  'y': 140
   wires:
     - - 90fee914285e6f59
-- id: ca436b16ceb4cb09
-  type: link in
-  z: f6f2187d.f17ca8
-  name: kernel - tree
-  links: []
-  x: 305
-  'y': 1120
-  wires:
-    - - 15c7561e3c8f4e9c
-- id: 15c7561e3c8f4e9c
-  type: change
-  z: f6f2187d.f17ca8
-  name: get global tree
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel.tree
-      tot: global
-    - t: set
-      p: tree
-      pt: msg
-      to: '{}'
-      tot: json
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 460
-  'y': 1120
-  wires:
-    - - 1a4d63bdb897d93b
-- id: 1a4d63bdb897d93b
-  type: split
-  z: f6f2187d.f17ca8
-  name: site
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: tree.site
-  property: payload
-  x: 650
-  'y': 1120
-  wires:
-    - - 754ad37c7a5378c6
-- id: 754ad37c7a5378c6
-  type: join
-  z: f6f2187d.f17ca8
-  name: ''
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: 'false'
-  timeout: ''
-  count: ''
-  reduceRight: false
-  x: 1010
-  'y': 1120
-  wires:
-    - - 0505138e4efaa61b
-- id: 0505138e4efaa61b
-  type: link out
-  z: f6f2187d.f17ca8
-  name: kernel - tree
-  mode: return
-  links: []
-  x: 1135
-  'y': 1120
-  wires: []
-- id: b4b49687436ab8e8
-  type: inject
-  z: f6f2187d.f17ca8
-  name: ''
-  props:
-    - p: payload
-    - p: topic
-      vt: str
-  repeat: ''
-  crontab: ''
-  once: false
-  onceDelay: 0.1
-  topic: ''
-  payload: ''
-  payloadType: date
-  x: 390
-  'y': 1300
-  wires:
-    - - 19d4f37bcecc570b
-- id: 19d4f37bcecc570b
-  type: link call
-  z: f6f2187d.f17ca8
-  name: ''
-  links:
-    - ca436b16ceb4cb09
-  linkType: static
-  timeout: '30'
-  x: 610
-  'y': 1300
-  wires:
-    - - 86f32763396e283c
-- id: 86f32763396e283c
-  type: debug
-  z: f6f2187d.f17ca8
-  name: debug 1
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 820
-  'y': 1300
-  wires: []
 - id: 23dd24021e2cecf1
   type: debug
   z: f6f2187d.f17ca8
@@ -877,8 +531,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 420
-  'y': 720
+  x: 460
+  'y': 1460
   wires: []
 - id: d82f731a51f1d464
   type: debug
@@ -893,8 +547,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 420
-  'y': 780
+  x: 460
+  'y': 1520
   wires: []
 - id: f3fbc10f1f75603c
   type: ui-event
@@ -902,8 +556,8 @@
   g: 32da9b1ae024e8bb
   ui: 68fb8d742e5053db
   name: ''
-  x: 230
-  'y': 780
+  x: 270
+  'y': 1520
   wires:
     - - d82f731a51f1d464
 - id: ba6ef07c6e523872
@@ -913,8 +567,8 @@
   name: ''
   ui: 68fb8d742e5053db
   events: all
-  x: 240
-  'y': 720
+  x: 280
+  'y': 1460
   wires:
     - - 23dd24021e2cecf1
 - id: 41c767836b03252b
@@ -940,8 +594,8 @@
   qToggle: false
   persist: false
   storeName: default
-  x: 650
-  'y': 260
+  x: 690
+  'y': 980
   wires:
     - - 10c82357a69cfd98
 - id: 430e091bb05b99e7
@@ -974,8 +628,8 @@
   resendOnRefresh: true
   templateScope: 'site:style'
   className: ''
-  x: 240
-  'y': 840
+  x: 280
+  'y': 1580
   wires:
     - []
 - id: 6640363c796f547b
@@ -985,8 +639,8 @@
   name: Ui - boot
   links:
     - 575b91a30deac00d
-  x: 105
-  'y': 840
+  x: 145
+  'y': 1580
   wires:
     - - 430e091bb05b99e7
 - id: 457bd17747e44d56
@@ -1007,8 +661,8 @@
   raw: false
   className: ''
   name: ''
-  x: 270
-  'y': 900
+  x: 310
+  'y': 1640
   wires:
     - []
 - id: 4e94023e8ba12f50
@@ -1017,56 +671,1043 @@
   g: 32da9b1ae024e8bb
   name: ui - notice
   links:
-    - 902fe68ecf2dae15
-    - 3cc5c7bd4abc1cb9
     - f1a4ce3bdf024862
     - 8574ce7e34610420
     - 5b08e73e6fba747e
-    - 9ca41d82ae49b0f7
     - aeafe7168ac11461
-    - f8543a7df7581b14
-    - 54fd1f2eca676e0d
-  x: 105
-  'y': 900
+    - c456d70885376976
+    - a4152fb852afd64c
+    - 38b3a4ebd1fca09e
+    - 2ec570aa85f2098f
+    - 5f6f52df59cd8e40
+    - 2e0c6e8b3e58b338
+    - c26a749118b05f68
+  x: 145
+  'y': 1640
   wires:
     - - 457bd17747e44d56
-- id: 6a149c879cc9671b
+      - 3808fde4099a032e
+- id: 451ea07f88244a01
   type: switch
   z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: name
-  property: kernel
+  g: 24d06435588a9e0e
+  name: check split length
+  property: split
   propertyType: msg
   rules:
     - t: hask
-      v: root
+      v: '2'
+      vt: num
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1470
+  'y': 980
+  wires:
+    - - 96b60125fedbd2dd
+- id: 9fa05ec4dc7871d1
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 24d06435588a9e0e
+  name: kernel - mqtt in
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1880
+  'y': 1040
+  wires: []
+- id: 96b60125fedbd2dd
+  type: change
+  z: f6f2187d.f17ca8
+  g: 24d06435588a9e0e
+  name: to kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':msg.split[1],\t    'entity':msg.split[2],\t    'value':msg.payload,\t    'loop':true\t}"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: split
+      pt: msg
+    - t: delete
+      p: qos
+      pt: msg
+    - t: delete
+      p: retain
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1680
+  'y': 980
+  wires:
+    - - 9fa05ec4dc7871d1
+      - b488c7fb4ff16174
+- id: b488c7fb4ff16174
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 24d06435588a9e0e
+  name: kernel - mqtt in
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1815
+  'y': 980
+  wires: []
+- id: 40abe00e99020b2f
+  type: change
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: to global
+  rules:
+    - t: set
+      p: 'kernel[msg.kernel.type][msg.kernel.entity]'
+      pt: global
+      to: kernel.value
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1300
+  'y': 620
+  wires:
+    - - 9eddf0deb059b1dc
+      - 0fd3e33ded41a4bb
+- id: a0931dda301e75ef
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: kernel - mqtt out
+  links:
+    - 9eddf0deb059b1dc
+  x: 145
+  'y': 800
+  wires:
+    - - 1a1bd4900c1218fd
+- id: 403e19609eb00cac
+  type: change
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: prepare
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::automate'
+      tot: global
+    - t: set
+      p: topic
+      pt: msg
+      to: '$join([msg.automate, msg.kernel.type, msg.kernel.entity], ''/'')'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.value
+      tot: msg
+    - t: set
+      p: qos
+      pt: msg
+      to: '0'
+      tot: num
+    - t: set
+      p: retain
+      pt: msg
+      to: msg.kernel.delete=true
+      tot: jsonata
+    - t: delete
+      p: kernel
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 600
+  'y': 800
+  wires:
+    - - a2867f8c84273968
+      - 05df226aae294d31
+- id: a2867f8c84273968
+  type: mqtt out
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: ''
+  topic: ''
+  qos: ''
+  retain: ''
+  respTopic: ''
+  contentType: ''
+  userProps: ''
+  correl: ''
+  expiry: ''
+  broker: f516c1341f0f634c
+  x: 770
+  'y': 800
+  wires: []
+- id: 789ef47c455b51f4
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: loop
+  property: kernel.loop
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 800
+  wires:
+    - []
+    - - 403e19609eb00cac
+- id: 1a1bd4900c1218fd
+  type: q-gate
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: ''
+  controlTopic: control
+  defaultState: closed
+  openCmd: open
+  closeCmd: close
+  toggleCmd: toggle
+  queueCmd: queue
+  defaultCmd: default
+  triggerCmd: trigger
+  flushCmd: flush
+  resetCmd: reset
+  peekCmd: peek
+  dropCmd: drop
+  statusCmd: status
+  maxQueueLength: '100'
+  keepNewest: false
+  qToggle: false
+  persist: false
+  storeName: default
+  x: 270
+  'y': 800
+  wires:
+    - - 789ef47c455b51f4
+- id: ad406fd7f7e8dcad
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: kernel - mqtt out - gate
+  links:
+    - 31e5c0780c8dba35
+  x: 145
+  'y': 860
+  wires:
+    - - 1a1bd4900c1218fd
+- id: 79c1498fbe448949
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: loop
+  property: 'kernel[msg.kernel.type][msg.kernel.entity]'
+  propertyType: global
+  rules:
+    - t: eq
+      v: kernel.value
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 970
+  'y': 620
+  wires:
+    - - 40abe00e99020b2f
+    - - 8aee2474b0714e8a
+- id: 8aee2474b0714e8a
+  type: change
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: new
+  rules:
+    - t: set
+      p: kernel.loop
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1130
+  'y': 680
+  wires:
+    - - 40abe00e99020b2f
+- id: 05df226aae294d31
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 3560ed94bd8a03cc
+  name: kernel - mqtt out
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 800
+  'y': 860
+  wires: []
+- id: 4855b0bd4a34c6c9
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: delete
+  property: kernel.delete
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 810
+  'y': 560
+  wires:
+    - - 655727cb36a628bd
+    - - 79c1498fbe448949
+- id: 655727cb36a628bd
+  type: change
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: to global
+  rules:
+    - t: delete
+      p: 'kernel[msg.kernel.type][msg.kernel.entity]'
+      pt: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1300
+  'y': 560
+  wires:
+    - - 9eddf0deb059b1dc
+- id: f22358dfa31523c3
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 24d06435588a9e0e
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
       vt: str
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 230
-  'y': 500
+  x: 1050
+  'y': 980
   wires:
-    - - fd41faec29e1ad5c
-- id: fd41faec29e1ad5c
+    - - 202424f6de068bd4
+- id: d29c391315d7b6cc
+  type: link in
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel - file in
+  links:
+    - bb84c83f23401c74
+  x: 145
+  'y': 1160
+  wires:
+    - - 208f67135b531d2d
+- id: 1589f9995713ce70
+  type: link in
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel - file out
+  links:
+    - 527bd0d2254942cb
+    - 74caccb9dec6107e
+  x: 145
+  'y': 1280
+  wires:
+    - - 64e315c49940ac48
+- id: 64e315c49940ac48
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: prepare
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::automate'
+      tot: global
+    - t: set
+      p: filename
+      pt: msg
+      to: '''/data/'' & msg.automate & ''.bk'''
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1280
+  wires:
+    - - 5e10675adc6c6d67
+- id: 5e10675adc6c6d67
+  type: file
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  filename: filename
+  filenameType: msg
+  appendNewline: true
+  createDir: true
+  overwriteFile: 'true'
+  encoding: none
+  x: 480
+  'y': 1280
+  wires:
+    - - c24e9a29d0957974
+- id: c24e9a29d0957974
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Fichier de sauvegarde écrit avec succès
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 670
+  'y': 1280
+  wires:
+    - - c26a749118b05f68
+- id: 41deb0018b5a94e5
+  type: catch
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  scope:
+    - 5e10675adc6c6d67
+  uncaught: false
+  x: 460
+  'y': 1340
+  wires:
+    - - cc86fe956692ca6f
+- id: cc86fe956692ca6f
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Echec d'écriture du fichier de sauvegarde
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 670
+  'y': 1340
+  wires:
+    - - c26a749118b05f68
+- id: c26a749118b05f68
+  type: link out
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel - file - notice
+  mode: link
+  links:
+    - 4e94023e8ba12f50
+  x: 795
+  'y': 1280
+  wires: []
+- id: 0a6234b647fb87fc
+  type: inject
+  z: f6f2187d.f17ca8
+  g: 6db1b393113d5660
+  name: daily
+  props:
+    - p: payload
+    - p: topic
+      vt: str
+  repeat: ''
+  crontab: 50 05 * * *
+  once: false
+  onceDelay: 0.1
+  topic: ''
+  payload: ''
+  payloadType: str
+  x: 210
+  'y': 320
+  wires:
+    - - 527bd0d2254942cb
+- id: 527bd0d2254942cb
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 6db1b393113d5660
+  name: kernel - cron daily
+  mode: link
+  links:
+    - 1589f9995713ce70
+  x: 355
+  'y': 320
+  wires: []
+- id: 3808fde4099a032e
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ui - notice
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: payload
+  targetType: msg
+  statusVal: ''
+  statusType: auto
+  x: 280
+  'y': 1700
+  wires: []
+- id: 208f67135b531d2d
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: prepare
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::automate'
+      tot: global
+    - t: set
+      p: filename
+      pt: msg
+      to: '''/data/'' & msg.automate & ''.bk'''
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1160
+  wires:
+    - - d5b4e8e17997e033
+- id: d5b4e8e17997e033
+  type: file in
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  filename: filename
+  filenameType: msg
+  format: utf8
+  chunk: false
+  sendError: false
+  encoding: none
+  allProps: false
+  x: 470
+  'y': 1160
+  wires:
+    - - 3e62a1c9a4d2e61f
+- id: 3e62a1c9a4d2e61f
+  type: json
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  property: payload
+  action: ''
+  pretty: false
+  x: 650
+  'y': 1160
+  wires:
+    - - 8c1c5bf80798ae2b
+- id: 62a937227be99b05
+  type: debug
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel - file in
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1630
+  'y': 1220
+  wires: []
+- id: 8c1c5bf80798ae2b
   type: switch
   z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: root
-  property: kernel.root
+  g: ede1bcd992279676
+  name: empty
+  property: payload
   propertyType: msg
   rules:
-    - t: eq
-      v: link
-      vt: str
-    - t: eq
-      v: name
+    - t: hask
+      v: site
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 2
-  x: 390
-  'y': 500
+  outputs: 1
+  x: 810
+  'y': 1160
   wires:
-    - - 276ea77023fcccae
+    - - cc258e5789d12e79
+- id: cc258e5789d12e79
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: clear
+  rules:
+    - t: delete
+      p: kernel
+      pt: global
+    - t: set
+      p: kernel
+      pt: msg
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 970
+  'y': 1160
+  wires:
+    - - ec685ff85f3403d1
+- id: ec685ff85f3403d1
+  type: split
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.type
+  property: payload
+  x: 1130
+  'y': 1160
+  wires:
+    - - 9f484ae35b520c21
+- id: 9f484ae35b520c21
+  type: split
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: kernel.entity
+  property: payload
+  x: 1290
+  'y': 1160
+  wires:
+    - - 24cd8a5a5db7fd27
+- id: 24cd8a5a5db7fd27
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel
+  rules:
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: kernel.loop
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: kernel.delete
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: delete
+      p: parts
+      pt: msg
+    - t: delete
+      p: filename
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1450
+  'y': 1160
+  wires:
+    - - 62a937227be99b05
+      - 8894c5d4699b0a0c
+- id: 8894c5d4699b0a0c
+  type: link out
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel - file in
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1575
+  'y': 1160
+  wires: []
+- id: ddf293f86a1dd28c
+  type: inject
+  z: f6f2187d.f17ca8
+  g: 6db1b393113d5660
+  name: hourly
+  props:
+    - p: payload
+    - p: topic
+      vt: str
+  repeat: '3600'
+  crontab: ''
+  once: false
+  onceDelay: 0.1
+  topic: ''
+  payload: ''
+  payloadType: str
+  x: 220
+  'y': 380
+  wires:
+    - - 6dfb47bfe7905913
+- id: 6dfb47bfe7905913
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 6db1b393113d5660
+  name: kernel - cron hourly
+  mode: link
+  links: []
+  x: 355
+  'y': 380
+  wires: []
+- id: 5def07486f134ced
+  type: inject
+  z: f6f2187d.f17ca8
+  g: 6db1b393113d5660
+  name: minute
+  props:
+    - p: payload
+    - p: topic
+      vt: str
+  repeat: '60'
+  crontab: ''
+  once: false
+  onceDelay: 0.1
+  topic: ''
+  payload: ''
+  payloadType: str
+  x: 220
+  'y': 440
+  wires:
+    - - 9d694324cf6b8842
+- id: 9d694324cf6b8842
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 6db1b393113d5660
+  name: kernel - cron minute
+  mode: link
+  links: []
+  x: 355
+  'y': 440
+  wires: []
+- id: ab2294164d2f0069
+  type: catch
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: ''
+  scope:
+    - d5b4e8e17997e033
+  uncaught: false
+  x: 460
+  'y': 1220
+  wires:
+    - - f18599f0cba00a43
+- id: f18599f0cba00a43
+  type: change
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Echec de lecture du fichier de sauvegarde
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 670
+  'y': 1220
+  wires:
+    - - c26a749118b05f68
+- id: 864630b649d844d8
+  type: link in
+  z: f6f2187d.f17ca8
+  name: kernel - state
+  links:
+    - 9eddf0deb059b1dc
+  x: 1745
+  'y': 620
+  wires:
+    - - 423cf6113bf71012
+- id: 7c3f64b7bb0a71ef
+  type: switch
+  z: f6f2187d.f17ca8
+  name: type
+  property: kernel.type
+  propertyType: msg
+  rules:
+    - t: eq
+      v: state
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2030
+  'y': 620
+  wires:
+    - - b645db7363c89bf9
+- id: 423cf6113bf71012
+  type: switch
+  z: f6f2187d.f17ca8
+  name: loop
+  property: kernel.loop
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1870
+  'y': 620
+  wires:
     - []
+    - - 7c3f64b7bb0a71ef
+- id: 060150298a8bfef8
+  type: change
+  z: f6f2187d.f17ca8
+  name: populate
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.kernel.entity, ''|'')'
+      tot: jsonata
+    - t: set
+      p: kernel.equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: kernel.component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: kernel.component_name
+      pt: msg
+      to: 'kernel.name[msg.kernel.entity]'
+      tot: global
+    - t: set
+      p: kernel.equipment_name
+      pt: msg
+      to: 'kernel.equipment[msg.kernel.equipment]'
+      tot: global
+    - t: set
+      p: kernel.room
+      pt: msg
+      to: 'kernel.equipments[msg.kernel.equipment]'
+      tot: global
+    - t: set
+      p: kernel.room.name
+      pt: msg
+      to: 'kernel.room[msg.kernel.room]'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2320
+  'y': 540
+  wires:
+    - []
+- id: fa344a634113a2e8
+  type: debug
+  z: f6f2187d.f17ca8
+  name: kernel - state
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2910
+  'y': 680
+  wires: []
+- id: b645db7363c89bf9
+  type: change
+  z: f6f2187d.f17ca8
+  name: get endpoints
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.endpoint
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2220
+  'y': 620
+  wires:
+    - - 075af6ef443dbfbc
+- id: 075af6ef443dbfbc
+  type: split
+  z: f6f2187d.f17ca8
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: endpoint
+  property: payload
+  x: 2410
+  'y': 620
+  wires:
+    - - 2843e1773c203e13
+- id: 2843e1773c203e13
+  type: switch
+  z: f6f2187d.f17ca8
+  name: entity
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: kernel.entity
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2570
+  'y': 620
+  wires:
+    - - b9937d98836c0d0d
+- id: b9937d98836c0d0d
+  type: change
+  z: f6f2187d.f17ca8
+  name: fill
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.endpoint,''|'')'
+      tot: jsonata
+    - t: set
+      p: kernel.model
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: kernel.device
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: kernel.endpoint
+      pt: msg
+      to: 'split[2]'
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+    - t: delete
+      p: parts
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2730
+  'y': 620
+  wires:
+    - - fa344a634113a2e8
+      - 050a29c043a85584
+- id: 050a29c043a85584
+  type: link out
+  z: f6f2187d.f17ca8
+  name: kernel - state
+  mode: link
+  links:
+    - 1472ee8de6253740
+  x: 2855
+  'y': 620
+  wires: []

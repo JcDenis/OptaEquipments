@@ -4,11 +4,138 @@
   disabled: false
   info: ''
   env: []
+- id: 82ebdeaefe6a1830
+  type: group
+  z: 852390cb9559e176
+  name: ui - view - select
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 3117e4cb1d6eaca3
+    - 4f99c7d8a5dd1b70
+    - 6829c2450480a8f8
+    - 97b48b10e1fafafa
+    - a22ae28641468d18
+    - 0548edb6952cacb8
+    - e28027007971ebc6
+    - 9f40cd685f30eef2
+    - 6b53ef650b83222f
+    - 345eaddc257cace0
+    - d60ee2dad137f703
+    - dbe2dc99f3174070
+    - 5d8b8edef6560b3a
+    - d8828daed73f7a3a
+    - 47410db8bee97ca3
+    - 3fdd05d35f701608
+    - 9174a3fb78d920a9
+    - 8505da206ce1eee3
+  x: 104
+  'y': 39
+  w: 1112
+  h: 262
+- id: 3117e4cb1d6eaca3
+  type: change
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 140
+  wires:
+    - - 6829c2450480a8f8
+- id: 4f99c7d8a5dd1b70
+  type: link in
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: ui - view - select
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 80
+  wires:
+    - - 3117e4cb1d6eaca3
+      - 6b53ef650b83222f
+- id: 6829c2450480a8f8
+  type: link call
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: ''
+  links:
+    - 22a6cc8a0964f595
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 140
+  wires:
+    - - a22ae28641468d18
+- id: 97b48b10e1fafafa
+  type: change
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: site
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: global
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1010
+  'y': 140
+  wires:
+    - - 9174a3fb78d920a9
 - id: a22ae28641468d18
   type: ui-dropdown
   z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
   group: 1669fa4fe2f204a0
-  name: Site
+  name: site
   label: Sélectionner un site
   tooltip: ''
   order: 1
@@ -25,78 +152,120 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 630
-  'y': 80
+  x: 650
+  'y': 140
+  wires:
+    - - 9f40cd685f30eef2
+- id: 0548edb6952cacb8
+  type: link call
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: ''
+  links:
+    - c6beaa316079a739
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 200
+  wires:
+    - - e28027007971ebc6
+- id: e28027007971ebc6
+  type: ui-dropdown
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  group: 1669fa4fe2f204a0
+  name: room
+  label: Sélectionner une ligne
+  tooltip: ''
+  order: 2
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 650
+  'y': 200
+  wires:
+    - - 345eaddc257cace0
+- id: 9f40cd685f30eef2
+  type: switch
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 850
+  'y': 140
   wires:
     - - 97b48b10e1fafafa
-- id: 5fa9f98457a1ab5e
-  type: debug
-  z: 852390cb9559e176
-  name: debug 3
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1080
-  'y': 80
-  wires: []
-- id: 3117e4cb1d6eaca3
+- id: 6b53ef650b83222f
   type: change
   z: 852390cb9559e176
-  name: prepare
+  g: 82ebdeaefe6a1830
+  name: hide
   rules:
-    - t: set
-      p: topic
-      pt: msg
-      to: ui-view
-      tot: str
     - t: set
       p: payload
       pt: msg
       to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
       tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 280
-  'y': 80
-  wires:
-    - - 6829c2450480a8f8
-- id: 4f99c7d8a5dd1b70
-  type: link in
-  z: 852390cb9559e176
-  name: ui view - select
-  links:
-    - 575b91a30deac00d
-  x: 145
-  'y': 80
-  wires:
-    - - 3117e4cb1d6eaca3
-- id: 6829c2450480a8f8
-  type: link call
-  z: 852390cb9559e176
-  name: ''
-  links:
-    - 22a6cc8a0964f595
-  linkType: static
-  timeout: '30'
-  x: 460
+  x: 490
   'y': 80
   wires:
     - - a22ae28641468d18
-- id: 97b48b10e1fafafa
+      - e28027007971ebc6
+      - 5d8b8edef6560b3a
+- id: 345eaddc257cace0
+  type: switch
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 850
+  'y': 200
+  wires:
+    - - d60ee2dad137f703
+- id: d60ee2dad137f703
   type: change
   z: 852390cb9559e176
-  name: user site
+  g: 82ebdeaefe6a1830
+  name: room
   rules:
     - t: set
-      p: 'client[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]room'
       pt: global
       to: payload
       tot: msg
@@ -105,12 +274,184 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 800
-  'y': 80
+  x: 1010
+  'y': 200
   wires:
-    - - 5fa9f98457a1ab5e
+    - - 8505da206ce1eee3
+- id: dbe2dc99f3174070
+  type: link call
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: ''
+  links:
+    - d2ec7b34c765545c
+  linkType: static
+  timeout: '30'
+  x: 450
+  'y': 260
+  wires:
+    - - 5d8b8edef6560b3a
+- id: 5d8b8edef6560b3a
+  type: ui-dropdown
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  group: 1669fa4fe2f204a0
+  name: equipment
+  label: Sélectionner un équipement
+  tooltip: ''
+  order: 3
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 670
+  'y': 260
+  wires:
+    - - d8828daed73f7a3a
+- id: d8828daed73f7a3a
+  type: switch
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 850
+  'y': 260
+  wires:
+    - - 47410db8bee97ca3
+- id: 47410db8bee97ca3
+  type: change
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: equipment
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1030
+  'y': 260
+  wires:
+    - - 3fdd05d35f701608
+- id: 3fdd05d35f701608
+  type: link out
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: ui - view - select
+  mode: link
+  links: []
+  x: 1175
+  'y': 260
+  wires: []
+- id: 72c56b28f0993851
+  type: link in
+  z: 852390cb9559e176
+  name: link in 1
+  links: []
+  x: 155
+  'y': 420
+  wires:
+    - []
+- id: 9174a3fb78d920a9
+  type: change
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: raz
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]room'
+      pt: global
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 250
+  'y': 200
+  wires:
+    - - 0548edb6952cacb8
+      - 8505da206ce1eee3
+- id: 8505da206ce1eee3
+  type: change
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: raz
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: global
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 250
+  'y': 260
+  wires:
+    - - dbe2dc99f3174070
