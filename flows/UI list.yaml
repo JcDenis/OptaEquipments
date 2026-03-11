@@ -235,8 +235,6 @@
   links:
     - c0261e8841790dd0
     - 2310141e1336bdc7
-    - 609fe86d3d37ef91
-    - a83c1516ee9c7a52
     - 30d9b3b967fbbc14
   x: 1135
   'y': 140
@@ -940,7 +938,7 @@
     - t: set
       p: row.device_name
       pt: msg
-      to: msg.row.model_name & ' ' & msg.row.device
+      to: msg.row.model_name & ' (' & msg.row.device & ')'
       tot: jsonata
     - t: set
       p: row.endpoint
@@ -987,7 +985,6 @@
       pt: msg
       to: '#:(memoryOnly)::describe.component[msg.row.component]'
       tot: global
-      dc: true
     - t: set
       p: rows
       pt: msg

@@ -43,10 +43,50 @@
     - bb91fea59c03a712
     - 0ddcdaa6a85f6860
     - cbd65acf2d2944d3
+    - 03f7de3b095cace7
   x: 104
   'y': 39
-  w: 1452
+  w: 1612
   h: 382
+- id: d04f02d6e1c02839
+  type: group
+  z: 852390cb9559e176
+  name: u i- detail
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 9fc3dfcadb19726e
+    - 8b955db50b900391
+    - 8104e13e7b473d2f
+    - 6bee4842235e602e
+    - 9589a4800ba25d7e
+    - cd35efc6bcd4b247
+    - c144168a9d95a46c
+    - ebe7a8fdde3e59f8
+    - 234944ace99399ca
+    - 6e45cf745ff84a30
+    - 3c49b3039dfe7b95
+    - cd9312927e6f5747
+    - f9bd857da00235f6
+    - 780661d35554de7d
+    - 1bb967e8f1c5cb23
+    - 4feb45d3d5f4d380
+    - bf0283565cf53483
+    - 8173c1978deb85ae
+    - c9cff0eb6beb8580
+    - a639b742dd0b1904
+    - ef19b0c332cad2ab
+    - 8a9b5f5cebfa012a
+    - d8de8fc856185b9d
+    - 02c026f38c097405
+    - fd9bb08a4c933fdc
+    - 27b8fb3753e838fc
+  x: 104
+  'y': 459
+  w: 1182
+  h: 622
 - id: 3117e4cb1d6eaca3
   type: change
   z: 852390cb9559e176
@@ -147,6 +187,7 @@
   wires:
     - - 0548edb6952cacb8
       - 8505da206ce1eee3
+      - c6bd2e176f72eec4
 - id: a22ae28641468d18
   type: ui-dropdown
   z: 852390cb9559e176
@@ -314,6 +355,7 @@
   'y': 200
   wires:
     - - dbe2dc99f3174070
+      - c6bd2e176f72eec4
 - id: dbe2dc99f3174070
   type: link call
   z: 852390cb9559e176
@@ -462,7 +504,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1420
+  x: 1580
   'y': 380
   wires: []
 - id: e77a32b7b869f914
@@ -514,8 +556,7 @@
   x: 1230
   'y': 320
   wires:
-    - - e50b6b57af2e2315
-      - 342d09ce7abd6d86
+    - - 03f7de3b095cace7
 - id: 9cef467dfab6ffd0
   type: link out
   z: 852390cb9559e176
@@ -524,22 +565,24 @@
   mode: link
   links:
     - 9fc3dfcadb19726e
-  x: 1515
+  x: 1675
   'y': 320
   wires: []
 - id: 9fc3dfcadb19726e
   type: link in
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: ui - detail
   links:
     - 9cef467dfab6ffd0
-  x: 225
-  'y': 600
+  x: 145
+  'y': 680
   wires:
     - - 8b955db50b900391
 - id: 8b955db50b900391
   type: switch
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: component
   property: kernel.component
   propertyType: msg
@@ -551,20 +594,33 @@
       v: runmeter
       vt: str
     - t: eq
+      v: cycle
+      vt: str
+    - t: eq
+      v: cyclemeter
+      vt: str
+    - t: eq
       v: reset
+      vt: str
+    - t: eq
+      v: heat
       vt: str
     - t: eq
       v: heatswitch
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 4
-  x: 370
-  'y': 600
+  outputs: 7
+  x: 290
+  'y': 680
   wires:
     - - 9589a4800ba25d7e
     - - c144168a9d95a46c
+    - - 8173c1978deb85ae
+    - - a639b742dd0b1904
     - - 234944ace99399ca
+      - ef19b0c332cad2ab
+    - - fd9bb08a4c933fdc
     - - f9bd857da00235f6
 - id: c6bd2e176f72eec4
   type: change
@@ -617,26 +673,25 @@
   from: ''
   to: ''
   reg: false
-  x: 1390
+  x: 1550
   'y': 320
   wires:
     - - 9cef467dfab6ffd0
 - id: 8104e13e7b473d2f
   type: link in
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: ui - detail - hide
   links:
     - 3fdd05d35f701608
-  x: 425
-  'y': 540
+  x: 145
+  'y': 500
   wires:
-    - - 9589a4800ba25d7e
-      - c144168a9d95a46c
-      - 234944ace99399ca
-      - f9bd857da00235f6
+    - - d8de8fc856185b9d
 - id: 6bee4842235e602e
   type: ui-button
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   group: c050c3a6d8c69fec
   name: ui - run
   label: ''
@@ -664,13 +719,14 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 720
-  'y': 600
+  x: 640
+  'y': 560
   wires:
     - []
 - id: 9589a4800ba25d7e
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: label
   rules:
     - t: set
@@ -678,18 +734,24 @@
       pt: msg
       to: "{\t    'label':msg.kernel.component_name,\t    'buttonColor':msg.kernel.value=1?'green':'red',\t    'icon':msg.kernel.value=1?'numeric-1-circle':'numeric-0-circle-outline'\t}"
       tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 550
-  'y': 600
+  x: 470
+  'y': 560
   wires:
     - - 6bee4842235e602e
 - id: cd35efc6bcd4b247
   type: ui-text-input
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   group: c050c3a6d8c69fec
   name: ui - runmeter
   label: text
@@ -711,13 +773,14 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 730
-  'y': 660
+  x: 650
+  'y': 620
   wires:
     - []
 - id: c144168a9d95a46c
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: label
   rules:
     - t: set
@@ -740,13 +803,14 @@
   from: ''
   to: ''
   reg: false
-  x: 550
-  'y': 660
+  x: 470
+  'y': 620
   wires:
     - - cd35efc6bcd4b247
 - id: ebe7a8fdde3e59f8
   type: ui-button
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   group: c050c3a6d8c69fec
   name: ui - reset
   label: ''
@@ -774,32 +838,34 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 720
-  'y': 720
+  x: 640
+  'y': 680
   wires:
     - - 4feb45d3d5f4d380
 - id: 234944ace99399ca
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: label
   rules:
     - t: set
       p: ui_update
       pt: msg
-      to: '{''label'':''Raz compteur''}'
+      to: '{''label'':''Raz compteur'', ''buttonColor'':''#0094ce''}'
       tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 550
-  'y': 720
+  x: 470
+  'y': 680
   wires:
     - - ebe7a8fdde3e59f8
 - id: 6e45cf745ff84a30
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: kernel
   rules:
     - t: set
@@ -833,14 +899,15 @@
   from: ''
   to: ''
   reg: false
-  x: 1090
-  'y': 720
+  x: 1010
+  'y': 680
   wires:
     - - 3c49b3039dfe7b95
       - cd9312927e6f5747
 - id: 3c49b3039dfe7b95
   type: debug
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: ui - detail
   active: false
   tosidebar: true
@@ -850,8 +917,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1260
-  'y': 780
+  x: 1180
+  'y': 740
   wires: []
 - id: 71ab4779af230c83
   type: change
@@ -1017,16 +1084,18 @@
 - id: cd9312927e6f5747
   type: link out
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: ui - detail
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1215
-  'y': 720
+  x: 1135
+  'y': 680
   wires: []
 - id: f9bd857da00235f6
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: label
   rules:
     - t: set
@@ -1039,17 +1108,18 @@
   from: ''
   to: ''
   reg: false
-  x: 550
-  'y': 780
+  x: 470
+  'y': 1040
   wires:
     - - 780661d35554de7d
 - id: 780661d35554de7d
   type: ui-button
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   group: c050c3a6d8c69fec
   name: ui - heatswitch
   label: ''
-  order: 4
+  order: 9
   width: '2'
   height: '1'
   emulateClick: false
@@ -1073,13 +1143,14 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 740
-  'y': 780
+  x: 660
+  'y': 1040
   wires:
     - - 1bb967e8f1c5cb23
 - id: 1bb967e8f1c5cb23
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: value
   rules:
     - t: set
@@ -1092,13 +1163,14 @@
   from: ''
   to: ''
   reg: false
-  x: 930
-  'y': 780
+  x: 850
+  'y': 1040
   wires:
     - - 6e45cf745ff84a30
 - id: 4feb45d3d5f4d380
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: value
   rules:
     - t: set
@@ -1111,7 +1183,334 @@
   from: ''
   to: ''
   reg: false
-  x: 930
-  'y': 720
+  x: 850
+  'y': 680
   wires:
     - - 6e45cf745ff84a30
+- id: 03f7de3b095cace7
+  type: change
+  z: 852390cb9559e176
+  g: 82ebdeaefe6a1830
+  name: fill
+  rules:
+    - t: set
+      p: kernel.component_name
+      pt: msg
+      to: msg.kernel.equipment&'|'&msg.kernel.component
+      tot: jsonata
+    - t: set
+      p: kernel.component_name
+      pt: msg
+      to: 'kernel.name[msg.kernel.component_name]'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1390
+  'y': 320
+  wires:
+    - - 342d09ce7abd6d86
+      - e50b6b57af2e2315
+- id: bf0283565cf53483
+  type: ui-button
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: c050c3a6d8c69fec
+  name: ui - cycle
+  label: ''
+  order: 4
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 640
+  'y': 740
+  wires:
+    - []
+- id: 8173c1978deb85ae
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: "{\t    'label':msg.kernel.component_name,\t    'buttonColor':msg.kernel.value=1?'green':'red',\t    'icon':msg.kernel.value=1?'numeric-1-circle':'numeric-0-circle-outline'\t}"
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 740
+  wires:
+    - - bf0283565cf53483
+- id: c9cff0eb6beb8580
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: c050c3a6d8c69fec
+  name: ui - cyclemeter
+  label: text
+  order: 5
+  width: '2'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: true
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 660
+  'y': 800
+  wires:
+    - []
+- id: a639b742dd0b1904
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.value
+      tot: msg
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 800
+  wires:
+    - - c9cff0eb6beb8580
+- id: ef19b0c332cad2ab
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':''Raz compteur'', ''buttonColor'':''#0094ce''}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 860
+  wires:
+    - - 8a9b5f5cebfa012a
+- id: 8a9b5f5cebfa012a
+  type: ui-button
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: c050c3a6d8c69fec
+  name: ui - reset
+  label: ''
+  order: 6
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: reset
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 640
+  'y': 860
+  wires:
+    - - 4feb45d3d5f4d380
+- id: d8de8fc856185b9d
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: "{\t    'label':'',\t    'buttonColor':'0',\t    'icon':''\t}"
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 500
+  wires:
+    - - 6bee4842235e602e
+      - cd35efc6bcd4b247
+      - ebe7a8fdde3e59f8
+      - bf0283565cf53483
+      - c9cff0eb6beb8580
+      - 8a9b5f5cebfa012a
+      - 780661d35554de7d
+      - 27b8fb3753e838fc
+      - 02c026f38c097405
+- id: 02c026f38c097405
+  type: ui-button
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: c050c3a6d8c69fec
+  name: ui - heat
+  label: ''
+  order: 7
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 640
+  'y': 920
+  wires:
+    - []
+- id: fd9bb08a4c933fdc
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: "{\t    'label':msg.kernel.component_name,\t    'buttonColor':msg.kernel.value=1?'green':'red',\t    'icon':msg.kernel.value=1?'numeric-1-circle':'numeric-0-circle-outline'\t}"
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 920
+  wires:
+    - - 02c026f38c097405
+- id: 27b8fb3753e838fc
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: c050c3a6d8c69fec
+  name: ui - none
+  label: text
+  order: 8
+  width: '2'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: true
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 640
+  'y': 980
+  wires:
+    - []
