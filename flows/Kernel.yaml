@@ -68,9 +68,10 @@
     - b488c7fb4ff16174
     - 9fa05ec4dc7871d1
     - f22358dfa31523c3
+    - 4de1644d9063dd22
   x: 104
   'y': 939
-  w: 1902
+  w: 2062
   h: 142
 - id: 32da9b1ae024e8bb
   type: group
@@ -93,9 +94,12 @@
     - 457bd17747e44d56
     - 4e94023e8ba12f50
     - 3808fde4099a032e
+    - 7bba6594f41302c2
+    - e0b4c721460909ae
+    - 0233bc571f3d02db
   x: 104
-  'y': 1419
-  w: 462
+  'y': 1479
+  w: 782
   h: 322
 - id: 3560ed94bd8a03cc
   type: group
@@ -169,6 +173,28 @@
   'y': 279
   w: 282
   h: 202
+- id: 362d2424024385d1
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - state
+  style:
+    label: true
+    fill-opacity: '0.05'
+    fill: '#ff0000'
+  nodes:
+    - 864630b649d844d8
+    - 7c3f64b7bb0a71ef
+    - 423cf6113bf71012
+    - fa344a634113a2e8
+    - b645db7363c89bf9
+    - 075af6ef443dbfbc
+    - 2843e1773c203e13
+    - b9937d98836c0d0d
+    - 050a29c043a85584
+  x: 1874
+  'y': 579
+  w: 1322
+  h: 142
 - id: 0fd3e33ded41a4bb
   type: debug
   z: f6f2187d.f17ca8
@@ -194,6 +220,7 @@
   links:
     - a0931dda301e75ef
     - 864630b649d844d8
+    - 2b792c2de9672677
   x: 1435
   'y': 620
   wires: []
@@ -266,6 +293,7 @@
     - f8543a7df7581b14
     - 54fd1f2eca676e0d
     - 8894c5d4699b0a0c
+    - cd9312927e6f5747
   x: 145
   'y': 560
   wires:
@@ -460,6 +488,7 @@
     - 10af438fbe88a4a2
     - 898e323acce8cdc5
     - 1bd9c70a5be52bdc
+    - 28b85f45e33eef42
   x: 755
   'y': 140
   wires: []
@@ -479,6 +508,14 @@
       pt: global
       to: '{}'
       tot: jsonata
+    - t: delete
+      p: describe
+      pt: global
+    - t: set
+      p: '#:(memoryOnly)::describe.component'
+      pt: global
+      to: "{\t    'run':'Lecture état de fonctionnement (run)',\t    'heat':'Lecture état de chauffe (heat)',\t    'voltage':'Lecture de tension (voltage)',\t    'power':'Lecture de puisance (power)',\t    '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t    'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t    'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t    'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t    'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t    'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t    'heatlink':'Commande de chauffe inverseur lié à une mesure (heatlink)',\t    'reset':\"Commande de RAZ compteurs partiel (reset)\"\t}"
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -493,7 +530,8 @@
   z: f6f2187d.f17ca8
   g: dcb47b97829a1b78
   name: kernel - boot
-  links: []
+  links:
+    - ded160847ba79c1d
   x: 245
   'y': 200
   wires:
@@ -523,7 +561,7 @@
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
   name: ui control
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -531,15 +569,15 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 460
-  'y': 1460
+  x: 780
+  'y': 1580
   wires: []
 - id: d82f731a51f1d464
   type: debug
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
   name: ui event
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -548,7 +586,7 @@
   statusVal: ''
   statusType: auto
   x: 460
-  'y': 1520
+  'y': 1580
   wires: []
 - id: f3fbc10f1f75603c
   type: ui-event
@@ -557,7 +595,7 @@
   ui: 68fb8d742e5053db
   name: ''
   x: 270
-  'y': 1520
+  'y': 1580
   wires:
     - - d82f731a51f1d464
 - id: ba6ef07c6e523872
@@ -568,9 +606,9 @@
   ui: 68fb8d742e5053db
   events: all
   x: 280
-  'y': 1460
+  'y': 1520
   wires:
-    - - 23dd24021e2cecf1
+    - - e0b4c721460909ae
 - id: 41c767836b03252b
   type: q-gate
   z: f6f2187d.f17ca8
@@ -629,18 +667,18 @@
   templateScope: 'site:style'
   className: ''
   x: 280
-  'y': 1580
+  'y': 1640
   wires:
     - []
 - id: 6640363c796f547b
   type: link in
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
-  name: Ui - boot
+  name: ui - boot
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 1580
+  'y': 1640
   wires:
     - - 430e091bb05b99e7
 - id: 457bd17747e44d56
@@ -662,7 +700,7 @@
   className: ''
   name: ''
   x: 310
-  'y': 1640
+  'y': 1700
   wires:
     - []
 - id: 4e94023e8ba12f50
@@ -683,7 +721,7 @@
     - 2e0c6e8b3e58b338
     - c26a749118b05f68
   x: 145
-  'y': 1640
+  'y': 1700
   wires:
     - - 457bd17747e44d56
       - 3808fde4099a032e
@@ -718,7 +756,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1880
+  x: 2040
   'y': 1040
   wires: []
 - id: 96b60125fedbd2dd
@@ -759,8 +797,7 @@
   x: 1680
   'y': 980
   wires:
-    - - 9fa05ec4dc7871d1
-      - b488c7fb4ff16174
+    - - 4de1644d9063dd22
 - id: b488c7fb4ff16174
   type: link out
   z: f6f2187d.f17ca8
@@ -769,7 +806,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1815
+  x: 1975
   'y': 980
   wires: []
 - id: 40abe00e99020b2f
@@ -925,7 +962,7 @@
   type: switch
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
-  name: loop
+  name: new
   property: 'kernel[msg.kernel.type][msg.kernel.entity]'
   propertyType: global
   rules:
@@ -945,7 +982,7 @@
   type: change
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
-  name: new
+  name: loop
   rules:
     - t: set
       p: kernel.loop
@@ -1198,7 +1235,7 @@
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
   name: ui - notice
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -1207,7 +1244,7 @@
   statusVal: ''
   statusType: auto
   x: 280
-  'y': 1700
+  'y': 1760
   wires: []
 - id: 208f67135b531d2d
   type: change
@@ -1292,7 +1329,7 @@
   propertyType: msg
   rules:
     - t: hask
-      v: site
+      v: plant
       vt: str
   checkall: 'false'
   repair: false
@@ -1435,7 +1472,8 @@
   g: 6db1b393113d5660
   name: kernel - cron hourly
   mode: link
-  links: []
+  links:
+    - 248ee86020acb7f2
   x: 355
   'y': 380
   wires: []
@@ -1504,16 +1542,18 @@
 - id: 864630b649d844d8
   type: link in
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: kernel - state
   links:
     - 9eddf0deb059b1dc
-  x: 1745
+  x: 1915
   'y': 620
   wires:
     - - 423cf6113bf71012
 - id: 7c3f64b7bb0a71ef
   type: switch
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: type
   property: kernel.type
   propertyType: msg
@@ -1524,13 +1564,14 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2030
+  x: 2200
   'y': 620
   wires:
     - - b645db7363c89bf9
 - id: 423cf6113bf71012
   type: switch
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: loop
   property: kernel.loop
   propertyType: msg
@@ -1540,63 +1581,15 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1870
+  x: 2040
   'y': 620
   wires:
     - []
     - - 7c3f64b7bb0a71ef
-- id: 060150298a8bfef8
-  type: change
-  z: f6f2187d.f17ca8
-  name: populate
-  rules:
-    - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.kernel.entity, ''|'')'
-      tot: jsonata
-    - t: set
-      p: kernel.equipment
-      pt: msg
-      to: 'split[0]'
-      tot: msg
-    - t: set
-      p: kernel.component
-      pt: msg
-      to: 'split[1]'
-      tot: msg
-    - t: set
-      p: kernel.component_name
-      pt: msg
-      to: 'kernel.name[msg.kernel.entity]'
-      tot: global
-    - t: set
-      p: kernel.equipment_name
-      pt: msg
-      to: 'kernel.equipment[msg.kernel.equipment]'
-      tot: global
-    - t: set
-      p: kernel.room
-      pt: msg
-      to: 'kernel.equipments[msg.kernel.equipment]'
-      tot: global
-    - t: set
-      p: kernel.room.name
-      pt: msg
-      to: 'kernel.room[msg.kernel.room]'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2320
-  'y': 540
-  wires:
-    - []
 - id: fa344a634113a2e8
   type: debug
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: kernel - state
   active: false
   tosidebar: true
@@ -1606,12 +1599,13 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2910
+  x: 3080
   'y': 680
   wires: []
 - id: b645db7363c89bf9
   type: change
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: get endpoints
   rules:
     - t: set
@@ -1624,13 +1618,14 @@
   from: ''
   to: ''
   reg: false
-  x: 2220
+  x: 2390
   'y': 620
   wires:
     - - 075af6ef443dbfbc
 - id: 075af6ef443dbfbc
   type: split
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: ''
   splt: \n
   spltType: str
@@ -1639,13 +1634,14 @@
   stream: false
   addname: endpoint
   property: payload
-  x: 2410
+  x: 2580
   'y': 620
   wires:
     - - 2843e1773c203e13
 - id: 2843e1773c203e13
   type: switch
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: entity
   property: payload
   propertyType: msg
@@ -1656,13 +1652,14 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2570
+  x: 2740
   'y': 620
   wires:
     - - b9937d98836c0d0d
 - id: b9937d98836c0d0d
   type: change
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: fill
   rules:
     - t: set
@@ -1685,6 +1682,21 @@
       pt: msg
       to: 'split[2]'
       tot: msg
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.payload,''|'')'
+      tot: jsonata
+    - t: set
+      p: kernel.equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: kernel.component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
     - t: delete
       p: split
       pt: msg
@@ -1696,7 +1708,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2730
+  x: 2900
   'y': 620
   wires:
     - - fa344a634113a2e8
@@ -1704,10 +1716,93 @@
 - id: 050a29c043a85584
   type: link out
   z: f6f2187d.f17ca8
+  g: 362d2424024385d1
   name: kernel - state
   mode: link
   links:
+    - 02bbc60330c9f5d0
     - 1472ee8de6253740
-  x: 2855
+  x: 3025
   'y': 620
   wires: []
+- id: 7bba6594f41302c2
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ui - control - change
+  mode: link
+  links:
+    - 4f99c7d8a5dd1b70
+    - c344b98bc4ee57db
+    - 28b85f45e33eef42
+  x: 735
+  'y': 1520
+  wires: []
+- id: 4de1644d9063dd22
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 24d06435588a9e0e
+  name: known
+  property: 'kernel[msg.kernel.type]'
+  propertyType: global
+  rules:
+    - t: hask
+      v: kernel.entity
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1850
+  'y': 980
+  wires:
+    - - b488c7fb4ff16174
+      - 9fa05ec4dc7871d1
+- id: e0b4c721460909ae
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ui
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: change
+      vt: str
+    - t: eq
+      v: connect
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 450
+  'y': 1520
+  wires:
+    - - 0233bc571f3d02db
+    - - 0233bc571f3d02db
+- id: 0233bc571f3d02db
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tab
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: name
+      tot: msg
+    - t: delete
+      p: tab
+      pt: msg
+    - t: delete
+      p: name
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 1520
+  wires:
+    - - 7bba6594f41302c2
+      - 23dd24021e2cecf1

@@ -7,7 +7,7 @@
 - id: fa7516c28cf64b47
   type: group
   z: 64ce08af468b8197
-  name: ui - sites
+  name: ui - plant
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -59,7 +59,7 @@
 - id: d8d8a361ac715076
   type: group
   z: 64ce08af468b8197
-  name: ui - rooms
+  name: ui - line
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -375,11 +375,74 @@
   'y': 1479
   w: 1892
   h: 1162
+- id: 7c224f2f2afc76d3
+  type: group
+  z: 64ce08af468b8197
+  name: ui - ota
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 67a829c8d69b7b01
+    - d508633aa0105203
+    - 2afd16a564ae6c47
+    - d5cec84ece588ffc
+    - a21747e12e479ca9
+    - 0d2c51b998a3f781
+    - d7cb5aad49f38b43
+    - f880d0ab8441869a
+    - c9befab23429b04a
+    - 80e11615d0347342
+    - 88e7e099ac740bc0
+    - 248ee86020acb7f2
+    - 0276a7f91ac850d6
+    - 4e3829a06010be64
+    - c344b98bc4ee57db
+    - 770cf39b6e6a39ae
+    - 44b14fdf37109b9a
+    - 06f26a04e792caa4
+    - 15714855907e56a4
+    - f3cac8b5cdac6603
+    - 512acb8e5a49cc52
+    - a536b598b5e16e16
+    - 1691d83e3598e8a4
+    - c3d005124e95de2f
+    - b96a79e7e0e13256
+    - 3ef1ad4d211cdc1a
+  x: 104
+  'y': 3039
+  w: 1622
+  h: 382
+- id: 43bcc4020c29e03d
+  type: group
+  z: 64ce08af468b8197
+  name: ui  - system
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - a31a6d118c265f83
+    - 694ad4ec886e0960
+    - bb84c83f23401c74
+    - 74caccb9dec6107e
+    - a3a959c1ed6f034e
+    - f8539dbcd88ad9b6
+    - ded160847ba79c1d
+    - 2b792c2de9672677
+    - 670c8031f657d6e9
+    - 56dc1e345acb5604
+    - aebec2a61774c8f5
+  x: 104
+  'y': 2679
+  w: 642
+  h: 322
 - id: be594973267232f5
   type: link in
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - site
+  name: ui - tree - plant
   links:
     - 575b91a30deac00d
     - 902fe68ecf2dae15
@@ -394,7 +457,7 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 53fb0eee68c8f320
-  name: ui - site - action
+  name: ui - plant - action
   label: Sélectionner une action
   tooltip: ''
   order: 1
@@ -411,7 +474,7 @@
   className: ''
   typeIsComboBox: false
   msgTrigger: onChange
-  x: 480
+  x: 490
   'y': 140
   wires:
     - - cd6855234616fc99
@@ -420,7 +483,7 @@
   type: change
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: set client site
+  name: set client
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
@@ -447,7 +510,7 @@
   from: ''
   to: ''
   reg: false
-  x: 850
+  x: 840
   'y': 140
   wires:
     - - 0480b316d029f0ba
@@ -493,7 +556,7 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'label':'',\t        'value':''\t    },\t    {\t        'label':'Ajouter un site',\t        'value':'addsite'\t    },\t    {\t        'label':'Supprimer un site',\t        'value':'delsite'\t    }\t]"
+      to: "[\t    {\t        'label':'',\t        'value':''\t    },\t    {\t        'label':'Ajouter une usine',\t        'value':'addplant'\t    },\t    {\t        'label':'Supprimer une usine',\t        'value':'delplant'\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -538,10 +601,10 @@
   propertyType: global
   rules:
     - t: eq
-      v: addsite
+      v: addplant
       vt: str
     - t: eq
-      v: delsite
+      v: delplant
       vt: str
   checkall: 'false'
   repair: false
@@ -556,8 +619,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 53fb0eee68c8f320
-  name: site - add - identifiant
-  label: Identifiant du site
+  name: plant - add - identifiant
+  label: Identifiant de l'usine
   order: 2
   width: '0'
   height: '0'
@@ -585,8 +648,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 53fb0eee68c8f320
-  name: site - add - name
-  label: Nom du site
+  name: plant - add - name
+  label: Nom de l'usine
   order: 3
   width: '0'
   height: '0'
@@ -655,7 +718,7 @@
   type: change
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: site name
+  name: plant name
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
@@ -682,7 +745,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2520
+  x: 2530
   'y': 140
   wires:
     - - 97eee541bd4e9655
@@ -741,8 +804,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 53fb0eee68c8f320
-  name: site - add - save
-  label: Ajouter le site
+  name: plant - add - save
+  label: Ajouter l'usine
   order: 4
   width: 0
   height: 0
@@ -767,7 +830,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 2720
+  x: 2730
   'y': 140
   wires:
     - - f3f2a6d3dbb25158
@@ -823,7 +886,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'site',\t    'entity':msg.form.id,\t    'value':msg.form.name,\t    'loop':false\t}"
+      to: "{\t    'type':'plant',\t    'entity':msg.form.id,\t    'value':msg.form.name,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -839,7 +902,7 @@
   type: link out
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - site
+  name: ui - tree - plant
   mode: link
   links:
     - be594973267232f5
@@ -865,8 +928,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 53fb0eee68c8f320
-  name: site - del - select
-  label: Séectionner un site
+  name: plant - del - plant
+  label: Séectionner une usine
   tooltip: ''
   order: 5
   width: 0
@@ -882,7 +945,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 2140
+  x: 2150
   'y': 260
   wires:
     - - 25fc58241ab70b84
@@ -890,7 +953,7 @@
   type: change
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: site id
+  name: plant id
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
@@ -917,7 +980,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2530
+  x: 2540
   'y': 260
   wires:
     - - 5d53388977faa547
@@ -926,8 +989,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 53fb0eee68c8f320
-  name: site - del - save
-  label: Suprimer le site
+  name: plant - del - save
+  label: Suprimer l'usine
   order: 6
   width: 0
   height: 0
@@ -952,7 +1015,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 2720
+  x: 2730
   'y': 260
   wires:
     - - 721821d1377acb65
@@ -990,7 +1053,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'site',\t    'entity':msg.form.id,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'plant',\t    'entity':msg.form.id,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -1125,7 +1188,7 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'label':'',\t        'value':''\t    },\t    {\t        'label':'Ajouter une ligne',\t        'value':'addroom'\t    },\t    {\t        'label':'Supprimer une ligne',\t        'value':'delroom'\t    }\t]"
+      to: "[\t    {\t        'label':'',\t        'value':''\t    },\t    {\t        'label':'Ajouter une ligne',\t        'value':'addline'\t    },\t    {\t        'label':'Supprimer une ligne',\t        'value':'delline'\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -1141,7 +1204,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: ui - room - action
+  name: ui - line - action
   label: Sélectionner une action
   tooltip: ''
   order: 1
@@ -1158,7 +1221,7 @@
   className: ''
   typeIsComboBox: false
   msgTrigger: onChange
-  x: 490
+  x: 480
   'y': 500
   wires:
     - - bfa496a54dae37c3
@@ -1167,10 +1230,10 @@
   type: link in
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: ui - tree - room
+  name: ui - tree - line
   links:
-    - 575b91a30deac00d
     - 3cc5c7bd4abc1cb9
+    - 575b91a30deac00d
     - 8574ce7e34610420
   x: 145
   'y': 440
@@ -1199,7 +1262,7 @@
   type: change
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: set client site
+  name: set client
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
@@ -1226,7 +1289,7 @@
   from: ''
   to: ''
   reg: false
-  x: 870
+  x: 860
   'y': 500
   wires:
     - - d87c316dbf85b091
@@ -1239,10 +1302,10 @@
   propertyType: global
   rules:
     - t: eq
-      v: addroom
+      v: addline
       vt: str
     - t: eq
-      v: delroom
+      v: delline
       vt: str
   checkall: 'false'
   repair: false
@@ -1270,8 +1333,8 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - add - site
-  label: Sélectionner un site
+  name: line - add - plant
+  label: Sélectionner une usine
   tooltip: ''
   order: 2
   width: 0
@@ -1340,7 +1403,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - add - id
+  name: line - add - id
   label: Identifiant de la ligne
   order: 3
   width: 0
@@ -1360,7 +1423,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2000
+  x: 1990
   'y': 500
   wires:
     - - 9923add6ba07ce77
@@ -1386,10 +1449,10 @@
   type: change
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: site id
+  name: plant id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
       pt: global
       to: payload
       tot: msg
@@ -1413,7 +1476,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1810
+  x: 1820
   'y': 500
   wires:
     - - 5baf8e3a957b7788
@@ -1421,7 +1484,7 @@
   type: change
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: room id
+  name: line id
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
@@ -1448,7 +1511,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2520
+  x: 2510
   'y': 560
   wires:
     - - b38534b0c6688412
@@ -1457,7 +1520,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - add - name
+  name: line - add - name
   label: Nom de la ligne
   order: 4
   width: 0
@@ -1504,7 +1567,7 @@
   type: change
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: room name
+  name: line name
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
@@ -1531,7 +1594,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3250
+  x: 3240
   'y': 500
   wires:
     - - 44a58e5b9ad1fbfd
@@ -1599,7 +1662,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'rooms',\t    'entity':msg.form.id,\t    'value':msg.form.site,\t    'loop':false\t}"
+      to: "{\t    'type':'lines',\t    'entity':msg.form.id,\t    'value':msg.form.plant,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -1616,7 +1679,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - add - save
+  name: line - add - save
   label: Ajouter la ligne
   order: 5
   width: 0
@@ -1642,7 +1705,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3470
+  x: 3460
   'y': 500
   wires:
     - - c7f61f22284c02d2
@@ -1652,7 +1715,7 @@
   type: link out
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: ui - tree - room
+  name: ui - tree - line
   mode: link
   links:
     - d0be34a90b4e69b0
@@ -1739,7 +1802,7 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   name: exists
-  property: kernel.site
+  property: kernel.plant
   propertyType: global
   rules:
     - t: hask
@@ -1764,7 +1827,7 @@
     - t: set
       p: payload
       pt: msg
-      to: Ce site existe déjà
+      to: Cette usine existe déjà
       tot: str
   action: ''
   property: ''
@@ -1779,7 +1842,7 @@
   type: link out
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: tree - site - notice
+  name: tree - plant - notice
   mode: link
   links:
     - 4e94023e8ba12f50
@@ -1792,7 +1855,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   name: exists
-  property: kernel.room
+  property: kernel.line
   propertyType: global
   rules:
     - t: hask
@@ -1832,7 +1895,7 @@
   type: link out
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: tree - room - notice
+  name: tree - line - notice
   mode: link
   links:
     - 4e94023e8ba12f50
@@ -1858,7 +1921,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - del - room
+  name: line - del - line
   label: Sélectionner une ligne
   tooltip: ''
   order: 7
@@ -1875,7 +1938,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 2870
+  x: 2860
   'y': 620
   wires:
     - - 8f4c36ac5d7fccb7
@@ -1927,7 +1990,7 @@
   type: change
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: room id
+  name: line id
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
@@ -1954,7 +2017,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3260
+  x: 3250
   'y': 620
   wires:
     - - 169002e27659ad07
@@ -1963,7 +2026,7 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - delete - save
+  name: line - delete - save
   label: Supprimer la ligne
   order: 8
   width: 0
@@ -1989,7 +2052,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3480
+  x: 3470
   'y': 620
   wires:
     - - 1b17eb540ebe89a1
@@ -2009,7 +2072,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'room',\t    'entity':msg.form.id,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'line',\t    'entity':msg.form.id,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -2168,7 +2231,7 @@
   type: change
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
-  name: set client site
+  name: set client
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
@@ -2195,7 +2258,7 @@
   from: ''
   to: ''
   reg: false
-  x: 870
+  x: 860
   'y': 860
   wires:
     - - f5b94e3622c38a5b
@@ -2239,8 +2302,8 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   group: e003b21feb885c70
-  name: equipment - add - site
-  label: Sélectionner un site
+  name: equipment - add - plant
+  label: Sélectionner une usine
   tooltip: ''
   order: 2
   width: 0
@@ -2256,7 +2319,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1480
+  x: 1490
   'y': 860
   wires:
     - - 747f0b103ae9196f
@@ -2283,10 +2346,10 @@
   type: change
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
-  name: site id
+  name: plant id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
       pt: global
       to: payload
       tot: msg
@@ -2310,7 +2373,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1850
+  x: 1860
   'y': 860
   wires:
     - - a45f8b536e58a933
@@ -2349,7 +2412,7 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   group: e003b21feb885c70
-  name: equipment - add - room
+  name: equipment - add - line
   label: Sélectionner une ligne
   tooltip: ''
   order: 3
@@ -2366,7 +2429,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 2270
+  x: 2260
   'y': 860
   wires:
     - - 03808114ac1c38c7
@@ -2393,10 +2456,10 @@
   type: change
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
-  name: room id
+  name: line id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]room'
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
       pt: global
       to: payload
       tot: msg
@@ -2420,7 +2483,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2660
+  x: 2650
   'y': 860
   wires:
     - - ebb98b7a44b73a6a
@@ -2469,7 +2532,7 @@
   type: link out
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
-  name: tree- site - notice
+  name: tree- plant - notice
   mode: link
   links:
     - 4e94023e8ba12f50
@@ -2564,8 +2627,8 @@
     - t: set
       p: enabled
       pt: msg
-      to: ''
-      tot: str
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
@@ -2909,7 +2972,7 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   group: e003b21feb885c70
-  name: equipment - del - select
+  name: equipment - del - equipment
   label: Séletionner un équipement
   tooltip: ''
   order: 9
@@ -2926,7 +2989,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 3790
+  x: 3800
   'y': 980
   wires:
     - - 56af4409b90d6c52
@@ -3187,7 +3250,7 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: set client site
+  name: set client
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
@@ -3214,7 +3277,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1110
+  x: 1100
   'y': 1640
   wires:
     - - 55477206adc7beb9
@@ -3300,10 +3363,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: site
+  name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
       pt: global
       to: payload
       tot: msg
@@ -3352,10 +3415,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: room
+  name: line
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]room'
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
       pt: global
       to: payload
       tot: msg
@@ -3424,8 +3487,8 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   group: 72650b0750e04cb4
-  name: component - add - site
-  label: Sélectionner un site
+  name: component - add - plant
+  label: Sélectionner une usine
   tooltip: ''
   order: 2
   width: 0
@@ -3441,7 +3504,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 660
+  x: 670
   'y': 1700
   wires:
     - - 3333229966faac95
@@ -3450,7 +3513,7 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   group: 72650b0750e04cb4
-  name: component - add - room
+  name: component - add - line
   label: Sélectionner une ligne
   tooltip: ''
   order: 3
@@ -3467,7 +3530,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 670
+  x: 660
   'y': 1760
   wires:
     - - e2ab7fdd7ef55405
@@ -3506,10 +3569,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: equipement
+  name: equipment
   rules:
     - t: set
-      p: 'form[msg._client.socketId]equipment'
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
       pt: global
       to: payload
       tot: msg
@@ -3829,7 +3892,7 @@
   type: change
   z: 64ce08af468b8197
   g: 771b362aacd557cd
-  name: set client site
+  name: set client
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
@@ -3856,7 +3919,7 @@
   from: ''
   to: ''
   reg: false
-  x: 850
+  x: 840
   'y': 1220
   wires:
     - - af25077c65056faf
@@ -5098,7 +5161,7 @@
   type: change
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: site id
+  name: plant id
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
@@ -5125,7 +5188,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1790
+  x: 1800
   'y': 200
   wires:
     - - 343f72e19cb63063
@@ -5147,8 +5210,8 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   group: dd968c6d9fd51ce8
-  name: room - del - site
-  label: Sélectionner un site
+  name: line - del - plant
+  label: Sélectionner une usine
   tooltip: ''
   order: 6
   width: 0
@@ -5191,10 +5254,10 @@
   type: change
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: site id
+  name: plant id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
       pt: global
       to: payload
       tot: msg
@@ -5218,7 +5281,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1810
+  x: 1820
   'y': 620
   wires:
     - - ec7631a984851cc3
@@ -5265,8 +5328,8 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   group: e003b21feb885c70
-  name: equipment - del - site
-  label: Sélectionner un site
+  name: equipment - del - plant
+  label: Sélectionner une usine
   tooltip: ''
   order: 7
   width: 0
@@ -5309,10 +5372,10 @@
   type: change
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
-  name: site id
+  name: plant id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
       pt: global
       to: payload
       tot: msg
@@ -5336,7 +5399,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1850
+  x: 1860
   'y': 980
   wires:
     - - 3c9c0f76791a548f
@@ -5358,7 +5421,7 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   group: e003b21feb885c70
-  name: equipment - del - room
+  name: equipment - del - line
   label: Sélectionner une ligne
   tooltip: ''
   order: 8
@@ -5402,10 +5465,10 @@
   type: change
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
-  name: room id
+  name: line id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]room'
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
       pt: global
       to: payload
       tot: msg
@@ -5429,7 +5492,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2660
+  x: 2650
   'y': 980
   wires:
     - - f388124a50c8e62c
@@ -5611,10 +5674,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: site
+  name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]site'
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
       pt: global
       to: payload
       tot: msg
@@ -5663,10 +5726,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: room
+  name: line
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]room'
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
       pt: global
       to: payload
       tot: msg
@@ -5735,8 +5798,8 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   group: 72650b0750e04cb4
-  name: component - del - site
-  label: Sélectionner un site
+  name: component - del - plant
+  label: Sélectionner une usine
   tooltip: ''
   order: 12
   width: 0
@@ -5761,7 +5824,7 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   group: 72650b0750e04cb4
-  name: component - del - room
+  name: component - del - line
   label: Sélectionner une ligne
   tooltip: ''
   order: 13
@@ -5778,7 +5841,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 670
+  x: 660
   'y': 2420
   wires:
     - - 40e7c2ff41c28ad6
@@ -6014,7 +6077,7 @@
   type: link out
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - site - notice
+  name: ui - tree - plant - notice
   mode: link
   links:
     - 4e94023e8ba12f50
@@ -6030,7 +6093,7 @@
     - t: set
       p: payload
       pt: msg
-      to: Site ajouté avec succès
+      to: Usine ajouté avec succès
       tot: str
   action: ''
   property: ''
@@ -6045,7 +6108,7 @@
   type: debug
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - site
+  name: ui - tree - plant
   active: false
   tosidebar: true
   console: false
@@ -6054,7 +6117,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3250
+  x: 3260
   'y': 200
   wires: []
 - id: 578c42fc43eaca86
@@ -6066,7 +6129,7 @@
     - t: set
       p: payload
       pt: msg
-      to: Site supprimé avec succès
+      to: Usine supprimé avec succès
       tot: str
   action: ''
   property: ''
@@ -6197,7 +6260,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'room',\t    'entity':msg.form.id,\t    'value':msg.form.name,\t    'loop':false\t}"
+      to: "{\t    'type':'line',\t    'entity':msg.form.id,\t    'value':msg.form.name,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6222,7 +6285,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'rooms',\t    'entity':msg.form.id,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'lines',\t    'entity':msg.form.id,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6238,7 +6301,7 @@
   type: link out
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: ui - tree - room - notice
+  name: ui - tree - line - notice
   mode: link
   links:
     - 4e94023e8ba12f50
@@ -6249,7 +6312,7 @@
   type: debug
   z: 64ce08af468b8197
   g: d8d8a361ac715076
-  name: ui - tree - room
+  name: ui - tree - line
   active: false
   tosidebar: true
   console: false
@@ -6258,7 +6321,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 4040
+  x: 4030
   'y': 560
   wires: []
 - id: df4867763814df3b
@@ -6291,7 +6354,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'equipments',\t    'entity':msg.form.id,\t    'value':msg.form.room,\t    'loop':false\t}"
+      to: "{\t    'type':'equipments',\t    'entity':msg.form.id,\t    'value':msg.form.line,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6766,10 +6829,11 @@
 - id: a31a6d118c265f83
   type: ui-button
   z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
   group: f3c43b9a85a112f6
   name: ui - tool - read file
   label: Lire le fichier de sauvegarde
-  order: 2
+  order: 4
   width: 0
   height: 0
   emulateClick: false
@@ -6793,17 +6857,18 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 430
-  'y': 3080
+  x: 310
+  'y': 2840
   wires:
     - - bb84c83f23401c74
 - id: 694ad4ec886e0960
   type: ui-button
   z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
   group: f3c43b9a85a112f6
   name: ui - tool - write file
   label: Ecrire le fichier de sauvegarde
-  order: 1
+  order: 3
   width: 0
   height: 0
   emulateClick: false
@@ -6827,29 +6892,31 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 430
-  'y': 3140
+  x: 310
+  'y': 2900
   wires:
     - - 74caccb9dec6107e
 - id: bb84c83f23401c74
   type: link out
   z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
   name: ui - tool - read file
   mode: link
   links:
     - d29c391315d7b6cc
-  x: 595
-  'y': 3080
+  x: 475
+  'y': 2840
   wires: []
 - id: 74caccb9dec6107e
   type: link out
   z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
   name: ui - tool - write file
   mode: link
   links:
     - 1589f9995713ce70
-  x: 595
-  'y': 3140
+  x: 475
+  'y': 2900
   wires: []
 - id: f1a456d8c0e5733f
   type: change
@@ -7591,8 +7658,716 @@
 - id: a3a959c1ed6f034e
   type: comment
   z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
   name: 'todo: download button'
   info: ''
-  x: 440
+  x: 320
+  'y': 2960
+  wires: []
+- id: f8539dbcd88ad9b6
+  type: ui-button
+  z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
+  group: f3c43b9a85a112f6
+  name: ui - tool - reload ui
+  label: Recharger l'interface
+  order: 2
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 310
+  'y': 2780
+  wires:
+    - - ded160847ba79c1d
+- id: ded160847ba79c1d
+  type: link out
+  z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
+  name: ui - tool - reload ui
+  mode: link
+  links:
+    - 76e32feb14c8c8a9
+  x: 475
+  'y': 2780
+  wires: []
+- id: 2b792c2de9672677
+  type: link in
+  z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
+  name: ui - tool - loop
+  links:
+    - 9eddf0deb059b1dc
+  x: 145
+  'y': 2720
+  wires:
+    - - 670c8031f657d6e9
+- id: 670c8031f657d6e9
+  type: change
+  z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
+  name: payload
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.type & '|' & msg.kernel.entity & ' = ' & msg.kernel.value
+      tot: jsonata
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 2720
+  wires:
+    - - aebec2a61774c8f5
+- id: 56dc1e345acb5604
+  type: ui-text-input
+  z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
+  group: f3c43b9a85a112f6
+  name: ui - tool - loop
+  label: Messages
+  order: 1
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: true
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 640
+  'y': 2720
+  wires:
+    - []
+- id: aebec2a61774c8f5
+  type: delay
+  z: 64ce08af468b8197
+  g: 43bcc4020c29e03d
+  name: 10m/s
+  pauseType: rate
+  timeout: '5'
+  timeoutUnits: seconds
+  rate: '10'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 450
+  'y': 2720
+  wires:
+    - - 56dc1e345acb5604
+- id: 67a829c8d69b7b01
+  type: ui-text-input
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  group: dc73b5e0cedbb3eb
+  name: ui - ota - version in
+  label: Version
+  order: 1
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: Sous la form 10101
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 850
   'y': 3200
+  wires:
+    - - 06f26a04e792caa4
+- id: d508633aa0105203
+  type: ui-file-input
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  group: dc73b5e0cedbb3eb
+  name: ui - ota - file in
+  order: 2
+  width: '5'
+  height: '1'
+  topic: topic
+  topicType: msg
+  label: Firmware
+  icon: paperclip
+  allowMultiple: false
+  accept: ''
+  className: ''
+  x: 840
+  'y': 3260
+  wires:
+    - - c3d005124e95de2f
+- id: 2afd16a564ae6c47
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: flow
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::ota_version'
+      pt: flow
+      to: '#:(memoryOnly)::form_version'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::ota_buffer'
+      pt: flow
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1230
+  'y': 3260
+  wires:
+    - - 1691d83e3598e8a4
+      - 4e3829a06010be64
+- id: d5cec84ece588ffc
+  type: http in
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: ''
+  url: /optafirmware.ota
+  method: get
+  upload: false
+  skipBodyParsing: false
+  swaggerDoc: ''
+  x: 320
+  'y': 3380
+  wires:
+    - - 0d2c51b998a3f781
+- id: a21747e12e479ca9
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '200'
+      tot: num
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::ota_buffer'
+      tot: flow
+    - t: set
+      p: buffersize
+      pt: msg
+      to: msg.payload.length
+      tot: jsonata
+    - t: set
+      p: headers
+      pt: msg
+      to: "{\t    'Accept-Ranges':'bytes',\t    'Content-Type':'application/octet-stream',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 880
+  'y': 3320
+  wires:
+    - - f880d0ab8441869a
+      - 88e7e099ac740bc0
+- id: 0d2c51b998a3f781
+  type: switch
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: version
+  property: '#:(memoryOnly)::ota_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 540
+  'y': 3380
+  wires:
+    - - d7cb5aad49f38b43
+    - - c9befab23429b04a
+- id: d7cb5aad49f38b43
+  type: switch
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: buffer
+  property: '#:(memoryOnly)::ota_buffer'
+  propertyType: flow
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 710
+  'y': 3320
+  wires:
+    - - a21747e12e479ca9
+    - - c9befab23429b04a
+- id: f880d0ab8441869a
+  type: http response
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: rsp
+  statusCode: ''
+  headers: {}
+  x: 1050
+  'y': 3380
+  wires: []
+- id: c9befab23429b04a
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '404'
+      tot: num
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 880
+  'y': 3380
+  wires:
+    - - f880d0ab8441869a
+      - 88e7e099ac740bc0
+- id: 80e11615d0347342
+  type: mqtt out
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: firmware version
+  topic: opta/firmware/version
+  qos: '0'
+  retain: 'true'
+  respTopic: ''
+  contentType: ''
+  userProps: ''
+  correl: ''
+  expiry: ''
+  broker: f516c1341f0f634c
+  x: 1580
+  'y': 3080
+  wires: []
+- id: 88e7e099ac740bc0
+  type: debug
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: setting - ota - http out
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1100
+  'y': 3320
+  wires: []
+- id: 248ee86020acb7f2
+  type: link in
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: ui - ota - cron
+  links:
+    - 6dfb47bfe7905913
+  x: 145
+  'y': 3080
+  wires:
+    - - 0276a7f91ac850d6
+- id: 0276a7f91ac850d6
+  type: switch
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: version
+  property: '#:(memoryOnly)::ota_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 280
+  'y': 3080
+  wires:
+    - - 4e3829a06010be64
+- id: 4e3829a06010be64
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: flow
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::ota_version'
+      tot: flow
+    - t: set
+      p: payload
+      pt: msg
+      to: $number(msg.payload)
+      tot: jsonata
+    - t: delete
+      p: topic
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1390
+  'y': 3080
+  wires:
+    - - 80e11615d0347342
+      - 3ef1ad4d211cdc1a
+- id: c344b98bc4ee57db
+  type: link in
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: ui - connector - action
+  links:
+    - 7bba6594f41302c2
+  x: 145
+  'y': 3200
+  wires:
+    - - 44b14fdf37109b9a
+      - f3cac8b5cdac6603
+- id: 770cf39b6e6a39ae
+  type: switch
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: version
+  property: '#:(memoryOnly)::ota_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 460
+  'y': 3200
+  wires:
+    - - a536b598b5e16e16
+    - - 512acb8e5a49cc52
+- id: 44b14fdf37109b9a
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: disable
+  rules:
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 3260
+  wires:
+    - - d508633aa0105203
+- id: 06f26a04e792caa4
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form_version'
+      pt: flow
+      to: $number(msg.payload)
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1060
+  'y': 3200
+  wires:
+    - - 15714855907e56a4
+- id: 15714855907e56a4
+  type: switch
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: empty
+  property: '#:(memoryOnly)::form_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1230
+  'y': 3200
+  wires:
+    - - d508633aa0105203
+    - - b96a79e7e0e13256
+- id: f3cac8b5cdac6603
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form_version'
+      pt: flow
+      to: '0'
+      tot: num
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 3200
+  wires:
+    - - 770cf39b6e6a39ae
+- id: 512acb8e5a49cc52
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: version
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+    - t: set
+      p: '#:(memoryOnly)::ota_version'
+      pt: flow
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 640
+  'y': 3200
+  wires:
+    - - 67a829c8d69b7b01
+- id: a536b598b5e16e16
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: version
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::ota_version'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 640
+  'y': 3140
+  wires:
+    - - 67a829c8d69b7b01
+- id: 1691d83e3598e8a4
+  type: debug
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: setting - ota - form
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1430
+  'y': 3260
+  wires: []
+- id: c3d005124e95de2f
+  type: switch
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1050
+  'y': 3260
+  wires:
+    - - 2afd16a564ae6c47
+      - 44b14fdf37109b9a
+- id: b96a79e7e0e13256
+  type: change
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: reset
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::ota_version'
+      pt: flow
+      to: '0'
+      tot: num
+    - t: set
+      p: '#:(memoryOnly)::ota_buffer'
+      pt: flow
+      to: ''
+      tot: str
+    - t: delete
+      p: topic
+      pt: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1390
+  'y': 3200
+  wires:
+    - - 80e11615d0347342
+      - 3ef1ad4d211cdc1a
+- id: 3ef1ad4d211cdc1a
+  type: debug
+  z: 64ce08af468b8197
+  g: 7c224f2f2afc76d3
+  name: setting - ota - mqtt
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1590
+  'y': 3140
   wires: []
