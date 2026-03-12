@@ -71,7 +71,7 @@
     - 20e9c8f58563a1e1
   x: 104
   'y': 1659
-  w: 1162
+  w: 1142
   h: 142
 - id: 0ca8991c60d8e2f2
   type: group
@@ -124,7 +124,7 @@
 - id: 8429a00ec08b9d76
   type: group
   z: adb9fbf379118d77
-  name: option - devixe
+  name: option - device
   style:
     label: true
     fill: '#92d04f'
@@ -197,8 +197,29 @@
     - 5453049d5144fa47
   x: 104
   'y': 1419
-  w: 2082
+  w: 2062
   h: 202
+- id: 74adf515501063bc
+  type: group
+  z: adb9fbf379118d77
+  name: option - day
+  style:
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - c8040234899d671f
+    - 3039a641ada41928
+    - 7d7469b7f9a536d3
+    - 7b4fa46dd44638b2
+    - 58261100c1244a60
+    - 87ec42c84e14556d
+    - 55812c09e1ea4d8c
+    - 6f6e8e35c4dd8592
+  x: 104
+  'y': 1859
+  w: 1102
+  h: 142
 - id: 546836b126dc5542
   type: change
   z: adb9fbf379118d77
@@ -208,10 +229,13 @@
     - t: set
       p: payload
       pt: msg
-      to: ''
-      tot: str
+      to: old_payload
+      tot: msg
     - t: delete
       p: option_id
+      pt: msg
+    - t: delete
+      p: old_payload
       pt: msg
   action: ''
   property: ''
@@ -313,6 +337,11 @@
   name: get list
   rules:
     - t: set
+      p: old_payload
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
       p: payload
       pt: msg
       to: kernel.plant
@@ -335,7 +364,7 @@
   type: link in
   z: adb9fbf379118d77
   g: fa94e5dda0432e95
-  name: option - stie
+  name: option - plant
   links: []
   x: 145
   'y': 140
@@ -357,6 +386,11 @@
   g: 82ce08693206f664
   name: get list
   rules:
+    - t: set
+      p: old_payload
+      pt: msg
+      to: payload
+      tot: msg
     - t: set
       p: payload
       pt: msg
@@ -468,10 +502,13 @@
     - t: set
       p: payload
       pt: msg
-      to: ''
-      tot: str
+      to: old_payload
+      tot: msg
     - t: delete
       p: option_id
+      pt: msg
+    - t: delete
+      p: old_payload
       pt: msg
   action: ''
   property: ''
@@ -512,7 +549,7 @@
   from: ''
   to: ''
   reg: false
-  x: 930
+  x: 910
   'y': 1700
   wires:
     - - 9980949a068f307c
@@ -524,7 +561,7 @@
   name: option - component
   mode: return
   links: []
-  x: 1055
+  x: 1035
   'y': 1700
   wires: []
 - id: b8883442c607ced8
@@ -540,7 +577,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1130
+  x: 1110
   'y': 1760
   wires: []
 - id: d2ec7b34c765545c
@@ -559,6 +596,11 @@
   g: 0ca8991c60d8e2f2
   name: get list
   rules:
+    - t: set
+      p: old_payload
+      pt: msg
+      to: payload
+      tot: msg
     - t: set
       p: payload
       pt: msg
@@ -670,10 +712,13 @@
     - t: set
       p: payload
       pt: msg
-      to: ''
-      tot: str
+      to: old_payload
+      tot: msg
     - t: delete
       p: option_id
+      pt: msg
+    - t: delete
+      p: old_payload
       pt: msg
   action: ''
   property: ''
@@ -1547,6 +1592,11 @@
   name: get list
   rules:
     - t: set
+      p: old_payload
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
       p: payload
       pt: msg
       to: kernel.endpoint
@@ -1585,22 +1635,32 @@
   type: change
   z: adb9fbf379118d77
   g: ed61df18f5488ebe
-  name: to option
+  name: add
   rules:
+    - t: set
+      p: option_name
+      pt: msg
+      to: 'kernel.name[msg.payload]'
+      tot: global
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.payload & '' ('' & msg.option_id & '')'',''value'':msg.option_id}'
+      to: >-
+        {'label':msg.option_name & ' (' & msg.payload & ' - ' & msg.option_id &
+        ')','value':msg.option_id}
       tot: jsonata
     - t: delete
       p: option_equipment
+      pt: msg
+    - t: delete
+      p: option_name
       pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1380
+  x: 1370
   'y': 1520
   wires:
     - - 0c85d5ed4ad7933b
@@ -1625,7 +1685,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1550
+  x: 1530
   'y': 1520
   wires:
     - - a4c92ef408c5c31c
@@ -1638,17 +1698,20 @@
     - t: set
       p: payload
       pt: msg
-      to: ''
-      tot: str
+      to: old_payload
+      tot: msg
     - t: delete
       p: option_id
+      pt: msg
+    - t: delete
+      p: old_payload
       pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1890
+  x: 1870
   'y': 1580
   wires:
     - - a47a294b8dc8491b
@@ -1660,7 +1723,7 @@
   name: option - link
   mode: return
   links: []
-  x: 2015
+  x: 1995
   'y': 1520
   wires: []
 - id: 3c599d800d92b4fe
@@ -1676,7 +1739,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2070
+  x: 2050
   'y': 1580
   wires: []
 - id: a4c92ef408c5c31c
@@ -1694,7 +1757,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1720
+  x: 1700
   'y': 1520
   wires:
     - - 5f509a0a1c93db7e
@@ -1818,7 +1881,7 @@
   from: ''
   to: ''
   reg: false
-  x: 290
+  x: 270
   'y': 1700
   wires:
     - - 56704dc2fc99c694
@@ -1834,7 +1897,7 @@
   stream: false
   addname: component
   property: payload
-  x: 450
+  x: 430
   'y': 1700
   wires:
     - - 4a018ed9d50d6ef6
@@ -1859,7 +1922,7 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 590
   'y': 1700
   wires:
     - - 20e9c8f58563a1e1
@@ -1880,7 +1943,154 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 770
+  x: 750
   'y': 1700
   wires:
     - - 76908a8d1b9c32c5
+- id: c8040234899d671f
+  type: link in
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: option - day
+  links: []
+  x: 145
+  'y': 1900
+  wires:
+    - - 3039a641ada41928
+- id: 3039a641ada41928
+  type: change
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: get list
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::describe.day'
+      tot: global
+    - t: set
+      p: '#:(memoryOnly)::day'
+      pt: flow
+      to: '[]'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 1900
+  wires:
+    - - 7d7469b7f9a536d3
+- id: 7d7469b7f9a536d3
+  type: split
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: day
+  property: payload
+  x: 430
+  'y': 1900
+  wires:
+    - - 7b4fa46dd44638b2
+- id: 7b4fa46dd44638b2
+  type: change
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: add
+  rules:
+    - t: set
+      p: options
+      pt: msg
+      to: '#:(memoryOnly)::day'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::day'
+      pt: flow
+      to: '$append(msg.options,{''label'':msg.payload,''value'':msg.day})'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 1900
+  wires:
+    - - 58261100c1244a60
+- id: 58261100c1244a60
+  type: join
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: ''
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: 'false'
+  timeout: ''
+  count: ''
+  reduceRight: false
+  x: 750
+  'y': 1900
+  wires:
+    - - 87ec42c84e14556d
+- id: 87ec42c84e14556d
+  type: change
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: clean
+  rules:
+    - t: delete
+      p: day
+      pt: msg
+    - t: set
+      p: options
+      pt: msg
+      to: '#:(memoryOnly)::day'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 910
+  'y': 1900
+  wires:
+    - - 55812c09e1ea4d8c
+      - 6f6e8e35c4dd8592
+- id: 55812c09e1ea4d8c
+  type: link out
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: option - day
+  mode: return
+  links: []
+  x: 1035
+  'y': 1900
+  wires: []
+- id: 6f6e8e35c4dd8592
+  type: debug
+  z: adb9fbf379118d77
+  g: 74adf515501063bc
+  name: option - day
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1090
+  'y': 1960
+  wires: []

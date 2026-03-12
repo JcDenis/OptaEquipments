@@ -4,3 +4,2199 @@
   disabled: false
   info: ''
   env: []
+- id: 0401edc0b84af3f7
+  type: group
+  z: 7ee6a73707bd804c
+  name: ui - schedule - select
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - f1cf974fa2747751
+    - fa494d05efa88067
+    - 38596e0ec0d13e6e
+    - 5a6cde8e463f6ea7
+    - 9b0572d9f9efd0fd
+    - 2679176365176d11
+    - 8e0337706c17b923
+    - bca6e05b25b19f0f
+    - 338d499cedaeb127
+    - 3a4528cc287d5db0
+    - d68f578b30c689cd
+    - e9296b4e3895d5eb
+    - bc8f2b32d873e396
+    - 7034e27f0bbeb695
+    - 384beea869bf014a
+    - c20c82ad06f84015
+    - 0ae0437507f8b6cf
+    - d2535522027e99ce
+    - f6f331510d477cfc
+    - 6bcd90c73167bcf3
+    - eeded62d33769e8c
+    - a0e25be57c7bd3f8
+    - c5f2aa7d3028066e
+    - 3bfa22b8c2ea724b
+    - 6b1ab6944e3ceb11
+    - 86fa4bae075b543d
+    - a37b108cbd614ed7
+    - be744d9b5ed21633
+    - a0068803390a6408
+    - 7ab2737b0a17ae16
+    - de69d933f1cce5b7
+    - 01735f0d9bfc36a4
+    - caf45a304f314972
+    - d5c916c299edcb9f
+    - 035116df27f15938
+    - ed14c7b8771b84f4
+    - 7afb40590b753ef6
+    - 5148f2d00e7b9aad
+    - 31ee50ea0fd72478
+    - 4711646502949fc1
+    - 850ef72497f44484
+    - 78320891da2bdb6f
+  x: 104
+  'y': 79
+  w: 2142
+  h: 562
+- id: 299d2b9769a03927
+  type: group
+  z: 7ee6a73707bd804c
+  name: ui - schedule - list
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 4bab8624ca5c5186
+    - 7aea4f02e87bbbf9
+    - a291752fe3dda5ff
+    - aea966b1a9efbb6a
+    - 69f27e1dc518bdaa
+    - 14d7576b82d9940b
+    - e026443b1a1fa23c
+    - c20aca8dc47be239
+    - b024950b1015508f
+    - 26dd984b9684df67
+    - ae60891abb18cde2
+    - 84ee621521a80faf
+  x: 104
+  'y': 859
+  w: 1652
+  h: 142
+- id: a82de02ec4a02ae4
+  type: group
+  z: 7ee6a73707bd804c
+  name: ui  - schedule - add
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 7efcd83f618ed5b8
+    - 2ea3879901226fd0
+    - 96579c71cbefd712
+    - 6d49c46755ef0d6c
+    - dfc8eb6b04b95ec9
+    - 710dd52b892c441e
+    - aae2b4a019dd773d
+    - 4c968026490765e3
+    - 202d012f1b25a230
+    - 33d52df6564e389a
+    - 380685a89fcd1706
+    - 2c7b90e984c132b9
+    - f419338fb5bf3206
+    - 2c1b86bf24ac2c9c
+    - 0612d59455eecb75
+    - 92fc415d4f457d10
+    - 07ad1469127fb444
+    - 5ecca18be7c4a38d
+    - cc3395821d96e905
+    - f6bd0cf6610f4381
+    - 16d19bdd1f873e46
+    - a077dfdf5a27089d
+    - 42b9c92eb6959de6
+    - d34e76e5ecb327b9
+    - 6622c45c75d3f822
+    - 476edfd190dece4b
+    - 480ff7665bc9b174
+    - a290376a4f520463
+    - 5483fdf0d589446d
+  x: 104
+  'y': 1039
+  w: 1482
+  h: 442
+- id: f1cf974fa2747751
+  type: link in
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ui - schedule - select
+  links:
+    - 575b91a30deac00d
+    - 7bba6594f41302c2
+    - a290376a4f520463
+  x: 145
+  'y': 120
+  wires:
+    - - 38596e0ec0d13e6e
+      - fa494d05efa88067
+- id: fa494d05efa88067
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: options
+      pt: msg
+      to: '[]'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1330
+  'y': 120
+  wires:
+    - - 2679176365176d11
+      - 3a4528cc287d5db0
+      - 7034e27f0bbeb695
+      - 0ae0437507f8b6cf
+      - a0e25be57c7bd3f8
+- id: 38596e0ec0d13e6e
+  type: delay
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: 10ms
+  pauseType: delay
+  timeout: '10'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 270
+  'y': 180
+  wires:
+    - - 5a6cde8e463f6ea7
+- id: 5a6cde8e463f6ea7
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1080
+  'y': 180
+  wires:
+    - - 8e0337706c17b923
+- id: 9b0572d9f9efd0fd
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 300
+  wires:
+    - - 338d499cedaeb127
+      - 6bcd90c73167bcf3
+- id: 2679176365176d11
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2050
+  'y': 120
+  wires:
+    - - d68f578b30c689cd
+- id: 8e0337706c17b923
+  type: link call
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ''
+  links:
+    - 22a6cc8a0964f595
+  linkType: static
+  timeout: '30'
+  x: 1270
+  'y': 240
+  wires:
+    - - 3a4528cc287d5db0
+- id: bca6e05b25b19f0f
+  type: link call
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ''
+  links:
+    - c6beaa316079a739
+  linkType: static
+  timeout: '30'
+  x: 1270
+  'y': 360
+  wires:
+    - - 7034e27f0bbeb695
+- id: 338d499cedaeb127
+  type: link call
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ''
+  links:
+    - d2ec7b34c765545c
+  linkType: static
+  timeout: '30'
+  x: 1290
+  'y': 480
+  wires:
+    - - 0ae0437507f8b6cf
+- id: 3a4528cc287d5db0
+  type: ui-dropdown
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  group: 89e49250592163a6
+  name: plant
+  label: Sélectionner une usine
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1490
+  'y': 240
+  wires:
+    - - e9296b4e3895d5eb
+- id: d68f578b30c689cd
+  type: link out
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ui - schedule - select - hide
+  mode: link
+  links:
+    - 7aea4f02e87bbbf9
+    - 7efcd83f618ed5b8
+  x: 2175
+  'y': 120
+  wires: []
+- id: e9296b4e3895d5eb
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1690
+  'y': 240
+  wires:
+    - - bc8f2b32d873e396
+- id: bc8f2b32d873e396
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: plant
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: global
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      pt: global
+      to: payload
+      tot: msg
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
+      pt: global
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1850
+  'y': 240
+  wires:
+    - - 2679176365176d11
+      - 9b0572d9f9efd0fd
+      - bca6e05b25b19f0f
+- id: 7034e27f0bbeb695
+  type: ui-dropdown
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  group: 89e49250592163a6
+  name: line
+  label: Sélectionner une ligne
+  tooltip: ''
+  order: 2
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1490
+  'y': 360
+  wires:
+    - - 384beea869bf014a
+- id: 384beea869bf014a
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1690
+  'y': 360
+  wires:
+    - - c20c82ad06f84015
+- id: c20c82ad06f84015
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: line
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
+      pt: global
+      to: payload
+      tot: msg
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: global
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1850
+  'y': 360
+  wires:
+    - - 338d499cedaeb127
+      - 6bcd90c73167bcf3
+      - 2679176365176d11
+- id: 0ae0437507f8b6cf
+  type: ui-dropdown
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  group: 89e49250592163a6
+  name: equipment
+  label: Séletionner un équipement
+  tooltip: ''
+  order: 3
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1510
+  'y': 480
+  wires:
+    - - d2535522027e99ce
+- id: d2535522027e99ce
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1690
+  'y': 480
+  wires:
+    - - f6f331510d477cfc
+- id: f6f331510d477cfc
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: equipment
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: global
+      to: payload
+      tot: msg
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]link'
+      pt: global
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1870
+  'y': 480
+  wires:
+    - - eeded62d33769e8c
+      - 2679176365176d11
+- id: 6bcd90c73167bcf3
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 420
+  wires:
+    - - eeded62d33769e8c
+- id: eeded62d33769e8c
+  type: link call
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ''
+  links:
+    - 96b1c207573a2899
+  linkType: static
+  timeout: '30'
+  x: 1270
+  'y': 540
+  wires:
+    - - a0e25be57c7bd3f8
+- id: a0e25be57c7bd3f8
+  type: ui-dropdown
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  group: 89e49250592163a6
+  name: link
+  label: Sélectionner un composant
+  tooltip: ''
+  order: 4
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1490
+  'y': 540
+  wires:
+    - - c5f2aa7d3028066e
+- id: c5f2aa7d3028066e
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1690
+  'y': 540
+  wires:
+    - - 3bfa22b8c2ea724b
+- id: 3bfa22b8c2ea724b
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: link
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]link'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]component'
+      pt: global
+      to: 'kernel.endpoint[msg.payload]'
+      tot: global
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 540
+  wires:
+    - - 6b1ab6944e3ceb11
+      - 2679176365176d11
+      - a37b108cbd614ed7
+- id: 6b1ab6944e3ceb11
+  type: debug
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ui - schedule - select
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2100
+  'y': 480
+  wires: []
+- id: 4bab8624ca5c5186
+  type: ui-table
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  group: 29ba3566f20303c0
+  name: list
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Equipement
+      key: equipment_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Composant
+      key: component_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Début
+      key: start_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Fin
+      key: stop_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Action
+      key: Supprimer
+      keyType: str
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 1430
+  'y': 900
+  wires:
+    - - ae60891abb18cde2
+- id: 86fa4bae075b543d
+  type: link out
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ui - schedule - select
+  mode: link
+  links:
+    - 7aea4f02e87bbbf9
+    - 7efcd83f618ed5b8
+  x: 2175
+  'y': 540
+  wires: []
+- id: 7aea4f02e87bbbf9
+  type: link in
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: link in 1
+  links:
+    - d68f578b30c689cd
+    - 86fa4bae075b543d
+  x: 145
+  'y': 900
+  wires:
+    - - a291752fe3dda5ff
+- id: a37b108cbd614ed7
+  type: delay
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: 10ms
+  pauseType: delay
+  timeout: '10'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2050
+  'y': 540
+  wires:
+    - - 86fa4bae075b543d
+- id: a291752fe3dda5ff
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: enabled
+  property: enabled
+  propertyType: msg
+  rules:
+    - t: 'false'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 280
+  'y': 900
+  wires:
+    - - 4bab8624ca5c5186
+    - - aea966b1a9efbb6a
+- id: aea966b1a9efbb6a
+  type: change
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: schedules
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.schedule
+      tot: global
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: row
+      pt: msg
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 460
+  'y': 960
+  wires:
+    - - 69f27e1dc518bdaa
+- id: 69f27e1dc518bdaa
+  type: split
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: row.entity
+  property: payload
+  x: 630
+  'y': 960
+  wires:
+    - - 26dd984b9684df67
+- id: 14d7576b82d9940b
+  type: change
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: row
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.row.entity,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.equipment_name
+      pt: msg
+      to: 'kernel.equipment[msg.row.equipment]'
+      tot: global
+    - t: set
+      p: row.equipment_full
+      pt: msg
+      to: msg.row.equipment_name & ' (' & msg.row.equipment & ')'
+      tot: jsonata
+    - t: set
+      p: row.component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: row.component_name
+      pt: msg
+      to: 'kernel.name[msg.row.entity]'
+      tot: global
+    - t: set
+      p: row.component_full
+      pt: msg
+      to: msg.row.component_name & ' (' & msg.row.component & ')'
+      tot: jsonata
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.payload,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.startday
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.startday_name
+      pt: msg
+      to: '#:(memoryOnly)::describe.day[msg.row.startday]'
+      tot: global
+    - t: set
+      p: row.starttime
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: row.start_full
+      pt: msg
+      to: msg.row.startday_name & ' ' & msg.row.starttime
+      tot: jsonata
+    - t: set
+      p: row.stopday
+      pt: msg
+      to: 'split[2]'
+      tot: msg
+    - t: set
+      p: row.stopday_name
+      pt: msg
+      to: '#:(memoryOnly)::describe.day[msg.row.stopday]'
+      tot: global
+    - t: set
+      p: row.stoptime
+      pt: msg
+      to: 'split[3]'
+      tot: msg
+    - t: set
+      p: row.stop_full
+      pt: msg
+      to: msg.row.stopday_name & ' ' & msg.row.stoptime
+      tot: jsonata
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 950
+  'y': 960
+  wires:
+    - - e026443b1a1fa23c
+- id: e026443b1a1fa23c
+  type: join
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: ''
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: 'false'
+  timeout: ''
+  count: ''
+  reduceRight: false
+  x: 1110
+  'y': 960
+  wires:
+    - - c20aca8dc47be239
+- id: c20aca8dc47be239
+  type: change
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: rows
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: delete
+      p: 'payload[0]'
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1270
+  'y': 960
+  wires:
+    - - b024950b1015508f
+      - 4bab8624ca5c5186
+- id: b024950b1015508f
+  type: debug
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: ui - schedule - list
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1470
+  'y': 960
+  wires: []
+- id: 7efcd83f618ed5b8
+  type: link in
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: link in 2
+  links:
+    - d68f578b30c689cd
+    - 86fa4bae075b543d
+  x: 145
+  'y': 1080
+  wires:
+    - - 2ea3879901226fd0
+- id: 2ea3879901226fd0
+  type: switch
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: enabled
+  property: enabled
+  propertyType: msg
+  rules:
+    - t: 'false'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 280
+  'y': 1080
+  wires:
+    - - 6d49c46755ef0d6c
+    - - dfc8eb6b04b95ec9
+- id: 96579c71cbefd712
+  type: ui-dropdown
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  group: ca38b846d92d044e
+  name: schedule - add - startday
+  label: Sélectionner le jour de début
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 710
+  'y': 1140
+  wires:
+    - - 710dd52b892c441e
+- id: 6d49c46755ef0d6c
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 490
+  'y': 1080
+  wires:
+    - - 96579c71cbefd712
+      - 4c968026490765e3
+      - f419338fb5bf3206
+      - 5ecca18be7c4a38d
+      - d34e76e5ecb327b9
+- id: dfc8eb6b04b95ec9
+  type: link call
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: ''
+  links:
+    - c8040234899d671f
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 1140
+  wires:
+    - - 96579c71cbefd712
+- id: 710dd52b892c441e
+  type: switch
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 930
+  'y': 1140
+  wires:
+    - - aae2b4a019dd773d
+      - f6bd0cf6610f4381
+- id: aae2b4a019dd773d
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: startday
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]startday'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1100
+  'y': 1140
+  wires:
+    - - 4c968026490765e3
+- id: 4c968026490765e3
+  type: ui-text-input
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  group: ca38b846d92d044e
+  name: schedule - add - starttime
+  label: Sélectionner une heure de début
+  order: 2
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: time
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 710
+  'y': 1200
+  wires:
+    - - 202d012f1b25a230
+- id: 202d012f1b25a230
+  type: switch
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 930
+  'y': 1200
+  wires:
+    - - 380685a89fcd1706
+      - 16d19bdd1f873e46
+- id: 33d52df6564e389a
+  type: debug
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: ui - schedule - add
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1450
+  'y': 1320
+  wires: []
+- id: 380685a89fcd1706
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: starttime
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]starttime'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1100
+  'y': 1200
+  wires:
+    - - 2c7b90e984c132b9
+- id: 2c7b90e984c132b9
+  type: link call
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: ''
+  links:
+    - c8040234899d671f
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 1260
+  wires:
+    - - f419338fb5bf3206
+- id: f419338fb5bf3206
+  type: ui-dropdown
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  group: ca38b846d92d044e
+  name: schedule - add - stopday
+  label: Sélectionner le jour de fin
+  tooltip: ''
+  order: 3
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 710
+  'y': 1260
+  wires:
+    - - 2c1b86bf24ac2c9c
+- id: 2c1b86bf24ac2c9c
+  type: switch
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 930
+  'y': 1260
+  wires:
+    - - 0612d59455eecb75
+      - a077dfdf5a27089d
+- id: 0612d59455eecb75
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: stopday
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]stopday'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1100
+  'y': 1260
+  wires:
+    - - 5ecca18be7c4a38d
+- id: 92fc415d4f457d10
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: stoptime
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]stoptime'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1100
+  'y': 1320
+  wires:
+    - - d34e76e5ecb327b9
+- id: 07ad1469127fb444
+  type: switch
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 930
+  'y': 1320
+  wires:
+    - - 92fc415d4f457d10
+      - 42b9c92eb6959de6
+- id: 5ecca18be7c4a38d
+  type: ui-text-input
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  group: ca38b846d92d044e
+  name: schedule - add - stoptime
+  label: Sélectionner une heure de fin
+  order: 4
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: time
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 710
+  'y': 1320
+  wires:
+    - - 07ad1469127fb444
+- id: cc3395821d96e905
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: kernel
+  rules:
+    - t: set
+      p: form
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]'
+      tot: global
+    - t: set
+      p: kernel
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: kernel.type
+      pt: msg
+      to: schedule
+      tot: str
+    - t: set
+      p: kernel.entity
+      pt: msg
+      to: form.component
+      tot: msg
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: >-
+        $join([msg.form.startday,msg.form.starttime,msg.form.stopday,msg.form.stoptime],'|')
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 1380
+  wires:
+    - - 480ff7665bc9b174
+      - 476edfd190dece4b
+- id: f6bd0cf6610f4381
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1140
+  wires:
+    - - dfc8eb6b04b95ec9
+- id: 16d19bdd1f873e46
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1200
+  wires:
+    - - 4c968026490765e3
+- id: a077dfdf5a27089d
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1260
+  wires:
+    - - 2c7b90e984c132b9
+- id: 42b9c92eb6959de6
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1320
+  wires:
+    - - 5ecca18be7c4a38d
+- id: d34e76e5ecb327b9
+  type: ui-button
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  group: ca38b846d92d044e
+  name: schedule - add - save
+  label: Ajouter
+  order: 5
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 700
+  'y': 1380
+  wires:
+    - - 6622c45c75d3f822
+      - cc3395821d96e905
+- id: 6622c45c75d3f822
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 1380
+  wires:
+    - - d34e76e5ecb327b9
+- id: 476edfd190dece4b
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: clean
+  rules:
+    - t: delete
+      p: form
+      pt: msg
+    - t: delete
+      p: options
+      pt: msg
+    - t: delete
+      p: enabled
+      pt: msg
+    - t: delete
+      p: class
+      pt: msg
+    - t: delete
+      p: endpoint
+      pt: msg
+    - t: delete
+      p: device
+      pt: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: global
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 1380
+  wires:
+    - - a290376a4f520463
+      - 33d52df6564e389a
+- id: 480ff7665bc9b174
+  type: change
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Programmation ajoutée avec succès
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 1440
+  wires:
+    - - 5483fdf0d589446d
+- id: a290376a4f520463
+  type: link out
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: ui - schedule - add
+  mode: link
+  links:
+    - e60e4ab7617738c3
+    - f1cf974fa2747751
+  x: 1375
+  'y': 1380
+  wires: []
+- id: 5483fdf0d589446d
+  type: link out
+  z: 7ee6a73707bd804c
+  g: a82de02ec4a02ae4
+  name: ui - schedule - notice
+  mode: link
+  links:
+    - 4e94023e8ba12f50
+  x: 1375
+  'y': 1440
+  wires: []
+- id: 26dd984b9684df67
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: same
+  property: row.entity
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]component'
+      vt: global
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 790
+  'y': 960
+  wires:
+    - - 14d7576b82d9940b
+- id: ae60891abb18cde2
+  type: change
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: kernel.type
+      pt: msg
+      to: schedule
+      tot: str
+    - t: set
+      p: kernel.entity
+      pt: msg
+      to: payload.entity
+      tot: msg
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: kernel.delete
+      pt: msg
+      to: 'true'
+      tot: bool
+    - t: delete
+      p: action
+      pt: msg
+    - t: delete
+      p: column
+      pt: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1590
+  'y': 900
+  wires:
+    - - 84ee621521a80faf
+- id: 84ee621521a80faf
+  type: link out
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: ui - schedule - list
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1715
+  'y': 900
+  wires: []
+- id: be744d9b5ed21633
+  type: link in
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ui - schedule - auto
+  links:
+    - 7cbf38916d947726
+  x: 145
+  'y': 240
+  wires:
+    - - ed14c7b8771b84f4
+- id: a0068803390a6408
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: plant
+  property: form
+  propertyType: msg
+  rules:
+    - t: hask
+      v: plant
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 430
+  'y': 240
+  wires:
+    - - 7ab2737b0a17ae16
+      - 01735f0d9bfc36a4
+- id: 7ab2737b0a17ae16
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: line
+  property: form
+  propertyType: msg
+  rules:
+    - t: hask
+      v: line
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 430
+  'y': 360
+  wires:
+    - - de69d933f1cce5b7
+      - caf45a304f314972
+- id: de69d933f1cce5b7
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: equipment
+  property: form
+  propertyType: msg
+  rules:
+    - t: hask
+      v: equipment
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 410
+  'y': 480
+  wires:
+    - - d5c916c299edcb9f
+      - 7afb40590b753ef6
+- id: 01735f0d9bfc36a4
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: plant
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: form.plant
+      tot: msg
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 630
+  'y': 240
+  wires:
+    - - 8e0337706c17b923
+- id: caf45a304f314972
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: line
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: form.line
+      tot: msg
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 630
+  'y': 360
+  wires:
+    - - bca6e05b25b19f0f
+- id: d5c916c299edcb9f
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: equipment
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: form.equipment
+      tot: msg
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 480
+  wires:
+    - - 338d499cedaeb127
+- id: 035116df27f15938
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: select
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: global
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      pt: global
+      to: form.plant
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
+      pt: global
+      to: form.line
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: global
+      to: form.equipment
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]link'
+      pt: global
+      to: form.link
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]component'
+      pt: global
+      to: form.entity
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+    - t: delete
+      p: parts
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 600
+  wires:
+    - - 850ef72497f44484
+- id: ed14c7b8771b84f4
+  type: delay
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: 200ms
+  pauseType: delay
+  timeout: '200'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 270
+  'y': 240
+  wires:
+    - - a0068803390a6408
+- id: 7afb40590b753ef6
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: entity
+  property: form
+  propertyType: msg
+  rules:
+    - t: hask
+      v: entity
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 430
+  'y': 540
+  wires:
+    - - 5148f2d00e7b9aad
+- id: 5148f2d00e7b9aad
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: get
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.endpoint
+      tot: global
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 540
+  wires:
+    - - 31ee50ea0fd72478
+- id: 31ee50ea0fd72478
+  type: split
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: form.link
+  property: payload
+  x: 750
+  'y': 540
+  wires:
+    - - 4711646502949fc1
+- id: 4711646502949fc1
+  type: switch
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: endpoint
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: form.entity
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 920
+  'y': 540
+  wires:
+    - - 78320891da2bdb6f
+      - 035116df27f15938
+- id: 850ef72497f44484
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 600
+  wires:
+    - - 2679176365176d11
+      - a37b108cbd614ed7
+      - 6b1ab6944e3ceb11
+- id: 78320891da2bdb6f
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: link
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: form.link
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 540
+  wires:
+    - - eeded62d33769e8c

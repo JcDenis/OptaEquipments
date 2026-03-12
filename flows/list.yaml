@@ -22,9 +22,11 @@
     - da647da1a3bbd5c6
     - 4d7de69ac9f7a218
     - 8c90f15432b5f5f2
+    - 712dee8e0aa3fed5
+    - 716fd198bbd63dcb
   x: 124
   'y': 279
-  w: 1342
+  w: 1572
   h: 142
 - id: 1c2d5f046ccecc9d
   type: group
@@ -91,6 +93,30 @@
   'y': 639
   w: 1322
   h: 142
+- id: a50af16c6cbdc476
+  type: group
+  z: e97c6f12735a13c1
+  name: ui - schdeule
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - ed28d944f992c057
+    - 11da55b6471a7bb6
+    - 92b9fb06ece9089d
+    - 448f9c3c46b72e57
+    - 380c222d4034a402
+    - ccb6b00918f82506
+    - 5ed601fa56386341
+    - 9a28a0d564bb5e5c
+    - 43ce0ef8844bb328
+    - ecc207aaea4247d0
+    - 7cbf38916d947726
+  x: 124
+  'y': 839
+  w: 1532
+  h: 142
 - id: 28b85f45e33eef42
   type: link in
   z: e97c6f12735a13c1
@@ -123,7 +149,7 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'label':'Equipement',\t        'value':'equipment'\t    },\t    {\t        'label':'Materiel',\t        'value':'device'\t    },\t    {\t        'label':'Composant',\t        'value':'componant'\t    }\t]"
+      to: "[\t    {\t        'label':'Equipement',\t        'value':'equipment'\t    },\t    {\t        'label':'Programmation',\t        'value':'schedule'\t    },\t    {\t        'label':'Materiel',\t        'value':'device'\t    },\t    {\t        'label':'Composant',\t        'value':'componant'\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -236,6 +262,7 @@
     - c0261e8841790dd0
     - 2310141e1336bdc7
     - 30d9b3b967fbbc14
+    - 43ce0ef8844bb328
   x: 1135
   'y': 140
   wires: []
@@ -494,7 +521,7 @@
   autocols: false
   showSearch: true
   deselect: true
-  selectionType: none
+  selectionType: click
   columns:
     - title: Usine
       key: plant_full
@@ -521,7 +548,7 @@
   x: 1330
   'y': 320
   wires:
-    - []
+    - - 712dee8e0aa3fed5
 - id: 8c90f15432b5f5f2
   type: debug
   z: e97c6f12735a13c1
@@ -608,7 +635,7 @@
   group: c605809a8fe63a3b
   name: ui - list - device
   label: ''
-  order: 3
+  order: 4
   width: 0
   height: 0
   maxrows: 0
@@ -769,7 +796,7 @@
   type: link in
   z: e97c6f12735a13c1
   g: baadcf077dabb0e1
-  name: ui - list - composant
+  name: ui - list - componant
   links:
     - 1b3e234bed8047a0
   x: 165
@@ -802,7 +829,7 @@
   type: change
   z: e97c6f12735a13c1
   g: baadcf077dabb0e1
-  name: devices
+  name: endpoints
   rules:
     - t: set
       p: payload
@@ -835,7 +862,7 @@
   group: c605809a8fe63a3b
   name: ui - list - componant
   label: ''
-  order: 4
+  order: 5
   width: 0
   height: 0
   maxrows: 0
@@ -1052,3 +1079,390 @@
   wires:
     - - 2bc6c3a18cffaa03
       - 3e937cd3b8507591
+- id: ed28d944f992c057
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  group: c605809a8fe63a3b
+  name: ui - list - schedule
+  label: ''
+  order: 3
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Equipement
+      key: equipment_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Composant
+      key: component_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Début
+      key: start_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Fin
+      key: stop_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 1290
+  'y': 880
+  wires:
+    - - ecc207aaea4247d0
+- id: 11da55b6471a7bb6
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: schedules
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.schedule
+      tot: global
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: row
+      pt: msg
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 440
+  'y': 940
+  wires:
+    - - 92b9fb06ece9089d
+- id: 92b9fb06ece9089d
+  type: split
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: row.entity
+  property: payload
+  x: 610
+  'y': 940
+  wires:
+    - - 448f9c3c46b72e57
+- id: 448f9c3c46b72e57
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: row
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.row.entity,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.equipment_name
+      pt: msg
+      to: 'kernel.equipment[msg.row.equipment]'
+      tot: global
+    - t: set
+      p: row.equipment_full
+      pt: msg
+      to: msg.row.equipment_name & ' (' & msg.row.equipment & ')'
+      tot: jsonata
+    - t: set
+      p: row.component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: row.component_name
+      pt: msg
+      to: 'kernel.name[msg.row.entity]'
+      tot: global
+    - t: set
+      p: row.component_full
+      pt: msg
+      to: msg.row.component_name & ' (' & msg.row.component & ')'
+      tot: jsonata
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.payload,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.startday
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.startday_name
+      pt: msg
+      to: '#:(memoryOnly)::describe.day[msg.row.startday]'
+      tot: global
+    - t: set
+      p: row.starttime
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: row.start_full
+      pt: msg
+      to: msg.row.startday_name & ' ' & msg.row.starttime
+      tot: jsonata
+    - t: set
+      p: row.stopday
+      pt: msg
+      to: 'split[2]'
+      tot: msg
+    - t: set
+      p: row.stopday_name
+      pt: msg
+      to: '#:(memoryOnly)::describe.day[msg.row.stopday]'
+      tot: global
+    - t: set
+      p: row.stoptime
+      pt: msg
+      to: 'split[3]'
+      tot: msg
+    - t: set
+      p: row.stop_full
+      pt: msg
+      to: msg.row.stopday_name & ' ' & msg.row.stoptime
+      tot: jsonata
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+    - t: delete
+      p: split
+      pt: msg
+    - t: set
+      p: row.line
+      pt: msg
+      to: 'kernel.equipments[msg.row.equipment]'
+      tot: global
+    - t: set
+      p: row.plant
+      pt: msg
+      to: 'kernel.lines[msg.row.line]'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 770
+  'y': 940
+  wires:
+    - - 380c222d4034a402
+- id: 380c222d4034a402
+  type: join
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: ''
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: 'false'
+  timeout: ''
+  count: ''
+  reduceRight: false
+  x: 930
+  'y': 940
+  wires:
+    - - ccb6b00918f82506
+- id: ccb6b00918f82506
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: rows
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: delete
+      p: 'payload[0]'
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 940
+  wires:
+    - - 5ed601fa56386341
+      - ed28d944f992c057
+- id: 5ed601fa56386341
+  type: debug
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: ui - list - schedule
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1290
+  'y': 940
+  wires: []
+- id: 9a28a0d564bb5e5c
+  type: switch
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: list
+  property: list
+  propertyType: msg
+  rules:
+    - t: eq
+      v: ''
+      vt: str
+    - t: eq
+      v: schedule
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 290
+  'y': 880
+  wires:
+    - - ed28d944f992c057
+    - - 11da55b6471a7bb6
+- id: 43ce0ef8844bb328
+  type: link in
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: ui - list - schedule
+  links:
+    - 1b3e234bed8047a0
+  x: 165
+  'y': 880
+  wires:
+    - - 9a28a0d564bb5e5c
+- id: 712dee8e0aa3fed5
+  type: change
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: tab
+  rules:
+    - t: set
+      p: form
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: Visualisation
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1530
+  'y': 320
+  wires:
+    - - 716fd198bbd63dcb
+- id: 716fd198bbd63dcb
+  type: link out
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: ui - list - equipment - row
+  mode: link
+  links:
+    - 00818f8c0686b556
+    - b24713f215fa93c7
+  x: 1655
+  'y': 320
+  wires: []
+- id: ecc207aaea4247d0
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: tab
+  rules:
+    - t: set
+      p: form
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: Programmation
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1490
+  'y': 880
+  wires:
+    - - 7cbf38916d947726
+- id: 7cbf38916d947726
+  type: link out
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: ui - list - equipment - row
+  mode: link
+  links:
+    - 00818f8c0686b556
+    - be744d9b5ed21633
+  x: 1615
+  'y': 880
+  wires: []

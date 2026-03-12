@@ -97,6 +97,7 @@
     - 7bba6594f41302c2
     - e0b4c721460909ae
     - 0233bc571f3d02db
+    - 00818f8c0686b556
   x: 104
   'y': 1659
   w: 782
@@ -295,6 +296,8 @@
     - 54fd1f2eca676e0d
     - 8894c5d4699b0a0c
     - cd9312927e6f5747
+    - a290376a4f520463
+    - 84ee621521a80faf
   x: 145
   'y': 560
   wires:
@@ -491,6 +494,7 @@
     - 1bd9c70a5be52bdc
     - 28b85f45e33eef42
     - eba6e18370fbfe76
+    - f1cf974fa2747751
   x: 755
   'y': 140
   wires: []
@@ -511,12 +515,17 @@
       to: '{}'
       tot: jsonata
     - t: delete
-      p: describe
+      p: '#:(memoryOnly)::describe'
       pt: global
     - t: set
       p: '#:(memoryOnly)::describe.component'
       pt: global
       to: "{\t    'run':'Lecture état de fonctionnement (run)',\t    'heat':'Lecture état de chauffe (heat)',\t    'voltage':'Lecture de tension (voltage)',\t    'power':'Lecture de puisance (power)',\t    '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t    'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t    'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t    'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t    'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t    'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t    'heatlink':'Commande de chauffe inverseur lié à une mesure (heatlink)',\t    'reset':\"Commande de RAZ compteurs partiel (reset)\"\t}"
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::describe.day'
+      pt: global
+      to: "{\t    '0':'Dimanche',\t    '1':'Lundi',\t    '2':'Mardi',\t    '3':'Mercredi',\t    '4':'Jeudi',\t    '5':'Vendredi',\t    '6':'Samedi',\t    '7':'Dimanche'\t}"
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::version'
@@ -726,6 +735,7 @@
     - 5f6f52df59cd8e40
     - 2e0c6e8b3e58b338
     - c26a749118b05f68
+    - 5483fdf0d589446d
   x: 145
   'y': 1880
   wires:
@@ -880,6 +890,15 @@
       tot: jsonata
     - t: delete
       p: kernel
+      pt: msg
+    - t: delete
+      p: form
+      pt: msg
+    - t: delete
+      p: options
+      pt: msg
+    - t: delete
+      p: action
       pt: msg
   action: ''
   property: ''
@@ -1738,9 +1757,10 @@
   name: ui - control - change
   mode: link
   links:
+    - 28b85f45e33eef42
     - 4f99c7d8a5dd1b70
     - c344b98bc4ee57db
-    - 28b85f45e33eef42
+    - f1cf974fa2747751
   x: 735
   'y': 1700
   wires: []
@@ -1830,3 +1850,15 @@
   x: 400
   'y': 860
   wires: []
+- id: 00818f8c0686b556
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ui - control
+  links:
+    - 716fd198bbd63dcb
+    - 7cbf38916d947726
+  x: 145
+  'y': 1700
+  wires:
+    - - ba6ef07c6e523872
