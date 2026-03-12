@@ -98,10 +98,11 @@
     - e0b4c721460909ae
     - 0233bc571f3d02db
     - 00818f8c0686b556
+    - 3450fffd4f368319
   x: 104
-  'y': 1899
+  'y': 1839
   w: 782
-  h: 322
+  h: 382
 - id: 3560ed94bd8a03cc
   type: group
   z: f6f2187d.f17ca8
@@ -513,6 +514,8 @@
     - 28b85f45e33eef42
     - eba6e18370fbfe76
     - f1cf974fa2747751
+    - c35f300acdd011a9
+    - 2315058a360d8287
   x: 755
   'y': 140
   wires: []
@@ -609,7 +612,7 @@
   statusVal: ''
   statusType: auto
   x: 780
-  'y': 2000
+  'y': 1940
   wires: []
 - id: d82f731a51f1d464
   type: debug
@@ -625,7 +628,7 @@
   statusVal: ''
   statusType: auto
   x: 460
-  'y': 2000
+  'y': 1940
   wires: []
 - id: f3fbc10f1f75603c
   type: ui-event
@@ -634,7 +637,7 @@
   ui: 68fb8d742e5053db
   name: ''
   x: 270
-  'y': 2000
+  'y': 1940
   wires:
     - - d82f731a51f1d464
 - id: ba6ef07c6e523872
@@ -645,7 +648,7 @@
   ui: 68fb8d742e5053db
   events: all
   x: 280
-  'y': 1940
+  'y': 1880
   wires:
     - - e0b4c721460909ae
 - id: 41c767836b03252b
@@ -706,7 +709,7 @@
   templateScope: 'site:style'
   className: ''
   x: 280
-  'y': 2060
+  'y': 2000
   wires:
     - []
 - id: 6640363c796f547b
@@ -717,9 +720,10 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 2060
+  'y': 2000
   wires:
     - - 430e091bb05b99e7
+      - 3450fffd4f368319
 - id: 457bd17747e44d56
   type: ui-notification
   z: f6f2187d.f17ca8
@@ -1785,8 +1789,9 @@
     - 4f99c7d8a5dd1b70
     - c344b98bc4ee57db
     - f1cf974fa2747751
+    - 2b792c2de9672677
   x: 735
-  'y': 1940
+  'y': 1880
   wires: []
 - id: 4de1644d9063dd22
   type: switch
@@ -1825,7 +1830,7 @@
   repair: false
   outputs: 2
   x: 450
-  'y': 1940
+  'y': 1880
   wires:
     - - 0233bc571f3d02db
     - - 0233bc571f3d02db
@@ -1852,7 +1857,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 1940
+  'y': 1880
   wires:
     - - 7bba6594f41302c2
       - 23dd24021e2cecf1
@@ -1883,7 +1888,7 @@
     - 716fd198bbd63dcb
     - 7cbf38916d947726
   x: 145
-  'y': 1940
+  'y': 1880
   wires:
     - - ba6ef07c6e523872
 - id: a9ad7634b2385d00
@@ -1983,3 +1988,44 @@
   'y': 1700
   wires:
     - - a9ad7634b2385d00
+- id: 3450fffd4f368319
+  type: ui-template
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  group: ''
+  page: ''
+  ui: 68fb8d742e5053db
+  name: ''
+  order: 0
+  width: 0
+  height: 0
+  head: ''
+  format: |-
+
+    <template>
+        <Teleport v-if="mounted" to="#app-bar-actions">
+            <img height="32px" src="/icon.png"></img>
+        </Teleport>
+    </template>
+
+    <script>
+        export default {
+            data() {
+                return {
+                    mounted: false
+                }
+            },
+            mounted() {
+                this.mounted = true
+            }
+        }
+    </script>
+  storeOutMessages: true
+  passthru: true
+  resendOnRefresh: true
+  templateScope: 'widget:ui'
+  className: ''
+  x: 280
+  'y': 2060
+  wires:
+    - []
