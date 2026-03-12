@@ -99,7 +99,7 @@
     - 0233bc571f3d02db
     - 00818f8c0686b556
   x: 104
-  'y': 1659
+  'y': 1899
   w: 782
   h: 322
 - id: 3560ed94bd8a03cc
@@ -197,6 +197,24 @@
   x: 104
   'y': 759
   w: 1322
+  h: 142
+- id: 07d0b33fdb6c6755
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - db
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - a9ad7634b2385d00
+    - 9b7c164fdabb6ad3
+    - 980eaf2e5115b7fb
+    - 1875a8a1b0f19fa5
+    - da46e356e9803207
+  x: 104
+  'y': 1659
+  w: 842
   h: 142
 - id: 0fd3e33ded41a4bb
   type: debug
@@ -528,6 +546,11 @@
       to: "{\t    '0':'Dimanche',\t    '1':'Lundi',\t    '2':'Mardi',\t    '3':'Mercredi',\t    '4':'Jeudi',\t    '5':'Vendredi',\t    '6':'Samedi',\t    '7':'Dimanche'\t}"
       tot: jsonata
     - t: set
+      p: '#:(memoryOnly)::describe.resolution'
+      pt: global
+      to: "{\t    '1':'1 minute',\t    '2':'2 minutes',\t    '5':'5 minutes',\t    '15':'15 minutes',\t    '30':'30 minutes',\t    '60':'1 heure'\t}"
+      tot: jsonata
+    - t: set
       p: '#:(memoryOnly)::version'
       pt: global
       to: 0.1.0
@@ -586,7 +609,7 @@
   statusVal: ''
   statusType: auto
   x: 780
-  'y': 1760
+  'y': 2000
   wires: []
 - id: d82f731a51f1d464
   type: debug
@@ -602,7 +625,7 @@
   statusVal: ''
   statusType: auto
   x: 460
-  'y': 1760
+  'y': 2000
   wires: []
 - id: f3fbc10f1f75603c
   type: ui-event
@@ -611,7 +634,7 @@
   ui: 68fb8d742e5053db
   name: ''
   x: 270
-  'y': 1760
+  'y': 2000
   wires:
     - - d82f731a51f1d464
 - id: ba6ef07c6e523872
@@ -622,7 +645,7 @@
   ui: 68fb8d742e5053db
   events: all
   x: 280
-  'y': 1700
+  'y': 1940
   wires:
     - - e0b4c721460909ae
 - id: 41c767836b03252b
@@ -683,7 +706,7 @@
   templateScope: 'site:style'
   className: ''
   x: 280
-  'y': 1820
+  'y': 2060
   wires:
     - []
 - id: 6640363c796f547b
@@ -694,7 +717,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 1820
+  'y': 2060
   wires:
     - - 430e091bb05b99e7
 - id: 457bd17747e44d56
@@ -716,7 +739,7 @@
   className: ''
   name: ''
   x: 310
-  'y': 1880
+  'y': 2120
   wires:
     - []
 - id: 4e94023e8ba12f50
@@ -737,7 +760,7 @@
     - c26a749118b05f68
     - 5483fdf0d589446d
   x: 145
-  'y': 1880
+  'y': 2120
   wires:
     - - 457bd17747e44d56
       - 3808fde4099a032e
@@ -1269,7 +1292,7 @@
   statusVal: ''
   statusType: auto
   x: 280
-  'y': 1940
+  'y': 2180
   wires: []
 - id: 208f67135b531d2d
   type: change
@@ -1747,6 +1770,7 @@
   links:
     - 02bbc60330c9f5d0
     - 1472ee8de6253740
+    - 980eaf2e5115b7fb
   x: 1255
   'y': 800
   wires: []
@@ -1762,7 +1786,7 @@
     - c344b98bc4ee57db
     - f1cf974fa2747751
   x: 735
-  'y': 1700
+  'y': 1940
   wires: []
 - id: 4de1644d9063dd22
   type: switch
@@ -1801,7 +1825,7 @@
   repair: false
   outputs: 2
   x: 450
-  'y': 1700
+  'y': 1940
   wires:
     - - 0233bc571f3d02db
     - - 0233bc571f3d02db
@@ -1828,7 +1852,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 1700
+  'y': 1940
   wires:
     - - 7bba6594f41302c2
       - 23dd24021e2cecf1
@@ -1859,6 +1883,103 @@
     - 716fd198bbd63dcb
     - 7cbf38916d947726
   x: 145
-  'y': 1700
+  'y': 1940
   wires:
     - - ba6ef07c6e523872
+- id: a9ad7634b2385d00
+  type: change
+  z: f6f2187d.f17ca8
+  g: 07d0b33fdb6c6755
+  name: prepare
+  rules:
+    - t: set
+      p: measurement
+      pt: msg
+      to: kernel.equipment
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '[{msg.kernel.component:msg.kernel.value}]'
+      tot: jsonata
+    - t: delete
+      p: kernel
+      pt: msg
+    - t: delete
+      p: endpoint
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 640
+  'y': 1760
+  wires:
+    - - 9b7c164fdabb6ad3
+- id: 9b7c164fdabb6ad3
+  type: influxdb out
+  z: f6f2187d.f17ca8
+  g: 07d0b33fdb6c6755
+  influxdb: 71289f771ef25fc5
+  name: influxdb - state
+  measurement: ''
+  precision: ''
+  retentionPolicy: ''
+  database: database
+  precisionV18FluxV20: ms
+  retentionPolicyV18Flux: ''
+  org: SPI
+  bucket: state
+  x: 840
+  'y': 1760
+  wires: []
+- id: 980eaf2e5115b7fb
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 07d0b33fdb6c6755
+  name: kernel - db - out
+  links:
+    - 050a29c043a85584
+  x: 145
+  'y': 1760
+  wires:
+    - - 1875a8a1b0f19fa5
+- id: 1875a8a1b0f19fa5
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 07d0b33fdb6c6755
+  name: component
+  property: kernel.component
+  propertyType: msg
+  rules:
+    - t: eq
+      v: cycle
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 290
+  'y': 1760
+  wires:
+    - - da46e356e9803207
+    - - a9ad7634b2385d00
+- id: da46e356e9803207
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 07d0b33fdb6c6755
+  name: value
+  property: kernel.value
+  propertyType: msg
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 470
+  'y': 1700
+  wires:
+    - - a9ad7634b2385d00

@@ -123,6 +123,65 @@
   'y': 1419
   w: 1482
   h: 142
+- id: 1c87eaf6a557f02d
+  type: group
+  z: 852390cb9559e176
+  name: ui - graph
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - b5082fd6f739991d
+    - 67dd6befba96ef0c
+    - 349f0b378e7f347d
+    - 23b960bb1561651b
+    - 3e42541f14d8d3d2
+    - 2de882ed4b5e4aa7
+    - 823b7f18ffcb5342
+    - 567e3a1d5a7c8aaf
+    - 257342dfc837914c
+    - c1e9137251068435
+    - ffb6b9165aafd73f
+    - 5f07c668b4f7fe2f
+    - ea6288d7d75ca45c
+    - ad5bda6bab168115
+    - 0ecbded430697061
+    - aed57b87eed6c474
+    - e782ae90ecd18377
+    - f4d82c7df7ca7056
+    - df0990a013b7915d
+    - 171d150b4d48853f
+    - 6cc43fd6ece38fce
+    - 912bed5d36f6064a
+    - 3497303f62c5ab51
+    - e914fa1767daf0cb
+    - a8b8861415bce2d2
+    - db771c38740515ac
+    - 7962737de74929a4
+    - 9d9e8ab41e604d40
+    - 494a578bfb7396a0
+    - d8dbd2db52e7c87f
+    - f3a4fbd1914b8411
+    - 4d52c26fcc8d13fb
+    - 42df60fa4de47b17
+    - 16f4712aa2f4a3b9
+    - bb491e75635c775c
+    - b4bb323cb47c0ce8
+    - 7d95ec8466c90bee
+    - 6f7f4d9d6972c32a
+    - ae421424c4817a45
+    - a430680e1dc2233e
+    - d9fa9986bd620364
+    - 38d76fb8bec3c348
+    - 8dc42518cd8b8b74
+    - f647395af025317d
+    - ac566d146cb42b27
+    - 876dfdf9ba6020e6
+  x: 104
+  'y': 1599
+  w: 4302
+  h: 322
 - id: 3117e4cb1d6eaca3
   type: change
   z: 852390cb9559e176
@@ -323,6 +382,11 @@
       pt: msg
       to: remove
       tot: str
+    - t: set
+      p: '#:(memoryOnly)::equipment'
+      pt: flow
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -496,6 +560,7 @@
   links:
     - 8104e13e7b473d2f
     - c1f639a0f41c2d70
+    - b5082fd6f739991d
   x: 1715
   'y': 80
   wires: []
@@ -1886,6 +1951,7 @@
   mode: link
   links:
     - 10c0c8612c286473
+    - b5082fd6f739991d
   x: 1755
   'y': 380
   wires: []
@@ -2125,3 +2191,1111 @@
   wires:
     - - 71ab4779af230c83
       - 72e1a87e02fcef30
+- id: b5082fd6f739991d
+  type: link in
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: ui - graph
+  links:
+    - 3fdd05d35f701608
+    - bd7c74e40976d045
+  x: 145
+  'y': 1640
+  wires:
+    - - 2de882ed4b5e4aa7
+      - 823b7f18ffcb5342
+- id: 67dd6befba96ef0c
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 757026cbcc145aea
+  name: ui - graph - date
+  label: Date
+  order: 1
+  width: '2'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: date
+  tooltip: ''
+  delay: 300
+  passthru: true
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1980
+  'y': 1700
+  wires:
+    - - 349f0b378e7f347d
+- id: 349f0b378e7f347d
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2210
+  'y': 1700
+  wires:
+    - - 257342dfc837914c
+- id: 23b960bb1561651b
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: ui - date - now
+  topic: ''
+  input: ''
+  inputType: date
+  inTz: Europe/Paris
+  adjAmount: '6'
+  adjType: hours
+  adjDir: subtract
+  format: YYYY-MM-DD
+  locale: en-US
+  output: curday
+  outputType: msg
+  outTz: Europe/Paris
+  x: 1520
+  'y': 1820
+  wires:
+    - - 3e42541f14d8d3d2
+- id: 3e42541f14d8d3d2
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: curday
+      tot: msg
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1720
+  'y': 1700
+  wires:
+    - - 67dd6befba96ef0c
+- id: 2de882ed4b5e4aa7
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1790
+  'y': 1640
+  wires:
+    - - 67dd6befba96ef0c
+      - ffb6b9165aafd73f
+      - 38d76fb8bec3c348
+      - ac566d146cb42b27
+- id: 823b7f18ffcb5342
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: enabled
+  property: class
+  propertyType: msg
+  rules:
+    - t: neq
+      v: remove
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 280
+  'y': 1820
+  wires:
+    - - 567e3a1d5a7c8aaf
+- id: 567e3a1d5a7c8aaf
+  type: delay
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: 20ms
+  pauseType: delay
+  timeout: '20'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 450
+  'y': 1820
+  wires:
+    - - 7d95ec8466c90bee
+- id: 257342dfc837914c
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: prepare
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]date'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]resolution'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2380
+  'y': 1700
+  wires:
+    - - c1e9137251068435
+- id: c1e9137251068435
+  type: link call
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: ''
+  links:
+    - cc29628a29dea305
+  linkType: static
+  timeout: '30'
+  x: 1750
+  'y': 1760
+  wires:
+    - - ffb6b9165aafd73f
+- id: ffb6b9165aafd73f
+  type: ui-dropdown
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 757026cbcc145aea
+  name: ui - graph - resolution
+  label: Sélectionner une résolution
+  tooltip: ''
+  order: 2
+  width: '2'
+  height: '1'
+  passthru: true
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 2000
+  'y': 1760
+  wires:
+    - - 5f07c668b4f7fe2f
+- id: 5f07c668b4f7fe2f
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2210
+  'y': 1760
+  wires:
+    - - ea6288d7d75ca45c
+- id: ea6288d7d75ca45c
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: prepare
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]resolution'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: delay
+      pt: msg
+      to: $number(msg.payload)*60000
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: 'msg.curday & ''T00:00:00Z'''
+      tot: jsonata
+    - t: set
+      p: form
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2380
+  'y': 1760
+  wires:
+    - - 38d76fb8bec3c348
+      - 876dfdf9ba6020e6
+- id: ad5bda6bab168115
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - ts
+  topic: ''
+  input: payload
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '6'
+  adjType: hours
+  adjDir: add
+  format: X
+  locale: en-US
+  output: ts
+  outputType: msg
+  outTz: Europe/Paris
+  x: 2880
+  'y': 1760
+  wires:
+    - - 0ecbded430697061
+      - e782ae90ecd18377
+- id: 0ecbded430697061
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - start
+  topic: ''
+  input: ts
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '0'
+  adjType: days
+  adjDir: add
+  format: 'YYYY-MM-DDT06:00:00Z'
+  locale: en-US
+  output: start
+  outputType: msg
+  outTz: Europe/Paris
+  x: 3070
+  'y': 1700
+  wires:
+    - - aed57b87eed6c474
+- id: aed57b87eed6c474
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - stop
+  topic: ''
+  input: ts
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '1'
+  adjType: days
+  adjDir: add
+  format: 'YYYY-MM-DDT06:00:00Z'
+  locale: en-US
+  output: stop
+  outputType: msg
+  outTz: Europe/Paris
+  x: 3270
+  'y': 1700
+  wires:
+    - - df0990a013b7915d
+- id: e782ae90ecd18377
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - start
+  topic: ''
+  input: ts
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '0'
+  adjType: days
+  adjDir: add
+  format: 'YYYY-MM-DDT06:00:00Z'
+  locale: en-US
+  output: start
+  outputType: msg
+  outTz: Europe/Paris
+  x: 3070
+  'y': 1820
+  wires:
+    - - f4d82c7df7ca7056
+- id: f4d82c7df7ca7056
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - stop
+  topic: ''
+  input: ts
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '1'
+  adjType: days
+  adjDir: add
+  format: 'YYYY-MM-DDT06:00:00Z'
+  locale: en-US
+  output: stop
+  outputType: msg
+  outTz: Europe/Paris
+  x: 3270
+  'y': 1820
+  wires:
+    - - 6cc43fd6ece38fce
+- id: df0990a013b7915d
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: prepare
+  rules:
+    - t: set
+      p: query
+      pt: msg
+      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> window(period: ' & msg.form.resolution & 'm)' &\t'  |> group(columns: [\"_start\"])' &\t'  |> count()'"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3460
+  'y': 1700
+  wires:
+    - - 171d150b4d48853f
+- id: 171d150b4d48853f
+  type: influxdb in
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  influxdb: 71289f771ef25fc5
+  name: ''
+  query: ''
+  rawOutput: false
+  precision: ''
+  retentionPolicy: ''
+  org: SPI
+  x: 3670
+  'y': 1700
+  wires:
+    - - 3497303f62c5ab51
+- id: 6cc43fd6ece38fce
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: prepare
+  rules:
+    - t: set
+      p: form.resolution
+      pt: msg
+      to: '60'
+      tot: num
+    - t: set
+      p: query
+      pt: msg
+      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> window(period: ' & msg.form.resolution & 'm)' &\t'  |> group(columns: [\"_start\"])' &\t'  |> count()'"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: '#:(memoryOnly)::hour[msg.form.equipment][msg.form.component]'
+      pt: flow
+      to: "[\t    {'_start':'6h+','_value':0},\t    {'_start':'7h+','_value':0},\t    {'_start':'8h+','_value':0},\t    {'_start':'9h+','_value':0},\t    {'_start':'10h+','_value':0},\t    {'_start':'11h+','_value':0},\t    {'_start':'12h+','_value':0},\t    {'_start':'13h+','_value':0},\t    {'_start':'14h+','_value':0},\t    {'_start':'15h+','_value':0},\t    {'_start':'16h+','_value':0},\t    {'_start':'17h+','_value':0},\t    {'_start':'18h+','_value':0},\t    {'_start':'19h+','_value':0},\t    {'_start':'20h+','_value':0},\t    {'_start':'21h+','_value':0},\t    {'_start':'22h+','_value':0},\t    {'_start':'23h+','_value':0},\t    {'_start':'0h+','_value':0},\t    {'_start':'1h+','_value':0},\t    {'_start':'2h+','_value':0},\t    {'_start':'3h+','_value':0},\t    {'_start':'4h+','_value':0},\t    {'_start':'5h+','_value':0}\t]"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3460
+  'y': 1820
+  wires:
+    - - 912bed5d36f6064a
+- id: 912bed5d36f6064a
+  type: influxdb in
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  influxdb: 71289f771ef25fc5
+  name: ''
+  query: ''
+  rawOutput: false
+  precision: ''
+  retentionPolicy: ''
+  org: SPI
+  x: 3670
+  'y': 1820
+  wires:
+    - - e914fa1767daf0cb
+- id: 3497303f62c5ab51
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: not empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: empty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 3880
+  'y': 1700
+  wires:
+    - - 9d9e8ab41e604d40
+    - - a8b8861415bce2d2
+- id: e914fa1767daf0cb
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: not empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: empty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 3880
+  'y': 1820
+  wires:
+    - - 494a578bfb7396a0
+    - - 4d52c26fcc8d13fb
+- id: a8b8861415bce2d2
+  type: split
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: ''
+  property: payload
+  x: 3730
+  'y': 1760
+  wires:
+    - - db771c38740515ac
+- id: db771c38740515ac
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: mean
+  rules:
+    - t: set
+      p: payload._value
+      pt: msg
+      to: '$round(msg.payload._value/$number(msg.form.resolution),0)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3890
+  'y': 1760
+  wires:
+    - - 7962737de74929a4
+- id: 7962737de74929a4
+  type: join
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 4050
+  'y': 1760
+  wires:
+    - - d8dbd2db52e7c87f
+- id: 9d9e8ab41e604d40
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: raz
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '[]'
+      tot: jsonata
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 4050
+  'y': 1700
+  wires:
+    - - d8dbd2db52e7c87f
+- id: 494a578bfb7396a0
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: raz
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "[\t    {'_start':'6h+','_value':1},\t    {'_start':'7h+','_value':0},\t    {'_start':'8h+','_value':0},\t    {'_start':'9h+','_value':0},\t    {'_start':'10h+','_value':0},\t    {'_start':'11h+','_value':0},\t    {'_start':'12h+','_value':0},\t    {'_start':'13h+','_value':0},\t    {'_start':'14h+','_value':0},\t    {'_start':'15h+','_value':0},\t    {'_start':'16h+','_value':0},\t    {'_start':'17h+','_value':0},\t    {'_start':'18h+','_value':0},\t    {'_start':'19h+','_value':0},\t    {'_start':'20h+','_value':0},\t    {'_start':'21h+','_value':0},\t    {'_start':'22h+','_value':0},\t    {'_start':'23h+','_value':0},\t    {'_start':'0h+','_value':0},\t    {'_start':'1h+','_value':0},\t    {'_start':'2h+','_value':0},\t    {'_start':'3h+','_value':0},\t    {'_start':'4h+','_value':0},\t    {'_start':'5h+','_value':0}\t]"
+      tot: jsonata
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 4050
+  'y': 1820
+  wires:
+    - - f3a4fbd1914b8411
+- id: d8dbd2db52e7c87f
+  type: ui-chart
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 757026cbcc145aea
+  name: detail - cycle - chart date
+  label: cadence moyenne suivant résolution (en coups par minute)
+  order: 4
+  chartType: line
+  category: ''
+  categoryType: none
+  xAxisLabel: ''
+  xAxisProperty: _start
+  xAxisPropertyType: property
+  xAxisType: time
+  xAxisFormat: ''
+  xAxisFormatType: '{HH}:{mm}'
+  xmin: ''
+  xmax: ''
+  yAxisLabel: ''
+  yAxisProperty: _value
+  yAxisPropertyType: property
+  ymin: ''
+  ymax: ''
+  bins: 10
+  action: replace
+  stackSeries: false
+  pointShape: 'false'
+  pointRadius: 4
+  showLegend: false
+  removeOlder: 1
+  removeOlderUnit: '604800'
+  removeOlderPoints: '1440'
+  colors:
+    - '#0091ff'
+    - '#ff0000'
+    - '#ff7f0e'
+    - '#2ca02c'
+    - '#a347e1'
+    - '#d62728'
+    - '#ff9896'
+    - '#9467bd'
+    - '#c5b0d5'
+  textColor:
+    - '#666666'
+  textColorDefault: true
+  gridColor:
+    - '#e5e5e5'
+  gridColorDefault: true
+  width: '12'
+  height: '4'
+  className: ''
+  interpolation: step
+  x: 4270
+  'y': 1700
+  wires:
+    - []
+- id: f3a4fbd1914b8411
+  type: ui-chart
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 757026cbcc145aea
+  name: detail - cycle - chart hour
+  label: Cadence moyenne par heure (en cycles par minute)
+  order: 5
+  chartType: bar
+  category: ''
+  categoryType: none
+  xAxisLabel: ''
+  xAxisProperty: _start
+  xAxisPropertyType: property
+  xAxisType: category
+  xAxisFormat: ''
+  xAxisFormatType: '{HH}:{mm}'
+  xmin: ''
+  xmax: ''
+  yAxisLabel: ''
+  yAxisProperty: _value
+  yAxisPropertyType: property
+  ymin: '0'
+  ymax: ''
+  bins: 10
+  action: replace
+  stackSeries: false
+  pointShape: 'false'
+  pointRadius: 4
+  showLegend: false
+  removeOlder: 1
+  removeOlderUnit: '604800'
+  removeOlderPoints: '1000'
+  colors:
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+    - '#0091ff'
+  textColor:
+    - '#666666'
+  textColorDefault: true
+  gridColor:
+    - '#e5e5e5'
+  gridColorDefault: true
+  width: '12'
+  height: '4'
+  className: ''
+  interpolation: step
+  x: 4270
+  'y': 1820
+  wires:
+    - []
+- id: 4d52c26fcc8d13fb
+  type: split
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: ''
+  property: payload
+  x: 3410
+  'y': 1880
+  wires:
+    - - 42df60fa4de47b17
+- id: 42df60fa4de47b17
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: hour
+  topic: ''
+  input: payload._start
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '6'
+  adjType: hours
+  adjDir: subtract
+  format: H
+  locale: en-US
+  output: payload._start
+  outputType: msg
+  outTz: Europe/Paris
+  x: 3570
+  'y': 1880
+  wires:
+    - - 16f4712aa2f4a3b9
+- id: 16f4712aa2f4a3b9
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: flow
+  rules:
+    - t: set
+      p: payload._start
+      pt: msg
+      to: $number(msg.payload._start)
+      tot: jsonata
+    - t: set
+      p: payload._hour
+      pt: msg
+      to: msg.payload._start+6
+      tot: jsonata
+      dc: true
+    - t: set
+      p: payload._hour
+      pt: msg
+      to: 'msg.payload._hour>23?msg.payload._hour-24:msg.payload._hour'
+      tot: jsonata
+    - t: set
+      p: >-
+        #:(memoryOnly)::hour[msg.form.equipment][msg.form.component][msg.payload._start]
+      pt: flow
+      to: >-
+        {'_start':msg.payload._hour&'h+','_value':$round(msg.payload._value/60,0)}
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3730
+  'y': 1880
+  wires:
+    - - bb491e75635c775c
+- id: bb491e75635c775c
+  type: join
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 3890
+  'y': 1880
+  wires:
+    - - b4bb323cb47c0ce8
+- id: b4bb323cb47c0ce8
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: flow
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::hour[msg.form.equipment][msg.form.component]'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 4050
+  'y': 1880
+  wires:
+    - - f3a4fbd1914b8411
+- id: 7d95ec8466c90bee
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: get
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.state
+      tot: global
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]resolution'
+      pt: global
+      to: '2'
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 1820
+  wires:
+    - - 6f7f4d9d6972c32a
+- id: 6f7f4d9d6972c32a
+  type: split
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: ''
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: entity
+  property: payload
+  x: 770
+  'y': 1820
+  wires:
+    - - ae421424c4817a45
+- id: ae421424c4817a45
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: entity
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.entity,''|'')'
+      tot: jsonata
+    - t: set
+      p: form.component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 1820
+  wires:
+    - - a430680e1dc2233e
+- id: a430680e1dc2233e
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: equipment
+  property: equipment
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      vt: global
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1110
+  'y': 1820
+  wires:
+    - - d9fa9986bd620364
+- id: d9fa9986bd620364
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: component
+  property: form.component
+  propertyType: msg
+  rules:
+    - t: regex
+      v: ^(cycle)$
+      vt: str
+      case: false
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1310
+  'y': 1820
+  wires:
+    - - 23b960bb1561651b
+- id: 38d76fb8bec3c348
+  type: ui-button
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 757026cbcc145aea
+  name: ui - graph - refresh
+  label: Rafraichir
+  order: 3
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 1990
+  'y': 1820
+  wires:
+    - - 23b960bb1561651b
+- id: 8dc42518cd8b8b74
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: cycle
+  rules:
+    - t: set
+      p: form.component
+      pt: msg
+      to: cycle
+      tot: str
+    - t: delete
+      p: delay
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2710
+  'y': 1760
+  wires:
+    - - ad5bda6bab168115
+- id: f647395af025317d
+  type: trigger
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: refresh delay
+  op1: ''
+  op2: ''
+  op1type: nul
+  op2type: payl
+  duration: '250'
+  extend: true
+  overrideDelay: true
+  units: ms
+  reset: ''
+  bytopic: all
+  topic: topic
+  outputs: 1
+  x: 2730
+  'y': 1820
+  wires:
+    - - 23b960bb1561651b
+- id: ac566d146cb42b27
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 4050
+  'y': 1640
+  wires:
+    - - d8dbd2db52e7c87f
+      - f3a4fbd1914b8411
+- id: 876dfdf9ba6020e6
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: client
+  property: '#:(memoryOnly)::form[msg._client.socketId]'
+  propertyType: global
+  rules:
+    - t: hask
+      v: equipment
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2550
+  'y': 1760
+  wires:
+    - - 8dc42518cd8b8b74
+      - f647395af025317d
