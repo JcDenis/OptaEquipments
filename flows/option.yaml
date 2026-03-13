@@ -195,9 +195,12 @@
     - 340dae0bfa19f2b7
     - bf14f62980531d75
     - 5453049d5144fa47
+    - 5a3ddc2ce0149673
+    - 75588b97e7254cb3
+    - db78aa98849be037
   x: 104
   'y': 1419
-  w: 2062
+  w: 2582
   h: 202
 - id: 74adf515501063bc
   type: group
@@ -1667,7 +1670,7 @@
   x: 600
   'y': 1520
   wires:
-    - - bf14f62980531d75
+    - - 5a3ddc2ce0149673
 - id: 478e1af7189d34ba
   type: change
   z: adb9fbf379118d77
@@ -1686,18 +1689,12 @@
         {'label':msg.option_name & ' (' & msg.payload & ' - ' & msg.option_id &
         ')','value':msg.option_id}
       tot: jsonata
-    - t: delete
-      p: option_equipment
-      pt: msg
-    - t: delete
-      p: option_name
-      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1370
+  x: 1890
   'y': 1520
   wires:
     - - 0c85d5ed4ad7933b
@@ -1722,7 +1719,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1530
+  x: 2050
   'y': 1520
   wires:
     - - a4c92ef408c5c31c
@@ -1738,7 +1735,22 @@
       to: old_payload
       tot: msg
     - t: delete
+      p: form_equipment
+      pt: msg
+    - t: delete
       p: option_id
+      pt: msg
+    - t: delete
+      p: option_name
+      pt: msg
+    - t: delete
+      p: option_equipment
+      pt: msg
+    - t: delete
+      p: option_component
+      pt: msg
+    - t: delete
+      p: option_limit
       pt: msg
     - t: delete
       p: old_payload
@@ -1748,7 +1760,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1870
+  x: 2390
   'y': 1580
   wires:
     - - a47a294b8dc8491b
@@ -1760,7 +1772,7 @@
   name: option - link
   mode: return
   links: []
-  x: 1995
+  x: 2515
   'y': 1520
   wires: []
 - id: 3c599d800d92b4fe
@@ -1776,7 +1788,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2050
+  x: 2570
   'y': 1580
   wires: []
 - id: a4c92ef408c5c31c
@@ -1794,7 +1806,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1700
+  x: 2220
   'y': 1520
   wires:
     - - 5f509a0a1c93db7e
@@ -1803,17 +1815,16 @@
   z: adb9fbf379118d77
   g: ed61df18f5488ebe
   name: equipment
-  property: payload
+  property: option_equipment
   propertyType: msg
   rules:
-    - t: regex
-      v: '''^('' & msg.option_equipment & ''|)'''
-      vt: jsonata
-      case: false
-  checkall: 'true'
+    - t: eq
+      v: form_equipment
+      vt: msg
+  checkall: 'false'
   repair: true
   outputs: 1
-  x: 1190
+  x: 1710
   'y': 1460
   wires:
     - - 478e1af7189d34ba
@@ -1832,7 +1843,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 790
+  x: 1310
   'y': 1520
   wires:
     - - 5453049d5144fa47
@@ -1844,7 +1855,7 @@
   name: equipment
   rules:
     - t: set
-      p: option_equipment
+      p: form_equipment
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
       tot: global
@@ -1853,7 +1864,7 @@
   from: ''
   to: ''
   reg: false
-  x: 990
+  x: 1510
   'y': 1460
   wires:
     - - 340dae0bfa19f2b7
@@ -2102,9 +2113,6 @@
       pt: msg
       to: old_payload
       tot: msg
-    - t: delete
-      p: day
-      pt: msg
     - t: set
       p: options
       pt: msg
@@ -2112,6 +2120,9 @@
       tot: flow
     - t: delete
       p: old_payload
+      pt: msg
+    - t: delete
+      p: day
       pt: msg
   action: ''
   property: ''
@@ -2257,9 +2268,6 @@
   g: e31b0476c804c00a
   name: clean
   rules:
-    - t: delete
-      p: resolution
-      pt: msg
     - t: set
       p: payload
       pt: msg
@@ -2272,6 +2280,9 @@
       tot: flow
     - t: delete
       p: old_payload
+      pt: msg
+    - t: delete
+      p: resolution
       pt: msg
   action: ''
   property: ''
@@ -2309,3 +2320,73 @@
   x: 1110
   'y': 2140
   wires: []
+- id: 5a3ddc2ce0149673
+  type: change
+  z: adb9fbf379118d77
+  g: ed61df18f5488ebe
+  name: entity
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.payload,''|'')'
+      tot: jsonata
+    - t: set
+      p: option_equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: option_component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 770
+  'y': 1520
+  wires:
+    - - 75588b97e7254cb3
+- id: 75588b97e7254cb3
+  type: switch
+  z: adb9fbf379118d77
+  g: ed61df18f5488ebe
+  name: limit
+  property: option_limit
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 930
+  'y': 1520
+  wires:
+    - - db78aa98849be037
+    - - bf14f62980531d75
+- id: db78aa98849be037
+  type: switch
+  z: adb9fbf379118d77
+  g: ed61df18f5488ebe
+  name: component
+  property: option_component
+  propertyType: msg
+  rules:
+    - t: regex
+      v: '''^('' & msg.option_limit & '')$'''
+      vt: jsonata
+      case: false
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 1110
+  'y': 1460
+  wires:
+    - - bf14f62980531d75

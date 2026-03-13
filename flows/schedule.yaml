@@ -55,6 +55,7 @@
     - 4711646502949fc1
     - 850ef72497f44484
     - 78320891da2bdb6f
+    - 64a01f24531fc4e5
   x: 104
   'y': 79
   w: 2142
@@ -80,9 +81,12 @@
     - 26dd984b9684df67
     - ae60891abb18cde2
     - 84ee621521a80faf
+    - 9a3993d4ce72b68a
+    - d0311733bff17ec5
+    - fa5ff7c413635e51
   x: 104
   'y': 859
-  w: 1652
+  w: 2232
   h: 142
 - id: a82de02ec4a02ae4
   type: group
@@ -596,8 +600,8 @@
   x: 1870
   'y': 480
   wires:
-    - - eeded62d33769e8c
-      - 2679176365176d11
+    - - 2679176365176d11
+      - 64a01f24531fc4e5
 - id: 6bcd90c73167bcf3
   type: change
   z: 7ee6a73707bd804c
@@ -760,6 +764,12 @@
   deselect: true
   selectionType: none
   columns:
+    - title: ''
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
     - title: Equipement
       key: equipment_full
       keyType: key
@@ -794,7 +804,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1430
+  x: 2010
   'y': 900
   wires:
     - - ae60891abb18cde2
@@ -814,10 +824,10 @@
   type: link in
   z: 7ee6a73707bd804c
   g: 299d2b9769a03927
-  name: link in 1
+  name: ui - schedule - list
   links:
-    - d68f578b30c689cd
     - 86fa4bae075b543d
+    - d68f578b30c689cd
   x: 145
   'y': 900
   wires:
@@ -828,7 +838,7 @@
   g: 0401edc0b84af3f7
   name: 10ms
   pauseType: delay
-  timeout: '10'
+  timeout: '20'
   timeoutUnits: milliseconds
   rate: '1'
   nbRateUnits: '1'
@@ -882,6 +892,11 @@
       pt: msg
       to: '{}'
       tot: jsonata
+    - t: set
+      p: compare
+      pt: msg
+      to: '{}'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -890,7 +905,7 @@
   x: 460
   'y': 960
   wires:
-    - - 69f27e1dc518bdaa
+    - - 9a3993d4ce72b68a
 - id: 69f27e1dc518bdaa
   type: split
   z: 7ee6a73707bd804c
@@ -903,7 +918,7 @@
   stream: false
   addname: row.entity
   property: payload
-  x: 630
+  x: 1030
   'y': 960
   wires:
     - - 26dd984b9684df67
@@ -1011,10 +1026,10 @@
   from: ''
   to: ''
   reg: false
-  x: 950
+  x: 1350
   'y': 960
   wires:
-    - - e026443b1a1fa23c
+    - - fa5ff7c413635e51
 - id: e026443b1a1fa23c
   type: join
   z: 7ee6a73707bd804c
@@ -1032,7 +1047,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 1110
+  x: 1690
   'y': 960
   wires:
     - - c20aca8dc47be239
@@ -1050,12 +1065,15 @@
     - t: delete
       p: 'payload[0]'
       pt: msg
+    - t: delete
+      p: compare
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1270
+  x: 1850
   'y': 960
   wires:
     - - b024950b1015508f
@@ -1073,17 +1091,17 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1470
+  x: 2050
   'y': 960
   wires: []
 - id: 7efcd83f618ed5b8
   type: link in
   z: 7ee6a73707bd804c
   g: a82de02ec4a02ae4
-  name: link in 2
+  name: ui - schedule - add
   links:
-    - d68f578b30c689cd
     - 86fa4bae075b543d
+    - d68f578b30c689cd
   x: 145
   'y': 1080
   wires:
@@ -1764,6 +1782,7 @@
   links:
     - e60e4ab7617738c3
     - f1cf974fa2747751
+    - 167194fa30330915
   x: 1375
   'y': 1380
   wires: []
@@ -1792,7 +1811,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 790
+  x: 1190
   'y': 960
   wires:
     - - 14d7576b82d9940b
@@ -1843,7 +1862,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1590
+  x: 2170
   'y': 900
   wires:
     - - 84ee621521a80faf
@@ -1855,7 +1874,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1715
+  x: 2295
   'y': 900
   wires: []
 - id: be744d9b5ed21633
@@ -1947,7 +1966,7 @@
   from: ''
   to: ''
   reg: false
-  x: 630
+  x: 1090
   'y': 240
   wires:
     - - 8e0337706c17b923
@@ -1972,7 +1991,7 @@
   from: ''
   to: ''
   reg: false
-  x: 630
+  x: 1090
   'y': 360
   wires:
     - - bca6e05b25b19f0f
@@ -1997,7 +2016,7 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 1070
   'y': 480
   wires:
     - - 338d499cedaeb127
@@ -2060,7 +2079,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1090
+  x: 930
   'y': 600
   wires:
     - - 850ef72497f44484
@@ -2068,9 +2087,9 @@
   type: delay
   z: 7ee6a73707bd804c
   g: 0401edc0b84af3f7
-  name: 200ms
+  name: 250ms
   pauseType: delay
-  timeout: '200'
+  timeout: '250'
   timeoutUnits: milliseconds
   rate: '1'
   nbRateUnits: '1'
@@ -2099,7 +2118,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 430
+  x: 270
   'y': 540
   wires:
     - - 5148f2d00e7b9aad
@@ -2124,7 +2143,7 @@
   from: ''
   to: ''
   reg: false
-  x: 590
+  x: 430
   'y': 540
   wires:
     - - 31ee50ea0fd72478
@@ -2140,7 +2159,7 @@
   stream: false
   addname: form.link
   property: payload
-  x: 750
+  x: 590
   'y': 540
   wires:
     - - 4711646502949fc1
@@ -2158,7 +2177,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 920
+  x: 760
   'y': 540
   wires:
     - - 78320891da2bdb6f
@@ -2191,6 +2210,135 @@
       pt: msg
       to: form.link
       tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 540
+  wires:
+    - - 64a01f24531fc4e5
+- id: 9a3993d4ce72b68a
+  type: moment
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: current day
+  topic: ''
+  input: ''
+  inputType: date
+  inTz: Europe/Paris
+  adjAmount: 0
+  adjType: days
+  adjDir: add
+  format: d
+  locale: en-US
+  output: compare.curday
+  outputType: msg
+  outTz: Europe/Paris
+  x: 650
+  'y': 960
+  wires:
+    - - d0311733bff17ec5
+- id: d0311733bff17ec5
+  type: moment
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: current time
+  topic: ''
+  input: ''
+  inputType: date
+  inTz: Europe/Paris
+  adjAmount: 0
+  adjType: days
+  adjDir: add
+  format: Hmm
+  locale: en-US
+  output: compare.curtime
+  outputType: msg
+  outTz: Europe/Paris
+  x: 850
+  'y': 960
+  wires:
+    - - 69f27e1dc518bdaa
+- id: fa5ff7c413635e51
+  type: change
+  z: 7ee6a73707bd804c
+  g: 299d2b9769a03927
+  name: compare
+  rules:
+    - t: set
+      p: compare.startday
+      pt: msg
+      to: row.startday
+      tot: msg
+    - t: set
+      p: compare.starttime
+      pt: msg
+      to: '$join($split(msg.row.starttime,'':''),'''')'
+      tot: jsonata
+    - t: set
+      p: compare.stopday
+      pt: msg
+      to: row.stopday
+      tot: msg
+    - t: set
+      p: compare.stoptime
+      pt: msg
+      to: '$join($split(msg.row.stoptime,'':''),'''')'
+      tot: jsonata
+    - t: set
+      p: compare.curlimit
+      pt: msg
+      to: $number(msg.compare.curday & msg.compare.curtime)
+      tot: jsonata
+    - t: set
+      p: compare.startlimit
+      pt: msg
+      to: $number(msg.compare.startday & msg.compare.starttime)
+      tot: jsonata
+    - t: set
+      p: compare.stoplimit
+      pt: msg
+      to: $number(msg.compare.stopday & msg.compare.stoptime)
+      tot: jsonata
+    - t: set
+      p: row.state
+      pt: msg
+      to: >-
+        (msg.compare.startlimit <= msg.compare.curlimit) and
+        (msg.compare.curlimit <= msg.compare.stoplimit)
+      tot: jsonata
+    - t: set
+      p: row.state_name
+      pt: msg
+      to: 'msg.row.state?''Activée'':''Désactivée'''
+      tot: jsonata
+    - t: set
+      p: row.state_color
+      pt: msg
+      to: 'msg.row.state?''#008000'':''#FF0000'''
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1520
+  'y': 960
+  wires:
+    - - e026443b1a1fa23c
+- id: 64a01f24531fc4e5
+  type: change
+  z: 7ee6a73707bd804c
+  g: 0401edc0b84af3f7
+  name: limit
+  rules:
+    - t: set
+      p: option_limit
+      pt: msg
+      to: heatswitch|heattoggle
+      tot: str
   action: ''
   property: ''
   from: ''
