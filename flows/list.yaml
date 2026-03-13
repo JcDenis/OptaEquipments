@@ -22,11 +22,10 @@
     - da647da1a3bbd5c6
     - 4d7de69ac9f7a218
     - 8c90f15432b5f5f2
-    - 712dee8e0aa3fed5
-    - 716fd198bbd63dcb
+    - f29ed3c0b737adda
   x: 124
   'y': 279
-  w: 1572
+  w: 1412
   h: 142
 - id: 1c2d5f046ccecc9d
   type: group
@@ -111,14 +110,13 @@
     - 5ed601fa56386341
     - 9a28a0d564bb5e5c
     - 43ce0ef8844bb328
-    - ecc207aaea4247d0
-    - 7cbf38916d947726
     - b5bda084c23656bb
     - ec2ec72064d0bb6b
     - 3e55c15b26d272df
+    - 1e593eb496287d95
   x: 124
   'y': 839
-  w: 2112
+  w: 1952
   h: 142
 - id: 3e16528dec4157ee
   type: group
@@ -138,10 +136,27 @@
     - 81cd19dd2f6cae69
     - ac2f9e0ae2c36bf5
     - 28e40e89bfbd674f
+    - c3cf65de797d07e3
   x: 124
   'y': 1019
-  w: 1262
+  w: 1332
   h: 142
+- id: 09a03117ef8741bc
+  type: group
+  z: e97c6f12735a13c1
+  name: ui - list - tab
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 712dee8e0aa3fed5
+    - 716fd198bbd63dcb
+    - 576ca6cfd2aca638
+  x: 1624
+  'y': 279
+  w: 332
+  h: 82
 - id: 28b85f45e33eef42
   type: link in
   z: e97c6f12735a13c1
@@ -574,7 +589,7 @@
   x: 1330
   'y': 320
   wires:
-    - - 712dee8e0aa3fed5
+    - - f29ed3c0b737adda
 - id: 8c90f15432b5f5f2
   type: debug
   z: e97c6f12735a13c1
@@ -1159,7 +1174,7 @@
   x: 1870
   'y': 880
   wires:
-    - - ecc207aaea4247d0
+    - - 1e593eb496287d95
 - id: 11da55b6471a7bb6
   type: change
   z: e97c6f12735a13c1
@@ -1429,7 +1444,7 @@
 - id: 712dee8e0aa3fed5
   type: change
   z: e97c6f12735a13c1
-  g: 1dd6bd6835107ce6
+  g: 09a03117ef8741bc
   name: tab
   rules:
     - t: set
@@ -1450,61 +1465,21 @@
   from: ''
   to: ''
   reg: false
-  x: 1530
+  x: 1790
   'y': 320
   wires:
     - - 716fd198bbd63dcb
 - id: 716fd198bbd63dcb
   type: link out
   z: e97c6f12735a13c1
-  g: 1dd6bd6835107ce6
-  name: ui - list - equipment - row
+  g: 09a03117ef8741bc
+  name: ui - list - tab
   mode: link
   links:
     - 00818f8c0686b556
     - b24713f215fa93c7
-  x: 1655
+  x: 1915
   'y': 320
-  wires: []
-- id: ecc207aaea4247d0
-  type: change
-  z: e97c6f12735a13c1
-  g: a50af16c6cbdc476
-  name: tab
-  rules:
-    - t: set
-      p: form
-      pt: msg
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: Programmation
-      tot: str
-    - t: delete
-      p: action
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2070
-  'y': 880
-  wires:
-    - - 7cbf38916d947726
-- id: 7cbf38916d947726
-  type: link out
-  z: e97c6f12735a13c1
-  g: a50af16c6cbdc476
-  name: ui - list - equipment - row
-  mode: link
-  links:
-    - 00818f8c0686b556
-    - be744d9b5ed21633
-  x: 2195
-  'y': 880
   wires: []
 - id: 3e55c15b26d272df
   type: change
@@ -1918,57 +1893,50 @@
   x: 1270
   'y': 1060
   wires:
-    - - 5eab967ed44f874b
-- id: 5eab967ed44f874b
-  type: change
+    - - c3cf65de797d07e3
+- id: 576ca6cfd2aca638
+  type: link in
   z: e97c6f12735a13c1
-  name: tab
-  rules:
-    - t: set
-      p: form
-      pt: msg
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: Alerte
-      tot: str
-    - t: delete
-      p: action
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1490
-  'y': 1060
+  g: 09a03117ef8741bc
+  name: ui - list - tab
+  links:
+    - f29ed3c0b737adda
+    - c3cf65de797d07e3
+    - 1e593eb496287d95
+  x: 1665
+  'y': 320
   wires:
-    - - 0378aedd6c662bfc
-      - d7c03dd6107ea03c
-- id: 0378aedd6c662bfc
+    - - 712dee8e0aa3fed5
+- id: f29ed3c0b737adda
   type: link out
   z: e97c6f12735a13c1
-  name: ui - list - equipment - row
+  g: 1dd6bd6835107ce6
+  name: ui - list - equipment
   mode: link
   links:
-    - 00818f8c0686b556
-    - dd76d345fad6dc13
-  x: 1615
+    - 576ca6cfd2aca638
+  x: 1495
+  'y': 320
+  wires: []
+- id: c3cf65de797d07e3
+  type: link out
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  name: ui - list - alert
+  mode: link
+  links:
+    - 576ca6cfd2aca638
+  x: 1415
   'y': 1060
   wires: []
-- id: d7c03dd6107ea03c
-  type: debug
+- id: 1e593eb496287d95
+  type: link out
   z: e97c6f12735a13c1
-  name: debug 1
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'false'
-  statusVal: ''
-  statusType: auto
-  x: 1760
-  'y': 1140
+  g: a50af16c6cbdc476
+  name: ui - list - schedule
+  mode: link
+  links:
+    - 576ca6cfd2aca638
+  x: 2035
+  'y': 880
   wires: []
