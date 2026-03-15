@@ -1,0 +1,1273 @@
+- id: 44465f18e06bb58d
+  type: tab
+  label: system
+  disabled: false
+  info: ''
+  env: []
+- id: 7c224f2f2afc76d3
+  type: group
+  z: 44465f18e06bb58d
+  name: ui - ota
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 67a829c8d69b7b01
+    - d508633aa0105203
+    - 2afd16a564ae6c47
+    - d5cec84ece588ffc
+    - a21747e12e479ca9
+    - 0d2c51b998a3f781
+    - d7cb5aad49f38b43
+    - f880d0ab8441869a
+    - c9befab23429b04a
+    - 80e11615d0347342
+    - 88e7e099ac740bc0
+    - 248ee86020acb7f2
+    - 0276a7f91ac850d6
+    - 4e3829a06010be64
+    - c344b98bc4ee57db
+    - 770cf39b6e6a39ae
+    - 44b14fdf37109b9a
+    - 06f26a04e792caa4
+    - 15714855907e56a4
+    - f3cac8b5cdac6603
+    - 512acb8e5a49cc52
+    - a536b598b5e16e16
+    - 1691d83e3598e8a4
+    - c3d005124e95de2f
+    - b96a79e7e0e13256
+    - 3ef1ad4d211cdc1a
+  x: 104
+  'y': 699
+  w: 1622
+  h: 382
+- id: 43bcc4020c29e03d
+  type: group
+  z: 44465f18e06bb58d
+  name: ui  - system
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - a31a6d118c265f83
+    - 694ad4ec886e0960
+    - bb84c83f23401c74
+    - 74caccb9dec6107e
+    - a3a959c1ed6f034e
+    - f8539dbcd88ad9b6
+    - ded160847ba79c1d
+    - 2b792c2de9672677
+    - 670c8031f657d6e9
+    - 56dc1e345acb5604
+    - aebec2a61774c8f5
+    - 2ba2fcb363a543e6
+    - eba6e18370fbfe76
+    - c3fbd0eb276c1dd6
+    - 25db029de29257ac
+    - cdff23747bd66c63
+    - 306b2fee3a4b886d
+    - 80538c5af3c6a70b
+    - 37ef0dacd1f0e952
+    - fe3a87fa930d465d
+    - 34fa5590f0d6e124
+    - 359336bc8ac8947e
+    - 2646f6d48b57d1a4
+    - 5b4ee2cd26db4dc5
+    - 6426699344e1f0e1
+    - c8d5e7356764dfc0
+    - 6ccccfc0a1f111c1
+    - 2315058a360d8287
+    - e7bbfb466fe9b1e8
+    - d8fa54a0c3f6d9a5
+    - a1c562cd8682ecaf
+  x: 104
+  'y': 39
+  w: 1212
+  h: 622
+- id: 67a829c8d69b7b01
+  type: ui-text-input
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  group: dc73b5e0cedbb3eb
+  name: ui - ota - version in
+  label: Version
+  order: 1
+  width: '2'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: Sous la form 10101
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 850
+  'y': 860
+  wires:
+    - - 06f26a04e792caa4
+- id: d508633aa0105203
+  type: ui-file-input
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  group: dc73b5e0cedbb3eb
+  name: ui - ota - file in
+  order: 2
+  width: '4'
+  height: '1'
+  topic: topic
+  topicType: msg
+  label: Téléverser un firmware
+  icon: paperclip
+  allowMultiple: false
+  accept: ''
+  className: ''
+  x: 840
+  'y': 920
+  wires:
+    - - c3d005124e95de2f
+- id: 2afd16a564ae6c47
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: flow
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::ota_version'
+      pt: flow
+      to: '#:(memoryOnly)::form_version'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::ota_buffer'
+      pt: flow
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1230
+  'y': 920
+  wires:
+    - - 1691d83e3598e8a4
+      - 4e3829a06010be64
+- id: d5cec84ece588ffc
+  type: http in
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: ''
+  url: /optafirmware.ota
+  method: get
+  upload: false
+  skipBodyParsing: false
+  swaggerDoc: ''
+  x: 320
+  'y': 1040
+  wires:
+    - - 0d2c51b998a3f781
+- id: a21747e12e479ca9
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '200'
+      tot: num
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::ota_buffer'
+      tot: flow
+    - t: set
+      p: buffersize
+      pt: msg
+      to: msg.payload.length
+      tot: jsonata
+    - t: set
+      p: headers
+      pt: msg
+      to: "{\t    'Accept-Ranges':'bytes',\t    'Content-Type':'application/octet-stream',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 880
+  'y': 980
+  wires:
+    - - f880d0ab8441869a
+      - 88e7e099ac740bc0
+- id: 0d2c51b998a3f781
+  type: switch
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: version
+  property: '#:(memoryOnly)::ota_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 540
+  'y': 1040
+  wires:
+    - - d7cb5aad49f38b43
+    - - c9befab23429b04a
+- id: d7cb5aad49f38b43
+  type: switch
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: buffer
+  property: '#:(memoryOnly)::ota_buffer'
+  propertyType: flow
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 710
+  'y': 980
+  wires:
+    - - a21747e12e479ca9
+    - - c9befab23429b04a
+- id: f880d0ab8441869a
+  type: http response
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: rsp
+  statusCode: ''
+  headers: {}
+  x: 1050
+  'y': 1040
+  wires: []
+- id: c9befab23429b04a
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '404'
+      tot: num
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 880
+  'y': 1040
+  wires:
+    - - f880d0ab8441869a
+      - 88e7e099ac740bc0
+- id: 80e11615d0347342
+  type: mqtt out
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: firmware version
+  topic: opta/firmware/version
+  qos: '0'
+  retain: 'true'
+  respTopic: ''
+  contentType: ''
+  userProps: ''
+  correl: ''
+  expiry: ''
+  broker: f516c1341f0f634c
+  x: 1580
+  'y': 740
+  wires: []
+- id: 88e7e099ac740bc0
+  type: debug
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: setting - ota - http out
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1100
+  'y': 980
+  wires: []
+- id: 248ee86020acb7f2
+  type: link in
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: ui - ota - cron
+  links:
+    - 6dfb47bfe7905913
+  x: 145
+  'y': 740
+  wires:
+    - - 0276a7f91ac850d6
+- id: 0276a7f91ac850d6
+  type: switch
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: version
+  property: '#:(memoryOnly)::ota_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 280
+  'y': 740
+  wires:
+    - - 4e3829a06010be64
+- id: 4e3829a06010be64
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: flow
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::ota_version'
+      tot: flow
+    - t: set
+      p: payload
+      pt: msg
+      to: $number(msg.payload)
+      tot: jsonata
+    - t: delete
+      p: topic
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1390
+  'y': 740
+  wires:
+    - - 80e11615d0347342
+      - 3ef1ad4d211cdc1a
+- id: c344b98bc4ee57db
+  type: link in
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: ui - connector - action
+  links:
+    - 7bba6594f41302c2
+  x: 145
+  'y': 860
+  wires:
+    - - 44b14fdf37109b9a
+      - f3cac8b5cdac6603
+- id: 770cf39b6e6a39ae
+  type: switch
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: version
+  property: '#:(memoryOnly)::ota_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 460
+  'y': 860
+  wires:
+    - - a536b598b5e16e16
+    - - 512acb8e5a49cc52
+- id: 44b14fdf37109b9a
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: disable
+  rules:
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 920
+  wires:
+    - - d508633aa0105203
+- id: 06f26a04e792caa4
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form_version'
+      pt: flow
+      to: $number(msg.payload)
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1060
+  'y': 860
+  wires:
+    - - 15714855907e56a4
+- id: 15714855907e56a4
+  type: switch
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: empty
+  property: '#:(memoryOnly)::form_version'
+  propertyType: flow
+  rules:
+    - t: gt
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1230
+  'y': 860
+  wires:
+    - - d508633aa0105203
+    - - b96a79e7e0e13256
+- id: f3cac8b5cdac6603
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: prepare
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form_version'
+      pt: flow
+      to: '0'
+      tot: num
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 860
+  wires:
+    - - 770cf39b6e6a39ae
+- id: 512acb8e5a49cc52
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: version
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+    - t: set
+      p: '#:(memoryOnly)::ota_version'
+      pt: flow
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 640
+  'y': 860
+  wires:
+    - - 67a829c8d69b7b01
+- id: a536b598b5e16e16
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: version
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::ota_version'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 640
+  'y': 800
+  wires:
+    - - 67a829c8d69b7b01
+- id: 1691d83e3598e8a4
+  type: debug
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: setting - ota - form
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1430
+  'y': 920
+  wires: []
+- id: c3d005124e95de2f
+  type: switch
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1050
+  'y': 920
+  wires:
+    - - 2afd16a564ae6c47
+      - 44b14fdf37109b9a
+- id: b96a79e7e0e13256
+  type: change
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: reset
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::ota_version'
+      pt: flow
+      to: '0'
+      tot: num
+    - t: set
+      p: '#:(memoryOnly)::ota_buffer'
+      pt: flow
+      to: ''
+      tot: str
+    - t: delete
+      p: topic
+      pt: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1390
+  'y': 860
+  wires:
+    - - 80e11615d0347342
+      - 3ef1ad4d211cdc1a
+- id: 3ef1ad4d211cdc1a
+  type: debug
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: setting - ota - mqtt
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1590
+  'y': 800
+  wires: []
+- id: a31a6d118c265f83
+  type: ui-button
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - tool - read file
+  label: Lire le fichier de sauvegarde
+  order: 3
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 710
+  'y': 260
+  wires:
+    - - bb84c83f23401c74
+- id: 694ad4ec886e0960
+  type: ui-button
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - tool - write file
+  label: Ecrire le fichier de sauvegarde
+  order: 2
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 710
+  'y': 320
+  wires:
+    - - 74caccb9dec6107e
+- id: bb84c83f23401c74
+  type: link out
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - read file
+  mode: link
+  links:
+    - d29c391315d7b6cc
+  x: 875
+  'y': 260
+  wires: []
+- id: 74caccb9dec6107e
+  type: link out
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - write file
+  mode: link
+  links:
+    - 1589f9995713ce70
+  x: 875
+  'y': 320
+  wires: []
+- id: a3a959c1ed6f034e
+  type: comment
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: 'todo: download button'
+  info: ''
+  x: 360
+  'y': 300
+  wires: []
+- id: f8539dbcd88ad9b6
+  type: ui-button
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - tool - reload ui
+  label: Recharger l'interface
+  order: 1
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 710
+  'y': 200
+  wires:
+    - - ded160847ba79c1d
+- id: ded160847ba79c1d
+  type: link out
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - reload ui
+  mode: link
+  links:
+    - 76e32feb14c8c8a9
+  x: 875
+  'y': 200
+  wires: []
+- id: 2b792c2de9672677
+  type: link in
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - loop
+  links:
+    - 7bba6594f41302c2
+    - 9eddf0deb059b1dc
+  x: 145
+  'y': 140
+  wires:
+    - - 670c8031f657d6e9
+- id: 670c8031f657d6e9
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: payload
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.type & '|' & msg.kernel.entity & ' = ' & msg.kernel.value
+      tot: jsonata
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 340
+  'y': 140
+  wires:
+    - - aebec2a61774c8f5
+- id: 56dc1e345acb5604
+  type: ui-text-input
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - tool - loop
+  label: Messages du noyau
+  order: 7
+  width: '4'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: false
+  sendOnEnter: false
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 700
+  'y': 140
+  wires:
+    - []
+- id: aebec2a61774c8f5
+  type: delay
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: 10m/s
+  pauseType: rate
+  timeout: '5'
+  timeoutUnits: seconds
+  rate: '10'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 510
+  'y': 140
+  wires:
+    - - 56dc1e345acb5604
+- id: 2ba2fcb363a543e6
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: payload
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::automate'
+      tot: global
+    - t: set
+      p: version
+      pt: msg
+      to: '#:(memoryOnly)::version'
+      tot: global
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.automate & ' v' & msg.version
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 340
+  'y': 80
+  wires:
+    - - a1c562cd8682ecaf
+- id: eba6e18370fbfe76
+  type: link in
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - about
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 80
+  wires:
+    - - 2ba2fcb363a543e6
+- id: c3fbd0eb276c1dd6
+  type: ui-file-input
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - icon - file in
+  order: 5
+  width: '4'
+  height: '1'
+  topic: topic
+  topicType: msg
+  label: Téléverser une icone d'application
+  icon: paperclip
+  allowMultiple: false
+  accept: image/png
+  className: ''
+  x: 700
+  'y': 380
+  wires:
+    - - cdff23747bd66c63
+- id: 25db029de29257ac
+  type: file
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  filename: /data/app_icon.png
+  filenameType: str
+  appendNewline: true
+  createDir: false
+  overwriteFile: 'true'
+  encoding: none
+  x: 1110
+  'y': 380
+  wires:
+    - - e7bbfb466fe9b1e8
+- id: cdff23747bd66c63
+  type: base64
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  action: ''
+  property: payload
+  x: 900
+  'y': 380
+  wires:
+    - - 25db029de29257ac
+- id: 306b2fee3a4b886d
+  type: file in
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  filename: /data/app_icon.png
+  filenameType: str
+  format: utf8
+  chunk: false
+  sendError: false
+  encoding: none
+  allProps: false
+  x: 550
+  'y': 620
+  wires:
+    - - 359336bc8ac8947e
+- id: 80538c5af3c6a70b
+  type: http in
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  url: /icon.png
+  method: get
+  upload: false
+  skipBodyParsing: false
+  swaggerDoc: ''
+  x: 330
+  'y': 620
+  wires:
+    - - 306b2fee3a4b886d
+- id: 37ef0dacd1f0e952
+  type: http response
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  statusCode: ''
+  headers: {}
+  x: 1110
+  'y': 620
+  wires: []
+- id: fe3a87fa930d465d
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: prepare
+  rules:
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '200'
+      tot: num
+    - t: set
+      p: buffersize
+      pt: msg
+      to: msg.payload.length
+      tot: jsonata
+    - t: set
+      p: headers
+      pt: msg
+      to: "{\t    'Content-Type':'image/png',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 940
+  'y': 620
+  wires:
+    - - 37ef0dacd1f0e952
+- id: 34fa5590f0d6e124
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: prepare
+  rules:
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '404'
+      tot: num
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 940
+  'y': 560
+  wires:
+    - - 37ef0dacd1f0e952
+- id: 359336bc8ac8947e
+  type: base64
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  action: ''
+  property: payload
+  x: 760
+  'y': 620
+  wires:
+    - - fe3a87fa930d465d
+- id: 2646f6d48b57d1a4
+  type: catch
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  scope:
+    - 6ccccfc0a1f111c1
+  uncaught: false
+  x: 340
+  'y': 500
+  wires:
+    - - 6426699344e1f0e1
+- id: 5b4ee2cd26db4dc5
+  type: ui-button
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - icon - exists
+  label: Icon
+  order: 4
+  width: '2'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 700
+  'y': 440
+  wires:
+    - []
+- id: 6426699344e1f0e1
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: empty
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: "{\t    'label':'Icon file is missing',\t    'buttonColor':'red',\t    'icon':'numeric-0-circle-outline'\t}"
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 510
+  'y': 500
+  wires:
+    - - 5b4ee2cd26db4dc5
+- id: c8d5e7356764dfc0
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: exists
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: "{\t    'label':'Icon file exists',\t    'buttonColor':'green',\t    'icon':'numeric-1-circle'\t}"
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 510
+  'y': 440
+  wires:
+    - - 5b4ee2cd26db4dc5
+- id: 6ccccfc0a1f111c1
+  type: file in
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  filename: /data/app_icon.png
+  filenameType: str
+  format: utf8
+  chunk: false
+  sendError: false
+  encoding: none
+  allProps: false
+  x: 310
+  'y': 440
+  wires:
+    - - c8d5e7356764dfc0
+- id: 2315058a360d8287
+  type: link in
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - icon
+  links:
+    - 575b91a30deac00d
+    - e7bbfb466fe9b1e8
+  x: 145
+  'y': 440
+  wires:
+    - - 6ccccfc0a1f111c1
+- id: e7bbfb466fe9b1e8
+  type: link out
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - tool - icon
+  mode: link
+  links:
+    - 2315058a360d8287
+  x: 1275
+  'y': 380
+  wires: []
+- id: d8fa54a0c3f6d9a5
+  type: catch
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ''
+  scope:
+    - 306b2fee3a4b886d
+  uncaught: false
+  x: 340
+  'y': 560
+  wires:
+    - - 34fa5590f0d6e124
+- id: a1c562cd8682ecaf
+  type: ui-text-input
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  group: 18e387e2011da847
+  name: ui - tool - about
+  label: Application version
+  order: 6
+  width: '2'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: true
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 700
+  'y': 80
+  wires:
+    - []

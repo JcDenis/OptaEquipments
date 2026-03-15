@@ -129,9 +129,14 @@
     - 7e9c48d08b7276cc
     - 1d4b80abcfe835b5
     - 102aed6c7e1d04c4
+    - 5e45b37234f42825
+    - 45dc3b3d12b62484
+    - 02298de094f9b1b1
+    - 152c9f3c4dd921a5
+    - 8fbc4ae8853f584c
   x: 104
-  'y': 1959
-  w: 2082
+  'y': 2139
+  w: 2592
   h: 142
 - id: 1c87eaf6a557f02d
   type: group
@@ -216,7 +221,7 @@
     - 5c746d6457cd29ed
     - 72ba5fc75ecd528a
   x: 104
-  'y': 2139
+  'y': 1959
   w: 1422
   h: 142
 - id: 3117e4cb1d6eaca3
@@ -1692,7 +1697,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 2060
+  'y': 2240
   wires:
     - - 7e9c48d08b7276cc
 - id: 4e79e36a6652a498
@@ -1705,10 +1710,10 @@
   arraySplt: 1
   arraySpltType: len
   stream: false
-  addname: entity
+  addname: row.ts
   property: payload
   x: 870
-  'y': 2060
+  'y': 2240
   wires:
     - - a08a0a57524ff3fd
 - id: 65fd4cfe000543e5
@@ -1726,7 +1731,7 @@
   repair: true
   outputs: 1
   x: 1190
-  'y': 2060
+  'y': 2240
   wires:
     - - 102aed6c7e1d04c4
 - id: a08a0a57524ff3fd
@@ -1738,7 +1743,7 @@
     - t: set
       p: split
       pt: msg
-      to: '$split(msg.entity,''|'')'
+      to: '$split(msg.payload,''|'')'
       tot: jsonata
     - t: set
       p: row.equipment
@@ -1761,9 +1766,14 @@
       to: 'split[1]'
       tot: msg
     - t: set
+      p: row.entity
+      pt: msg
+      to: '$join([msg.row.equipment,msg.row.component],''|'')'
+      tot: jsonata
+    - t: set
       p: row.component_name
       pt: msg
-      to: 'kernel.name[msg.entity]'
+      to: 'kernel.name[msg.row.entity]'
       tot: global
     - t: set
       p: row.component_full
@@ -1771,14 +1781,9 @@
       to: msg.row.component_name & ' (' & msg.row.component & ')'
       tot: jsonata
     - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.payload,''|'')'
-      tot: jsonata
-    - t: set
       p: row.startday
       pt: msg
-      to: 'split[0]'
+      to: 'split[2]'
       tot: msg
     - t: set
       p: row.startday_name
@@ -1788,7 +1793,7 @@
     - t: set
       p: row.starttime
       pt: msg
-      to: 'split[1]'
+      to: 'split[3]'
       tot: msg
     - t: set
       p: row.start_full
@@ -1798,7 +1803,7 @@
     - t: set
       p: row.stopday
       pt: msg
-      to: 'split[2]'
+      to: 'split[4]'
       tot: msg
     - t: set
       p: row.stopday_name
@@ -1808,12 +1813,27 @@
     - t: set
       p: row.stoptime
       pt: msg
-      to: 'split[3]'
+      to: 'split[5]'
       tot: msg
     - t: set
       p: row.stop_full
       pt: msg
       to: msg.row.stopday_name & ' ' & msg.row.stoptime
+      tot: jsonata
+    - t: set
+      p: row.todisable
+      pt: msg
+      to: 'kernel.disabled[msg.row.ts]'
+      tot: global
+    - t: set
+      p: row.todisable
+      pt: msg
+      to: 'msg.row.todisable?false:true'
+      tot: jsonata
+    - t: set
+      p: row.todisable_name
+      pt: msg
+      to: 'msg.row.todisable?''Désactiver'':''Activer'''
       tot: jsonata
     - t: delete
       p: split
@@ -1824,7 +1844,7 @@
   to: ''
   reg: false
   x: 1030
-  'y': 2060
+  'y': 2240
   wires:
     - - 65fd4cfe000543e5
 - id: 6a37a14d655528fb
@@ -1845,7 +1865,7 @@
   count: ''
   reduceRight: false
   x: 1690
-  'y': 2060
+  'y': 2240
   wires:
     - - 7aa7d4a208b16d4e
 - id: 7aa7d4a208b16d4e
@@ -1871,7 +1891,7 @@
   to: ''
   reg: false
   x: 1850
-  'y': 2060
+  'y': 2240
   wires:
     - - eee36dec344aa953
       - ac872a9de7c1c8b5
@@ -1916,14 +1936,20 @@
       type: text
       width: ''
       align: start
+    - title: ''
+      key: todisable_name
+      keyType: key
+      type: button
+      width: ''
+      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
   className: ''
   x: 2030
-  'y': 2000
+  'y': 2180
   wires:
-    - []
+    - - 5e45b37234f42825
 - id: eee36dec344aa953
   type: debug
   z: 852390cb9559e176
@@ -1938,7 +1964,7 @@
   statusVal: ''
   statusType: auto
   x: 2050
-  'y': 2060
+  'y': 2240
   wires: []
 - id: c1f639a0f41c2d70
   type: link in
@@ -1948,7 +1974,7 @@
   links:
     - 3fdd05d35f701608
   x: 145
-  'y': 2000
+  'y': 2180
   wires:
     - - ac872a9de7c1c8b5
 - id: 10c0c8612c286473
@@ -1958,8 +1984,9 @@
   name: ui - schedule
   links:
     - bd7c74e40976d045
+    - 152c9f3c4dd921a5
   x: 145
-  'y': 2060
+  'y': 2240
   wires:
     - - f8d0fb644d5d444e
 - id: 1731e40db78d313f
@@ -1987,7 +2014,7 @@
   to: ''
   reg: false
   x: 1530
-  'y': 2060
+  'y': 2240
   wires:
     - - 6a37a14d655528fb
 - id: bd7c74e40976d045
@@ -3569,7 +3596,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 470
-  'y': 2060
+  'y': 2240
   wires:
     - - 1d4b80abcfe835b5
 - id: 1d4b80abcfe835b5
@@ -3590,7 +3617,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 690
-  'y': 2060
+  'y': 2240
   wires:
     - - 4e79e36a6652a498
 - id: 102aed6c7e1d04c4
@@ -3657,7 +3684,7 @@
   to: ''
   reg: false
   x: 1360
-  'y': 2060
+  'y': 2240
   wires:
     - - 1731e40db78d313f
 - id: ef0d563177311ccf
@@ -3686,7 +3713,7 @@
   links:
     - 3fdd05d35f701608
   x: 145
-  'y': 2180
+  'y': 2000
   wires:
     - - 5c746d6457cd29ed
 - id: 96e8abf144b980e2
@@ -3697,7 +3724,7 @@
   links:
     - bd7c74e40976d045
   x: 145
-  'y': 2240
+  'y': 2060
   wires:
     - - e735a826b5dcfd5b
 - id: e735a826b5dcfd5b
@@ -3732,14 +3759,14 @@
   to: ''
   reg: false
   x: 270
-  'y': 2240
+  'y': 2060
   wires:
     - - 730a4a779e25e37d
 - id: 730a4a779e25e37d
   type: split
   z: 852390cb9559e176
   g: af7c52c4b0905961
-  name: ''
+  name: split
   splt: \n
   spltType: str
   arraySplt: 1
@@ -3748,7 +3775,7 @@
   addname: row.entity
   property: payload
   x: 430
-  'y': 2240
+  'y': 2060
   wires:
     - - abcdce389af63d37
 - id: abcdce389af63d37
@@ -3800,8 +3827,8 @@
     - t: set
       p: row.state_limit
       pt: msg
-      to: payload
-      tot: msg
+      to: $number(msg.payload)
+      tot: jsonata
     - t: set
       p: row.state_color
       pt: msg
@@ -3821,7 +3848,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 2240
+  'y': 2060
   wires:
     - - 237a55abbdf2e13f
 - id: e9847ab98ea59d0c
@@ -3842,7 +3869,7 @@
   count: ''
   reduceRight: false
   x: 1070
-  'y': 2240
+  'y': 2060
   wires:
     - - 9170fd9faa6addb9
 - id: 9170fd9faa6addb9
@@ -3865,7 +3892,7 @@
   to: ''
   reg: false
   x: 1230
-  'y': 2240
+  'y': 2060
   wires:
     - - 83bea62615fdc467
       - 5c746d6457cd29ed
@@ -3884,7 +3911,7 @@
   repair: true
   outputs: 1
   x: 750
-  'y': 2240
+  'y': 2060
   wires:
     - - 72ba5fc75ecd528a
 - id: 83bea62615fdc467
@@ -3901,7 +3928,7 @@
   statusVal: ''
   statusType: auto
   x: 1410
-  'y': 2240
+  'y': 2060
   wires: []
 - id: 5c746d6457cd29ed
   type: ui-table
@@ -3916,7 +3943,7 @@
   maxrows: 0
   passthru: false
   autocols: false
-  showSearch: true
+  showSearch: false
   deselect: true
   selectionType: none
   columns:
@@ -3955,7 +3982,7 @@
   action: replace
   className: ''
   x: 1400
-  'y': 2180
+  'y': 2000
   wires:
     - []
 - id: 72ba5fc75ecd528a
@@ -3983,6 +4010,107 @@
   to: ''
   reg: false
   x: 910
-  'y': 2240
+  'y': 2060
   wires:
     - - e9847ab98ea59d0c
+- id: 5e45b37234f42825
+  type: change
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'disabled',\t    'entity':msg.payload.ts,\t    'value':msg.payload.todisable,\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+    - t: delete
+      p: column
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2210
+  'y': 2180
+  wires:
+    - - 45dc3b3d12b62484
+      - 8fbc4ae8853f584c
+- id: 45dc3b3d12b62484
+  type: link out
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: ui - schedule
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 2495
+  'y': 2180
+  wires: []
+- id: 02298de094f9b1b1
+  type: change
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Programmation temporairement désactivée
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2530
+  'y': 2240
+  wires:
+    - - 152c9f3c4dd921a5
+- id: 152c9f3c4dd921a5
+  type: link out
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: ui - schedule - notice
+  mode: link
+  links:
+    - 4e94023e8ba12f50
+    - 10c0c8612c286473
+  x: 2655
+  'y': 2240
+  wires: []
+- id: 8fbc4ae8853f584c
+  type: delay
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2370
+  'y': 2240
+  wires:
+    - - 02298de094f9b1b1
