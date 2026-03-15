@@ -123,7 +123,7 @@
     - a70e0676e8e7e767
   x: 124
   'y': 819
-  w: 2632
+  w: 2532
   h: 142
 - id: 3e16528dec4157ee
   type: group
@@ -1579,6 +1579,11 @@
         (msg.compare.curlimit <= msg.compare.stoplimit)
       tot: jsonata
     - t: set
+      p: row.state
+      pt: msg
+      to: 'msg.row.todisbale?msg.row.state:false'
+      tot: jsonata
+    - t: set
       p: row.state_name
       pt: msg
       to: 'msg.row.state?''Activée'':''Désactivée'''
@@ -1987,7 +1992,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 2235
+  x: 2195
   'y': 860
   wires: []
 - id: ab34825782b762a6
@@ -2036,11 +2041,10 @@
   from: ''
   to: ''
   reg: false
-  x: 2270
+  x: 2330
   'y': 920
   wires:
     - - f176a733d83837c5
-      - a70e0676e8e7e767
 - id: f176a733d83837c5
   type: link out
   z: e97c6f12735a13c1
@@ -2049,7 +2053,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2555
+  x: 2455
   'y': 920
   wires: []
 - id: 60ff2c5849e23ca2
@@ -2061,8 +2065,8 @@
     - t: set
       p: payload
       pt: msg
-      to: Programmation temporairement désactivée
-      tot: str
+      to: '''Programmation '' & (msg.payload.todisable?''désactivée'':''activée'')'
+      tot: jsonata
     - t: set
       p: list
       pt: msg
@@ -2073,7 +2077,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2590
+  x: 2490
   'y': 860
   wires:
     - - e90c1be08e347f3b
@@ -2086,7 +2090,7 @@
   links:
     - 43ce0ef8844bb328
     - 4e94023e8ba12f50
-  x: 2715
+  x: 2615
   'y': 860
   wires: []
 - id: a70e0676e8e7e767
@@ -2106,7 +2110,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2430
+  x: 2330
   'y': 860
   wires:
     - - 60ff2c5849e23ca2
@@ -2128,7 +2132,8 @@
   repair: false
   outputs: 2
   x: 2070
-  'y': 860
+  'y': 920
   wires:
     - - 1e593eb496287d95
     - - 7347d0d180d34028
+      - a70e0676e8e7e767

@@ -3669,6 +3669,11 @@
         (msg.compare.curlimit <= msg.compare.stoplimit)
       tot: jsonata
     - t: set
+      p: row.state
+      pt: msg
+      to: 'msg.row.todisable?msg.row.state:false'
+      tot: jsonata
+    - t: set
       p: row.state_name
       pt: msg
       to: 'msg.row.state?''Activée'':''Désactivée'''
