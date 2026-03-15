@@ -76,7 +76,7 @@
 - id: 32da9b1ae024e8bb
   type: group
   z: f6f2187d.f17ca8
-  name: ui
+  name: kernel -ui
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -214,6 +214,34 @@
   'y': 1659
   w: 842
   h: 142
+- id: 33f3dcd1571e2844
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - schedule
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - bdfdbb0ec5282ca5
+    - cb79215b5513f66d
+    - f376978d671ce0a7
+    - ba0d77b3d570a211
+    - 2ca61f86cfa71654
+    - f48aceb29672bb35
+    - 53b2cdd0c60ba5d9
+    - cdf7ec7711c7d30f
+    - 4d823d516f186ae7
+    - 12c3bf4bc642db19
+    - e75f117fa60196e2
+    - 21d3f5c5d7c66b67
+    - 059ab1e5370a0336
+    - defa072d2bec2cda
+    - a63fee7b423da915
+  x: 104
+  'y': 2259
+  w: 2082
+  h: 142
 - id: 0fd3e33ded41a4bb
   type: debug
   z: f6f2187d.f17ca8
@@ -316,6 +344,7 @@
     - ef91d4de9f0f59b1
     - 45dc3b3d12b62484
     - f176a733d83837c5
+    - a63fee7b423da915
   x: 145
   'y': 560
   wires:
@@ -1561,7 +1590,8 @@
   g: 6db1b393113d5660
   name: kernel - cron minute
   mode: link
-  links: []
+  links:
+    - cb79215b5513f66d
   x: 355
   'y': 440
   wires: []
@@ -2035,3 +2065,412 @@
   'y': 2060
   wires:
     - []
+- id: cb79215b5513f66d
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: kernel - schedule
+  links:
+    - 9d694324cf6b8842
+  x: 145
+  'y': 2360
+  wires:
+    - - f376978d671ce0a7
+- id: f376978d671ce0a7
+  type: change
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: get
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.schedule
+      tot: global
+    - t: set
+      p: row
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: compare
+      pt: msg
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 2360
+  wires:
+    - - cdf7ec7711c7d30f
+- id: ba0d77b3d570a211
+  type: split
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: row.ts
+  property: payload
+  x: 850
+  'y': 2360
+  wires:
+    - - 2ca61f86cfa71654
+- id: 2ca61f86cfa71654
+  type: change
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: row
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.payload,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.equipment
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.component
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: row.entity
+      pt: msg
+      to: '$join([msg.row.equipment,msg.row.component],''|'')'
+      tot: jsonata
+    - t: set
+      p: row.startday
+      pt: msg
+      to: 'split[2]'
+      tot: msg
+    - t: set
+      p: row.starttime
+      pt: msg
+      to: 'split[3]'
+      tot: msg
+    - t: set
+      p: row.stopday
+      pt: msg
+      to: 'split[4]'
+      tot: msg
+    - t: set
+      p: row.stoptime
+      pt: msg
+      to: 'split[5]'
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+    - t: set
+      p: row.line
+      pt: msg
+      to: 'kernel.equipments[msg.row.equipment]'
+      tot: global
+    - t: set
+      p: row.plant
+      pt: msg
+      to: 'kernel.lines[msg.row.line]'
+      tot: global
+    - t: set
+      p: row.disabled
+      pt: msg
+      to: 'kernel.disabled[msg.row.ts]'
+      tot: global
+    - t: set
+      p: row.disabled
+      pt: msg
+      to: 'msg.row.disabled?true:false'
+      tot: jsonata
+    - t: set
+      p: row.reversed
+      pt: msg
+      to: 'kernel.reverse[msg.row.entity]'
+      tot: global
+    - t: set
+      p: row.reversed
+      pt: msg
+      to: 'msg.row.reversed?true:false'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1010
+  'y': 2360
+  wires:
+    - - f48aceb29672bb35
+- id: bdfdbb0ec5282ca5
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: kernel - schedule
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2050
+  'y': 2360
+  wires: []
+- id: f48aceb29672bb35
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: disabled
+  property: row.disabled
+  propertyType: msg
+  rules:
+    - t: 'false'
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1180
+  'y': 2360
+  wires:
+    - - 12c3bf4bc642db19
+- id: 53b2cdd0c60ba5d9
+  type: change
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.row.entity,\t    'value':msg.row.value,\t    'loop':false\t}"
+      tot: jsonata
+    - t: delete
+      p: compare
+      pt: msg
+    - t: delete
+      p: row
+      pt: msg
+    - t: delete
+      p: settings
+      pt: msg
+    - t: delete
+      p: parts
+      pt: msg
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1850
+  'y': 2300
+  wires:
+    - - bdfdbb0ec5282ca5
+      - defa072d2bec2cda
+- id: cdf7ec7711c7d30f
+  type: moment
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: current day
+  topic: ''
+  input: ''
+  inputType: date
+  inTz: Europe/Paris
+  adjAmount: 0
+  adjType: days
+  adjDir: add
+  format: d
+  locale: en-US
+  output: compare.curday
+  outputType: msg
+  outTz: Europe/Paris
+  x: 450
+  'y': 2360
+  wires:
+    - - 4d823d516f186ae7
+- id: 4d823d516f186ae7
+  type: moment
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: current time
+  topic: ''
+  input: ''
+  inputType: date
+  inTz: Europe/Paris
+  adjAmount: 0
+  adjType: days
+  adjDir: add
+  format: Hmm
+  locale: en-US
+  output: compare.curtime
+  outputType: msg
+  outTz: Europe/Paris
+  x: 670
+  'y': 2360
+  wires:
+    - - ba0d77b3d570a211
+- id: 12c3bf4bc642db19
+  type: change
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: compare
+  rules:
+    - t: set
+      p: compare.startday
+      pt: msg
+      to: row.startday
+      tot: msg
+    - t: set
+      p: compare.starttime
+      pt: msg
+      to: '$join($split(msg.row.starttime,'':''),'''')'
+      tot: jsonata
+    - t: set
+      p: compare.stopday
+      pt: msg
+      to: row.stopday
+      tot: msg
+    - t: set
+      p: compare.stoptime
+      pt: msg
+      to: '$join($split(msg.row.stoptime,'':''),'''')'
+      tot: jsonata
+    - t: set
+      p: compare.curlimit
+      pt: msg
+      to: $number(msg.compare.curday & msg.compare.curtime)
+      tot: jsonata
+    - t: set
+      p: compare.startlimit
+      pt: msg
+      to: $number(msg.compare.startday & msg.compare.starttime)
+      tot: jsonata
+    - t: set
+      p: compare.stoplimit
+      pt: msg
+      to: $number(msg.compare.stopday & msg.compare.stoptime)
+      tot: jsonata
+    - t: set
+      p: row.state
+      pt: msg
+      to: >-
+        (msg.compare.startlimit <= msg.compare.curlimit) and
+        (msg.compare.curlimit <= msg.compare.stoplimit)
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1360
+  'y': 2360
+  wires:
+    - - e75f117fa60196e2
+- id: e75f117fa60196e2
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: state
+  property: row.state
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1530
+  'y': 2360
+  wires:
+    - - 21d3f5c5d7c66b67
+    - - 059ab1e5370a0336
+- id: 21d3f5c5d7c66b67
+  type: change
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: value
+  rules:
+    - t: set
+      p: row.value
+      pt: msg
+      to: 'msg.row.reverse?0:1'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 2300
+  wires:
+    - - 53b2cdd0c60ba5d9
+- id: 059ab1e5370a0336
+  type: change
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: value
+  rules:
+    - t: set
+      p: row.value
+      pt: msg
+      to: 'msg.row.reverse?1:0'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 2360
+  wires:
+    - - 53b2cdd0c60ba5d9
+- id: defa072d2bec2cda
+  type: delay
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: 10ms
+  pauseType: delay
+  timeout: '10'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2010
+  'y': 2300
+  wires:
+    - - a63fee7b423da915
+- id: a63fee7b423da915
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 33f3dcd1571e2844
+  name: kernel - schedule
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 2135
+  'y': 2300
+  wires: []
