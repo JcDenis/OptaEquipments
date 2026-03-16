@@ -121,10 +121,17 @@
     - 60ff2c5849e23ca2
     - e90c1be08e347f3b
     - a70e0676e8e7e767
+    - d7b6a9d7686a7b59
+    - f314f236353e74e4
+    - 0f8869c381c5dd1b
+    - 69fc6a1738c1ed12
+    - 81ef075c7c757990
+    - 86ee0d3c2aa3036c
+    - 01ec2644cc2fc832
   x: 124
   'y': 819
-  w: 2532
-  h: 142
+  w: 2682
+  h: 322
 - id: 3e16528dec4157ee
   type: group
   z: e97c6f12735a13c1
@@ -145,7 +152,7 @@
     - 28e40e89bfbd674f
     - c3cf65de797d07e3
   x: 124
-  'y': 999
+  'y': 1179
   w: 1332
   h: 142
 - id: 09a03117ef8741bc
@@ -196,7 +203,7 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'label':'Equipement',\t        'value':'equipment'\t    },\t    {\t        'label':'Alerte',\t        'value':'alert'\t    },\t    {\t        'label':'Programmation',\t        'value':'schedule'\t    },\t    {\t        'label':'Materiel',\t        'value':'device'\t    },\t    {\t        'label':'Composant',\t        'value':'componant'\t    }\t]"
+      to: "[\t    {\t        'label':'Equipements',\t        'value':'equipment'\t    },\t    {\t        'label':'Alertes',\t        'value':'alert'\t    },\t    {\t        'label':'Programmateurs',\t        'value':'schedule'\t    },\t    {\t        'label':'Materiels',\t        'value':'device'\t    },\t    {\t        'label':'Composants',\t        'value':'componant'\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -1200,11 +1207,17 @@
       type: button
       width: ''
       align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1870
+  x: 1890
   'y': 860
   wires:
     - - 785862339e0d27f5
@@ -1234,12 +1247,17 @@
       pt: msg
       to: '{}'
       tot: jsonata
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 440
+  x: 460
   'y': 920
   wires:
     - - b5bda084c23656bb
@@ -1255,7 +1273,7 @@
   stream: false
   addname: row.ts
   property: payload
-  x: 1010
+  x: 1030
   'y': 920
   wires:
     - - 448f9c3c46b72e57
@@ -1383,12 +1401,17 @@
       pt: msg
       to: 'msg.row.todisable?''Désactiver'':''Activer'''
       tot: jsonata
+    - t: set
+      p: row.delete
+      pt: msg
+      to: Supprimer
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1170
+  x: 1190
   'y': 920
   wires:
     - - 3e55c15b26d272df
@@ -1409,7 +1432,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 1510
+  x: 1530
   'y': 920
   wires:
     - - ccb6b00918f82506
@@ -1435,7 +1458,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1670
+  x: 1690
   'y': 920
   wires:
     - - 5ed601fa56386341
@@ -1453,7 +1476,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1870
+  x: 1890
   'y': 920
   wires: []
 - id: 9a28a0d564bb5e5c
@@ -1476,8 +1499,9 @@
   x: 290
   'y': 860
   wires:
-    - - ed28d944f992c057
+    - - 01ec2644cc2fc832
     - - 11da55b6471a7bb6
+      - 01ec2644cc2fc832
 - id: 43ce0ef8844bb328
   type: link in
   z: e97c6f12735a13c1
@@ -1598,7 +1622,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1340
+  x: 1360
   'y': 920
   wires:
     - - 380c222d4034a402
@@ -1619,7 +1643,7 @@
   output: compare.curtime
   outputType: msg
   outTz: Europe/Paris
-  x: 830
+  x: 850
   'y': 920
   wires:
     - - 92b9fb06ece9089d
@@ -1640,7 +1664,7 @@
   output: compare.curday
   outputType: msg
   outTz: Europe/Paris
-  x: 630
+  x: 650
   'y': 920
   wires:
     - - ec2ec72064d0bb6b
@@ -1652,7 +1676,7 @@
   links:
     - 1b3e234bed8047a0
   x: 165
-  'y': 1040
+  'y': 1220
   wires:
     - - faaa75232491631f
 - id: faaa75232491631f
@@ -1673,7 +1697,7 @@
   repair: false
   outputs: 2
   x: 290
-  'y': 1040
+  'y': 1220
   wires:
     - - 28e40e89bfbd674f
     - - 672160c5582e3fc9
@@ -1709,7 +1733,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 1100
+  'y': 1280
   wires:
     - - 4b462b61568ff7b1
 - id: 4b462b61568ff7b1
@@ -1725,7 +1749,7 @@
   addname: row.entity
   property: payload
   x: 610
-  'y': 1100
+  'y': 1280
   wires:
     - - 1ccb5783e5c25a57
 - id: 1ccb5783e5c25a57
@@ -1823,7 +1847,7 @@
   to: ''
   reg: false
   x: 770
-  'y': 1100
+  'y': 1280
   wires:
     - - ed224a74b1fc19c4
 - id: ed224a74b1fc19c4
@@ -1844,7 +1868,7 @@
   count: ''
   reduceRight: false
   x: 930
-  'y': 1100
+  'y': 1280
   wires:
     - - 81cd19dd2f6cae69
 - id: 81cd19dd2f6cae69
@@ -1867,7 +1891,7 @@
   to: ''
   reg: false
   x: 1090
-  'y': 1100
+  'y': 1280
   wires:
     - - ac2f9e0ae2c36bf5
       - 28e40e89bfbd674f
@@ -1885,7 +1909,7 @@
   statusVal: ''
   statusType: auto
   x: 1270
-  'y': 1100
+  'y': 1280
   wires: []
 - id: 28e40e89bfbd674f
   type: ui-table
@@ -1945,7 +1969,7 @@
   action: replace
   className: ''
   x: 1270
-  'y': 1040
+  'y': 1220
   wires:
     - - c3cf65de797d07e3
 - id: 576ca6cfd2aca638
@@ -1982,7 +2006,7 @@
   links:
     - 576ca6cfd2aca638
   x: 1415
-  'y': 1040
+  'y': 1220
   wires: []
 - id: 1e593eb496287d95
   type: link out
@@ -1992,7 +2016,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 2195
+  x: 2215
   'y': 860
   wires: []
 - id: ab34825782b762a6
@@ -2041,10 +2065,11 @@
   from: ''
   to: ''
   reg: false
-  x: 2330
-  'y': 920
+  x: 2430
+  'y': 860
   wires:
-    - - f176a733d83837c5
+    - - 69fc6a1738c1ed12
+      - 86ee0d3c2aa3036c
 - id: f176a733d83837c5
   type: link out
   z: e97c6f12735a13c1
@@ -2053,8 +2078,8 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2455
-  'y': 920
+  x: 2715
+  'y': 860
   wires: []
 - id: 60ff2c5849e23ca2
   type: change
@@ -2077,10 +2102,10 @@
   from: ''
   to: ''
   reg: false
-  x: 2490
-  'y': 860
+  x: 2430
+  'y': 920
   wires:
-    - - e90c1be08e347f3b
+    - - a70e0676e8e7e767
 - id: e90c1be08e347f3b
   type: link out
   z: e97c6f12735a13c1
@@ -2090,8 +2115,8 @@
   links:
     - 43ce0ef8844bb328
     - 4e94023e8ba12f50
-  x: 2615
-  'y': 860
+  x: 2715
+  'y': 980
   wires: []
 - id: a70e0676e8e7e767
   type: delay
@@ -2110,10 +2135,10 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2330
-  'y': 860
+  x: 2590
+  'y': 980
   wires:
-    - - 60ff2c5849e23ca2
+    - - e90c1be08e347f3b
 - id: 785862339e0d27f5
   type: switch
   z: e97c6f12735a13c1
@@ -2131,9 +2156,199 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2070
+  x: 2090
   'y': 920
   wires:
     - - 1e593eb496287d95
+    - - d7b6a9d7686a7b59
+- id: d7b6a9d7686a7b59
+  type: switch
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: column
+  property: column
+  propertyType: msg
+  rules:
+    - t: eq
+      v: todisable_name
+      vt: str
+    - t: eq
+      v: delete
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2260
+  'y': 920
+  wires:
     - - 7347d0d180d34028
-      - a70e0676e8e7e767
+      - 60ff2c5849e23ca2
+    - - f314f236353e74e4
+      - 0f8869c381c5dd1b
+      - 81ef075c7c757990
+- id: f314f236353e74e4
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'schedule',\t    'entity':msg.payload.ts,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+    - t: delete
+      p: column
+      pt: msg
+    - t: delete
+      p: settings
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2430
+  'y': 980
+  wires:
+    - - 69fc6a1738c1ed12
+      - 86ee0d3c2aa3036c
+- id: 0f8869c381c5dd1b
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Programmation supprimée
+      tot: str
+    - t: set
+      p: list
+      pt: msg
+      to: schedule
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2430
+  'y': 1100
+  wires:
+    - - a70e0676e8e7e767
+- id: 69fc6a1738c1ed12
+  type: debug
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: ui - list - schedule - action
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2650
+  'y': 920
+  wires: []
+- id: 81ef075c7c757990
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'disabled',\t    'entity':msg.payload.ts,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+    - t: delete
+      p: column
+      pt: msg
+    - t: delete
+      p: settings
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2430
+  'y': 1040
+  wires:
+    - - 86ee0d3c2aa3036c
+- id: 86ee0d3c2aa3036c
+  type: delay
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: 10ms
+  pauseType: delay
+  timeout: '10'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2590
+  'y': 860
+  wires:
+    - - f176a733d83837c5
+- id: 01ec2644cc2fc832
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: raz
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 450
+  'y': 860
+  wires:
+    - - ed28d944f992c057
