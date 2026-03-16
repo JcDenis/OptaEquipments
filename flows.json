@@ -1312,11 +1312,12 @@
             "45dc3b3d12b62484",
             "02298de094f9b1b1",
             "152c9f3c4dd921a5",
-            "8fbc4ae8853f584c"
+            "8fbc4ae8853f584c",
+            "c5374260cae7ffc9"
         ],
         "x": 104,
         "y": 2139,
-        "w": 2592,
+        "w": 2752,
         "h": 142
     },
     {
@@ -1456,11 +1457,12 @@
             "237a55abbdf2e13f",
             "83bea62615fdc467",
             "5c746d6457cd29ed",
-            "72ba5fc75ecd528a"
+            "72ba5fc75ecd528a",
+            "15615470dbdee64b"
         ],
         "x": 104,
         "y": 1959,
-        "w": 1422,
+        "w": 1582,
         "h": 142
     },
     {
@@ -2013,7 +2015,7 @@
             "ui-progress"
         ],
         "showPathInSidebar": false,
-        "headerContent": "dashpage",
+        "headerContent": "dashboard",
         "navigationStyle": "icon",
         "titleBarStyle": "fixed",
         "showReconnectNotification": true,
@@ -2083,7 +2085,7 @@
         "ui": "68fb8d742e5053db",
         "path": "/view",
         "icon": "eye",
-        "layout": "notebook",
+        "layout": "tabs",
         "theme": "ca81bb608c015a0d",
         "breakpoints": [
             {
@@ -2261,20 +2263,6 @@
         "groupType": "default"
     },
     {
-        "id": "2bc90e01f5a97e39",
-        "type": "ui-group",
-        "name": "Programmation",
-        "page": "71ccb6fab20261e2",
-        "width": 6,
-        "height": 1,
-        "order": 5,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
         "id": "71289f771ef25fc5",
         "type": "influxdb",
         "hostname": "127.0.0.1",
@@ -2297,20 +2285,6 @@
         "width": 6,
         "height": 1,
         "order": 3,
-        "showTitle": true,
-        "className": "",
-        "visible": "true",
-        "disabled": "false",
-        "groupType": "default"
-    },
-    {
-        "id": "1ddd053a017a676d",
-        "type": "ui-group",
-        "name": "Alerte",
-        "page": "71ccb6fab20261e2",
-        "width": 6,
-        "height": 1,
-        "order": 4,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -2403,6 +2377,34 @@
         "width": 6,
         "height": 1,
         "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "59454b481d0541d6",
+        "type": "ui-group",
+        "name": "Alertes",
+        "page": "71ccb6fab20261e2",
+        "width": 6,
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "5fc604015188a017",
+        "type": "ui-group",
+        "name": "Programmateurs",
+        "page": "71ccb6fab20261e2",
+        "width": 6,
+        "height": 1,
+        "order": 5,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -3313,7 +3315,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": ".v-card .remove,\n.v-card-text .remove {\n    display: none !important;\n    visibility: hidden;\n    color: transparent !important;\n}\n\n.nrdb-ui-text:hover {\n    border-bottom: 2px solid #CCCCCC;\n    color: #CCCCCC !important;\n    margin-bottom: -2px;\n}\n#app-bar-actions img {\n    margin-right:20px;\n}\n",
+        "format": ".v-tab-item--selected {\n    color: #0094ce !important;\n}\n.v-card .remove,\n.v-card-text .remove {\n    display: none !important;\n    visibility: hidden;\n    color: transparent !important;\n}\n\n.nrdb-ui-text:hover {\n    border-bottom: 2px solid #CCCCCC;\n    color: #CCCCCC !important;\n    margin-bottom: -2px;\n}\n#app-bar-actions img {\n    margin-right:20px;\n}\n",
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
@@ -11667,13 +11669,6 @@
                 "pt": "msg",
                 "to": "remove",
                 "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::equipment",
-                "pt": "flow",
-                "to": "",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -11894,9 +11889,9 @@
         "wires": [
             [
                 "c6bd2e176f72eec4",
-                "71ab4779af230c83",
                 "72e1a87e02fcef30",
-                "a7b94578411fd8cb"
+                "a7b94578411fd8cb",
+                "71ab4779af230c83"
             ]
         ]
     },
@@ -12190,7 +12185,8 @@
         "y": 80,
         "wires": [
             [
-                "3fdd05d35f701608"
+                "3fdd05d35f701608",
+                "a5bf15ea1cef5499"
             ]
         ]
     },
@@ -12811,7 +12807,7 @@
         "group": "c050c3a6d8c69fec",
         "name": "ui - heatswitch",
         "label": "",
-        "order": 9,
+        "order": 8,
         "width": "2",
         "height": "1",
         "emulateClick": false,
@@ -13281,7 +13277,7 @@
         "group": "c050c3a6d8c69fec",
         "name": "ui - none",
         "label": "text",
-        "order": 8,
+        "order": 9,
         "width": "2",
         "height": "1",
         "topic": "topic",
@@ -13634,8 +13630,7 @@
         "y": 2240,
         "wires": [
             [
-                "eee36dec344aa953",
-                "ac872a9de7c1c8b5"
+                "c5374260cae7ffc9"
             ]
         ]
     },
@@ -13644,9 +13639,9 @@
         "type": "ui-table",
         "z": "852390cb9559e176",
         "g": "610dc329bbf9ecdb",
-        "group": "2bc90e01f5a97e39",
+        "group": "5fc604015188a017",
         "name": "ui - schedule",
-        "label": "",
+        "label": "Programmations",
         "order": 1,
         "width": 0,
         "height": 0,
@@ -13702,7 +13697,7 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 2030,
+        "x": 2190,
         "y": 2180,
         "wires": [
             [
@@ -13724,7 +13719,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2050,
+        "x": 2210,
         "y": 2240,
         "wires": []
     },
@@ -13816,7 +13811,7 @@
             "6822e56a80bdb67e",
             "96e8abf144b980e2"
         ],
-        "x": 1755,
+        "x": 1715,
         "y": 380,
         "wires": []
     },
@@ -13825,7 +13820,7 @@
         "type": "delay",
         "z": "852390cb9559e176",
         "g": "82ebdeaefe6a1830",
-        "name": "",
+        "name": "20ms",
         "pauseType": "delay",
         "timeout": "20",
         "timeoutUnits": "milliseconds",
@@ -13838,7 +13833,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1610,
+        "x": 1590,
         "y": 380,
         "wires": [
             [
@@ -13859,7 +13854,8 @@
         "y": 260,
         "wires": [
             [
-                "1eb9b333c5decbcb"
+                "1eb9b333c5decbcb",
+                "e77a32b7b869f914"
             ]
         ]
     },
@@ -14137,6 +14133,25 @@
                 "pt": "msg",
                 "to": "",
                 "tot": "str"
+            },
+            {
+                "t": "delete",
+                "p": "form",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -14148,9 +14163,9 @@
         "y": 440,
         "wires": [
             [
-                "71ab4779af230c83",
                 "72e1a87e02fcef30",
-                "a7b94578411fd8cb"
+                "a7b94578411fd8cb",
+                "71ab4779af230c83"
             ]
         ]
     },
@@ -16320,8 +16335,7 @@
         "y": 2060,
         "wires": [
             [
-                "83bea62615fdc467",
-                "5c746d6457cd29ed"
+                "15615470dbdee64b"
             ]
         ]
     },
@@ -16365,7 +16379,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1410,
+        "x": 1570,
         "y": 2060,
         "wires": []
     },
@@ -16374,9 +16388,9 @@
         "type": "ui-table",
         "z": "852390cb9559e176",
         "g": "af7c52c4b0905961",
-        "group": "1ddd053a017a676d",
+        "group": "59454b481d0541d6",
         "name": "ui - alert",
-        "label": "",
+        "label": "Alertes",
         "order": 1,
         "width": 0,
         "height": 0,
@@ -16385,7 +16399,7 @@
         "autocols": false,
         "showSearch": false,
         "deselect": true,
-        "selectionType": "none",
+        "selectionType": "click",
         "columns": [
             {
                 "title": "",
@@ -16432,7 +16446,7 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1400,
+        "x": 1560,
         "y": 2000,
         "wires": [
             []
@@ -16527,7 +16541,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2210,
+        "x": 2370,
         "y": 2180,
         "wires": [
             [
@@ -16546,7 +16560,7 @@
         "links": [
             "e60e4ab7617738c3"
         ],
-        "x": 2495,
+        "x": 2655,
         "y": 2180,
         "wires": []
     },
@@ -16570,7 +16584,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2530,
+        "x": 2690,
         "y": 2240,
         "wires": [
             [
@@ -16589,7 +16603,7 @@
             "4e94023e8ba12f50",
             "10c0c8612c286473"
         ],
-        "x": 2655,
+        "x": 2815,
         "y": 2240,
         "wires": []
     },
@@ -16611,11 +16625,61 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2370,
+        "x": 2530,
         "y": 2240,
         "wires": [
             [
                 "02298de094f9b1b1"
+            ]
+        ]
+    },
+    {
+        "id": "15615470dbdee64b",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "af7c52c4b0905961",
+        "name": "empty",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1390,
+        "y": 2060,
+        "wires": [
+            [
+                "5c746d6457cd29ed",
+                "83bea62615fdc467"
+            ]
+        ]
+    },
+    {
+        "id": "c5374260cae7ffc9",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "610dc329bbf9ecdb",
+        "name": "empty",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 2010,
+        "y": 2240,
+        "wires": [
+            [
+                "eee36dec344aa953",
+                "ac872a9de7c1c8b5"
             ]
         ]
     },

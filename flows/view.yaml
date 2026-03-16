@@ -134,9 +134,10 @@
     - 02298de094f9b1b1
     - 152c9f3c4dd921a5
     - 8fbc4ae8853f584c
+    - c5374260cae7ffc9
   x: 104
   'y': 2139
-  w: 2592
+  w: 2752
   h: 142
 - id: 1c87eaf6a557f02d
   type: group
@@ -220,9 +221,10 @@
     - 83bea62615fdc467
     - 5c746d6457cd29ed
     - 72ba5fc75ecd528a
+    - 15615470dbdee64b
   x: 104
   'y': 1959
-  w: 1422
+  w: 1582
   h: 142
 - id: 3117e4cb1d6eaca3
   type: change
@@ -425,11 +427,6 @@
       pt: msg
       to: remove
       tot: str
-    - t: set
-      p: '#:(memoryOnly)::equipment'
-      pt: flow
-      to: ''
-      tot: str
   action: ''
   property: ''
   from: ''
@@ -590,9 +587,9 @@
   'y': 380
   wires:
     - - c6bd2e176f72eec4
-      - 71ab4779af230c83
       - 72e1a87e02fcef30
       - a7b94578411fd8cb
+      - 71ab4779af230c83
 - id: 3fdd05d35f701608
   type: link out
   z: 852390cb9559e176
@@ -798,6 +795,7 @@
   'y': 80
   wires:
     - - 3fdd05d35f701608
+      - a5bf15ea1cef5499
 - id: 342d09ce7abd6d86
   type: change
   z: 852390cb9559e176
@@ -1260,7 +1258,7 @@
   group: c050c3a6d8c69fec
   name: ui - heatswitch
   label: ''
-  order: 9
+  order: 8
   width: '2'
   height: '1'
   emulateClick: false
@@ -1633,7 +1631,7 @@
   group: c050c3a6d8c69fec
   name: ui - none
   label: text
-  order: 8
+  order: 9
   width: '2'
   height: '1'
   topic: topic
@@ -1893,15 +1891,14 @@
   x: 1850
   'y': 2240
   wires:
-    - - eee36dec344aa953
-      - ac872a9de7c1c8b5
+    - - c5374260cae7ffc9
 - id: ac872a9de7c1c8b5
   type: ui-table
   z: 852390cb9559e176
   g: 610dc329bbf9ecdb
-  group: 2bc90e01f5a97e39
+  group: 5fc604015188a017
   name: ui - schedule
-  label: ''
+  label: Programmations
   order: 1
   width: 0
   height: 0
@@ -1946,7 +1943,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2030
+  x: 2190
   'y': 2180
   wires:
     - - 5e45b37234f42825
@@ -1963,7 +1960,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2050
+  x: 2210
   'y': 2240
   wires: []
 - id: c1f639a0f41c2d70
@@ -2028,14 +2025,14 @@
     - b5082fd6f739991d
     - 6822e56a80bdb67e
     - 96e8abf144b980e2
-  x: 1755
+  x: 1715
   'y': 380
   wires: []
 - id: 72e1a87e02fcef30
   type: delay
   z: 852390cb9559e176
   g: 82ebdeaefe6a1830
-  name: ''
+  name: 20ms
   pauseType: delay
   timeout: '20'
   timeoutUnits: milliseconds
@@ -2048,7 +2045,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1610
+  x: 1590
   'y': 380
   wires:
     - - bd7c74e40976d045
@@ -2063,6 +2060,7 @@
   'y': 260
   wires:
     - - 1eb9b333c5decbcb
+      - e77a32b7b869f914
 - id: 07e5db127f9067f8
   type: switch
   z: 852390cb9559e176
@@ -2262,6 +2260,19 @@
       pt: msg
       to: ''
       tot: str
+    - t: delete
+      p: form
+      pt: msg
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -2270,9 +2281,9 @@
   x: 1430
   'y': 440
   wires:
-    - - 71ab4779af230c83
-      - 72e1a87e02fcef30
+    - - 72e1a87e02fcef30
       - a7b94578411fd8cb
+      - 71ab4779af230c83
 - id: b5082fd6f739991d
   type: link in
   z: 852390cb9559e176
@@ -3899,8 +3910,7 @@
   x: 1230
   'y': 2060
   wires:
-    - - 83bea62615fdc467
-      - 5c746d6457cd29ed
+    - - 15615470dbdee64b
 - id: 237a55abbdf2e13f
   type: switch
   z: 852390cb9559e176
@@ -3932,16 +3942,16 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1410
+  x: 1570
   'y': 2060
   wires: []
 - id: 5c746d6457cd29ed
   type: ui-table
   z: 852390cb9559e176
   g: af7c52c4b0905961
-  group: 1ddd053a017a676d
+  group: 59454b481d0541d6
   name: ui - alert
-  label: ''
+  label: Alertes
   order: 1
   width: 0
   height: 0
@@ -3950,7 +3960,7 @@
   autocols: false
   showSearch: false
   deselect: true
-  selectionType: none
+  selectionType: click
   columns:
     - title: ''
       key: state_color
@@ -3986,7 +3996,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1400
+  x: 1560
   'y': 2000
   wires:
     - []
@@ -4053,7 +4063,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2210
+  x: 2370
   'y': 2180
   wires:
     - - 45dc3b3d12b62484
@@ -4066,7 +4076,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2495
+  x: 2655
   'y': 2180
   wires: []
 - id: 02298de094f9b1b1
@@ -4085,7 +4095,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2530
+  x: 2690
   'y': 2240
   wires:
     - - 152c9f3c4dd921a5
@@ -4098,7 +4108,7 @@
   links:
     - 4e94023e8ba12f50
     - 10c0c8612c286473
-  x: 2655
+  x: 2815
   'y': 2240
   wires: []
 - id: 8fbc4ae8853f584c
@@ -4118,7 +4128,41 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2370
+  x: 2530
   'y': 2240
   wires:
     - - 02298de094f9b1b1
+- id: 15615470dbdee64b
+  type: switch
+  z: 852390cb9559e176
+  g: af7c52c4b0905961
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1390
+  'y': 2060
+  wires:
+    - - 5c746d6457cd29ed
+      - 83bea62615fdc467
+- id: c5374260cae7ffc9
+  type: switch
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2010
+  'y': 2240
+  wires:
+    - - eee36dec344aa953
+      - ac872a9de7c1c8b5
