@@ -353,9 +353,11 @@
     - c1e73f2d8bca4b0b
     - f85ab1d7d40b8ad4
     - 90f9611ccc76531f
+    - 33a3406faa9b04df
+    - 3d123dab660971a2
   x: 1734
   'y': 1899
-  w: 542
+  w: 882
   h: 202
 - id: 546836b126dc5542
   type: change
@@ -3322,7 +3324,7 @@
   name: option - none
   mode: return
   links: []
-  x: 2235
+  x: 2575
   'y': 2060
   wires: []
 - id: f00bbd81d99a0a3b
@@ -3343,7 +3345,7 @@
   wires:
     - - f85ab1d7d40b8ad4
       - 90f9611ccc76531f
-    - - 8c39bd33f664a1a5
+    - - 33a3406faa9b04df
 - id: c1e73f2d8bca4b0b
   type: link out
   z: adb9fbf379118d77
@@ -3375,7 +3377,6 @@
   'y': 1940
   wires:
     - - c1e73f2d8bca4b0b
-      - 8c39bd33f664a1a5
 - id: eef88d595ae4240e
   type: link call
   z: adb9fbf379118d77
@@ -3675,7 +3676,7 @@
   x: 2100
   'y': 2000
   wires:
-    - - 8c39bd33f664a1a5
+    - - 33a3406faa9b04df
 - id: f81a83fe9f88bc17
   type: change
   z: adb9fbf379118d77
@@ -3914,3 +3915,43 @@
   'y': 2660
   wires:
     - - dc1fb4af974ced4c
+- id: 33a3406faa9b04df
+  type: switch
+  z: adb9fbf379118d77
+  g: 6083e6018629a109
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: ''
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2270
+  'y': 2060
+  wires:
+    - - 3d123dab660971a2
+    - - 8c39bd33f664a1a5
+- id: 3d123dab660971a2
+  type: change
+  z: adb9fbf379118d77
+  g: 6083e6018629a109
+  name: payload
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: 'options[0]value'
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2440
+  'y': 2000
+  wires:
+    - - 8c39bd33f664a1a5
