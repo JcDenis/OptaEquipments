@@ -1168,8 +1168,8 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: devices
-      pt: msg
+      p: '#:(memoryOnly)::devices'
+      pt: flow
       to: '[]'
       tot: jsonata
   action: ''
@@ -1378,7 +1378,7 @@
       to: '#:(memoryOnly)::describe.endpoint[msg.option.model]'
       tot: global
     - t: set
-      p: endpoints
+      p: '#:(memoryOnly)::endpoints'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -3955,3 +3955,133 @@
   'y': 2000
   wires:
     - - 8c39bd33f664a1a5
+- id: 7f2964561cb984f7
+  type: link in
+  z: adb9fbf379118d77
+  name: value - NC
+  links: []
+  x: 165
+  'y': 3000
+  wires:
+    - - d05f7ccc7689d0cb
+- id: d05f7ccc7689d0cb
+  type: switch
+  z: adb9fbf379118d77
+  name: equipment
+  property: kernel
+  propertyType: msg
+  rules:
+    - t: hask
+      v: equipment
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 310
+  'y': 3000
+  wires:
+    - - 75e2a5e73add2e09
+    - - 53dc6b1e11bb92b5
+- id: 75e2a5e73add2e09
+  type: switch
+  z: adb9fbf379118d77
+  name: componant
+  property: kernel
+  propertyType: msg
+  rules:
+    - t: hask
+      v: component
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 510
+  'y': 2940
+  wires:
+    - - fefb8a3a6532e22a
+    - - 53dc6b1e11bb92b5
+- id: fefb8a3a6532e22a
+  type: change
+  z: adb9fbf379118d77
+  name: entity
+  rules:
+    - t: set
+      p: entity
+      pt: msg
+      to: '$join([msg.kernel.equipment,msg.kernel.component],''|'')'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 690
+  'y': 2880
+  wires:
+    - - 45a08cd16de6b33f
+- id: 45a08cd16de6b33f
+  type: switch
+  z: adb9fbf379118d77
+  name: componant
+  property: kernel.reverse
+  propertyType: global
+  rules:
+    - t: hask
+      v: entity
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 870
+  'y': 2880
+  wires:
+    - - e61d0e2786793621
+    - - 53dc6b1e11bb92b5
+- id: e61d0e2786793621
+  type: switch
+  z: adb9fbf379118d77
+  name: NC
+  property: 'kernel.reverse[msg.entity]'
+  propertyType: global
+  rules:
+    - t: 'true'
+    - t: 'false'
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1050
+  'y': 2820
+  wires:
+    - - 181fed2155280141
+    - - 53dc6b1e11bb92b5
+- id: 181fed2155280141
+  type: change
+  z: adb9fbf379118d77
+  name: reverse
+  rules:
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: 'msg.kernel.value=1?0:1'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1220
+  'y': 2820
+  wires:
+    - - 53dc6b1e11bb92b5
+- id: 53dc6b1e11bb92b5
+  type: link out
+  z: adb9fbf379118d77
+  name: value - NC
+  mode: return
+  links: []
+  x: 1355
+  'y': 3000
+  wires: []
