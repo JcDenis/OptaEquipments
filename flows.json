@@ -869,12 +869,14 @@
             "f6e1f4affcb31b03",
             "9f895592abdb72e3",
             "d6d4db548fefad53",
-            "8c4bcbca27512370"
+            "8c4bcbca27512370",
+            "57773a77659dbe20",
+            "5c470758da04c4b5"
         ],
         "x": 94,
         "y": 159,
         "w": 1432,
-        "h": 322
+        "h": 362
     },
     {
         "id": "ede1bcd992279676",
@@ -1965,10 +1967,35 @@
         "h": 502
     },
     {
+        "id": "2dadce6cd1694d7d",
+        "type": "group",
+        "z": "adb9fbf379118d77",
+        "name": "value - NC",
+        "style": {
+            "fill": "#92d04f",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "7f2964561cb984f7",
+            "d05f7ccc7689d0cb",
+            "75e2a5e73add2e09",
+            "fefb8a3a6532e22a",
+            "45a08cd16de6b33f",
+            "e61d0e2786793621",
+            "181fed2155280141",
+            "53dc6b1e11bb92b5"
+        ],
+        "x": 104,
+        "y": 2799,
+        "w": 1272,
+        "h": 262
+    },
+    {
         "id": "f516c1341f0f634c",
         "type": "mqtt-broker",
         "name": "noderedrt",
-        "broker": "192.168.100.112",
+        "broker": "10.40.0.111",
         "port": 1883,
         "clientid": "noderedrt",
         "autoConnect": true,
@@ -2121,8 +2148,8 @@
         ],
         "order": 1,
         "className": "",
-        "visible": "true",
-        "disabled": "false"
+        "visible": true,
+        "disabled": false
     },
     {
         "id": "53fb0eee68c8f320",
@@ -2461,9 +2488,9 @@
         "id": "b79ad9dd7ded8d62",
         "type": "comment",
         "z": "fec9762ec7446f3b",
-        "name": "client.id.plant",
+        "name": "form(socketId) = {...}",
         "info": "",
-        "x": 110,
+        "x": 130,
         "y": 820,
         "wires": []
     },
@@ -2568,16 +2595,6 @@
         "wires": []
     },
     {
-        "id": "3f06105ee1e75e1e",
-        "type": "comment",
-        "z": "fec9762ec7446f3b",
-        "name": "<= à renommer en link",
-        "info": "",
-        "x": 520,
-        "y": 600,
-        "wires": []
-    },
-    {
         "id": "b51dec50f36c8643",
         "type": "comment",
         "z": "fec9762ec7446f3b",
@@ -2633,8 +2650,8 @@
         "z": "fec9762ec7446f3b",
         "name": "cycle = en cycle",
         "info": "",
-        "x": 720,
-        "y": 360,
+        "x": 940,
+        "y": 320,
         "wires": []
     },
     {
@@ -2643,8 +2660,8 @@
         "z": "fec9762ec7446f3b",
         "name": "heat = En chauffe",
         "info": "",
-        "x": 720,
-        "y": 400,
+        "x": 1120,
+        "y": 320,
         "wires": []
     },
     {
@@ -2654,7 +2671,7 @@
         "name": "runmeter = Compteur partiel d'heures",
         "info": "",
         "x": 790,
-        "y": 520,
+        "y": 440,
         "wires": []
     },
     {
@@ -2664,17 +2681,7 @@
         "name": "cyclemeter = Compteur partiel de cycles",
         "info": "",
         "x": 790,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "ef639072f66eb485",
-        "type": "comment",
-        "z": "fec9762ec7446f3b",
-        "name": "reset = RAZ compteurs",
-        "info": "",
-        "x": 740,
-        "y": 660,
+        "y": 480,
         "wires": []
     },
     {
@@ -2684,7 +2691,7 @@
         "name": "heattoggle = Inverser la chauffe",
         "info": "",
         "x": 770,
-        "y": 440,
+        "y": 380,
         "wires": []
     },
     {
@@ -2694,7 +2701,7 @@
         "name": "heatsiwtch = Mise en chauffe",
         "info": "",
         "x": 1040,
-        "y": 440,
+        "y": 380,
         "wires": []
     },
     {
@@ -2704,7 +2711,7 @@
         "name": "runmeterfull = Compteur total d'heures",
         "info": "",
         "x": 1110,
-        "y": 520,
+        "y": 440,
         "wires": []
     },
     {
@@ -2714,7 +2721,7 @@
         "name": "cyclemeterfull = Compteur total de cycles",
         "info": "",
         "x": 1120,
-        "y": 560,
+        "y": 480,
         "wires": []
     },
     {
@@ -2724,7 +2731,7 @@
         "name": "cyclereset = RAZ compteurs partiel de cycles",
         "info": "",
         "x": 1470,
-        "y": 560,
+        "y": 480,
         "wires": []
     },
     {
@@ -2734,7 +2741,7 @@
         "name": "runreset = RAZ compteurs partiel de fonntionnement",
         "info": "",
         "x": 1490,
-        "y": 520,
+        "y": 440,
         "wires": []
     },
     {
@@ -2744,7 +2751,7 @@
         "name": "heatlink = Mise en chauffe",
         "info": "",
         "x": 1290,
-        "y": 440,
+        "y": 380,
         "wires": []
     },
     {
@@ -3146,7 +3153,8 @@
             "2315058a360d8287",
             "8b1e3b84ed635f09",
             "2b19cffefc8b8dfc",
-            "b24713f215fa93c7"
+            "b24713f215fa93c7",
+            "07168fb5afd82e1c"
         ],
         "x": 755,
         "y": 140,
@@ -10799,10 +10807,11 @@
         "id": "7f2964561cb984f7",
         "type": "link in",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "value - NC",
         "links": [],
-        "x": 165,
-        "y": 3000,
+        "x": 145,
+        "y": 3020,
         "wires": [
             [
                 "d05f7ccc7689d0cb"
@@ -10813,6 +10822,7 @@
         "id": "d05f7ccc7689d0cb",
         "type": "switch",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "equipment",
         "property": "kernel",
         "propertyType": "msg",
@@ -10829,8 +10839,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 310,
-        "y": 3000,
+        "x": 290,
+        "y": 3020,
         "wires": [
             [
                 "75e2a5e73add2e09"
@@ -10844,6 +10854,7 @@
         "id": "75e2a5e73add2e09",
         "type": "switch",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "componant",
         "property": "kernel",
         "propertyType": "msg",
@@ -10860,8 +10871,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 510,
-        "y": 2940,
+        "x": 490,
+        "y": 2960,
         "wires": [
             [
                 "fefb8a3a6532e22a"
@@ -10875,6 +10886,7 @@
         "id": "fefb8a3a6532e22a",
         "type": "change",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "entity",
         "rules": [
             {
@@ -10890,8 +10902,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
-        "y": 2880,
+        "x": 670,
+        "y": 2900,
         "wires": [
             [
                 "45a08cd16de6b33f"
@@ -10902,6 +10914,7 @@
         "id": "45a08cd16de6b33f",
         "type": "switch",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "componant",
         "property": "kernel.reverse",
         "propertyType": "global",
@@ -10918,8 +10931,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 870,
-        "y": 2880,
+        "x": 850,
+        "y": 2900,
         "wires": [
             [
                 "e61d0e2786793621"
@@ -10933,6 +10946,7 @@
         "id": "e61d0e2786793621",
         "type": "switch",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "NC",
         "property": "kernel.reverse[msg.entity]",
         "propertyType": "global",
@@ -10947,8 +10961,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1050,
-        "y": 2820,
+        "x": 1030,
+        "y": 2840,
         "wires": [
             [
                 "181fed2155280141"
@@ -10962,6 +10976,7 @@
         "id": "181fed2155280141",
         "type": "change",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "reverse",
         "rules": [
             {
@@ -10977,8 +10992,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1220,
-        "y": 2820,
+        "x": 1200,
+        "y": 2840,
         "wires": [
             [
                 "53dc6b1e11bb92b5"
@@ -10989,11 +11004,12 @@
         "id": "53dc6b1e11bb92b5",
         "type": "link out",
         "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
         "name": "value - NC",
         "mode": "return",
         "links": [],
-        "x": 1355,
-        "y": 3000,
+        "x": 1335,
+        "y": 3020,
         "wires": []
     },
     {
@@ -11723,6 +11739,28 @@
         ]
     },
     {
+        "id": "57773a77659dbe20",
+        "type": "comment",
+        "z": "135b7308617dad08",
+        "g": "44d39e7547289d97",
+        "name": "Arduino Finder Opta series - https://opta.findernet.com/fr",
+        "info": "",
+        "x": 320,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "5c470758da04c4b5",
+        "type": "comment",
+        "z": "135b7308617dad08",
+        "g": "44d39e7547289d97",
+        "name": "Using firmware OptaLinker - https://github.com/JcDenis/OptaLinker",
+        "info": "",
+        "x": 360,
+        "y": 480,
+        "wires": []
+    },
+    {
         "id": "6829c2450480a8f8",
         "type": "link call",
         "z": "852390cb9559e176",
@@ -11763,7 +11801,7 @@
         "topicType": "msg",
         "className": "",
         "typeIsComboBox": true,
-        "msgTrigger": "onChange",
+        "msgTrigger": "onClose",
         "x": 1190,
         "y": 140,
         "wires": [
@@ -11813,7 +11851,7 @@
         "topicType": "msg",
         "className": "",
         "typeIsComboBox": true,
-        "msgTrigger": "onChange",
+        "msgTrigger": "onClose",
         "x": 1190,
         "y": 200,
         "wires": [
@@ -11959,7 +11997,7 @@
         "topicType": "msg",
         "className": "",
         "typeIsComboBox": true,
-        "msgTrigger": "onChange",
+        "msgTrigger": "onClose",
         "x": 1210,
         "y": 260,
         "wires": [
