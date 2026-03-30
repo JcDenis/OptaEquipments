@@ -355,6 +355,7 @@
     - 90f9611ccc76531f
     - 33a3406faa9b04df
     - 3d123dab660971a2
+    - 952c80fb231bdf3f
   x: 1734
   'y': 1899
   w: 882
@@ -3366,7 +3367,7 @@
   wires:
     - - f85ab1d7d40b8ad4
       - 90f9611ccc76531f
-    - - 33a3406faa9b04df
+    - - 952c80fb231bdf3f
 - id: c1e73f2d8bca4b0b
   type: link out
   z: adb9fbf379118d77
@@ -4114,3 +4115,23 @@
   x: 1335
   'y': 3020
   wires: []
+- id: 952c80fb231bdf3f
+  type: change
+  z: adb9fbf379118d77
+  g: 6083e6018629a109
+  name: sort
+  rules:
+    - t: set
+      p: options
+      pt: msg
+      to: "$sort(msg.options, function($l, $r) {\t  $l.label > $r.label\t})"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2090
+  'y': 2060
+  wires:
+    - - 33a3406faa9b04df
