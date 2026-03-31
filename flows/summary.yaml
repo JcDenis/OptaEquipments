@@ -1,0 +1,691 @@
+- id: 476eb6fc04c55cec
+  type: tab
+  label: summary
+  disabled: false
+  info: ''
+  env: []
+- id: a2c5edf7acc56d7a
+  type: group
+  z: 476eb6fc04c55cec
+  name: ui - summary - select
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 7f208cf2ab66dd88
+    - c8c91a8a8cb864f2
+    - eef8f90bc9ebb816
+    - 30bd97f3094ce24d
+    - 278b948fe3397d6d
+    - 59395394cfbb7859
+    - f0fd1615d4143709
+    - 8476588607bcfe2b
+    - a4ab7bfdfe43f26c
+  x: 104
+  'y': 59
+  w: 1312
+  h: 142
+- id: c44b736d9fae3399
+  type: group
+  z: 476eb6fc04c55cec
+  name: ui - summary - table
+  style:
+    label: true
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+  nodes:
+    - 7ab11ad4d1391433
+    - 29db806f2903e559
+    - e13bed64768ee41f
+    - e0a78c10ef6a4efe
+    - 65303885356124c5
+    - 1e8664c6a3717b02
+    - e6c65e2eccee4ef9
+    - 2328d5396e61d3e1
+    - 10f54fcaaf7ebfc3
+    - 76a3bcdc76d86aa3
+    - ba9e4d6476d595d0
+    - a2b86cd0821431f3
+    - a44482562033a116
+    - 2f959ccef56b1836
+    - c606cab4391ec936
+  x: 104
+  'y': 239
+  w: 2232
+  h: 142
+- id: 0fc5462a22c369fa
+  type: group
+  z: 476eb6fc04c55cec
+  name: ui - summary - tab
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 09a816282f3bc371
+    - 6b6d62b5d5c57ede
+    - ed53bb28b7006772
+  x: 1514
+  'y': 59
+  w: 342
+  h: 82
+- id: 7f208cf2ab66dd88
+  type: link call
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ''
+  links:
+    - 22a6cc8a0964f595
+  linkType: static
+  timeout: '30'
+  x: 490
+  'y': 160
+  wires:
+    - - eef8f90bc9ebb816
+- id: c8c91a8a8cb864f2
+  type: link in
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ui - summary - select
+  links:
+    - 575b91a30deac00d
+    - 7bba6594f41302c2
+  x: 145
+  'y': 100
+  wires:
+    - - 8476588607bcfe2b
+      - 59395394cfbb7859
+- id: eef8f90bc9ebb816
+  type: ui-dropdown
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  group: ab8ef19cd1ae9d09
+  name: ui - summary - plant
+  label: Sélectionner une usine
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 720
+  'y': 160
+  wires:
+    - - 30bd97f3094ce24d
+- id: 30bd97f3094ce24d
+  type: switch
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 930
+  'y': 160
+  wires:
+    - - 278b948fe3397d6d
+- id: 278b948fe3397d6d
+  type: change
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: plant
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      pt: global
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 160
+  wires:
+    - - 59395394cfbb7859
+      - a4ab7bfdfe43f26c
+- id: 59395394cfbb7859
+  type: change
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 100
+  wires:
+    - - f0fd1615d4143709
+- id: f0fd1615d4143709
+  type: link out
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ui - summary - select - hide
+  mode: link
+  links:
+    - 29db806f2903e559
+  x: 1375
+  'y': 100
+  wires: []
+- id: 8476588607bcfe2b
+  type: delay
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ''
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 290
+  'y': 160
+  wires:
+    - - 7f208cf2ab66dd88
+- id: 7ab11ad4d1391433
+  type: change
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: equipements
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.equipments
+      tot: global
+    - t: set
+      p: row
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 450
+  'y': 340
+  wires:
+    - - e13bed64768ee41f
+- id: a4ab7bfdfe43f26c
+  type: delay
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: 20 ms
+  pauseType: delay
+  timeout: '20'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1250
+  'y': 160
+  wires:
+    - - f0fd1615d4143709
+- id: 29db806f2903e559
+  type: link in
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: ui - summary - table
+  links:
+    - f0fd1615d4143709
+  x: 145
+  'y': 280
+  wires:
+    - - 10f54fcaaf7ebfc3
+- id: e13bed64768ee41f
+  type: split
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: row.equipment
+  property: payload
+  x: 630
+  'y': 340
+  wires:
+    - - e0a78c10ef6a4efe
+- id: e0a78c10ef6a4efe
+  type: change
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: check
+  rules:
+    - t: set
+      p: row.line
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: row.plant
+      pt: msg
+      to: 'kernel.lines[msg.row.line]'
+      tot: global
+    - t: set
+      p: alert
+      pt: msg
+      to: msg.row.equipment & '|runmeter'
+      tot: jsonata
+    - t: set
+      p: state
+      pt: msg
+      to: msg.row.equipment & '|run'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 790
+  'y': 340
+  wires:
+    - - 65303885356124c5
+- id: 65303885356124c5
+  type: switch
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: plant
+  property: row.plant
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      vt: global
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 950
+  'y': 340
+  wires:
+    - - 1e8664c6a3717b02
+- id: 1e8664c6a3717b02
+  type: switch
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: run
+  property: kernel.state
+  propertyType: global
+  rules:
+    - t: hask
+      v: state
+      vt: msg
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 1110
+  'y': 340
+  wires:
+    - - e6c65e2eccee4ef9
+- id: e6c65e2eccee4ef9
+  type: switch
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: alert
+  property: kernel.alert
+  propertyType: global
+  rules:
+    - t: hask
+      v: alert
+      vt: msg
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 1270
+  'y': 340
+  wires:
+    - - 76a3bcdc76d86aa3
+- id: 2328d5396e61d3e1
+  type: debug
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: ui - summary - table
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2120
+  'y': 340
+  wires: []
+- id: 10f54fcaaf7ebfc3
+  type: switch
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: class
+  property: class
+  propertyType: msg
+  rules:
+    - t: eq
+      v: remove
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 270
+  'y': 280
+  wires:
+    - - 2f959ccef56b1836
+    - - 7ab11ad4d1391433
+- id: 76a3bcdc76d86aa3
+  type: change
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: row
+  rules:
+    - t: set
+      p: row.plant_name
+      pt: msg
+      to: 'kernel.plant[msg.row.plant]'
+      tot: global
+    - t: set
+      p: row.line_name
+      pt: msg
+      to: 'kernel.line[msg.row.line]'
+      tot: global
+    - t: set
+      p: row.equipment_name
+      pt: msg
+      to: 'kernel.equipment[msg.row.equipment]'
+      tot: global
+    - t: set
+      p: row.state
+      pt: msg
+      to: 'kernel.state[msg.state]'
+      tot: global
+    - t: set
+      p: row.state_color
+      pt: msg
+      to: 'msg.row.state?''#008000'':''#FF0000'''
+      tot: jsonata
+    - t: set
+      p: alert_limit
+      pt: msg
+      to: 'kernel.alert[msg.alert]'
+      tot: global
+    - t: set
+      p: row.alert
+      pt: msg
+      to: 'kernel.state[msg.alert]'
+      tot: global
+    - t: set
+      p: row.diff
+      pt: msg
+      to: msg.row.alert - msg.alert_limit
+      tot: jsonata
+    - t: set
+      p: row.diff_color
+      pt: msg
+      to: 'msg.row.alert>0?''#008000'':''#FF0000'''
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1430
+  'y': 340
+  wires:
+    - - ba9e4d6476d595d0
+- id: ba9e4d6476d595d0
+  type: change
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: add
+  rules:
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1590
+  'y': 340
+  wires:
+    - - a2b86cd0821431f3
+- id: a2b86cd0821431f3
+  type: join
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 1750
+  'y': 340
+  wires:
+    - - a44482562033a116
+- id: a44482562033a116
+  type: change
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+    - t: set
+      p: payload
+      pt: msg
+      to: "$sort(msg.payload, function($l, $r) {\t  $l.diff < $r.diff\t})"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1910
+  'y': 340
+  wires:
+    - - 2f959ccef56b1836
+      - 2328d5396e61d3e1
+- id: 2f959ccef56b1836
+  type: ui-table
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  group: ab8ef19cd1ae9d09
+  name: ui - summary - table
+  label: ''
+  order: 2
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Etat
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
+    - title: Ligne
+      key: line_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipement
+      key: equipment_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Maintenance
+      key: diff_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
+    - title: ''
+      key: diff
+      keyType: key
+      type: text
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 2120
+  'y': 280
+  wires:
+    - - c606cab4391ec936
+- id: 09a816282f3bc371
+  type: change
+  z: 476eb6fc04c55cec
+  g: 0fc5462a22c369fa
+  name: tab
+  rules:
+    - t: set
+      p: form
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: Détail
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 100
+  wires:
+    - - ed53bb28b7006772
+- id: 6b6d62b5d5c57ede
+  type: link in
+  z: 476eb6fc04c55cec
+  g: 0fc5462a22c369fa
+  name: ui - summary - tab
+  links:
+    - c606cab4391ec936
+  x: 1555
+  'y': 100
+  wires:
+    - - 09a816282f3bc371
+- id: ed53bb28b7006772
+  type: link out
+  z: 476eb6fc04c55cec
+  g: 0fc5462a22c369fa
+  name: ui - summary - tab
+  mode: link
+  links:
+    - 00818f8c0686b556
+    - b24713f215fa93c7
+  x: 1815
+  'y': 100
+  wires: []
+- id: c606cab4391ec936
+  type: link out
+  z: 476eb6fc04c55cec
+  g: c44b736d9fae3399
+  name: ui - summary - table
+  mode: link
+  links:
+    - 6b6d62b5d5c57ede
+  x: 2295
+  'y': 280
+  wires: []

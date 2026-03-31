@@ -1,6 +1,6 @@
 - id: 852390cb9559e176
   type: tab
-  label: view
+  label: detail
   disabled: false
   info: ''
   env: []
@@ -47,12 +47,7 @@
     - df12b76a3c117fcd
     - 14123420775a7b64
     - 15195c5b4fd0c363
-    - 530cadbbcef7d1ca
     - e171907702d6e26e
-    - a5b2f6f83ba5d843
-    - 9bf6c409159e82b7
-    - a187bff536129f3b
-    - 354790d21c7398b6
     - ba586dfb98614db0
     - a2c74fb09768552b
     - f7fbba1ce6763907
@@ -64,6 +59,9 @@
     - fbe4a6acb9f47f97
     - 616534fc1cbd7b3f
     - c5fdf0086beba559
+    - 5b1260fb090f1438
+    - c3dfafa9a4ca2083
+    - d1ac5df357e9e97b
   x: 104
   'y': 579
   w: 2522
@@ -566,7 +564,7 @@
       v: heattoggle
       vt: str
     - t: eq
-      v: heatmeler
+      v: heatpulse
       vt: str
     - t: eq
       v: voltage
@@ -592,7 +590,7 @@
     - - f9bd857da00235f6
     - - 9d03a71bd4283ada
     - - df12b76a3c117fcd
-    - - 530cadbbcef7d1ca
+    - - d1ac5df357e9e97b
     - - 382314ac27fece2a
     - - 1956e7c29e1f6fdb
 - id: 342d09ce7abd6d86
@@ -1792,6 +1790,7 @@
     - 575b91a30deac00d
     - 716fd198bbd63dcb
     - 7bba6594f41302c2
+    - ed53bb28b7006772
   x: 145
   'y': 80
   wires:
@@ -3631,7 +3630,7 @@
   deselect: true
   selectionType: click
   columns:
-    - title: ''
+    - title: Etat
       key: state_color
       keyType: key
       type: color
@@ -4311,7 +4310,6 @@
   'y': 1460
   wires:
     - - 780661d35554de7d
-      - c5fdf0086beba559
 - id: df12b76a3c117fcd
   type: change
   z: 852390cb9559e176
@@ -4358,36 +4356,16 @@
   'y': 1400
   wires:
     - - e171907702d6e26e
-- id: 530cadbbcef7d1ca
-  type: change
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: label
-  rules:
-    - t: set
-      p: ui_update
-      pt: msg
-      to: "{\t    'label':msg.kernel.component_name & ' (' & (msg.kernel.value=1?'Désactiver':'Activer') & ')',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 830
-  'y': 1580
-  wires:
-    - - 780661d35554de7d
 - id: e171907702d6e26e
   type: switch
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: meler
+  name: cmd
   property: kernel.component
   propertyType: msg
   rules:
-    - t: neq
-      v: heatmeler
+    - t: eq
+      v: heatpulse
       vt: str
     - t: else
   checkall: 'false'
@@ -4396,99 +4374,15 @@
   x: 1550
   'y': 1400
   wires:
-    - - 6e45cf745ff84a30
-    - - a5b2f6f83ba5d843
-- id: a5b2f6f83ba5d843
-  type: trigger
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: repeat
-  op1: ''
-  op2: ''
-  op1type: pay
-  op2type: pay
-  duration: '500'
-  extend: false
-  overrideDelay: false
-  units: ms
-  reset: ''
-  bytopic: all
-  topic: topic
-  outputs: 2
-  x: 1710
-  'y': 1400
-  wires:
-    - - 6e45cf745ff84a30
-    - - a187bff536129f3b
-- id: 9bf6c409159e82b7
-  type: trigger
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: repeat
-  op1: ''
-  op2: ''
-  op1type: nul
-  op2type: pay
-  duration: '500'
-  extend: false
-  overrideDelay: false
-  units: ms
-  reset: ''
-  bytopic: all
-  topic: topic
-  outputs: 1
-  x: 2030
-  'y': 1400
-  wires:
-    - - 354790d21c7398b6
-- id: a187bff536129f3b
-  type: change
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: inv
-  rules:
-    - t: set
-      p: kernel.value
-      pt: msg
-      to: 'msg.kernel.value=0?1:0'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1870
-  'y': 1400
-  wires:
-    - - 9bf6c409159e82b7
-      - 6e45cf745ff84a30
-- id: 354790d21c7398b6
-  type: change
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: inv
-  rules:
-    - t: set
-      p: kernel.value
-      pt: msg
-      to: 'msg.kernel.value=0?1:0'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2190
-  'y': 1400
-  wires:
+    - - 5b1260fb090f1438
     - - 6e45cf745ff84a30
 - id: ba586dfb98614db0
   type: comment
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: Play twice command to bypass Meler standby button
+  name: Play twice command for pulse command
   info: ''
-  x: 1850
+  x: 1820
   'y': 1440
   wires: []
 - id: 53c6584522e785fb
@@ -4754,7 +4648,7 @@
   g: d04f02d6e1c02839
   name: 'todo: edit "heatlink" command see mail 28/11/2025'
   info: ''
-  x: 1190
+  x: 1170
   'y': 1460
   wires: []
 - id: c5fdf0086beba559
@@ -4770,6 +4664,82 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1060
+  x: 1040
   'y': 1500
   wires: []
+- id: 5b1260fb090f1438
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: repeat
+  op1: ''
+  op2: ''
+  op1type: pay
+  op2type: pay
+  duration: '500'
+  extend: false
+  overrideDelay: false
+  units: ms
+  reset: ''
+  bytopic: all
+  topic: topic
+  outputs: 2
+  x: 1710
+  'y': 1400
+  wires:
+    - - 6e45cf745ff84a30
+    - - c3dfafa9a4ca2083
+- id: c3dfafa9a4ca2083
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: inv
+  rules:
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: 'msg.kernel.value=0?1:0'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1870
+  'y': 1400
+  wires:
+    - - 6e45cf745ff84a30
+- id: d1ac5df357e9e97b
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: tmp
+      pt: msg
+      to: msg.kernel.equipment & '|heat'
+      tot: jsonata
+    - t: set
+      p: tmp
+      pt: msg
+      to: 'kernel.state[msg.tmp]'
+      tot: global
+    - t: set
+      p: ui_update
+      pt: msg
+      to: "{\t    'label':msg.kernel.component_name & ' (' & (msg.tmp=1?'Désactiver':'Activer') & ')',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
+      tot: jsonata
+    - t: delete
+      p: tmp
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 1580
+  wires:
+    - - 780661d35554de7d
+      - c5fdf0086beba559

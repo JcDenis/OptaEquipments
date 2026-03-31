@@ -308,7 +308,7 @@
     - 2d377d40b46e8287
     - d0939046aebad4a9
   x: 104
-  'y': 2619
+  'y': 2679
   w: 1442
   h: 142
 - id: 342553f9a997ab8b
@@ -330,13 +330,14 @@
     - 39e952df40a94037
     - ddfb4d938a8cc9a3
     - caecc942cbaf7d03
-    - 2fa56d3e3a261776
     - 5f102147d59e653a
     - 7bd94117eb5ac707
+    - 1d0553a70cb4b2c9
+    - 95f887674e4d82fc
   x: 104
   'y': 2439
-  w: 1872
-  h: 142
+  w: 2112
+  h: 202
 - id: 6083e6018629a109
   type: group
   z: adb9fbf379118d77
@@ -356,10 +357,11 @@
     - 33a3406faa9b04df
     - 3d123dab660971a2
     - 952c80fb231bdf3f
-  x: 1734
-  'y': 1899
-  w: 882
-  h: 202
+    - 87abf6cab0a2dbde
+  x: 1804
+  'y': 1839
+  w: 1032
+  h: 262
 - id: 2dadce6cd1694d7d
   type: group
   z: adb9fbf379118d77
@@ -378,7 +380,7 @@
     - 181fed2155280141
     - 53dc6b1e11bb92b5
   x: 104
-  'y': 2799
+  'y': 2859
   w: 1272
   h: 262
 - id: 546836b126dc5542
@@ -2208,6 +2210,11 @@
     - t: delete
       p: days
       pt: msg
+    - t: set
+      p: nosort
+      pt: msg
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
@@ -2744,7 +2751,7 @@
   name: row - schedule
   links: []
   x: 145
-  'y': 2720
+  'y': 2780
   wires:
     - - 7f0ecb88ec1512fd
 - id: 7f0ecb88ec1512fd
@@ -2779,7 +2786,7 @@
   to: ''
   reg: false
   x: 270
-  'y': 2720
+  'y': 2780
   wires:
     - - 2d377d40b46e8287
 - id: 782aeca95563af35
@@ -2795,7 +2802,7 @@
   addname: row.ts
   property: payload
   x: 590
-  'y': 2660
+  'y': 2720
   wires:
     - - f5f238e2af5dce14
 - id: f5f238e2af5dce14
@@ -2870,7 +2877,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 2660
+  'y': 2720
   wires:
     - - e26f18b3128071fa
 - id: e26f18b3128071fa
@@ -2895,7 +2902,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 910
-  'y': 2660
+  'y': 2720
   wires:
     - - d0939046aebad4a9
 - id: dc1fb4af974ced4c
@@ -2930,7 +2937,7 @@
   to: ''
   reg: false
   x: 1230
-  'y': 2720
+  'y': 2780
   wires:
     - - da8fc276ab2fa01f
       - 33a13278d70b5334
@@ -2942,14 +2949,14 @@
   mode: return
   links: []
   x: 1355
-  'y': 2660
+  'y': 2720
   wires: []
 - id: 33a13278d70b5334
   type: debug
   z: adb9fbf379118d77
   g: 98dc220d0be2e403
   name: row - schedule
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -2958,7 +2965,7 @@
   statusVal: ''
   statusType: auto
   x: 1420
-  'y': 2720
+  'y': 2780
   wires: []
 - id: 4a9908c7e1ce4e1f
   type: link in
@@ -2967,7 +2974,7 @@
   name: option - schedule
   links: []
   x: 145
-  'y': 2540
+  'y': 2600
   wires:
     - - 0fcc77d002c31403
 - id: 02f388d7a19a2ee9
@@ -2982,7 +2989,7 @@
       to: payload
       tot: msg
     - t: move
-      p: rows
+      p: options
       pt: msg
       to: payload
       tot: msg
@@ -3002,7 +3009,7 @@
   to: ''
   reg: false
   x: 490
-  'y': 2540
+  'y': 2600
   wires:
     - - caecc942cbaf7d03
 - id: 164f832aad62b915
@@ -3018,9 +3025,9 @@
   addname: ''
   property: payload
   x: 810
-  'y': 2480
+  'y': 2540
   wires:
-    - - ddfb4d938a8cc9a3
+    - - 1d0553a70cb4b2c9
 - id: 0fcc77d002c31403
   type: link call
   z: adb9fbf379118d77
@@ -3031,7 +3038,7 @@
   linkType: static
   timeout: '30'
   x: 300
-  'y': 2540
+  'y': 2600
   wires:
     - - 02f388d7a19a2ee9
 - id: 026b81ddaf43f4be
@@ -3055,7 +3062,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1290
+  x: 1530
   'y': 2480
   wires:
     - - 7bd94117eb5ac707
@@ -3084,8 +3091,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1610
-  'y': 2540
+  x: 1850
+  'y': 2600
   wires:
     - - 39e952df40a94037
       - 5f102147d59e653a
@@ -3096,8 +3103,8 @@
   name: option - schedule
   mode: return
   links: []
-  x: 1935
-  'y': 2480
+  x: 2175
+  'y': 2540
   wires: []
 - id: 39e952df40a94037
   type: debug
@@ -3112,8 +3119,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1810
-  'y': 2540
+  x: 2050
+  'y': 2600
   wires: []
 - id: ddfb4d938a8cc9a3
   type: change
@@ -3159,8 +3166,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1130
-  'y': 2480
+  x: 1370
+  'y': 2540
   wires:
     - - 026b81ddaf43f4be
 - id: 237dd07ea219e284
@@ -3289,7 +3296,7 @@
   repair: false
   outputs: 2
   x: 650
-  'y': 2540
+  'y': 2600
   wires:
     - - 164f832aad62b915
     - - f6be4e4bc62dd4ab
@@ -3307,36 +3314,18 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 2720
+  'y': 2780
   wires:
     - - 782aeca95563af35
     - - dc1fb4af974ced4c
-- id: 2fa56d3e3a261776
-  type: switch
-  z: adb9fbf379118d77
-  g: 342553f9a997ab8b
-  name: entity
-  property: kernel.name
-  propertyType: global
-  rules:
-    - t: hask
-      v: payload.entity
-      vt: msg
-  checkall: 'false'
-  repair: true
-  outputs: 1
-  x: 970
-  'y': 2500
-  wires:
-    - []
 - id: cd21bdc2e85b8b8e
   type: link in
   z: adb9fbf379118d77
   g: 6083e6018629a109
   name: option - none
   links: []
-  x: 1775
-  'y': 2060
+  x: 1845
+  'y': 2000
   wires:
     - - f00bbd81d99a0a3b
 - id: 8c39bd33f664a1a5
@@ -3346,8 +3335,8 @@
   name: option - none
   mode: return
   links: []
-  x: 2575
-  'y': 2060
+  x: 2795
+  'y': 2000
   wires: []
 - id: f00bbd81d99a0a3b
   type: switch
@@ -3362,12 +3351,12 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1910
-  'y': 2060
+  x: 1980
+  'y': 2000
   wires:
     - - f85ab1d7d40b8ad4
       - 90f9611ccc76531f
-    - - 952c80fb231bdf3f
+    - - 87abf6cab0a2dbde
 - id: c1e73f2d8bca4b0b
   type: link out
   z: adb9fbf379118d77
@@ -3376,8 +3365,8 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 2235
-  'y': 1940
+  x: 2455
+  'y': 1880
   wires: []
 - id: f85ab1d7d40b8ad4
   type: change
@@ -3395,8 +3384,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2090
-  'y': 1940
+  x: 2310
+  'y': 1880
   wires:
     - - c1e73f2d8bca4b0b
 - id: eef88d595ae4240e
@@ -3538,8 +3527,8 @@
     - cd21bdc2e85b8b8e
   linkType: static
   timeout: '30'
-  x: 1790
-  'y': 2480
+  x: 2030
+  'y': 2540
   wires:
     - - d5f1a84f98d9cc14
 - id: bf14f62980531d75
@@ -3695,8 +3684,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2100
-  'y': 2000
+  x: 2320
+  'y': 1940
   wires:
     - - 33a3406faa9b04df
 - id: f81a83fe9f88bc17
@@ -3913,8 +3902,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1450
-  'y': 2480
+  x: 1690
+  'y': 2540
   wires:
     - - f6be4e4bc62dd4ab
 - id: d0939046aebad4a9
@@ -3934,7 +3923,7 @@
   to: ''
   reg: false
   x: 1070
-  'y': 2660
+  'y': 2720
   wires:
     - - dc1fb4af974ced4c
 - id: 33a3406faa9b04df
@@ -3952,8 +3941,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2270
-  'y': 2060
+  x: 2490
+  'y': 2000
   wires:
     - - 3d123dab660971a2
     - - 8c39bd33f664a1a5
@@ -3973,8 +3962,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2440
-  'y': 2000
+  x: 2660
+  'y': 1940
   wires:
     - - 8c39bd33f664a1a5
 - id: 7f2964561cb984f7
@@ -3984,7 +3973,7 @@
   name: value - NC
   links: []
   x: 145
-  'y': 3020
+  'y': 3080
   wires:
     - - d05f7ccc7689d0cb
 - id: d05f7ccc7689d0cb
@@ -4003,7 +3992,7 @@
   repair: false
   outputs: 2
   x: 290
-  'y': 3020
+  'y': 3080
   wires:
     - - 75e2a5e73add2e09
     - - 53dc6b1e11bb92b5
@@ -4023,7 +4012,7 @@
   repair: false
   outputs: 2
   x: 490
-  'y': 2960
+  'y': 3020
   wires:
     - - fefb8a3a6532e22a
     - - 53dc6b1e11bb92b5
@@ -4044,7 +4033,7 @@
   to: ''
   reg: false
   x: 670
-  'y': 2900
+  'y': 2960
   wires:
     - - 45a08cd16de6b33f
 - id: 45a08cd16de6b33f
@@ -4063,7 +4052,7 @@
   repair: false
   outputs: 2
   x: 850
-  'y': 2900
+  'y': 2960
   wires:
     - - e61d0e2786793621
     - - 53dc6b1e11bb92b5
@@ -4081,7 +4070,7 @@
   repair: false
   outputs: 2
   x: 1030
-  'y': 2840
+  'y': 2900
   wires:
     - - 181fed2155280141
     - - 53dc6b1e11bb92b5
@@ -4102,7 +4091,7 @@
   to: ''
   reg: false
   x: 1200
-  'y': 2840
+  'y': 2900
   wires:
     - - 53dc6b1e11bb92b5
 - id: 53dc6b1e11bb92b5
@@ -4113,7 +4102,7 @@
   mode: return
   links: []
   x: 1335
-  'y': 3020
+  'y': 3080
   wires: []
 - id: 952c80fb231bdf3f
   type: change
@@ -4126,12 +4115,73 @@
       pt: msg
       to: "$sort(msg.options, function($l, $r) {\t  $l.label > $r.label\t})"
       tot: jsonata
+    - t: delete
+      p: nosort
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 2090
+  x: 2310
   'y': 2060
   wires:
     - - 33a3406faa9b04df
+- id: 1d0553a70cb4b2c9
+  type: switch
+  z: adb9fbf379118d77
+  g: 342553f9a997ab8b
+  name: equipment
+  property: '#:(memoryOnly)::form[msg._client.socketId]'
+  propertyType: global
+  rules:
+    - t: hask
+      v: equipment
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 990
+  'y': 2540
+  wires:
+    - - 95f887674e4d82fc
+    - - ddfb4d938a8cc9a3
+- id: 95f887674e4d82fc
+  type: switch
+  z: adb9fbf379118d77
+  g: 342553f9a997ab8b
+  name: equipment
+  property: payload.equipment
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      vt: global
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1190
+  'y': 2480
+  wires:
+    - - ddfb4d938a8cc9a3
+    - - 026b81ddaf43f4be
+- id: 87abf6cab0a2dbde
+  type: switch
+  z: adb9fbf379118d77
+  g: 6083e6018629a109
+  name: 'no'
+  property: nosort
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2150
+  'y': 2000
+  wires:
+    - - 33a3406faa9b04df
+    - - 952c80fb231bdf3f
