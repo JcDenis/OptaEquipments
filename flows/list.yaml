@@ -26,9 +26,11 @@
     - 9a2dd28da599ef13
     - 0f20e88920ac6725
     - 44382e283cda58f7
+    - 1afe089173e14a79
+    - d0834b8366b3c16d
   x: 124
   'y': 219
-  w: 1892
+  w: 2212
   h: 202
 - id: 1c2d5f046ccecc9d
   type: group
@@ -47,9 +49,16 @@
     - 1b3e234bed8047a0
     - f9e68175f29117e0
     - 2b9e5dc9e9557478
+    - 400b36abc42f9eb4
+    - bbc9788e628f814f
+    - 607e3e4e380d8497
+    - d6b390ca9da4bedf
+    - 9988ada3b3e65e90
+    - 021e8a0d0e1f0812
+    - da53e09434c4c00c
   x: 124
   'y': 39
-  w: 1052
+  w: 2112
   h: 142
 - id: e86385b18b9154e7
   type: group
@@ -92,9 +101,11 @@
     - ad1d5a9ae19c821d
     - cea025421f661533
     - ab34825782b762a6
+    - bbe8021b85d0f877
+    - 334ff1640bec7b39
   x: 124
   'y': 639
-  w: 1392
+  w: 1712
   h: 142
 - id: a50af16c6cbdc476
   type: group
@@ -131,9 +142,11 @@
     - 81ef075c7c757990
     - 86ee0d3c2aa3036c
     - 01ec2644cc2fc832
+    - 36f48172f1445a10
+    - 195ada6cf49957bf
   x: 124
   'y': 819
-  w: 2682
+  w: 3002
   h: 322
 - id: 3e16528dec4157ee
   type: group
@@ -162,9 +175,11 @@
     - 595883d023c5b862
     - a7dcb0e628715135
     - 109a867dcb6cbb9e
+    - a78d481fda0989a4
+    - a0fd85dd1420f460
   x: 124
   'y': 1179
-  w: 1832
+  w: 2152
   h: 262
 - id: 09a03117ef8741bc
   type: group
@@ -178,7 +193,7 @@
     - 712dee8e0aa3fed5
     - 716fd198bbd63dcb
     - 576ca6cfd2aca638
-  x: 1284
+  x: 2464
   'y': 39
   w: 332
   h: 82
@@ -193,8 +208,8 @@
   x: 165
   'y': 80
   wires:
-    - - 7779c61e2d5af956
-      - 1b9a457d31b5df20
+    - - 1b9a457d31b5df20
+      - 021e8a0d0e1f0812
 - id: 7779c61e2d5af956
   type: change
   z: e97c6f12735a13c1
@@ -221,7 +236,7 @@
   from: ''
   to: ''
   reg: false
-  x: 300
+  x: 1360
   'y': 140
   wires:
     - - 408a810a7266e6fe
@@ -233,7 +248,7 @@
   name: ui - list - select
   label: Sélectionner un type de liste
   tooltip: ''
-  order: 1
+  order: 2
   width: 0
   height: 0
   passthru: false
@@ -247,7 +262,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 500
+  x: 1560
   'y': 140
   wires:
     - - 968b8e399f39f1a5
@@ -257,11 +272,6 @@
   g: 1c2d5f046ccecc9d
   name: list
   rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg._client.sockerId]list'
-      pt: global
-      to: payload
-      tot: msg
     - t: set
       p: list
       pt: msg
@@ -277,11 +287,11 @@
   from: ''
   to: ''
   reg: false
-  x: 690
+  x: 1750
   'y': 140
   wires:
-    - - 1b9a457d31b5df20
-      - f9e68175f29117e0
+    - - f9e68175f29117e0
+      - da53e09434c4c00c
 - id: 1b9a457d31b5df20
   type: change
   z: e97c6f12735a13c1
@@ -313,10 +323,11 @@
   from: ''
   to: ''
   reg: false
-  x: 850
+  x: 1190
   'y': 80
   wires:
-    - - 1b3e234bed8047a0
+    - - 408a810a7266e6fe
+      - da53e09434c4c00c
 - id: 1b3e234bed8047a0
   type: link out
   z: e97c6f12735a13c1
@@ -329,7 +340,7 @@
     - 30d9b3b967fbbc14
     - 43ce0ef8844bb328
     - baa9eb973e71311f
-  x: 1135
+  x: 2195
   'y': 80
   wires: []
 - id: f9e68175f29117e0
@@ -358,7 +369,7 @@
   from: ''
   to: ''
   reg: false
-  x: 850
+  x: 1910
   'y': 140
   wires:
     - - 2b9e5dc9e9557478
@@ -412,7 +423,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1010
+  x: 2070
   'y': 140
   wires:
     - - 1b3e234bed8047a0
@@ -508,16 +519,6 @@
       pt: msg
       to: msg.row.plant_name & ' (' & msg.row.plant & ')'
       tot: jsonata
-    - t: set
-      p: rows
-      pt: msg
-      to: '#:(memoryOnly)::rows'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::rows'
-      pt: flow
-      to: '$append(msg.rows,msg.row)'
-      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -526,7 +527,7 @@
   x: 1290
   'y': 380
   wires:
-    - - 95c61ec7ed45ee56
+    - - d0834b8366b3c16d
 - id: 95c61ec7ed45ee56
   type: join
   z: e97c6f12735a13c1
@@ -544,7 +545,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 1450
+  x: 1770
   'y': 380
   wires:
     - - da647da1a3bbd5c6
@@ -567,7 +568,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1610
+  x: 1930
   'y': 380
   wires:
     - - 4d7de69ac9f7a218
@@ -579,7 +580,7 @@
   group: c605809a8fe63a3b
   name: ui - list - equipment
   label: ''
-  order: 2
+  order: 3
   width: 0
   height: 0
   maxrows: 0
@@ -589,10 +590,10 @@
   deselect: true
   selectionType: click
   columns:
-    - title: Usine
-      key: plant_full
+    - title: Etat
+      key: state_color
       keyType: key
-      type: text
+      type: color
       width: ''
       align: start
     - title: Ligne
@@ -607,17 +608,11 @@
       type: text
       width: ''
       align: start
-    - title: Etat
-      key: state_color
-      keyType: key
-      type: color
-      width: ''
-      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1810
+  x: 2130
   'y': 260
   wires:
     - - f29ed3c0b737adda
@@ -634,7 +629,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1810
+  x: 2130
   'y': 380
   wires: []
 - id: 2310141e1336bdc7
@@ -707,7 +702,7 @@
   group: c605809a8fe63a3b
   name: ui - list - device
   label: ''
-  order: 5
+  order: 6
   width: 0
   height: 0
   maxrows: 0
@@ -934,7 +929,7 @@
   group: c605809a8fe63a3b
   name: ui - list - componant
   label: ''
-  order: 6
+  order: 7
   width: 0
   height: 0
   maxrows: 0
@@ -978,7 +973,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1310
+  x: 1630
   'y': 680
   wires:
     - - ab34825782b762a6
@@ -995,7 +990,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1310
+  x: 1630
   'y': 740
   wires: []
 - id: c870a78c4523470f
@@ -1090,16 +1085,6 @@
       pt: msg
       to: '#:(memoryOnly)::describe.component[msg.row.component]'
       tot: global
-    - t: set
-      p: rows
-      pt: msg
-      to: '#:(memoryOnly)::rows'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::rows'
-      pt: flow
-      to: '$append(msg.rows,msg.row)'
-      tot: jsonata
     - t: delete
       p: split
       pt: msg
@@ -1141,7 +1126,7 @@
   x: 790
   'y': 740
   wires:
-    - - ad1d5a9ae19c821d
+    - - bbe8021b85d0f877
 - id: ad1d5a9ae19c821d
   type: join
   z: e97c6f12735a13c1
@@ -1159,7 +1144,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 950
+  x: 1270
   'y': 740
   wires:
     - - cea025421f661533
@@ -1182,7 +1167,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1110
+  x: 1430
   'y': 740
   wires:
     - - 2bc6c3a18cffaa03
@@ -1194,7 +1179,7 @@
   group: c605809a8fe63a3b
   name: ui - list - schedule
   label: ''
-  order: 4
+  order: 5
   width: 0
   height: 0
   maxrows: 0
@@ -1250,7 +1235,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1890
+  x: 2210
   'y': 860
   wires:
     - - 785862339e0d27f5
@@ -1426,16 +1411,6 @@
       pt: msg
       to: Supprimer
       tot: str
-    - t: set
-      p: rows
-      pt: msg
-      to: '#:(memoryOnly)::rows'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::rows'
-      pt: flow
-      to: '$append(msg.rows,msg.row)'
-      tot: jsonata
     - t: delete
       p: split
       pt: msg
@@ -1447,7 +1422,7 @@
   x: 1190
   'y': 920
   wires:
-    - - 3e55c15b26d272df
+    - - 195ada6cf49957bf
 - id: 380c222d4034a402
   type: join
   z: e97c6f12735a13c1
@@ -1465,7 +1440,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 1530
+  x: 1850
   'y': 920
   wires:
     - - ccb6b00918f82506
@@ -1491,7 +1466,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1690
+  x: 2010
   'y': 920
   wires:
     - - 5ed601fa56386341
@@ -1509,7 +1484,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1890
+  x: 2210
   'y': 920
   wires: []
 - id: 9a28a0d564bb5e5c
@@ -1571,7 +1546,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1450
+  x: 2630
   'y': 80
   wires:
     - - 716fd198bbd63dcb
@@ -1584,7 +1559,7 @@
   links:
     - 00818f8c0686b556
     - b24713f215fa93c7
-  x: 1575
+  x: 2755
   'y': 80
   wires: []
 - id: 3e55c15b26d272df
@@ -1655,7 +1630,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1360
+  x: 1680
   'y': 920
   wires:
     - - 380c222d4034a402
@@ -1671,7 +1646,7 @@
   adjAmount: 0
   adjType: days
   adjDir: add
-  format: Hmm
+  format: HHmm
   locale: en-US
   output: compare.curtime
   outputType: msg
@@ -1867,16 +1842,6 @@
       pt: msg
       to: Supprimer
       tot: str
-    - t: set
-      p: rows
-      pt: msg
-      to: '#:(memoryOnly)::rows'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::rows'
-      pt: flow
-      to: '$append(msg.rows,msg.row)'
-      tot: jsonata
     - t: delete
       p: split
       pt: msg
@@ -1888,7 +1853,7 @@
   x: 770
   'y': 1280
   wires:
-    - - ed224a74b1fc19c4
+    - - a0fd85dd1420f460
 - id: ed224a74b1fc19c4
   type: join
   z: e97c6f12735a13c1
@@ -1906,7 +1871,7 @@
   timeout: ''
   count: ''
   reduceRight: false
-  x: 930
+  x: 1250
   'y': 1280
   wires:
     - - 81cd19dd2f6cae69
@@ -1934,7 +1899,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1090
+  x: 1410
   'y': 1280
   wires:
     - - ac2f9e0ae2c36bf5
@@ -1952,7 +1917,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1270
+  x: 1590
   'y': 1280
   wires: []
 - id: 28e40e89bfbd674f
@@ -1962,7 +1927,7 @@
   group: c605809a8fe63a3b
   name: ui - list - alert
   label: ''
-  order: 3
+  order: 4
   width: 0
   height: 0
   maxrows: 0
@@ -2018,7 +1983,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1270
+  x: 1590
   'y': 1220
   wires:
     - - ccc686e3895410e7
@@ -2032,7 +1997,7 @@
     - c3cf65de797d07e3
     - 1e593eb496287d95
     - ab34825782b762a6
-  x: 1325
+  x: 2505
   'y': 80
   wires:
     - - 712dee8e0aa3fed5
@@ -2044,7 +2009,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 1975
+  x: 2295
   'y': 260
   wires: []
 - id: c3cf65de797d07e3
@@ -2055,7 +2020,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 1595
+  x: 1915
   'y': 1220
   wires: []
 - id: 1e593eb496287d95
@@ -2066,7 +2031,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 2215
+  x: 2535
   'y': 860
   wires: []
 - id: ab34825782b762a6
@@ -2077,7 +2042,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 1475
+  x: 1795
   'y': 680
   wires: []
 - id: 7347d0d180d34028
@@ -2115,7 +2080,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 2750
   'y': 860
   wires:
     - - 69fc6a1738c1ed12
@@ -2128,7 +2093,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2715
+  x: 3035
   'y': 860
   wires: []
 - id: 60ff2c5849e23ca2
@@ -2152,7 +2117,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 2750
   'y': 920
   wires:
     - - a70e0676e8e7e767
@@ -2165,7 +2130,7 @@
   links:
     - 43ce0ef8844bb328
     - 4e94023e8ba12f50
-  x: 2715
+  x: 3035
   'y': 980
   wires: []
 - id: a70e0676e8e7e767
@@ -2185,7 +2150,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2590
+  x: 2910
   'y': 980
   wires:
     - - e90c1be08e347f3b
@@ -2206,7 +2171,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2090
+  x: 2410
   'y': 920
   wires:
     - - 1e593eb496287d95
@@ -2228,7 +2193,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2260
+  x: 2580
   'y': 920
   wires:
     - - 7347d0d180d34028
@@ -2271,7 +2236,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 2750
   'y': 980
   wires:
     - - 69fc6a1738c1ed12
@@ -2297,7 +2262,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 2750
   'y': 1100
   wires:
     - - a70e0676e8e7e767
@@ -2314,7 +2279,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2650
+  x: 2970
   'y': 920
   wires: []
 - id: 81ef075c7c757990
@@ -2352,7 +2317,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 2750
   'y': 1040
   wires:
     - - 86ee0d3c2aa3036c
@@ -2373,7 +2338,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2590
+  x: 2910
   'y': 860
   wires:
     - - f176a733d83837c5
@@ -2419,7 +2384,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1450
+  x: 1770
   'y': 1220
   wires:
     - - c3cf65de797d07e3
@@ -2461,7 +2426,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1630
+  x: 1950
   'y': 1280
   wires:
     - - a7dcb0e628715135
@@ -2486,7 +2451,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1630
+  x: 1950
   'y': 1340
   wires:
     - - 109a867dcb6cbb9e
@@ -2503,7 +2468,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1680
+  x: 2000
   'y': 1400
   wires: []
 - id: a4166a35f4e31509
@@ -2515,7 +2480,7 @@
   links:
     - 4e94023e8ba12f50
     - baa9eb973e71311f
-  x: 1915
+  x: 2235
   'y': 1340
   wires: []
 - id: 689e8c8f85f8601b
@@ -2526,7 +2491,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1915
+  x: 2235
   'y': 1280
   wires: []
 - id: a7dcb0e628715135
@@ -2546,7 +2511,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1790
+  x: 2110
   'y': 1280
   wires:
     - - 689e8c8f85f8601b
@@ -2567,7 +2532,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1790
+  x: 2110
   'y': 1340
   wires:
     - - a4166a35f4e31509
@@ -2641,3 +2606,353 @@
   'y': 380
   wires:
     - - 0f20e88920ac6725
+- id: 400b36abc42f9eb4
+  type: link call
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: ''
+  links:
+    - 22a6cc8a0964f595
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 140
+  wires:
+    - - d6b390ca9da4bedf
+- id: 607e3e4e380d8497
+  type: change
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: plant
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      pt: global
+      to: payload
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]list'
+      pt: flow
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1030
+  'y': 140
+  wires:
+    - - 9988ada3b3e65e90
+      - 1b9a457d31b5df20
+- id: bbc9788e628f814f
+  type: switch
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 870
+  'y': 140
+  wires:
+    - - 607e3e4e380d8497
+- id: d6b390ca9da4bedf
+  type: ui-dropdown
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  group: c605809a8fe63a3b
+  name: ui - select - plant
+  label: Sélectionner une usine
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: list
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 680
+  'y': 140
+  wires:
+    - - bbc9788e628f814f
+- id: 9988ada3b3e65e90
+  type: change
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: show
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1190
+  'y': 140
+  wires:
+    - - 7779c61e2d5af956
+- id: 021e8a0d0e1f0812
+  type: change
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: show
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 290
+  'y': 140
+  wires:
+    - - 400b36abc42f9eb4
+- id: da53e09434c4c00c
+  type: change
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: hide
+  rules:
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: list
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1910
+  'y': 80
+  wires:
+    - - 1b3e234bed8047a0
+- id: 1afe089173e14a79
+  type: change
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: add
+  rules:
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 380
+  wires:
+    - - 95c61ec7ed45ee56
+- id: d0834b8366b3c16d
+  type: switch
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: plant
+  property: row.plant
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      vt: global
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 1450
+  'y': 380
+  wires:
+    - - 1afe089173e14a79
+- id: bbe8021b85d0f877
+  type: switch
+  z: e97c6f12735a13c1
+  g: baadcf077dabb0e1
+  name: plant
+  property: row.plant
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      vt: global
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 950
+  'y': 740
+  wires:
+    - - 334ff1640bec7b39
+- id: 334ff1640bec7b39
+  type: change
+  z: e97c6f12735a13c1
+  g: baadcf077dabb0e1
+  name: add
+  rules:
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 740
+  wires:
+    - - ad1d5a9ae19c821d
+- id: a78d481fda0989a4
+  type: change
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  name: add
+  rules:
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 1280
+  wires:
+    - - ed224a74b1fc19c4
+- id: a0fd85dd1420f460
+  type: switch
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  name: plant
+  property: row.plant
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      vt: global
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 930
+  'y': 1280
+  wires:
+    - - a78d481fda0989a4
+- id: 36f48172f1445a10
+  type: change
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: add
+  rules:
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1510
+  'y': 920
+  wires:
+    - - 3e55c15b26d272df
+- id: 195ada6cf49957bf
+  type: switch
+  z: e97c6f12735a13c1
+  g: a50af16c6cbdc476
+  name: plant
+  property: row.plant
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      vt: global
+  checkall: 'false'
+  repair: true
+  outputs: 1
+  x: 1350
+  'y': 920
+  wires:
+    - - 36f48172f1445a10

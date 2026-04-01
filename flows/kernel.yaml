@@ -382,9 +382,9 @@
   type: delay
   z: f6f2187d.f17ca8
   g: 24d06435588a9e0e
-  name: delay 10ms
+  name: delay 5ms
   pauseType: delay
-  timeout: '10'
+  timeout: '5'
   timeoutUnits: milliseconds
   rate: '1'
   nbRateUnits: '1'
@@ -581,7 +581,7 @@
     - t: set
       p: '#:(memoryOnly)::describe.component'
       pt: global
-      to: "{\t    'run':'Lecture état de fonctionnement (run)',\t    'heat':'Lecture état de chauffe (heat)',\t    'voltage':'Lecture de tension (voltage)',\t    'power':'Lecture de puisance (power)',\t    '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t    'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t    'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t    'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t    'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t    'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t    'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t    'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t    'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t    'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t    'runreset':\"Commande de RAZ compteur partiel d'heures (reset)\",\t    'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (reset)\"\t}"
+      to: "{\t    'run':'Lecture état de fonctionnement (run)',\t    'heat':'Lecture état de chauffe (heat)',\t    'voltage':'Lecture de tension (voltage)',\t    'power':'Lecture de puisance (power)',\t    '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t    'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t    'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t    'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t    'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t    'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t    'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t    'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t    'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t    'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t    'runreset':\"Commande de RAZ compteur partiel d'heures (runreset)\",\t    'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (cyclereset)\"\t}"
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::describe.day'
@@ -2349,7 +2349,7 @@
   adjAmount: 0
   adjType: days
   adjDir: add
-  format: Hmm
+  format: HHmm
   locale: en-US
   output: compare.curtime
   outputType: msg
@@ -2540,7 +2540,6 @@
   'y': 2360
   wires:
     - - ef0293937c6887ba
-      - e5af1b2fc1a2d2ac
     - - 53b2cdd0c60ba5d9
 - id: cfe85f3e54472dc0
   type: trigger
@@ -2623,21 +2622,6 @@
   'y': 2300
   wires:
     - - b16185336bcc0cc0
-- id: e5af1b2fc1a2d2ac
-  type: debug
-  z: f6f2187d.f17ca8
-  name: debug 2
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 2060
-  'y': 2200
-  wires: []
 - id: 2f840f76104c2c6f
   type: debug
   z: f6f2187d.f17ca8

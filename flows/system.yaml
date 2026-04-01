@@ -59,10 +59,6 @@
     - a3a959c1ed6f034e
     - f8539dbcd88ad9b6
     - ded160847ba79c1d
-    - 2b792c2de9672677
-    - 670c8031f657d6e9
-    - 56dc1e345acb5604
-    - aebec2a61774c8f5
     - 2ba2fcb363a543e6
     - eba6e18370fbfe76
     - c3fbd0eb276c1dd6
@@ -84,9 +80,9 @@
     - d8fa54a0c3f6d9a5
     - a1c562cd8682ecaf
   x: 104
-  'y': 39
+  'y': 99
   w: 1212
-  h: 622
+  h: 562
 - id: 67a829c8d69b7b01
   type: ui-text-input
   z: 44465f18e06bb58d
@@ -804,98 +800,6 @@
   x: 875
   'y': 200
   wires: []
-- id: 2b792c2de9672677
-  type: link in
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: ui - tool - loop
-  links:
-    - 7bba6594f41302c2
-    - 9eddf0deb059b1dc
-  x: 145
-  'y': 140
-  wires:
-    - - 670c8031f657d6e9
-- id: 670c8031f657d6e9
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: payload
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: msg.kernel.type & '|' & msg.kernel.entity & ' = ' & msg.kernel.value
-      tot: jsonata
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 340
-  'y': 140
-  wires:
-    - - aebec2a61774c8f5
-- id: 56dc1e345acb5604
-  type: ui-text-input
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  group: 18e387e2011da847
-  name: ui - tool - loop
-  label: Messages du noyau
-  order: 7
-  width: '4'
-  height: '1'
-  topic: topic
-  topicType: msg
-  mode: text
-  tooltip: ''
-  delay: 300
-  passthru: false
-  sendOnDelay: false
-  sendOnBlur: false
-  sendOnEnter: false
-  className: ''
-  clearable: false
-  sendOnClear: false
-  icon: ''
-  iconPosition: left
-  iconInnerPosition: inside
-  x: 700
-  'y': 140
-  wires:
-    - []
-- id: aebec2a61774c8f5
-  type: delay
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: 10m/s
-  pauseType: rate
-  timeout: '5'
-  timeoutUnits: seconds
-  rate: '10'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 510
-  'y': 140
-  wires:
-    - - 56dc1e345acb5604
 - id: 2ba2fcb363a543e6
   type: change
   z: 44465f18e06bb58d
@@ -928,7 +832,7 @@
   to: ''
   reg: false
   x: 340
-  'y': 80
+  'y': 140
   wires:
     - - a1c562cd8682ecaf
 - id: eba6e18370fbfe76
@@ -939,7 +843,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 80
+  'y': 140
   wires:
     - - 2ba2fcb363a543e6
 - id: c3fbd0eb276c1dd6
@@ -949,7 +853,7 @@
   group: 18e387e2011da847
   name: ui - icon - file in
   order: 5
-  width: '4'
+  width: '2'
   height: '1'
   topic: topic
   topicType: msg
@@ -1268,6 +1172,6 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 700
-  'y': 80
+  'y': 140
   wires:
     - []
