@@ -45,6 +45,7 @@
     - 5558834cfb4c437e
     - 033ea746c3e0ee22
     - 081328881d4c3965
+    - 5b61a2f94b7fd215
   x: 124
   'y': 219
   w: 4062
@@ -70,12 +71,11 @@
     - bbc9788e628f814f
     - 607e3e4e380d8497
     - d6b390ca9da4bedf
-    - 9988ada3b3e65e90
     - 021e8a0d0e1f0812
     - da53e09434c4c00c
   x: 124
   'y': 39
-  w: 2112
+  w: 1952
   h: 142
 - id: e86385b18b9154e7
   type: group
@@ -112,6 +112,7 @@
     - ef92b32bf7f2db5c
     - bb1c3eeed652f702
     - bdca3fe751a74b61
+    - eac3c85cf9738ef1
   x: 124
   'y': 519
   w: 3342
@@ -211,6 +212,7 @@
     - 109a867dcb6cbb9e
     - a78d481fda0989a4
     - a0fd85dd1420f460
+    - 734a5a25ccdf3780
   x: 124
   'y': 1299
   w: 2152
@@ -265,12 +267,22 @@
       pt: msg
       to: "[\t    {\t        'label':'Equipements',\t        'value':'equipment'\t    },\t    {\t        'label':'Alertes',\t        'value':'alert'\t    },\t    {\t        'label':'Programmateurs',\t        'value':'schedule'\t    },\t    {\t        'label':'Materiels',\t        'value':'device'\t    },\t    {\t        'label':'Composants',\t        'value':'componant'\t    }\t]"
       tot: jsonata
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1360
+  x: 1200
   'y': 140
   wires:
     - - 408a810a7266e6fe
@@ -296,7 +308,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1560
+  x: 1400
   'y': 140
   wires:
     - - 968b8e399f39f1a5
@@ -321,7 +333,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1750
+  x: 1590
   'y': 140
   wires:
     - - f9e68175f29117e0
@@ -374,7 +386,7 @@
     - 30d9b3b967fbbc14
     - 43ce0ef8844bb328
     - baa9eb973e71311f
-  x: 2195
+  x: 2035
   'y': 80
   wires: []
 - id: f9e68175f29117e0
@@ -403,7 +415,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 1750
   'y': 140
   wires:
     - - 2b9e5dc9e9557478
@@ -439,8 +451,9 @@
   x: 290
   'y': 260
   wires:
-    - - 4d7de69ac9f7a218
+    - - 5b61a2f94b7fd215
     - - dff38e3e504ec4ad
+      - 5b61a2f94b7fd215
 - id: 2b9e5dc9e9557478
   type: delay
   z: e97c6f12735a13c1
@@ -458,7 +471,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2070
+  x: 1910
   'y': 140
   wires:
     - - 1b3e234bed8047a0
@@ -715,8 +728,9 @@
   x: 290
   'y': 560
   wires:
-    - - cc6f2138fae2fd48
+    - - eac3c85cf9738ef1
     - - 857bca2f9f3d4d5b
+      - eac3c85cf9738ef1
 - id: 857bca2f9f3d4d5b
   type: change
   z: e97c6f12735a13c1
@@ -1027,6 +1041,12 @@
       type: text
       width: ''
       align: start
+    - title: Valeur
+      key: value
+      keyType: key
+      type: text
+      width: ''
+      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -1073,6 +1093,11 @@
   g: baadcf077dabb0e1
   name: row
   rules:
+    - t: set
+      p: row.value
+      pt: msg
+      to: 'kernel.state[msg.payload]'
+      tot: global
     - t: set
       p: split
       pt: msg
@@ -1776,8 +1801,9 @@
   x: 290
   'y': 1340
   wires:
-    - - 28e40e89bfbd674f
+    - - 734a5a25ccdf3780
     - - 672160c5582e3fc9
+      - 734a5a25ccdf3780
 - id: 672160c5582e3fc9
   type: change
   z: e97c6f12735a13c1
@@ -2711,8 +2737,8 @@
   x: 1030
   'y': 140
   wires:
-    - - 9988ada3b3e65e90
-      - 1b9a457d31b5df20
+    - - 1b9a457d31b5df20
+      - 7779c61e2d5af956
 - id: bbc9788e628f814f
   type: switch
   z: e97c6f12735a13c1
@@ -2757,36 +2783,6 @@
   'y': 140
   wires:
     - - bbc9788e628f814f
-- id: 9988ada3b3e65e90
-  type: change
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: show
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1190
-  'y': 140
-  wires:
-    - - 7779c61e2d5af956
 - id: 021e8a0d0e1f0812
   type: change
   z: e97c6f12735a13c1
@@ -2848,7 +2844,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 1750
   'y': 80
   wires:
     - - 1b3e234bed8047a0
@@ -3792,3 +3788,78 @@
   x: 3915
   'y': 380
   wires: []
+- id: 734a5a25ccdf3780
+  type: change
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  name: raz
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 450
+  'y': 1340
+  wires:
+    - - 28e40e89bfbd674f
+- id: eac3c85cf9738ef1
+  type: change
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  name: raz
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 450
+  'y': 560
+  wires:
+    - - cc6f2138fae2fd48
+- id: 5b61a2f94b7fd215
+  type: change
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: raz
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 450
+  'y': 260
+  wires:
+    - - 4d7de69ac9f7a218

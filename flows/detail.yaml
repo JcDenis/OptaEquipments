@@ -57,8 +57,6 @@
     - 5b6933e7dd0972d6
     - 1956e7c29e1f6fdb
     - fbe4a6acb9f47f97
-    - 616534fc1cbd7b3f
-    - c5fdf0086beba559
     - 5b1260fb090f1438
     - c3dfafa9a4ca2083
     - d1ac5df357e9e97b
@@ -220,7 +218,6 @@
     - bb91fea59c03a712
     - 0ddcdaa6a85f6860
     - cbd65acf2d2944d3
-    - 03f7de3b095cace7
     - bd7c74e40976d045
     - 07e5db127f9067f8
     - 82dd93ed3a33555c
@@ -230,7 +227,6 @@
     - e7f0d477cc7254e6
     - a732073fc9ce650c
     - 1eb9b333c5decbcb
-    - ef0d563177311ccf
     - 429f3b5b4cb9ae42
     - ee4c8653f8b07e2e
     - 2d12083a2c3b60a1
@@ -245,9 +241,10 @@
     - 47a6c2e7767362bb
     - dd017aec28af9106
     - 53c6584522e785fb
+    - 882a274532d44076
   x: 104
   'y': 39
-  w: 3752
+  w: 3592
   h: 502
 - id: 6829c2450480a8f8
   type: link call
@@ -465,7 +462,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3720
+  x: 3560
   'y': 500
   wires: []
 - id: 02bbc60330c9f5d0
@@ -475,10 +472,10 @@
   name: ui - state
   links:
     - 050a29c043a85584
-  x: 3075
+  x: 3085
   'y': 500
   wires:
-    - - ef0d563177311ccf
+    - - cbd65acf2d2944d3
 - id: eec6cf862137585d
   type: switch
   z: 852390cb9559e176
@@ -496,7 +493,8 @@
   x: 3370
   'y': 440
   wires:
-    - - 03f7de3b095cace7
+    - - 342d09ce7abd6d86
+      - e50b6b57af2e2315
 - id: 9cef467dfab6ffd0
   type: link out
   z: 852390cb9559e176
@@ -505,7 +503,7 @@
   mode: link
   links:
     - 9fc3dfcadb19726e
-  x: 3815
+  x: 3655
   'y': 440
   wires: []
 - id: 9fc3dfcadb19726e
@@ -604,12 +602,17 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 3690
+  x: 3530
   'y': 440
   wires:
     - - 9cef467dfab6ffd0
@@ -931,7 +934,7 @@
   type: split
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: ''
+  name: split
   splt: \n
   spltType: str
   arraySplt: 1
@@ -965,7 +968,7 @@
   type: change
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: fill
+  name: kernel
   rules:
     - t: set
       p: split
@@ -1002,6 +1005,16 @@
       pt: msg
       to: 'split[1]'
       tot: msg
+    - t: set
+      p: kernel.component_name
+      pt: msg
+      to: msg.kernel.equipment&'|'&msg.kernel.component
+      tot: jsonata
+    - t: set
+      p: kernel.component_name
+      pt: msg
+      to: 'kernel.name[msg.kernel.component_name]'
+      tot: global
     - t: delete
       p: split
       pt: msg
@@ -1123,32 +1136,6 @@
   'y': 920
   wires:
     - - 6e45cf745ff84a30
-- id: 03f7de3b095cace7
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: fill
-  rules:
-    - t: set
-      p: kernel.component_name
-      pt: msg
-      to: msg.kernel.equipment&'|'&msg.kernel.component
-      tot: jsonata
-    - t: set
-      p: kernel.component_name
-      pt: msg
-      to: 'kernel.name[msg.kernel.component_name]'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 3530
-  'y': 440
-  wires:
-    - - 342d09ce7abd6d86
-      - e50b6b57af2e2315
 - id: bf0283565cf53483
   type: ui-button
   z: 852390cb9559e176
@@ -1796,7 +1783,7 @@
   wires:
     - - dd017aec28af9106
       - 6b53ef650b83222f
-      - 6829c2450480a8f8
+      - 882a274532d44076
 - id: 07e5db127f9067f8
   type: switch
   z: 852390cb9559e176
@@ -3365,24 +3352,6 @@
   'y': 2600
   wires:
     - - 1731e40db78d313f
-- id: ef0d563177311ccf
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: '-'
-  rules:
-    - t: delete
-      p: class
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 3210
-  'y': 500
-  wires:
-    - - cbd65acf2d2944d3
 - id: acdae881725fb854
   type: link in
   z: 852390cb9559e176
@@ -4637,31 +4606,6 @@
   'y': 1340
   wires:
     - []
-- id: 616534fc1cbd7b3f
-  type: comment
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: 'todo: edit "heatlink" command see mail 28/11/2025'
-  info: ''
-  x: 1170
-  'y': 1460
-  wires: []
-- id: c5fdf0086beba559
-  type: debug
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: debug 1
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1040
-  'y': 1500
-  wires: []
 - id: 5b1260fb090f1438
   type: trigger
   z: 852390cb9559e176
@@ -4737,4 +4681,33 @@
   'y': 1580
   wires:
     - - 780661d35554de7d
-      - c5fdf0086beba559
+- id: 882a274532d44076
+  type: change
+  z: 852390cb9559e176
+  g: 20a2e240c83c48c2
+  name: show
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 790
+  'y': 140
+  wires:
+    - - 6829c2450480a8f8
