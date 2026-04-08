@@ -1,0 +1,587 @@
+- id: 27841aa886edd1cd
+  type: tab
+  label: auth
+  disabled: false
+  info: ''
+  env: []
+- id: 90f47fc795048184
+  type: group
+  z: 27841aa886edd1cd
+  name: ui - auth
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 050ccef8b075e3d0
+    - d1f204e0d223525d
+    - f2cfb5d52b6caa4d
+    - 9833ea0e831ff8c7
+    - aa0e1484ee75066f
+    - 9979f236b1c3baac
+    - f96741fbde0c2e54
+    - 542736049e43b270
+    - 34e005364036decc
+    - 7abca62b92f00cde
+    - c78af6924875ff04
+    - ab5c8b5ef36091e4
+    - f4eee7dbe5621ecf
+    - bb71762ba2269b75
+    - 5cdedb3dc477d939
+    - cfc247c5da19d8e0
+    - 56c612fa7caecb7f
+    - 8aca2e86c077d885
+    - 0f7febddea121273
+    - f9dc1f7a8155ebef
+    - 09bd0767b56167b6
+    - f68e1a2d7f3e0c3d
+    - 6ab34b3b3d64905e
+  x: 104
+  'y': 79
+  w: 1802
+  h: 322
+- id: 050ccef8b075e3d0
+  type: ui-text-input
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  group: 3c952a83cfc8f302
+  name: login
+  label: Identifiant
+  order: 3
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 750
+  'y': 240
+  wires:
+    - - 5cdedb3dc477d939
+- id: d1f204e0d223525d
+  type: ui-text-input
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  group: 3c952a83cfc8f302
+  name: pass
+  label: Mot de passe
+  order: 4
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: password
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 750
+  'y': 300
+  wires:
+    - - cfc247c5da19d8e0
+- id: f2cfb5d52b6caa4d
+  type: ui-button
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  group: 3c952a83cfc8f302
+  name: connect
+  label: Se connecter
+  order: 5
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 760
+  'y': 360
+  wires:
+    - - 56c612fa7caecb7f
+- id: 9833ea0e831ff8c7
+  type: ui-button
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  group: 3c952a83cfc8f302
+  name: disconnect
+  label: Se déconnecter
+  order: 2
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 770
+  'y': 180
+  wires:
+    - - f4eee7dbe5621ecf
+- id: aa0e1484ee75066f
+  type: ui-text
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  group: 3c952a83cfc8f302
+  order: 1
+  width: 0
+  height: 0
+  name: user
+  label: 'Utilisateur : '
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: payload
+  valueType: msg
+  x: 750
+  'y': 120
+  wires: []
+- id: 9979f236b1c3baac
+  type: link in
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ui - auth
+  links:
+    - 575b91a30deac00d
+    - 7bba6594f41302c2
+  x: 145
+  'y': 180
+  wires:
+    - - f96741fbde0c2e54
+- id: f96741fbde0c2e54
+  type: switch
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: client
+  property: _client
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 270
+  'y': 180
+  wires:
+    - - 542736049e43b270
+    - - c78af6924875ff04
+      - 7abca62b92f00cde
+- id: 542736049e43b270
+  type: switch
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: login
+  property: '#:(memoryOnly)::user[msg._client.socketId]login'
+  propertyType: global
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 120
+  wires:
+    - - 34e005364036decc
+      - ab5c8b5ef36091e4
+    - - c78af6924875ff04
+      - 7abca62b92f00cde
+- id: 34e005364036decc
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: login
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId]login'
+      tot: global
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 120
+  wires:
+    - - aa0e1484ee75066f
+      - 9833ea0e831ff8c7
+- id: 7abca62b92f00cde
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 180
+  wires:
+    - - aa0e1484ee75066f
+      - 9833ea0e831ff8c7
+- id: c78af6924875ff04
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: show
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 240
+  wires:
+    - - 050ccef8b075e3d0
+      - d1f204e0d223525d
+      - f2cfb5d52b6caa4d
+- id: ab5c8b5ef36091e4
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 300
+  wires:
+    - - 050ccef8b075e3d0
+      - d1f204e0d223525d
+      - f2cfb5d52b6caa4d
+- id: f4eee7dbe5621ecf
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: disconnect
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::user[msg._client.socketId]'
+      pt: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 970
+  'y': 180
+  wires:
+    - - 6ab34b3b3d64905e
+- id: bb71762ba2269b75
+  type: link out
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ui - auth
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 1755
+  'y': 180
+  wires: []
+- id: 5cdedb3dc477d939
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: flow
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::user[msg._client.socketId]login'
+      pt: flow
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 950
+  'y': 240
+  wires:
+    - []
+- id: cfc247c5da19d8e0
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: flow
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::user[msg._client.socketId]pass'
+      pt: flow
+      to: payload
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 950
+  'y': 300
+  wires:
+    - []
+- id: 56c612fa7caecb7f
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: user
+  rules:
+    - t: set
+      p: login
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId]login'
+      tot: flow
+    - t: set
+      p: pass
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId]pass'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 950
+  'y': 360
+  wires:
+    - - 0f7febddea121273
+- id: 8aca2e86c077d885
+  type: debug
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ui - auth
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1800
+  'y': 240
+  wires: []
+- id: 0f7febddea121273
+  type: link call
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ''
+  links:
+    - 4a9215e8a21108b6
+  linkType: static
+  timeout: '30'
+  x: 1130
+  'y': 360
+  wires:
+    - - 09bd0767b56167b6
+- id: f9dc1f7a8155ebef
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: global
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::user[msg._client.socketId]'
+      pt: global
+      to: user
+      tot: msg
+    - t: delete
+      p: user
+      pt: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: Maintenance
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1470
+  'y': 300
+  wires:
+    - - 6ab34b3b3d64905e
+- id: 09bd0767b56167b6
+  type: switch
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ok
+  property: payload
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1310
+  'y': 360
+  wires:
+    - - f9dc1f7a8155ebef
+    - - f68e1a2d7f3e0c3d
+- id: f68e1a2d7f3e0c3d
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: global
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::user[msg._client.socketId]'
+      pt: global
+    - t: delete
+      p: user
+      pt: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: Authentification
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1470
+  'y': 360
+  wires:
+    - - 6ab34b3b3d64905e
+- id: 6ab34b3b3d64905e
+  type: delay
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: 20ms
+  pauseType: delay
+  timeout: '20'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1630
+  'y': 180
+  wires:
+    - - bb71762ba2269b75
+      - 8aca2e86c077d885

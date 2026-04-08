@@ -96,9 +96,14 @@
     - 0233bc571f3d02db
     - 00818f8c0686b556
     - 3450fffd4f368319
+    - 9405477d274b186a
+    - fe76b727895831bf
+    - 61f220b93c1a61a5
+    - c1821dc26a8ea536
+    - ae221346ad22ce08
   x: 104
   'y': 1839
-  w: 782
+  w: 1062
   h: 382
 - id: ede1bcd992279676
   type: group
@@ -187,6 +192,46 @@
   'y': 2259
   w: 2902
   h: 142
+- id: e003b6597484d33b
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - vault
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 4a9215e8a21108b6
+    - 865ff410f80e54a9
+    - b9aa7311188ac6f5
+    - 81fefc9c4842ad9b
+    - 0207108b21735adb
+    - 576fa4eb80320c7e
+    - 64492ddbe5d35b31
+    - f1c6d4481fd6e95e
+  x: 104
+  'y': 1179
+  w: 812
+  h: 142
+- id: e9d3bc6bd3501d12
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel- clean
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - dc46a714daced4cd
+    - e3e494c35218959c
+    - 2b844fef450bf9f4
+    - eccca9e84c6fd0a5
+    - e620afd0dabbdc29
+  x: 104
+  'y': 1359
+  w: 722
+  h: 82
 - id: a22fb9b1d981984a
   type: switch
   z: f6f2187d.f17ca8
@@ -247,7 +292,6 @@
   g: 216f821485a9eb19
   name: kernel - loop
   links:
-    - b488c7fb4ff16174
     - 83e2c0eb499a9ef4
     - 902fe68ecf2dae15
     - 3cc5c7bd4abc1cb9
@@ -266,6 +310,7 @@
     - 689e8c8f85f8601b
     - bdca3fe751a74b61
     - 081328881d4c3965
+    - 3b216df2f7859362
   x: 1625
   'y': 560
   wires:
@@ -394,7 +439,6 @@
   mode: link
   links:
     - 22c1b32b8fa874d6
-    - ad406fd7f7e8dcad
   x: 835
   'y': 200
   wires: []
@@ -453,22 +497,16 @@
   mode: link
   links:
     - aaa4b0dfa4f0d7a8
-    - be594973267232f5
     - 6640363c796f547b
-    - d0be34a90b4e69b0
-    - 6520d4dd35a36d5f
     - 10af438fbe88a4a2
-    - 898e323acce8cdc5
-    - 1bd9c70a5be52bdc
     - 28b85f45e33eef42
     - eba6e18370fbfe76
-    - 2315058a360d8287
-    - 8b1e3b84ed635f09
-    - 2b19cffefc8b8dfc
     - b24713f215fa93c7
     - f7245ef690c212b6
     - 0867279186d4420d
     - c8c91a8a8cb864f2
+    - 9979f236b1c3baac
+    - 3c74c1e48218b536
   x: 675
   'y': 140
   wires: []
@@ -484,33 +522,25 @@
       to: spile
       tot: str
     - t: set
-      p: '#:(memoryOnly)::form'
-      pt: global
-      to: '{}'
-      tot: jsonata
-    - t: delete
-      p: '#:(memoryOnly)::describe'
-      pt: global
-    - t: set
-      p: '#:(memoryOnly)::describe.component'
-      pt: global
-      to: "{\t    'run':'Lecture état de fonctionnement (run)',\t    'heat':'Lecture état de chauffe (heat)',\t    'voltage':'Lecture de tension (voltage)',\t    'power':'Lecture de puisance (power)',\t    '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t    'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t    'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t    'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t    'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t    'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t    'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t    'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t    'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t    'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t    'runreset':\"Commande de RAZ compteur partiel d'heures (runreset)\",\t    'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (cyclereset)\"\t}"
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::describe.day'
-      pt: global
-      to: "{\t    '0':'Dimanche',\t    '1':'Lundi',\t    '2':'Mardi',\t    '3':'Mercredi',\t    '4':'Jeudi',\t    '5':'Vendredi',\t    '6':'Samedi',\t    '7':'Dimanche'\t}"
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::describe.resolution'
-      pt: global
-      to: "{\t    '1':'1 minute',\t    '2':'2 minutes',\t    '5':'5 minutes',\t    '15':'15 minutes',\t    '30':'30 minutes',\t    '60':'1 heure'\t}"
-      tot: jsonata
-    - t: set
       p: '#:(memoryOnly)::version'
       pt: global
       to: 0.1.0
       tot: str
+    - t: set
+      p: '#:(memoryOnly)::form'
+      pt: global
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::user'
+      pt: global
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::describe'
+      pt: global
+      to: "{\t    'component':{\t        'run':'Lecture état de fonctionnement (run)',\t        'heat':'Lecture état de chauffe (heat)',\t        'voltage':'Lecture de tension (voltage)',\t        'power':'Lecture de puisance (power)',\t        '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t        'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t        'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t        'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t        'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t        'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t        'runreset':\"Commande de RAZ compteur partiel d'heures (runreset)\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (cyclereset)\"\t    },\t    'day':{\t        '0':'Dimanche',\t        '1':'Lundi',\t        '2':'Mardi',\t        '3':'Mercredi',\t        '4':'Jeudi',\t        '5':'Vendredi',\t        '6':'Samedi',\t        '7':'Dimanche'\t    },\t    'resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minutes',\t        '60':'1 heure'\t    },\t    'level':{\t        'prod':'Production',\t        'tech':'Technicien',\t        'rt':'Repsonsable technique',\t        'admin':'Administrateur'\t    }\t}"
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -565,7 +595,7 @@
   statusVal: ''
   statusType: auto
   x: 780
-  'y': 1940
+  'y': 1880
   wires: []
 - id: d82f731a51f1d464
   type: debug
@@ -738,6 +768,8 @@
     - a4166a35f4e31509
     - 07f04015f0eb92c6
     - f1491390ad3bbec6
+    - 8fdbc68cf0ee65f4
+    - b42047a933d30eb6
   x: 145
   'y': 2120
   wires:
@@ -1171,6 +1203,7 @@
   mode: link
   links:
     - 1589f9995713ce70
+    - dc46a714daced4cd
   x: 355
   'y': 320
   wires: []
@@ -1657,10 +1690,8 @@
   name: kernel - loop - state
   mode: link
   links:
-    - 02bbc60330c9f5d0
     - 1472ee8de6253740
     - 6f0b1eb0278764e4
-    - 980eaf2e5115b7fb
     - e47fa68c1a570f10
   x: 3815
   'y': 560
@@ -1674,11 +1705,13 @@
   links:
     - 28b85f45e33eef42
     - c344b98bc4ee57db
-    - 8b1e3b84ed635f09
-    - 2b19cffefc8b8dfc
     - b24713f215fa93c7
     - c8c91a8a8cb864f2
-  x: 735
+    - 9979f236b1c3baac
+    - 00818f8c0686b556
+    - eba6e18370fbfe76
+    - 3c74c1e48218b536
+  x: 1055
   'y': 1880
   wires: []
 - id: 4de1644d9063dd22
@@ -1746,8 +1779,8 @@
   x: 610
   'y': 1880
   wires:
-    - - 7bba6594f41302c2
-      - 23dd24021e2cecf1
+    - - 23dd24021e2cecf1
+      - 9405477d274b186a
 - id: 1f35842ad1aa1eaa
   type: comment
   z: f6f2187d.f17ca8
@@ -1765,6 +1798,8 @@
   links:
     - 716fd198bbd63dcb
     - ed53bb28b7006772
+    - bb71762ba2269b75
+    - 7bba6594f41302c2
   x: 145
   'y': 1880
   wires:
@@ -2470,3 +2505,419 @@
   x: 3410
   'y': 680
   wires: []
+- id: 4a9215e8a21108b6
+  type: link in
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: kernel - vaut
+  links: []
+  x: 145
+  'y': 1280
+  wires:
+    - - b9aa7311188ac6f5
+- id: 865ff410f80e54a9
+  type: link out
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: kernel - vault
+  mode: return
+  links: []
+  x: 875
+  'y': 1280
+  wires: []
+- id: b9aa7311188ac6f5
+  type: vault
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: load
+  vault: 2b75336f389aa911
+  properties:
+    - group: login
+      property: admin
+      output: msg.vault.admin.pass
+    - group: login
+      property: tecblyes
+      output: msg.vault.tecblyes.pass
+    - group: login
+      property: blyes
+      output: msg.vault.blyes.pass
+    - group: level
+      property: admin
+      output: msg.vault.admin.level
+    - group: level
+      property: tecblyes
+      output: msg.vault.tecblyes.level
+    - group: level
+      property: blyes
+      output: msg.vault.blyes.level
+    - group: plant
+      property: admin
+      output: msg.vault.admin.plant
+    - group: plant
+      property: tecblyes
+      output: msg.vault.tecblyes.plant
+    - group: plant
+      property: blyes
+      output: msg.vault.blyes.plant
+    - group: login
+      property: rtblyes
+      output: msg.vault.rtblyes.pass
+    - group: level
+      property: rtblyes
+      output: msg.vault.rtblyes.level
+    - group: plant
+      property: rtblyes
+      output: msg.vault.rtblyes.plant
+  x: 270
+  'y': 1280
+  wires:
+    - - 81fefc9c4842ad9b
+- id: 81fefc9c4842ad9b
+  type: switch
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: login
+  property: vault
+  propertyType: msg
+  rules:
+    - t: hask
+      v: login
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 1280
+  wires:
+    - - 0207108b21735adb
+    - - 64492ddbe5d35b31
+- id: 0207108b21735adb
+  type: switch
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: pass
+  property: 'vault[msg.login]pass'
+  propertyType: msg
+  rules:
+    - t: eq
+      v: pass
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 590
+  'y': 1220
+  wires:
+    - - 576fa4eb80320c7e
+    - - 64492ddbe5d35b31
+- id: 576fa4eb80320c7e
+  type: change
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: global
+  rules:
+    - t: set
+      p: level
+      pt: msg
+      to: 'vault[msg.login]level'
+      tot: msg
+    - t: set
+      p: plant
+      pt: msg
+      to: 'vault[msg.login]plant'
+      tot: msg
+    - t: set
+      p: time
+      pt: msg
+      to: ''
+      tot: date
+    - t: set
+      p: user
+      pt: msg
+      to: "{\t    'login':msg.login,\t    'level':msg.level,\t    'plant':msg.plant,\t    'time':msg.time\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: 'true'
+      tot: bool
+    - t: delete
+      p: vault
+      pt: msg
+    - t: delete
+      p: login
+      pt: msg
+    - t: delete
+      p: pass
+      pt: msg
+    - t: delete
+      p: level
+      pt: msg
+    - t: delete
+      p: plant
+      pt: msg
+    - t: delete
+      p: time
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 750
+  'y': 1220
+  wires:
+    - - 865ff410f80e54a9
+- id: 64492ddbe5d35b31
+  type: change
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: global
+  rules:
+    - t: set
+      p: user
+      pt: msg
+      to: "{\t    'login':'',\t    'level':'',\t    'plant':''\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: delete
+      p: vault
+      pt: msg
+    - t: delete
+      p: login
+      pt: msg
+    - t: delete
+      p: pass
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 750
+  'y': 1280
+  wires:
+    - - 865ff410f80e54a9
+- id: 9405477d274b186a
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId]level'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+    - t: eq
+      v: rt
+      vt: str
+    - t: eq
+      v: tech
+      vt: str
+    - t: eq
+      v: prod
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 5
+  x: 770
+  'y': 1940
+  wires:
+    - - 7bba6594f41302c2
+    - - fe76b727895831bf
+    - - c1821dc26a8ea536
+    - - ae221346ad22ce08
+    - - 61f220b93c1a61a5
+- id: fe76b727895831bf
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: rt
+  property: payload
+  propertyType: msg
+  rules:
+    - t: regex
+      v: ^(Maintenance|Détail|Listes|Arborescence)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 930
+  'y': 2000
+  wires:
+    - - 7bba6594f41302c2
+    - - 61f220b93c1a61a5
+- id: 61f220b93c1a61a5
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tab
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Authentification
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 1960
+  wires:
+    - - 7bba6594f41302c2
+- id: c1821dc26a8ea536
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tech
+  property: payload
+  propertyType: msg
+  rules:
+    - t: regex
+      v: ^(Maintenance|Détail|Listes)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 930
+  'y': 2060
+  wires:
+    - - 7bba6594f41302c2
+    - - 61f220b93c1a61a5
+- id: ae221346ad22ce08
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: prod
+  property: payload
+  propertyType: msg
+  rules:
+    - t: regex
+      v: ^(Maintenance|Détail)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 930
+  'y': 2120
+  wires:
+    - - 7bba6594f41302c2
+    - - 61f220b93c1a61a5
+- id: f1c6d4481fd6e95e
+  type: comment
+  z: f6f2187d.f17ca8
+  g: e003b6597484d33b
+  name: manage users and levels in vault
+  info: ''
+  x: 350
+  'y': 1220
+  wires: []
+- id: dc46a714daced4cd
+  type: link in
+  z: f6f2187d.f17ca8
+  g: e9d3bc6bd3501d12
+  name: kernel - clean
+  links:
+    - 527bd0d2254942cb
+  x: 145
+  'y': 1400
+  wires:
+    - - e3e494c35218959c
+- id: e3e494c35218959c
+  type: change
+  z: f6f2187d.f17ca8
+  g: e9d3bc6bd3501d12
+  name: user
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::user'
+      tot: global
+    - t: set
+      p: limit
+      pt: msg
+      to: ''
+      tot: date
+    - t: set
+      p: limit
+      pt: msg
+      to: '$round(msg.limit - (24*60*60*1000), 0)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 1400
+  wires:
+    - - 2b844fef450bf9f4
+- id: 2b844fef450bf9f4
+  type: split
+  z: f6f2187d.f17ca8
+  g: e9d3bc6bd3501d12
+  name: slpit
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: key
+  property: payload
+  x: 430
+  'y': 1400
+  wires:
+    - - eccca9e84c6fd0a5
+- id: eccca9e84c6fd0a5
+  type: switch
+  z: f6f2187d.f17ca8
+  g: e9d3bc6bd3501d12
+  name: limit
+  property: payload.time
+  propertyType: msg
+  rules:
+    - t: lt
+      v: limit
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 590
+  'y': 1400
+  wires:
+    - - e620afd0dabbdc29
+- id: e620afd0dabbdc29
+  type: change
+  z: f6f2187d.f17ca8
+  g: e9d3bc6bd3501d12
+  name: delete
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::user[msg.key]'
+      pt: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 750
+  'y': 1400
+  wires:
+    - []

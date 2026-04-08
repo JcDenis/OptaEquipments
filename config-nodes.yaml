@@ -98,16 +98,16 @@
     - name: Desktop
       px: '1024'
       cols: '12'
-  order: 4
+  order: 5
   className: ''
-  visible: 'true'
-  disabled: 'false'
+  visible: true
+  disabled: false
 - id: 71ccb6fab20261e2
   type: ui-page
   name: Détail
   ui: 68fb8d742e5053db
   path: /detail
-  icon: eye
+  icon: magnify
   layout: tabs
   theme: ca81bb608c015a0d
   breakpoints:
@@ -123,22 +123,10 @@
     - name: Desktop
       px: '1024'
       cols: '12'
-  order: 2
+  order: 3
   className: ''
   visible: 'true'
   disabled: 'false'
-- id: 53fb0eee68c8f320
-  type: ui-group
-  name: Usines
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 1
-  showTitle: true
-  className: ''
-  visible: 'true'
-  disabled: 'false'
-  groupType: default
 - id: 1669fa4fe2f204a0
   type: ui-group
   name: Détail
@@ -146,57 +134,9 @@
   width: 6
   height: 1
   order: 1
-  showTitle: false
-  className: ''
-  visible: 'true'
-  disabled: 'false'
-  groupType: default
-- id: dd968c6d9fd51ce8
-  type: ui-group
-  name: Lignes
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 2
   showTitle: true
   className: ''
   visible: 'true'
-  disabled: 'false'
-  groupType: default
-- id: e003b21feb885c70
-  type: ui-group
-  name: Equipements
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 3
-  showTitle: true
-  className: ''
-  visible: 'true'
-  disabled: 'false'
-  groupType: default
-- id: 72650b0750e04cb4
-  type: ui-group
-  name: Composants
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 5
-  showTitle: true
-  className: ''
-  visible: 'true'
-  disabled: 'false'
-  groupType: default
-- id: 78fc4d50f5e2bcc1
-  type: ui-group
-  name: Materiels
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 4
-  showTitle: true
-  className: ''
-  visible: true
   disabled: 'false'
   groupType: default
 - id: 297c38d08e523a55
@@ -220,7 +160,7 @@
     - name: Desktop
       px: '1024'
       cols: '12'
-  order: 3
+  order: 4
   className: ''
   visible: 'true'
   disabled: 'false'
@@ -249,30 +189,6 @@
   url: 'http://192.168.100.113:8086'
   timeout: 10
   rejectUnauthorized: false
-- id: 54e5153d8ee4c680
-  type: ui-group
-  name: Alertes
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 6
-  showTitle: true
-  className: ''
-  visible: 'true'
-  disabled: 'false'
-  groupType: default
-- id: cc92819045cc90af
-  type: ui-group
-  name: Programmateurs
-  page: 5287a3b059e7b4ce
-  width: 6
-  height: 1
-  order: 7
-  showTitle: true
-  className: ''
-  visible: 'true'
-  disabled: 'false'
-  groupType: default
 - id: 1ac335c1e0a24a11
   type: ui-page
   name: Système
@@ -294,7 +210,7 @@
     - name: Desktop
       px: '1024'
       cols: '12'
-  order: 5
+  order: 6
   className: ''
   visible: 'true'
   disabled: 'false'
@@ -324,10 +240,47 @@
   groupType: default
 - id: a19160517715b70b
   type: ui-page
-  name: Résumé
+  name: Maintenance
   ui: 68fb8d742e5053db
   path: /summary
-  icon: home
+  icon: wrench-clock
+  layout: tabs
+  theme: ca81bb608c015a0d
+  breakpoints:
+    - name: Default
+      px: '0'
+      cols: '3'
+    - name: Tablet
+      px: '576'
+      cols: '6'
+    - name: Small Desktop
+      px: '768'
+      cols: '9'
+    - name: Desktop
+      px: '1024'
+      cols: '12'
+  order: 2
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+- id: ab8ef19cd1ae9d09
+  type: ui-group
+  name: Maintenance
+  page: a19160517715b70b
+  width: 6
+  height: 1
+  order: 1
+  showTitle: true
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+  groupType: default
+- id: 64fe17ae4a406472
+  type: ui-page
+  name: Authentification
+  ui: 68fb8d742e5053db
+  path: /auth
+  icon: login
   layout: tabs
   theme: ca81bb608c015a0d
   breakpoints:
@@ -347,14 +300,45 @@
   className: ''
   visible: 'true'
   disabled: 'false'
-- id: ab8ef19cd1ae9d09
+- id: 3c952a83cfc8f302
   type: ui-group
-  name: Résumé
-  page: a19160517715b70b
-  width: 6
+  name: Authentification
+  page: 64fe17ae4a406472
+  width: '3'
   height: 1
   order: 1
   showTitle: true
+  className: ''
+  visible: 'true'
+  disabled: 'false'
+  groupType: default
+- id: 2b75336f389aa911
+  type: vault-config
+  name: users
+  structure:
+    login:
+      - admin
+      - tecblyes
+      - blyes
+      - rtblyes
+    level:
+      - admin
+      - tecblyes
+      - blyes
+      - rtblyes
+    plant:
+      - admin
+      - tecblyes
+      - blyes
+      - rtblyes
+- id: 9d9e19b688919599
+  type: ui-group
+  name: Arborescence
+  page: 5287a3b059e7b4ce
+  width: 6
+  height: 1
+  order: 1
+  showTitle: false
   className: ''
   visible: 'true'
   disabled: 'false'

@@ -35,10 +35,15 @@
     - 2f959ccef56b1836
     - 09a816282f3bc371
     - ed53bb28b7006772
+    - 639c9d2813f61707
+    - f14b416dec70b194
+    - a2994b1359ff6e08
+    - 24c00ecc54dcb525
+    - 5e3db2956f921215
   x: 104
   'y': 59
-  w: 3332
-  h: 142
+  w: 3812
+  h: 202
 - id: 7f208cf2ab66dd88
   type: link call
   z: 476eb6fc04c55cec
@@ -48,7 +53,7 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 450
+  x: 930
   'y': 160
   wires:
     - - eef8f90bc9ebb816
@@ -63,8 +68,8 @@
   x: 145
   'y': 100
   wires:
-    - - 59395394cfbb7859
-      - 63f48ffb860fcecb
+    - - 24c00ecc54dcb525
+      - 639c9d2813f61707
 - id: eef8f90bc9ebb816
   type: ui-dropdown
   z: 476eb6fc04c55cec
@@ -87,7 +92,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 680
+  x: 1160
   'y': 160
   wires:
     - - 30bd97f3094ce24d
@@ -105,7 +110,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 890
+  x: 1370
   'y': 160
   wires:
     - - 278b948fe3397d6d
@@ -125,7 +130,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1050
+  x: 1530
   'y': 160
   wires:
     - - 59395394cfbb7859
@@ -156,7 +161,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1210
+  x: 1690
   'y': 100
   wires:
     - - 2f959ccef56b1836
@@ -186,7 +191,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1390
+  x: 1870
   'y': 160
   wires:
     - - e13bed64768ee41f
@@ -207,7 +212,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1210
+  x: 1690
   'y': 160
   wires:
     - - 7ab11ad4d1391433
@@ -223,7 +228,7 @@
   stream: false
   addname: row.equipment
   property: payload
-  x: 1570
+  x: 2050
   'y': 160
   wires:
     - - e0a78c10ef6a4efe
@@ -258,7 +263,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1730
+  x: 2210
   'y': 160
   wires:
     - - 65303885356124c5
@@ -276,7 +281,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 1890
+  x: 2370
   'y': 160
   wires:
     - - 1e8664c6a3717b02
@@ -294,7 +299,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2050
+  x: 2530
   'y': 160
   wires:
     - - e6c65e2eccee4ef9
@@ -312,7 +317,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2210
+  x: 2690
   'y': 160
   wires:
     - - 76a3bcdc76d86aa3
@@ -329,7 +334,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3060
+  x: 3540
   'y': 160
   wires: []
 - id: 76a3bcdc76d86aa3
@@ -388,7 +393,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2370
+  x: 2850
   'y': 160
   wires:
     - - ba9e4d6476d595d0
@@ -413,7 +418,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2530
+  x: 3010
   'y': 160
   wires:
     - - a2b86cd0821431f3
@@ -438,7 +443,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 2690
+  x: 3170
   'y': 160
   wires:
     - - a44482562033a116
@@ -476,7 +481,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2850
+  x: 3330
   'y': 160
   wires:
     - - 2f959ccef56b1836
@@ -532,7 +537,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 3060
+  x: 3540
   'y': 100
   wires:
     - - 09a816282f3bc371
@@ -560,7 +565,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3270
+  x: 3750
   'y': 100
   wires:
     - - ed53bb28b7006772
@@ -573,7 +578,7 @@
   links:
     - 00818f8c0686b556
     - b24713f215fa93c7
-  x: 3395
+  x: 3875
   'y': 100
   wires: []
 - id: 63f48ffb860fcecb
@@ -602,7 +607,115 @@
   from: ''
   to: ''
   reg: false
-  x: 270
+  x: 750
   'y': 160
   wires:
     - - 7f208cf2ab66dd88
+- id: 24c00ecc54dcb525
+  type: switch
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: client
+  property: _client
+  propertyType: msg
+  rules:
+    - t: hask
+      v: socketId
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 270
+  'y': 220
+  wires:
+    - - 5e3db2956f921215
+    - - 639c9d2813f61707
+- id: 639c9d2813f61707
+  type: change
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 100
+  wires:
+    - - 59395394cfbb7859
+      - eef8f90bc9ebb816
+- id: a2994b1359ff6e08
+  type: switch
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: plant
+  property: '#:(memoryOnly)::user[msg._client.socketId]plant'
+  propertyType: global
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 590
+  'y': 220
+  wires:
+    - - f14b416dec70b194
+    - - 63f48ffb860fcecb
+- id: f14b416dec70b194
+  type: change
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: '-'
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      pt: global
+      to: '#:(memoryOnly)::user[msg._client.socketId]plant'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1530
+  'y': 220
+  wires:
+    - - a4ab7bfdfe43f26c
+      - 59395394cfbb7859
+- id: 5e3db2956f921215
+  type: switch
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId]level'
+  propertyType: global
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 160
+  wires:
+    - - a2994b1359ff6e08
+    - - 639c9d2813f61707
