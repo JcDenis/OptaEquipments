@@ -19,7 +19,6 @@
     - 30bd97f3094ce24d
     - 278b948fe3397d6d
     - 59395394cfbb7859
-    - a4ab7bfdfe43f26c
     - 63f48ffb860fcecb
     - 7ab11ad4d1391433
     - e13bed64768ee41f
@@ -41,9 +40,24 @@
     - 24c00ecc54dcb525
     - 5e3db2956f921215
   x: 104
-  'y': 59
-  w: 3812
+  'y': 219
+  w: 3652
   h: 202
+- id: d509ef3b5101effa
+  type: group
+  z: 476eb6fc04c55cec
+  name: ui - summary - clean
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 92c5ec89de925a0b
+    - 6a17d6825228f752
+  x: 104
+  'y': 99
+  w: 242
+  h: 82
 - id: 7f208cf2ab66dd88
   type: link call
   z: 476eb6fc04c55cec
@@ -54,7 +68,7 @@
   linkType: static
   timeout: '30'
   x: 930
-  'y': 160
+  'y': 320
   wires:
     - - eef8f90bc9ebb816
 - id: c8c91a8a8cb864f2
@@ -66,7 +80,7 @@
     - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
-  'y': 100
+  'y': 260
   wires:
     - - 24c00ecc54dcb525
       - 639c9d2813f61707
@@ -93,7 +107,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1160
-  'y': 160
+  'y': 320
   wires:
     - - 30bd97f3094ce24d
 - id: 30bd97f3094ce24d
@@ -111,7 +125,7 @@
   repair: false
   outputs: 1
   x: 1370
-  'y': 160
+  'y': 320
   wires:
     - - 278b948fe3397d6d
 - id: 278b948fe3397d6d
@@ -131,10 +145,10 @@
   to: ''
   reg: false
   x: 1530
-  'y': 160
+  'y': 320
   wires:
     - - 59395394cfbb7859
-      - a4ab7bfdfe43f26c
+      - 7ab11ad4d1391433
 - id: 59395394cfbb7859
   type: change
   z: 476eb6fc04c55cec
@@ -162,7 +176,7 @@
   to: ''
   reg: false
   x: 1690
-  'y': 100
+  'y': 260
   wires:
     - - 2f959ccef56b1836
 - id: 7ab11ad4d1391433
@@ -182,7 +196,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::rows'
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
       pt: flow
       to: '{}'
       tot: jsonata
@@ -191,31 +205,10 @@
   from: ''
   to: ''
   reg: false
-  x: 1870
-  'y': 160
+  x: 1710
+  'y': 320
   wires:
     - - e13bed64768ee41f
-- id: a4ab7bfdfe43f26c
-  type: delay
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: 20 ms
-  pauseType: delay
-  timeout: '20'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 1690
-  'y': 160
-  wires:
-    - - 7ab11ad4d1391433
 - id: e13bed64768ee41f
   type: split
   z: 476eb6fc04c55cec
@@ -228,8 +221,8 @@
   stream: false
   addname: row.equipment
   property: payload
-  x: 2050
-  'y': 160
+  x: 1890
+  'y': 320
   wires:
     - - e0a78c10ef6a4efe
 - id: e0a78c10ef6a4efe
@@ -263,8 +256,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2210
-  'y': 160
+  x: 2050
+  'y': 320
   wires:
     - - 65303885356124c5
 - id: 65303885356124c5
@@ -281,8 +274,8 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2370
-  'y': 160
+  x: 2210
+  'y': 320
   wires:
     - - 1e8664c6a3717b02
 - id: 1e8664c6a3717b02
@@ -299,8 +292,8 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2530
-  'y': 160
+  x: 2370
+  'y': 320
   wires:
     - - e6c65e2eccee4ef9
 - id: e6c65e2eccee4ef9
@@ -317,8 +310,8 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2690
-  'y': 160
+  x: 2530
+  'y': 320
   wires:
     - - 76a3bcdc76d86aa3
 - id: 2328d5396e61d3e1
@@ -334,8 +327,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3540
-  'y': 160
+  x: 3380
+  'y': 320
   wires: []
 - id: 76a3bcdc76d86aa3
   type: change
@@ -393,8 +386,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2850
-  'y': 160
+  x: 2690
+  'y': 320
   wires:
     - - ba9e4d6476d595d0
 - id: ba9e4d6476d595d0
@@ -406,10 +399,10 @@
     - t: set
       p: rows
       pt: msg
-      to: '#:(memoryOnly)::rows'
+      to: '#:(memoryOnly)::rows[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::rows'
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
       pt: flow
       to: '$append(msg.rows,msg.row)'
       tot: jsonata
@@ -418,8 +411,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
-  'y': 160
+  x: 2850
+  'y': 320
   wires:
     - - a2b86cd0821431f3
 - id: a2b86cd0821431f3
@@ -443,8 +436,8 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 3170
-  'y': 160
+  x: 3010
+  'y': 320
   wires:
     - - a44482562033a116
 - id: a44482562033a116
@@ -456,8 +449,11 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::rows'
+      to: '#:(memoryOnly)::rows[msg._client.socketId]'
       tot: flow
+    - t: delete
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      pt: flow
     - t: set
       p: class
       pt: msg
@@ -481,8 +477,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3330
-  'y': 160
+  x: 3170
+  'y': 320
   wires:
     - - 2f959ccef56b1836
       - 2328d5396e61d3e1
@@ -537,8 +533,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 3540
-  'y': 100
+  x: 3380
+  'y': 260
   wires:
     - - 09a816282f3bc371
 - id: 09a816282f3bc371
@@ -565,8 +561,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3750
-  'y': 100
+  x: 3590
+  'y': 260
   wires:
     - - ed53bb28b7006772
 - id: ed53bb28b7006772
@@ -578,8 +574,8 @@
   links:
     - 00818f8c0686b556
     - b24713f215fa93c7
-  x: 3875
-  'y': 100
+  x: 3715
+  'y': 260
   wires: []
 - id: 63f48ffb860fcecb
   type: change
@@ -608,7 +604,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 160
+  'y': 320
   wires:
     - - 7f208cf2ab66dd88
 - id: 24c00ecc54dcb525
@@ -627,7 +623,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 220
+  'y': 380
   wires:
     - - 5e3db2956f921215
     - - 639c9d2813f61707
@@ -658,7 +654,7 @@
   to: ''
   reg: false
   x: 930
-  'y': 100
+  'y': 260
   wires:
     - - 59395394cfbb7859
       - eef8f90bc9ebb816
@@ -676,7 +672,7 @@
   repair: false
   outputs: 2
   x: 590
-  'y': 220
+  'y': 380
   wires:
     - - f14b416dec70b194
     - - 63f48ffb860fcecb
@@ -697,10 +693,10 @@
   to: ''
   reg: false
   x: 1530
-  'y': 220
+  'y': 380
   wires:
-    - - a4ab7bfdfe43f26c
-      - 59395394cfbb7859
+    - - 59395394cfbb7859
+      - 7ab11ad4d1391433
 - id: 5e3db2956f921215
   type: switch
   z: 476eb6fc04c55cec
@@ -715,7 +711,36 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 160
+  'y': 320
   wires:
     - - a2994b1359ff6e08
     - - 639c9d2813f61707
+- id: 92c5ec89de925a0b
+  type: link in
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: ui - summary - clean
+  links:
+    - a63fee7b423da915
+  x: 145
+  'y': 140
+  wires:
+    - - 6a17d6825228f752
+- id: 6a17d6825228f752
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: clean
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - []
