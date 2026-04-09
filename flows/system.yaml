@@ -65,7 +65,6 @@
     - a3a959c1ed6f034e
     - f8539dbcd88ad9b6
     - ded160847ba79c1d
-    - 2ba2fcb363a543e6
     - eba6e18370fbfe76
     - c3fbd0eb276c1dd6
     - 25db029de29257ac
@@ -83,7 +82,6 @@
     - 6ccccfc0a1f111c1
     - e7bbfb466fe9b1e8
     - d8fa54a0c3f6d9a5
-    - a1c562cd8682ecaf
     - 071c37d5b62a88fd
     - 91c2dd830195ea5e
     - 67ca27b86f9b6d7e
@@ -94,9 +92,9 @@
     - d65327c4fbf1872c
     - 5a85864d1b0b96a3
   x: 104
-  'y': 99
+  'y': 159
   w: 1632
-  h: 562
+  h: 502
 - id: 67a829c8d69b7b01
   type: ui-text-input
   z: 44465f18e06bb58d
@@ -813,41 +811,6 @@
   x: 1135
   'y': 200
   wires: []
-- id: 2ba2fcb363a543e6
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: about
-  rules:
-    - t: set
-      p: automate
-      pt: msg
-      to: '#:(memoryOnly)::automate'
-      tot: global
-    - t: set
-      p: version
-      pt: msg
-      to: '#:(memoryOnly)::version'
-      tot: global
-    - t: set
-      p: payload
-      pt: msg
-      to: msg.automate & ' v' & msg.version
-      tot: jsonata
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 750
-  'y': 140
-  wires:
-    - - a1c562cd8682ecaf
 - id: eba6e18370fbfe76
   type: link in
   z: 44465f18e06bb58d
@@ -857,7 +820,7 @@
     - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
-  'y': 200
+  'y': 260
   wires:
     - - a582f18afd23faaf
 - id: c3fbd0eb276c1dd6
@@ -1148,35 +1111,6 @@
   'y': 560
   wires:
     - - 34fa5590f0d6e124
-- id: a1c562cd8682ecaf
-  type: ui-text-input
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  group: 18e387e2011da847
-  name: ui - tool - about
-  label: Application version
-  order: 6
-  width: '2'
-  height: '1'
-  topic: topic
-  topicType: msg
-  mode: text
-  tooltip: ''
-  delay: 300
-  passthru: true
-  sendOnDelay: false
-  sendOnBlur: true
-  sendOnEnter: true
-  className: ''
-  clearable: false
-  sendOnClear: false
-  icon: ''
-  iconPosition: left
-  iconInnerPosition: inside
-  x: 940
-  'y': 140
-  wires:
-    - []
 - id: 071c37d5b62a88fd
   type: change
   z: 44465f18e06bb58d
@@ -1204,14 +1138,13 @@
   to: ''
   reg: false
   x: 590
-  'y': 200
+  'y': 260
   wires:
     - - f8539dbcd88ad9b6
       - a31a6d118c265f83
       - 694ad4ec886e0960
       - c3fbd0eb276c1dd6
       - 6ccccfc0a1f111c1
-      - 2ba2fcb363a543e6
 - id: 91c2dd830195ea5e
   type: change
   z: 44465f18e06bb58d
@@ -1239,10 +1172,9 @@
   to: ''
   reg: false
   x: 590
-  'y': 140
+  'y': 200
   wires:
-    - - 2ba2fcb363a543e6
-      - f8539dbcd88ad9b6
+    - - f8539dbcd88ad9b6
       - a31a6d118c265f83
       - 694ad4ec886e0960
       - c3fbd0eb276c1dd6
@@ -1263,7 +1195,7 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 140
+  'y': 200
   wires:
     - - 91c2dd830195ea5e
     - - 071c37d5b62a88fd
@@ -1283,7 +1215,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 200
+  'y': 260
   wires:
     - - 67ca27b86f9b6d7e
     - - 071c37d5b62a88fd

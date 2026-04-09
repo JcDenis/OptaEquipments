@@ -54,10 +54,13 @@
   nodes:
     - 92c5ec89de925a0b
     - 6a17d6825228f752
+    - d7bc8fc74bfc07cb
+    - 4bf3a2b77f19923b
+    - 76cdceee9af25bb0
   x: 104
-  'y': 99
-  w: 242
-  h: 82
+  'y': 39
+  w: 402
+  h: 142
 - id: 7f208cf2ab66dd88
   type: link call
   z: 476eb6fc04c55cec
@@ -136,7 +139,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -270,7 +273,7 @@
   rules:
     - t: eq
       v: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      vt: global
+      vt: flow
   checkall: 'false'
   repair: true
   outputs: 1
@@ -453,6 +456,9 @@
       tot: flow
     - t: delete
       p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      pt: flow
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
       pt: flow
     - t: set
       p: class
@@ -680,11 +686,11 @@
   type: change
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: '-'
+  name: plant
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -719,11 +725,11 @@
   type: link in
   z: 476eb6fc04c55cec
   g: d509ef3b5101effa
-  name: ui - summary - clean
+  name: ui - summary - clean  -schedule
   links:
     - a63fee7b423da915
   x: 145
-  'y': 140
+  'y': 80
   wires:
     - - 6a17d6825228f752
 - id: 6a17d6825228f752
@@ -735,12 +741,62 @@
     - t: delete
       p: '#:(memoryOnly)::rows'
       pt: flow
+    - t: delete
+      p: '#:(memoryOnly)::form'
+      pt: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 270
+  'y': 80
+  wires:
+    - []
+- id: d7bc8fc74bfc07cb
+  type: link in
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: ui - summary - clean - tab
+  links:
+    - 7bba6594f41302c2
+  x: 145
+  'y': 140
+  wires:
+    - - 4bf3a2b77f19923b
+- id: 4bf3a2b77f19923b
+  type: switch
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: tab
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: Maintenance
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 270
+  'y': 140
+  wires:
+    - - 76cdceee9af25bb0
+- id: 76cdceee9af25bb0
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: flow
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 430
   'y': 140
   wires:
     - []
