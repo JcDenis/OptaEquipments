@@ -141,7 +141,6 @@
     fill-opacity: '0.05'
   nodes:
     - b3c8de4154773a34
-    - bbb7f823fc1f4481
     - 56de5065f0ef82f0
     - d3b49812178562cf
     - af4f0442013c1457
@@ -152,9 +151,10 @@
     - 29967920d08a5df9
     - f72d5db2b65af976
     - b29c441f7ea3fc57
-    - 237dd07ea219e284
     - ccf27ff9737b1344
     - f0fc7f37bd7c280c
+    - c1434a5d8ee0f5b2
+    - c5c519e135222d76
   x: 104
   'y': 879
   w: 1972
@@ -337,7 +337,7 @@
     - 95f887674e4d82fc
   x: 104
   'y': 2439
-  w: 2112
+  w: 2072
   h: 202
 - id: 6083e6018629a109
   type: group
@@ -404,6 +404,9 @@
     - t: delete
       p: plants
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::plants[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -479,10 +482,10 @@
     - t: set
       p: plants
       pt: msg
-      to: '#:(memoryOnly)::plants'
+      to: '#:(memoryOnly)::plants[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::plants'
+      p: '#:(memoryOnly)::plants[msg._client.socketId]'
       pt: flow
       to: '$append(msg.plants,msg.payload)'
       tot: jsonata
@@ -533,7 +536,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::plants'
+      p: '#:(memoryOnly)::plants[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -588,7 +591,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::lines'
+      p: '#:(memoryOnly)::lines[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -631,10 +634,10 @@
     - t: set
       p: lines
       pt: msg
-      to: '#:(memoryOnly)::lines'
+      to: '#:(memoryOnly)::lines[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::lines'
+      p: '#:(memoryOnly)::lines[msg._client.socketId]'
       pt: flow
       to: '$append(msg.lines,msg.payload)'
       tot: jsonata
@@ -718,6 +721,12 @@
     - t: delete
       p: lines
       pt: msg
+    - t: delete
+      p: limit_plant
+      pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::lines[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -761,6 +770,9 @@
     - t: delete
       p: components
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::components[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -829,7 +841,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::equipments'
+      p: '#:(memoryOnly)::equipments[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -872,10 +884,10 @@
     - t: set
       p: equipments
       pt: msg
-      to: '#:(memoryOnly)::equipments'
+      to: '#:(memoryOnly)::equipments[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::equipments'
+      p: '#:(memoryOnly)::equipments[msg._client.socketId]'
       pt: flow
       to: '$append(msg.equipments,msg.payload)'
       tot: jsonata
@@ -959,6 +971,12 @@
     - t: delete
       p: equipments
       pt: msg
+    - t: delete
+      p: limit_line
+      pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::equipments[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -1001,7 +1019,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::models'
+      p: '#:(memoryOnly)::models[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -1044,10 +1062,10 @@
     - t: set
       p: models
       pt: msg
-      to: '#:(memoryOnly)::models'
+      to: '#:(memoryOnly)::models[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::models'
+      p: '#:(memoryOnly)::models[msg._client.socketId]'
       pt: flow
       to: '$append(msg.models,msg.payload)'
       tot: jsonata
@@ -1131,6 +1149,9 @@
     - t: delete
       p: models
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::models[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -1150,27 +1171,7 @@
   x: 145
   'y': 1040
   wires:
-    - - bbb7f823fc1f4481
-- id: bbb7f823fc1f4481
-  type: switch
-  z: adb9fbf379118d77
-  g: 8429a00ec08b9d76
-  name: form
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
-  rules:
-    - t: hask
-      v: model
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 270
-  'y': 1040
-  wires:
-    - - 56de5065f0ef82f0
-    - - 237dd07ea219e284
+    - - c1434a5d8ee0f5b2
 - id: 56de5065f0ef82f0
   type: change
   z: adb9fbf379118d77
@@ -1193,7 +1194,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::devices'
+      p: '#:(memoryOnly)::devices[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -1236,10 +1237,10 @@
     - t: set
       p: devices
       pt: msg
-      to: '#:(memoryOnly)::devices'
+      to: '#:(memoryOnly)::devices[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::devices'
+      p: '#:(memoryOnly)::devices[msg._client.socketId]'
       pt: flow
       to: '$append(msg.devices,msg.payload)'
       tot: jsonata
@@ -1297,6 +1298,12 @@
     - t: delete
       p: devices
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::devices[msg._client.socketId]'
+      pt: flow
+    - t: delete
+      p: limit_model
+      pt: msg
   action: ''
   property: ''
   from: ''
@@ -1348,12 +1355,10 @@
   z: adb9fbf379118d77
   g: a9c861bdf9fdd630
   name: form
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
+  property: limit_model
+  propertyType: msg
   rules:
-    - t: hask
-      v: model
-      vt: str
+    - t: nempty
     - t: else
   checkall: 'false'
   repair: false
@@ -1395,15 +1400,15 @@
     - t: set
       p: option.model
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]model'
-      tot: global
+      to: limit_model
+      tot: msg
     - t: set
       p: payload
       pt: msg
       to: '#:(memoryOnly)::describe.endpoint[msg.option.model]'
       tot: global
     - t: set
-      p: '#:(memoryOnly)::endpoints'
+      p: '#:(memoryOnly)::endpoints[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -1446,10 +1451,10 @@
     - t: set
       p: endpoints
       pt: msg
-      to: '#:(memoryOnly)::endpoints'
+      to: '#:(memoryOnly)::endpoints[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::endpoints'
+      p: '#:(memoryOnly)::endpoints[msg._client.socketId]'
       pt: flow
       to: '$append(msg.endpoints,msg.payload)'
       tot: jsonata
@@ -1506,6 +1511,12 @@
       pt: msg
     - t: delete
       p: endpoints
+      pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::endpoints[msg._client.socketId]'
+      pt: flow
+    - t: delete
+      p: limit_model
       pt: msg
   action: ''
   property: ''
@@ -1581,8 +1592,8 @@
   z: adb9fbf379118d77
   g: 8429a00ec08b9d76
   name: model
-  property: '#:(memoryOnly)::form[msg._client.socketId]model'
-  propertyType: global
+  property: limit_model
+  propertyType: msg
   rules:
     - t: eq
       v: option.model
@@ -1637,12 +1648,10 @@
   z: adb9fbf379118d77
   g: 82ce08693206f664
   name: limit
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
+  property: limit_plant
+  propertyType: msg
   rules:
-    - t: hask
-      v: plant
-      vt: str
+    - t: nempty
     - t: else
   checkall: 'false'
   repair: false
@@ -1657,8 +1666,8 @@
   z: adb9fbf379118d77
   g: 82ce08693206f664
   name: same
-  property: '#:(memoryOnly)::form[msg._client.socketId]plant'
-  propertyType: global
+  property: limit_plant
+  propertyType: msg
   rules:
     - t: eq
       v: 'kernel.lines[msg.option.line]'
@@ -1695,12 +1704,10 @@
   z: adb9fbf379118d77
   g: 0ca8991c60d8e2f2
   name: limit
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
+  property: limit_line
+  propertyType: msg
   rules:
-    - t: hask
-      v: line
-      vt: str
+    - t: nempty
     - t: else
   checkall: 'false'
   repair: false
@@ -1715,8 +1722,8 @@
   z: adb9fbf379118d77
   g: 0ca8991c60d8e2f2
   name: same
-  property: '#:(memoryOnly)::form[msg._client.socketId]line'
-  propertyType: global
+  property: limit_line
+  propertyType: msg
   rules:
     - t: eq
       v: 'kernel.equipments[msg.option.equipment]'
@@ -1816,7 +1823,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::links'
+      p: '#:(memoryOnly)::links[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -1866,10 +1873,10 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::links'
+      to: '#:(memoryOnly)::links[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::links'
+      p: '#:(memoryOnly)::links[msg._client.socketId]'
       pt: flow
       to: '$append(msg.options,msg.payload)'
       tot: jsonata
@@ -1931,8 +1938,14 @@
       p: limit_component
       pt: msg
     - t: delete
+      p: limit_equipment
+      pt: msg
+    - t: delete
       p: links
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::links[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -1991,7 +2004,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::components'
+      p: '#:(memoryOnly)::components[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -2034,10 +2047,10 @@
     - t: set
       p: components
       pt: msg
-      to: '#:(memoryOnly)::components'
+      to: '#:(memoryOnly)::components[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::components'
+      p: '#:(memoryOnly)::components[msg._client.socketId]'
       pt: flow
       to: '$append(msg.components,msg.payload)'
       tot: jsonata
@@ -2072,7 +2085,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1290
-  'y': 1700
+  'y': 1640
   wires:
     - - 2492572dc0df521d
 - id: c8040234899d671f
@@ -2107,7 +2120,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::days'
+      p: '#:(memoryOnly)::days[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -2150,10 +2163,10 @@
     - t: set
       p: days
       pt: msg
-      to: '#:(memoryOnly)::days'
+      to: '#:(memoryOnly)::days[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::days'
+      p: '#:(memoryOnly)::days[msg._client.socketId]'
       pt: flow
       to: '$append(msg.days,msg.payload)'
       tot: jsonata
@@ -2216,6 +2229,9 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: delete
+      p: '#:(memoryOnly)::days[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -2284,7 +2300,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::resolutions'
+      p: '#:(memoryOnly)::resolutions[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -2327,10 +2343,10 @@
     - t: set
       p: resolutions
       pt: msg
-      to: '#:(memoryOnly)::resolutions'
+      to: '#:(memoryOnly)::resolutions[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::resolutions'
+      p: '#:(memoryOnly)::resolutions[msg._client.socketId]'
       pt: flow
       to: '$append(msg.resolutions,msg.payload)'
       tot: jsonata
@@ -2388,6 +2404,9 @@
     - t: delete
       p: resolutions
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::resolutions[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -2523,7 +2542,7 @@
       to: kernel.alert
       tot: global
     - t: set
-      p: '#:(memoryOnly)::alerts'
+      p: '#:(memoryOnly)::alerts[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -2562,12 +2581,10 @@
   z: adb9fbf379118d77
   g: c0aabb40d929c1de
   name: limit
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
+  property: limit_equipment
+  propertyType: msg
   rules:
-    - t: hask
-      v: equipment
-      vt: str
+    - t: nempty
     - t: else
   checkall: 'false'
   repair: false
@@ -2582,8 +2599,8 @@
   z: adb9fbf379118d77
   g: c0aabb40d929c1de
   name: same
-  property: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-  propertyType: global
+  property: limit_equipment
+  propertyType: msg
   rules:
     - t: eq
       v: option.equipment
@@ -2672,6 +2689,9 @@
     - t: delete
       p: option
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::alerts[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -2729,10 +2749,10 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::alerts'
+      to: '#:(memoryOnly)::alerts[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::alerts'
+      p: '#:(memoryOnly)::alerts[msg._client.socketId]'
       pt: flow
       to: '$append(msg.options,msg.payload)'
       tot: jsonata
@@ -2777,7 +2797,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::rows'
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -2865,10 +2885,10 @@
     - t: set
       p: rows
       pt: msg
-      to: '#:(memoryOnly)::rows'
+      to: '#:(memoryOnly)::rows[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::rows'
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
       pt: flow
       to: '$append(msg.rows,msg.row)'
       tot: jsonata
@@ -2932,6 +2952,9 @@
     - t: delete
       p: rows
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -3000,7 +3023,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::schedules'
+      p: '#:(memoryOnly)::schedules[msg._client.socketId]'
       pt: flow
       to: '[]'
       tot: jsonata
@@ -3063,7 +3086,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1530
+  x: 1490
   'y': 2480
   wires:
     - - 7bd94117eb5ac707
@@ -3087,12 +3110,18 @@
     - t: delete
       p: schedules
       pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::schedules[msg._client.socketId]'
+      pt: flow
+    - t: delete
+      p: limit_equipment
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1850
+  x: 1810
   'y': 2600
   wires:
     - - 39e952df40a94037
@@ -3104,7 +3133,7 @@
   name: option - schedule
   mode: return
   links: []
-  x: 2175
+  x: 2135
   'y': 2540
   wires: []
 - id: 39e952df40a94037
@@ -3120,7 +3149,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2050
+  x: 2010
   'y': 2600
   wires: []
 - id: ddfb4d938a8cc9a3
@@ -3155,10 +3184,10 @@
     - t: set
       p: schedules
       pt: msg
-      to: '#:(memoryOnly)::schedules'
+      to: '#:(memoryOnly)::schedules[msg._client.socketId]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::schedules'
+      p: '#:(memoryOnly)::schedules[msg._client.socketId]'
       pt: flow
       to: '$append(msg.schedules,msg.payload)'
       tot: jsonata
@@ -3167,30 +3196,10 @@
   from: ''
   to: ''
   reg: false
-  x: 1370
+  x: 1330
   'y': 2540
   wires:
     - - 026b81ddaf43f4be
-- id: 237dd07ea219e284
-  type: change
-  z: adb9fbf379118d77
-  g: 8429a00ec08b9d76
-  name: empty
-  rules:
-    - t: set
-      p: options
-      pt: msg
-      to: '[]'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 1040
-  wires:
-    - - 223eda7a7bf76755
 - id: 8df533f12443cc3b
   type: change
   z: adb9fbf379118d77
@@ -3528,7 +3537,7 @@
     - cd21bdc2e85b8b8e
   linkType: static
   timeout: '30'
-  x: 2030
+  x: 1990
   'y': 2540
   wires:
     - - d5f1a84f98d9cc14
@@ -3537,12 +3546,10 @@
   z: adb9fbf379118d77
   g: ed61df18f5488ebe
   name: equipment
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
+  property: limit_equipment
+  propertyType: msg
   rules:
-    - t: hask
-      v: equipment
-      vt: str
+    - t: nempty
     - t: else
   checkall: 'false'
   repair: false
@@ -3561,8 +3568,8 @@
   propertyType: msg
   rules:
     - t: eq
-      v: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      vt: global
+      v: limit_equipment
+      vt: msg
     - t: else
   checkall: 'false'
   repair: false
@@ -3620,7 +3627,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::links'
+      to: '#:(memoryOnly)::links[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3653,7 +3660,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::alerts'
+      to: '#:(memoryOnly)::alerts[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3698,7 +3705,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::lines'
+      to: '#:(memoryOnly)::lines[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3736,7 +3743,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::equipments'
+      to: '#:(memoryOnly)::equipments[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3756,7 +3763,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::devices'
+      to: '#:(memoryOnly)::devices[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3776,7 +3783,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::endpoints'
+      to: '#:(memoryOnly)::endpoints[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3796,7 +3803,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::components'
+      to: '#:(memoryOnly)::components[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3816,7 +3823,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::plants'
+      to: '#:(memoryOnly)::plants[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3836,7 +3843,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::models'
+      to: '#:(memoryOnly)::models[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3856,7 +3863,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::days'
+      to: '#:(memoryOnly)::days[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3876,7 +3883,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::resolutions'
+      to: '#:(memoryOnly)::resolutions[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -3896,14 +3903,14 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::schedules'
+      to: '#:(memoryOnly)::schedules[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1690
+  x: 1650
   'y': 2540
   wires:
     - - f6be4e4bc62dd4ab
@@ -3916,7 +3923,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::rows'
+      to: '#:(memoryOnly)::rows[msg._client.socketId]'
       tot: flow
   action: ''
   property: ''
@@ -4133,12 +4140,10 @@
   z: adb9fbf379118d77
   g: 342553f9a997ab8b
   name: equipment
-  property: '#:(memoryOnly)::form[msg._client.socketId]'
-  propertyType: global
+  property: limit_equipment
+  propertyType: msg
   rules:
-    - t: hask
-      v: equipment
-      vt: str
+    - t: nempty
     - t: else
   checkall: 'false'
   repair: false
@@ -4152,18 +4157,18 @@
   type: switch
   z: adb9fbf379118d77
   g: 342553f9a997ab8b
-  name: equipment
-  property: payload.equipment
+  name: same
+  property: limit_equipment
   propertyType: msg
   rules:
     - t: eq
-      v: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      vt: global
+      v: payload.equipment
+      vt: msg
     - t: else
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1190
+  x: 1170
   'y': 2480
   wires:
     - - ddfb4d938a8cc9a3
@@ -4190,11 +4195,11 @@
   type: delay
   z: adb9fbf379118d77
   g: fa94e5dda0432e95
-  name: 10msg/s
+  name: 5msg/s
   pauseType: rate
   timeout: '50'
   timeoutUnits: milliseconds
-  rate: '10'
+  rate: '5'
   nbRateUnits: '1'
   rateUnits: second
   randomFirst: '1'
@@ -4207,3 +4212,41 @@
   'y': 140
   wires:
     - - 3bf77d1356ae793b
+- id: c1434a5d8ee0f5b2
+  type: switch
+  z: adb9fbf379118d77
+  g: 8429a00ec08b9d76
+  name: form
+  property: limit_model
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 270
+  'y': 1040
+  wires:
+    - - 56de5065f0ef82f0
+    - - c5c519e135222d76
+- id: c5c519e135222d76
+  type: change
+  z: adb9fbf379118d77
+  g: 8429a00ec08b9d76
+  name: empty
+  rules:
+    - t: set
+      p: options
+      pt: msg
+      to: '[]'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 430
+  'y': 1040
+  wires:
+    - - 223eda7a7bf76755

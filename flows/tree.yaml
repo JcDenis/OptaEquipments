@@ -79,9 +79,10 @@
     - 5d3791b50e998db0
     - 4cd01df4467b69a4
     - 32b448b0d77b7c0b
+    - 244b589ddc98859f
   x: 104
-  'y': 299
-  w: 4482
+  'y': 459
+  w: 4502
   h: 442
 - id: d8d8a361ac715076
   type: group
@@ -175,8 +176,9 @@
     - d3bce3cd9c072031
     - 8e3f9fd827754e4f
     - 960385f2593a0c88
+    - 636d6d390c51d6c5
   x: 104
-  'y': 779
+  'y': 939
   w: 5762
   h: 442
 - id: 7e8f13051c405b1e
@@ -294,7 +296,7 @@
     - 66b6335ba9395aa1
     - 4654dad2a09b2572
   x: 104
-  'y': 1259
+  'y': 1419
   w: 7742
   h: 442
 - id: 771b362aacd557cd
@@ -367,7 +369,7 @@
     - 3dbd34995d683084
     - 25d0c6d143a7213b
   x: 104
-  'y': 1739
+  'y': 1899
   w: 5462
   h: 322
 - id: 20722623c07d09d8
@@ -494,7 +496,7 @@
     - 24bb56b3565c509b
     - c8b674d3ac8ce810
   x: 104
-  'y': 2099
+  'y': 2259
   w: 2382
   h: 1282
 - id: 85b6019ecabb42eb
@@ -591,7 +593,7 @@
     - 978d5a112feb02ce
     - 3f551fad29acbb1a
   x: 104
-  'y': 3419
+  'y': 3579
   w: 2182
   h: 1042
 - id: a8b0f9a8cb0a898e
@@ -707,7 +709,7 @@
     - ca72875879674e6a
     - 008b4c2bea122b9b
   x: 104
-  'y': 4499
+  'y': 4659
   w: 2202
   h: 1222
 - id: 1b6332baa80f468b
@@ -728,9 +730,27 @@
     - 05a718cf073d2373
     - d5a2492cd9b261b1
   x: 104
-  'y': 59
+  'y': 279
   w: 1052
   h: 149.5
+- id: 836acd0bd60737d1
+  type: group
+  z: 64ce08af468b8197
+  name: ui - tree - clean
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 523ceee89dea93d5
+    - 63f86678c491ee38
+    - 53845d5ac3a352d5
+    - 6d586df804601e15
+    - 696117cbea1d662a
+  x: 104
+  'y': 39
+  w: 402
+  h: 142
 - id: be594973267232f5
   type: link in
   z: 64ce08af468b8197
@@ -741,7 +761,7 @@
     - d5a2492cd9b261b1
     - f1a4ce3bdf024862
   x: 145
-  'y': 400
+  'y': 560
   wires:
     - - 5d3791b50e998db0
 - id: 7f71a6461fbd80e4
@@ -766,8 +786,8 @@
   className: ''
   typeIsComboBox: false
   msgTrigger: onChange
-  x: 790
-  'y': 400
+  x: 810
+  'y': 560
   wires:
     - - cd6855234616fc99
       - 494c3185b89f0846
@@ -779,17 +799,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -812,8 +832,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1160
-  'y': 400
+  x: 1180
+  'y': 560
   wires:
     - - 0480b316d029f0ba
 - id: cd6855234616fc99
@@ -830,10 +850,11 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 990
-  'y': 400
+  x: 1010
+  'y': 560
   wires:
     - - 5cf49ec89673bbad
+      - 244b589ddc98859f
 - id: a9f2553f14595b87
   type: change
   z: 64ce08af468b8197
@@ -865,8 +886,8 @@
   from: ''
   to: ''
   reg: false
-  x: 590
-  'y': 400
+  x: 600
+  'y': 560
   wires:
     - - 7f71a6461fbd80e4
 - id: 494c3185b89f0846
@@ -890,8 +911,8 @@
   from: ''
   to: ''
   reg: false
-  x: 990
-  'y': 340
+  x: 1010
+  'y': 500
   wires:
     - - e4d88f4537b5c0ef
 - id: 0480b316d029f0ba
@@ -900,7 +921,7 @@
   g: fa7516c28cf64b47
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: addplant
@@ -914,8 +935,8 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 1330
-  'y': 400
+  x: 1350
+  'y': 560
   wires:
     - - fe979b02242af9b6
     - - 991911fbb65784d5
@@ -945,8 +966,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1740
-  'y': 400
+  x: 1760
+  'y': 560
   wires:
     - - 158deb261a8fbcea
 - id: 343f72e19cb63063
@@ -974,8 +995,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2630
-  'y': 400
+  x: 2650
+  'y': 560
   wires:
     - - 333ae357f71076ec
 - id: 8a9d3294993d4592
@@ -989,8 +1010,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
-  'y': 340
+  x: 2450
+  'y': 500
   wires:
     - - 343f72e19cb63063
       - 33f14d5f9335072b
@@ -1017,8 +1038,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1700
-  'y': 460
+  x: 1720
+  'y': 620
   wires:
     - - fe979b02242af9b6
 - id: cf645c7f47ad3986
@@ -1029,7 +1050,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -1052,8 +1073,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
-  'y': 400
+  x: 3030
+  'y': 560
   wires:
     - - 97eee541bd4e9655
 - id: 3066cc55b98ce1e4
@@ -1077,8 +1098,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2600
-  'y': 460
+  x: 2620
+  'y': 620
   wires:
     - - 343f72e19cb63063
 - id: f3f2a6d3dbb25158
@@ -1102,8 +1123,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3560
-  'y': 460
+  x: 3580
+  'y': 620
   wires:
     - - 97eee541bd4e9655
 - id: 97eee541bd4e9655
@@ -1137,8 +1158,8 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3590
-  'y': 400
+  x: 3610
+  'y': 560
   wires:
     - - f3f2a6d3dbb25158
       - 4527a006406d377f
@@ -1156,8 +1177,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1950
-  'y': 400
+  x: 1970
+  'y': 560
   wires:
     - - a69259142b57e07b
 - id: 333ae357f71076ec
@@ -1174,8 +1195,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2830
-  'y': 400
+  x: 2850
+  'y': 560
   wires:
     - - cf645c7f47ad3986
       - 3066cc55b98ce1e4
@@ -1189,7 +1210,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -1200,8 +1221,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
-  'y': 400
+  x: 3810
+  'y': 560
   wires:
     - - beafd2a4d6e6e01a
       - ca4e151d7418cc02
@@ -1214,8 +1235,8 @@
   links:
     - be594973267232f5
     - e60e4ab7617738c3
-  x: 4395
-  'y': 400
+  x: 4415
+  'y': 560
   wires: []
 - id: 991911fbb65784d5
   type: link call
@@ -1226,8 +1247,8 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 1510
-  'y': 520
+  x: 1530
+  'y': 680
   wires:
     - - 1668a609c18888db
 - id: 1668a609c18888db
@@ -1252,8 +1273,8 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1730
-  'y': 520
+  x: 1750
+  'y': 680
   wires:
     - - 25fc58241ab70b84
 - id: fa6d9718d672de6a
@@ -1264,7 +1285,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -1287,8 +1308,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2120
-  'y': 520
+  x: 2140
+  'y': 680
   wires:
     - - 5d53388977faa547
 - id: 5d53388977faa547
@@ -1322,8 +1343,8 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 2630
-  'y': 520
+  x: 2650
+  'y': 680
   wires:
     - - 359c236edd3eb910
       - 019fe78a2c6cb4dd
@@ -1341,8 +1362,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1950
-  'y': 520
+  x: 1970
+  'y': 680
   wires:
     - - fa6d9718d672de6a
       - f0b2090250aec7d4
@@ -1356,7 +1377,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -1367,8 +1388,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
-  'y': 520
+  x: 3810
+  'y': 680
   wires:
     - - 578c42fc43eaca86
       - ca4e151d7418cc02
@@ -1383,8 +1404,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1530
-  'y': 340
+  x: 1550
+  'y': 500
   wires:
     - - 8a9d3294993d4592
       - fe979b02242af9b6
@@ -1401,8 +1422,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3390
-  'y': 340
+  x: 3410
+  'y': 500
   wires:
     - - 97eee541bd4e9655
       - 67e9379426db2553
@@ -1427,8 +1448,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1700
-  'y': 580
+  x: 1720
+  'y': 740
   wires:
     - - 1668a609c18888db
 - id: 359c236edd3eb910
@@ -1452,8 +1473,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2600
-  'y': 580
+  x: 2620
+  'y': 740
   wires:
     - - 5d53388977faa547
 - id: d26031479e8fbf60
@@ -1468,7 +1489,7 @@
   to: ''
   reg: false
   x: 1550
-  'y': 820
+  'y': 980
   wires:
     - - ce8bd7a98fc62b88
       - 85c8430d9bd2126e
@@ -1504,7 +1525,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 880
+  'y': 1040
   wires:
     - - 6a365f73163bf8f1
 - id: 6a365f73163bf8f1
@@ -1530,7 +1551,7 @@
   typeIsComboBox: false
   msgTrigger: onChange
   x: 800
-  'y': 880
+  'y': 1040
   wires:
     - - bfa496a54dae37c3
       - 2e82b66355cb7335
@@ -1544,7 +1565,7 @@
     - 8574ce7e34610420
     - d5a2492cd9b261b1
   x: 145
-  'y': 880
+  'y': 1040
   wires:
     - - 4f560a8173bd4bb6
 - id: bfa496a54dae37c3
@@ -1562,9 +1583,10 @@
   repair: false
   outputs: 1
   x: 1010
-  'y': 880
+  'y': 1040
   wires:
     - - 5c2397ba0b810a95
+      - 636d6d390c51d6c5
 - id: 5c2397ba0b810a95
   type: change
   z: 64ce08af468b8197
@@ -1573,17 +1595,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -1607,7 +1629,7 @@
   to: ''
   reg: false
   x: 1180
-  'y': 880
+  'y': 1040
   wires:
     - - 554d6b6bf43d1689
 - id: d87c316dbf85b091
@@ -1616,7 +1638,7 @@
   g: d8d8a361ac715076
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: addline
@@ -1631,7 +1653,7 @@
   repair: false
   outputs: 3
   x: 2270
-  'y': 880
+  'y': 1040
   wires:
     - - 5baf8e3a957b7788
     - - ec7631a984851cc3
@@ -1646,7 +1668,7 @@
   linkType: static
   timeout: '30'
   x: 1530
-  'y': 940
+  'y': 1100
   wires:
     - - ce8bd7a98fc62b88
 - id: ce8bd7a98fc62b88
@@ -1672,7 +1694,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1750
-  'y': 940
+  'y': 1100
   wires:
     - - 3c5cc995a16ba8b5
 - id: bca3a51fd39c1192
@@ -1697,7 +1719,7 @@
   to: ''
   reg: false
   x: 1720
-  'y': 1000
+  'y': 1160
   wires:
     - - 983ae781aa24ea07
 - id: 3c5cc995a16ba8b5
@@ -1715,7 +1737,7 @@
   repair: false
   outputs: 1
   x: 1950
-  'y': 940
+  'y': 1100
   wires:
     - - bca3a51fd39c1192
       - 7c81c70a7d8c0857
@@ -1745,7 +1767,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 2650
-  'y': 880
+  'y': 1040
   wires:
     - - 9923add6ba07ce77
 - id: 9923add6ba07ce77
@@ -1763,7 +1785,7 @@
   repair: false
   outputs: 1
   x: 2850
-  'y': 880
+  'y': 1040
   wires:
     - - f0cda36bf38c99f7
 - id: 7c81c70a7d8c0857
@@ -1774,7 +1796,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -1792,13 +1814,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 2110
-  'y': 940
+  'y': 1100
   wires:
     - - d87c316dbf85b091
 - id: 70234a1a26d3386f
@@ -1809,7 +1836,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -1833,7 +1860,7 @@
   to: ''
   reg: false
   x: 3170
-  'y': 940
+  'y': 1100
   wires:
     - - b38534b0c6688412
 - id: b38534b0c6688412
@@ -1862,7 +1889,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 3530
-  'y': 880
+  'y': 1040
   wires:
     - - dd6435dc93a24bab
 - id: dd6435dc93a24bab
@@ -1880,7 +1907,7 @@
   repair: false
   outputs: 1
   x: 3730
-  'y': 880
+  'y': 1040
   wires:
     - - fa2d32ce4e360866
       - 71f3ee94a554c2b3
@@ -1892,7 +1919,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -1916,7 +1943,7 @@
   to: ''
   reg: false
   x: 3900
-  'y': 880
+  'y': 1040
   wires:
     - - 44a58e5b9ad1fbfd
 - id: e301a7554e21eab8
@@ -1941,7 +1968,7 @@
   to: ''
   reg: false
   x: 2640
-  'y': 940
+  'y': 1100
   wires:
     - - 5baf8e3a957b7788
 - id: 71f3ee94a554c2b3
@@ -1966,7 +1993,7 @@
   to: ''
   reg: false
   x: 3500
-  'y': 940
+  'y': 1100
   wires:
     - - b38534b0c6688412
 - id: c7f61f22284c02d2
@@ -1979,7 +2006,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -1991,7 +2018,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 880
+  'y': 1040
   wires:
     - - d241fad6f4128215
       - 33fa51b16be94540
@@ -2027,7 +2054,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 4900
-  'y': 880
+  'y': 1040
   wires:
     - - c7f61f22284c02d2
       - f12c71a31477b340
@@ -2042,7 +2069,7 @@
     - d0be34a90b4e69b0
     - e60e4ab7617738c3
   x: 5695
-  'y': 820
+  'y': 980
   wires: []
 - id: f12c71a31477b340
   type: change
@@ -2066,7 +2093,7 @@
   to: ''
   reg: false
   x: 4880
-  'y': 940
+  'y': 1100
   wires:
     - - 44a58e5b9ad1fbfd
 - id: 85c8430d9bd2126e
@@ -2081,7 +2108,7 @@
   to: ''
   reg: false
   x: 2470
-  'y': 820
+  'y': 980
   wires:
     - - 079add884678c8f9
       - 5baf8e3a957b7788
@@ -2099,7 +2126,7 @@
   to: ''
   reg: false
   x: 3330
-  'y': 820
+  'y': 980
   wires:
     - - b38534b0c6688412
       - 169002e27659ad07
@@ -2117,7 +2144,7 @@
   to: ''
   reg: false
   x: 4710
-  'y': 820
+  'y': 980
   wires:
     - - 44a58e5b9ad1fbfd
       - c285c05b82d4c355
@@ -2136,8 +2163,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2110
-  'y': 400
+  x: 2130
+  'y': 560
   wires:
     - - 0b4f86391d926a8f
     - - 29984cf2609351c3
@@ -2158,8 +2185,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2270
-  'y': 400
+  x: 2290
+  'y': 560
   wires:
     - - f1a4ce3bdf024862
 - id: f1a4ce3bdf024862
@@ -2171,8 +2198,8 @@
   links:
     - 4e94023e8ba12f50
     - be594973267232f5
-  x: 2395
-  'y': 400
+  x: 2415
+  'y': 560
   wires: []
 - id: f0cda36bf38c99f7
   type: switch
@@ -2190,7 +2217,7 @@
   repair: false
   outputs: 2
   x: 3010
-  'y': 880
+  'y': 1040
   wires:
     - - b7878602c9c36a0d
     - - e301a7554e21eab8
@@ -2212,7 +2239,7 @@
   to: ''
   reg: false
   x: 3170
-  'y': 880
+  'y': 1040
   wires:
     - - 8574ce7e34610420
 - id: 8574ce7e34610420
@@ -2225,7 +2252,7 @@
     - 4e94023e8ba12f50
     - d0be34a90b4e69b0
   x: 3295
-  'y': 880
+  'y': 1040
   wires: []
 - id: ec7631a984851cc3
   type: link call
@@ -2237,7 +2264,7 @@
   linkType: static
   timeout: '30'
   x: 2450
-  'y': 1000
+  'y': 1160
   wires:
     - - 964137a9cf949388
 - id: 964137a9cf949388
@@ -2263,7 +2290,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 2660
-  'y': 1000
+  'y': 1160
   wires:
     - - 8f4c36ac5d7fccb7
 - id: f61685db4c35fec5
@@ -2288,7 +2315,7 @@
   to: ''
   reg: false
   x: 2640
-  'y': 1060
+  'y': 1220
   wires:
     - - 964137a9cf949388
 - id: 8f4c36ac5d7fccb7
@@ -2306,7 +2333,7 @@
   repair: false
   outputs: 1
   x: 2890
-  'y': 1000
+  'y': 1160
   wires:
     - - 195b512a3ce5fe57
       - f61685db4c35fec5
@@ -2318,7 +2345,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -2342,7 +2369,7 @@
   to: ''
   reg: false
   x: 3050
-  'y': 1000
+  'y': 1160
   wires:
     - - 169002e27659ad07
 - id: 169002e27659ad07
@@ -2377,7 +2404,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 3520
-  'y': 1000
+  'y': 1160
   wires:
     - - 81ca9d8959a0b0d7
       - 10bdc46c6ded5b32
@@ -2391,7 +2418,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -2403,7 +2430,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 940
+  'y': 1100
   wires:
     - - 33fa51b16be94540
 - id: 2e82b66355cb7335
@@ -2428,7 +2455,7 @@
   to: ''
   reg: false
   x: 1010
-  'y': 820
+  'y': 980
   wires:
     - - d26031479e8fbf60
 - id: 6520d4dd35a36d5f
@@ -2441,7 +2468,7 @@
     - 9ca41d82ae49b0f7
     - d5a2492cd9b261b1
   x: 145
-  'y': 1360
+  'y': 1520
   wires:
     - - 06e4fbf320c52369
 - id: 5c4ffee5a7830e63
@@ -2476,7 +2503,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 1360
+  'y': 1520
   wires:
     - - 168c66eb43a37c75
 - id: 168c66eb43a37c75
@@ -2502,7 +2529,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 810
-  'y': 1360
+  'y': 1520
   wires:
     - - 7f2995c90efc40bb
       - 92e801721da81b16
@@ -2521,7 +2548,7 @@
   repair: false
   outputs: 1
   x: 1010
-  'y': 1360
+  'y': 1520
   wires:
     - - bf37937e1950f88b
 - id: 92e801721da81b16
@@ -2546,7 +2573,7 @@
   to: ''
   reg: false
   x: 1010
-  'y': 1300
+  'y': 1460
   wires:
     - - 5f7dd94290917eab
 - id: bf37937e1950f88b
@@ -2557,17 +2584,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -2591,7 +2618,7 @@
   to: ''
   reg: false
   x: 1180
-  'y': 1360
+  'y': 1520
   wires:
     - - 1eca6e8901cc59ee
 - id: f5b94e3622c38a5b
@@ -2600,7 +2627,7 @@
   g: 7e8f13051c405b1e
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: addequipment
@@ -2615,7 +2642,7 @@
   repair: false
   outputs: 3
   x: 2310
-  'y': 1360
+  'y': 1520
   wires:
     - - a45f8b536e58a933
     - - 3c9c0f76791a548f
@@ -2630,7 +2657,7 @@
   linkType: static
   timeout: '30'
   x: 1530
-  'y': 1420
+  'y': 1580
   wires:
     - - ceeada8e32343712
 - id: ceeada8e32343712
@@ -2656,7 +2683,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1770
-  'y': 1420
+  'y': 1580
   wires:
     - - 747f0b103ae9196f
 - id: 747f0b103ae9196f
@@ -2674,7 +2701,7 @@
   repair: false
   outputs: 1
   x: 1990
-  'y': 1420
+  'y': 1580
   wires:
     - - 03337f4a8318d3b3
       - 318c3d313643f5ff
@@ -2686,7 +2713,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -2704,13 +2731,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 2150
-  'y': 1420
+  'y': 1580
   wires:
     - - f5b94e3622c38a5b
 - id: afba2015e1f51f1e
@@ -2725,7 +2757,7 @@
   to: ''
   reg: false
   x: 2510
-  'y': 1300
+  'y': 1460
   wires:
     - - 7a00d5667eb305c6
       - 90d13475ca12f6a2
@@ -2741,7 +2773,7 @@
   linkType: static
   timeout: '30'
   x: 2490
-  'y': 1360
+  'y': 1520
   wires:
     - - 7a00d5667eb305c6
 - id: 7a00d5667eb305c6
@@ -2767,7 +2799,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 2720
-  'y': 1360
+  'y': 1520
   wires:
     - - 03808114ac1c38c7
 - id: 03808114ac1c38c7
@@ -2785,7 +2817,7 @@
   repair: false
   outputs: 1
   x: 2950
-  'y': 1360
+  'y': 1520
   wires:
     - - 8d724c91b903f769
       - 62ea990cd926a9d9
@@ -2797,7 +2829,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -2821,7 +2853,7 @@
   to: ''
   reg: false
   x: 3110
-  'y': 1360
+  'y': 1520
   wires:
     - - ebb98b7a44b73a6a
 - id: 3e6f9808b4a01ad0
@@ -2840,7 +2872,7 @@
   repair: false
   outputs: 2
   x: 3930
-  'y': 1360
+  'y': 1520
   wires:
     - - f0c9075234e0050e
     - - cb3f4a391c57a61a
@@ -2862,7 +2894,7 @@
   to: ''
   reg: false
   x: 4090
-  'y': 1360
+  'y': 1520
   wires:
     - - 5b08e73e6fba747e
 - id: 5b08e73e6fba747e
@@ -2875,7 +2907,7 @@
     - 4e94023e8ba12f50
     - 6520d4dd35a36d5f
   x: 4215
-  'y': 1360
+  'y': 1520
   wires: []
 - id: ebb98b7a44b73a6a
   type: ui-text-input
@@ -2903,7 +2935,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 3560
-  'y': 1360
+  'y': 1520
   wires:
     - - fb2fdbdc81e52dc3
 - id: 90d13475ca12f6a2
@@ -2918,7 +2950,7 @@
   to: ''
   reg: false
   x: 3350
-  'y': 1300
+  'y': 1460
   wires:
     - - ebb98b7a44b73a6a
       - f58b9db98b333999
@@ -2939,7 +2971,7 @@
   repair: false
   outputs: 1
   x: 3770
-  'y': 1360
+  'y': 1520
   wires:
     - - 3e6f9808b4a01ad0
 - id: cb3f4a391c57a61a
@@ -2950,7 +2982,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -2974,7 +3006,7 @@
   to: ''
   reg: false
   x: 4110
-  'y': 1420
+  'y': 1580
   wires:
     - - 6f33bdab156eb006
 - id: 6f33bdab156eb006
@@ -3003,7 +3035,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 4470
-  'y': 1360
+  'y': 1520
   wires:
     - - aadfc22bf73f878c
 - id: f58b9db98b333999
@@ -3018,7 +3050,7 @@
   to: ''
   reg: false
   x: 4250
-  'y': 1300
+  'y': 1460
   wires:
     - - 6f33bdab156eb006
       - e292a383058fd6c2
@@ -3039,7 +3071,7 @@
   repair: false
   outputs: 1
   x: 4690
-  'y': 1360
+  'y': 1520
   wires:
     - - c108af4de8677f2d
       - 8b79e10e59185f3a
@@ -3051,7 +3083,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -3075,7 +3107,7 @@
   to: ''
   reg: false
   x: 4890
-  'y': 1360
+  'y': 1520
   wires:
     - - 546e576c1573ce77
 - id: 546e576c1573ce77
@@ -3110,7 +3142,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 6800
-  'y': 1360
+  'y': 1520
   wires:
     - - 5fc6dad59828a6d2
       - f66f61af828aafae
@@ -3137,7 +3169,7 @@
   to: ''
   reg: false
   x: 1720
-  'y': 1480
+  'y': 1640
   wires:
     - - 19707f5c5bb11a59
 - id: 62ea990cd926a9d9
@@ -3162,7 +3194,7 @@
   to: ''
   reg: false
   x: 2680
-  'y': 1420
+  'y': 1580
   wires:
     - - a45f8b536e58a933
 - id: a352e2f42e361cda
@@ -3187,7 +3219,7 @@
   to: ''
   reg: false
   x: 3520
-  'y': 1420
+  'y': 1580
   wires:
     - - ebb98b7a44b73a6a
 - id: 8b79e10e59185f3a
@@ -3212,7 +3244,7 @@
   to: ''
   reg: false
   x: 4420
-  'y': 1420
+  'y': 1580
   wires:
     - - 6f33bdab156eb006
 - id: f66f61af828aafae
@@ -3237,7 +3269,7 @@
   to: ''
   reg: false
   x: 6760
-  'y': 1420
+  'y': 1580
   wires:
     - - 546e576c1573ce77
 - id: 5fc6dad59828a6d2
@@ -3250,7 +3282,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -3262,7 +3294,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1300
+  'y': 1460
   wires:
     - - 71913e80a1cf8f84
       - a98b44eb9bb2bcc0
@@ -3276,7 +3308,7 @@
     - 6520d4dd35a36d5f
     - e60e4ab7617738c3
   x: 7615
-  'y': 1300
+  'y': 1460
   wires: []
 - id: 4f140d58b72fa70f
   type: change
@@ -3290,7 +3322,7 @@
   to: ''
   reg: false
   x: 6590
-  'y': 1300
+  'y': 1460
   wires:
     - - 546e576c1573ce77
       - 8bbc1b5ad913324d
@@ -3304,7 +3336,7 @@
   linkType: static
   timeout: '30'
   x: 3310
-  'y': 1480
+  'y': 1640
   wires:
     - - fa5df29273fa72a6
 - id: fa5df29273fa72a6
@@ -3330,7 +3362,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 3580
-  'y': 1480
+  'y': 1640
   wires:
     - - 56af4409b90d6c52
 - id: 56af4409b90d6c52
@@ -3348,7 +3380,7 @@
   repair: false
   outputs: 1
   x: 3790
-  'y': 1480
+  'y': 1640
   wires:
     - - 9eb736da069a4190
       - e0c8705c6c4259f4
@@ -3360,7 +3392,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -3384,7 +3416,7 @@
   to: ''
   reg: false
   x: 3970
-  'y': 1480
+  'y': 1640
   wires:
     - - e292a383058fd6c2
 - id: e0c8705c6c4259f4
@@ -3409,7 +3441,7 @@
   to: ''
   reg: false
   x: 3520
-  'y': 1540
+  'y': 1700
   wires:
     - - fa5df29273fa72a6
 - id: e292a383058fd6c2
@@ -3444,7 +3476,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 4460
-  'y': 1480
+  'y': 1640
   wires:
     - - c14d8ae49d4fac1f
       - 2b1415ad3ff79484
@@ -3458,7 +3490,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -3470,7 +3502,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1420
+  'y': 1580
   wires:
     - - 80d2d39c1183411f
       - a98b44eb9bb2bcc0
@@ -3486,7 +3518,7 @@
   to: ''
   reg: false
   x: 1550
-  'y': 1300
+  'y': 1460
   wires:
     - - afba2015e1f51f1e
       - ceeada8e32343712
@@ -3522,7 +3554,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 2200
+  'y': 2360
   wires:
     - - 17c157f35017df7c
 - id: 17c157f35017df7c
@@ -3548,7 +3580,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 810
-  'y': 2200
+  'y': 2360
   wires:
     - - 8a7c84411ca273d2
       - 79fae3bfce80c95c
@@ -3567,7 +3599,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2200
+  'y': 2360
   wires:
     - - 9895c2f1bea8cc3b
 - id: 9895c2f1bea8cc3b
@@ -3578,17 +3610,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -3612,7 +3644,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 2320
+  'y': 2480
   wires:
     - - 55477206adc7beb9
 - id: 55477206adc7beb9
@@ -3621,7 +3653,7 @@
   g: 20722623c07d09d8
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: addcomponent
@@ -3633,7 +3665,7 @@
   repair: false
   outputs: 2
   x: 370
-  'y': 2380
+  'y': 2540
   wires:
     - - 38738727aa6e08f7
     - - 16914febd388219f
@@ -3647,7 +3679,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 2440
+  'y': 2600
   wires:
     - - cb28ad66e7da1c26
 - id: 3333229966faac95
@@ -3665,7 +3697,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2440
+  'y': 2600
   wires:
     - - 1699c65a9f270496
 - id: 1699c65a9f270496
@@ -3676,7 +3708,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -3685,7 +3717,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2440
+  'y': 2600
   wires:
     - - 6e28d0dfe73f74a9
       - 407cb2677dcdcc16
@@ -3699,7 +3731,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 2500
+  'y': 2660
   wires:
     - - 3c9003cf4087b916
 - id: e2ab7fdd7ef55405
@@ -3717,7 +3749,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2500
+  'y': 2660
   wires:
     - - a59399f3c1f0356b
 - id: a59399f3c1f0356b
@@ -3728,7 +3760,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -3737,7 +3769,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2500
+  'y': 2660
   wires:
     - - 285dfcdd30698cf3
       - 5fc5d76c0697e211
@@ -3763,7 +3795,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2500
+  'y': 2660
   wires:
     - - aef95298c11945a1
 - id: 407cb2677dcdcc16
@@ -3788,7 +3820,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2440
+  'y': 2600
   wires:
     - - e02d034e36c77a62
 - id: cb28ad66e7da1c26
@@ -3814,7 +3846,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 2440
+  'y': 2600
   wires:
     - - 3333229966faac95
 - id: 3c9003cf4087b916
@@ -3840,7 +3872,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 2500
+  'y': 2660
   wires:
     - - e2ab7fdd7ef55405
 - id: 6db5ed21ab5c4c33
@@ -3853,7 +3885,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 2560
+  'y': 2720
   wires:
     - - 59ee1d155dae4103
 - id: 57139706ef86d619
@@ -3871,7 +3903,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2560
+  'y': 2720
   wires:
     - - 7ec8ce21f4a0ef2c
 - id: 7ec8ce21f4a0ef2c
@@ -3882,7 +3914,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -3891,7 +3923,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 2560
+  'y': 2720
   wires:
     - - e899f9ec33c8f4e7
       - ade1b4ecac37c875
@@ -3917,7 +3949,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2560
+  'y': 2720
   wires:
     - - 6db5ed21ab5c4c33
 - id: 59ee1d155dae4103
@@ -3943,7 +3975,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 2560
+  'y': 2720
   wires:
     - - 57139706ef86d619
 - id: 2e96cf6ebc484482
@@ -3956,7 +3988,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 2620
+  'y': 2780
   wires:
     - - d8baaa7058d36779
 - id: d8baaa7058d36779
@@ -3982,7 +4014,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 850
-  'y': 2620
+  'y': 2780
   wires:
     - - a4d3eda9e55d7c62
 - id: a4d3eda9e55d7c62
@@ -4000,7 +4032,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2620
+  'y': 2780
   wires:
     - - c64f42ba83a53437
 - id: c64f42ba83a53437
@@ -4011,7 +4043,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]component'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -4020,7 +4052,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 2620
+  'y': 2780
   wires:
     - - 9fdf06533258db19
       - 221763270a2bfa4b
@@ -4046,7 +4078,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2620
+  'y': 2780
   wires:
     - - 2e96cf6ebc484482
 - id: 898e323acce8cdc5
@@ -4059,7 +4091,7 @@
     - f8543a7df7581b14
     - d5a2492cd9b261b1
   x: 145
-  'y': 1840
+  'y': 2000
   wires:
     - - e1930e7b5c1b153f
 - id: 12c26ac09e8a630e
@@ -4094,7 +4126,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 1840
+  'y': 2000
   wires:
     - - d917a4e25a23f027
 - id: 620b38276e9f4547
@@ -4119,7 +4151,7 @@
   to: ''
   reg: false
   x: 990
-  'y': 1780
+  'y': 1940
   wires:
     - - 0c8482dcea351952
 - id: d917a4e25a23f027
@@ -4145,7 +4177,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 800
-  'y': 1840
+  'y': 2000
   wires:
     - - 1f888e68e12de88d
       - 620b38276e9f4547
@@ -4164,7 +4196,7 @@
   repair: false
   outputs: 1
   x: 990
-  'y': 1840
+  'y': 2000
   wires:
     - - a8ebe064355f11b8
 - id: a8ebe064355f11b8
@@ -4175,17 +4207,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -4209,7 +4241,7 @@
   to: ''
   reg: false
   x: 1160
-  'y': 1840
+  'y': 2000
   wires:
     - - af25077c65056faf
 - id: af25077c65056faf
@@ -4218,7 +4250,7 @@
   g: 771b362aacd557cd
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: adddevice
@@ -4230,7 +4262,7 @@
   repair: false
   outputs: 2
   x: 1330
-  'y': 1840
+  'y': 2000
   wires:
     - - 261b28afd44f1e8c
     - - 7f3dd0a8e342b989
@@ -4244,7 +4276,7 @@
   linkType: static
   timeout: '30'
   x: 1520
-  'y': 1840
+  'y': 2000
   wires:
     - - 95d71cb8daa0eece
 - id: 95d71cb8daa0eece
@@ -4270,7 +4302,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1760
-  'y': 1840
+  'y': 2000
   wires:
     - - b88e94b27dd213fa
 - id: 0c8482dcea351952
@@ -4285,7 +4317,7 @@
   to: ''
   reg: false
   x: 1550
-  'y': 1780
+  'y': 1940
   wires:
     - - 95d71cb8daa0eece
       - 1743d79f410dd581
@@ -4305,7 +4337,7 @@
   repair: false
   outputs: 1
   x: 1970
-  'y': 1840
+  'y': 2000
   wires:
     - - db0ac5ce5cc83a16
       - e90aa67f6f919501
@@ -4331,7 +4363,7 @@
   to: ''
   reg: false
   x: 1720
-  'y': 1900
+  'y': 2060
   wires:
     - - 261b28afd44f1e8c
 - id: e90aa67f6f919501
@@ -4342,7 +4374,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]model'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -4366,7 +4398,7 @@
   to: ''
   reg: false
   x: 2140
-  'y': 1840
+  'y': 2000
   wires:
     - - bba6468ba7c9a280
 - id: 1743d79f410dd581
@@ -4381,7 +4413,7 @@
   to: ''
   reg: false
   x: 2370
-  'y': 1780
+  'y': 1940
   wires:
     - - bba6468ba7c9a280
       - 428bf0d0d2ebd3b5
@@ -4412,7 +4444,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 2560
-  'y': 1840
+  'y': 2000
   wires:
     - - 2b66ab6668d88016
 - id: 2b66ab6668d88016
@@ -4430,7 +4462,7 @@
   repair: false
   outputs: 1
   x: 2750
-  'y': 1840
+  'y': 2000
   wires:
     - - c703a8064c476b43
       - cb37ad5c78abc0bb
@@ -4456,7 +4488,7 @@
   to: ''
   reg: false
   x: 2540
-  'y': 1900
+  'y': 2060
   wires:
     - - bba6468ba7c9a280
 - id: 074c086ced863fdc
@@ -4470,7 +4502,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -4494,7 +4526,7 @@
   to: ''
   reg: false
   x: 3240
-  'y': 1900
+  'y': 2060
   wires:
     - - 71f6e89bc1ad38ab
 - id: b473bceef107f752
@@ -4513,7 +4545,7 @@
   repair: false
   outputs: 2
   x: 3070
-  'y': 1840
+  'y': 2000
   wires:
     - - c78d1811c7ace288
     - - 074c086ced863fdc
@@ -4534,7 +4566,7 @@
   to: ''
   reg: false
   x: 3230
-  'y': 1840
+  'y': 2000
   wires:
     - - aeafe7168ac11461
 - id: aeafe7168ac11461
@@ -4547,7 +4579,7 @@
     - 4e94023e8ba12f50
     - 898e323acce8cdc5
   x: 3355
-  'y': 1840
+  'y': 2000
   wires: []
 - id: 71f6e89bc1ad38ab
   type: ui-button
@@ -4581,7 +4613,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 3590
-  'y': 1840
+  'y': 2000
   wires:
     - - 3d5664af45a15289
       - b69618853f559c9a
@@ -4595,7 +4627,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: device
       pt: msg
@@ -4615,7 +4647,7 @@
   to: ''
   reg: false
   x: 4770
-  'y': 1840
+  'y': 2000
   wires:
     - - 5bd98b6a801a1519
       - 32c655ef0f3f7523
@@ -4629,7 +4661,7 @@
     - 898e323acce8cdc5
     - e60e4ab7617738c3
   x: 5375
-  'y': 1840
+  'y': 2000
   wires: []
 - id: 7f3dd0a8e342b989
   type: link call
@@ -4641,7 +4673,7 @@
   linkType: static
   timeout: '30'
   x: 1520
-  'y': 1960
+  'y': 2120
   wires:
     - - a7a8ef72619a8ff5
 - id: a7a8ef72619a8ff5
@@ -4667,7 +4699,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1750
-  'y': 1960
+  'y': 2120
   wires:
     - - 5d4ae6fc64b194b6
 - id: 23d80aa9b2bfcf9b
@@ -4692,7 +4724,7 @@
   to: ''
   reg: false
   x: 1720
-  'y': 2020
+  'y': 2180
   wires:
     - - 7f3dd0a8e342b989
 - id: 5d4ae6fc64b194b6
@@ -4710,7 +4742,7 @@
   repair: false
   outputs: 1
   x: 1970
-  'y': 1960
+  'y': 2120
   wires:
     - - 23d80aa9b2bfcf9b
       - 519c780ad509bba7
@@ -4722,7 +4754,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]model'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -4740,13 +4772,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_model
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]model'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 2140
-  'y': 1960
+  'y': 2120
   wires:
     - - 7fa1c0fa0b5deb1d
 - id: 428bf0d0d2ebd3b5
@@ -4772,7 +4809,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 2580
-  'y': 1960
+  'y': 2120
   wires:
     - - 7a8be40ae9a91ac4
 - id: c14d8ae49d4fac1f
@@ -4797,7 +4834,7 @@
   to: ''
   reg: false
   x: 4420
-  'y': 1540
+  'y': 1700
   wires:
     - - e292a383058fd6c2
 - id: b69618853f559c9a
@@ -4822,7 +4859,7 @@
   to: ''
   reg: false
   x: 3560
-  'y': 1900
+  'y': 2060
   wires:
     - - 71f6e89bc1ad38ab
 - id: aae3c8ed416d63d2
@@ -4847,7 +4884,7 @@
   to: ''
   reg: false
   x: 2540
-  'y': 2020
+  'y': 2180
   wires:
     - - 428bf0d0d2ebd3b5
 - id: dd9c60ea70834ff9
@@ -4860,7 +4897,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: device
       pt: msg
@@ -4880,7 +4917,7 @@
   to: ''
   reg: false
   x: 4770
-  'y': 1960
+  'y': 2120
   wires:
     - - 2543ee6fc9556e84
       - 32c655ef0f3f7523
@@ -4899,7 +4936,7 @@
   repair: false
   outputs: 1
   x: 2790
-  'y': 1960
+  'y': 2120
   wires:
     - - aae3c8ed416d63d2
       - db90e39381333bd7
@@ -4911,7 +4948,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -4935,7 +4972,7 @@
   to: ''
   reg: false
   x: 2960
-  'y': 1960
+  'y': 2120
   wires:
     - - 642583827cb7c7c4
 - id: 642583827cb7c7c4
@@ -4970,7 +5007,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 3590
-  'y': 1960
+  'y': 2120
   wires:
     - - 2f7bdee6a84c87ab
       - acfb859312b6b5ad
@@ -4986,7 +5023,7 @@
   to: ''
   reg: false
   x: 3390
-  'y': 1780
+  'y': 1940
   wires:
     - - 71f6e89bc1ad38ab
       - 642583827cb7c7c4
@@ -5012,7 +5049,7 @@
   to: ''
   reg: false
   x: 3560
-  'y': 2020
+  'y': 2180
   wires:
     - - 642583827cb7c7c4
 - id: 571444e87340c50e
@@ -5025,7 +5062,7 @@
   linkType: static
   timeout: '30'
   x: 580
-  'y': 2680
+  'y': 2840
   wires:
     - - 5371d6f81b743e0c
 - id: 5371d6f81b743e0c
@@ -5051,7 +5088,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 2680
+  'y': 2840
   wires:
     - - b4021d516dc6ae60
 - id: b4021d516dc6ae60
@@ -5069,7 +5106,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2680
+  'y': 2840
   wires:
     - - 941cd22c52413bee
 - id: 941cd22c52413bee
@@ -5080,7 +5117,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]model'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5089,7 +5126,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2680
+  'y': 2840
   wires:
     - - 8da197b686e522e8
       - aaf22b8f24581f4b
@@ -5115,7 +5152,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2680
+  'y': 2840
   wires:
     - - 571444e87340c50e
 - id: 7fa1c0fa0b5deb1d
@@ -5128,7 +5165,7 @@
   linkType: static
   timeout: '30'
   x: 2340
-  'y': 1960
+  'y': 2120
   wires:
     - - 428bf0d0d2ebd3b5
 - id: e13f6f808aceb293
@@ -5141,7 +5178,7 @@
   linkType: static
   timeout: '30'
   x: 580
-  'y': 2740
+  'y': 2900
   wires:
     - - 02611363216ba3f4
 - id: 02611363216ba3f4
@@ -5167,7 +5204,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 2740
+  'y': 2900
   wires:
     - - 3310e53111281bbe
 - id: 3310e53111281bbe
@@ -5185,7 +5222,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2740
+  'y': 2900
   wires:
     - - 32da1c56b79d529c
 - id: a2a3053a6cbe1783
@@ -5210,7 +5247,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2740
+  'y': 2900
   wires:
     - - e13f6f808aceb293
 - id: 32da1c56b79d529c
@@ -5221,7 +5258,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]device'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5230,7 +5267,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2740
+  'y': 2900
   wires:
     - - 40bd4f7be746e889
       - a2a3053a6cbe1783
@@ -5244,7 +5281,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 2800
+  'y': 2960
   wires:
     - - b612b515bd3e534b
 - id: b612b515bd3e534b
@@ -5270,7 +5307,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 2800
+  'y': 2960
   wires:
     - - a35eda7dde757c91
 - id: c2f3dcd585da9474
@@ -5295,7 +5332,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2800
+  'y': 2960
   wires:
     - - 4baac0db51d3ac4f
 - id: a35eda7dde757c91
@@ -5313,7 +5350,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2800
+  'y': 2960
   wires:
     - - 53dd04fd8623952e
 - id: 53dd04fd8623952e
@@ -5324,7 +5361,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]endpoint'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5333,7 +5370,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 2800
+  'y': 2960
   wires:
     - - 79642165f3c70da6
       - c2f3dcd585da9474
@@ -5369,7 +5406,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 830
-  'y': 2980
+  'y': 3140
   wires:
     - - 880b22c03f03897d
       - 46ad0423bd12c7d0
@@ -5395,7 +5432,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2980
+  'y': 3140
   wires:
     - - 93dadc68baa38a29
 - id: 12a22b22fd134459
@@ -5415,7 +5452,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 2800
+  'y': 2960
   wires:
     - - c1b07dbe39802345
       - d42f192ca122f48a
@@ -5429,7 +5466,7 @@
     - 1bd9c70a5be52bdc
     - e60e4ab7617738c3
   x: 2255
-  'y': 2800
+  'y': 2960
   wires: []
 - id: f7bebc020deba752
   type: change
@@ -5439,7 +5476,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -5462,8 +5499,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2280
-  'y': 460
+  x: 2300
+  'y': 620
   wires:
     - - 343f72e19cb63063
 - id: 3c9c0f76791a548f
@@ -5476,7 +5513,7 @@
   linkType: static
   timeout: '30'
   x: 2490
-  'y': 1480
+  'y': 1640
   wires:
     - - 197274040c0dbbe6
 - id: 197274040c0dbbe6
@@ -5502,7 +5539,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 2720
-  'y': 1480
+  'y': 1640
   wires:
     - - 8f2449d8efe71a70
 - id: 8f2449d8efe71a70
@@ -5520,7 +5557,7 @@
   repair: false
   outputs: 1
   x: 2950
-  'y': 1480
+  'y': 1640
   wires:
     - - a091728b0852762b
       - 2f5474284208e854
@@ -5532,7 +5569,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -5550,13 +5587,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 3110
-  'y': 1480
+  'y': 1640
   wires:
     - - f388124a50c8e62c
 - id: 2f5474284208e854
@@ -5581,7 +5623,7 @@
   to: ''
   reg: false
   x: 2680
-  'y': 1540
+  'y': 1700
   wires:
     - - 3c9c0f76791a548f
 - id: 550eb68b580a1098
@@ -5606,7 +5648,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2920
+  'y': 3080
   wires:
     - - da66cc235949c696
 - id: da66cc235949c696
@@ -5635,7 +5677,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 830
-  'y': 2920
+  'y': 3080
   wires:
     - - 66197285c858f226
 - id: 66197285c858f226
@@ -5653,7 +5695,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 2920
+  'y': 3080
   wires:
     - - 1db0a6de05e52535
 - id: 1db0a6de05e52535
@@ -5664,7 +5706,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5673,7 +5715,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2920
+  'y': 3080
   wires:
     - - b1ada005a7455043
       - 550eb68b580a1098
@@ -5687,7 +5729,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 3100
+  'y': 3260
   wires:
     - - b281fa344b76d34e
 - id: 744bb3d1f2a637f3
@@ -5705,7 +5747,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3100
+  'y': 3260
   wires:
     - - c1f40f8112421e36
 - id: c1f40f8112421e36
@@ -5716,7 +5758,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5725,7 +5767,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 3100
+  'y': 3260
   wires:
     - - 13e5e47cda26783f
       - 72948114077a8d2e
@@ -5739,7 +5781,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 3160
+  'y': 3320
   wires:
     - - 2ea85ba6c549da42
 - id: 40e7c2ff41c28ad6
@@ -5757,7 +5799,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3160
+  'y': 3320
   wires:
     - - 04512d24831806d0
 - id: 04512d24831806d0
@@ -5768,7 +5810,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5777,7 +5819,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 3160
+  'y': 3320
   wires:
     - - 1722e128a68650ec
       - 6c7defb50346f463
@@ -5803,7 +5845,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3160
+  'y': 3320
   wires:
     - - e2fb687bf15ea8e0
 - id: 72948114077a8d2e
@@ -5828,7 +5870,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3100
+  'y': 3260
   wires:
     - - d1d649cafc9debd1
 - id: b281fa344b76d34e
@@ -5854,7 +5896,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 3100
+  'y': 3260
   wires:
     - - 744bb3d1f2a637f3
 - id: 2ea85ba6c549da42
@@ -5880,7 +5922,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 3160
+  'y': 3320
   wires:
     - - 40e7c2ff41c28ad6
 - id: 1d06636477ccca4f
@@ -5893,7 +5935,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 3220
+  'y': 3380
   wires:
     - - 346544028cd8a774
 - id: e1940aa410a7144b
@@ -5911,7 +5953,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3220
+  'y': 3380
   wires:
     - - 2bd4f058fda874a2
 - id: 2bd4f058fda874a2
@@ -5922,7 +5964,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -5931,7 +5973,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 3220
+  'y': 3380
   wires:
     - - 45d5655ee7aa5f8b
       - 7629e2fdc145b5ac
@@ -5957,7 +5999,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3220
+  'y': 3380
   wires:
     - - 1d06636477ccca4f
 - id: 346544028cd8a774
@@ -5983,7 +6025,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 3220
+  'y': 3380
   wires:
     - - e1940aa410a7144b
 - id: 1a232d99e868a40b
@@ -6001,7 +6043,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3280
+  'y': 3440
   wires:
     - - f1a456d8c0e5733f
 - id: 1307e1c79da7d93c
@@ -6026,7 +6068,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3280
+  'y': 3440
   wires:
     - - 406dafe33691d603
 - id: 90248b8f52209843
@@ -6061,7 +6103,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 820
-  'y': 3340
+  'y': 3500
   wires:
     - - 7c8d3003ec127f84
       - 83651a6c9e561ccc
@@ -6087,7 +6129,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3340
+  'y': 3500
   wires:
     - - 90248b8f52209843
 - id: 63191095c39c9fe7
@@ -6107,7 +6149,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 3160
+  'y': 3320
   wires:
     - - d587b15b948deb4c
       - d42f192ca122f48a
@@ -6119,8 +6161,8 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 4075
-  'y': 520
+  x: 4095
+  'y': 680
   wires: []
 - id: beafd2a4d6e6e01a
   type: change
@@ -6138,8 +6180,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3950
-  'y': 460
+  x: 3970
+  'y': 620
   wires:
     - - 38b3a4ebd1fca09e
 - id: ce99fb90d41439af
@@ -6155,8 +6197,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 4460
-  'y': 460
+  x: 4480
+  'y': 620
   wires: []
 - id: 578c42fc43eaca86
   type: change
@@ -6174,8 +6216,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3950
-  'y': 520
+  x: 3970
+  'y': 680
   wires:
     - - 38b3a4ebd1fca09e
 - id: c234a7bcf86d1bd9
@@ -6198,7 +6240,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -6206,8 +6248,8 @@
   from: ''
   to: ''
   reg: false
-  x: 4270
-  'y': 400
+  x: 4290
+  'y': 560
   wires:
     - - 902fe68ecf2dae15
       - ce99fb90d41439af
@@ -6228,7 +6270,7 @@
   to: ''
   reg: false
   x: 5250
-  'y': 880
+  'y': 1040
   wires:
     - - a4152fb852afd64c
 - id: 2cbf490e639d104a
@@ -6248,7 +6290,7 @@
   to: ''
   reg: false
   x: 5250
-  'y': 1000
+  'y': 1160
   wires:
     - - a4152fb852afd64c
 - id: dcd264dc214f73a5
@@ -6271,7 +6313,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -6280,7 +6322,7 @@
   to: ''
   reg: false
   x: 5570
-  'y': 820
+  'y': 980
   wires:
     - - 3cc5c7bd4abc1cb9
       - cb24ec5243dad6aa
@@ -6294,7 +6336,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -6306,7 +6348,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 820
+  'y': 980
   wires:
     - - 33fa51b16be94540
 - id: 94fd455c8980bf6a
@@ -6319,7 +6361,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -6331,7 +6373,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 1000
+  'y': 1160
   wires:
     - - 2cbf490e639d104a
       - 33fa51b16be94540
@@ -6344,7 +6386,7 @@
   links:
     - 4e94023e8ba12f50
   x: 5375
-  'y': 940
+  'y': 1100
   wires: []
 - id: cb24ec5243dad6aa
   type: debug
@@ -6360,7 +6402,7 @@
   statusVal: ''
   statusType: auto
   x: 5750
-  'y': 880
+  'y': 1040
   wires: []
 - id: df4867763814df3b
   type: debug
@@ -6376,7 +6418,7 @@
   statusVal: ''
   statusType: auto
   x: 7700
-  'y': 1360
+  'y': 1520
   wires: []
 - id: 5395c71ca58804d8
   type: change
@@ -6388,7 +6430,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -6400,7 +6442,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1360
+  'y': 1520
   wires:
     - - a98b44eb9bb2bcc0
 - id: 9adbbefce1c43d47
@@ -6413,7 +6455,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -6425,7 +6467,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1480
+  'y': 1640
   wires:
     - - a98b44eb9bb2bcc0
 - id: 80d2d39c1183411f
@@ -6445,7 +6487,7 @@
   to: ''
   reg: false
   x: 7170
-  'y': 1420
+  'y': 1580
   wires:
     - - 2ec570aa85f2098f
 - id: 71913e80a1cf8f84
@@ -6465,7 +6507,7 @@
   to: ''
   reg: false
   x: 7170
-  'y': 1360
+  'y': 1520
   wires:
     - - 2ec570aa85f2098f
 - id: 2ec570aa85f2098f
@@ -6477,7 +6519,7 @@
   links:
     - 4e94023e8ba12f50
   x: 7295
-  'y': 1420
+  'y': 1580
   wires: []
 - id: b0e29315a45ffd99
   type: change
@@ -6499,7 +6541,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -6508,7 +6550,7 @@
   to: ''
   reg: false
   x: 7490
-  'y': 1300
+  'y': 1460
   wires:
     - - 9ca41d82ae49b0f7
       - df4867763814df3b
@@ -6532,7 +6574,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -6541,7 +6583,7 @@
   to: ''
   reg: false
   x: 5250
-  'y': 1840
+  'y': 2000
   wires:
     - - f8543a7df7581b14
       - 1f1a201addad74f9
@@ -6559,7 +6601,7 @@
   statusVal: ''
   statusType: auto
   x: 5440
-  'y': 1900
+  'y': 2060
   wires: []
 - id: 5bd98b6a801a1519
   type: change
@@ -6578,7 +6620,7 @@
   to: ''
   reg: false
   x: 4930
-  'y': 1900
+  'y': 2060
   wires:
     - - 5f6f52df59cd8e40
 - id: 5f6f52df59cd8e40
@@ -6590,7 +6632,7 @@
   links:
     - 4e94023e8ba12f50
   x: 5055
-  'y': 1960
+  'y': 2120
   wires: []
 - id: 2543ee6fc9556e84
   type: change
@@ -6609,7 +6651,7 @@
   to: ''
   reg: false
   x: 4930
-  'y': 1960
+  'y': 2120
   wires:
     - - 5f6f52df59cd8e40
 - id: c1b07dbe39802345
@@ -6629,7 +6671,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 2920
+  'y': 3080
   wires:
     - - 2e0c6e8b3e58b338
 - id: 5450d36d811b2c7e
@@ -6658,7 +6700,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -6667,7 +6709,7 @@
   to: ''
   reg: false
   x: 2130
-  'y': 2800
+  'y': 2960
   wires:
     - - 5880532ab10c6e61
       - 54fd1f2eca676e0d
@@ -6685,7 +6727,7 @@
   statusVal: ''
   statusType: auto
   x: 2340
-  'y': 2860
+  'y': 3020
   wires: []
 - id: 2e0c6e8b3e58b338
   type: link out
@@ -6696,7 +6738,7 @@
   links:
     - 4e94023e8ba12f50
   x: 1935
-  'y': 2920
+  'y': 3080
   wires: []
 - id: 0d6421aa0ca30e2a
   type: change
@@ -6715,7 +6757,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 2860
+  'y': 3020
   wires:
     - - d42f192ca122f48a
 - id: d35fa4e2442a9ac2
@@ -6735,7 +6777,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 2920
+  'y': 3080
   wires:
     - - d42f192ca122f48a
 - id: 46ad0423bd12c7d0
@@ -6748,7 +6790,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: device
       pt: msg
@@ -6765,7 +6807,7 @@
   to: ''
   reg: false
   x: 1480
-  'y': 2980
+  'y': 3140
   wires:
     - - 12a22b22fd134459
       - 0d6421aa0ca30e2a
@@ -6781,7 +6823,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: device
       pt: msg
@@ -6798,7 +6840,7 @@
   to: ''
   reg: false
   x: 1480
-  'y': 3340
+  'y': 3500
   wires:
     - - 63191095c39c9fe7
       - bc259afebd64a229
@@ -6821,7 +6863,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 3220
+  'y': 3380
   wires:
     - - d42f192ca122f48a
 - id: 4b91c5f91ea8b47a
@@ -6841,7 +6883,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 3280
+  'y': 3440
   wires:
     - - d42f192ca122f48a
 - id: d587b15b948deb4c
@@ -6861,7 +6903,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 3160
+  'y': 3320
   wires:
     - - 2e0c6e8b3e58b338
 - id: f1a456d8c0e5733f
@@ -6872,7 +6914,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]endpoint'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -6881,7 +6923,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 3280
+  'y': 3440
   wires:
     - - 4f39d6babedbf220
       - 1307e1c79da7d93c
@@ -6908,7 +6950,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 3280
+  'y': 3440
   wires:
     - - 1a232d99e868a40b
 - id: 406dafe33691d603
@@ -6921,7 +6963,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 3280
+  'y': 3440
   wires:
     - - c852c593603bdeb1
 - id: 657f778237f5e04d
@@ -6947,7 +6989,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 2860
+  'y': 3020
   wires:
     - - 4ac70290bc24cfce
 - id: 5aea1912b66929bc
@@ -6972,7 +7014,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 2860
+  'y': 3020
   wires:
     - - c64304737bb545f6
 - id: 4ac70290bc24cfce
@@ -6983,7 +7025,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]reverse'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -6992,7 +7034,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 2860
+  'y': 3020
   wires:
     - - 587aa2747f39b476
       - 5aea1912b66929bc
@@ -7013,7 +7055,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 2980
+  'y': 3140
   wires:
     - - d42f192ca122f48a
 - id: 19d8ec646c89db55
@@ -7033,7 +7075,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 3340
+  'y': 3500
   wires:
     - - d42f192ca122f48a
 - id: c64304737bb545f6
@@ -7053,7 +7095,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 2860
+  'y': 3020
   wires:
     - - 657f778237f5e04d
 - id: 6e28d0dfe73f74a9
@@ -7077,13 +7119,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 2440
+  'y': 2600
   wires:
     - - aef95298c11945a1
 - id: 285dfcdd30698cf3
@@ -7107,13 +7154,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 2500
+  'y': 2660
   wires:
     - - 6db5ed21ab5c4c33
 - id: e899f9ec33c8f4e7
@@ -7143,7 +7195,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 2560
+  'y': 2720
   wires:
     - - 2e96cf6ebc484482
 - id: 9fdf06533258db19
@@ -7173,7 +7225,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 2620
+  'y': 2780
   wires:
     - - 571444e87340c50e
 - id: 8da197b686e522e8
@@ -7197,13 +7249,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_model
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]model'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 2680
+  'y': 2840
   wires:
     - - e13f6f808aceb293
 - id: 40bd4f7be746e889
@@ -7227,13 +7284,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_model
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]model'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 2740
+  'y': 2900
   wires:
     - - 4baac0db51d3ac4f
 - id: 79642165f3c70da6
@@ -7263,7 +7325,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 2800
+  'y': 2960
   wires:
     - - c64304737bb545f6
 - id: 587aa2747f39b476
@@ -7293,7 +7355,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 2860
+  'y': 3020
   wires:
     - - da66cc235949c696
 - id: b1ada005a7455043
@@ -7323,7 +7385,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 2920
+  'y': 3080
   wires:
     - - 93dadc68baa38a29
 - id: 13e5e47cda26783f
@@ -7347,13 +7409,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 3100
+  'y': 3260
   wires:
     - - e2fb687bf15ea8e0
 - id: 1722e128a68650ec
@@ -7377,13 +7444,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 3160
+  'y': 3320
   wires:
     - - 1d06636477ccca4f
 - id: 45d5655ee7aa5f8b
@@ -7407,13 +7479,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_equipment
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 3220
+  'y': 3380
   wires:
     - - 406dafe33691d603
 - id: 4f39d6babedbf220
@@ -7443,7 +7520,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 3280
+  'y': 3440
   wires:
     - - 90248b8f52209843
 - id: cb37ad5c78abc0bb
@@ -7456,7 +7533,7 @@
       p: form_device
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]model'
-      tot: global
+      tot: flow
     - t: set
       p: form_device
       pt: msg
@@ -7468,7 +7545,7 @@
   to: ''
   reg: false
   x: 2910
-  'y': 1840
+  'y': 2000
   wires:
     - - b473bceef107f752
 - id: a98b44eb9bb2bcc0
@@ -7489,7 +7566,7 @@
   allowrate: false
   outputs: 1
   x: 7170
-  'y': 1300
+  'y': 1460
   wires:
     - - 2d9867770914d5ec
 - id: 32c655ef0f3f7523
@@ -7510,7 +7587,7 @@
   allowrate: false
   outputs: 1
   x: 4930
-  'y': 1840
+  'y': 2000
   wires:
     - - 62f4c70c7a4bd516
 - id: d42f192ca122f48a
@@ -7531,7 +7608,7 @@
   allowrate: false
   outputs: 1
   x: 1810
-  'y': 2800
+  'y': 2960
   wires:
     - - 079eee74926cfaad
 - id: 81ca9d8959a0b0d7
@@ -7556,7 +7633,7 @@
   to: ''
   reg: false
   x: 3500
-  'y': 1060
+  'y': 1220
   wires:
     - - 169002e27659ad07
 - id: 33fa51b16be94540
@@ -7577,7 +7654,7 @@
   allowrate: false
   outputs: 1
   x: 5250
-  'y': 820
+  'y': 980
   wires:
     - - d3bce3cd9c072031
 - id: ca4e151d7418cc02
@@ -7597,8 +7674,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 3950
-  'y': 400
+  x: 3970
+  'y': 560
   wires:
     - - 8730ba52214ebd7a
 - id: 1b34e946b3fbd6ec
@@ -7613,8 +7690,8 @@
   stream: false
   addname: ''
   property: lines
-  x: 2990
-  'y': 580
+  x: 3010
+  'y': 740
   wires:
     - - 1ceef6f9246d3fef
 - id: 019fe78a2c6cb4dd
@@ -7638,8 +7715,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2830
-  'y': 580
+  x: 2850
+  'y': 740
   wires:
     - - 1b34e946b3fbd6ec
 - id: 1ceef6f9246d3fef
@@ -7657,8 +7734,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3150
-  'y': 580
+  x: 3170
+  'y': 740
   wires:
     - - c81edc762324dc2b
     - - 957407bc45713037
@@ -7674,8 +7751,8 @@
   stream: false
   addname: ''
   property: payload
-  x: 3470
-  'y': 580
+  x: 3490
+  'y': 740
   wires:
     - - 2343f1b61b7ca46a
 - id: c81edc762324dc2b
@@ -7694,8 +7771,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3310
-  'y': 520
+  x: 3330
+  'y': 680
   wires:
     - - 957407bc45713037
 - id: 2343f1b61b7ca46a
@@ -7711,8 +7788,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3630
-  'y': 580
+  x: 3650
+  'y': 740
   wires:
     - - 721821d1377acb65
     - - 7da9ffcb9f9a585e
@@ -7732,8 +7809,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3950
-  'y': 580
+  x: 3970
+  'y': 740
   wires:
     - - 38b3a4ebd1fca09e
 - id: 7da9ffcb9f9a585e
@@ -7752,8 +7829,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
-  'y': 580
+  x: 3810
+  'y': 740
   wires:
     - - 32bd3cca2402b7b9
       - ca4e151d7418cc02
@@ -7779,7 +7856,7 @@
   to: ''
   reg: false
   x: 3730
-  'y': 1000
+  'y': 1160
   wires:
     - - 14903d760537387b
 - id: 14903d760537387b
@@ -7795,7 +7872,7 @@
   addname: ''
   property: equipments
   x: 3890
-  'y': 1000
+  'y': 1160
   wires:
     - - b46efd2d40671992
 - id: b46efd2d40671992
@@ -7814,7 +7891,7 @@
   repair: false
   outputs: 2
   x: 4050
-  'y': 1000
+  'y': 1160
   wires:
     - - 2ede34c731108077
     - - 91cd8330203713fb
@@ -7835,7 +7912,7 @@
   to: ''
   reg: false
   x: 4210
-  'y': 940
+  'y': 1100
   wires:
     - - 91cd8330203713fb
 - id: 91cd8330203713fb
@@ -7851,7 +7928,7 @@
   addname: ''
   property: payload
   x: 4370
-  'y': 1000
+  'y': 1160
   wires:
     - - eaabe388a2460cf9
 - id: eaabe388a2460cf9
@@ -7868,7 +7945,7 @@
   repair: false
   outputs: 2
   x: 4930
-  'y': 1000
+  'y': 1160
   wires:
     - - 1b17eb540ebe89a1
       - 94fd455c8980bf6a
@@ -7890,7 +7967,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 1060
+  'y': 1220
   wires:
     - - 0ed280d04f5f050c
       - 33fa51b16be94540
@@ -7911,7 +7988,7 @@
   to: ''
   reg: false
   x: 5250
-  'y': 1060
+  'y': 1220
   wires:
     - - a4152fb852afd64c
 - id: 860bbfc2c0ce21f8
@@ -7931,7 +8008,7 @@
   to: ''
   reg: false
   x: 7170
-  'y': 1540
+  'y': 1700
   wires:
     - - 2ec570aa85f2098f
 - id: 2b1415ad3ff79484
@@ -7961,7 +8038,7 @@
   to: ''
   reg: false
   x: 4680
-  'y': 1540
+  'y': 1700
   wires:
     - - 224180c4c894eb1a
 - id: 224180c4c894eb1a
@@ -7977,7 +8054,7 @@
   addname: ''
   property: endpoints
   x: 4850
-  'y': 1540
+  'y': 1700
   wires:
     - - f434a2b835098f0b
 - id: f434a2b835098f0b
@@ -7997,7 +8074,7 @@
   repair: false
   outputs: 2
   x: 5010
-  'y': 1540
+  'y': 1700
   wires:
     - - c4dff09fab351f8e
     - - 8d34464da06d483b
@@ -8018,7 +8095,7 @@
   to: ''
   reg: false
   x: 5170
-  'y': 1480
+  'y': 1640
   wires:
     - - 8d34464da06d483b
 - id: 8d34464da06d483b
@@ -8034,7 +8111,7 @@
   addname: ''
   property: payload
   x: 5330
-  'y': 1540
+  'y': 1700
   wires:
     - - 5549b2278a19a1a0
 - id: 5549b2278a19a1a0
@@ -8051,7 +8128,7 @@
   repair: false
   outputs: 2
   x: 6850
-  'y': 1540
+  'y': 1700
   wires:
     - - 9adbbefce1c43d47
       - a6091b231f78f3e9
@@ -8073,7 +8150,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1540
+  'y': 1700
   wires:
     - - 860bbfc2c0ce21f8
       - a98b44eb9bb2bcc0
@@ -8094,7 +8171,7 @@
   to: ''
   reg: false
   x: 4770
-  'y': 2020
+  'y': 2180
   wires:
     - - b62953bab75fbfb1
       - 32c655ef0f3f7523
@@ -8112,7 +8189,7 @@
   repair: false
   outputs: 2
   x: 4610
-  'y': 2020
+  'y': 2180
   wires:
     - - dd9c60ea70834ff9
     - - dee4ca80401dbbcd
@@ -8133,7 +8210,7 @@
   repair: false
   outputs: 2
   x: 4130
-  'y': 2020
+  'y': 2180
   wires:
     - - a9ed95a59ea9d1b4
     - - 6f2d98c4d37dd23d
@@ -8157,12 +8234,12 @@
       p: model
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]model'
-      tot: global
+      tot: flow
     - t: set
       p: device
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]id'
-      tot: global
+      tot: flow
     - t: set
       p: device
       pt: msg
@@ -8174,7 +8251,7 @@
   to: ''
   reg: false
   x: 3800
-  'y': 2020
+  'y': 2180
   wires:
     - - 632dbcef04de01c6
 - id: 632dbcef04de01c6
@@ -8190,7 +8267,7 @@
   addname: endpoint
   property: endpoints
   x: 3970
-  'y': 2020
+  'y': 2180
   wires:
     - - 0c9b9544e30107a2
 - id: a9ed95a59ea9d1b4
@@ -8210,14 +8287,14 @@
   to: ''
   reg: false
   x: 4290
-  'y': 1960
+  'y': 2120
   wires:
     - - 6f2d98c4d37dd23d
 - id: 6f2d98c4d37dd23d
   type: split
   z: 64ce08af468b8197
   g: 771b362aacd557cd
-  name: ''
+  name: split
   splt: \n
   spltType: str
   arraySplt: 1
@@ -8226,7 +8303,7 @@
   addname: ''
   property: payload
   x: 4450
-  'y': 2020
+  'y': 2180
   wires:
     - - 6748e16626b3ac2a
 - id: b62953bab75fbfb1
@@ -8246,7 +8323,7 @@
   to: ''
   reg: false
   x: 4930
-  'y': 2020
+  'y': 2180
   wires:
     - - 5f6f52df59cd8e40
 - id: 8b1e3b84ed635f09
@@ -8259,7 +8336,7 @@
     - ef91d4de9f0f59b1
     - d5a2492cd9b261b1
   x: 145
-  'y': 3520
+  'y': 3680
   wires:
     - - 61120487afedd6bd
 - id: e4da04f0e9480b33
@@ -8294,7 +8371,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 3520
+  'y': 3680
   wires:
     - - 7ddd73e6fabfa032
 - id: 7ddd73e6fabfa032
@@ -8320,7 +8397,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 790
-  'y': 3520
+  'y': 3680
   wires:
     - - 165d786254e1fa6e
       - c396f2cba93c9308
@@ -8339,7 +8416,7 @@
   repair: false
   outputs: 1
   x: 970
-  'y': 3520
+  'y': 3680
   wires:
     - - eb89a3dd27e25d36
 - id: eb89a3dd27e25d36
@@ -8350,17 +8427,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -8368,13 +8445,23 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1140
-  'y': 3640
+  'y': 3800
   wires:
     - - e0744ce1bc2408ee
 - id: e0744ce1bc2408ee
@@ -8383,7 +8470,7 @@
   g: 85b6019ecabb42eb
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: addalert
@@ -8395,7 +8482,7 @@
   repair: false
   outputs: 2
   x: 370
-  'y': 3700
+  'y': 3860
   wires:
     - - a38f308d6ccf9e4e
     - - 978d5a112feb02ce
@@ -8409,7 +8496,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 3760
+  'y': 3920
   wires:
     - - 88a806d982d7ffdf
 - id: 21823149ce763388
@@ -8427,7 +8514,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3760
+  'y': 3920
   wires:
     - - 5cbb81b3d4cc3ba4
 - id: 5cbb81b3d4cc3ba4
@@ -8438,7 +8525,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -8447,7 +8534,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 3760
+  'y': 3920
   wires:
     - - 97e3ac399e780821
       - c935a0f0a8d5823c
@@ -8461,7 +8548,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 3820
+  'y': 3980
   wires:
     - - f25c5eefa5c1b3fc
 - id: 422eb305a9f4d72d
@@ -8479,7 +8566,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3820
+  'y': 3980
   wires:
     - - ca1eb426848e5413
 - id: ca1eb426848e5413
@@ -8490,7 +8577,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -8499,7 +8586,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 3820
+  'y': 3980
   wires:
     - - 6519390e8025b4d7
       - 979d5ecfbee184be
@@ -8525,7 +8612,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3820
+  'y': 3980
   wires:
     - - ef58ea14ec58cb09
 - id: c935a0f0a8d5823c
@@ -8550,7 +8637,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3760
+  'y': 3920
   wires:
     - - 1199be74e3cf42d6
 - id: 88a806d982d7ffdf
@@ -8576,7 +8663,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 810
-  'y': 3760
+  'y': 3920
   wires:
     - - 21823149ce763388
 - id: f25c5eefa5c1b3fc
@@ -8602,7 +8689,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 800
-  'y': 3820
+  'y': 3980
   wires:
     - - 422eb305a9f4d72d
 - id: 134c71952c5bdf04
@@ -8615,7 +8702,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 3880
+  'y': 4040
   wires:
     - - 3343f4690f995f14
 - id: 31a5fd57ec16975b
@@ -8633,7 +8720,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3880
+  'y': 4040
   wires:
     - - 95fbab9a95acc96f
 - id: 95fbab9a95acc96f
@@ -8644,7 +8731,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -8653,7 +8740,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 3880
+  'y': 4040
   wires:
     - - fc7f5bc7e64b789a
       - f4053d5d0b9d2ded
@@ -8679,7 +8766,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3880
+  'y': 4040
   wires:
     - - 134c71952c5bdf04
 - id: 3343f4690f995f14
@@ -8705,7 +8792,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 3880
+  'y': 4040
   wires:
     - - 31a5fd57ec16975b
 - id: 58b7d2e99be64816
@@ -8718,7 +8805,7 @@
   linkType: static
   timeout: '30'
   x: 550
-  'y': 3940
+  'y': 4100
   wires:
     - - d1269883c286d473
 - id: d1269883c286d473
@@ -8744,7 +8831,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 3940
+  'y': 4100
   wires:
     - - 78a058707a79ea78
 - id: 78a058707a79ea78
@@ -8762,7 +8849,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 3940
+  'y': 4100
   wires:
     - - 853fc7b409c69601
 - id: 853fc7b409c69601
@@ -8788,7 +8875,7 @@
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]component'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: delete
@@ -8800,7 +8887,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 3940
+  'y': 4100
   wires:
     - - 05a809c718061c27
       - 2a10130bd18e055f
@@ -8826,7 +8913,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 3940
+  'y': 4100
   wires:
     - - 58b7d2e99be64816
 - id: c396f2cba93c9308
@@ -8856,7 +8943,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 3580
+  'y': 3740
   wires:
     - - 88a806d982d7ffdf
       - f25c5eefa5c1b3fc
@@ -8891,13 +8978,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 3760
+  'y': 3920
   wires:
     - - ef58ea14ec58cb09
 - id: 6519390e8025b4d7
@@ -8921,13 +9013,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 3820
+  'y': 3980
   wires:
     - - 134c71952c5bdf04
 - id: fc7f5bc7e64b789a
@@ -8956,13 +9053,18 @@
       pt: msg
       to: runmeter|cyclemeter
       tot: str
+    - t: set
+      p: limit_equipment
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 3880
+  'y': 4040
   wires:
     - - 58b7d2e99be64816
 - id: 05a809c718061c27
@@ -8992,7 +9094,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 3940
+  'y': 4100
   wires:
     - - 9e9a943596dfc2b5
 - id: 9e9a943596dfc2b5
@@ -9021,7 +9123,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 800
-  'y': 4000
+  'y': 4160
   wires:
     - - fb895c2c8ac59bf6
 - id: da1ef85bd1fdac02
@@ -9046,7 +9148,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4000
+  'y': 4160
   wires:
     - - 9e9a943596dfc2b5
 - id: fb895c2c8ac59bf6
@@ -9064,7 +9166,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4000
+  'y': 4160
   wires:
     - - 759954b7f6454cad
 - id: 759954b7f6454cad
@@ -9075,7 +9177,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]limit'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -9084,7 +9186,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 4000
+  'y': 4160
   wires:
     - - 705d8fc0e0689913
 - id: 12eb6a29b69e35d4
@@ -9119,7 +9221,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 810
-  'y': 4060
+  'y': 4220
   wires:
     - - 52dad72e08e082b0
       - 45281e4fe4573d71
@@ -9145,7 +9247,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4060
+  'y': 4220
   wires:
     - - 12eb6a29b69e35d4
 - id: 52dad72e08e082b0
@@ -9158,7 +9260,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: form.endpoint
       pt: msg
@@ -9170,7 +9272,7 @@
   to: ''
   reg: false
   x: 1480
-  'y': 4060
+  'y': 4220
   wires:
     - - 2448ec4588ad469e
 - id: 2448ec4588ad469e
@@ -9190,7 +9292,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 4060
+  'y': 4220
   wires:
     - - c1ea4fc42756678a
       - 2fb4c30d8ed4a6ed
@@ -9212,7 +9314,7 @@
   allowrate: false
   outputs: 1
   x: 1810
-  'y': 3940
+  'y': 4100
   wires:
     - - 14c35445941148e4
 - id: 14c35445941148e4
@@ -9235,7 +9337,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -9244,7 +9346,7 @@
   to: ''
   reg: false
   x: 1970
-  'y': 3940
+  'y': 4100
   wires:
     - - e94ffea1996e09c9
       - a9568851b155c486
@@ -9258,7 +9360,7 @@
     - 8b1e3b84ed635f09
     - e60e4ab7617738c3
   x: 2095
-  'y': 3940
+  'y': 4100
   wires: []
 - id: e94ffea1996e09c9
   type: debug
@@ -9274,7 +9376,7 @@
   statusVal: ''
   statusType: auto
   x: 2160
-  'y': 4000
+  'y': 4160
   wires: []
 - id: 705d8fc0e0689913
   type: change
@@ -9303,7 +9405,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 4000
+  'y': 4160
   wires:
     - - 12eb6a29b69e35d4
 - id: 2fb4c30d8ed4a6ed
@@ -9323,7 +9425,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 4060
+  'y': 4220
   wires:
     - - d72a795dc20c4057
 - id: d72a795dc20c4057
@@ -9335,7 +9437,7 @@
   links:
     - 4e94023e8ba12f50
   x: 1935
-  'y': 4060
+  'y': 4220
   wires: []
 - id: 540cbf4728138b0a
   type: link call
@@ -9347,7 +9449,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 4180
+  'y': 4340
   wires:
     - - 0cf7247d37dbcd1e
 - id: d1ae9e1fae36188c
@@ -9365,7 +9467,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4180
+  'y': 4340
   wires:
     - - b97bf0547d9fa9d6
 - id: b97bf0547d9fa9d6
@@ -9376,7 +9478,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -9385,7 +9487,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 4180
+  'y': 4340
   wires:
     - - a2b2a358554139bb
       - 67395ae91e46cc99
@@ -9399,7 +9501,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 4240
+  'y': 4400
   wires:
     - - 844898674753f4b7
 - id: 69bb0d6700393f09
@@ -9417,7 +9519,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4240
+  'y': 4400
   wires:
     - - f486f4c988031929
 - id: f486f4c988031929
@@ -9428,7 +9530,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -9437,7 +9539,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 4240
+  'y': 4400
   wires:
     - - aa7d95da849099b2
       - 5e31faeeb24c9619
@@ -9463,7 +9565,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4240
+  'y': 4400
   wires:
     - - a9eab40411d5515d
 - id: 67395ae91e46cc99
@@ -9488,7 +9590,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4180
+  'y': 4340
   wires:
     - - 540cbf4728138b0a
 - id: 18480a29c61c18e6
@@ -9501,7 +9603,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 4300
+  'y': 4460
   wires:
     - - 7352e779d1a2255d
 - id: b282436015e7ddcb
@@ -9519,7 +9621,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4300
+  'y': 4460
   wires:
     - - d397fb2fe7e69fa3
 - id: d397fb2fe7e69fa3
@@ -9530,7 +9632,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -9539,7 +9641,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 4300
+  'y': 4460
   wires:
     - - a653cab4dbc5785b
       - 9f74706f6bda22b1
@@ -9565,7 +9667,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4300
+  'y': 4460
   wires:
     - - 18480a29c61c18e6
 - id: 23aceb8c7c59dfcf
@@ -9583,7 +9685,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4360
+  'y': 4520
   wires:
     - - 9ad94b10e3aa7332
 - id: 1ebb2b39182193af
@@ -9608,7 +9710,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4360
+  'y': 4520
   wires:
     - - 0c5a48d548a24adc
 - id: e726fe9bf2993b3f
@@ -9633,7 +9735,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4420
+  'y': 4580
   wires:
     - - f535b9aa3c8003b3
 - id: 86e78cb01a851263
@@ -9646,14 +9748,14 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1480
-  'y': 4420
+  'y': 4580
   wires:
     - - 7edf32d1420e7154
 - id: 9ad94b10e3aa7332
@@ -9664,7 +9766,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]endpoint'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -9673,7 +9775,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 4360
+  'y': 4520
   wires:
     - - ab83a5e2c5744bb0
       - 1ebb2b39182193af
@@ -9698,13 +9800,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 4180
+  'y': 4340
   wires:
     - - a9eab40411d5515d
 - id: aa7d95da849099b2
@@ -9728,13 +9835,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 4240
+  'y': 4400
   wires:
     - - 18480a29c61c18e6
 - id: a653cab4dbc5785b
@@ -9758,13 +9870,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_equipment
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 4300
+  'y': 4460
   wires:
     - - 0c5a48d548a24adc
 - id: ab83a5e2c5744bb0
@@ -9794,7 +9911,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 4360
+  'y': 4520
   wires:
     - - f535b9aa3c8003b3
 - id: 0cf7247d37dbcd1e
@@ -9820,7 +9937,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 800
-  'y': 4180
+  'y': 4340
   wires:
     - - d1ae9e1fae36188c
 - id: 844898674753f4b7
@@ -9846,7 +9963,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 800
-  'y': 4240
+  'y': 4400
   wires:
     - - 69bb0d6700393f09
 - id: 7352e779d1a2255d
@@ -9872,7 +9989,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 4300
+  'y': 4460
   wires:
     - - b282436015e7ddcb
 - id: 0c5a48d548a24adc
@@ -9885,7 +10002,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 4360
+  'y': 4520
   wires:
     - - d39a5589762dd543
 - id: d39a5589762dd543
@@ -9911,7 +10028,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 4360
+  'y': 4520
   wires:
     - - 23aceb8c7c59dfcf
 - id: f535b9aa3c8003b3
@@ -9946,7 +10063,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 800
-  'y': 4420
+  'y': 4580
   wires:
     - - e726fe9bf2993b3f
       - 86e78cb01a851263
@@ -9967,7 +10084,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 4420
+  'y': 4580
   wires:
     - - c1ea4fc42756678a
       - 5a7568da783103e5
@@ -9988,7 +10105,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 4420
+  'y': 4580
   wires:
     - - d72a795dc20c4057
 - id: 2b19cffefc8b8dfc
@@ -9999,7 +10116,7 @@
   links:
     - d5a2492cd9b261b1
   x: 145
-  'y': 4600
+  'y': 4760
   wires:
     - - 34ee1efd2955183d
 - id: ed5d4c601e8a8670
@@ -10034,7 +10151,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 4600
+  'y': 4760
   wires:
     - - 8d195bf084cd8502
 - id: dd08a704b5acfdc2
@@ -10052,7 +10169,7 @@
   repair: false
   outputs: 1
   x: 1010
-  'y': 4600
+  'y': 4760
   wires:
     - - ec9333c747b36c21
 - id: ec9333c747b36c21
@@ -10063,17 +10180,17 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]action'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]time'
-      pt: global
+      pt: flow
       to: ''
       tot: date
     - t: set
@@ -10086,13 +10203,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1180
-  'y': 4720
+  'y': 4880
   wires:
     - - f77a6713d1e21fd7
 - id: f77a6713d1e21fd7
@@ -10101,7 +10223,7 @@
   g: a8b0f9a8cb0a898e
   name: action
   property: '#:(memoryOnly)::form[msg._client.socketId]action'
-  propertyType: global
+  propertyType: flow
   rules:
     - t: eq
       v: addschedule
@@ -10113,7 +10235,7 @@
   repair: false
   outputs: 2
   x: 390
-  'y': 4780
+  'y': 4940
   wires:
     - - 6668df6bf95e1961
     - - ca72875879674e6a
@@ -10127,7 +10249,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 4840
+  'y': 5000
   wires:
     - - 8847e8ae258be9fa
 - id: b15e6bcc65bcb0b1
@@ -10145,7 +10267,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4840
+  'y': 5000
   wires:
     - - cbc388696954af30
 - id: cbc388696954af30
@@ -10156,7 +10278,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -10165,7 +10287,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 4840
+  'y': 5000
   wires:
     - - c2d6c5542a178eb4
       - 3744f20246a325d7
@@ -10179,7 +10301,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 4900
+  'y': 5060
   wires:
     - - 6d0e4bc0ebdd12eb
 - id: d19c7ac5b9b29ddf
@@ -10197,7 +10319,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4900
+  'y': 5060
   wires:
     - - 9ca690d908a7d3b8
 - id: 9ca690d908a7d3b8
@@ -10208,7 +10330,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -10217,7 +10339,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 4900
+  'y': 5060
   wires:
     - - 56c15883958640f9
       - bfa76c4c6a1798f1
@@ -10243,7 +10365,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4900
+  'y': 5060
   wires:
     - - d82c69ad589bde6b
 - id: 3744f20246a325d7
@@ -10268,7 +10390,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4840
+  'y': 5000
   wires:
     - - c2f1b6530c70c9df
 - id: eee734c4bd72e20e
@@ -10281,7 +10403,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 4960
+  'y': 5120
   wires:
     - - 3b82b31fded4d13c
 - id: 31e9ef8110374fdd
@@ -10299,7 +10421,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 4960
+  'y': 5120
   wires:
     - - 34befc0e6aadfb13
 - id: 34befc0e6aadfb13
@@ -10310,7 +10432,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -10319,7 +10441,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 4960
+  'y': 5120
   wires:
     - - 5ba6211253ecc3b3
       - 68d77a8b34a75e52
@@ -10345,7 +10467,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 4960
+  'y': 5120
   wires:
     - - eee734c4bd72e20e
 - id: c194fc7adda6d356
@@ -10358,7 +10480,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 5020
+  'y': 5180
   wires:
     - - 7728d21a96b08692
 - id: f08c9060d502eb8b
@@ -10376,7 +10498,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5020
+  'y': 5180
   wires:
     - - bf54a2f75219dd34
 - id: bf54a2f75219dd34
@@ -10402,7 +10524,7 @@
       tot: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]component'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: delete
@@ -10414,7 +10536,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 5020
+  'y': 5180
   wires:
     - - 8e9412f85777012b
       - 7cc8f85737e44f10
@@ -10440,7 +10562,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5020
+  'y': 5180
   wires:
     - - c194fc7adda6d356
 - id: bf637ad3c675c546
@@ -10470,7 +10592,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 4660
+  'y': 4820
   wires:
     - - 8847e8ae258be9fa
       - 6d0e4bc0ebdd12eb
@@ -10508,13 +10630,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 4840
+  'y': 5000
   wires:
     - - d82c69ad589bde6b
 - id: 56c15883958640f9
@@ -10538,13 +10665,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 4900
+  'y': 5060
   wires:
     - - eee734c4bd72e20e
 - id: 5ba6211253ecc3b3
@@ -10573,13 +10705,18 @@
       pt: msg
       to: heattoggle|heatswitch|heatpulse
       tot: str
+    - t: set
+      p: limit_equipment
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 4960
+  'y': 5120
   wires:
     - - c194fc7adda6d356
 - id: 8e9412f85777012b
@@ -10609,7 +10746,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 5020
+  'y': 5180
   wires:
     - - 5c5b5a4e12486b28
 - id: 28aff5919cca78da
@@ -10634,7 +10771,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5080
+  'y': 5240
   wires:
     - - 5c5b5a4e12486b28
 - id: 19862f49dd961e3d
@@ -10652,7 +10789,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5080
+  'y': 5240
   wires:
     - - 944cafeb5f8def0a
 - id: 944cafeb5f8def0a
@@ -10663,7 +10800,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]startday'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -10672,7 +10809,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 5080
+  'y': 5240
   wires:
     - - 31b7f65b253d1aab
       - 28aff5919cca78da
@@ -10698,7 +10835,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5320
+  'y': 5480
   wires:
     - - f4af575ffd922821
 - id: c54e77de13cf25e2
@@ -10711,7 +10848,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: form.ts
       pt: msg
@@ -10728,7 +10865,7 @@
   to: ''
   reg: false
   x: 1480
-  'y': 5320
+  'y': 5480
   wires:
     - - 8c9f5de4e840c1c9
       - 8d7f6c9970dc7f37
@@ -10759,7 +10896,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 5080
+  'y': 5240
   wires:
     - - a77ab6ad58c54c30
 - id: 8847e8ae258be9fa
@@ -10785,7 +10922,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 4840
+  'y': 5000
   wires:
     - - b15e6bcc65bcb0b1
 - id: 6d0e4bc0ebdd12eb
@@ -10811,7 +10948,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 4900
+  'y': 5060
   wires:
     - - d19c7ac5b9b29ddf
 - id: 3b82b31fded4d13c
@@ -10837,7 +10974,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 4960
+  'y': 5120
   wires:
     - - 31e9ef8110374fdd
 - id: 8d195bf084cd8502
@@ -10863,7 +11000,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 810
-  'y': 4600
+  'y': 4760
   wires:
     - - dd08a704b5acfdc2
       - bf637ad3c675c546
@@ -10890,7 +11027,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 5020
+  'y': 5180
   wires:
     - - f08c9060d502eb8b
 - id: 5c5b5a4e12486b28
@@ -10903,7 +11040,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 5080
+  'y': 5240
   wires:
     - - 524cbbdfc65790ec
 - id: 524cbbdfc65790ec
@@ -10929,7 +11066,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 5080
+  'y': 5240
   wires:
     - - 19862f49dd961e3d
 - id: 7e638eb83ed1e0e0
@@ -10954,7 +11091,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5200
+  'y': 5360
   wires:
     - - df07fdb1099eccca
 - id: 405d64b54a44ce73
@@ -10972,7 +11109,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5200
+  'y': 5360
   wires:
     - - 8fdd76870d49c243
 - id: 8fdd76870d49c243
@@ -10983,7 +11120,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]stopday'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -10992,7 +11129,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 5200
+  'y': 5360
   wires:
     - - 11e0552b4d42741d
       - 7e638eb83ed1e0e0
@@ -11023,7 +11160,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 5200
+  'y': 5360
   wires:
     - - 2d10f940c060b250
 - id: df07fdb1099eccca
@@ -11036,7 +11173,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 5200
+  'y': 5360
   wires:
     - - f4b37d1c100cf948
 - id: f4b37d1c100cf948
@@ -11062,7 +11199,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 5200
+  'y': 5360
   wires:
     - - 405d64b54a44ce73
 - id: a77ab6ad58c54c30
@@ -11091,7 +11228,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 830
-  'y': 5140
+  'y': 5300
   wires:
     - - e5893fefb0413ea0
 - id: d7f2bf7c017813fd
@@ -11116,7 +11253,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5140
+  'y': 5300
   wires:
     - - a77ab6ad58c54c30
 - id: e5893fefb0413ea0
@@ -11134,7 +11271,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5140
+  'y': 5300
   wires:
     - - a9ce39e937d2af75
 - id: a9ce39e937d2af75
@@ -11145,7 +11282,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]starttime'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -11154,7 +11291,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 5140
+  'y': 5300
   wires:
     - - 5fb22721388c9e2e
       - d7f2bf7c017813fd
@@ -11185,7 +11322,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 5140
+  'y': 5300
   wires:
     - - df07fdb1099eccca
 - id: 2d10f940c060b250
@@ -11214,7 +11351,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 830
-  'y': 5260
+  'y': 5420
   wires:
     - - 1d325c3f74f85b8c
 - id: 775daaca7958b6a6
@@ -11239,7 +11376,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5260
+  'y': 5420
   wires:
     - - 2d10f940c060b250
 - id: 1d325c3f74f85b8c
@@ -11257,7 +11394,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5260
+  'y': 5420
   wires:
     - - d4515123e88d49e8
 - id: d4515123e88d49e8
@@ -11268,7 +11405,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]stoptime'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -11277,7 +11414,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 5260
+  'y': 5420
   wires:
     - - 5eeb88e03d64646a
       - 775daaca7958b6a6
@@ -11308,7 +11445,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 5260
+  'y': 5420
   wires:
     - - f4af575ffd922821
 - id: f4af575ffd922821
@@ -11343,7 +11480,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 820
-  'y': 5320
+  'y': 5480
   wires:
     - - 2155a81a679ed14f
       - c54e77de13cf25e2
@@ -11357,7 +11494,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 5440
+  'y': 5600
   wires:
     - - 68bd8b60d365ae24
 - id: 10ebecccd3f1ad45
@@ -11375,7 +11512,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5440
+  'y': 5600
   wires:
     - - b1dda5eafe8a0e71
 - id: b1dda5eafe8a0e71
@@ -11386,7 +11523,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -11395,7 +11532,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 5440
+  'y': 5600
   wires:
     - - 711dda0d987c9799
       - 1063a82f9694d4de
@@ -11409,7 +11546,7 @@
   linkType: static
   timeout: '30'
   x: 590
-  'y': 5500
+  'y': 5660
   wires:
     - - 5fb88764522edafd
 - id: 08e5b4335555f693
@@ -11427,7 +11564,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5500
+  'y': 5660
   wires:
     - - c267728f0cbdd30c
 - id: c267728f0cbdd30c
@@ -11438,7 +11575,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -11447,7 +11584,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 5500
+  'y': 5660
   wires:
     - - 43852ebdb3f0d389
       - 6251a5e86b1759a7
@@ -11473,7 +11610,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5500
+  'y': 5660
   wires:
     - - 312b1ab6c5c1624b
 - id: 1063a82f9694d4de
@@ -11498,7 +11635,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5440
+  'y': 5600
   wires:
     - - 23f567993f7c3e3e
 - id: a36c97200c308f3c
@@ -11511,7 +11648,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 5560
+  'y': 5720
   wires:
     - - 4e7f2692df969581
 - id: 0e1eabc3e3ae9f0b
@@ -11529,7 +11666,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5560
+  'y': 5720
   wires:
     - - f96a8e8ba2ddad3e
 - id: f96a8e8ba2ddad3e
@@ -11540,7 +11677,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -11549,7 +11686,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 5560
+  'y': 5720
   wires:
     - - ca4d18938a53f289
       - 48192d0bf9c43b31
@@ -11575,7 +11712,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5560
+  'y': 5720
   wires:
     - - a36c97200c308f3c
 - id: b93dfe5c22fdf73e
@@ -11593,7 +11730,7 @@
   repair: false
   outputs: 1
   x: 1090
-  'y': 5620
+  'y': 5780
   wires:
     - - 8c29130a9e3be1aa
 - id: fcd237c2204bdc75
@@ -11618,7 +11755,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5620
+  'y': 5780
   wires:
     - - 54bdce93ec0eedf3
 - id: 509bf261d2621e43
@@ -11643,7 +11780,7 @@
   to: ''
   reg: false
   x: 360
-  'y': 5680
+  'y': 5840
   wires:
     - - be2ff5f051ad42f6
 - id: 4dee24aa4e9983ae
@@ -11656,14 +11793,14 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1480
-  'y': 5680
+  'y': 5840
   wires:
     - - 09dd0c9c09ca2cce
       - ce07cf291b8b1286
@@ -11675,7 +11812,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]schedule'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
   action: ''
@@ -11684,7 +11821,7 @@
   to: ''
   reg: false
   x: 1260
-  'y': 5620
+  'y': 5780
   wires:
     - - e28915e6efbf1dbb
       - fcd237c2204bdc75
@@ -11709,13 +11846,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 5440
+  'y': 5600
   wires:
     - - 312b1ab6c5c1624b
 - id: 43852ebdb3f0d389
@@ -11739,13 +11881,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 5500
+  'y': 5660
   wires:
     - - a36c97200c308f3c
 - id: ca4d18938a53f289
@@ -11769,13 +11916,18 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: limit_equipment
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1470
-  'y': 5560
+  'y': 5720
   wires:
     - - 54bdce93ec0eedf3
 - id: e28915e6efbf1dbb
@@ -11805,7 +11957,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 5620
+  'y': 5780
   wires:
     - - be2ff5f051ad42f6
 - id: 54bdce93ec0eedf3
@@ -11818,7 +11970,7 @@
   linkType: static
   timeout: '30'
   x: 570
-  'y': 5620
+  'y': 5780
   wires:
     - - 3af35a07def55490
 - id: 09dd0c9c09ca2cce
@@ -11838,7 +11990,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 5620
+  'y': 5780
   wires:
     - - 036fee3c22894956
       - 9c79879444d87fac
@@ -11859,7 +12011,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 5620
+  'y': 5780
   wires:
     - - 2997883e398689a0
 - id: be2ff5f051ad42f6
@@ -11894,7 +12046,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 820
-  'y': 5680
+  'y': 5840
   wires:
     - - 509bf261d2621e43
       - 4dee24aa4e9983ae
@@ -11921,7 +12073,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 820
-  'y': 5440
+  'y': 5600
   wires:
     - - 10ebecccd3f1ad45
 - id: 5fb88764522edafd
@@ -11947,7 +12099,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 810
-  'y': 5500
+  'y': 5660
   wires:
     - - 08e5b4335555f693
 - id: 4e7f2692df969581
@@ -11973,7 +12125,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 840
-  'y': 5560
+  'y': 5720
   wires:
     - - 0e1eabc3e3ae9f0b
 - id: 3af35a07def55490
@@ -11999,7 +12151,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 830
-  'y': 5620
+  'y': 5780
   wires:
     - - b93dfe5c22fdf73e
 - id: 8c9f5de4e840c1c9
@@ -12019,7 +12171,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 5260
+  'y': 5420
   wires:
     - - 9c79879444d87fac
       - 7f97fbe8231c9eb0
@@ -12041,7 +12193,7 @@
   allowrate: false
   outputs: 1
   x: 1810
-  'y': 5140
+  'y': 5300
   wires:
     - - f0ca0b3fbd966822
 - id: f0ca0b3fbd966822
@@ -12064,7 +12216,7 @@
       pt: msg
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: global
+      pt: flow
       to: '{}'
       tot: jsonata
   action: ''
@@ -12073,7 +12225,7 @@
   to: ''
   reg: false
   x: 1970
-  'y': 5140
+  'y': 5300
   wires:
     - - ac0777a064db6385
       - ef91d4de9f0f59b1
@@ -12087,7 +12239,7 @@
     - 8b1e3b84ed635f09
     - e60e4ab7617738c3
   x: 2095
-  'y': 5140
+  'y': 5300
   wires: []
 - id: 7f97fbe8231c9eb0
   type: change
@@ -12106,7 +12258,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 5260
+  'y': 5420
   wires:
     - - 2997883e398689a0
 - id: 2997883e398689a0
@@ -12118,7 +12270,7 @@
   links:
     - 4e94023e8ba12f50
   x: 1935
-  'y': 5260
+  'y': 5420
   wires: []
 - id: ac0777a064db6385
   type: debug
@@ -12134,7 +12286,7 @@
   statusVal: ''
   statusType: auto
   x: 2170
-  'y': 5200
+  'y': 5360
   wires: []
 - id: 8d7f6c9970dc7f37
   type: change
@@ -12153,7 +12305,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 5320
+  'y': 5480
   wires:
     - - 9c79879444d87fac
 - id: ce07cf291b8b1286
@@ -12173,7 +12325,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 5680
+  'y': 5840
   wires:
     - - 9c79879444d87fac
 - id: d73911cb76d0d957
@@ -12197,7 +12349,7 @@
   value: payload
   valueType: msg
   x: 800
-  'y': 3640
+  'y': 3800
   wires: []
 - id: 4243224fd060362a
   type: ui-text
@@ -12220,7 +12372,7 @@
   value: payload
   valueType: msg
   x: 810
-  'y': 4720
+  'y': 4880
   wires: []
 - id: fa90b710f3509e75
   type: link call
@@ -12231,8 +12383,8 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 1510
-  'y': 640
+  x: 1530
+  'y': 800
   wires:
     - - 64a4f6586a2e78b7
 - id: 64a4f6586a2e78b7
@@ -12257,8 +12409,8 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1730
-  'y': 640
+  x: 1750
+  'y': 800
   wires:
     - - 445630b2d825ed6f
 - id: 445630b2d825ed6f
@@ -12275,8 +12427,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1950
-  'y': 640
+  x: 1970
+  'y': 800
   wires:
     - - d9cd6c9f80634841
       - 0507fcab7a2ea779
@@ -12288,7 +12440,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -12311,8 +12463,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2120
-  'y': 640
+  x: 2140
+  'y': 800
   wires:
     - - b05dcc03725fe05d
 - id: b05dcc03725fe05d
@@ -12340,8 +12492,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2610
-  'y': 640
+  x: 2630
+  'y': 800
   wires:
     - - 1f26b4f7dde0ba66
 - id: 1f26b4f7dde0ba66
@@ -12358,8 +12510,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2830
-  'y': 640
+  x: 2850
+  'y': 800
   wires:
     - - ec4853b377489f18
       - df7317dcad2218e7
@@ -12371,7 +12523,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -12394,8 +12546,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
-  'y': 640
+  x: 3030
+  'y': 800
   wires:
     - - 67e9379426db2553
 - id: df7317dcad2218e7
@@ -12419,8 +12571,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2580
-  'y': 700
+  x: 2600
+  'y': 860
   wires:
     - - b05dcc03725fe05d
 - id: 67e9379426db2553
@@ -12454,8 +12606,8 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3590
-  'y': 640
+  x: 3610
+  'y': 800
   wires:
     - - 2d95a768de2c1d9a
       - d1c7c5bedc7ddb14
@@ -12469,7 +12621,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -12480,8 +12632,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
-  'y': 640
+  x: 3810
+  'y': 800
   wires:
     - - 4f3b4c672cf55123
       - ca4e151d7418cc02
@@ -12506,8 +12658,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3560
-  'y': 700
+  x: 3580
+  'y': 860
   wires:
     - - 67e9379426db2553
 - id: 0507fcab7a2ea779
@@ -12531,8 +12683,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1700
-  'y': 700
+  x: 1720
+  'y': 860
   wires:
     - - 64a4f6586a2e78b7
 - id: 4f3b4c672cf55123
@@ -12551,8 +12703,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3950
-  'y': 640
+  x: 3970
+  'y': 800
   wires:
     - - 38b3a4ebd1fca09e
 - id: 4fc3c8451747df9d
@@ -12565,7 +12717,7 @@
   linkType: static
   timeout: '30'
   x: 2450
-  'y': 1120
+  'y': 1280
   wires:
     - - af0dae2884aedc3a
 - id: af0dae2884aedc3a
@@ -12591,7 +12743,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 2660
-  'y': 1120
+  'y': 1280
   wires:
     - - b48ecd7224092333
 - id: 2e64f2facfaad9b2
@@ -12616,7 +12768,7 @@
   to: ''
   reg: false
   x: 2640
-  'y': 1180
+  'y': 1340
   wires:
     - - af0dae2884aedc3a
 - id: b48ecd7224092333
@@ -12634,7 +12786,7 @@
   repair: false
   outputs: 1
   x: 2890
-  'y': 1120
+  'y': 1280
   wires:
     - - 336fc72296977f18
       - 2e64f2facfaad9b2
@@ -12646,7 +12798,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -12670,7 +12822,7 @@
   to: ''
   reg: false
   x: 3050
-  'y': 1120
+  'y': 1280
   wires:
     - - a0e032a9434aedf1
 - id: a0e032a9434aedf1
@@ -12699,7 +12851,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 3530
-  'y': 1120
+  'y': 1280
   wires:
     - - 86d757e9b84164fa
 - id: a79e0ace4d82a088
@@ -12724,7 +12876,7 @@
   to: ''
   reg: false
   x: 3500
-  'y': 1180
+  'y': 1340
   wires:
     - - a0e032a9434aedf1
 - id: 86d757e9b84164fa
@@ -12742,7 +12894,7 @@
   repair: false
   outputs: 1
   x: 3730
-  'y': 1120
+  'y': 1280
   wires:
     - - 25a5bbde784c36b3
       - a79e0ace4d82a088
@@ -12754,14 +12906,14 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: payload
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      tot: global
+      tot: flow
     - t: set
       p: class
       pt: msg
@@ -12778,7 +12930,7 @@
   to: ''
   reg: false
   x: 3900
-  'y': 1120
+  'y': 1280
   wires:
     - - e42ba3e8f6a46b03
 - id: c285c05b82d4c355
@@ -12813,7 +12965,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 4900
-  'y': 1120
+  'y': 1280
   wires:
     - - 0a58998215d84bcc
       - fe78281791ae7530
@@ -12840,7 +12992,7 @@
   to: ''
   reg: false
   x: 4880
-  'y': 1180
+  'y': 1340
   wires:
     - - c285c05b82d4c355
 - id: e42ba3e8f6a46b03
@@ -12853,7 +13005,7 @@
   linkType: static
   timeout: '30'
   x: 4090
-  'y': 1120
+  'y': 1280
   wires:
     - - 76f250cb71462a7d
 - id: 76f250cb71462a7d
@@ -12879,7 +13031,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 4320
-  'y': 1120
+  'y': 1280
   wires:
     - - a6aecfa2a083f8ee
 - id: de32a9aae46de576
@@ -12904,7 +13056,7 @@
   to: ''
   reg: false
   x: 4280
-  'y': 1180
+  'y': 1340
   wires:
     - - 76f250cb71462a7d
 - id: a6aecfa2a083f8ee
@@ -12922,7 +13074,7 @@
   repair: false
   outputs: 1
   x: 4530
-  'y': 1120
+  'y': 1280
   wires:
     - - de32a9aae46de576
       - 6b4ce58dfa94ccd7
@@ -12934,7 +13086,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -12958,7 +13110,7 @@
   to: ''
   reg: false
   x: 4700
-  'y': 1120
+  'y': 1280
   wires:
     - - c285c05b82d4c355
 - id: d0bfb7050b18e7c4
@@ -12973,7 +13125,7 @@
   to: ''
   reg: false
   x: 4110
-  'y': 820
+  'y': 980
   wires:
     - - 92a0caab29f54fc6
       - 76f250cb71462a7d
@@ -12987,7 +13139,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -12999,7 +13151,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 1120
+  'y': 1280
   wires:
     - - 33fa51b16be94540
       - 4dcd74a4c5b725b5
@@ -13013,7 +13165,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -13025,7 +13177,7 @@
   to: ''
   reg: false
   x: 5090
-  'y': 1180
+  'y': 1340
   wires:
     - - 33fa51b16be94540
 - id: 4dcd74a4c5b725b5
@@ -13045,7 +13197,7 @@
   to: ''
   reg: false
   x: 5250
-  'y': 1120
+  'y': 1280
   wires:
     - - a4152fb852afd64c
 - id: fa077027360d0195
@@ -13058,7 +13210,7 @@
   linkType: static
   timeout: '30'
   x: 2490
-  'y': 1600
+  'y': 1760
   wires:
     - - a48b77b69d9889f3
 - id: de03bad1823051cf
@@ -13069,7 +13221,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -13087,13 +13239,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 3110
-  'y': 1600
+  'y': 1760
   wires:
     - - 7d4a9f0c4a69993d
 - id: 7a4cc3a35442e1b0
@@ -13111,7 +13268,7 @@
   repair: false
   outputs: 1
   x: 2950
-  'y': 1600
+  'y': 1760
   wires:
     - - de03bad1823051cf
       - 0348d49f7b5f239a
@@ -13137,7 +13294,7 @@
   to: ''
   reg: false
   x: 2680
-  'y': 1660
+  'y': 1820
   wires:
     - - a48b77b69d9889f3
 - id: a48b77b69d9889f3
@@ -13163,7 +13320,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 2720
-  'y': 1600
+  'y': 1760
   wires:
     - - 7a4cc3a35442e1b0
 - id: 7d4a9f0c4a69993d
@@ -13176,7 +13333,7 @@
   linkType: static
   timeout: '30'
   x: 3310
-  'y': 1600
+  'y': 1760
   wires:
     - - b7c147e9d7de2adf
 - id: b948ce6f8d305733
@@ -13187,7 +13344,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]id'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -13211,7 +13368,7 @@
   to: ''
   reg: false
   x: 3970
-  'y': 1600
+  'y': 1760
   wires:
     - - ac622cab5f176a1d
 - id: 05a2d81fc6a6104f
@@ -13229,7 +13386,7 @@
   repair: false
   outputs: 1
   x: 3790
-  'y': 1600
+  'y': 1760
   wires:
     - - b948ce6f8d305733
       - 5c65ef82e2f95552
@@ -13255,7 +13412,7 @@
   to: ''
   reg: false
   x: 3520
-  'y': 1660
+  'y': 1820
   wires:
     - - b7c147e9d7de2adf
 - id: b7c147e9d7de2adf
@@ -13281,7 +13438,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 3580
-  'y': 1600
+  'y': 1760
   wires:
     - - 05a2d81fc6a6104f
 - id: ac622cab5f176a1d
@@ -13310,7 +13467,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 4470
-  'y': 1600
+  'y': 1760
   wires:
     - - 941a2c40e64d0c37
 - id: cf3b2e2f1e9ca625
@@ -13335,7 +13492,7 @@
   to: ''
   reg: false
   x: 4420
-  'y': 1660
+  'y': 1820
   wires:
     - - ac622cab5f176a1d
 - id: 941a2c40e64d0c37
@@ -13353,7 +13510,7 @@
   repair: false
   outputs: 1
   x: 4690
-  'y': 1600
+  'y': 1760
   wires:
     - - 20338ffc12b6ec3b
       - cf3b2e2f1e9ca625
@@ -13365,14 +13522,14 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]name'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: payload
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      tot: global
+      tot: flow
     - t: set
       p: class
       pt: msg
@@ -13389,7 +13546,7 @@
   to: ''
   reg: false
   x: 4890
-  'y': 1600
+  'y': 1760
   wires:
     - - 5322e6ab6acb5d8b
 - id: 5322e6ab6acb5d8b
@@ -13402,7 +13559,7 @@
   linkType: static
   timeout: '30'
   x: 5110
-  'y': 1600
+  'y': 1760
   wires:
     - - 9a9f23da2ebd2515
 - id: 19aaf174e57e9d10
@@ -13427,7 +13584,7 @@
   to: ''
   reg: false
   x: 5300
-  'y': 1660
+  'y': 1820
   wires:
     - - 5322e6ab6acb5d8b
 - id: 5e2f786301984446
@@ -13445,7 +13602,7 @@
   repair: false
   outputs: 1
   x: 5590
-  'y': 1600
+  'y': 1760
   wires:
     - - 377141fbf47c0cde
       - 19aaf174e57e9d10
@@ -13457,14 +13614,14 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
       p: payload
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]line'
-      tot: global
+      tot: flow
     - t: set
       p: class
       pt: msg
@@ -13475,13 +13632,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 5760
-  'y': 1600
+  'y': 1760
   wires:
     - - 4ec2ab328d6469d0
 - id: 4ec2ab328d6469d0
@@ -13494,7 +13656,7 @@
   linkType: static
   timeout: '30'
   x: 5950
-  'y': 1600
+  'y': 1760
   wires:
     - - 47aa37d7e8832982
 - id: 23addf30e5d485d6
@@ -13519,7 +13681,7 @@
   to: ''
   reg: false
   x: 6140
-  'y': 1660
+  'y': 1820
   wires:
     - - 47aa37d7e8832982
 - id: fbc44489fb3dd43d
@@ -13537,7 +13699,7 @@
   repair: false
   outputs: 1
   x: 6430
-  'y': 1600
+  'y': 1760
   wires:
     - - f3575e708b378946
       - 23addf30e5d485d6
@@ -13549,7 +13711,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: global
+      pt: flow
       to: payload
       tot: msg
     - t: set
@@ -13573,7 +13735,7 @@
   to: ''
   reg: false
   x: 6590
-  'y': 1600
+  'y': 1760
   wires:
     - - 8bbc1b5ad913324d
 - id: 9a9f23da2ebd2515
@@ -13599,7 +13761,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 5360
-  'y': 1600
+  'y': 1760
   wires:
     - - 5e2f786301984446
 - id: 47aa37d7e8832982
@@ -13625,7 +13787,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 6200
-  'y': 1600
+  'y': 1760
   wires:
     - - fbc44489fb3dd43d
 - id: 8bbc1b5ad913324d
@@ -13660,7 +13822,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 6800
-  'y': 1600
+  'y': 1760
   wires:
     - - 20e98b04f5eb52a3
       - 691d8d323fb49a8d
@@ -13687,7 +13849,7 @@
   to: ''
   reg: false
   x: 6760
-  'y': 1660
+  'y': 1820
   wires:
     - - 8bbc1b5ad913324d
 - id: 68acec91e9b634ad
@@ -13702,7 +13864,7 @@
   to: ''
   reg: false
   x: 5130
-  'y': 1300
+  'y': 1460
   wires:
     - - 9a9f23da2ebd2515
       - 046fd5c8005adf7e
@@ -13718,7 +13880,7 @@
   to: ''
   reg: false
   x: 5970
-  'y': 1300
+  'y': 1460
   wires:
     - - 4f140d58b72fa70f
       - 47aa37d7e8832982
@@ -13732,7 +13894,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -13744,7 +13906,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1600
+  'y': 1760
   wires:
     - - c43394ab13904fb2
       - a98b44eb9bb2bcc0
@@ -13758,7 +13920,7 @@
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
-      tot: global
+      tot: flow
     - t: set
       p: kernel
       pt: msg
@@ -13770,7 +13932,7 @@
   to: ''
   reg: false
   x: 7010
-  'y': 1660
+  'y': 1820
   wires:
     - - a98b44eb9bb2bcc0
 - id: c43394ab13904fb2
@@ -13790,7 +13952,7 @@
   to: ''
   reg: false
   x: 7170
-  'y': 1600
+  'y': 1760
   wires:
     - - 2ec570aa85f2098f
 - id: 2f1f0ca81820f9c6
@@ -13809,7 +13971,7 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 460
+  'y': 620
   wires:
     - - a9f2553f14595b87
     - - 7155d9bbef3cc098
@@ -13835,8 +13997,8 @@
   from: ''
   to: ''
   reg: false
-  x: 590
-  'y': 340
+  x: 610
+  'y': 500
   wires:
     - - 494c3185b89f0846
       - 7f71a6461fbd80e4
@@ -13855,8 +14017,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 4110
-  'y': 400
+  x: 4130
+  'y': 560
   wires:
     - - c234a7bcf86d1bd9
 - id: 1c0ee1f1677d9445
@@ -13878,7 +14040,7 @@
   repair: false
   outputs: 3
   x: 430
-  'y': 940
+  'y': 1100
   wires:
     - - 8a050a2e26d79346
     - - 8a050a2e26d79346
@@ -13900,7 +14062,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 880
+  'y': 1040
   wires:
     - - 1c0ee1f1677d9445
     - - a364749b0df4dd77
@@ -13926,7 +14088,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 820
+  'y': 980
   wires:
     - - 2e82b66355cb7335
       - 6a365f73163bf8f1
@@ -13945,7 +14107,7 @@
   repair: false
   outputs: 2
   x: 1350
-  'y': 880
+  'y': 1040
   wires:
     - - eeb7d8ab36af9676
     - - 983ae781aa24ea07
@@ -13957,7 +14119,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
     - t: set
@@ -13975,13 +14137,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 2110
-  'y': 880
+  'y': 1040
   wires:
     - - d87c316dbf85b091
 - id: d3bce3cd9c072031
@@ -14000,7 +14167,7 @@
   repair: false
   outputs: 1
   x: 5410
-  'y': 820
+  'y': 980
   wires:
     - - dcd264dc214f73a5
 - id: 06e4fbf320c52369
@@ -14019,7 +14186,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 1360
+  'y': 1520
   wires:
     - - 4b76378798c516f6
     - - 62ef5bce1a882ffd
@@ -14042,7 +14209,7 @@
   repair: false
   outputs: 3
   x: 430
-  'y': 1420
+  'y': 1580
   wires:
     - - 5c4ffee5a7830e63
     - - 5c4ffee5a7830e63
@@ -14070,7 +14237,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 1300
+  'y': 1460
   wires:
     - - 92e801721da81b16
       - 168c66eb43a37c75
@@ -14089,7 +14256,7 @@
   repair: false
   outputs: 2
   x: 1350
-  'y': 1360
+  'y': 1520
   wires:
     - - 0d0588924e6cbde0
     - - 19707f5c5bb11a59
@@ -14101,7 +14268,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
     - t: set
@@ -14119,13 +14286,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: limit_plant
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      tot: flow
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 2150
-  'y': 1360
+  'y': 1520
   wires:
     - - f5b94e3622c38a5b
 - id: 2d9867770914d5ec
@@ -14144,7 +14316,7 @@
   repair: false
   outputs: 1
   x: 7330
-  'y': 1300
+  'y': 1460
   wires:
     - - b0e29315a45ffd99
 - id: e1930e7b5c1b153f
@@ -14163,7 +14335,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 1840
+  'y': 2000
   wires:
     - - c541efeb7d23c25a
     - - 567260b5374f222d
@@ -14183,7 +14355,7 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 1900
+  'y': 2060
   wires:
     - - 12c26ac09e8a630e
     - - 567260b5374f222d
@@ -14210,7 +14382,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 1780
+  'y': 1940
   wires:
     - - 620b38276e9f4547
       - d917a4e25a23f027
@@ -14231,7 +14403,7 @@
   repair: false
   outputs: 1
   x: 5090
-  'y': 1840
+  'y': 2000
   wires:
     - - 73c93a436b80c7e2
 - id: 79fae3bfce80c95c
@@ -14261,7 +14433,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 2260
+  'y': 2420
   wires:
     - - cb28ad66e7da1c26
       - 3c9003cf4087b916
@@ -14288,7 +14460,7 @@
     - 54fd1f2eca676e0d
     - d5a2492cd9b261b1
   x: 145
-  'y': 2200
+  'y': 2360
   wires:
     - - 0841112daee6894a
 - id: 8771c664b3da2d03
@@ -14312,7 +14484,7 @@
   value: payload
   valueType: msg
   x: 820
-  'y': 2320
+  'y': 2480
   wires: []
 - id: 0841112daee6894a
   type: switch
@@ -14330,7 +14502,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 2200
+  'y': 2360
   wires:
     - - 18a5b22e5f4eab94
     - - c8b674d3ac8ce810
@@ -14353,7 +14525,7 @@
   repair: false
   outputs: 3
   x: 430
-  'y': 2260
+  'y': 2420
   wires:
     - - dba829b5fae6fa36
     - - dba829b5fae6fa36
@@ -14373,7 +14545,7 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 2380
+  'y': 2540
   wires:
     - - 452dc65d9a655cc4
     - - e02d034e36c77a62
@@ -14385,7 +14557,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -14394,7 +14566,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2380
+  'y': 2540
   wires:
     - - 6e28d0dfe73f74a9
 - id: 079eee74926cfaad
@@ -14413,7 +14585,7 @@
   repair: false
   outputs: 1
   x: 1970
-  'y': 2800
+  'y': 2960
   wires:
     - - 5450d36d811b2c7e
 - id: 16914febd388219f
@@ -14430,7 +14602,7 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 3040
+  'y': 3200
   wires:
     - - fd37f5aefa1e7839
     - - d1d649cafc9debd1
@@ -14442,7 +14614,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -14451,7 +14623,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 3040
+  'y': 3200
   wires:
     - - 13e5e47cda26783f
 - id: 3c74c1e48218b536
@@ -14463,7 +14635,7 @@
     - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
-  'y': 100
+  'y': 320
   wires:
     - - 65316712782b473b
 - id: 65316712782b473b
@@ -14482,7 +14654,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 100
+  'y': 320
   wires:
     - - c12e1c25ec2c3be9
       - b175143034d42cd6
@@ -14506,7 +14678,7 @@
   repair: false
   outputs: 3
   x: 430
-  'y': 160
+  'y': 380
   wires:
     - - e36860ab09cb4f27
     - - e36860ab09cb4f27
@@ -14543,7 +14715,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 100
+  'y': 320
   wires:
     - - e005b35880effb28
       - d5a2492cd9b261b1
@@ -14571,7 +14743,7 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'value':'plant',\t        'label':'Usines'\t    },\t    {\t        'value':'line',\t        'label':'Lignes'\t    },\t    {\t        'value':'equipment',\t        'label':'Equipements'\t    },\t    {\t        'value':'device',\t        'label':'Materiels'\t    },\t    {\t        'value':'component',\t        'label':'Composants'\t    },\t    {\t        'value':'alert',\t        'label':'alertes'\t    },\t    {\t        'value':'schedule',\t        'label':'Programmateurs'\t    }\t]"
+      to: "[\t    {\t        'value':'plant',\t        'label':'Usines'\t    },\t    {\t        'value':'line',\t        'label':'Lignes'\t    },\t    {\t        'value':'equipment',\t        'label':'Equipements'\t    },\t    {\t        'value':'device',\t        'label':'Materiels'\t    },\t    {\t        'value':'component',\t        'label':'Composants'\t    },\t    {\t        'value':'alert',\t        'label':'Alertes'\t    },\t    {\t        'value':'schedule',\t        'label':'Programmateurs'\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -14579,7 +14751,7 @@
   to: ''
   reg: false
   x: 600
-  'y': 160
+  'y': 380
   wires:
     - - e005b35880effb28
 - id: e005b35880effb28
@@ -14605,7 +14777,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 800
-  'y': 160
+  'y': 380
   wires:
     - - 05a718cf073d2373
 - id: 05a718cf073d2373
@@ -14630,7 +14802,7 @@
   to: ''
   reg: false
   x: 990
-  'y': 160
+  'y': 380
   wires:
     - - d5a2492cd9b261b1
 - id: d5a2492cd9b261b1
@@ -14648,7 +14820,7 @@
     - 8b1e3b84ed635f09
     - 2b19cffefc8b8dfc
   x: 1115
-  'y': 100
+  'y': 320
   wires: []
 - id: 5d3791b50e998db0
   type: switch
@@ -14666,7 +14838,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 400
+  'y': 560
   wires:
     - - 2f1f0ca81820f9c6
     - - 7155d9bbef3cc098
@@ -14690,8 +14862,8 @@
   className: ''
   value: payload
   valueType: msg
-  x: 780
-  'y': 460
+  x: 800
+  'y': 680
   wires: []
 - id: 32b448b0d77b7c0b
   type: change
@@ -14714,8 +14886,8 @@
   from: ''
   to: ''
   reg: false
-  x: 590
-  'y': 460
+  x: 610
+  'y': 680
   wires:
     - - 4cd01df4467b69a4
 - id: 8e3f9fd827754e4f
@@ -14739,7 +14911,7 @@
   value: payload
   valueType: msg
   x: 800
-  'y': 940
+  'y': 1160
   wires: []
 - id: 960385f2593a0c88
   type: change
@@ -14763,7 +14935,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 940
+  'y': 1160
   wires:
     - - 8e3f9fd827754e4f
 - id: 66b6335ba9395aa1
@@ -14787,7 +14959,7 @@
   value: payload
   valueType: msg
   x: 820
-  'y': 1420
+  'y': 1580
   wires: []
 - id: 4654dad2a09b2572
   type: change
@@ -14811,7 +14983,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 1420
+  'y': 1580
   wires:
     - - 66b6335ba9395aa1
 - id: 3dbd34995d683084
@@ -14835,7 +15007,7 @@
   value: payload
   valueType: msg
   x: 800
-  'y': 1900
+  'y': 2060
   wires: []
 - id: 25d0c6d143a7213b
   type: change
@@ -14859,7 +15031,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 1900
+  'y': 2060
   wires:
     - - 3dbd34995d683084
 - id: 24bb56b3565c509b
@@ -14884,7 +15056,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 2320
+  'y': 2480
   wires:
     - - 8771c664b3da2d03
 - id: c8b674d3ac8ce810
@@ -14919,7 +15091,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 2140
+  'y': 2300
   wires:
     - - 79fae3bfce80c95c
       - 17c157f35017df7c
@@ -14939,7 +15111,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 3520
+  'y': 3680
   wires:
     - - 55ebeed2e32e9781
     - - d42eea24ff5a2c7d
@@ -14962,7 +15134,7 @@
   repair: false
   outputs: 3
   x: 430
-  'y': 3580
+  'y': 3740
   wires:
     - - e4da04f0e9480b33
     - - e4da04f0e9480b33
@@ -15000,7 +15172,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 3460
+  'y': 3620
   wires:
     - - 7ddd73e6fabfa032
       - c396f2cba93c9308
@@ -15026,7 +15198,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 3640
+  'y': 3800
   wires:
     - - d73911cb76d0d957
 - id: a38f308d6ccf9e4e
@@ -15043,7 +15215,7 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 3700
+  'y': 3860
   wires:
     - - f4708cf1752d82c6
     - - 1199be74e3cf42d6
@@ -15055,7 +15227,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -15064,7 +15236,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 3700
+  'y': 3860
   wires:
     - - 97e3ac399e780821
 - id: 978d5a112feb02ce
@@ -15081,7 +15253,7 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 4120
+  'y': 4280
   wires:
     - - 3f551fad29acbb1a
     - - 540cbf4728138b0a
@@ -15093,7 +15265,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -15102,7 +15274,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 4120
+  'y': 4280
   wires:
     - - a2b2a358554139bb
 - id: 34ee1efd2955183d
@@ -15121,7 +15293,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 4600
+  'y': 4760
   wires:
     - - c266a807ecc5a335
     - - e4ca86b80152d583
@@ -15144,7 +15316,7 @@
   repair: false
   outputs: 3
   x: 430
-  'y': 4660
+  'y': 4820
   wires:
     - - ed5d4c601e8a8670
     - - ed5d4c601e8a8670
@@ -15182,7 +15354,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 4540
+  'y': 4700
   wires:
     - - 8d195bf084cd8502
       - bf637ad3c675c546
@@ -15208,7 +15380,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 4720
+  'y': 4880
   wires:
     - - 4243224fd060362a
 - id: 6668df6bf95e1961
@@ -15225,7 +15397,7 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 4780
+  'y': 4940
   wires:
     - - 98cb0f1a1b4e2e75
     - - c2f1b6530c70c9df
@@ -15237,7 +15409,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -15246,7 +15418,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 4780
+  'y': 4940
   wires:
     - - c2d6c5542a178eb4
 - id: ca72875879674e6a
@@ -15263,7 +15435,7 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 5380
+  'y': 5540
   wires:
     - - 008b4c2bea122b9b
     - []
@@ -15275,7 +15447,7 @@
   rules:
     - t: set
       p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: global
+      pt: flow
       to: '#:(memoryOnly)::user[msg._client.socketId]plant'
       tot: global
   action: ''
@@ -15284,6 +15456,133 @@
   to: ''
   reg: false
   x: 1250
-  'y': 5380
+  'y': 5540
   wires:
     - - 711dda0d987c9799
+- id: 523ceee89dea93d5
+  type: link in
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: ui - tree - clean - schedule
+  links:
+    - 575b91a30deac00d
+    - a63fee7b423da915
+  x: 145
+  'y': 80
+  wires:
+    - - 63f86678c491ee38
+- id: 63f86678c491ee38
+  type: change
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: clean
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::form'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 80
+  wires:
+    - []
+- id: 53845d5ac3a352d5
+  type: link in
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: ui - tree - clean - tab
+  links:
+    - 7bba6594f41302c2
+  x: 145
+  'y': 140
+  wires:
+    - - 6d586df804601e15
+- id: 6d586df804601e15
+  type: switch
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: tab
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: Arborescence
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 270
+  'y': 140
+  wires:
+    - - 696117cbea1d662a
+- id: 696117cbea1d662a
+  type: change
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: flow
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 430
+  'y': 140
+  wires:
+    - []
+- id: 244b589ddc98859f
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 780
+  'y': 620
+  wires:
+    - - 7f71a6461fbd80e4
+- id: 636d6d390c51d6c5
+  type: change
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: disabled
+  rules:
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 780
+  'y': 1100
+  wires:
+    - - 6a365f73163bf8f1
