@@ -175,7 +175,7 @@
   type: change
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: parse topic
+  name: topic
   rules:
     - t: set
       p: split
@@ -186,15 +186,15 @@
       p: endpoint
       pt: msg
       to: >-
-        $join(['opta', msg.split[1], (msg.split[2] = 'input' ? 'i' : 'o') &
-        msg.split[4] & msg.split[3]], '|')
+        'opta|' & msg.split[1] & '|' & (msg.split[2] = 'input' ? 'i' : 'o') &
+        msg.split[4] & msg.split[3]
       tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 350
+  x: 330
   'y': 260
   wires:
     - - e1c385497e9d14c1
@@ -202,7 +202,7 @@
   type: switch
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: has endpoint
+  name: endpoint
   property: kernel.endpoint
   propertyType: global
   rules:
@@ -212,7 +212,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 550
+  x: 500
   'y': 260
   wires:
     - - 3dbcc7bc6d7652ef
@@ -229,14 +229,14 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1260
+  x: 1200
   'y': 200
   wires: []
 - id: 08f4386fc5701e53
   type: change
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: to state
+  name: kernel
   rules:
     - t: set
       p: state
@@ -275,7 +275,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1080
+  x: 1010
   'y': 260
   wires:
     - - 5286ca49788e7a4f
@@ -288,7 +288,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1215
+  x: 1155
   'y': 260
   wires: []
 - id: 1472ee8de6253740
@@ -362,7 +362,7 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 730
+  x: 670
   'y': 260
   wires:
     - - e67a8bcda8f87483
@@ -384,7 +384,7 @@
   from: ''
   to: ''
   reg: false
-  x: 900
+  x: 840
   'y': 200
   wires:
     - - 08f4386fc5701e53
