@@ -169,6 +169,8 @@
     - 4974eda3bfeeee8c
     - 5120abe76663785d
     - 3967be973250fb8a
+    - de6db4e3bb1ab9d2
+    - 560a5229025ecb9d
   x: 104
   'y': 1119
   w: 2792
@@ -673,7 +675,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2050
+  x: 2210
   'y': 920
   wires: []
 - id: c3d005124e95de2f
@@ -1422,7 +1424,7 @@
   z: 44465f18e06bb58d
   g: 7c224f2f2afc76d3
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId]level'
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
     - t: eq
@@ -1975,7 +1977,7 @@
   height: 0
   topic: topic
   topicType: msg
-  mode: text
+  mode: password
   tooltip: ''
   delay: 300
   passthru: false
@@ -2452,6 +2454,7 @@
   wires:
     - - 08a692cf16731c15
       - 5626c28fcfe281c8
+      - de6db4e3bb1ab9d2
 - id: 77a6c51003ce90f4
   type: change
   z: 44465f18e06bb58d
@@ -2565,6 +2568,7 @@
   wires:
     - - 08a692cf16731c15
       - 5626c28fcfe281c8
+      - de6db4e3bb1ab9d2
 - id: 4e7b19284b3e157c
   type: change
   z: 44465f18e06bb58d
@@ -2686,7 +2690,7 @@
   height: 0
   topic: topic
   topicType: msg
-  mode: text
+  mode: password
   tooltip: ''
   delay: 300
   passthru: false
@@ -2715,7 +2719,7 @@
   height: 0
   topic: topic
   topicType: msg
-  mode: text
+  mode: password
   tooltip: ''
   delay: 300
   passthru: false
@@ -2975,6 +2979,7 @@
   wires:
     - - 08a692cf16731c15
       - 5626c28fcfe281c8
+      - de6db4e3bb1ab9d2
 - id: 3967be973250fb8a
   type: change
   z: 44465f18e06bb58d
@@ -2995,3 +3000,34 @@
   'y': 1580
   wires:
     - - 85f6b4fe4756cfc0
+- id: de6db4e3bb1ab9d2
+  type: change
+  z: 44465f18e06bb58d
+  g: 7a7d35c0913aed9f
+  name: clean
+  rules:
+    - t: set
+      p: login
+      pt: msg
+      to: payload.login
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2730
+  'y': 1760
+  wires:
+    - - 560a5229025ecb9d
+- id: 560a5229025ecb9d
+  type: link out
+  z: 44465f18e06bb58d
+  g: 7a7d35c0913aed9f
+  name: ui - user - clean
+  mode: link
+  links:
+    - 0502ea2e9ef0f780
+  x: 2855
+  'y': 1760
+  wires: []

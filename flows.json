@@ -2660,7 +2660,9 @@
             "7e2eeaef60e1ad32",
             "4974eda3bfeeee8c",
             "5120abe76663785d",
-            "3967be973250fb8a"
+            "3967be973250fb8a",
+            "de6db4e3bb1ab9d2",
+            "560a5229025ecb9d"
         ],
         "x": 104,
         "y": 1119,
@@ -2800,6 +2802,32 @@
         "x": 114,
         "y": 3339,
         "w": 1432,
+        "h": 142
+    },
+    {
+        "id": "ec05c59aee9e7dba",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "name": "user - clean",
+        "style": {
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "0502ea2e9ef0f780",
+            "5bdf209aed9804d8",
+            "2ce00375c4ce63d8",
+            "eb6629ceb4089587",
+            "49a760948e6b52c9",
+            "033929b830a442e9",
+            "5b2881f9991057c5",
+            "0cd27cf548bea817",
+            "0e94cde52c021d45"
+        ],
+        "x": 104,
+        "y": 2399,
+        "w": 1282,
         "h": 142
     },
     {
@@ -7956,7 +7984,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "7ea06c29d525f7ce",
         "name": "user - write",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8135,7 +8163,7 @@
         "type": "change",
         "z": "f6f2187d.f17ca8",
         "g": "bd007f48192aa2f3",
-        "name": "clean",
+        "name": "user",
         "rules": [
             {
                 "t": "set",
@@ -8185,7 +8213,7 @@
         "type": "change",
         "z": "f6f2187d.f17ca8",
         "g": "bd007f48192aa2f3",
-        "name": "clean",
+        "name": "user",
         "rules": [
             {
                 "t": "set",
@@ -8262,7 +8290,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "bd007f48192aa2f3",
         "name": "user - check",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8272,6 +8300,217 @@
         "statusType": "auto",
         "x": 1270,
         "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "0502ea2e9ef0f780",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "user - clean",
+        "links": [
+            "560a5229025ecb9d"
+        ],
+        "x": 145,
+        "y": 2500,
+        "wires": [
+            [
+                "5bdf209aed9804d8"
+            ]
+        ]
+    },
+    {
+        "id": "5bdf209aed9804d8",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "users",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::user",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 2500,
+        "wires": [
+            [
+                "2ce00375c4ce63d8"
+            ]
+        ]
+    },
+    {
+        "id": "2ce00375c4ce63d8",
+        "type": "split",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "ts",
+        "property": "payload",
+        "x": 430,
+        "y": 2500,
+        "wires": [
+            [
+                "eb6629ceb4089587"
+            ]
+        ]
+    },
+    {
+        "id": "eb6629ceb4089587",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "auth",
+        "property": "#:(memoryOnly)::auth",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "payload.login",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 2500,
+        "wires": [
+            [
+                "033929b830a442e9"
+            ],
+            [
+                "49a760948e6b52c9"
+            ]
+        ]
+    },
+    {
+        "id": "49a760948e6b52c9",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "delete",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "#:(memoryOnly)::user[msg.ts]",
+                "pt": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 2500,
+        "wires": [
+            [
+                "0e94cde52c021d45"
+            ]
+        ]
+    },
+    {
+        "id": "033929b830a442e9",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "login",
+        "property": "login",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 750,
+        "y": 2440,
+        "wires": [
+            [
+                "5b2881f9991057c5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5b2881f9991057c5",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "same",
+        "property": "payload.login",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "login",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 910,
+        "y": 2440,
+        "wires": [
+            [
+                "49a760948e6b52c9"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0cd27cf548bea817",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "clean user session on changes, see system user",
+        "info": "",
+        "x": 400,
+        "y": 2440,
+        "wires": []
+    },
+    {
+        "id": "0e94cde52c021d45",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "ec05c59aee9e7dba",
+        "name": "user - clean",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 2500,
         "wires": []
     },
     {
@@ -52560,7 +52799,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2050,
+        "x": 2210,
         "y": 920,
         "wires": []
     },
@@ -53567,7 +53806,7 @@
         "z": "44465f18e06bb58d",
         "g": "7c224f2f2afc76d3",
         "name": "level",
-        "property": "#:(memoryOnly)::user[msg._client.socketId]level",
+        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
         "propertyType": "global",
         "rules": [
             {
@@ -54339,7 +54578,7 @@
         "height": 0,
         "topic": "topic",
         "topicType": "msg",
-        "mode": "text",
+        "mode": "password",
         "tooltip": "",
         "delay": 300,
         "passthru": false,
@@ -54967,7 +55206,8 @@
         "wires": [
             [
                 "08a692cf16731c15",
-                "5626c28fcfe281c8"
+                "5626c28fcfe281c8",
+                "de6db4e3bb1ab9d2"
             ]
         ]
     },
@@ -55124,7 +55364,8 @@
         "wires": [
             [
                 "08a692cf16731c15",
-                "5626c28fcfe281c8"
+                "5626c28fcfe281c8",
+                "de6db4e3bb1ab9d2"
             ]
         ]
     },
@@ -55272,7 +55513,7 @@
         "height": 0,
         "topic": "topic",
         "topicType": "msg",
-        "mode": "text",
+        "mode": "password",
         "tooltip": "",
         "delay": 300,
         "passthru": false,
@@ -55306,7 +55547,7 @@
         "height": 0,
         "topic": "topic",
         "topicType": "msg",
-        "mode": "text",
+        "mode": "password",
         "tooltip": "",
         "delay": 300,
         "passthru": false,
@@ -55656,7 +55897,8 @@
         "wires": [
             [
                 "08a692cf16731c15",
-                "5626c28fcfe281c8"
+                "5626c28fcfe281c8",
+                "de6db4e3bb1ab9d2"
             ]
         ]
     },
@@ -55687,6 +55929,48 @@
                 "85f6b4fe4756cfc0"
             ]
         ]
+    },
+    {
+        "id": "de6db4e3bb1ab9d2",
+        "type": "change",
+        "z": "44465f18e06bb58d",
+        "g": "7a7d35c0913aed9f",
+        "name": "clean",
+        "rules": [
+            {
+                "t": "set",
+                "p": "login",
+                "pt": "msg",
+                "to": "payload.login",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2730,
+        "y": 1760,
+        "wires": [
+            [
+                "560a5229025ecb9d"
+            ]
+        ]
+    },
+    {
+        "id": "560a5229025ecb9d",
+        "type": "link out",
+        "z": "44465f18e06bb58d",
+        "g": "7a7d35c0913aed9f",
+        "name": "ui - user - clean",
+        "mode": "link",
+        "links": [
+            "0502ea2e9ef0f780"
+        ],
+        "x": 2855,
+        "y": 1760,
+        "wires": []
     },
     {
         "id": "050ccef8b075e3d0",
