@@ -384,6 +384,52 @@
   'y': 2859
   w: 1272
   h: 262
+- id: 8dcbc02d7cca2b6e
+  type: group
+  z: adb9fbf379118d77
+  name: option - level
+  style:
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - cf6fc94ded83675c
+    - 26f4e4f90fe5cf88
+    - 40636e5749bbdfac
+    - 87aa378885a54075
+    - 402481a5633d47b3
+    - e38675627f21ccf9
+    - dc6023c543a72b24
+    - e4ddfd75b3cd45d4
+    - d3ef1fe3a152bbb4
+    - 174532aa6d8dcf40
+  x: 114
+  'y': 3159
+  w: 1432
+  h: 142
+- id: 2da5c1ad6337dbb0
+  type: group
+  z: adb9fbf379118d77
+  name: option - auth
+  style:
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 5f1b2fed17c07631
+    - 135cf6b16286df0f
+    - 395caa0b2f7957ba
+    - 69b797155d38078c
+    - 2d9e77900d70373a
+    - 8b41ae6850d90dfa
+    - dbdc667849e819b7
+    - eb861e19f59c523f
+    - 74550d01114517f2
+    - 0b8d25860856c597
+  x: 114
+  'y': 3339
+  w: 1432
+  h: 142
 - id: 546836b126dc5542
   type: change
   z: adb9fbf379118d77
@@ -4250,3 +4296,439 @@
   'y': 1040
   wires:
     - - 223eda7a7bf76755
+- id: cf6fc94ded83675c
+  type: link in
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: option  - level
+  links: []
+  x: 155
+  'y': 3260
+  wires:
+    - - 40636e5749bbdfac
+- id: 26f4e4f90fe5cf88
+  type: link out
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: option - level
+  mode: return
+  links: []
+  x: 1375
+  'y': 3200
+  wires: []
+- id: 40636e5749bbdfac
+  type: change
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: get
+  rules:
+    - t: set
+      p: old_payload
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::describe.level'
+      tot: global
+    - t: set
+      p: options
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: option
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::levels[msg._client.socketId]'
+      pt: flow
+      to: '[]'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 290
+  'y': 3260
+  wires:
+    - - 87aa378885a54075
+- id: 87aa378885a54075
+  type: switch
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 450
+  'y': 3260
+  wires:
+    - - e38675627f21ccf9
+    - - 174532aa6d8dcf40
+- id: 402481a5633d47b3
+  type: debug
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: option - level
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1430
+  'y': 3260
+  wires: []
+- id: e38675627f21ccf9
+  type: split
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: option.level
+  property: payload
+  x: 610
+  'y': 3200
+  wires:
+    - - dc6023c543a72b24
+- id: dc6023c543a72b24
+  type: change
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: add
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '{''label'':msg.payload,''value'':msg.option.level}'
+      tot: jsonata
+    - t: set
+      p: levels
+      pt: msg
+      to: '#:(memoryOnly)::levels[msg._client.socketId]'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::levels[msg._client.socketId]'
+      pt: flow
+      to: '$append(msg.levels,msg.payload)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 770
+  'y': 3200
+  wires:
+    - - e4ddfd75b3cd45d4
+- id: e4ddfd75b3cd45d4
+  type: join
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 930
+  'y': 3200
+  wires:
+    - - d3ef1fe3a152bbb4
+- id: d3ef1fe3a152bbb4
+  type: change
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: flow
+  rules:
+    - t: set
+      p: options
+      pt: msg
+      to: '#:(memoryOnly)::levels[msg._client.socketId]'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 3200
+  wires:
+    - - 174532aa6d8dcf40
+- id: 174532aa6d8dcf40
+  type: change
+  z: adb9fbf379118d77
+  g: 8dcbc02d7cca2b6e
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: old_payload
+      tot: msg
+    - t: delete
+      p: old_payload
+      pt: msg
+    - t: delete
+      p: option
+      pt: msg
+    - t: delete
+      p: levels
+      pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::levels[msg._client.socketId]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 3260
+  wires:
+    - - 402481a5633d47b3
+      - 26f4e4f90fe5cf88
+- id: 5f1b2fed17c07631
+  type: link in
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: option  - auth
+  links: []
+  x: 155
+  'y': 3440
+  wires:
+    - - 135cf6b16286df0f
+- id: 135cf6b16286df0f
+  type: change
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: get
+  rules:
+    - t: set
+      p: old_payload
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::auth'
+      tot: global
+    - t: set
+      p: options
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: option
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::auths[msg._client.socketId]'
+      pt: flow
+      to: '[]'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 290
+  'y': 3440
+  wires:
+    - - 395caa0b2f7957ba
+- id: 395caa0b2f7957ba
+  type: switch
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 450
+  'y': 3440
+  wires:
+    - - 69b797155d38078c
+    - - eb861e19f59c523f
+- id: 69b797155d38078c
+  type: split
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: option.login
+  property: payload
+  x: 610
+  'y': 3380
+  wires:
+    - - 2d9e77900d70373a
+- id: 2d9e77900d70373a
+  type: change
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: add
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '{''label'':msg.option.login,''value'':msg.option.login}'
+      tot: jsonata
+    - t: set
+      p: auths
+      pt: msg
+      to: '#:(memoryOnly)::auths[msg._client.socketId]'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::auths[msg._client.socketId]'
+      pt: flow
+      to: '$append(msg.auths,msg.payload)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 770
+  'y': 3380
+  wires:
+    - - 8b41ae6850d90dfa
+- id: 8b41ae6850d90dfa
+  type: join
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 930
+  'y': 3380
+  wires:
+    - - dbdc667849e819b7
+- id: dbdc667849e819b7
+  type: change
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: flow
+  rules:
+    - t: set
+      p: options
+      pt: msg
+      to: '#:(memoryOnly)::auths[msg._client.socketId]'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1090
+  'y': 3380
+  wires:
+    - - eb861e19f59c523f
+- id: eb861e19f59c523f
+  type: change
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: old_payload
+      tot: msg
+    - t: delete
+      p: old_payload
+      pt: msg
+    - t: delete
+      p: option
+      pt: msg
+    - t: delete
+      p: auths
+      pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::auths[msg._client.socketId]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 3440
+  wires:
+    - - 74550d01114517f2
+      - 0b8d25860856c597
+- id: 74550d01114517f2
+  type: debug
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: option - auth
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1430
+  'y': 3440
+  wires: []
+- id: 0b8d25860856c597
+  type: link out
+  z: adb9fbf379118d77
+  g: 2da5c1ad6337dbb0
+  name: option - auth
+  mode: return
+  links: []
+  x: 1375
+  'y': 3380
+  wires: []

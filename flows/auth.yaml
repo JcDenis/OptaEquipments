@@ -31,15 +31,17 @@
     - cfc247c5da19d8e0
     - 56c612fa7caecb7f
     - 8aca2e86c077d885
-    - 0f7febddea121273
     - f9dc1f7a8155ebef
     - 09bd0767b56167b6
     - f68e1a2d7f3e0c3d
     - 6ab34b3b3d64905e
+    - fb8bbad287d6868f
+    - fb6144114761809b
+    - c82457de0864e28c
   x: 104
   'y': 79
   w: 1802
-  h: 322
+  h: 382
 - id: 050ccef8b075e3d0
   type: ui-text-input
   z: 27841aa886edd1cd
@@ -47,7 +49,7 @@
   group: 3c952a83cfc8f302
   name: login
   label: Identifiant
-  order: 3
+  order: 4
   width: 0
   height: 0
   topic: topic
@@ -66,7 +68,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 750
-  'y': 240
+  'y': 300
   wires:
     - - 5cdedb3dc477d939
 - id: d1f204e0d223525d
@@ -76,7 +78,7 @@
   group: 3c952a83cfc8f302
   name: pass
   label: Mot de passe
-  order: 4
+  order: 5
   width: 0
   height: 0
   topic: topic
@@ -95,7 +97,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 750
-  'y': 300
+  'y': 360
   wires:
     - - cfc247c5da19d8e0
 - id: f2cfb5d52b6caa4d
@@ -105,7 +107,7 @@
   group: 3c952a83cfc8f302
   name: connect
   label: Se connecter
-  order: 5
+  order: 6
   width: 0
   height: 0
   emulateClick: false
@@ -130,7 +132,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 760
-  'y': 360
+  'y': 420
   wires:
     - - 56c612fa7caecb7f
 - id: 9833ea0e831ff8c7
@@ -140,7 +142,7 @@
   group: 3c952a83cfc8f302
   name: disconnect
   label: Se déconnecter
-  order: 2
+  order: 3
   width: 0
   height: 0
   emulateClick: false
@@ -165,7 +167,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 770
-  'y': 180
+  'y': 240
   wires:
     - - f4eee7dbe5621ecf
 - id: aa0e1484ee75066f
@@ -174,8 +176,8 @@
   g: 90f47fc795048184
   group: 3c952a83cfc8f302
   order: 1
-  width: 0
-  height: 0
+  width: '0'
+  height: '0'
   name: user
   label: 'Utilisateur : '
   format: '{{msg.payload}}'
@@ -240,6 +242,7 @@
   wires:
     - - 34e005364036decc
       - ab5c8b5ef36091e4
+      - fb6144114761809b
     - - c78af6924875ff04
       - 7abca62b92f00cde
 - id: 34e005364036decc
@@ -300,10 +303,11 @@
   to: ''
   reg: false
   x: 590
-  'y': 180
+  'y': 240
   wires:
     - - aa0e1484ee75066f
       - 9833ea0e831ff8c7
+      - fb8bbad287d6868f
 - id: c78af6924875ff04
   type: change
   z: 27841aa886edd1cd
@@ -331,7 +335,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 240
+  'y': 300
   wires:
     - - 050ccef8b075e3d0
       - d1f204e0d223525d
@@ -363,7 +367,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 300
+  'y': 360
   wires:
     - - 050ccef8b075e3d0
       - d1f204e0d223525d
@@ -383,7 +387,7 @@
   to: ''
   reg: false
   x: 970
-  'y': 180
+  'y': 240
   wires:
     - - 6ab34b3b3d64905e
 - id: bb71762ba2269b75
@@ -395,7 +399,7 @@
   links:
     - 00818f8c0686b556
   x: 1755
-  'y': 180
+  'y': 240
   wires: []
 - id: 5cdedb3dc477d939
   type: change
@@ -414,7 +418,7 @@
   to: ''
   reg: false
   x: 950
-  'y': 240
+  'y': 300
   wires:
     - []
 - id: cfc247c5da19d8e0
@@ -434,7 +438,7 @@
   to: ''
   reg: false
   x: 950
-  'y': 300
+  'y': 360
   wires:
     - []
 - id: 56c612fa7caecb7f
@@ -462,9 +466,9 @@
   to: ''
   reg: false
   x: 950
-  'y': 360
+  'y': 420
   wires:
-    - - 0f7febddea121273
+    - - c82457de0864e28c
 - id: 8aca2e86c077d885
   type: debug
   z: 27841aa886edd1cd
@@ -479,21 +483,8 @@
   statusVal: ''
   statusType: auto
   x: 1800
-  'y': 240
+  'y': 300
   wires: []
-- id: 0f7febddea121273
-  type: link call
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: ''
-  links:
-    - 4a9215e8a21108b6
-  linkType: static
-  timeout: '30'
-  x: 1130
-  'y': 360
-  wires:
-    - - 09bd0767b56167b6
 - id: f9dc1f7a8155ebef
   type: change
   z: 27841aa886edd1cd
@@ -519,7 +510,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 300
+  'y': 360
   wires:
     - - 6ab34b3b3d64905e
 - id: 09bd0767b56167b6
@@ -536,7 +527,7 @@
   repair: false
   outputs: 2
   x: 1310
-  'y': 360
+  'y': 420
   wires:
     - - f9dc1f7a8155ebef
     - - f68e1a2d7f3e0c3d
@@ -563,7 +554,7 @@
   to: ''
   reg: false
   x: 1470
-  'y': 360
+  'y': 420
   wires:
     - - 6ab34b3b3d64905e
 - id: 6ab34b3b3d64905e
@@ -584,7 +575,78 @@
   allowrate: false
   outputs: 1
   x: 1630
-  'y': 180
+  'y': 240
   wires:
     - - bb71762ba2269b75
       - 8aca2e86c077d885
+- id: fb8bbad287d6868f
+  type: ui-text
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  group: 3c952a83cfc8f302
+  order: 2
+  width: '0'
+  height: '0'
+  name: level
+  label: 'Niveau : '
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: payload
+  valueType: msg
+  x: 750
+  'y': 180
+  wires: []
+- id: fb6144114761809b
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: level
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId]level'
+      tot: global
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::describe.level[msg.payload]'
+      tot: global
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 590
+  'y': 180
+  wires:
+    - - fb8bbad287d6868f
+- id: c82457de0864e28c
+  type: link call
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ''
+  links:
+    - fdb028158b218535
+  linkType: static
+  timeout: '30'
+  x: 1130
+  'y': 420
+  wires:
+    - - 09bd0767b56167b6
