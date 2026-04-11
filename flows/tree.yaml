@@ -723,18 +723,16 @@
   nodes:
     - 3c74c1e48218b536
     - 65316712782b473b
-    - c12e1c25ec2c3be9
     - b175143034d42cd6
     - e36860ab09cb4f27
     - e005b35880effb28
     - 05a718cf073d2373
     - d5a2492cd9b261b1
-    - 475e7095aa4d2bd9
     - bb44a5ee9eb79c84
   x: 104
   'y': 279
-  w: 1212
-  h: 149.5
+  w: 892
+  h: 142
 - id: 836acd0bd60737d1
   type: group
   z: 64ce08af468b8197
@@ -753,10 +751,11 @@
     - d5787c10f10492ea
     - 70db069f20be0a68
     - dd627ae296fcf568
+    - 37c5dd75c2464460
   x: 104
   'y': 39
   w: 712
-  h: 202
+  h: 209.5
 - id: be594973267232f5
   type: link in
   z: 64ce08af468b8197
@@ -14660,31 +14659,7 @@
   'y': 320
   wires:
     - - b175143034d42cd6
-    - - 475e7095aa4d2bd9
-- id: c12e1c25ec2c3be9
-  type: switch
-  z: 64ce08af468b8197
-  g: 1b6332baa80f468b
-  name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId]level'
-  propertyType: global
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: eq
-      v: rt
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 590
-  'y': 380
-  wires:
     - - e36860ab09cb4f27
-    - - e36860ab09cb4f27
-    - - b175143034d42cd6
 - id: b175143034d42cd6
   type: change
   z: 64ce08af468b8197
@@ -14716,7 +14691,7 @@
   from: ''
   to: ''
   reg: false
-  x: 770
+  x: 450
   'y': 320
   wires:
     - - e005b35880effb28
@@ -14752,7 +14727,7 @@
   from: ''
   to: ''
   reg: false
-  x: 760
+  x: 440
   'y': 380
   wires:
     - - e005b35880effb28
@@ -14778,7 +14753,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 960
+  x: 640
   'y': 380
   wires:
     - - 05a718cf073d2373
@@ -14803,7 +14778,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1150
+  x: 830
   'y': 380
   wires:
     - - d5a2492cd9b261b1
@@ -14821,7 +14796,7 @@
     - 1bd9c70a5be52bdc
     - 8b1e3b84ed635f09
     - 2b19cffefc8b8dfc
-  x: 1275
+  x: 955
   'y': 320
   wires: []
 - id: 5d3791b50e998db0
@@ -15520,7 +15495,7 @@
   'y': 200
   wires:
     - - 696117cbea1d662a
-    - - 70db069f20be0a68
+    - - 37c5dd75c2464460
 - id: 696117cbea1d662a
   type: change
   z: 64ce08af468b8197
@@ -15589,27 +15564,6 @@
   'y': 1100
   wires:
     - - 6a365f73163bf8f1
-- id: 475e7095aa4d2bd9
-  type: delay
-  z: 64ce08af468b8197
-  g: 1b6332baa80f468b
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 430
-  'y': 380
-  wires:
-    - - c12e1c25ec2c3be9
 - id: c8a346b853bbf0cd
   type: link in
   z: 64ce08af468b8197
@@ -15708,7 +15662,31 @@
   from: ''
   to: ''
   reg: false
-  x: 1150
+  x: 830
   'y': 320
   wires:
     - - d5a2492cd9b261b1
+- id: 37c5dd75c2464460
+  type: switch
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId]level'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+    - t: eq
+      v: rt
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 3
+  x: 490
+  'y': 200
+  wires:
+    - - 70db069f20be0a68
+    - - 70db069f20be0a68
+    - - d5787c10f10492ea
