@@ -68,9 +68,11 @@
     - 90fee914285e6f59
     - 575b91a30deac00d
     - a632cf6658ed8cde
+    - 175e48b859d56cd6
+    - d03b705b94219f58
   x: 114
   'y': 99
-  w: 602
+  w: 922
   h: 142
 - id: 32da9b1ae024e8bb
   type: group
@@ -101,10 +103,16 @@
     - c1821dc26a8ea536
     - ae221346ad22ce08
     - 3a4b0a3f566334ac
+    - cbd23972e397bd47
+    - 7e5f2b517cfd181c
+    - 291f30bb13da4173
+    - 3f016f9bcb2822b7
+    - ae4c84993cd0e61c
+    - 27d4af912bce6f1b
   x: 104
   'y': 2599
   w: 1062
-  h: 382
+  h: 622
 - id: ede1bcd992279676
   type: group
   z: f6f2187d.f17ca8
@@ -551,7 +559,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 550
+  x: 870
   'y': 140
   wires:
     - - 575b91a30deac00d
@@ -565,23 +573,18 @@
     - aaa4b0dfa4f0d7a8
     - 6640363c796f547b
     - 10af438fbe88a4a2
-    - 28b85f45e33eef42
-    - eba6e18370fbfe76
     - b24713f215fa93c7
     - f7245ef690c212b6
     - 0867279186d4420d
-    - c8c91a8a8cb864f2
-    - 9979f236b1c3baac
-    - 3c74c1e48218b536
     - 0670c765804b88ed
-    - 92c5ec89de925a0b
     - a52138e24fb21e4c
     - 523ceee89dea93d5
     - cd6527d5b88bdcb2
-    - c344b98bc4ee57db
-    - 922d6d1c4163d169
     - 3b80cd5cae7c3642
-  x: 675
+    - 56c52c1fe7d5b21d
+    - 4175cc5bc8d98c0e
+    - cc0b711da6ff1632
+  x: 995
   'y': 140
   wires: []
 - id: 90fee914285e6f59
@@ -638,7 +641,7 @@
   x: 380
   'y': 140
   wires:
-    - - a632cf6658ed8cde
+    - - 175e48b859d56cd6
 - id: 76e32feb14c8c8a9
   type: link in
   z: f6f2187d.f17ca8
@@ -795,7 +798,7 @@
   resendOnRefresh: true
   templateScope: 'site:style'
   className: ''
-  x: 280
+  x: 460
   'y': 2760
   wires:
     - []
@@ -806,6 +809,7 @@
   name: ui - boot
   links:
     - 575b91a30deac00d
+    - bee6a866a78902c8
   x: 145
   'y': 2760
   wires:
@@ -859,7 +863,6 @@
     - f1491390ad3bbec6
     - 8fdbc68cf0ee65f4
     - b42047a933d30eb6
-    - fd47e9b8ac544f97
     - 85f6b4fe4756cfc0
   x: 145
   'y': 2880
@@ -1802,18 +1805,14 @@
   name: ui - control - change
   mode: link
   links:
-    - 28b85f45e33eef42
-    - c344b98bc4ee57db
     - b24713f215fa93c7
-    - c8c91a8a8cb864f2
-    - 9979f236b1c3baac
     - 00818f8c0686b556
-    - eba6e18370fbfe76
-    - 3c74c1e48218b536
     - d7bc8fc74bfc07cb
     - 2045a5696769c038
     - 53845d5ac3a352d5
-    - 922d6d1c4163d169
+    - 05107d400a502297
+    - fbeb08a94e71e7bf
+    - bf3da41c4b5bd219
   x: 1055
   'y': 2640
   wires: []
@@ -1903,6 +1902,7 @@
     - ed53bb28b7006772
     - bb71762ba2269b75
     - 7bba6594f41302c2
+    - 7e5f2b517cfd181c
   x: 145
   'y': 2640
   wires:
@@ -2013,7 +2013,7 @@
             <img height="32px" src="/icon.png" :title="msg.vendor"></img>
         </Teleport>
         <Teleport v-if="mounted" to="#app-bar-title">
-            <span>{{ msg.version }}</span>
+            <span>{{msg.vendor}} v{{ msg.version }}</span>
         </Teleport>
 
     </template>
@@ -2445,10 +2445,11 @@
   mode: link
   links:
     - e60e4ab7617738c3
-    - a52138e24fb21e4c
     - 92c5ec89de925a0b
     - 0670c765804b88ed
-    - 523ceee89dea93d5
+    - b92693c673ac674d
+    - c8a346b853bbf0cd
+    - c237249b5d34a472
   x: 2955
   'y': 1460
   wires: []
@@ -2628,10 +2629,15 @@
   'y': 2700
   wires:
     - - 7bba6594f41302c2
+      - 291f30bb13da4173
     - - fe76b727895831bf
+      - 3f016f9bcb2822b7
     - - c1821dc26a8ea536
+      - ae4c84993cd0e61c
     - - ae221346ad22ce08
+      - 27d4af912bce6f1b
     - - 61f220b93c1a61a5
+      - cbd23972e397bd47
 - id: fe76b727895831bf
   type: switch
   z: f6f2187d.f17ca8
@@ -2822,8 +2828,8 @@
     - t: set
       p: vendor
       pt: msg
-      to: SPI Group
-      tot: str
+      to: vendor
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -3095,23 +3101,6 @@
   'y': 1720
   wires:
     - - fa7160372fcfe3b2
-- id: fa7160372fcfe3b2
-  type: bcrypt
-  z: f6f2187d.f17ca8
-  g: b6737b25160b000b
-  name: ''
-  action: encrypt
-  field: payload.admin.pass
-  hash: payload
-  target: payload
-  assignment: replace
-  match: match
-  outputs: 1
-  rounds: 10
-  x: 510
-  'y': 1720
-  wires:
-    - - c207171ed4430df8
 - id: c207171ed4430df8
   type: change
   z: f6f2187d.f17ca8
@@ -3628,24 +3617,6 @@
   wires:
     - - 8e3207bb2992362b
     - - 58ebf510744db0ee
-- id: e0302181e220fb24
-  type: bcrypt
-  z: f6f2187d.f17ca8
-  g: bd007f48192aa2f3
-  name: ''
-  action: verify
-  field: pass
-  hash: hash
-  target: payload
-  assignment: replace
-  match: match
-  outputs: 2
-  rounds: 10
-  x: 920
-  'y': 2260
-  wires:
-    - - 7b7124a46b1a0dcb
-    - - 58ebf510744db0ee
 - id: 8e3207bb2992362b
   type: switch
   z: f6f2187d.f17ca8
@@ -3922,3 +3893,187 @@
   x: 1270
   'y': 2500
   wires: []
+- id: fa7160372fcfe3b2
+  type: bcrypt
+  z: f6f2187d.f17ca8
+  g: b6737b25160b000b
+  name: ''
+  action: encrypt
+  field: payload.admin.pass
+  hash: payload
+  target: payload
+  assignment: replace
+  match: match
+  outputs: 1
+  rounds: 10
+  x: 510
+  'y': 1720
+  wires:
+    - - c207171ed4430df8
+- id: e0302181e220fb24
+  type: bcrypt
+  z: f6f2187d.f17ca8
+  g: bd007f48192aa2f3
+  name: ''
+  action: verify
+  field: pass
+  hash: hash
+  target: payload
+  assignment: replace
+  match: match
+  outputs: 2
+  rounds: 10
+  x: 920
+  'y': 2260
+  wires:
+    - - 7b7124a46b1a0dcb
+    - - 58ebf510744db0ee
+- id: 175e48b859d56cd6
+  type: switch
+  z: f6f2187d.f17ca8
+  g: dcb47b97829a1b78
+  name: vendor
+  property: vendor
+  propertyType: global
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'true'
+  repair: false
+  outputs: 2
+  x: 550
+  'y': 140
+  wires:
+    - - a632cf6658ed8cde
+    - - d03b705b94219f58
+- id: d03b705b94219f58
+  type: change
+  z: f6f2187d.f17ca8
+  g: dcb47b97829a1b78
+  name: vendor
+  rules:
+    - t: set
+      p: vendor
+      pt: global
+      to: Live Equipments
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 710
+  'y': 200
+  wires:
+    - - a632cf6658ed8cde
+- id: cbd23972e397bd47
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: none
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'pages': {\t        'show': [\t            'Authentification'\t            ],\t        'hide': [\t            'Maintenance',\t            'Détail',\t            'Listes',\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 3180
+  wires:
+    - - 7e5f2b517cfd181c
+- id: 7e5f2b517cfd181c
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: lkernel - ui - page
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 1055
+  'y': 2940
+  wires: []
+- id: 291f30bb13da4173
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: admin
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Détail',\t            'Listes',\t            'Arborescence',\t            'Système'\t            ],\t        'hide': [\t            ]\t    }\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 2940
+  wires:
+    - - 7e5f2b517cfd181c
+- id: 3f016f9bcb2822b7
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: rt
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Détail',\t            'Listes',\t            'Arborescence'\t            ],\t        'hide': [\t            'Système'\t            ]\t    }\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 3000
+  wires:
+    - - 7e5f2b517cfd181c
+- id: ae4c84993cd0e61c
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tech
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Détail',\t            'Listes'\t            ],\t        'hide': [\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 3060
+  wires:
+    - - 7e5f2b517cfd181c
+- id: 27d4af912bce6f1b
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: prod
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Détail'\t            ],\t        'hide': [\t            'Listes',\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 3120
+  wires:
+    - - 7e5f2b517cfd181c
