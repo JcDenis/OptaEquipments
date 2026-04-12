@@ -256,9 +256,9 @@
     - 44a9a10bea4cbb76
     - 77140cf5919d8cda
     - ae4b28759bff9246
-  x: 94
+  x: 104
   'y': 1599
-  w: 852
+  w: 862
   h: 162
 - id: fc6029b7d49d1e93
   type: group
@@ -354,6 +354,23 @@
   'y': 2399
   w: 1282
   h: 142
+- id: 0b5b6ec18b014ef3
+  type: group
+  z: f6f2187d.f17ca8
+  name: TODO
+  style:
+    fill: '#ffffff'
+    label: true
+  nodes:
+    - 0d7869d9d005af45
+    - b528b344247010e5
+    - 692562e8871be2a7
+    - 378d243c48b3c3c6
+    - 4ded39693f3565be
+  x: 1094
+  'y': 99
+  w: 532
+  h: 242
 - id: a22fb9b1d981984a
   type: switch
   z: f6f2187d.f17ca8
@@ -787,7 +804,6 @@
     .ui-title {
         padding: 2em;
         color: #0094ce;
-        font-size: 1.4em;
     }
     .ui-spacer {
         border-top: 2px solid #CCCCCC;
@@ -2008,10 +2024,10 @@
 
     <template>
         <Teleport v-if="mounted" to="#app-bar-actions">
-            <img height="32px" src="/icon.png" :title="msg.vendor"></img>
+            <img height="32px" src="/icon.png" :title="msg.full"></img>
         </Teleport>
         <Teleport v-if="mounted" to="#app-bar-title">
-            <span>{{msg.vendor}} v{{ msg.version }}</span>
+            <span>{{msg.vendor}}</span>
         </Teleport>
 
     </template>
@@ -2604,7 +2620,7 @@
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId]level'
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
     - t: eq
@@ -2828,6 +2844,11 @@
       pt: msg
       to: vendor
       tot: global
+    - t: set
+      p: full
+      pt: msg
+      to: msg.vendor & ' v' & msg.version
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -3075,7 +3096,7 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 190
+  x: 210
   'y': 1640
   wires:
     - - cca39ee5b2794b76
@@ -3095,7 +3116,7 @@
   from: ''
   to: ''
   reg: false
-  x: 350
+  x: 370
   'y': 1720
   wires:
     - - fa7160372fcfe3b2
@@ -3120,7 +3141,7 @@
   from: ''
   to: ''
   reg: false
-  x: 670
+  x: 690
   'y': 1720
   wires:
     - - 44a9a10bea4cbb76
@@ -3133,7 +3154,7 @@
   mode: link
   links:
     - b75938c74c41ca5e
-  x: 795
+  x: 815
   'y': 1720
   wires: []
 - id: 77140cf5919d8cda
@@ -3160,7 +3181,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 840
+  x: 860
   'y': 1660
   wires: []
 - id: fe6f397caf384046
@@ -3904,7 +3925,7 @@
   match: match
   outputs: 1
   rounds: 10
-  x: 510
+  x: 530
   'y': 1720
   wires:
     - - c207171ed4430df8
@@ -4075,3 +4096,48 @@
   'y': 3120
   wires:
     - - 7e5f2b517cfd181c
+- id: 4ded39693f3565be
+  type: comment
+  z: f6f2187d.f17ca8
+  g: 0b5b6ec18b014ef3
+  name: refaire les listes commune pour alert et schedule dans onglet option
+  info: ''
+  x: 1360
+  'y': 180
+  wires: []
+- id: 0d7869d9d005af45
+  type: comment
+  z: f6f2187d.f17ca8
+  g: 0b5b6ec18b014ef3
+  name: NO/NC usage
+  info: ''
+  x: 1190
+  'y': 220
+  wires: []
+- id: b528b344247010e5
+  type: comment
+  z: f6f2187d.f17ca8
+  g: 0b5b6ec18b014ef3
+  name: voir pour limiter les materiels a une usine
+  info: ''
+  x: 1280
+  'y': 140
+  wires: []
+- id: 692562e8871be2a7
+  type: comment
+  z: f6f2187d.f17ca8
+  g: 0b5b6ec18b014ef3
+  name: tranlsation for UI
+  info: ''
+  x: 1200
+  'y': 300
+  wires: []
+- id: 378d243c48b3c3c6
+  type: comment
+  z: f6f2187d.f17ca8
+  g: 0b5b6ec18b014ef3
+  name: faire des horaires de programmation standard
+  info: ''
+  x: 1290
+  'y': 260
+  wires: []

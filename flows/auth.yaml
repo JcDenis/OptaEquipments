@@ -497,7 +497,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::user[msg._client.socketId]level'
+      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
       tot: global
     - t: set
       p: payload
@@ -742,7 +742,7 @@
   z: 27841aa886edd1cd
   g: 4ef1cd4a19db42bf
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId]level'
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
     - t: nempty
