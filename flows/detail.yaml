@@ -116,11 +116,11 @@
     - f74edbc578ec3920
     - 8199daf7a46d2d6b
     - 7b0063a508226488
-    - 436697cef0ee228e
     - 6350e2ece2d1fbf7
     - 7578cc8361c561eb
     - 1955d9bd65212b0c
     - acce235042ded186
+    - c6828e9acab95b61
   x: 104
   'y': 3099
   w: 3252
@@ -188,7 +188,7 @@
     - df7b9b28adb41618
     - 36b06554537f7f0f
     - 330917bae33c4347
-    - 4b9c30aa6c636bf4
+    - 7ab3e9531f451298
   x: 104
   'y': 2499
   w: 4242
@@ -218,9 +218,9 @@
     - 559b3d85382337b4
     - a725430845c0b181
     - 81466cf131969e29
-    - 4c80f91aa5f0eec7
     - 8fb53ee8d65f4165
     - 42174b06a9dc03a4
+    - 297dbbed636a64a6
   x: 104
   'y': 2859
   w: 1762
@@ -1778,8 +1778,8 @@
   'y': 3140
   wires:
     - - 1955d9bd65212b0c
-      - 436697cef0ee228e
       - acce235042ded186
+      - c6828e9acab95b61
 - id: 1731e40db78d313f
   type: change
   z: 852390cb9559e176
@@ -1829,6 +1829,7 @@
   name: ui - view - select
   links:
     - 3aad74b4936add5c
+    - 11a3e525f770e3aa
   x: 145
   'y': 320
   wires:
@@ -1889,7 +1890,6 @@
   'y': 680
   wires:
     - - e7f0d477cc7254e6
-      - a732073fc9ce650c
 - id: cf2abc1fc9be5717
   type: change
   z: 852390cb9559e176
@@ -1899,6 +1899,11 @@
     - t: set
       p: payload
       pt: msg
+      to: form.plant
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      pt: flow
       to: form.plant
       tot: msg
     - t: set
@@ -1924,6 +1929,11 @@
     - t: set
       p: payload
       pt: msg
+      to: form.line
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]line'
+      pt: flow
       to: form.line
       tot: msg
     - t: set
@@ -1957,6 +1967,11 @@
       to: form.equipment
       tot: msg
     - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: flow
+      to: form.equipment
+      tot: msg
+    - t: set
       p: class
       pt: msg
       to: ''
@@ -1975,33 +1990,19 @@
   'y': 680
   wires:
     - - dbe2dc99f3174070
+      - a732073fc9ce650c
 - id: a732073fc9ce650c
   type: change
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
   name: select
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      pt: flow
-      to: form.plant
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]line'
-      pt: flow
-      to: form.line
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
-      pt: flow
-      to: form.equipment
-      tot: msg
+  rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 750
+  x: 950
   'y': 740
   wires:
     - - 429f3b5b4cb9ae42
@@ -2039,7 +2040,7 @@
   wires:
     - - 2de882ed4b5e4aa7
       - 823b7f18ffcb5342
-      - 4b9c30aa6c636bf4
+      - 7ab3e9531f451298
 - id: 67dd6befba96ef0c
   type: ui-text-input
   z: 852390cb9559e176
@@ -3431,8 +3432,8 @@
   'y': 2900
   wires:
     - - 8fb53ee8d65f4165
-      - 4c80f91aa5f0eec7
       - 42174b06a9dc03a4
+      - 297dbbed636a64a6
 - id: e735a826b5dcfd5b
   type: change
   z: 852390cb9559e176
@@ -5663,60 +5664,6 @@
       - 9d82755635df4b65
       - 8f49a36d06854646
       - e53533c181c0088b
-- id: 4b9c30aa6c636bf4
-  type: switch
-  z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: client
-  property: _client
-  propertyType: msg
-  rules:
-    - t: hask
-      v: socketId
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 290
-  'y': 2720
-  wires:
-    - - 36b06554537f7f0f
-- id: 4c80f91aa5f0eec7
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: client
-  property: _client
-  propertyType: msg
-  rules:
-    - t: hask
-      v: socketId
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 290
-  'y': 2960
-  wires:
-    - - a725430845c0b181
-- id: 436697cef0ee228e
-  type: switch
-  z: 852390cb9559e176
-  g: 610dc329bbf9ecdb
-  name: client
-  property: _client
-  propertyType: msg
-  rules:
-    - t: hask
-      v: socketId
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 310
-  'y': 3200
-  wires:
-    - - 6350e2ece2d1fbf7
 - id: 8fb53ee8d65f4165
   type: switch
   z: 852390cb9559e176
@@ -5949,3 +5896,57 @@
     - - 1e58e82c924967b4
     - - 1e58e82c924967b4
     - - 80aaebfa270b96ee
+- id: 7ab3e9531f451298
+  type: switch
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: client
+  property: _client
+  propertyType: msg
+  rules:
+    - t: hask
+      v: socketId
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 290
+  'y': 2720
+  wires:
+    - - 36b06554537f7f0f
+- id: 297dbbed636a64a6
+  type: switch
+  z: 852390cb9559e176
+  g: af7c52c4b0905961
+  name: client
+  property: _client
+  propertyType: msg
+  rules:
+    - t: hask
+      v: socketId
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 290
+  'y': 2960
+  wires:
+    - - a725430845c0b181
+- id: c6828e9acab95b61
+  type: switch
+  z: 852390cb9559e176
+  g: 610dc329bbf9ecdb
+  name: client
+  property: _client
+  propertyType: msg
+  rules:
+    - t: hask
+      v: socketId
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 290
+  'y': 3200
+  wires:
+    - - 6350e2ece2d1fbf7
