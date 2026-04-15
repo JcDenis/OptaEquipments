@@ -240,6 +240,7 @@
     - c7e483c28161d72c
     - 34d5c3e9bb840749
     - 18e77c99c8f24b09
+    - 941f893b5111021a
   x: 104
   'y': 279
   w: 3592
@@ -1477,13 +1478,15 @@
     - t: hask
       v: equipment
       vt: str
+    - t: else
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 570
   'y': 680
   wires:
     - - e7f0d477cc7254e6
+    - - 941f893b5111021a
 - id: cf2abc1fc9be5717
   type: change
   z: 852390cb9559e176
@@ -1581,7 +1584,7 @@
   to: ''
   reg: false
   x: 770
-  'y': 680
+  'y': 740
   wires:
     - - dbe2dc99f3174070
       - a732073fc9ce650c
@@ -4588,6 +4591,7 @@
     - 7bba6594f41302c2
     - ed53bb28b7006772
     - 716fd198bbd63dcb
+    - 4a798d15562c1309
   x: 145
   'y': 200
   wires:
@@ -5052,3 +5056,33 @@
   'y': 2960
   wires:
     - - a725430845c0b181
+- id: 941f893b5111021a
+  type: change
+  z: 852390cb9559e176
+  g: 20a2e240c83c48c2
+  name: equipment
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      pt: flow
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 770
+  'y': 680
+  wires:
+    - - dbe2dc99f3174070

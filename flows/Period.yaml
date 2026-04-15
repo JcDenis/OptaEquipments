@@ -82,6 +82,8 @@
     - a3e39a49f1de0312
     - 50731c6b0d0284ae
     - 59e29cb1f9b1e974
+    - 7e23c5af091ec09a
+    - 4a798d15562c1309
   x: 104
   'y': 279
   w: 5962
@@ -995,6 +997,7 @@
   'y': 320
   wires:
     - - b53331a4b55c76c9
+      - 2cb2c283df32f679
 - id: b53331a4b55c76c9
   type: switch
   z: 51c4b2897d2c318c
@@ -1006,13 +1009,17 @@
     - t: eq
       v: button_click
       vt: str
+    - t: eq
+      v: row_click
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 5250
   'y': 320
   wires:
     - - d8aae885b384c2cd
+    - - 7e23c5af091ec09a
 - id: ab05b935776a1406
   type: switch
   z: 51c4b2897d2c318c
@@ -1445,3 +1452,58 @@
   'y': 500
   wires:
     - - 50731c6b0d0284ae
+- id: 2cb2c283df32f679
+  type: debug
+  z: 51c4b2897d2c318c
+  name: debug 1
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 5280
+  'y': 160
+  wires: []
+- id: 7e23c5af091ec09a
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: tab
+  rules:
+    - t: set
+      p: form
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: Détail
+      tot: str
+    - t: delete
+      p: action
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 5430
+  'y': 480
+  wires:
+    - - 4a798d15562c1309
+- id: 4a798d15562c1309
+  type: link out
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: ui - list - tab
+  mode: link
+  links:
+    - 00818f8c0686b556
+    - 2045a5696769c038
+  x: 5555
+  'y': 480
+  wires: []
