@@ -114,9 +114,11 @@
     - ce49dce4c6876098
     - db81b60b48f97b07
     - fca43f70cc3e5520
+    - ce558a1c98b4df20
+    - 288d58d530f79990
   x: 94
   'y': 919
-  w: 1412
+  w: 1692
   h: 262
 - id: 10af438fbe88a4a2
   type: link in
@@ -1166,7 +1168,7 @@
   z: 135b7308617dad08
   g: c0b72044a49a3f76
   name: model - tcw122bcm - in
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -1220,7 +1222,7 @@
     - t: set
       p: '#:(memoryOnly)::describe.endpoint.ep32s3eth8di8ro'
       pt: global
-      to: "{\t    'input1':'Etat entrée 1',\t    'input2':'Etat entrée 2',\t    'input3':'Etat entrée 3',\t    'input4':'Etat entrée 4',\t    'input5':'Etat entrée 5',\t    'input6':'Etat entrée 6',\t    'input7':'Etat entrée 7',\t    'input8':'Etat entrée 8',\t    'relay1':'Commande de sortie 1',\t    'relay2':'Commande de sortie 2',\t    'relay3':'Commande de sortie 3',\t    'relay4':'Commande de sortie 4',\t    'relay5':'Commande de sortie 5',\t    'relay6':'Commande de sortie 6',\t    'relay7':'Commande de sortie 7',\t    'relay8':'Commande de sortie 8'\t}"
+      to: "{\t    'input1':'Etat entrée 1',\t    'input2':'Etat entrée 2',\t    'input3':'Etat entrée 3',\t    'input4':'Etat entrée 4',\t    'input5':'Etat entrée 5',\t    'input6':'Etat entrée 6',\t    'input7':'Etat entrée 7',\t    'input8':'Etat entrée 8',\t    'relay1':'Commande de sortie 1',\t    'relay2':'Commande de sortie 2',\t    'relay3':'Commande de sortie 3',\t    'relay4':'Commande de sortie 4',\t    'relay5':'Commande de sortie 5',\t    'relay6':'Commande de sortie 6',\t    'relay7':'Commande de sortie 7',\t    'relay8':'Commande de sortie 8',\t    'input1partialHigh':\"Compteur partiel d'heures entrée 1\",\t    'input2partialHigh':\"Compteur partiel d'heures entrée 2\",\t    'input3partialHigh':\"Compteur partiel d'heures entrée 3\",\t    'input4partialHigh':\"Compteur partiel d'heures entrée 4\",\t    'input5partialHigh':\"Compteur partiel d'heures entrée 5\",\t    'input6partialHigh':\"Compteur partiel d'heures entrée 6\",\t    'input7partialHigh':\"Compteur partiel d'heures entrée 7\",\t    'input8partialHigh':\"Compteur partiel d'heures entrée 8\",\t    'input1high':\"Compteur total d'heures entrée 1\",\t    'input2high':\"Compteur total d'heures entrée 2\",\t    'input3high':\"Compteur total d'heures entrée 3\",\t    'input4high':\"Compteur total d'heures entrée 4\",\t    'input5high':\"Compteur total d'heures entrée 5\",\t    'input6high':\"Compteur total d'heures entrée 6\",\t    'input7high':\"Compteur total d'heures entrée 7\",\t    'input8high':\"Compteur total d'heures entrée 8\"\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -1264,13 +1266,6 @@
       pt: msg
       to: '$split(msg.topic,''/'')'
       tot: jsonata
-    - t: set
-      p: endpoint
-      pt: msg
-      to: >-
-        $join(['ep32s3eth8di8ro', msg.split[2], msg.split[3] & msg.split[4]],
-        '|')
-      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -1279,7 +1274,7 @@
   x: 390
   'y': 1020
   wires:
-    - - 4d3f4a7ba233fe67
+    - - ecd439977e7961df
 - id: 7a824134c270f925
   type: mqtt in
   z: 135b7308617dad08
@@ -1310,14 +1305,14 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1340
+  x: 1620
   'y': 960
   wires: []
 - id: 4d3f4a7ba233fe67
   type: switch
   z: 135b7308617dad08
   g: 0bd0a0e550d3bcc1
-  name: has endpoint
+  name: endpoint
   property: kernel.endpoint
   propertyType: global
   rules:
@@ -1327,10 +1322,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 590
+  x: 920
   'y': 1020
   wires:
-    - - ecd439977e7961df
+    - - 7424c6064adde611
 - id: 0d22665f8ff032a1
   type: change
   z: 135b7308617dad08
@@ -1374,7 +1369,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1100
+  x: 1380
   'y': 1020
   wires:
     - - adf884f302c2073e
@@ -1393,10 +1388,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 770
+  x: 570
   'y': 1020
   wires:
-    - - 7424c6064adde611
+    - - ce558a1c98b4df20
 - id: 7424c6064adde611
   type: change
   z: 135b7308617dad08
@@ -1413,7 +1408,7 @@
   from: ''
   to: ''
   reg: false
-  x: 930
+  x: 1090
   'y': 1020
   wires:
     - - 0d22665f8ff032a1
@@ -1425,7 +1420,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1235
+  x: 1515
   'y': 1020
   wires: []
 - id: e47fa68c1a570f10
@@ -1572,4 +1567,35 @@
   statusType: auto
   x: 990
   'y': 1140
+  wires: []
+- id: ce558a1c98b4df20
+  type: change
+  z: 135b7308617dad08
+  g: 0bd0a0e550d3bcc1
+  name: endpoint
+  rules:
+    - t: set
+      p: endpoint
+      pt: msg
+      to: >-
+        $join(['ep32s3eth8di8ro', msg.split[2], msg.split[3] & msg.split[4]],
+        '|')
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 740
+  'y': 1020
+  wires:
+    - - 4d3f4a7ba233fe67
+- id: 288d58d530f79990
+  type: comment
+  z: 135b7308617dad08
+  g: 0bd0a0e550d3bcc1
+  name: 'todo: virtuel'
+  info: ''
+  x: 910
+  'y': 960
   wires: []
