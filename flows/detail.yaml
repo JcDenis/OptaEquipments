@@ -726,8 +726,8 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.value
-      tot: msg
+      to: '$round(msg.kernel.value, 1)'
+      tot: jsonata
     - t: set
       p: enabled
       pt: msg
@@ -829,6 +829,15 @@
       pt: msg
     - t: delete
       p: enabled
+      pt: msg
+    - t: delete
+      p: limit_plant
+      pt: msg
+    - t: delete
+      p: limit_line
+      pt: msg
+    - t: delete
+      p: limit_equipment
       pt: msg
   action: ''
   property: ''
@@ -1052,7 +1061,7 @@
     - t: set
       p: ui_update
       pt: msg
-      to: "{\t    'label':msg.kernel.component_name & ' (' & (msg.kernel.value=1?'Désactiver':'Activer') & ')',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
+      to: "{\t    'label':msg.kernel.value=1?'Désactiver la chauffe':'Activer la chauffe',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
       tot: jsonata
   action: ''
   property: ''
@@ -3605,7 +3614,7 @@
     - t: set
       p: ui_update
       pt: msg
-      to: "{\t    'label':msg.kernel.component_name & ' (' & (msg.tmp=1?'Désactiver':'Activer') & ')',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
+      to: "{\t    'label':mmsg.tmp=1?'Désactiver la chauffe':'Activer la chauffe',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
       tot: jsonata
     - t: delete
       p: tmp
@@ -3629,7 +3638,7 @@
     - t: set
       p: ui_update
       pt: msg
-      to: "{\t    'label':msg.kernel.component_name & ' (Inverser)',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
+      to: "{\t    'label':'Inverser la chauffe',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
       tot: jsonata
   action: ''
   property: ''
@@ -3791,8 +3800,8 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.value
-      tot: msg
+      to: '$round(msg.kernel.value, 1)'
+      tot: jsonata
     - t: set
       p: enabled
       pt: msg
@@ -4018,7 +4027,7 @@
     - t: set
       p: ui_update
       pt: msg
-      to: "{\t    'label':msg.kernel.component_name & ' (' & (msg.tmp=1?'Désactiver':'Activer') & ')',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
+      to: "{\t    'label':msg.tmp=1?'Désactiver la chauffe':'Activer la chauffe',\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
       tot: jsonata
     - t: delete
       p: tmp
