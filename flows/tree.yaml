@@ -592,9 +592,10 @@
     - f4708cf1752d82c6
     - 978d5a112feb02ce
     - 3f551fad29acbb1a
+    - d3cd02c43e66acf3
   x: 104
   'y': 3579
-  w: 2182
+  w: 2342
   h: 1042
 - id: 1b6332baa80f468b
   type: group
@@ -691,14 +692,15 @@
     - 1335d9693527e7e3
     - 28e25528291dd3e4
     - e01152247fcb2952
+    - 3b3b0f29625cf11f
   x: 104
   'y': 4659
-  w: 2002
+  w: 2162
   h: 562
 - id: 2c0384adc9ef91fe
   type: group
   z: 64ce08af468b8197
-  name: ''
+  name: ui - day
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.06'
@@ -733,9 +735,10 @@
     - 7866a0ada50fe22f
     - d587c6ae16073069
     - aefcfe76ad970812
+    - f613c66bb240b997
   x: 104
   'y': 5259
-  w: 2022
+  w: 2182
   h: 442
 - id: be594973267232f5
   type: link in
@@ -9301,7 +9304,7 @@
   x: 1810
   'y': 4100
   wires:
-    - - 14c35445941148e4
+    - - d3cd02c43e66acf3
 - id: 14c35445941148e4
   type: change
   z: 64ce08af468b8197
@@ -9330,7 +9333,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1970
+  x: 2130
   'y': 4100
   wires:
     - - e94ffea1996e09c9
@@ -9344,7 +9347,7 @@
   links:
     - 8b1e3b84ed635f09
     - e60e4ab7617738c3
-  x: 2095
+  x: 2255
   'y': 4100
   wires: []
 - id: e94ffea1996e09c9
@@ -9360,7 +9363,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2160
+  x: 2320
   'y': 4160
   wires: []
 - id: 705d8fc0e0689913
@@ -11901,16 +11904,19 @@
   property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
-    - t: regex
-      v: ^(admin|rt)$
+    - t: eq
+      v: admin
       vt: str
-      case: false
+    - t: eq
+      v: rt
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 5410
   'y': 980
   wires:
+    - - dcd264dc214f73a5
     - - dcd264dc214f73a5
 - id: 06e4fbf320c52369
   type: switch
@@ -12050,16 +12056,19 @@
   property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
-    - t: regex
-      v: ^(admin|rt)$
+    - t: eq
+      v: admin
       vt: str
-      case: false
+    - t: eq
+      v: rt
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 7330
   'y': 1460
   wires:
+    - - b0e29315a45ffd99
     - - b0e29315a45ffd99
 - id: e1930e7b5c1b153f
   type: switch
@@ -12137,16 +12146,19 @@
   property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
-    - t: regex
-      v: ^(admin|rt)$
+    - t: eq
+      v: admin
       vt: str
-      case: false
+    - t: eq
+      v: rt
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 5090
   'y': 2000
   wires:
+    - - 73c93a436b80c7e2
     - - 73c93a436b80c7e2
 - id: 79fae3bfce80c95c
   type: change
@@ -12319,16 +12331,19 @@
   property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
   propertyType: global
   rules:
-    - t: regex
-      v: ^(admin|rt)$
+    - t: eq
+      v: admin
       vt: str
-      case: false
+    - t: eq
+      v: rt
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 1970
   'y': 2960
   wires:
+    - - 5450d36d811b2c7e
     - - 5450d36d811b2c7e
 - id: 16914febd388219f
   type: switch
@@ -14009,7 +14024,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2000
+  x: 2160
   'y': 5180
   wires: []
 - id: 9fbbba627c2116fb
@@ -14134,7 +14149,7 @@
   x: 1670
   'y': 5120
   wires:
-    - - 1335d9693527e7e3
+    - - 3b3b0f29625cf11f
 - id: b02ecdcd26600fcf
   type: change
   z: 64ce08af468b8197
@@ -14183,7 +14198,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1830
+  x: 1990
   'y': 5120
   wires:
     - - e657a9170f8a107c
@@ -14197,7 +14212,7 @@
   links:
     - e60e4ab7617738c3
     - 2e622bfdffcf772f
-  x: 1955
+  x: 2115
   'y': 5120
   wires: []
 - id: e01152247fcb2952
@@ -14208,7 +14223,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1795
+  x: 1935
   'y': 5180
   wires: []
 - id: 636d0d23ef67c933
@@ -14774,7 +14789,7 @@
   x: 1690
   'y': 5600
   wires:
-    - - d7d352cf04bc85c7
+    - - f613c66bb240b997
 - id: d7d352cf04bc85c7
   type: change
   z: 64ce08af468b8197
@@ -14803,7 +14818,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1850
+  x: 2010
   'y': 5600
   wires:
     - - d587c6ae16073069
@@ -14828,7 +14843,7 @@
   links:
     - e60e4ab7617738c3
     - 636d0d23ef67c933
-  x: 1975
+  x: 2135
   'y': 5600
   wires: []
 - id: d587c6ae16073069
@@ -14844,7 +14859,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2020
+  x: 2180
   'y': 5660
   wires: []
 - id: aefcfe76ad970812
@@ -14877,3 +14892,69 @@
   'y': 5600
   wires:
     - - 6ca53b431ccfbd51
+- id: d3cd02c43e66acf3
+  type: switch
+  z: 64ce08af468b8197
+  g: 85b6019ecabb42eb
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+    - t: eq
+      v: rt
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1970
+  'y': 4100
+  wires:
+    - - 14c35445941148e4
+    - - 14c35445941148e4
+- id: 3b3b0f29625cf11f
+  type: switch
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+    - t: eq
+      v: rt
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1830
+  'y': 5120
+  wires:
+    - - 1335d9693527e7e3
+    - - 1335d9693527e7e3
+- id: f613c66bb240b997
+  type: switch
+  z: 64ce08af468b8197
+  g: 2c0384adc9ef91fe
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+    - t: eq
+      v: rt
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1850
+  'y': 5600
+  wires:
+    - - d7d352cf04bc85c7
+    - - d7d352cf04bc85c7

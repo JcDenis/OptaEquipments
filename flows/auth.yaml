@@ -38,9 +38,6 @@
     - 88a80f7ce9615035
     - 574f45c15e24ef16
     - fd316ca0fdd9738b
-    - 529f647de4d6aca7
-    - eb6c15e9f9110733
-    - 3d50b7eee872b927
     - 6ebc17186e839ebb
     - 0cf63361a578f787
   x: 104
@@ -86,7 +83,7 @@
   tooltip: ''
   delay: 300
   passthru: false
-  sendOnDelay: false
+  sendOnDelay: true
   sendOnBlur: true
   sendOnEnter: true
   className: ''
@@ -115,7 +112,7 @@
   tooltip: ''
   delay: 300
   passthru: false
-  sendOnDelay: false
+  sendOnDelay: true
   sendOnBlur: true
   sendOnEnter: true
   className: ''
@@ -312,8 +309,7 @@
   x: 970
   'y': 500
   wires:
-    - - 529f647de4d6aca7
-      - 3d50b7eee872b927
+    - []
 - id: cfc247c5da19d8e0
   type: change
   z: 27841aa886edd1cd
@@ -333,7 +329,7 @@
   x: 970
   'y': 560
   wires:
-    - - eb6c15e9f9110733
+    - []
 - id: 56c612fa7caecb7f
   type: change
   z: 27841aa886edd1cd
@@ -350,9 +346,6 @@
       pt: msg
       to: '#:(memoryOnly)::user[msg._client.socketId]pass'
       tot: flow
-    - t: delete
-      p: '#:(memoryOnly)::user[msg._client.socketId]'
-      pt: flow
   action: ''
   property: ''
   from: ''
@@ -840,6 +833,9 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: delete
+      p: '#:(memoryOnly)::user'
+      pt: flow
   action: ''
   property: ''
   from: ''
@@ -849,96 +845,8 @@
   'y': 500
   wires:
     - - 050ccef8b075e3d0
-- id: 529f647de4d6aca7
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: show
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 560
-  wires:
-    - - d1f204e0d223525d
-- id: eb6c15e9f9110733
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: show
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 680
-  wires:
-    - - f2cfb5d52b6caa4d
-- id: 3d50b7eee872b927
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 620
-  wires:
-    - - f2cfb5d52b6caa4d
+      - d1f204e0d223525d
+      - f2cfb5d52b6caa4d
 - id: 6ebc17186e839ebb
   type: change
   z: 27841aa886edd1cd
