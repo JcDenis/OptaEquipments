@@ -1,0 +1,73 @@
+version: "3.8" 
+services: 
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+      - 8883:8883
+      - 9001:9001
+    networks:
+      - optanet 
+    volumes:
+      - mosquitto_config:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - 8086:8086
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: admin
+      DOCKER_INFLUXDB_INIT_ORG: optaequipments
+      DOCKER_INFLUXDB_INIT_BUCKET: state
+    networks:
+      - optanet
+    volumes:
+      - influxdb_etc:/etc/influxdb2
+      - influxdb_lib:/var/lib/influxdb2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+  nodered:
+    container_name: nodered
+    image: nodered/node-red:latest
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+    ports:
+      - 80:1880
+      - 502:502 # modbus
+    networks:
+      - optanet
+    volumes:
+      - nodered_data:/data
+    depends_on:
+      - mosquitto
+      - influxdb
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+networks:
+  optanet:
+volumes:
+  mosquitto_config:
+  mosquitto_data:
+  mosquitto_log:
+  influxdb_etc:
+  influxdb_lib:
+  nodered_data:
