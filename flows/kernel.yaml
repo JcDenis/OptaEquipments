@@ -124,23 +124,13 @@
     - 208f67135b531d2d
     - d5b4e8e17997e033
     - 3e62a1c9a4d2e61f
-    - 62a937227be99b05
-    - 8c1c5bf80798ae2b
-    - cc258e5789d12e79
-    - ec685ff85f3403d1
-    - 9f484ae35b520c21
-    - 24cd8a5a5db7fd27
-    - 8894c5d4699b0a0c
     - ab2294164d2f0069
     - f18599f0cba00a43
-    - 1f35842ad1aa1eaa
     - 339a18bb070b06a2
-    - bf3c7544afbda610
-    - 9d76591ea56468ed
-    - b9aa052475bd7dc8
+    - b70ce1d253cc53c8
   x: 104
   'y': 1179
-  w: 1902
+  w: 672
   h: 322
 - id: 6db1b393113d5660
   type: group
@@ -350,6 +340,47 @@
   'y': 579
   w: 1312
   h: 82
+- id: 31a48d3959ce4d06
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - mqtt
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 202424f6de068bd4
+    - 10c82357a69cfd98
+    - 05790def660c66fb
+    - a0fc8abe01156f55
+    - 41c767836b03252b
+    - 451ea07f88244a01
+    - 96b60125fedbd2dd
+    - f22358dfa31523c3
+    - 4de1644d9063dd22
+    - 5e63e5a8296ee640
+    - 84299714efdcf62a
+    - dcda7e0dd52aaa6d
+    - a2a838967876ba43
+  x: 104
+  'y': 699
+  w: 1782
+  h: 142
+- id: 64643d29f377842f
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - update
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - afd0b91e4d0f2c22
+    - a5edf0ca67cd7afe
+  x: 504
+  'y': 459
+  w: 362
+  h: 82
 - id: d4449aa4abbb50fa
   type: group
   z: f6f2187d.f17ca8
@@ -468,47 +499,33 @@
   'y': 3559
   w: 2512
   h: 142
-- id: 31a48d3959ce4d06
+- id: f84a47fbf723594b
   type: group
   z: f6f2187d.f17ca8
-  name: kernel - mqtt
+  name: kernel - object in
   style:
     fill: '#ff0000'
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 202424f6de068bd4
-    - 10c82357a69cfd98
-    - 05790def660c66fb
-    - a0fc8abe01156f55
-    - 41c767836b03252b
-    - 451ea07f88244a01
-    - 96b60125fedbd2dd
-    - f22358dfa31523c3
-    - 4de1644d9063dd22
-    - 5e63e5a8296ee640
-    - 84299714efdcf62a
-    - dcda7e0dd52aaa6d
-    - a2a838967876ba43
-  x: 104
-  'y': 699
-  w: 1782
-  h: 142
-- id: 64643d29f377842f
-  type: group
-  z: f6f2187d.f17ca8
-  name: kernel - update
-  style:
-    fill: '#ff0000'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - afd0b91e4d0f2c22
-    - a5edf0ca67cd7afe
-  x: 504
-  'y': 459
-  w: 362
-  h: 82
+    - 62a937227be99b05
+    - 8c1c5bf80798ae2b
+    - cc258e5789d12e79
+    - ec685ff85f3403d1
+    - 9f484ae35b520c21
+    - 24cd8a5a5db7fd27
+    - 8894c5d4699b0a0c
+    - bf3c7544afbda610
+    - 9d76591ea56468ed
+    - b9aa052475bd7dc8
+    - 32238bfb65baf1bc
+    - be36f6bbac4c54f7
+    - 24b18891d95734ab
+    - 3595251e3e358414
+  x: 944
+  'y': 1179
+  w: 1452
+  h: 202
 - id: a22fb9b1d981984a
   type: switch
   z: f6f2187d.f17ca8
@@ -998,6 +1015,7 @@
     - e01152247fcb2952
     - 0cf63361a578f787
     - 5089216d327d1312
+    - 32238bfb65baf1bc
   x: 145
   'y': 2940
   wires:
@@ -1337,14 +1355,14 @@
   type: file
   z: f6f2187d.f17ca8
   g: ede1bcd992279676
-  name: ''
+  name: write
   filename: filename
   filenameType: msg
   appendNewline: true
   createDir: true
   overwriteFile: 'true'
   encoding: none
-  x: 480
+  x: 450
   'y': 1340
   wires:
     - - c24e9a29d0957974
@@ -1365,7 +1383,7 @@
   from: ''
   to: ''
   reg: false
-  x: 670
+  x: 610
   'y': 1340
   wires:
     - - c26a749118b05f68
@@ -1377,7 +1395,7 @@
   scope:
     - 5e10675adc6c6d67
   uncaught: false
-  x: 460
+  x: 440
   'y': 1400
   wires:
     - - cc86fe956692ca6f
@@ -1397,7 +1415,7 @@
   from: ''
   to: ''
   reg: false
-  x: 670
+  x: 610
   'y': 1400
   wires:
     - - c26a749118b05f68
@@ -1409,7 +1427,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 795
+  x: 735
   'y': 1340
   wires: []
 - id: 0a6234b647fb87fc
@@ -1494,7 +1512,7 @@
   type: file in
   z: f6f2187d.f17ca8
   g: ede1bcd992279676
-  name: ''
+  name: read
   filename: filename
   filenameType: msg
   format: utf8
@@ -1502,10 +1520,11 @@
   sendError: false
   encoding: none
   allProps: false
-  x: 470
+  x: 450
   'y': 1220
   wires:
     - - 3e62a1c9a4d2e61f
+      - 339a18bb070b06a2
 - id: 3e62a1c9a4d2e61f
   type: json
   z: f6f2187d.f17ca8
@@ -1514,15 +1533,15 @@
   property: payload
   action: ''
   pretty: false
-  x: 650
+  x: 610
   'y': 1220
   wires:
-    - - 8c1c5bf80798ae2b
+    - - b70ce1d253cc53c8
 - id: 62a937227be99b05
   type: debug
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
-  name: kernel - file - read
+  g: f84a47fbf723594b
+  name: kernel - object in
   active: false
   tosidebar: true
   console: false
@@ -1531,13 +1550,13 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1650
-  'y': 1280
+  x: 1940
+  'y': 1340
   wires: []
 - id: 8c1c5bf80798ae2b
   type: switch
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: empty
   property: payload
   propertyType: msg
@@ -1548,14 +1567,14 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 810
+  x: 1110
   'y': 1220
   wires:
     - - cc258e5789d12e79
 - id: cc258e5789d12e79
   type: change
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: clear
   rules:
     - t: delete
@@ -1571,14 +1590,14 @@
   from: ''
   to: ''
   reg: false
-  x: 970
+  x: 1270
   'y': 1220
   wires:
     - - ec685ff85f3403d1
 - id: ec685ff85f3403d1
   type: split
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: split
   splt: \n
   spltType: str
@@ -1587,14 +1606,14 @@
   stream: false
   addname: kernel.type
   property: payload
-  x: 1130
+  x: 1430
   'y': 1220
   wires:
     - - 9f484ae35b520c21
 - id: 9f484ae35b520c21
   type: split
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: split
   splt: \n
   spltType: str
@@ -1603,14 +1622,14 @@
   stream: false
   addname: kernel.entity
   property: payload
-  x: 1290
+  x: 1590
   'y': 1220
   wires:
     - - 24cd8a5a5db7fd27
 - id: 24cd8a5a5db7fd27
   type: change
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: kernel
   rules:
     - t: set
@@ -1634,9 +1653,6 @@
       to: 'false'
       tot: bool
     - t: delete
-      p: parts
-      pt: msg
-    - t: delete
       p: filename
       pt: msg
   action: ''
@@ -1644,21 +1660,21 @@
   from: ''
   to: ''
   reg: false
-  x: 1450
+  x: 1750
   'y': 1220
   wires:
     - - 62a937227be99b05
-      - 8894c5d4699b0a0c
       - bf3c7544afbda610
+      - 3595251e3e358414
 - id: 8894c5d4699b0a0c
   type: link out
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
-  name: kernel - file - read
+  g: f84a47fbf723594b
+  name: kernel - object in
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1575
+  x: 2195
   'y': 1220
   wires: []
 - id: ddf293f86a1dd28c
@@ -1733,7 +1749,7 @@
   scope:
     - d5b4e8e17997e033
   uncaught: false
-  x: 460
+  x: 440
   'y': 1280
   wires:
     - - f18599f0cba00a43
@@ -1753,7 +1769,7 @@
   from: ''
   to: ''
   reg: false
-  x: 670
+  x: 610
   'y': 1280
   wires:
     - - c26a749118b05f68
@@ -1968,15 +1984,6 @@
   wires:
     - - 23dd24021e2cecf1
       - 9405477d274b186a
-- id: 1f35842ad1aa1eaa
-  type: comment
-  z: f6f2187d.f17ca8
-  g: ede1bcd992279676
-  name: 'todo: export (download file)'
-  info: ''
-  x: 250
-  'y': 1460
-  wires: []
 - id: 00818f8c0686b556
   type: link in
   z: f6f2187d.f17ca8
@@ -2146,7 +2153,7 @@
   type: debug
   z: f6f2187d.f17ca8
   g: ede1bcd992279676
-  name: kernel - file - write
+  name: kernel - file
   active: true
   tosidebar: true
   console: false
@@ -2155,7 +2162,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 710
+  x: 630
   'y': 1460
   wires: []
 - id: a8cfd0368ece5ab1
@@ -2554,7 +2561,7 @@
 - id: bf3c7544afbda610
   type: join
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: join
   mode: auto
   build: object
@@ -2572,14 +2579,14 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1610
-  'y': 1340
+  x: 1910
+  'y': 1280
   wires:
     - - 9d76591ea56468ed
 - id: 9d76591ea56468ed
   type: join
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: join
   mode: auto
   build: object
@@ -2597,14 +2604,14 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1770
-  'y': 1340
+  x: 2070
+  'y': 1280
   wires:
     - - b9aa052475bd7dc8
 - id: b9aa052475bd7dc8
   type: change
   z: f6f2187d.f17ca8
-  g: ede1bcd992279676
+  g: f84a47fbf723594b
   name: notice
   rules:
     - t: set
@@ -2617,10 +2624,10 @@
   from: ''
   to: ''
   reg: false
-  x: 1930
-  'y': 1340
+  x: 2230
+  'y': 1280
   wires:
-    - - c26a749118b05f68
+    - - 32238bfb65baf1bc
 - id: 6e04acdf428261ac
   type: inject
   z: f6f2187d.f17ca8
@@ -4976,42 +4983,6 @@
   'y': 3660
   wires:
     - - d7e4409126ba1bed
-- id: adadd0176b731cab
-  type: inject
-  z: f6f2187d.f17ca8
-  name: ''
-  props:
-    - p: payload
-    - p: topic
-      vt: str
-  repeat: ''
-  crontab: ''
-  once: false
-  onceDelay: 0.1
-  topic: ''
-  payload: ''
-  payloadType: date
-  x: 850
-  'y': 3800
-  wires:
-    - - d49db48295a903a0
-- id: d49db48295a903a0
-  type: change
-  z: f6f2187d.f17ca8
-  name: ''
-  rules:
-    - t: delete
-      p: kernel.day
-      pt: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1080
-  'y': 3820
-  wires:
-    - []
 - id: 20ca26df47797bb2
   type: switch
   z: f6f2187d.f17ca8
@@ -5096,3 +5067,76 @@
   'y': 3240
   wires:
     - - 7e5f2b517cfd181c
+- id: 32238bfb65baf1bc
+  type: link out
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: kernel - object in - notice
+  mode: link
+  links:
+    - 4e94023e8ba12f50
+  x: 2355
+  'y': 1280
+  wires: []
+- id: b70ce1d253cc53c8
+  type: link out
+  z: f6f2187d.f17ca8
+  g: ede1bcd992279676
+  name: kernel - file in
+  mode: link
+  links:
+    - be36f6bbac4c54f7
+  x: 735
+  'y': 1220
+  wires: []
+- id: be36f6bbac4c54f7
+  type: link in
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: kernel - object in
+  links:
+    - b70ce1d253cc53c8
+    - eddfa49883d68d85
+  x: 985
+  'y': 1220
+  wires:
+    - - 8c1c5bf80798ae2b
+- id: 24b18891d95734ab
+  type: change
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: clean
+  rules:
+    - t: delete
+      p: parts
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2070
+  'y': 1220
+  wires:
+    - - 8894c5d4699b0a0c
+- id: 3595251e3e358414
+  type: switch
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: reset
+  property: kernel.entity
+  propertyType: msg
+  rules:
+    - t: regex
+      v: (reset)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1910
+  'y': 1220
+  wires:
+    - []
+    - - 24b18891d95734ab
