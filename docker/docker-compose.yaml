@@ -38,8 +38,6 @@ services:
         /usr/sbin/mosquitto -c $$cf
     ports:
       - 1883:1883
-      #- 8883:8883
-      #- 9001:9001
     networks:
       - optanet 
     volumes:
@@ -66,6 +64,7 @@ services:
       DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_INFLUXDB_PASSWORD}
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
+      DOCKER_INFLUXDB_INIT_RETENTION: 700d
     ports:
       - 8086:8086
     networks:
@@ -88,29 +87,27 @@ services:
     image: nodered/node-red:latest
     restart: unless-stopped
     environment:
-      DOCKER_NODERED_USERNAME: ${DOCKER_NODERED_USERNAME}
-      DOCKER_NODERED_PASSWORD: ${DOCKER_NODERED_PASSWORD}
-      DOCKER_NODERED_SECRET: ${DOCKER_NODERED_SECRET}
       NODE_RED_ENABLE_PROJECTS: true
       TZ: Europe/Paris
       DOCKER_NODERED_CONFIG: |-
         module.exports = {
           flowFile: 'flows.json',
-          credentialSecret: process.env.DOCKER_NODERED_SECRET,
+          credentialSecret: '${DOCKER_NODERED_SECRET}',
           flowFilePretty: true,
           adminAuth: {
               type: 'credentials',
               users: [{
-                  username: process.env.DOCKER_NODERED_USERNAME,
-                  password: process.env.DOCKER_NODERED_PASSWORD,
+                  username: '${DOCKER_NODERED_USERNAME}',
+                  password: '${DOCKER_NODERED_PASSWORD}',
                   permissions: '*'
               }],
               sessionExpiryTime : 86400
           },
           httpAdminRoot: '/admin',
           httpNodeRoot: '/',
+          diagnostics: { enabled: true, ui: true, },
           runtimeState: { enabled: false, ui: false, },
-          logging: { console: { level: 'warn', metrics: false, audit: false } },
+          logging: { console: { level: 'info', metrics: false, audit: false } },
           contextStorage: { default: { module: 'localfilesystem' }, memoryOnly: { module: 'memory' }, },
           exportGlobalContextKeys: false,
           externalModules: { },
@@ -124,7 +121,6 @@ services:
           functionTimeout: 0,
           functionGlobalContext: { },
           ui: { path: '' },
-          debugUseColors: true,
           debugMaxLength: 1000,
           mqttReconnectTime: 15000,
           serialReconnectTime: 15000,
