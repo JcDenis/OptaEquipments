@@ -89,45 +89,45 @@ services:
     environment:
       NODE_RED_ENABLE_PROJECTS: true
       TZ: Europe/Paris
-      DOCKER_NODERED_CONFIG: |-
-        module.exports = {
-          flowFile: 'flows.json',
-          credentialSecret: '${DOCKER_NODERED_SECRET}',
+    entrypoint: >
+      /bin/sh -c '
+        HASH=$(echo "${DOCKER_NODERED_PASSWORD}" | node-red admin hash-pw) &&
+        HASHB=$(expr substr "$$HASH" 11 100) &&
+        echo -n "        module.exports = {
+          flowFile: \"flows.json\",
+          credentialSecret: \"${DOCKER_NODERED_SECRET}\",
           flowFilePretty: true,
           adminAuth: {
-              type: 'credentials',
+              type: \"credentials\",
               users: [{
-                  username: '${DOCKER_NODERED_USERNAME}',
-                  password: '${DOCKER_NODERED_PASSWORD}',
-                  permissions: '*'
+                  username: \"${DOCKER_NODERED_USERNAME}\",
+                  password: \"$$HASHB\",
+                  permissions: \"*\"
               }],
               sessionExpiryTime : 86400
           },
-          httpAdminRoot: '/admin',
-          httpNodeRoot: '/',
+          httpAdminRoot: \"/admin\",
+          httpNodeRoot: \"/\",
           diagnostics: { enabled: true, ui: true, },
           runtimeState: { enabled: false, ui: false, },
-          logging: { console: { level: 'info', metrics: false, audit: false } },
-          contextStorage: { default: { module: 'localfilesystem' }, memoryOnly: { module: 'memory' }, },
+          logging: { console: { level: \"info\", metrics: false, audit: false } },
+          contextStorage: { default: { module: \"localfilesystem\" }, memoryOnly: { module: \"memory\" }, },
           exportGlobalContextKeys: false,
           externalModules: { },
           editorTheme: {
               palette: { },
-              projects: { enabled: true, workflow: { mode: 'manual' } },
-              codeEditor: { lib: 'monaco', options: { } },
+              projects: { enabled: true, workflow: { mode: \"manual\" } },
+              codeEditor: { lib: \"monaco\", options: { } },
               markdownEditor: { mermaid: { enabled: true } },
           },
           functionExternalModules: true,
           functionTimeout: 0,
           functionGlobalContext: { },
-          ui: { path: '' },
+          ui: { path: \"\" },
           debugMaxLength: 1000,
           mqttReconnectTime: 15000,
           serialReconnectTime: 15000,
-        }
-    entrypoint: >
-      /bin/sh -c '
-        echo -n "$$DOCKER_NODERED_CONFIG" > /data/settings.js &&
+        }" > /data/settings.js &&
         chown node-red:node-red /data/settings.js &&
         chmod 600 /data/settings.js &&
         exec ./entrypoint.sh
