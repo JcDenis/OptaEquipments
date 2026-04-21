@@ -5,8 +5,8 @@ services:
     container_name: mqtt
     restart: unless-stopped
     environment:
-      DOCKER_MOSQUITTO_USERNAME: optauser
-      DOCKER_MOSQUITTO_PASSWORD: otptapass
+      DOCKER_MOSQUITTO_USERNAME: ${DOCKER_MOSQUITTO_USERNAME}
+      DOCKER_MOSQUITTO_PASSWORD: ${DOCKER_MOSQUITTO_PASSWORD}
       DOCKER_MOSQUITTO_CONFIG: |-
         allow_anonymous false
         listener 1883
@@ -62,8 +62,8 @@ services:
     restart: unless-stopped
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
-      DOCKER_INFLUXDB_INIT_USERNAME: admin
-      DOCKER_INFLUXDB_INIT_PASSWORD: optaadmin
+      DOCKER_INFLUXDB_INIT_USERNAME: ${DOCKER_INFLUXDB_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_MOSQUITTO_PASSWORD}
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
     ports:
