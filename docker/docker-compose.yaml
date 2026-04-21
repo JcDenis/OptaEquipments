@@ -63,7 +63,7 @@ services:
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
       DOCKER_INFLUXDB_INIT_USERNAME: ${DOCKER_INFLUXDB_USERNAME}
-      DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_MOSQUITTO_PASSWORD}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_INFLUXDB_PASSWORD}
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
     ports:
@@ -88,9 +88,54 @@ services:
     image: nodered/node-red:latest
     restart: unless-stopped
     environment:
-      - TZ=Europe/Paris
-      - NODE_RED_CREDENTIAL_SECRET=optaequipments
-      - NODE_RED_ENABLE_PROJECTS=true
+      DOCKER_NODERED_USERNAME: ${DOCKER_NODERED_USERNAME}
+      DOCKER_NODERED_PASSWORD: ${DOCKER_NODERED_PASSWORD}
+      DOCKER_NODERED_SECRET: ${DOCKER_NODERED_SECRET}
+      NODE_RED_ENABLE_PROJECTS: true
+      TZ: Europe/Paris
+      DOCKER_NODERED_CONFIG: |-
+        module.exports = {
+          flowFile: 'flows.json',
+          credentialSecret: process.env.DOCKER_NODERED_SECRET,
+          flowFilePretty: true,
+          adminAuth: {
+              type: 'credentials',
+              users: [{
+                  username: process.env.DOCKER_NODERED_USERNAME,
+                  password: process.env.DOCKER_NODERED_PASSWORD,
+                  permissions: '*'
+              }],
+              sessionExpiryTime : 86400
+          },
+          httpAdminRoot: '/admin',
+          httpNodeRoot: '/',
+          runtimeState: { enabled: false, ui: false, },
+          logging: { console: { level: 'warn', metrics: false, audit: false } },
+          contextStorage: { default: { module: 'localfilesystem' }, memoryOnly: { module: 'memory' }, },
+          exportGlobalContextKeys: false,
+          externalModules: { },
+          editorTheme: {
+              palette: { },
+              projects: { enabled: true, workflow: { mode: 'manual' } },
+              codeEditor: { lib: 'monaco', options: { } },
+              markdownEditor: { mermaid: { enabled: true } },
+          },
+          functionExternalModules: true,
+          functionTimeout: 0,
+          functionGlobalContext: { },
+          ui: { path: '' },
+          debugUseColors: true,
+          debugMaxLength: 1000,
+          mqttReconnectTime: 15000,
+          serialReconnectTime: 15000,
+        }
+    entrypoint: >
+      /bin/sh -c '
+        echo -n "$$DOCKER_NODERED_CONFIG" > /data/settings.js &&
+        chown node-red:node-red /data/settings.js &&
+        chmod 600 /data/settings.js &&
+        exec ./entrypoint.sh
+      '
     ports:
       - 1880:1880
       - 502:502 # modbus
