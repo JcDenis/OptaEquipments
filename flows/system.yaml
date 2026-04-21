@@ -76,7 +76,6 @@
     - 6426699344e1f0e1
     - c8d5e7356764dfc0
     - 6ccccfc0a1f111c1
-    - e7bbfb466fe9b1e8
     - d8fa54a0c3f6d9a5
     - 5849a3795c0cb01f
     - d5ccd0f597d85574
@@ -109,10 +108,17 @@
     - 63f1bb00946da6ca
     - cf43a69a0124764e
     - eddfa49883d68d85
+    - 955702fb29105d93
+    - 2d9314f6db9f0fb7
+    - '129775105e532365'
+    - 99986c4ce71d1c1b
+    - 3ed31290426faddb
+    - 1c02f16a7a919e7e
+    - 0636163612e9f6e3
   x: 104
   'y': 279
-  w: 1152
-  h: 862
+  w: 1462
+  h: 802
 - id: 7a7d35c0913aed9f
   type: group
   z: 44465f18e06bb58d
@@ -940,11 +946,11 @@
       - a31a6d118c265f83
       - 694ad4ec886e0960
       - c3fbd0eb276c1dd6
-      - 6ccccfc0a1f111c1
       - d367e2212791fad3
       - c5f59626827e310e
       - 2d0be523be6aa3e3
       - 39d8c08b5c09c422
+      - 1c02f16a7a919e7e
 - id: c3fbd0eb276c1dd6
   type: ui-file-input
   z: 44465f18e06bb58d
@@ -962,25 +968,24 @@
   accept: image/png
   className: ''
   x: 300
-  'y': 740
+  'y': 680
   wires:
-    - - 5a85864d1b0b96a3
+    - - 2d9314f6db9f0fb7
 - id: 25db029de29257ac
   type: file
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
-  name: ''
-  filename: /data/app_icon.png
-  filenameType: str
+  name: icon
+  filename: filename
+  filenameType: msg
   appendNewline: true
   createDir: false
   overwriteFile: 'true'
   encoding: none
-  x: 1050
-  'y': 740
+  x: 1490
+  'y': 680
   wires:
-    - - e7bbfb466fe9b1e8
-      - 6ccccfc0a1f111c1
+    - - 1c02f16a7a919e7e
 - id: cdff23747bd66c63
   type: base64
   z: 44465f18e06bb58d
@@ -988,24 +993,24 @@
   name: ''
   action: ''
   property: payload
-  x: 840
-  'y': 740
+  x: 1160
+  'y': 680
   wires:
-    - - 25db029de29257ac
+    - - 0636163612e9f6e3
 - id: 306b2fee3a4b886d
   type: file in
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
-  name: ''
-  filename: /data/app_icon.png
-  filenameType: str
+  name: icon
+  filename: filename
+  filenameType: msg
   format: utf8
   chunk: false
   sendError: false
   encoding: none
   allProps: false
-  x: 510
-  'y': 980
+  x: 630
+  'y': 920
   wires:
     - - 359336bc8ac8947e
 - id: 80538c5af3c6a70b
@@ -1019,9 +1024,9 @@
   skipBodyParsing: false
   swaggerDoc: ''
   x: 290
-  'y': 980
+  'y': 920
   wires:
-    - - 306b2fee3a4b886d
+    - - 3ed31290426faddb
 - id: 37ef0dacd1f0e952
   type: http response
   z: 44465f18e06bb58d
@@ -1029,8 +1034,8 @@
   name: ''
   statusCode: ''
   headers: {}
-  x: 1070
-  'y': 980
+  x: 1150
+  'y': 920
   wires: []
 - id: fe3a87fa930d465d
   type: change
@@ -1053,13 +1058,16 @@
       pt: msg
       to: "{\t    'Content-Type':'image/png',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
       tot: jsonata
+    - t: delete
+      p: filename
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 900
-  'y': 980
+  x: 980
+  'y': 920
   wires:
     - - 37ef0dacd1f0e952
 - id: 34fa5590f0d6e124
@@ -1083,8 +1091,8 @@
   from: ''
   to: ''
   reg: false
-  x: 900
-  'y': 920
+  x: 980
+  'y': 860
   wires:
     - - 37ef0dacd1f0e952
 - id: 359336bc8ac8947e
@@ -1094,8 +1102,8 @@
   name: ''
   action: ''
   property: payload
-  x: 720
-  'y': 980
+  x: 800
+  'y': 920
   wires:
     - - fe3a87fa930d465d
 - id: 2646f6d48b57d1a4
@@ -1106,8 +1114,8 @@
   scope:
     - 6ccccfc0a1f111c1
   uncaught: false
-  x: 280
-  'y': 860
+  x: 420
+  'y': 800
   wires:
     - - 6426699344e1f0e1
 - id: 5b4ee2cd26db4dc5
@@ -1141,8 +1149,8 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 700
-  'y': 800
+  x: 780
+  'y': 740
   wires:
     - []
 - id: 6426699344e1f0e1
@@ -1166,8 +1174,8 @@
   from: ''
   to: ''
   reg: false
-  x: 510
-  'y': 860
+  x: 590
+  'y': 800
   wires:
     - - 5b4ee2cd26db4dc5
 - id: c8d5e7356764dfc0
@@ -1186,41 +1194,34 @@
       pt: msg
       to: 'false'
       tot: bool
+    - t: delete
+      p: automate
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 510
-  'y': 800
+  x: 590
+  'y': 740
   wires:
     - - 5b4ee2cd26db4dc5
 - id: 6ccccfc0a1f111c1
   type: file in
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
-  name: ''
-  filename: /data/app_icon.png
-  filenameType: str
+  name: icon
+  filename: filename
+  filenameType: msg
   format: utf8
   chunk: false
   sendError: false
   encoding: none
   allProps: false
-  x: 310
-  'y': 800
+  x: 430
+  'y': 740
   wires:
     - - c8d5e7356764dfc0
-- id: e7bbfb466fe9b1e8
-  type: link out
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: ui - tool - icon
-  mode: link
-  links: []
-  x: 1215
-  'y': 740
-  wires: []
 - id: d8fa54a0c3f6d9a5
   type: catch
   z: 44465f18e06bb58d
@@ -1230,7 +1231,7 @@
     - 306b2fee3a4b886d
   uncaught: false
   x: 280
-  'y': 920
+  'y': 860
   wires:
     - - 34fa5590f0d6e124
 - id: 64a95942a5179c42
@@ -1338,8 +1339,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 670
-  'y': 740
+  x: 990
+  'y': 680
   wires:
     - - cdff23747bd66c63
 - id: 5a85864d1b0b96a3
@@ -1347,8 +1348,8 @@
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-  propertyType: global
+  property: level
+  propertyType: msg
   rules:
     - t: eq
       v: admin
@@ -1356,10 +1357,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 510
-  'y': 740
+  x: 670
+  'y': 680
   wires:
-    - - d65327c4fbf1872c
+    - - 99986c4ce71d1c1b
 - id: 922d6d1c4163d169
   type: link in
   z: 44465f18e06bb58d
@@ -2749,7 +2750,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 460
-  'y': 1040
+  'y': 980
   wires:
     - - b7acd141ed1d05a8
 - id: c5f59626827e310e
@@ -2784,7 +2785,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 320
-  'y': 1100
+  'y': 1040
   wires:
     - - a476b0d5921d9eff
 - id: b7acd141ed1d05a8
@@ -2802,7 +2803,7 @@
   repair: false
   outputs: 1
   x: 650
-  'y': 1040
+  'y': 980
   wires:
     - - 21205593026db95e
 - id: 21205593026db95e
@@ -2818,7 +2819,7 @@
   repair: false
   outputs: 1
   x: 810
-  'y': 1040
+  'y': 980
   wires:
     - - d56ac193ae9205d2
 - id: d56ac193ae9205d2
@@ -2838,7 +2839,7 @@
   to: ''
   reg: false
   x: 970
-  'y': 1040
+  'y': 980
   wires:
     - []
 - id: a476b0d5921d9eff
@@ -2858,7 +2859,7 @@
   to: ''
   reg: false
   x: 530
-  'y': 1100
+  'y': 1040
   wires:
     - - b50a32fab9773d3f
 - id: 870125d5e88964fc
@@ -2874,7 +2875,7 @@
   repair: false
   outputs: 1
   x: 850
-  'y': 1100
+  'y': 1040
   wires:
     - - e5b4c962927260ac
 - id: b50a32fab9773d3f
@@ -2892,7 +2893,7 @@
   repair: false
   outputs: 1
   x: 690
-  'y': 1100
+  'y': 1040
   wires:
     - - 870125d5e88964fc
 - id: e5b4c962927260ac
@@ -2920,7 +2921,7 @@
   to: ''
   reg: false
   x: 1010
-  'y': 1100
+  'y': 1040
   wires:
     - - bee6a866a78902c8
 - id: d367e2212791fad3
@@ -2940,7 +2941,7 @@
   to: ''
   reg: false
   x: 270
-  'y': 1040
+  'y': 980
   wires:
     - - 5c3ba0b5feeefa91
 - id: bee6a866a78902c8
@@ -2952,7 +2953,7 @@
   links:
     - 6640363c796f547b
   x: 1135
-  'y': 1100
+  'y': 1040
   wires: []
 - id: 4175cc5bc8d98c0e
   type: link in
@@ -3161,12 +3162,12 @@
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
   name: ''
-  url: /app.bk
+  url: /export.json
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 290
+  x: 300
   'y': 560
   wires:
     - - 571f58fa9072eafb
@@ -3280,7 +3281,7 @@
     - t: set
       p: payload
       pt: msg
-      to: "{\t    'url':'/app.bk?ts=' & msg.time\t}"
+      to: "{\t    'url':'/export.json?ts=' & msg.time\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -3394,7 +3395,7 @@
   x: 300
   'y': 620
   wires:
-    - - cf43a69a0124764e
+    - - 955702fb29105d93
 - id: 91cf0e5e55209e34
   type: json
   z: 44465f18e06bb58d
@@ -3403,7 +3404,7 @@
   property: payload
   action: ''
   pretty: false
-  x: 830
+  x: 1150
   'y': 620
   wires:
     - - eddfa49883d68d85
@@ -3421,7 +3422,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 670
+  x: 990
   'y': 620
   wires:
     - - 91cf0e5e55209e34
@@ -3430,8 +3431,8 @@
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-  propertyType: global
+  property: level
+  propertyType: msg
   rules:
     - t: eq
       v: admin
@@ -3439,10 +3440,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 510
+  x: 670
   'y': 620
   wires:
-    - - 63f1bb00946da6ca
+    - - '129775105e532365'
 - id: eddfa49883d68d85
   type: link out
   z: 44465f18e06bb58d
@@ -3451,6 +3452,166 @@
   mode: link
   links:
     - be36f6bbac4c54f7
-  x: 955
+  x: 1275
   'y': 620
   wires: []
+- id: 955702fb29105d93
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: global
+  rules:
+    - t: set
+      p: level
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 510
+  'y': 620
+  wires:
+    - - cf43a69a0124764e
+- id: 2d9314f6db9f0fb7
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: global
+  rules:
+    - t: set
+      p: level
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 510
+  'y': 680
+  wires:
+    - - 5a85864d1b0b96a3
+- id: '129775105e532365'
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: global
+  rules:
+    - t: delete
+      p: level
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 620
+  wires:
+    - - 63f1bb00946da6ca
+- id: 99986c4ce71d1c1b
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: global
+  rules:
+    - t: delete
+      p: level
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 680
+  wires:
+    - - d65327c4fbf1872c
+- id: 3ed31290426faddb
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: file
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::app.automate'
+      tot: global
+    - t: set
+      p: filename
+      pt: msg
+      to: '''/data/'' & msg.automate & ''_icon.png'''
+      tot: jsonata
+    - t: delete
+      p: automate
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 920
+  wires:
+    - - 306b2fee3a4b886d
+- id: 1c02f16a7a919e7e
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: file
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::app.automate'
+      tot: global
+    - t: set
+      p: filename
+      pt: msg
+      to: '''/data/'' & msg.automate & ''_icon.png'''
+      tot: jsonata
+    - t: delete
+      p: automate
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 740
+  wires:
+    - - 6ccccfc0a1f111c1
+- id: 0636163612e9f6e3
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: file
+  rules:
+    - t: set
+      p: automate
+      pt: msg
+      to: '#:(memoryOnly)::app.automate'
+      tot: global
+    - t: set
+      p: filename
+      pt: msg
+      to: '''/data/'' & msg.automate & ''_icon.png'''
+      tot: jsonata
+    - t: delete
+      p: automate
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1330
+  'y': 680
+  wires:
+    - - 25db029de29257ac
