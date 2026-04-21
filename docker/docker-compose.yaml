@@ -4,16 +4,53 @@ services:
     image: eclipse-mosquitto:latest
     container_name: mqtt
     restart: unless-stopped
+    environment:
+      DOCKER_MOSQUITTO_USERNAME: optauser
+      DOCKER_MOSQUITTO_PASSWORD: otptapass
+      DOCKER_MOSQUITTO_CONFIG: |-
+        allow_anonymous false
+        listener 1883
+        persistence true
+        password_file mosquitto/config/mosquitto.pass
+        persistence_location /mosquitto/data/
+    command: 
+      - /bin/sh
+      - -c
+      - |
+        cf="/mosquitto/config/mosquitto.conf"
+        pf="/mosquitto/config/mosquitto.pass"
+        if [ ! -f $$cf ]; then
+          echo "> Creating config file $$cf"
+          echo -n "$$DOCKER_MOSQUITTO_CONFIG" > $$cf
+        else
+          echo "> Found config file $$cf"
+        fi
+        cat $$cf
+        echo " "
+        if [ ! -f $$pf ]; then
+          echo "> Creating password file"
+          touch $$pf
+          chown mosquitto:mosquitto $$pf
+          chmod 600 $$pf
+          /usr/bin/mosquitto_passwd -b $$pf $$DOCKER_MOSQUITTO_USERNAME $$DOCKER_MOSQUITTO_PASSWORD
+        fi
+        echo "> Running Eclipse-Mosquitto MQTT"
+        /usr/sbin/mosquitto -c $$cf
     ports:
       - 1883:1883
-      - 8883:8883
-      - 9001:9001
+      #- 8883:8883
+      #- 9001:9001
     networks:
       - optanet 
     volumes:
       - mosquitto_config:/mosquitto/config
       - mosquitto_data:/mosquitto/data
       - mosquitto_log:/mosquitto/log
+    healthcheck:
+      test: mosquitto_sub -u $$DOCKER_MOSQUITTO_USERNAME -P $$DOCKER_MOSQUITTO_PASSWORD -t '$$SYS/#' -C 1 -i healthcheck -W 3
+      interval: 10s
+      timeout: 10s
+      retries: 3   
     logging:
       driver: "json-file"
       options:
@@ -23,19 +60,24 @@ services:
     image: influxdb:latest
     container_name: influxdb
     restart: unless-stopped
-    ports:
-      - 8086:8086
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
       DOCKER_INFLUXDB_INIT_USERNAME: admin
       DOCKER_INFLUXDB_INIT_PASSWORD: optaadmin
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
+    ports:
+      - 8086:8086
     networks:
       - optanet
     volumes:
       - influxdb_etc:/etc/influxdb2
       - influxdb_lib:/var/lib/influxdb2
+    healthcheck:
+      test: "curl -f http://localhost:8086/ping"
+      interval: 5s
+      timeout: 10s
+      retries: 5
     logging:
       driver: "json-file"
       options:
@@ -59,6 +101,12 @@ services:
     depends_on:
       - mosquitto
       - influxdb
+    healthcheck:
+      test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/1880' || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 90s 
     logging:
       driver: "json-file"
       options:
