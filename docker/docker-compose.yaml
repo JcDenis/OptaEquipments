@@ -28,7 +28,7 @@ services:
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
       DOCKER_INFLUXDB_INIT_USERNAME: admin
-      DOCKER_INFLUXDB_INIT_PASSWORD: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: optaadmin
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
     networks:
@@ -47,8 +47,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Europe/Paris
+      - NODE_RED_CREDENTIAL_SECRET=optaequipments
+      - NODE_RED_ENABLE_PROJECTS=true
     ports:
-      - 80:1880
+      - 1880:1880
       - 502:502 # modbus
     networks:
       - optanet
