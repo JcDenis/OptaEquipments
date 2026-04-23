@@ -10,14 +10,8 @@ services:
           cpus: '1.0'
           memory: 1024M
     environment:
-      DOCKER_MOSQUITTO_USERNAME: ${DOCKER_MOSQUITTO_USERNAME}
-      DOCKER_MOSQUITTO_PASSWORD: ${DOCKER_MOSQUITTO_PASSWORD}
-      DOCKER_MOSQUITTO_CONFIG: |-
-        allow_anonymous false
-        listener 1883
-        persistence true
-        password_file mosquitto/config/mosquitto.pass
-        persistence_location /mosquitto/data/
+      OPTA_USERNAME: ${OPTA_USERNAME}
+      OPTA_PASSWORD: ${OPTA_PASSWORD}
     command: 
       - /bin/sh
       - -c
@@ -26,7 +20,13 @@ services:
         pf="/mosquitto/config/mosquitto.pass"
         if [ ! -f $$cf ]; then
           echo "> Creating config file $$cf"
-          echo -n "$$DOCKER_MOSQUITTO_CONFIG" > $$cf
+          echo -n "
+            allow_anonymous false
+            listener 1883
+            persistence true
+            password_file mosquitto/config/mosquitto.pass
+            persistence_location /mosquitto/data/
+          " > $$cf
         else
           echo "> Found config file $$cf"
         fi
@@ -37,7 +37,7 @@ services:
           touch $$pf
           chown mosquitto:mosquitto $$pf
           chmod 600 $$pf
-          /usr/bin/mosquitto_passwd -b $$pf $$DOCKER_MOSQUITTO_USERNAME $$DOCKER_MOSQUITTO_PASSWORD
+          /usr/bin/mosquitto_passwd -b $$pf $$OPTA_USERNAME $$OPTA_PASSWORD
         fi
         echo "> Running Eclipse-Mosquitto MQTT"
         /usr/sbin/mosquitto -c $$cf
@@ -50,7 +50,7 @@ services:
       - mosquitto_data:/mosquitto/data
       - mosquitto_log:/mosquitto/log
     healthcheck:
-      test: mosquitto_sub -u $$DOCKER_MOSQUITTO_USERNAME -P $$DOCKER_MOSQUITTO_PASSWORD -t '$$SYS/#' -C 1 -i healthcheck -W 3
+      test: mosquitto_sub -u $$OPTA_USERNAME -P $$OPTA_PASSWORD -t '$$SYS/#' -C 1 -i healthcheck -W 3
       interval: 10s
       timeout: 10s
       retries: 3   
@@ -70,12 +70,12 @@ services:
           memory: 1024M
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
-      DOCKER_INFLUXDB_INIT_USERNAME: ${DOCKER_INFLUXDB_USERNAME}
-      DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_INFLUXDB_PASSWORD}
+      DOCKER_INFLUXDB_INIT_USERNAME: ${OPTA_ADMIN_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${OPTA_ADMIN_PASSWORD}
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
       DOCKER_INFLUXDB_INIT_RETENTION: 700d
-      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${DOCKER_INFLUXDB_TOKEN}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${OPTA_SECRET}
     ports:
       - 8086:8086
     networks:
@@ -105,21 +105,21 @@ services:
     environment:
       NODE_RED_ENABLE_PROJECTS: true
       TZ: Europe/Paris
-      DOCKER_MOSQUITTO_USERNAME: ${DOCKER_MOSQUITTO_USERNAME}
-      DOCKER_MOSQUITTO_PASSWORD: ${DOCKER_MOSQUITTO_PASSWORD}
-      DOCKER_INFLUXDB_TOKEN: ${DOCKER_INFLUXDB_TOKEN}
+      OPTA_USERNAME: ${OPTA_USERNAME}
+      OPTA_PASSWORD: ${OPTA_PASSWORD}
+      OPTA_SECRET: ${OPTA_SECRET}
     entrypoint: >
       /bin/sh -c '
-        HASH=$(echo "${DOCKER_NODERED_PASSWORD}" | node-red admin hash-pw) &&
+        HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw) &&
         HASHB=$(expr substr "$$HASH" 11 100) &&
         echo -n "        module.exports = {
           flowFile: \"flows.json\",
-          credentialSecret: \"${DOCKER_NODERED_SECRET}\",
+          credentialSecret: \"${OPTA_SECRET}\",
           flowFilePretty: true,
           adminAuth: {
               type: \"credentials\",
               users: [{
-                  username: \"${DOCKER_NODERED_USERNAME}\",
+                  username: \"${OPTA_ADMIN_USERNAME}\",
                   password: \"$$HASHB\",
                   permissions: \"*\"
               }],
