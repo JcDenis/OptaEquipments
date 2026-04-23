@@ -75,6 +75,7 @@ services:
       DOCKER_INFLUXDB_INIT_ORG: optaequipments
       DOCKER_INFLUXDB_INIT_BUCKET: state
       DOCKER_INFLUXDB_INIT_RETENTION: 700d
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${DOCKER_INFLUXDB_TOKEN}
     ports:
       - 8086:8086
     networks:
@@ -106,6 +107,7 @@ services:
       TZ: Europe/Paris
       DOCKER_MOSQUITTO_USERNAME: ${DOCKER_MOSQUITTO_USERNAME}
       DOCKER_MOSQUITTO_PASSWORD: ${DOCKER_MOSQUITTO_PASSWORD}
+      DOCKER_INFLUXDB_TOKEN: ${DOCKER_INFLUXDB_TOKEN}
     entrypoint: >
       /bin/sh -c '
         HASH=$(echo "${DOCKER_NODERED_PASSWORD}" | node-red admin hash-pw) &&
