@@ -677,11 +677,9 @@
     - 724268c0f75e47fe
     - 276dc3dcc7834da2
     - e7c25a8a674e113b
-    - 4efb79b0cc8b96d8
     - e8d67eca0ccb0966
     - 43ef01fe81d0150c
     - 90c6fd2b09e820ae
-    - 6fa56d99f30f529a
     - e657a9170f8a107c
     - 9fbbba627c2116fb
     - 427d268933d4be54
@@ -13515,8 +13513,8 @@
   mode: time
   tooltip: ''
   delay: 300
-  passthru: false
-  sendOnDelay: false
+  passthru: true
+  sendOnDelay: true
   sendOnBlur: true
   sendOnEnter: true
   className: ''
@@ -13785,6 +13783,8 @@
   'y': 5000
   wires:
     - - e8d67eca0ccb0966
+      - 43ef01fe81d0150c
+      - 9fbbba627c2116fb
 - id: e7949d3e2c1f6a1d
   type: ui-text-input
   z: 64ce08af468b8197
@@ -13800,8 +13800,8 @@
   mode: time
   tooltip: ''
   delay: 300
-  passthru: false
-  sendOnDelay: false
+  passthru: true
+  sendOnDelay: true
   sendOnBlur: true
   sendOnEnter: true
   className: ''
@@ -13851,7 +13851,7 @@
   x: 1190
   'y': 5060
   wires:
-    - - 6fa56d99f30f529a
+    - []
 - id: 276dc3dcc7834da2
   type: switch
   z: 64ce08af468b8197
@@ -13889,37 +13889,7 @@
   x: 1190
   'y': 5120
   wires:
-    - - 4efb79b0cc8b96d8
-- id: 4efb79b0cc8b96d8
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: enable
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1350
-  'y': 5120
-  wires:
-    - - 9fbbba627c2116fb
+    - []
 - id: e8d67eca0ccb0966
   type: link call
   z: 64ce08af468b8197
@@ -13971,46 +13941,6 @@
   'y': 5120
   wires:
     - - e7949d3e2c1f6a1d
-- id: 6fa56d99f30f529a
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: enable
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_plant
-      pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]plant'
-      tot: flow
-    - t: set
-      p: limit_team
-      pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]team'
-      tot: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1350
-  'y': 5060
-  wires:
-    - - 43ef01fe81d0150c
 - id: e657a9170f8a107c
   type: debug
   z: 64ce08af468b8197
@@ -14084,7 +14014,7 @@
   from: ''
   to: ''
   reg: false
-  x: 400
+  x: 600
   'y': 5180
   wires:
     - - 9fbbba627c2116fb
