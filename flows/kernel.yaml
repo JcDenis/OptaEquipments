@@ -171,7 +171,7 @@
     - ae4b28759bff9246
   x: 104
   'y': 1959
-  w: 882
+  w: 782
   h: 142
 - id: fc6029b7d49d1e93
   type: group
@@ -2535,7 +2535,7 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 210
+  x: 270
   'y': 2000
   wires:
     - - cca39ee5b2794b76
@@ -2546,16 +2546,32 @@
   name: default
   rules:
     - t: set
+      p: opta_admin_username
+      pt: msg
+      to: '${OPTA_ADMIN_USERNAME}'
+      tot: str
+    - t: set
+      p: opta_admin_password
+      pt: msg
+      to: '${OPTA_ADMIN_PASSWORD}'
+      tot: str
+    - t: set
       p: payload
       pt: msg
-      to: "{\t    'admin':{\t        'pass':'admin',\t        'level':'admin',\t        'plant':''\t    }\t}"
+      to: "{\t    msg.opta_admin_username:{\t        'pass':msg.opta_admin_password,\t        'level':'admin',\t        'plant':''\t    }\t}"
       tot: jsonata
+    - t: delete
+      p: opta_admin_username
+      pt: msg
+    - t: delete
+      p: opta_admin_password
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 370
+  x: 270
   'y': 2060
   wires:
     - - fa7160372fcfe3b2
@@ -2580,7 +2596,7 @@
   from: ''
   to: ''
   reg: false
-  x: 690
+  x: 590
   'y': 2060
   wires:
     - - 44a9a10bea4cbb76
@@ -2593,7 +2609,7 @@
   mode: link
   links:
     - b75938c74c41ca5e
-  x: 815
+  x: 715
   'y': 2060
   wires: []
 - id: 77140cf5919d8cda
@@ -2620,7 +2636,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 870
+  x: 770
   'y': 2000
   wires: []
 - id: fe6f397caf384046
@@ -3346,7 +3362,7 @@
   match: match
   outputs: 1
   rounds: 10
-  x: 530
+  x: 430
   'y': 2060
   wires:
     - - c207171ed4430df8

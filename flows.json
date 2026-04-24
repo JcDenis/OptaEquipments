@@ -2373,7 +2373,7 @@
         ],
         "x": 104,
         "y": 1959,
-        "w": 882,
+        "w": 782,
         "h": 142
     },
     {
@@ -6276,7 +6276,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "x": 210,
+        "x": 270,
         "y": 2000,
         "wires": [
             [
@@ -6293,10 +6293,34 @@
         "rules": [
             {
                 "t": "set",
+                "p": "opta_admin_username",
+                "pt": "msg",
+                "to": "${OPTA_ADMIN_USERNAME}",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "opta_admin_password",
+                "pt": "msg",
+                "to": "${OPTA_ADMIN_PASSWORD}",
+                "tot": "str"
+            },
+            {
+                "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t    'admin':{\t        'pass':'admin',\t        'level':'admin',\t        'plant':''\t    }\t}",
+                "to": "{\t    msg.opta_admin_username:{\t        'pass':msg.opta_admin_password,\t        'level':'admin',\t        'plant':''\t    }\t}",
                 "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "opta_admin_username",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "opta_admin_password",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -6304,7 +6328,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
+        "x": 270,
         "y": 2060,
         "wires": [
             [
@@ -6339,7 +6363,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
+        "x": 590,
         "y": 2060,
         "wires": [
             [
@@ -6358,7 +6382,7 @@
         "links": [
             "b75938c74c41ca5e"
         ],
-        "x": 815,
+        "x": 715,
         "y": 2060,
         "wires": []
     },
@@ -6393,7 +6417,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
+        "x": 770,
         "y": 2000,
         "wires": []
     },
@@ -7417,7 +7441,7 @@
         "match": "match",
         "outputs": 1,
         "rounds": 10,
-        "x": 530,
+        "x": 430,
         "y": 2060,
         "wires": [
             [
@@ -25206,7 +25230,7 @@
         "g": "1c87eaf6a557f02d",
         "group": "1669fa4fe2f204a0",
         "name": "detail - cycle - chart date",
-        "label": "cadence moyenne suivant résolution (en coups par minute)",
+        "label": "cadence moyenne suivant résolution (en cycles par minute)",
         "order": 21,
         "chartType": "line",
         "category": "",
