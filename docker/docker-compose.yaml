@@ -108,6 +108,8 @@ services:
       OPTA_USERNAME: ${OPTA_USERNAME}
       OPTA_PASSWORD: ${OPTA_PASSWORD}
       OPTA_SECRET: ${OPTA_SECRET}
+      OPTA_ADMIN_USERNAME: ${OPTA_ADMIN_USERNAME}
+      OPTA_ADMIN_PASSWORD: ${OPTA_ADMIN_PASSWORD}
     entrypoint: >
       /bin/sh -c '
         HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw) &&
