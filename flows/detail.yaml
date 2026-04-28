@@ -138,14 +138,17 @@
     - 090ceaa798caf353
     - 57c986150b85f319
     - cf0e7cd7a6642bbd
-    - 0ea5804573ab020b
     - 436a9466d70f31e6
     - f4e542b1d73d54f9
     - df7b9b28adb41618
     - 36b06554537f7f0f
     - 330917bae33c4347
     - 7ab3e9531f451298
-    - a13bb42f3fe9eb47
+    - eb739ce60a549f6f
+    - b4d41c97cb54b26d
+    - 1b6212ab5913cfaf
+    - ab3fb414a59117e1
+    - 0ea5804573ab020b
   x: 104
   'y': 2499
   w: 4402
@@ -1676,7 +1679,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2080
+  x: 1920
   'y': 2660
   wires:
     - - 349f0b378e7f347d
@@ -1694,7 +1697,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2310
+  x: 2150
   'y': 2660
   wires:
     - - 257342dfc837914c
@@ -1715,7 +1718,7 @@
   output: curday
   outputType: msg
   outTz: Europe/Paris
-  x: 1520
+  x: 1360
   'y': 2780
   wires:
     - - 0ea5804573ab020b
@@ -1745,7 +1748,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1880
+  x: 1720
   'y': 2780
   wires:
     - - 67dd6befba96ef0c
@@ -1771,7 +1774,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1890
+  x: 1730
   'y': 2600
   wires:
     - - 67dd6befba96ef0c
@@ -1828,7 +1831,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2480
+  x: 2320
   'y': 2660
   wires:
     - - c1e9137251068435
@@ -1841,7 +1844,7 @@
     - cc29628a29dea305
   linkType: static
   timeout: '30'
-  x: 1850
+  x: 1690
   'y': 2720
   wires:
     - - ffb6b9165aafd73f
@@ -1867,7 +1870,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 2100
+  x: 1940
   'y': 2720
   wires:
     - - 5f07c668b4f7fe2f
@@ -1885,7 +1888,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2310
+  x: 2150
   'y': 2720
   wires:
     - - ea6288d7d75ca45c
@@ -1911,11 +1914,6 @@
       to: '#:(memoryOnly)::form[msg._client.socketId]date'
       tot: flow
     - t: set
-      p: payload
-      pt: msg
-      to: 'msg.payload & ''T00:00:00Z'''
-      tot: jsonata
-    - t: set
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg._client.socketId]'
@@ -1935,7 +1933,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2480
+  x: 2320
   'y': 2720
   wires:
     - - 38d76fb8bec3c348
@@ -1949,32 +1947,31 @@
   input: payload
   inputType: msg
   inTz: Europe/Paris
-  adjAmount: '6'
-  adjType: hours
+  adjAmount: '0'
+  adjType: days
   adjDir: add
   format: X
   locale: en-US
-  output: ts
+  output: form.ts
   outputType: msg
   outTz: Europe/Paris
-  x: 2980
+  x: 2820
   'y': 2720
   wires:
-    - - 0ecbded430697061
-      - e782ae90ecd18377
+    - - ab3fb414a59117e1
 - id: 0ecbded430697061
   type: moment
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   name: time - start
   topic: ''
-  input: ts
+  input: form.ts
   inputType: msg
   inTz: Europe/Paris
   adjAmount: '0'
   adjType: days
   adjDir: add
-  format: 'YYYY-MM-DDT06:00:00Z'
+  format: 'YYYY-MM-DDTHH:00:00Z'
   locale: en-US
   output: start
   outputType: msg
@@ -1989,13 +1986,13 @@
   g: 1c87eaf6a557f02d
   name: time - stop
   topic: ''
-  input: ts
+  input: form.ts
   inputType: msg
   inTz: Europe/Paris
   adjAmount: '1'
   adjType: days
   adjDir: add
-  format: 'YYYY-MM-DDT06:00:00Z'
+  format: 'YYYY-MM-DDTHH:00:00Z'
   locale: en-US
   output: stop
   outputType: msg
@@ -2010,13 +2007,13 @@
   g: 1c87eaf6a557f02d
   name: time - start
   topic: ''
-  input: ts
+  input: form.ts
   inputType: msg
   inTz: Europe/Paris
   adjAmount: '0'
   adjType: days
   adjDir: add
-  format: 'YYYY-MM-DDT06:00:00Z'
+  format: 'YYYY-MM-DDTHH:00:00Z'
   locale: en-US
   output: start
   outputType: msg
@@ -2031,13 +2028,13 @@
   g: 1c87eaf6a557f02d
   name: time - stop
   topic: ''
-  input: ts
+  input: form.ts
   inputType: msg
   inTz: Europe/Paris
   adjAmount: '1'
   adjType: days
   adjDir: add
-  format: 'YYYY-MM-DDT06:00:00Z'
+  format: 'YYYY-MM-DDTHH:00:00Z'
   locale: en-US
   output: stop
   outputType: msg
@@ -2169,7 +2166,7 @@
   'y': 2600
   wires:
     - - 9d9e8ab41e604d40
-    - - a8b8861415bce2d2
+    - - 1b6212ab5913cfaf
 - id: e914fa1767daf0cb
   type: switch
   z: 852390cb9559e176
@@ -2648,7 +2645,7 @@
   x: 1150
   'y': 2780
   wires:
-    - - a13bb42f3fe9eb47
+    - - 23b960bb1561651b
 - id: 38d76fb8bec3c348
   type: ui-button
   z: 852390cb9559e176
@@ -2680,7 +2677,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 2090
+  x: 1930
   'y': 2780
   wires:
     - - 3e42541f14d8d3d2
@@ -2703,7 +2700,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2810
+  x: 2650
   'y': 2720
   wires:
     - - ad5bda6bab168115
@@ -2724,7 +2721,7 @@
   bytopic: all
   topic: topic
   outputs: 1
-  x: 2820
+  x: 2660
   'y': 2780
   wires:
     - - 090ceaa798caf353
@@ -2758,7 +2755,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2650
+  x: 2490
   'y': 2720
   wires:
     - - 8dc42518cd8b8b74
@@ -2777,7 +2774,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2990
+  x: 2830
   'y': 2780
   wires:
     - - 3e42541f14d8d3d2
@@ -2792,7 +2789,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2490
+  x: 2330
   'y': 2600
   wires:
     - - ac566d146cb42b27
@@ -2813,33 +2810,10 @@
   from: ''
   to: ''
   reg: false
-  x: 2650
+  x: 2490
   'y': 2780
   wires:
     - - f647395af025317d
-- id: 0ea5804573ab020b
-  type: change
-  z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: date
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]date'
-      pt: flow
-      to: curday
-      tot: msg
-    - t: delete
-      p: curts
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1710
-  'y': 2780
-  wires:
-    - - 3e42541f14d8d3d2
 - id: f11d484a5793ea55
   type: change
   z: 852390cb9559e176
@@ -3563,7 +3537,7 @@
   className: ui-title
   value: Suivi
   valueType: str
-  x: 2080
+  x: 1920
   'y': 2540
   wires: []
 - id: dd017aec28af9106
@@ -5111,26 +5085,108 @@
   'y': 680
   wires:
     - - dbe2dc99f3174070
-- id: a13bb42f3fe9eb47
+- id: eb739ce60a549f6f
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: last
+  rules:
+    - t: set
+      p: last_key
+      pt: msg
+      to: msg.last_key + 1
+      tot: jsonata
+    - t: set
+      p: 'payload[msg.last_key]._value'
+      pt: msg
+      to: '0'
+      tot: num
+    - t: set
+      p: 'payload[msg.last_key]._start'
+      pt: msg
+      to: last_date
+      tot: msg
+    - t: delete
+      p: last_key
+      pt: msg
+    - t: delete
+      p: last_date
+      pt: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: "$append(msg.payload,[{\t    '_start':msg.stop,\t    '_value':0\t}])"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3670
+  'y': 2660
+  wires:
+    - - a8b8861415bce2d2
+- id: b4d41c97cb54b26d
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - last
+  topic: ''
+  input: last_date
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '1'
+  adjType: minutes
+  adjDir: add
+  format: 'YYYY-MM-DDTHH:mm:00Z'
+  locale: en-US
+  output: last_date
+  outputType: msg
+  outTz: Europe/Paris
+  x: 3500
+  'y': 2660
+  wires:
+    - - eb739ce60a549f6f
+- id: 1b6212ab5913cfaf
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: last
+  rules:
+    - t: set
+      p: last_key
+      pt: msg
+      to: $count(msg.payload)-1
+      tot: jsonata
+    - t: set
+      p: last_date
+      pt: msg
+      to: 'payload[msg.last_key]._start'
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3330
+  'y': 2660
+  wires:
+    - - b4d41c97cb54b26d
+- id: ab3fb414a59117e1
   type: change
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   name: dec
   rules:
     - t: set
-      p: curts
-      pt: msg
-      to: ''
-      tot: date
-    - t: set
       p: dec
       pt: msg
       to: 'kernel.day[msg.form.plant]'
       tot: global
     - t: set
-      p: curts
+      p: form.ts
       pt: msg
-      to: msg.curts + (msg.dec * 60 * 60 * 1000)
+      to: '$string($round($number(msg.form.ts)+($number(msg.dec)*3600),0))'
       tot: jsonata
     - t: delete
       p: dec
@@ -5140,7 +5196,31 @@
   from: ''
   to: ''
   reg: false
-  x: 1330
+  x: 2990
+  'y': 2720
+  wires:
+    - - e782ae90ecd18377
+      - 0ecbded430697061
+- id: 0ea5804573ab020b
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: date
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg._client.socketId]date'
+      pt: flow
+      to: curday
+      tot: msg
+    - t: delete
+      p: curday
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1550
   'y': 2780
   wires:
-    - - 23b960bb1561651b
+    - - 3e42541f14d8d3d2
