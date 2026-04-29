@@ -81,29 +81,29 @@
     - 3808fde4099a032e
     - 7bba6594f41302c2
     - e0b4c721460909ae
-    - 0233bc571f3d02db
     - 00818f8c0686b556
     - 3450fffd4f368319
-    - 9405477d274b186a
-    - fe76b727895831bf
-    - 61f220b93c1a61a5
-    - c1821dc26a8ea536
-    - ae221346ad22ce08
     - 3a4b0a3f566334ac
-    - cbd23972e397bd47
     - 7e5f2b517cfd181c
-    - 291f30bb13da4173
-    - 3f016f9bcb2822b7
-    - ae4c84993cd0e61c
-    - 27d4af912bce6f1b
     - e121bb6441bf21e5
     - 025edbd02daf82d0
-    - a9881ad3f280d670
-    - b5c17361a1a03513
+    - 6a0278acb1566849
+    - 0476961f919ac542
+    - 2169d644edcf8935
+    - 3dd382b57123205b
+    - 0ad2a9c349e640f3
+    - 304f19f85dc10786
+    - '559685e284094504'
+    - da2ae22c79bf3537
+    - cd3fee82f0914ef5
+    - 2f2ef7653ece263e
+    - 9b99042c4b9e6574
+    - 624081a7f73b4164
+    - b4db32f45f392912
   x: 124
   'y': 3279
-  w: 1062
-  h: 742
+  w: 1652
+  h: 442
 - id: ede1bcd992279676
   type: group
   z: f6f2187d.f17ca8
@@ -735,6 +735,11 @@
       to: '{}'
       tot: jsonata
     - t: set
+      p: '#:(memoryOnly)::tabs'
+      pt: global
+      to: "{\t    'Authentification':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':true\t    },\t    'Maintenance':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':true\t    },\t    'Programmes':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':false\t    },\t    'Détail':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':true\t    },\t    'Listes':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':false,\t        'prod':false\t    },\t    'Arborescence':{\t        'admin':true,\t        'rt':true,\t        'tech':false,\t        'rp':false,\t        'prod':false\t    },\t    'Système':{\t        'admin':true,\t        'rt':false,\t        'tech':false,\t        'rp':false,\t        'prod':false\t    }\t}"
+      tot: jsonata
+    - t: set
       p: '#:(memoryOnly)::describe'
       pt: global
       to: "{\t    'component':{\t        'run':'Lecture état de fonctionnement (run)',\t        'heat':'Lecture état de chauffe (heat)',\t        'voltage':'Lecture de tension (voltage)',\t        'power':'Lecture de puisance (power)',\t        '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t        'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t        'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t        'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t        'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t        'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t        'runreset':\"Commande de RAZ compteur partiel d'heures (runreset)\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (cyclereset)\"\t    },\t    'day':{\t        '0':'Dimanche',\t        '1':'Lundi',\t        '2':'Mardi',\t        '3':'Mercredi',\t        '4':'Jeudi',\t        '5':'Vendredi',\t        '6':'Samedi',\t        '7':'Dimanche'\t    },\t    'resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minutes',\t        '60':'1 heure'\t    },\t    'level':{\t        'prod':'Production',\t        'rp':'Responsable production',\t        'tech':'Technicien',\t        'rt':'Repsonsable technique',\t        'admin':'Administrateur'\t    },\t    'period':{\t        'a':'Matin',\t        'm':'Après-midi',\t        'n':'Nuit',\t        'j':'Journée',\t        's':'Samedi'\t    }\t}"
@@ -808,7 +813,7 @@
   statusVal: ''
   statusType: auto
   x: 800
-  'y': 3320
+  'y': 3620
   wires: []
 - id: d82f731a51f1d464
   type: debug
@@ -1884,8 +1889,8 @@
     - fbeb08a94e71e7bf
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
-  x: 1075
-  'y': 3320
+  x: 1575
+  'y': 3380
   wires: []
 - id: 4de1644d9063dd22
   type: switch
@@ -1927,40 +1932,8 @@
   x: 470
   'y': 3320
   wires:
-    - - 0233bc571f3d02db
-    - - 0233bc571f3d02db
-- id: 0233bc571f3d02db
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: tab
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: name
-      tot: msg
-    - t: set
-      p: level
-      pt: msg
-      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-      tot: global
-    - t: delete
-      p: tab
-      pt: msg
-    - t: delete
-      p: name
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 630
-  'y': 3320
-  wires:
-    - - 23dd24021e2cecf1
-      - 9405477d274b186a
+    - - 6a0278acb1566849
+    - - 6a0278acb1566849
 - id: 00818f8c0686b556
   type: link in
   z: f6f2187d.f17ca8
@@ -2159,131 +2132,6 @@
   x: 1930
   'y': 1160
   wires: []
-- id: 9405477d274b186a
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-  propertyType: global
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: eq
-      v: rt
-      vt: str
-    - t: eq
-      v: tech
-      vt: str
-    - t: eq
-      v: rp
-      vt: str
-    - t: eq
-      v: prod
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 6
-  x: 790
-  'y': 3380
-  wires:
-    - - 7bba6594f41302c2
-      - 291f30bb13da4173
-    - - fe76b727895831bf
-      - 3f016f9bcb2822b7
-    - - c1821dc26a8ea536
-      - ae4c84993cd0e61c
-    - - a9881ad3f280d670
-      - b5c17361a1a03513
-    - - ae221346ad22ce08
-      - 27d4af912bce6f1b
-    - - 61f220b93c1a61a5
-      - cbd23972e397bd47
-- id: fe76b727895831bf
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: rt
-  property: payload
-  propertyType: msg
-  rules:
-    - t: regex
-      v: ^(Maintenance|Programmes|Détail|Listes|Arborescence)$
-      vt: str
-      case: false
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 950
-  'y': 3440
-  wires:
-    - - 7bba6594f41302c2
-    - - 61f220b93c1a61a5
-- id: 61f220b93c1a61a5
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: tab
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: Authentification
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 3400
-  wires:
-    - - 7bba6594f41302c2
-- id: c1821dc26a8ea536
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: tech
-  property: payload
-  propertyType: msg
-  rules:
-    - t: regex
-      v: ^(Maintenance|Programmes|Détail|Listes)$
-      vt: str
-      case: false
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 950
-  'y': 3500
-  wires:
-    - - 7bba6594f41302c2
-    - - 61f220b93c1a61a5
-- id: ae221346ad22ce08
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: prod
-  property: payload
-  propertyType: msg
-  rules:
-    - t: regex
-      v: ^(Maintenance|Détail)$
-      vt: str
-      case: false
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 950
-  'y': 3620
-  wires:
-    - - 7bba6594f41302c2
-    - - 61f220b93c1a61a5
 - id: 3a4b0a3f566334ac
   type: change
   z: f6f2187d.f17ca8
@@ -3342,117 +3190,17 @@
   wires:
     - - 7b7124a46b1a0dcb
     - - 58ebf510744db0ee
-- id: cbd23972e397bd47
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: none
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'pages': {\t        'show': [\t            'Authentification'\t            ],\t        'hide': [\t            'Maintenance',\t            'Programmes',\t            'Détail',\t            'Listes',\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 3980
-  wires:
-    - - 7e5f2b517cfd181c
 - id: 7e5f2b517cfd181c
   type: link out
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
-  name: lkernel - ui - page
+  name: ui - control - page
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1075
-  'y': 3620
+  x: 1735
+  'y': 3500
   wires: []
-- id: 291f30bb13da4173
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: admin
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Programmes',\t            'Détail',\t            'Listes',\t            'Arborescence',\t            'Système'\t            ],\t        'hide': [\t            ]\t    }\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 3680
-  wires:
-    - - 7e5f2b517cfd181c
-- id: 3f016f9bcb2822b7
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: rt
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Programmes',\t            'Détail',\t            'Listes',\t            'Arborescence'\t            ],\t        'hide': [\t            'Système'\t            ]\t    }\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 3740
-  wires:
-    - - 7e5f2b517cfd181c
-- id: ae4c84993cd0e61c
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: tech
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Programmes',\t            'Détail',\t            'Listes'\t            ],\t        'hide': [\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 3800
-  wires:
-    - - 7e5f2b517cfd181c
-- id: 27d4af912bce6f1b
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: prod
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Détail'\t            ],\t        'hide': [\t            'Programmes',\t            'Listes',\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 3920
-  wires:
-    - - 7e5f2b517cfd181c
 - id: 0d7869d9d005af45
   type: comment
   z: f6f2187d.f17ca8
@@ -4837,47 +4585,6 @@
   x: 460
   'y': 3680
   wires: []
-- id: a9881ad3f280d670
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: rp
-  property: payload
-  propertyType: msg
-  rules:
-    - t: regex
-      v: ^(Maintenance|Programmes|Détail|Listes)$
-      vt: str
-      case: false
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 950
-  'y': 3560
-  wires:
-    - - 7bba6594f41302c2
-    - - 61f220b93c1a61a5
-- id: b5c17361a1a03513
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: rp
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'pages': {\t        'show': [\t            'Authentification',\t            'Maintenance',\t            'Programmes',\t            'Détail',\t            'Listes'\t            ],\t        'hide': [\t            'Arborescence',\t            'Système'\t            ]\t    }\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 3860
-  wires:
-    - - 7e5f2b517cfd181c
 - id: 32238bfb65baf1bc
   type: link out
   z: f6f2187d.f17ca8
@@ -5028,3 +4735,314 @@
   x: 2280
   'y': 1940
   wires: []
+- id: bada27148e918e26
+  type: comment
+  z: f6f2187d.f17ca8
+  name: 'Todo: attention l''utilisateur admin n''est pas forcement le login admin !!!'
+  info: ''
+  x: 2010
+  'y': 2140
+  wires: []
+- id: 6a0278acb1566849
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tabs
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: name
+      tot: msg
+    - t: set
+      p: level
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+      tot: global
+    - t: set
+      p: tabs
+      pt: msg
+      to: '#:(memoryOnly)::tabs'
+      tot: global
+    - t: set
+      p: '#:(memoryOnly)::pages[msg._client.socketId]'
+      pt: flow
+      to: "{\t    'pages': {\t        'show': [\t            ],\t        'hide': [\t            ]\t    }\t}"
+      tot: jsonata
+    - t: delete
+      p: tab
+      pt: msg
+    - t: delete
+      p: name
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 630
+  'y': 3320
+  wires:
+    - - 0476961f919ac542
+      - 2169d644edcf8935
+      - 23dd24021e2cecf1
+- id: 0476961f919ac542
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tab
+  property: tabs
+  propertyType: msg
+  rules:
+    - t: hask
+      v: payload
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 790
+  'y': 3440
+  wires:
+    - - 3dd382b57123205b
+    - - 304f19f85dc10786
+- id: 2169d644edcf8935
+  type: split
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: tab
+  property: tabs
+  x: 790
+  'y': 3560
+  wires:
+    - - da2ae22c79bf3537
+- id: 3dd382b57123205b
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: level
+  property: 'tabs[msg.payload]'
+  propertyType: msg
+  rules:
+    - t: hask
+      v: level
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 950
+  'y': 3380
+  wires:
+    - - 0ad2a9c349e640f3
+    - - 304f19f85dc10786
+- id: 0ad2a9c349e640f3
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: allowed
+  property: 'tabs[msg.payload][msg.level]'
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1120
+  'y': 3320
+  wires:
+    - - '559685e284094504'
+    - - 304f19f85dc10786
+- id: 304f19f85dc10786
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: tab
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Authentification
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1290
+  'y': 3440
+  wires:
+    - - '559685e284094504'
+- id: '559685e284094504'
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: clean
+  rules:
+    - t: delete
+      p: tabs
+      pt: msg
+    - t: delete
+      p: level
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1450
+  'y': 3380
+  wires:
+    - - 7bba6594f41302c2
+- id: da2ae22c79bf3537
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: level
+  property: tabs
+  propertyType: msg
+  rules:
+    - t: hask
+      v: level
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 950
+  'y': 3560
+  wires:
+    - - cd3fee82f0914ef5
+    - - 9b99042c4b9e6574
+- id: cd3fee82f0914ef5
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: allowed
+  property: 'tabs[msg.level]'
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1120
+  'y': 3500
+  wires:
+    - - 2f2ef7653ece263e
+    - - 9b99042c4b9e6574
+- id: 2f2ef7653ece263e
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: show
+  rules:
+    - t: set
+      p: show
+      pt: msg
+      to: '#:(memoryOnly)::pages[msg._client.socketId]pages.show'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::pages[msg._client.socketId]pages.show'
+      pt: flow
+      to: '$append(msg.show,[msg.tab])'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1290
+  'y': 3500
+  wires:
+    - - 624081a7f73b4164
+- id: 9b99042c4b9e6574
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: hide
+  rules:
+    - t: set
+      p: hide
+      pt: msg
+      to: '#:(memoryOnly)::pages[msg._client.socketId]pages.hide'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::pages[msg._client.socketId]pages.hide'
+      pt: flow
+      to: '$append(msg.hide,[msg.tab])'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1290
+  'y': 3560
+  wires:
+    - - 624081a7f73b4164
+- id: 624081a7f73b4164
+  type: join
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 1450
+  'y': 3500
+  wires:
+    - - b4db32f45f392912
+- id: b4db32f45f392912
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: pages
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::pages[msg._client.socketId]'
+      tot: flow
+    - t: delete
+      p: tabs
+      pt: msg
+    - t: delete
+      p: tab
+      pt: msg
+    - t: delete
+      p: show
+      pt: msg
+    - t: delete
+      p: hide
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 3500
+  wires:
+    - - 7e5f2b517cfd181c

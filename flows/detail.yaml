@@ -2052,7 +2052,7 @@
     - t: set
       p: query
       pt: msg
-      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> window(period: ' & msg.form.resolution & 'm)' &\t'  |> group(columns: [\"_start\"])' &\t'  |> count()'"
+      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> window(period: ' & msg.form.resolution & 'm, createEmpty: true)' &\t'  |> group(columns: [\"_start\"])' &\t'  |> count()'"
       tot: jsonata
     - t: set
       p: topic
@@ -2102,7 +2102,7 @@
     - t: set
       p: query
       pt: msg
-      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> window(period: ' & msg.form.resolution & 'm)' &\t'  |> group(columns: [\"_start\"])' &\t'  |> count()'"
+      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> window(period: ' & msg.form.resolution & 'm, createEmpty: true)' &\t'  |> group(columns: [\"_start\"])' &\t'  |> count()'"
       tot: jsonata
     - t: set
       p: topic
