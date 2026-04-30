@@ -9317,7 +9317,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'alert',\t    'entity':msg.form.endpoint,\t    'value':msg.form.limit,\t    'loop':false\t}"
+      to: "{\t    'type':'alert',\t    'entity':msg.form.endpoint,\t    'value':$number(msg.form.limit),\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -9906,7 +9906,7 @@
     - t: set
       p: limit_equipment
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]'
+      to: '#:(memoryOnly)::form[msg._client.socketId][''equipment'']'
       tot: flow
   action: ''
   property: ''

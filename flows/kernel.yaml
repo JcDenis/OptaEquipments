@@ -185,9 +185,10 @@
     - 7f71d2575c92f1e5
     - e6df69338d3a3e21
     - 8c6cbe899f2b904d
+    - 45fec39ce210f1d4
   x: 104
   'y': 1899
-  w: 2662
+  w: 2822
   h: 262
 - id: 7ea06c29d525f7ce
   type: group
@@ -2380,7 +2381,7 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 1960
+  x: 2120
   'y': 2000
   wires:
     - - cca39ee5b2794b76
@@ -2416,7 +2417,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2130
+  x: 2290
   'y': 2120
   wires:
     - - fa7160372fcfe3b2
@@ -2441,7 +2442,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2470
+  x: 2630
   'y': 2120
   wires:
     - - 44a9a10bea4cbb76
@@ -2454,7 +2455,7 @@
   mode: link
   links:
     - b75938c74c41ca5e
-  x: 2595
+  x: 2755
   'y': 2120
   wires: []
 - id: fe6f397caf384046
@@ -2618,7 +2619,6 @@
   'y': 2000
   wires:
     - - 78a4ccd05c446292
-      - e6df69338d3a3e21
     - - 5f907dbb8c336d1c
 - id: 78a4ccd05c446292
   type: switch
@@ -2639,6 +2639,7 @@
   'y': 2000
   wires:
     - - f46130b91c535b91
+      - e6df69338d3a3e21
     - - 5f907dbb8c336d1c
 - id: f46130b91c535b91
   type: change
@@ -2684,12 +2685,12 @@
   x: 1770
   'y': 2060
   wires:
-    - - 8e12e262806af7b7
+    - - 45fec39ce210f1d4
 - id: 8e12e262806af7b7
   type: switch
   z: f6f2187d.f17ca8
   g: fc6029b7d49d1e93
-  name: has_admin
+  name: has admin
   property: '#:(memoryOnly)::has_admin'
   propertyType: flow
   rules:
@@ -2698,7 +2699,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1950
+  x: 2110
   'y': 2060
   wires:
     - - aae1f5d9a3931146
@@ -2716,7 +2717,7 @@
   targetType: msg
   statusVal: ''
   statusType: auto
-  x: 2650
+  x: 2810
   'y': 2060
   wires: []
 - id: d1737d208c83ee99
@@ -3175,7 +3176,7 @@
   match: match
   outputs: 1
   rounds: 10
-  x: 2300
+  x: 2460
   'y': 2120
   wires:
     - - c207171ed4430df8
@@ -4739,7 +4740,7 @@
   g: fc6029b7d49d1e93
   name: 'reset users, set main user from env variable (see docker compose)'
   info: ''
-  x: 2320
+  x: 2480
   'y': 2000
   wires: []
 - id: 6a0278acb1566849
@@ -5070,7 +5071,7 @@
   type: switch
   z: f6f2187d.f17ca8
   g: fc6029b7d49d1e93
-  name: has_admin
+  name: is admin
   property: payload.level
   propertyType: msg
   rules:
@@ -5080,7 +5081,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1470
+  x: 1620
   'y': 1940
   wires:
     - - 8c6cbe899f2b904d
@@ -5091,7 +5092,7 @@
   name: mem
   rules:
     - t: set
-      p: has_admin
+      p: '#:(memoryOnly)::has_admin'
       pt: flow
       to: 'true'
       tot: bool
@@ -5100,7 +5101,28 @@
   from: ''
   to: ''
   reg: false
-  x: 1650
+  x: 1790
   'y': 1940
   wires:
     - []
+- id: 45fec39ce210f1d4
+  type: delay
+  z: f6f2187d.f17ca8
+  g: fc6029b7d49d1e93
+  name: 10ms
+  pauseType: delay
+  timeout: '10'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1930
+  'y': 2060
+  wires:
+    - - 8e12e262806af7b7
