@@ -100,6 +100,7 @@
     - 9b99042c4b9e6574
     - 624081a7f73b4164
     - b4db32f45f392912
+    - cbbcc12908fc0cf8
   x: 124
   'y': 3279
   w: 1652
@@ -182,10 +183,12 @@
     - 44a9a10bea4cbb76
     - 6e04acdf428261ac
     - 7f71d2575c92f1e5
+    - e6df69338d3a3e21
+    - 8c6cbe899f2b904d
   x: 104
   'y': 1899
-  w: 2622
-  h: 202
+  w: 2662
+  h: 262
 - id: 7ea06c29d525f7ce
   type: group
   z: f6f2187d.f17ca8
@@ -204,7 +207,7 @@
     - b75938c74c41ca5e
     - 25946e03a69f38c2
   x: 104
-  'y': 2139
+  'y': 2199
   w: 862
   h: 142
 - id: bd007f48192aa2f3
@@ -228,7 +231,7 @@
     - 807b4788c6931196
     - 2dbd34bfcf7eed32
   x: 104
-  'y': 2499
+  'y': 2559
   w: 1282
   h: 142
 - id: ec05c59aee9e7dba
@@ -251,7 +254,7 @@
     - fe5884947b9da6f4
     - 185e375982111b07
   x: 104
-  'y': 2319
+  'y': 2379
   w: 1442
   h: 142
 - id: 0b5b6ec18b014ef3
@@ -1889,7 +1892,7 @@
     - fbeb08a94e71e7bf
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
-  x: 1575
+  x: 1735
   'y': 3380
   wires: []
 - id: 4de1644d9063dd22
@@ -2377,8 +2380,8 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 1920
-  'y': 1940
+  x: 1960
+  'y': 2000
   wires:
     - - cca39ee5b2794b76
 - id: cca39ee5b2794b76
@@ -2413,8 +2416,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2090
-  'y': 2060
+  x: 2130
+  'y': 2120
   wires:
     - - fa7160372fcfe3b2
 - id: c207171ed4430df8
@@ -2438,8 +2441,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
-  'y': 2060
+  x: 2470
+  'y': 2120
   wires:
     - - 44a9a10bea4cbb76
       - aae1f5d9a3931146
@@ -2451,8 +2454,8 @@
   mode: link
   links:
     - b75938c74c41ca5e
-  x: 2555
-  'y': 2060
+  x: 2595
+  'y': 2120
   wires: []
 - id: fe6f397caf384046
   type: change
@@ -2475,13 +2478,18 @@
       pt: msg
       to: kernel
       tot: global
+    - t: set
+      p: '#:(memoryOnly)::has_admin'
+      pt: flow
+      to: 'false'
+      tot: bool
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 280
-  'y': 2000
+  'y': 2060
   wires:
     - - 63e58cf7f88ce5af
 - id: 63e58cf7f88ce5af
@@ -2497,7 +2505,7 @@
   encoding: none
   allProps: false
   x: 470
-  'y': 2000
+  'y': 2060
   wires:
     - - 0b2cf7bf91ae4d19
 - id: 0b2cf7bf91ae4d19
@@ -2509,7 +2517,7 @@
   action: ''
   pretty: false
   x: 650
-  'y': 2000
+  'y': 2060
   wires:
     - - b4af2a500bbb58a7
 - id: b4af2a500bbb58a7
@@ -2528,7 +2536,7 @@
   repair: false
   outputs: 2
   x: 810
-  'y': 2000
+  'y': 2060
   wires:
     - - 3a2c58212854ea3e
     - - cca39ee5b2794b76
@@ -2541,7 +2549,7 @@
     - 63e58cf7f88ce5af
   uncaught: false
   x: 460
-  'y': 2060
+  'y': 2120
   wires:
     - - cca39ee5b2794b76
 - id: 3b80cd5cae7c3642
@@ -2552,7 +2560,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 2000
+  'y': 2060
   wires:
     - - fe6f397caf384046
 - id: 3a2c58212854ea3e
@@ -2568,7 +2576,7 @@
   addname: login
   property: payload
   x: 970
-  'y': 1940
+  'y': 2000
   wires:
     - - edcf6238f00c90bc
 - id: edcf6238f00c90bc
@@ -2587,7 +2595,7 @@
   repair: false
   outputs: 2
   x: 1130
-  'y': 1940
+  'y': 2000
   wires:
     - - 1179554b4d5f91c8
     - - 5f907dbb8c336d1c
@@ -2607,9 +2615,10 @@
   repair: false
   outputs: 2
   x: 1290
-  'y': 1940
+  'y': 2000
   wires:
     - - 78a4ccd05c446292
+      - e6df69338d3a3e21
     - - 5f907dbb8c336d1c
 - id: 78a4ccd05c446292
   type: switch
@@ -2627,7 +2636,7 @@
   repair: false
   outputs: 2
   x: 1450
-  'y': 1940
+  'y': 2000
   wires:
     - - f46130b91c535b91
     - - 5f907dbb8c336d1c
@@ -2648,7 +2657,7 @@
   to: ''
   reg: false
   x: 1610
-  'y': 1940
+  'y': 2000
   wires:
     - - 5f907dbb8c336d1c
 - id: 5f907dbb8c336d1c
@@ -2673,26 +2682,24 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1770
-  'y': 2000
+  'y': 2060
   wires:
     - - 8e12e262806af7b7
 - id: 8e12e262806af7b7
   type: switch
   z: f6f2187d.f17ca8
   g: fc6029b7d49d1e93
-  name: empty
-  property: '#:(memoryOnly)::auth'
-  propertyType: global
+  name: has_admin
+  property: '#:(memoryOnly)::has_admin'
+  propertyType: flow
   rules:
-    - t: hask
-      v: admin
-      vt: str
+    - t: 'true'
     - t: else
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1930
-  'y': 2000
+  x: 1950
+  'y': 2060
   wires:
     - - aae1f5d9a3931146
     - - cca39ee5b2794b76
@@ -2709,8 +2716,8 @@
   targetType: msg
   statusVal: ''
   statusType: auto
-  x: 2610
-  'y': 2000
+  x: 2650
+  'y': 2060
   wires: []
 - id: d1737d208c83ee99
   type: change
@@ -2739,7 +2746,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 2180
+  'y': 2240
   wires:
     - - efbcb97a4ab96940
 - id: efbcb97a4ab96940
@@ -2754,7 +2761,7 @@
   overwriteFile: 'true'
   encoding: none
   x: 480
-  'y': 2180
+  'y': 2240
   wires:
     - - 6e614b3f0adee365
 - id: 6e614b3f0adee365
@@ -2774,7 +2781,7 @@
   to: ''
   reg: false
   x: 670
-  'y': 2180
+  'y': 2240
   wires:
     - - 166b868a64df0e9f
       - 25946e03a69f38c2
@@ -2787,7 +2794,7 @@
     - efbcb97a4ab96940
   uncaught: false
   x: 460
-  'y': 2240
+  'y': 2300
   wires:
     - - f261b4c898eeec2e
 - id: f261b4c898eeec2e
@@ -2807,7 +2814,7 @@
   to: ''
   reg: false
   x: 670
-  'y': 2240
+  'y': 2300
   wires:
     - - 25946e03a69f38c2
       - 166b868a64df0e9f
@@ -2825,7 +2832,7 @@
   statusVal: ''
   statusType: auto
   x: 850
-  'y': 2240
+  'y': 2300
   wires: []
 - id: b75938c74c41ca5e
   type: link in
@@ -2837,7 +2844,7 @@
     - 44a9a10bea4cbb76
     - 0a619717ada5bdb5
   x: 145
-  'y': 2180
+  'y': 2240
   wires:
     - - d1737d208c83ee99
 - id: 25946e03a69f38c2
@@ -2849,7 +2856,7 @@
   links:
     - 4e94023e8ba12f50
   x: 795
-  'y': 2180
+  'y': 2240
   wires: []
 - id: fdb028158b218535
   type: link in
@@ -2858,7 +2865,7 @@
   name: user- check
   links: []
   x: 145
-  'y': 2600
+  'y': 2660
   wires:
     - - 6fea9a36a5a116fc
 - id: 6fea9a36a5a116fc
@@ -2875,7 +2882,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 2600
+  'y': 2660
   wires:
     - - d6d7186fef5b0008
     - - 58ebf510744db0ee
@@ -2893,7 +2900,7 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 2580
+  'y': 2640
   wires:
     - - 8e3207bb2992362b
     - - 58ebf510744db0ee
@@ -2913,7 +2920,7 @@
   repair: false
   outputs: 2
   x: 590
-  'y': 2560
+  'y': 2620
   wires:
     - - 807b4788c6931196
     - - 58ebf510744db0ee
@@ -2954,7 +2961,7 @@
   to: ''
   reg: false
   x: 1090
-  'y': 2540
+  'y': 2600
   wires:
     - - 4b4db5a5c5bcb3c6
       - 2dbd34bfcf7eed32
@@ -2980,7 +2987,7 @@
   to: ''
   reg: false
   x: 1090
-  'y': 2600
+  'y': 2660
   wires:
     - - 4b4db5a5c5bcb3c6
       - 2dbd34bfcf7eed32
@@ -2992,7 +2999,7 @@
   mode: return
   links: []
   x: 1215
-  'y': 2540
+  'y': 2600
   wires: []
 - id: 807b4788c6931196
   type: change
@@ -3011,7 +3018,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 2540
+  'y': 2600
   wires:
     - - e0302181e220fb24
 - id: 2dbd34bfcf7eed32
@@ -3028,7 +3035,7 @@
   statusVal: ''
   statusType: auto
   x: 1270
-  'y': 2600
+  'y': 2660
   wires: []
 - id: 0502ea2e9ef0f780
   type: link in
@@ -3039,7 +3046,7 @@
     - 560a5229025ecb9d
     - 6dfb47bfe7905913
   x: 145
-  'y': 2420
+  'y': 2480
   wires:
     - - fe5884947b9da6f4
 - id: 2ce00375c4ce63d8
@@ -3055,7 +3062,7 @@
   addname: session
   property: payload
   x: 430
-  'y': 2420
+  'y': 2480
   wires:
     - - eb6629ceb4089587
 - id: eb6629ceb4089587
@@ -3074,7 +3081,7 @@
   repair: false
   outputs: 2
   x: 590
-  'y': 2420
+  'y': 2480
   wires:
     - - 185e375982111b07
     - - 49a760948e6b52c9
@@ -3093,7 +3100,7 @@
   to: ''
   reg: false
   x: 1250
-  'y': 2420
+  'y': 2480
   wires:
     - - 0e94cde52c021d45
 - id: 033929b830a442e9
@@ -3109,7 +3116,7 @@
   repair: false
   outputs: 1
   x: 910
-  'y': 2360
+  'y': 2420
   wires:
     - - 5b2881f9991057c5
 - id: 5b2881f9991057c5
@@ -3127,7 +3134,7 @@
   repair: false
   outputs: 1
   x: 1070
-  'y': 2360
+  'y': 2420
   wires:
     - - 49a760948e6b52c9
 - id: 0cd27cf548bea817
@@ -3137,7 +3144,7 @@
   name: 'clean user session on changes, see system user'
   info: ''
   x: 400
-  'y': 2360
+  'y': 2420
   wires: []
 - id: 0e94cde52c021d45
   type: debug
@@ -3153,7 +3160,7 @@
   statusVal: ''
   statusType: auto
   x: 1430
-  'y': 2420
+  'y': 2480
   wires: []
 - id: fa7160372fcfe3b2
   type: bcrypt
@@ -3168,8 +3175,8 @@
   match: match
   outputs: 1
   rounds: 10
-  x: 2260
-  'y': 2060
+  x: 2300
+  'y': 2120
   wires:
     - - c207171ed4430df8
 - id: e0302181e220fb24
@@ -3186,7 +3193,7 @@
   outputs: 2
   rounds: 10
   x: 920
-  'y': 2540
+  'y': 2600
   wires:
     - - 7b7124a46b1a0dcb
     - - 58ebf510744db0ee
@@ -4703,7 +4710,7 @@
   to: ''
   reg: false
   x: 270
-  'y': 2420
+  'y': 2480
   wires:
     - - 2ce00375c4ce63d8
 - id: 185e375982111b07
@@ -4722,7 +4729,7 @@
   repair: false
   outputs: 2
   x: 750
-  'y': 2380
+  'y': 2440
   wires:
     - - 033929b830a442e9
     - - 49a760948e6b52c9
@@ -4732,16 +4739,8 @@
   g: fc6029b7d49d1e93
   name: 'reset users, set main user from env variable (see docker compose)'
   info: ''
-  x: 2280
-  'y': 1940
-  wires: []
-- id: bada27148e918e26
-  type: comment
-  z: f6f2187d.f17ca8
-  name: 'Todo: attention l''utilisateur admin n''est pas forcement le login admin !!!'
-  info: ''
-  x: 2010
-  'y': 2140
+  x: 2320
+  'y': 2000
   wires: []
 - id: 6a0278acb1566849
   type: change
@@ -4900,7 +4899,7 @@
   x: 1450
   'y': 3380
   wires:
-    - - 7bba6594f41302c2
+    - - cbbcc12908fc0cf8
 - id: da2ae22c79bf3537
   type: switch
   z: f6f2187d.f17ca8
@@ -5046,3 +5045,62 @@
   'y': 3500
   wires:
     - - 7e5f2b517cfd181c
+- id: cbbcc12908fc0cf8
+  type: delay
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: 20ms
+  pauseType: delay
+  timeout: '20'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1610
+  'y': 3380
+  wires:
+    - - 7bba6594f41302c2
+- id: e6df69338d3a3e21
+  type: switch
+  z: f6f2187d.f17ca8
+  g: fc6029b7d49d1e93
+  name: has_admin
+  property: payload.level
+  propertyType: msg
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1470
+  'y': 1940
+  wires:
+    - - 8c6cbe899f2b904d
+- id: 8c6cbe899f2b904d
+  type: change
+  z: f6f2187d.f17ca8
+  g: fc6029b7d49d1e93
+  name: mem
+  rules:
+    - t: set
+      p: has_admin
+      pt: flow
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1650
+  'y': 1940
+  wires:
+    - []
