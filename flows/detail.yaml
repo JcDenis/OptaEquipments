@@ -263,7 +263,6 @@
     - 2045a5696769c038
     - 1b9ea1d585b942a5
     - 587535c8d0c4c954
-    - 8c61b972ec45263c
     - 80aaebfa270b96ee
     - 1e58e82c924967b4
     - 3aad74b4936add5c
@@ -272,6 +271,34 @@
   'y': 39
   w: 712
   h: 232
+- id: 6d125a0d231d55d4
+  type: group
+  z: 852390cb9559e176
+  name: ui -period
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 8fdfd037d4e5b985
+    - 729a2778d9fb6f52
+    - 69bec3d19ae4a586
+    - 09948161aec8960d
+    - 02a474099b965b9f
+    - 6846c95c9aa15481
+    - f014052cb4157dbe
+    - 5aea27aee6f826e1
+    - 370146c121dc42b6
+    - 2e3cd116fe8f72e6
+    - 0e841715e2ebce0f
+    - 8469ca2fbb3ba380
+    - 56b4acc92d2c14f7
+    - 36ca816106cb746f
+    - 41f6c771c0995e45
+  x: 104
+  'y': 3099
+  w: 1822
+  h: 202
 - id: 6829c2450480a8f8
   type: link call
   z: 852390cb9559e176
@@ -1430,6 +1457,7 @@
     - b5082fd6f739991d
     - 6822e56a80bdb67e
     - 96e8abf144b980e2
+    - 8fdfd037d4e5b985
   x: 2355
   'y': 740
   wires: []
@@ -1445,6 +1473,7 @@
   'y': 320
   wires:
     - - f9d8802bc1c7f1f8
+      - 6b53ef650b83222f
 - id: 07e5db127f9067f8
   type: switch
   z: 852390cb9559e176
@@ -3134,31 +3163,31 @@
       keyType: key
       type: color
       width: ''
-      align: start
+      align: center
     - title: Composant
       key: component_full
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
     - title: Actuel
       key: state
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
     - title: Limite
       key: state_limit
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
     - title: Diff
       key: state_diff
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -3253,6 +3282,7 @@
     - 8104e13e7b473d2f
     - b5082fd6f739991d
     - 96e8abf144b980e2
+    - 8fdfd037d4e5b985
   x: 2195
   'y': 320
   wires: []
@@ -4315,15 +4345,13 @@
   property: enabled
   propertyType: msg
   rules:
-    - t: 'false'
-    - t: else
+    - t: 'true'
   checkall: 'false'
   repair: false
-  outputs: 2
+  outputs: 1
   x: 280
-  'y': 320
+  'y': 440
   wires:
-    - - 6b53ef650b83222f
     - - dd017aec28af9106
       - 18ba1681a951cf6c
 - id: 18ba1681a951cf6c
@@ -4583,7 +4611,7 @@
     - 716fd198bbd63dcb
     - 4a798d15562c1309
   x: 145
-  'y': 200
+  'y': 140
   wires:
     - - 1b9ea1d585b942a5
 - id: 1b9ea1d585b942a5
@@ -4602,7 +4630,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 200
+  'y': 140
   wires:
     - - 587535c8d0c4c954
     - - 136e1b3079c85332
@@ -4867,16 +4895,6 @@
   wires:
     - - 67d66a8b80535ef8
       - 5c746d6457cd29ed
-- id: 8c61b972ec45263c
-  type: link in
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: ui - detail - schedule
-  links: []
-  x: 145
-  'y': 140
-  wires:
-    - - 7f236a1111335459
 - id: 80aaebfa270b96ee
   type: change
   z: 852390cb9559e176
@@ -5224,3 +5242,364 @@
   'y': 2780
   wires:
     - - 3e42541f14d8d3d2
+- id: 8fdfd037d4e5b985
+  type: link in
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: ui - period
+  links:
+    - bd7c74e40976d045
+    - ee4c8653f8b07e2e
+  x: 145
+  'y': 3140
+  wires:
+    - - 729a2778d9fb6f52
+      - 69bec3d19ae4a586
+      - 56b4acc92d2c14f7
+- id: 729a2778d9fb6f52
+  type: switch
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: client
+  property: _client
+  propertyType: msg
+  rules:
+    - t: hask
+      v: socketId
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 290
+  'y': 3200
+  wires:
+    - []
+- id: 69bec3d19ae4a586
+  type: switch
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: enabled
+  property: class
+  propertyType: msg
+  rules:
+    - t: neq
+      v: remove
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 280
+  'y': 3260
+  wires:
+    - - 09948161aec8960d
+- id: 09948161aec8960d
+  type: change
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: periods
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.period
+      tot: global
+    - t: set
+      p: line
+      pt: msg
+      to: '#:(memoryOnly)::form[msg._client.socketId]line'
+      tot: flow
+    - t: set
+      p: teams
+      pt: msg
+      to: "{\t    'm':'#FF0000',\t    'a':'#FF0000',\t    'n':'#FF0000',\t    'j':'#FF0000',\t    's':'#FF0000'}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 460
+  'y': 3260
+  wires:
+    - - 02a474099b965b9f
+- id: 02a474099b965b9f
+  type: switch
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: line
+  property: payload
+  propertyType: msg
+  rules:
+    - t: hask
+      v: line
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 630
+  'y': 3260
+  wires:
+    - - 6846c95c9aa15481
+- id: 6846c95c9aa15481
+  type: change
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: period
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: 'payload[msg.line]'
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 790
+  'y': 3260
+  wires:
+    - - f014052cb4157dbe
+- id: f014052cb4157dbe
+  type: split
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: team
+  property: teams
+  x: 950
+  'y': 3260
+  wires:
+    - - 5aea27aee6f826e1
+- id: 5aea27aee6f826e1
+  type: switch
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: exists
+  property: payload
+  propertyType: msg
+  rules:
+    - t: regex
+      v: '''('' & msg.team & '')'''
+      vt: jsonata
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1110
+  'y': 3260
+  wires:
+    - - 2e3cd116fe8f72e6
+    - - 370146c121dc42b6
+- id: 370146c121dc42b6
+  type: join
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 1430
+  'y': 3260
+  wires:
+    - - 8469ca2fbb3ba380
+- id: 2e3cd116fe8f72e6
+  type: change
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: 'true'
+  rules:
+    - t: set
+      p: teams
+      pt: msg
+      to: '#008800'
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1270
+  'y': 3200
+  wires:
+    - - 370146c121dc42b6
+- id: 0e841715e2ebce0f
+  type: ui-table
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  group: 1669fa4fe2f204a0
+  name: ui - period - table
+  label: ''
+  order: 26
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Matin
+      key: m
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Après-midi
+      key: a
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Nuit
+      key: 'n'
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Journée
+      key: j
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Samedi
+      key: s
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Actif
+      key: d
+      keyType: key
+      type: color
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 1810
+  'y': 3200
+  wires:
+    - []
+- id: 8469ca2fbb3ba380
+  type: change
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: teams
+      tot: msg
+    - t: set
+      p: disabled
+      pt: msg
+      to: 'kernel.disabled[msg.line]'
+      tot: global
+    - t: set
+      p: 'payload[''d'']'
+      pt: msg
+      to: 'msg.disabled?''#FF0000'':''#008000'''
+      tot: jsonata
+    - t: delete
+      p: disabled
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1600
+  'y': 3260
+  wires:
+    - - 0e841715e2ebce0f
+      - 36ca816106cb746f
+      - 41f6c771c0995e45
+- id: 56b4acc92d2c14f7
+  type: change
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 3140
+  wires:
+    - - 0e841715e2ebce0f
+      - 36ca816106cb746f
+- id: 36ca816106cb746f
+  type: ui-text
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  group: 1669fa4fe2f204a0
+  order: 25
+  width: 0
+  height: 0
+  name: ui - period - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: ' Programmation'
+  valueType: str
+  x: 1800
+  'y': 3140
+  wires: []
+- id: 41f6c771c0995e45
+  type: debug
+  z: 852390cb9559e176
+  g: 6d125a0d231d55d4
+  name: ui - period - list
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1800
+  'y': 3260
+  wires: []
