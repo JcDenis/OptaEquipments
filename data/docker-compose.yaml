@@ -113,36 +113,10 @@ services:
     entrypoint: >
       /bin/sh -c '
         git clone https://github.com/JcDenis/OptaEquipments /data/projects/OptaEquipments &&
-        echo -n "{
-          \"name\": \"optaequipments-projects\",
-          \"description\": \"An Arduino Opta Project\",
-          \"version\": \"0.4.0\",
-          \"private\": true,
-          \"dependencies\": {
-            \"@flowfuse/node-red-dashboard\": \"~1.30.2\",
-            \"node-red-contrib-bcrypt\": \"~0.1.6\",
-            \"node-red-contrib-flow-manager\": \"~0.7.4\",
-            \"node-red-contrib-influxdb\": \"~0.7.0\",
-            \"node-red-contrib-moment\": \"~5.0.0\",
-            \"node-red-contrib-queue-gate\": \"~1.5.5\",
-            \"node-red-node-base64\": \"~1.0.0\"
-          }
-        }" > /data/package.json &&
-        chown node-red:node-red /data/package.json &&
-        chmod 600 /data/package.json &&
+        cp /data/projects/OptaEquipments/data/package.json /data/package.json
+        cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
         HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw) &&
         HASHB=$(expr substr "$$HASH" 11 100) &&
-        echo -n "{
-          \"projects\": {
-            \"OptaEquipments\": {
-              \"credentialSecret\": \"optaequipments\"
-            }
-          },
-          \"activeProject\": \"OptaEquipments\"
-        }
-        " > /data/.config.projects.json &&
-        chown node-red:node-red /data/.config.projects.json &&
-        chmod 600 /data/.config.projects.json &&
         echo -n "        module.exports = {
           flowFile: \"flows.json\",
           credentialSecret: \"${OPTA_SECRET}\",
