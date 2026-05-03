@@ -112,12 +112,14 @@ services:
       OPTA_ADMIN_PASSWORD: ${OPTA_ADMIN_PASSWORD}
     entrypoint: >
       /bin/sh -c '
+        echo "> Cloning project" &&
         git clone https://github.com/JcDenis/OptaEquipments /data/projects/OptaEquipments &&
+        echo "> Creating settings" &&
         cp /data/projects/OptaEquipments/package.json /data/package.json
         cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
         HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw) &&
         HASHB=$(expr substr "$$HASH" 11 100) &&
-        echo -n "        module.exports = {
+        echo -n "module.exports = {
           flowFile: \"flows.json\",
           credentialSecret: \"${OPTA_SECRET}\",
           flowFilePretty: true,
@@ -140,11 +142,7 @@ services:
           externalModules: { autoInstall: true, autoInstallRetry: 60 },
           editorTheme: {
               palette: { },
-              projects: {
-                enabled: true,
-                workflow: { mode: \"manual\" }
-                //,activeProject: "OptaEquipments"
-              },
+              projects: { enabled: true, workflow: { mode: \"manual\" } },
               codeEditor: { lib: \"monaco\", options: { } },
               markdownEditor: { mermaid: { enabled: true } },
               tours: false,
@@ -158,8 +156,10 @@ services:
         }" > /data/settings.js &&
         chown node-red:node-red /data/settings.js &&
         chmod 600 /data/settings.js
+        echo "> Instaling packages" &&
         cd /data &&
         npm install --unsafe-perm --no-update-notifier --no-fund --omit=dev &&
+        echo "> Running node-red" &&
         cd /usr/src/node-red &&
         exec ./entrypoint.sh
       '
