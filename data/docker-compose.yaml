@@ -113,7 +113,7 @@ services:
     entrypoint: >
       /bin/sh -c '
         git clone https://github.com/JcDenis/OptaEquipments /data/projects/OptaEquipments &&
-        cp /data/projects/OptaEquipments/data/package.json /data/package.json
+        cp /data/projects/OptaEquipments/package.json /data/package.json
         cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
         HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw) &&
         HASHB=$(expr substr "$$HASH" 11 100) &&
