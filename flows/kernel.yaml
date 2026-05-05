@@ -101,7 +101,7 @@
     - 624081a7f73b4164
     - b4db32f45f392912
     - cbbcc12908fc0cf8
-  x: 124
+  x: 104
   'y': 3279
   w: 1652
   h: 442
@@ -287,7 +287,7 @@
     - 6332f98291875f5b
     - d74c4724d9748b31
     - 09864429f32ccb58
-  x: 98
+  x: 78
   'y': 2953
   w: 7794
   h: 261.5
@@ -401,7 +401,7 @@
     - 103b368babb82839
     - c7dc8df688a74cbe
     - 03b45bbd09103d20
-  x: 124
+  x: 104
   'y': 3039
   w: 622
   h: 142
@@ -431,7 +431,7 @@
     - 64761ec1ca90eded
     - 85c06ed73ef956e0
     - a6cf05610b5fd8ae
-  x: 754
+  x: 734
   'y': 2979
   w: 1792
   h: 209.5
@@ -466,7 +466,7 @@
     - c34f8e3ecbb4fdf4
     - 744092f6595dbe5e
     - 5cea060fbcf28dcb
-  x: 2554
+  x: 2534
   'y': 2979
   w: 2792
   h: 202
@@ -498,7 +498,7 @@
     - 7d58dda4f8c000f6
     - d0bf81ce512ab961
     - 20ca26df47797bb2
-  x: 5354
+  x: 5334
   'y': 3039
   w: 2512
   h: 142
@@ -727,7 +727,7 @@
     - t: set
       p: '#:(memoryOnly)::app'
       pt: global
-      to: "{\t    'automate':'optaequipments',\t    'version':'0.4.0',\t    'name':'Live Equipments'\t}"
+      to: "{\t    'automate':'optaequipments',\t    'version':'0.4.0',\t    'title':'Live Equipments',\t    'vendor':'jcDenis'\t}"
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::auth'
@@ -817,7 +817,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 800
+  x: 780
   'y': 3620
   wires: []
 - id: d82f731a51f1d464
@@ -833,7 +833,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 480
+  x: 460
   'y': 3380
   wires: []
 - id: f3fbc10f1f75603c
@@ -842,7 +842,7 @@
   g: 32da9b1ae024e8bb
   ui: 68fb8d742e5053db
   name: ''
-  x: 290
+  x: 270
   'y': 3380
   wires:
     - - d82f731a51f1d464
@@ -853,7 +853,7 @@
   name: ''
   ui: 68fb8d742e5053db
   events: all
-  x: 300
+  x: 280
   'y': 3320
   wires:
     - - e0b4c721460909ae
@@ -892,7 +892,7 @@
   group: ''
   page: ''
   ui: 68fb8d742e5053db
-  name: ''
+  name: style
   order: 0
   width: 0
   height: 0
@@ -929,7 +929,7 @@
   resendOnRefresh: true
   templateScope: 'site:style'
   className: ''
-  x: 480
+  x: 450
   'y': 3440
   wires:
     - []
@@ -941,7 +941,8 @@
   links:
     - 575b91a30deac00d
     - bee6a866a78902c8
-  x: 165
+    - 184163b7c578c6aa
+  x: 145
   'y': 3440
   wires:
     - - 430e091bb05b99e7
@@ -963,8 +964,8 @@
   confirmText: Confirm
   raw: false
   className: ''
-  name: ''
-  x: 330
+  name: notification
+  x: 290
   'y': 3560
   wires:
     - []
@@ -998,7 +999,7 @@
     - 5089216d327d1312
     - 32238bfb65baf1bc
     - 25946e03a69f38c2
-  x: 165
+  x: 145
   'y': 3560
   wires:
     - - 457bd17747e44d56
@@ -1456,7 +1457,7 @@
   targetType: msg
   statusVal: ''
   statusType: auto
-  x: 300
+  x: 280
   'y': 3620
   wires: []
 - id: 208f67135b531d2d
@@ -1894,7 +1895,7 @@
     - fbeb08a94e71e7bf
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
-  x: 1735
+  x: 1715
   'y': 3380
   wires: []
 - id: 4de1644d9063dd22
@@ -1934,7 +1935,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 470
+  x: 450
   'y': 3320
   wires:
     - - 6a0278acb1566849
@@ -1953,7 +1954,7 @@
     - 69341ab189affbbd
     - 4a798d15562c1309
     - 9436213abf2c9241
-  x: 165
+  x: 145
   'y': 3320
   wires:
     - - ba6ef07c6e523872
@@ -2051,7 +2052,7 @@
   group: ''
   page: ''
   ui: 68fb8d742e5053db
-  name: ''
+  name: head
   order: 0
   width: 0
   height: 0
@@ -2060,10 +2061,10 @@
 
     <template>
         <Teleport v-if="mounted" to="#app-bar-actions">
-            <span>v{{msg.version}}</span> <img height="32px" src="/icon.png" :title="msg.full"></img>
+            <span>v{{msg.version}}</span> <img height="32px" src="/icon.png" :title="msg.vendor"></img>
         </Teleport>
         <Teleport v-if="mounted" to="#app-bar-title">
-            <span>{{msg.vendor}}</span>
+            <span>{{msg.title}}</span>
         </Teleport>
 
     </template>
@@ -2085,7 +2086,7 @@
   resendOnRefresh: true
   templateScope: 'widget:ui'
   className: ''
-  x: 480
+  x: 450
   'y': 3500
   wires:
     - []
@@ -2141,12 +2142,17 @@
   type: change
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
-  name: version
+  name: prepare
   rules:
     - t: set
       p: version
       pt: msg
       to: '#:(memoryOnly)::app.version'
+      tot: global
+    - t: set
+      p: app_vendor
+      pt: msg
+      to: '#:(memoryOnly)::app.vendor'
       tot: global
     - t: set
       p: vendor
@@ -2156,19 +2162,29 @@
     - t: set
       p: vendor
       pt: msg
-      to: 'msg.vendor?msg.vendor:''Live Equipments'''
+      to: 'msg.vendor?msg.vendor:msg.app_vendor'
       tot: jsonata
     - t: set
-      p: full
+      p: app_title
       pt: msg
-      to: msg.vendor & ' v' & msg.version
+      to: '#:(memoryOnly)::app.title'
+      tot: global
+    - t: set
+      p: title
+      pt: msg
+      to: kernel.app.title
+      tot: global
+    - t: set
+      p: title
+      pt: msg
+      to: 'msg.title?msg.title:msg.app_title'
       tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 300
+  x: 280
   'y': 3500
   wires:
     - - 3450fffd4f368319
@@ -3209,7 +3225,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1735
+  x: 1715
   'y': 3500
   wires: []
 - id: 0d7869d9d005af45
@@ -3255,7 +3271,7 @@
   name: link in 1
   links:
     - f8fd7e92f9a55a9c
-  x: 165
+  x: 145
   'y': 3140
   wires:
     - - ea9aee962a91279a
@@ -3275,7 +3291,7 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 290
+  x: 270
   'y': 3080
   wires:
     - - ea9aee962a91279a
@@ -3296,7 +3312,7 @@
   output: row.curtime
   outputType: msg
   outTz: Europe/Paris
-  x: 490
+  x: 470
   'y': 3140
   wires:
     - - 103b368babb82839
@@ -3316,7 +3332,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2640
+  x: 2620
   'y': 3140
   wires:
     - - 72c590fad8a5393a
@@ -3332,7 +3348,7 @@
   stream: false
   addname: row.line
   property: payload
-  x: 2810
+  x: 2790
   'y': 3140
   wires:
     - - f5a6d3b9be35fa51
@@ -3348,7 +3364,7 @@
   stream: false
   addname: ''
   property: payload
-  x: 3470
+  x: 3450
   'y': 3080
   wires:
     - - f877746119eff0d5
@@ -3365,7 +3381,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3140
+  x: 3120
   'y': 3140
   wires:
     - []
@@ -3399,7 +3415,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5770
+  x: 5750
   'y': 3140
   wires:
     - - 473714a8c949e184
@@ -3418,7 +3434,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 5970
+  x: 5950
   'y': 3140
   wires:
     - - 20ca26df47797bb2
@@ -3439,7 +3455,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 6350
+  x: 6330
   'y': 3140
   wires:
     - - 9eee9d23b624ac98
@@ -3465,7 +3481,7 @@
   from: ''
   to: ''
   reg: false
-  x: 6540
+  x: 6520
   'y': 3140
   wires:
     - - d90a7db1c727a876
@@ -3484,7 +3500,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 6730
+  x: 6710
   'y': 3140
   wires:
     - - 5adf39f2e1d1d0a8
@@ -3505,7 +3521,7 @@
   from: ''
   to: ''
   reg: false
-  x: 6910
+  x: 6890
   'y': 3080
   wires:
     - - ab7361153263ecac
@@ -3523,7 +3539,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 7070
+  x: 7050
   'y': 3080
   wires:
     - - 5b1a9c940bbdadc2
@@ -3544,7 +3560,7 @@
   bytopic: all
   topic: topic
   outputs: 2
-  x: 7230
+  x: 7210
   'y': 3080
   wires:
     - - 04404854189ce6f7
@@ -3565,7 +3581,7 @@
   from: ''
   to: ''
   reg: false
-  x: 7390
+  x: 7370
   'y': 3080
   wires:
     - - 04404854189ce6f7
@@ -3604,7 +3620,7 @@
   from: ''
   to: ''
   reg: false
-  x: 7550
+  x: 7530
   'y': 3140
   wires:
     - - 7d58dda4f8c000f6
@@ -3627,7 +3643,7 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 1510
+  x: 1490
   'y': 3140
   wires:
     - - 64761ec1ca90eded
@@ -3659,7 +3675,7 @@
   from: ''
   to: ''
   reg: false
-  x: 830
+  x: 810
   'y': 3140
   wires:
     - - 2b43475d4125fd7c
@@ -3675,7 +3691,7 @@
   stream: false
   addname: key
   property: payload
-  x: 990
+  x: 970
   'y': 3140
   wires:
     - - 5f64350e286f8038
@@ -3746,7 +3762,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1150
+  x: 1130
   'y': 3140
   wires:
     - - a6cf05610b5fd8ae
@@ -3765,7 +3781,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1670
+  x: 1650
   'y': 3020
   wires:
     - - 2217ee417df7885a
@@ -3785,7 +3801,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1670
+  x: 1650
   'y': 3080
   wires:
     - - 2217ee417df7885a
@@ -3807,7 +3823,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2470
+  x: 2450
   'y': 3140
   wires:
     - - 82cd061d4def3e66
@@ -3826,7 +3842,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1830
+  x: 1810
   'y': 3020
   wires:
     - - 17978a9db54c3dab
@@ -3846,7 +3862,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1990
+  x: 1970
   'y': 3020
   wires:
     - - a316818c2fb77fe4
@@ -3867,7 +3883,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2150
+  x: 2130
   'y': 3020
   wires:
     - - 85c06ed73ef956e0
@@ -3887,7 +3903,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2150
+  x: 2130
   'y': 3080
   wires:
     - - 85c06ed73ef956e0
@@ -3922,7 +3938,7 @@
   from: ''
   to: ''
   reg: false
-  x: 300
+  x: 280
   'y': 3140
   wires:
     - - d2d25388963d5bac
@@ -3957,7 +3973,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2970
+  x: 2950
   'y': 3140
   wires:
     - - ee474891c25a715c
@@ -3985,7 +4001,7 @@
   from: ''
   to: ''
   reg: false
-  x: 670
+  x: 650
   'y': 3140
   wires:
     - - 7726236c35dc5e4e
@@ -4010,7 +4026,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 2310
+  x: 2290
   'y': 3140
   wires:
     - - d8b9ba53d0da63ec
@@ -4027,7 +4043,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4110
+  x: 4090
   'y': 3080
   wires:
     - - 3b72332cba046309
@@ -4046,7 +4062,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3790
+  x: 3770
   'y': 3080
   wires:
     - - 648617fb3fea4a61
@@ -4064,7 +4080,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3630
+  x: 3610
   'y': 3080
   wires:
     - - 5267530b9dd9d5cc
@@ -4084,7 +4100,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3950
+  x: 3930
   'y': 3080
   wires:
     - - 8f4053ccd6d28a5e
@@ -4104,7 +4120,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4270
+  x: 4250
   'y': 3020
   wires:
     - - 7da418fe75d84806
@@ -4129,7 +4145,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 4430
+  x: 4410
   'y': 3080
   wires:
     - - a79648ab2049891e
@@ -4145,7 +4161,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 4590
+  x: 4570
   'y': 3080
   wires:
     - - 8d34c393ffad5020
@@ -4163,7 +4179,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 4760
+  x: 4740
   'y': 3080
   wires:
     - - a0162c9f77fe02f9
@@ -4180,7 +4196,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 7740
+  x: 7720
   'y': 3080
   wires: []
 - id: a0162c9f77fe02f9
@@ -4196,7 +4212,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4940
+  x: 4920
   'y': 3080
   wires:
     - - 3cdcf871d91739ce
@@ -4217,7 +4233,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5110
+  x: 5090
   'y': 3080
   wires:
     - - 744092f6595dbe5e
@@ -4237,7 +4253,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5110
+  x: 5090
   'y': 3140
   wires:
     - - 744092f6595dbe5e
@@ -4255,7 +4271,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5270
+  x: 5250
   'y': 3140
   wires:
     - - 5c2cf23a249e0d1f
@@ -4275,7 +4291,7 @@
   from: ''
   to: ''
   reg: false
-  x: 5430
+  x: 5410
   'y': 3140
   wires:
     - - fa71ad2806b2bb34
@@ -4291,7 +4307,7 @@
   stream: false
   addname: row.entity
   property: payload
-  x: 5590
+  x: 5570
   'y': 3140
   wires:
     - - 7b1c70c94f675d1e
@@ -4303,7 +4319,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 7675
+  x: 7655
   'y': 3140
   wires: []
 - id: 2c4e7cd9d987d51e
@@ -4549,7 +4565,7 @@
   output: row.curday
   outputType: msg
   outTz: Europe/Paris
-  x: 1330
+  x: 1310
   'y': 3140
   wires:
     - - d7e4409126ba1bed
@@ -4567,7 +4583,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 6160
+  x: 6140
   'y': 3140
   wires:
     - - a834179c0430fcbb
@@ -4581,7 +4597,7 @@
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 290
+  x: 270
   'y': 3680
   wires:
     - - 025edbd02daf82d0
@@ -4593,7 +4609,7 @@
   statusCode: '307'
   headers:
     Location: /dashboard
-  x: 460
+  x: 440
   'y': 3680
   wires: []
 - id: 32238bfb65baf1bc
@@ -4783,7 +4799,7 @@
   from: ''
   to: ''
   reg: false
-  x: 630
+  x: 610
   'y': 3320
   wires:
     - - 0476961f919ac542
@@ -4804,7 +4820,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 790
+  x: 770
   'y': 3440
   wires:
     - - 3dd382b57123205b
@@ -4821,7 +4837,7 @@
   stream: false
   addname: tab
   property: tabs
-  x: 790
+  x: 770
   'y': 3560
   wires:
     - - da2ae22c79bf3537
@@ -4840,7 +4856,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 950
+  x: 930
   'y': 3380
   wires:
     - - 0ad2a9c349e640f3
@@ -4858,7 +4874,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1120
+  x: 1100
   'y': 3320
   wires:
     - - '559685e284094504'
@@ -4879,7 +4895,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1290
+  x: 1270
   'y': 3440
   wires:
     - - '559685e284094504'
@@ -4900,7 +4916,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1450
+  x: 1430
   'y': 3380
   wires:
     - - cbbcc12908fc0cf8
@@ -4919,7 +4935,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 950
+  x: 930
   'y': 3560
   wires:
     - - cd3fee82f0914ef5
@@ -4937,7 +4953,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1120
+  x: 1100
   'y': 3500
   wires:
     - - 2f2ef7653ece263e
@@ -4963,7 +4979,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1290
+  x: 1270
   'y': 3500
   wires:
     - - 624081a7f73b4164
@@ -4988,7 +5004,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1290
+  x: 1270
   'y': 3560
   wires:
     - - 624081a7f73b4164
@@ -5013,7 +5029,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1450
+  x: 1430
   'y': 3500
   wires:
     - - b4db32f45f392912
@@ -5045,7 +5061,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1610
+  x: 1590
   'y': 3500
   wires:
     - - 7e5f2b517cfd181c
@@ -5066,7 +5082,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1610
+  x: 1590
   'y': 3380
   wires:
     - - 7bba6594f41302c2
@@ -5144,7 +5160,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3310
+  x: 3290
   'y': 3140
   wires:
     - - 06b37e8be80bdf77
