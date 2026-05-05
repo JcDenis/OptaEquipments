@@ -48,6 +48,7 @@
     - 5b61a2f94b7fd215
     - d0acf527c52398ff
     - 3624a1105625a39a
+    - f92083edcc0a8f36
   x: 104
   'y': 879
   w: 4222
@@ -120,6 +121,7 @@
     - eac3c85cf9738ef1
     - 38c80d9ff98a187f
     - f7ca06e21f6e02a5
+    - 0d5f1f7ce58e19dc
   x: 104
   'y': 1239
   w: 3502
@@ -145,10 +147,11 @@
     - ab34825782b762a6
     - bbe8021b85d0f877
     - 334ff1640bec7b39
+    - b5e2ab501334ef5a
   x: 104
   'y': 1539
   w: 1712
-  h: 142
+  h: 202
 - id: 3e16528dec4157ee
   type: group
   z: e97c6f12735a13c1
@@ -182,8 +185,9 @@
     - 4ac01e847d75fc52
     - 6b07028d140d904f
     - 2bc15e3dfee718c1
+    - 58d0698c95933c40
   x: 104
-  'y': 1719
+  'y': 1779
   w: 2472
   h: 262
 - id: 6f784a48183c4937
@@ -225,6 +229,7 @@
     - 3b216df2f7859362
     - bb81645613d3ebce
     - bd4e09be3ceeafcf
+    - 033bdb2c1e76e680
   x: 104
   'y': 519
   w: 3462
@@ -545,7 +550,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 1100
+  'y': 1160
   wires:
     - - 4e33cdfc978585da
 - id: 4e33cdfc978585da
@@ -561,7 +566,7 @@
   addname: row.equipment
   property: payload
   x: 630
-  'y': 1100
+  'y': 1160
   wires:
     - - 9a2dd28da599ef13
 - id: f3d9ead3e7b3be9c
@@ -621,7 +626,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 1100
+  'y': 1160
   wires:
     - - d0834b8366b3c16d
 - id: 95c61ec7ed45ee56
@@ -646,7 +651,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1750
-  'y': 1100
+  'y': 1160
   wires:
     - - da647da1a3bbd5c6
 - id: da647da1a3bbd5c6
@@ -671,16 +676,22 @@
       pt: msg
       to: "$sort(msg.payload, function($l, $r) {\t  $l.line_full < $r.line_full\t})"
       tot: jsonata
+    - t: set
+      p: total
+      pt: msg
+      to: $count(msg.payload)
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1910
-  'y': 1100
+  'y': 1160
   wires:
     - - 4d7de69ac9f7a218
       - 8c90f15432b5f5f2
+      - f92083edcc0a8f36
 - id: 4d7de69ac9f7a218
   type: ui-table
   z: e97c6f12735a13c1
@@ -688,7 +699,7 @@
   group: c605809a8fe63a3b
   name: ui - list - equipment
   label: ''
-  order: 4
+  order: 6
   width: 0
   height: 0
   maxrows: 0
@@ -744,7 +755,7 @@
   statusVal: ''
   statusType: auto
   x: 2110
-  'y': 1100
+  'y': 1160
   wires: []
 - id: 2310141e1336bdc7
   type: link in
@@ -818,7 +829,7 @@
   to: ''
   reg: false
   x: 440
-  'y': 1400
+  'y': 1460
   wires:
     - - 697e10f4e4fbb2a4
 - id: cc6f2138fae2fd48
@@ -828,7 +839,7 @@
   group: c605809a8fe63a3b
   name: ui - list - device
   label: ''
-  order: 6
+  order: 10
   width: 0
   height: 0
   maxrows: 0
@@ -878,7 +889,7 @@
   statusVal: ''
   statusType: auto
   x: 1440
-  'y': 1400
+  'y': 1460
   wires: []
 - id: 697e10f4e4fbb2a4
   type: split
@@ -893,7 +904,7 @@
   addname: row.device
   property: payload
   x: 610
-  'y': 1400
+  'y': 1460
   wires:
     - - 3f65a54aaf53762d
 - id: 3f65a54aaf53762d
@@ -938,7 +949,7 @@
   to: ''
   reg: false
   x: 770
-  'y': 1400
+  'y': 1460
   wires:
     - - b240c158e5f018f1
 - id: 427c7563b820b3ec
@@ -963,7 +974,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1090
-  'y': 1400
+  'y': 1460
   wires:
     - - c1429cfff4e8c827
 - id: c1429cfff4e8c827
@@ -988,16 +999,22 @@
       pt: msg
       to: "$sort(msg.payload, function($l, $r) {\t  $l.model_full < $r.model_full\t})"
       tot: jsonata
+    - t: set
+      p: total
+      pt: msg
+      to: $count(msg.payload)
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1250
-  'y': 1400
+  'y': 1460
   wires:
     - - 44444a4dc024b4e4
       - cc6f2138fae2fd48
+      - 0d5f1f7ce58e19dc
 - id: 30d9b3b967fbbc14
   type: link in
   z: e97c6f12735a13c1
@@ -1030,6 +1047,7 @@
   'y': 1580
   wires:
     - - 3e937cd3b8507591
+      - b5e2ab501334ef5a
     - - f6b6cc9a93680bbf
 - id: f6b6cc9a93680bbf
   type: change
@@ -1068,7 +1086,7 @@
   to: ''
   reg: false
   x: 440
-  'y': 1640
+  'y': 1700
   wires:
     - - c870a78c4523470f
 - id: 3e937cd3b8507591
@@ -1078,7 +1096,7 @@
   group: c605809a8fe63a3b
   name: ui - list - componant
   label: ''
-  order: 7
+  order: 12
   width: 0
   height: 0
   maxrows: 0
@@ -1146,7 +1164,7 @@
   statusVal: ''
   statusType: auto
   x: 1610
-  'y': 1640
+  'y': 1700
   wires: []
 - id: c870a78c4523470f
   type: split
@@ -1161,7 +1179,7 @@
   addname: endpoint
   property: payload
   x: 610
-  'y': 1640
+  'y': 1700
   wires:
     - - 589a37f505f0e06e
 - id: 589a37f505f0e06e
@@ -1284,7 +1302,7 @@
   to: ''
   reg: false
   x: 770
-  'y': 1640
+  'y': 1700
   wires:
     - - bbe8021b85d0f877
 - id: ad1d5a9ae19c821d
@@ -1309,7 +1327,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1250
-  'y': 1640
+  'y': 1700
   wires:
     - - cea025421f661533
 - id: cea025421f661533
@@ -1334,16 +1352,22 @@
       pt: msg
       to: "$sort(msg.payload, function($l, $r) {\t  $l.equipment_full < $r.equipment_full\t})"
       tot: jsonata
+    - t: set
+      p: total
+      pt: msg
+      to: $count(msg.payload)
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1410
-  'y': 1640
+  'y': 1700
   wires:
     - - 2bc6c3a18cffaa03
       - 3e937cd3b8507591
+      - b5e2ab501334ef5a
 - id: 712dee8e0aa3fed5
   type: change
   z: e97c6f12735a13c1
@@ -1393,7 +1417,7 @@
     - 1b3e234bed8047a0
     - a4166a35f4e31509
   x: 145
-  'y': 1820
+  'y': 1880
   wires:
     - - faaa75232491631f
 - id: faaa75232491631f
@@ -1414,7 +1438,7 @@
   repair: false
   outputs: 2
   x: 270
-  'y': 1820
+  'y': 1880
   wires:
     - - 734a5a25ccdf3780
     - - 672160c5582e3fc9
@@ -1461,7 +1485,7 @@
   to: ''
   reg: false
   x: 430
-  'y': 1880
+  'y': 2000
   wires:
     - - 4b462b61568ff7b1
 - id: 4b462b61568ff7b1
@@ -1477,7 +1501,7 @@
   addname: row.entity
   property: payload
   x: 590
-  'y': 1880
+  'y': 2000
   wires:
     - - 1ccb5783e5c25a57
 - id: 1ccb5783e5c25a57
@@ -1570,7 +1594,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 1880
+  'y': 2000
   wires:
     - - a0fd85dd1420f460
 - id: ed224a74b1fc19c4
@@ -1595,7 +1619,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1230
-  'y': 1880
+  'y': 2000
   wires:
     - - 81cd19dd2f6cae69
 - id: 81cd19dd2f6cae69
@@ -1620,16 +1644,22 @@
       pt: msg
       to: "$sort(msg.payload, function($l, $r) {\t  $l.state_diff < $r.state_diff\t})"
       tot: jsonata
+    - t: set
+      p: total
+      pt: msg
+      to: $count(msg.payload)
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1390
-  'y': 1880
+  'y': 2000
   wires:
     - - ac2f9e0ae2c36bf5
       - 28e40e89bfbd674f
+      - 58d0698c95933c40
 - id: ac2f9e0ae2c36bf5
   type: debug
   z: e97c6f12735a13c1
@@ -1644,7 +1674,7 @@
   statusVal: ''
   statusType: auto
   x: 1570
-  'y': 1880
+  'y': 2000
   wires: []
 - id: 28e40e89bfbd674f
   type: ui-table
@@ -1653,7 +1683,7 @@
   group: c605809a8fe63a3b
   name: ui - list - alert
   label: ''
-  order: 5
+  order: 8
   width: 0
   height: 0
   maxrows: 0
@@ -1710,7 +1740,7 @@
   action: replace
   className: ''
   x: 1570
-  'y': 1820
+  'y': 1880
   wires:
     - - ccc686e3895410e7
 - id: 576ca6cfd2aca638
@@ -1746,7 +1776,7 @@
   links:
     - 576ca6cfd2aca638
   x: 1875
-  'y': 1820
+  'y': 1880
   wires: []
 - id: ab34825782b762a6
   type: link out
@@ -1777,7 +1807,7 @@
   repair: false
   outputs: 2
   x: 1750
-  'y': 1820
+  'y': 1880
   wires:
     - - c3cf65de797d07e3
     - - 6b07028d140d904f
@@ -1817,7 +1847,7 @@
   to: ''
   reg: false
   x: 2250
-  'y': 1880
+  'y': 1940
   wires:
     - - a7dcb0e628715135
 - id: e4d2d800b48b6084
@@ -1842,7 +1872,7 @@
   to: ''
   reg: false
   x: 2250
-  'y': 1820
+  'y': 1880
   wires:
     - - 109a867dcb6cbb9e
 - id: 595883d023c5b862
@@ -1859,7 +1889,7 @@
   statusVal: ''
   statusType: auto
   x: 2300
-  'y': 1940
+  'y': 2000
   wires: []
 - id: a4166a35f4e31509
   type: link out
@@ -1871,7 +1901,7 @@
     - 4e94023e8ba12f50
     - baa9eb973e71311f
   x: 2535
-  'y': 1820
+  'y': 1880
   wires: []
 - id: 689e8c8f85f8601b
   type: link out
@@ -1882,7 +1912,7 @@
   links:
     - e60e4ab7617738c3
   x: 2535
-  'y': 1880
+  'y': 1940
   wires: []
 - id: a7dcb0e628715135
   type: delay
@@ -1902,7 +1932,7 @@
   allowrate: false
   outputs: 1
   x: 2410
-  'y': 1880
+  'y': 1940
   wires:
     - - 689e8c8f85f8601b
 - id: 109a867dcb6cbb9e
@@ -1923,7 +1953,7 @@
   allowrate: false
   outputs: 1
   x: 2410
-  'y': 1820
+  'y': 1880
   wires:
     - - a4166a35f4e31509
 - id: 0f20e88920ac6725
@@ -1942,7 +1972,7 @@
   repair: false
   outputs: 2
   x: 950
-  'y': 1100
+  'y': 1160
   wires:
     - - 44382e283cda58f7
     - - f3d9ead3e7b3be9c
@@ -1968,7 +1998,7 @@
   to: ''
   reg: false
   x: 1110
-  'y': 1040
+  'y': 1100
   wires:
     - - f3d9ead3e7b3be9c
 - id: 9a2dd28da599ef13
@@ -1993,7 +2023,7 @@
   to: ''
   reg: false
   x: 790
-  'y': 1100
+  'y': 1160
   wires:
     - - 0f20e88920ac6725
 - id: 400b36abc42f9eb4
@@ -2136,7 +2166,7 @@
   to: ''
   reg: false
   x: 1590
-  'y': 1100
+  'y': 1160
   wires:
     - - 95c61ec7ed45ee56
 - id: d0834b8366b3c16d
@@ -2154,7 +2184,7 @@
   repair: true
   outputs: 1
   x: 1430
-  'y': 1100
+  'y': 1160
   wires:
     - - 1afe089173e14a79
 - id: bbe8021b85d0f877
@@ -2172,7 +2202,7 @@
   repair: true
   outputs: 1
   x: 930
-  'y': 1640
+  'y': 1700
   wires:
     - - 334ff1640bec7b39
 - id: 334ff1640bec7b39
@@ -2197,7 +2227,7 @@
   to: ''
   reg: false
   x: 1090
-  'y': 1640
+  'y': 1700
   wires:
     - - ad1d5a9ae19c821d
 - id: a78d481fda0989a4
@@ -2222,7 +2252,7 @@
   to: ''
   reg: false
   x: 1070
-  'y': 1880
+  'y': 2000
   wires:
     - - ed224a74b1fc19c4
 - id: a0fd85dd1420f460
@@ -2240,7 +2270,7 @@
   repair: true
   outputs: 1
   x: 910
-  'y': 1880
+  'y': 2000
   wires:
     - - a78d481fda0989a4
 - id: b240c158e5f018f1
@@ -2265,7 +2295,7 @@
   to: ''
   reg: false
   x: 930
-  'y': 1400
+  'y': 1460
   wires:
     - - 427c7563b820b3ec
 - id: 4a03a1d71cccb371
@@ -3033,9 +3063,10 @@
   to: ''
   reg: false
   x: 430
-  'y': 1820
+  'y': 1880
   wires:
     - - 28e40e89bfbd674f
+      - 58d0698c95933c40
 - id: eac3c85cf9738ef1
   type: change
   z: e97c6f12735a13c1
@@ -3061,6 +3092,7 @@
   'y': 1340
   wires:
     - - cc6f2138fae2fd48
+      - 0d5f1f7ce58e19dc
 - id: 5b61a2f94b7fd215
   type: change
   z: e97c6f12735a13c1
@@ -3086,6 +3118,7 @@
   'y': 980
   wires:
     - - 4d7de69ac9f7a218
+      - f92083edcc0a8f36
 - id: f66528f67c8d7cfd
   type: link in
   z: e97c6f12735a13c1
@@ -3146,6 +3179,7 @@
   'y': 580
   wires:
     - - ba4b2b2cefb7f98c
+      - 033bdb2c1e76e680
 - id: f46572655e65929d
   type: change
   z: e97c6f12735a13c1
@@ -3183,7 +3217,7 @@
   to: ''
   reg: false
   x: 430
-  'y': 740
+  'y': 800
   wires:
     - - 1316381975de2e44
 - id: 1316381975de2e44
@@ -3199,7 +3233,7 @@
   addname: row.line
   property: payload
   x: 590
-  'y': 740
+  'y': 800
   wires:
     - - 07821e379d041785
 - id: 368c566b16e7b9cf
@@ -3207,7 +3241,7 @@
   z: e97c6f12735a13c1
   g: 6f784a48183c4937
   name: ui - list - line
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -3216,7 +3250,7 @@
   statusVal: ''
   statusType: auto
   x: 2210
-  'y': 740
+  'y': 800
   wires: []
 - id: f75afbfaf748cf90
   type: switch
@@ -3234,7 +3268,7 @@
   repair: false
   outputs: 2
   x: 910
-  'y': 740
+  'y': 800
   wires:
     - - 83c8828e2e53db56
     - - 1e30e586678e32a6
@@ -3295,7 +3329,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 740
+  'y': 800
   wires:
     - - f75afbfaf748cf90
 - id: 40b2703358658c80
@@ -3328,7 +3362,7 @@
   to: ''
   reg: false
   x: 1710
-  'y': 680
+  'y': 740
   wires:
     - - 1e30e586678e32a6
 - id: 1e30e586678e32a6
@@ -3353,7 +3387,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1870
-  'y': 740
+  'y': 800
   wires:
     - - 7a4fe35c856c8831
 - id: 7a4fe35c856c8831
@@ -3381,16 +3415,22 @@
       pt: msg
       to: "$sort(msg.payload, function($l, $r) {\t  $l.line_full < $r.line_full\t})"
       tot: jsonata
+    - t: set
+      p: total
+      pt: msg
+      to: $count(msg.payload)
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 2030
-  'y': 740
+  'y': 800
   wires:
     - - 368c566b16e7b9cf
       - ba4b2b2cefb7f98c
+      - 033bdb2c1e76e680
 - id: ba4b2b2cefb7f98c
   type: ui-table
   z: e97c6f12735a13c1
@@ -3398,7 +3438,7 @@
   group: c605809a8fe63a3b
   name: ui - list - line
   label: ''
-  order: 3
+  order: 4
   width: 0
   height: 0
   maxrows: 0
@@ -3447,7 +3487,7 @@
   addname: ''
   property: equipments
   x: 1070
-  'y': 680
+  'y': 740
   wires:
     - - dff3caf449f1124f
 - id: dff3caf449f1124f
@@ -3466,7 +3506,7 @@
   repair: false
   outputs: 2
   x: 1230
-  'y': 680
+  'y': 740
   wires:
     - - cc24a26a3ebc5010
     - - 9913a3823edbb605
@@ -3492,7 +3532,7 @@
   to: ''
   reg: false
   x: 1390
-  'y': 620
+  'y': 680
   wires:
     - - 9913a3823edbb605
 - id: 9913a3823edbb605
@@ -3517,7 +3557,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1550
-  'y': 680
+  'y': 740
   wires:
     - - 40b2703358658c80
 - id: cd6dec73fe223470
@@ -4055,7 +4095,7 @@
   repair: false
   outputs: 1
   x: 1920
-  'y': 1880
+  'y': 1940
   wires:
     - - 4ac01e847d75fc52
 - id: 4ac01e847d75fc52
@@ -4077,7 +4117,7 @@
   repair: false
   outputs: 3
   x: 2090
-  'y': 1880
+  'y': 1940
   wires:
     - - e4d2d800b48b6084
       - 74ee62c83d04215c
@@ -4107,7 +4147,7 @@
   to: ''
   reg: false
   x: 2250
-  'y': 1760
+  'y': 1820
   wires:
     - - 109a867dcb6cbb9e
 - id: a52138e24fb21e4c
@@ -4297,3 +4337,118 @@
     - - 177b92e4aab19983
     - - 177b92e4aab19983
     - - 7e1cf20d89bfa29d
+- id: 033bdb2c1e76e680
+  type: ui-text
+  z: e97c6f12735a13c1
+  g: 6f784a48183c4937
+  group: c605809a8fe63a3b
+  order: 3
+  width: 0
+  height: 0
+  name: ui - list - line - total
+  label: 'Nombre d''enregistrements: '
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: total
+  valueType: msg
+  x: 2230
+  'y': 640
+  wires: []
+- id: f92083edcc0a8f36
+  type: ui-text
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  group: c605809a8fe63a3b
+  order: 5
+  width: 0
+  height: 0
+  name: ui - list - equipment - total
+  label: 'Nombre d''enregistrements :'
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: total
+  valueType: msg
+  x: 2130
+  'y': 1040
+  wires: []
+- id: 0d5f1f7ce58e19dc
+  type: ui-text
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  group: c605809a8fe63a3b
+  order: 9
+  width: 0
+  height: 0
+  name: ui - list - device - total
+  label: 'nombre d''enregistrements :'
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: total
+  valueType: msg
+  x: 1460
+  'y': 1400
+  wires: []
+- id: b5e2ab501334ef5a
+  type: ui-text
+  z: e97c6f12735a13c1
+  g: baadcf077dabb0e1
+  group: c605809a8fe63a3b
+  order: 11
+  width: 0
+  height: 0
+  name: ui - list - component - total
+  label: 'Nombre d''enregistrements :'
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: total
+  valueType: msg
+  x: 1630
+  'y': 1640
+  wires: []
+- id: 58d0698c95933c40
+  type: ui-text
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  group: c605809a8fe63a3b
+  order: 7
+  width: 0
+  height: 0
+  name: ui - list - alert - total
+  label: 'Nombre d''enregistrements :'
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: total
+  valueType: msg
+  x: 1590
+  'y': 1940
+  wires: []
