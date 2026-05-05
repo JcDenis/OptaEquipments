@@ -112,13 +112,14 @@ services:
       OPTA_ADMIN_PASSWORD: ${OPTA_ADMIN_PASSWORD}
     entrypoint: >
       /bin/sh -c '
-        echo "> Cloning project" &&
-        git clone https://github.com/JcDenis/OptaEquipments /data/projects/OptaEquipments &&
-        echo "> Creating settings" &&
+        if [ -n "$(git ls-remote https://github.com/JcDenis/OptaEquipments master)" ]; then echo "> Deleting old projects" && rm -Rf /data/projects/OptaEquipments; fi;
+        echo "> Cloning project"
+        git clone https://github.com/JcDenis/OptaEquipments /data/projects/OptaEquipments
+        echo "> Creating settings"
         cp /data/projects/OptaEquipments/package.json /data/package.json
         cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
-        HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw) &&
-        HASHB=$(expr substr "$$HASH" 11 100) &&
+        HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw)
+        HASHB=$(expr substr "$$HASH" 11 100)
         echo -n "module.exports = {
           flowFile: \"flows.json\",
           credentialSecret: \"${OPTA_SECRET}\",
@@ -154,14 +155,14 @@ services:
           ui: { path: \"\" },
           debugMaxLength: 1000,
           mqttReconnectTime: 15000,
-        }" > /data/settings.js &&
-        chown node-red:node-red /data/settings.js &&
+        }" > /data/settings.js
+        chown node-red:node-red /data/settings.js
         chmod 600 /data/settings.js
-        echo "> Instaling packages" &&
-        cd /data &&
-        npm install --unsafe-perm --no-update-notifier --no-fund --omit=dev &&
-        echo "> Running node-red" &&
-        cd /usr/src/node-red &&
+        echo "> Instaling packages"
+        cd /data
+        npm install --unsafe-perm --no-update-notifier --no-fund --omit=dev
+        echo "> Running node-red"
+        cd /usr/src/node-red
         exec ./entrypoint.sh
       '
     ports:
