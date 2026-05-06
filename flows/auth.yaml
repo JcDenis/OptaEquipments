@@ -13,18 +13,12 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 050ccef8b075e3d0
-    - d1f204e0d223525d
-    - f2cfb5d52b6caa4d
     - 9833ea0e831ff8c7
     - aa0e1484ee75066f
     - 9979f236b1c3baac
     - 34e005364036decc
     - f4eee7dbe5621ecf
     - bb71762ba2269b75
-    - 5cdedb3dc477d939
-    - cfc247c5da19d8e0
-    - 56c612fa7caecb7f
     - 8aca2e86c077d885
     - f9dc1f7a8155ebef
     - 09bd0767b56167b6
@@ -40,10 +34,12 @@
     - fd316ca0fdd9738b
     - 6ebc17186e839ebb
     - 0cf63361a578f787
+    - 3361a6a4765bfb11
+    - 3da3f0a5ca052b2e
   x: 104
   'y': 279
-  w: 1822
-  h: 442
+  w: 1802
+  h: 262
 - id: 4ef1cd4a19db42bf
   type: group
   z: 27841aa886edd1cd
@@ -66,99 +62,6 @@
   'y': 39
   w: 712
   h: 202
-- id: 050ccef8b075e3d0
-  type: ui-text-input
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  group: 3c952a83cfc8f302
-  name: login
-  label: Identifiant
-  order: 4
-  width: 0
-  height: 0
-  topic: topic
-  topicType: msg
-  mode: text
-  tooltip: ''
-  delay: 300
-  passthru: false
-  sendOnDelay: true
-  sendOnBlur: true
-  sendOnEnter: true
-  className: ''
-  clearable: false
-  sendOnClear: false
-  icon: ''
-  iconPosition: left
-  iconInnerPosition: inside
-  x: 770
-  'y': 500
-  wires:
-    - - 5cdedb3dc477d939
-- id: d1f204e0d223525d
-  type: ui-text-input
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  group: 3c952a83cfc8f302
-  name: pass
-  label: Mot de passe
-  order: 5
-  width: 0
-  height: 0
-  topic: topic
-  topicType: msg
-  mode: password
-  tooltip: ''
-  delay: 300
-  passthru: false
-  sendOnDelay: true
-  sendOnBlur: true
-  sendOnEnter: true
-  className: ''
-  clearable: false
-  sendOnClear: false
-  icon: ''
-  iconPosition: left
-  iconInnerPosition: inside
-  x: 770
-  'y': 560
-  wires:
-    - - cfc247c5da19d8e0
-- id: f2cfb5d52b6caa4d
-  type: ui-button
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  group: 3c952a83cfc8f302
-  name: connect
-  label: Se connecter
-  order: 6
-  width: 0
-  height: 0
-  emulateClick: false
-  tooltip: ''
-  color: ''
-  bgcolor: ''
-  className: ''
-  icon: ''
-  iconPosition: left
-  payload: ''
-  payloadType: str
-  topic: topic
-  topicType: msg
-  buttonColor: ''
-  textColor: ''
-  iconColor: ''
-  enableClick: true
-  enablePointerdown: false
-  pointerdownPayload: ''
-  pointerdownPayloadType: str
-  enablePointerup: false
-  pointerupPayload: ''
-  pointerupPayloadType: str
-  x: 780
-  'y': 620
-  wires:
-    - - 56c612fa7caecb7f
 - id: 9833ea0e831ff8c7
   type: ui-button
   z: 27841aa886edd1cd
@@ -191,7 +94,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 790
-  'y': 440
+  'y': 320
   wires:
     - - f4eee7dbe5621ecf
 - id: aa0e1484ee75066f
@@ -215,7 +118,7 @@
   value: payload
   valueType: msg
   x: 770
-  'y': 320
+  'y': 380
   wires: []
 - id: 9979f236b1c3baac
   type: link in
@@ -226,7 +129,7 @@
     - ad1a02bca9e6e97e
     - 0cf63361a578f787
   x: 145
-  'y': 440
+  'y': 320
   wires:
     - - be3b97df6b45470f
       - 88a80f7ce9615035
@@ -257,7 +160,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 320
+  'y': 380
   wires:
     - - aa0e1484ee75066f
       - 9833ea0e831ff8c7
@@ -276,7 +179,7 @@
   to: ''
   reg: false
   x: 990
-  'y': 440
+  'y': 320
   wires:
     - - 6ab34b3b3d64905e
 - id: bb71762ba2269b75
@@ -287,74 +190,9 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1775
-  'y': 440
+  x: 1755
+  'y': 320
   wires: []
-- id: 5cdedb3dc477d939
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: flow
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::user[msg._client.socketId]login'
-      pt: flow
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 970
-  'y': 500
-  wires:
-    - []
-- id: cfc247c5da19d8e0
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: flow
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::user[msg._client.socketId]pass'
-      pt: flow
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 970
-  'y': 560
-  wires:
-    - []
-- id: 56c612fa7caecb7f
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: user
-  rules:
-    - t: set
-      p: login
-      pt: msg
-      to: '#:(memoryOnly)::user[msg._client.socketId]login'
-      tot: flow
-    - t: set
-      p: pass
-      pt: msg
-      to: '#:(memoryOnly)::user[msg._client.socketId]pass'
-      tot: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 970
-  'y': 620
-  wires:
-    - - c82457de0864e28c
 - id: 8aca2e86c077d885
   type: debug
   z: 27841aa886edd1cd
@@ -368,8 +206,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1820
-  'y': 500
+  x: 1800
+  'y': 380
   wires: []
 - id: f9dc1f7a8155ebef
   type: change
@@ -395,8 +233,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1490
-  'y': 560
+  x: 1470
+  'y': 380
   wires:
     - - 6ab34b3b3d64905e
 - id: 09bd0767b56167b6
@@ -412,8 +250,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1330
-  'y': 620
+  x: 1310
+  'y': 440
   wires:
     - - f9dc1f7a8155ebef
     - - f68e1a2d7f3e0c3d
@@ -440,8 +278,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1490
-  'y': 620
+  x: 1470
+  'y': 440
   wires:
     - - 6ab34b3b3d64905e
 - id: 6ab34b3b3d64905e
@@ -461,8 +299,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1650
-  'y': 440
+  x: 1630
+  'y': 320
   wires:
     - - bb71762ba2269b75
       - 8aca2e86c077d885
@@ -487,7 +325,7 @@
   value: payload
   valueType: msg
   x: 770
-  'y': 380
+  'y': 440
   wires: []
 - id: fb6144114761809b
   type: change
@@ -521,7 +359,7 @@
   to: ''
   reg: false
   x: 610
-  'y': 380
+  'y': 440
   wires:
     - - fb8bbad287d6868f
 - id: c82457de0864e28c
@@ -533,8 +371,8 @@
     - fdb028158b218535
   linkType: static
   timeout: '30'
-  x: 1150
-  'y': 620
+  x: 1130
+  'y': 500
   wires:
     - - 09bd0767b56167b6
 - id: cc0b711da6ff1632
@@ -770,14 +608,12 @@
   to: ''
   reg: false
   x: 610
-  'y': 440
+  'y': 320
   wires:
     - - aa0e1484ee75066f
       - fb8bbad287d6868f
       - 9833ea0e831ff8c7
-      - 050ccef8b075e3d0
-      - d1f204e0d223525d
-      - f2cfb5d52b6caa4d
+      - 3361a6a4765bfb11
 - id: 574f45c15e24ef16
   type: delay
   z: 27841aa886edd1cd
@@ -832,9 +668,7 @@
   x: 610
   'y': 500
   wires:
-    - - 050ccef8b075e3d0
-      - d1f204e0d223525d
-      - f2cfb5d52b6caa4d
+    - - 3361a6a4765bfb11
 - id: 6ebc17186e839ebb
   type: change
   z: 27841aa886edd1cd
@@ -861,8 +695,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1490
-  'y': 680
+  x: 1470
+  'y': 500
   wires:
     - - 0cf63361a578f787
 - id: 0cf63361a578f787
@@ -874,6 +708,74 @@
   links:
     - 4e94023e8ba12f50
     - 9979f236b1c3baac
-  x: 1615
-  'y': 680
+  x: 1595
+  'y': 500
   wires: []
+- id: 3361a6a4765bfb11
+  type: ui-form
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: form
+  group: 3c952a83cfc8f302
+  label: ''
+  order: 0
+  width: 0
+  height: 0
+  options:
+    - label: Identifiant
+      key: login
+      type: text
+      required: true
+      rows: null
+    - label: Mot de passe
+      key: pass
+      type: password
+      required: true
+      rows: null
+  formValue:
+    login: ''
+    pass: ''
+  payload: ''
+  submit: Se connecter
+  cancel: clear
+  resetOnSubmit: true
+  topic: topic
+  topicType: msg
+  splitLayout: false
+  className: ''
+  passthru: false
+  dropdownOptions: []
+  x: 770
+  'y': 500
+  wires:
+    - - 3da3f0a5ca052b2e
+- id: 3da3f0a5ca052b2e
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: prepare
+  rules:
+    - t: set
+      p: login
+      pt: msg
+      to: payload.login
+      tot: msg
+    - t: set
+      p: pass
+      pt: msg
+      to: payload.pass
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 940
+  'y': 500
+  wires:
+    - - c82457de0864e28c
