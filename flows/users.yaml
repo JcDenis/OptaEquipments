@@ -1,0 +1,1705 @@
+- id: adb48ef35d9453c0
+  type: tab
+  label: users
+  disabled: false
+  info: ''
+  env: []
+- id: 6e3f77a2a72d0fa8
+  type: group
+  z: adb48ef35d9453c0
+  name: ui - users
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - ab8192053ebeac78
+    - 6304fe8d08f0cf47
+    - 6b2108622867d8a4
+    - c456fa254a580be5
+    - e1988f51d9726446
+    - 59eb596a76a5694a
+    - e9cdf536bfc95d29
+    - 67d842f3b7ccfa6f
+  x: 104
+  'y': 39
+  w: 712
+  h: 202
+- id: 7a7d35c0913aed9f
+  type: group
+  z: adb48ef35d9453c0
+  name: ui - user
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 922d6d1c4163d169
+    - 919f4eb75613e7ab
+    - 4b6e2b530da33965
+    - c55e9d43b998c86e
+    - f455589cb4fdc210
+    - 9c499323508a759d
+    - 145348469d0defad
+    - b4a9dc422dc10a63
+    - 6409d1cc419c1f86
+    - f8971e41b64f7ff4
+    - 25580183784dfa5c
+    - cbac7c78fbba9865
+    - 39f45b16547fa68c
+    - 5626c28fcfe281c8
+    - ebadb29361792eb0
+    - ac01c64494f819a8
+    - 85f6b4fe4756cfc0
+    - cf8008026cffa667
+    - a51bd472665b5fdb
+    - 77a6c51003ce90f4
+    - 08a692cf16731c15
+    - 1e88c6402adc3cda
+    - 99a97dd1e4c3625e
+    - 6995f9ddbfdae327
+    - 4e7b19284b3e157c
+    - 0747d9a5266dad30
+    - 21a699a312430c68
+    - d6a73921c73395f3
+    - 7e2eeaef60e1ad32
+    - 4974eda3bfeeee8c
+    - 5120abe76663785d
+    - 3967be973250fb8a
+    - de6db4e3bb1ab9d2
+    - 560a5229025ecb9d
+    - 1cf562462b7e9090
+    - eaf6fbb998a28d10
+    - ba2c0a6c4e22a220
+    - 5de49f01b62221a3
+    - 7e12373daec6b4f7
+    - 991691c2beb81395
+    - ca27a4bc9e508834
+    - 51fd87fb2d0f8249
+    - deaace2b52065689
+    - 29d2bd68367739b8
+    - df896a766913d71d
+    - 9436213abf2c9241
+    - 4c08c3e633d35558
+    - de03d6063f93c65d
+    - 42fef066717d59e1
+    - c402534d90951626
+    - 4f4a8eddf9e433c7
+    - 314dd3c75fb2b8ac
+    - 0facfb446c8b2cd1
+    - 2e3db75682fbb883
+    - 7f0f91744c2f3ae9
+    - 8c7b89e2fe138b61
+    - b2a690e888412212
+    - 0a619717ada5bdb5
+    - dd970abf37392a8c
+    - 06adb713099af37a
+    - deb2b85132bb5e7b
+    - 5090288d785383e7
+    - b302deb9b60c4a33
+    - 1a2be7c9f0b87d3e
+    - b1a68537d38cba87
+    - c58a32d88dae80ee
+    - 3bed384ba098d9ef
+  x: 104
+  'y': 279
+  w: 2852
+  h: 742
+- id: ab8192053ebeac78
+  type: link in
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: ui - users - boot
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 80
+  wires:
+    - - e1988f51d9726446
+- id: 6304fe8d08f0cf47
+  type: link in
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: ui - users - tab
+  links:
+    - 7bba6594f41302c2
+  x: 145
+  'y': 140
+  wires:
+    - - c456fa254a580be5
+- id: 6b2108622867d8a4
+  type: link out
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: ui - users
+  mode: link
+  links:
+    - 922d6d1c4163d169
+  x: 775
+  'y': 80
+  wires: []
+- id: c456fa254a580be5
+  type: switch
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: tab
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: Utilisateurs
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 270
+  'y': 140
+  wires:
+    - - 67d842f3b7ccfa6f
+    - - e9cdf536bfc95d29
+- id: e1988f51d9726446
+  type: change
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: options
+      pt: msg
+      to: '[]'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 650
+  'y': 80
+  wires:
+    - - 6b2108622867d8a4
+- id: 59eb596a76a5694a
+  type: change
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: show
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 650
+  'y': 200
+  wires:
+    - - 6b2108622867d8a4
+- id: e9cdf536bfc95d29
+  type: switch
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+  propertyType: global
+  rules:
+    - t: neq
+      v: admin
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 490
+  'y': 200
+  wires:
+    - - e1988f51d9726446
+    - - 59eb596a76a5694a
+- id: 67d842f3b7ccfa6f
+  type: change
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: clean user flow
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 460
+  'y': 140
+  wires:
+    - - e1988f51d9726446
+- id: 922d6d1c4163d169
+  type: link in
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ui - user - action
+  links:
+    - 0a619717ada5bdb5
+    - 6b2108622867d8a4
+  x: 145
+  'y': 380
+  wires:
+    - - 1cf562462b7e9090
+- id: 919f4eb75613e7ab
+  type: ui-table
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  group: 71bafeee3e662114
+  name: user - table
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Identifiant
+      key: login
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Niveau
+      key: level_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Usine
+      key: plant_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 750
+  'y': 380
+  wires:
+    - - 6409d1cc419c1f86
+- id: 4b6e2b530da33965
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: users
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::auth'
+      tot: global
+    - t: set
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      pt: flow
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: row
+      pt: msg
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 450
+  'y': 320
+  wires:
+    - - c55e9d43b998c86e
+- id: c55e9d43b998c86e
+  type: split
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: row.login
+  property: payload
+  x: 610
+  'y': 320
+  wires:
+    - - 9c499323508a759d
+- id: f455589cb4fdc210
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: add
+  rules:
+    - t: set
+      p: rows
+      pt: msg
+      to: '#:(memoryOnly)::rows[msg._client.socketId]'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      pt: flow
+      to: '$append(msg.rows,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 930
+  'y': 320
+  wires:
+    - - 145348469d0defad
+- id: 9c499323508a759d
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: row
+  rules:
+    - t: set
+      p: row.level
+      pt: msg
+      to: payload.level
+      tot: msg
+    - t: set
+      p: row.level_full
+      pt: msg
+      to: '#:(memoryOnly)::describe.level[msg.row.level]'
+      tot: global
+    - t: set
+      p: row.plant
+      pt: msg
+      to: payload.plant
+      tot: msg
+    - t: set
+      p: row.plant_full
+      pt: msg
+      to: 'kernel.plant[msg.payload.plant]'
+      tot: global
+    - t: set
+      p: row.delete
+      pt: msg
+      to: Supprimer
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 770
+  'y': 320
+  wires:
+    - - f455589cb4fdc210
+- id: 145348469d0defad
+  type: join
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 1090
+  'y': 320
+  wires:
+    - - b4a9dc422dc10a63
+- id: b4a9dc422dc10a63
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::rows[msg._client.socketId]'
+      tot: flow
+    - t: delete
+      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      pt: flow
+    - t: delete
+      p: 'payload[0]'
+      pt: msg
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+    - t: set
+      p: payload
+      pt: msg
+      to: "$sort(msg.payload, function($l, $r) {\t  $l.login > $r.login\t})"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 320
+  wires:
+    - - 919f4eb75613e7ab
+- id: 6409d1cc419c1f86
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: action
+  property: action
+  propertyType: msg
+  rules:
+    - t: eq
+      v: button_click
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 950
+  'y': 380
+  wires:
+    - - f8971e41b64f7ff4
+- id: f8971e41b64f7ff4
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1110
+  'y': 380
+  wires:
+    - - 25580183784dfa5c
+    - []
+- id: 25580183784dfa5c
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: column
+  property: column
+  propertyType: msg
+  rules:
+    - t: eq
+      v: delete
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1280
+  'y': 380
+  wires:
+    - - 1e88c6402adc3cda
+- id: cbac7c78fbba9865
+  type: link call
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  links:
+    - cf6fc94ded83675c
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 740
+  wires:
+    - - cf8008026cffa667
+- id: 39f45b16547fa68c
+  type: link call
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  links:
+    - 22a6cc8a0964f595
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 800
+  wires:
+    - - c58a32d88dae80ee
+- id: 5626c28fcfe281c8
+  type: debug
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ui - user
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1800
+  'y': 740
+  wires: []
+- id: ebadb29361792eb0
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: login
+  property: '#:(memoryOnly)::auth'
+  propertyType: global
+  rules:
+    - t: hask
+      v: payload.login
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1290
+  'y': 800
+  wires:
+    - - ac01c64494f819a8
+    - - 77a6c51003ce90f4
+      - 0747d9a5266dad30
+- id: ac01c64494f819a8
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Cet identifiant existe déjà
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 740
+  wires:
+    - - 85f6b4fe4756cfc0
+- id: 85f6b4fe4756cfc0
+  type: link out
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ui - user - notice
+  mode: link
+  links:
+    - 4e94023e8ba12f50
+  x: 1755
+  'y': 680
+  wires: []
+- id: cf8008026cffa667
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: dropdown
+  rules:
+    - t: set
+      p: ui_update.dropdownOptions
+      pt: msg
+      to: options
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 800
+  wires:
+    - - 39f45b16547fa68c
+- id: a51bd472665b5fdb
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: add
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::auth[msg.payload.login]'
+      pt: global
+      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 860
+  wires:
+    - - 08a692cf16731c15
+      - 5626c28fcfe281c8
+      - de6db4e3bb1ab9d2
+- id: 77a6c51003ce90f4
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Utilisateur ajouté avec succès
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 800
+  wires:
+    - - 85f6b4fe4756cfc0
+- id: 08a692cf16731c15
+  type: delay
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1790
+  'y': 800
+  wires:
+    - - deb2b85132bb5e7b
+- id: 1e88c6402adc3cda
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: admin
+  property: payload.login
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '${OPTA_ADMIN_USERNAME}'
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1460
+  'y': 380
+  wires:
+    - - 99a97dd1e4c3625e
+    - - 6995f9ddbfdae327
+      - 4e7b19284b3e157c
+- id: 99a97dd1e4c3625e
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Supression de l'administration interdite
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 320
+  wires:
+    - - 85f6b4fe4756cfc0
+- id: 6995f9ddbfdae327
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: delete
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::auth[msg.payload.login]'
+      pt: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 440
+  wires:
+    - - 08a692cf16731c15
+      - 5626c28fcfe281c8
+      - de6db4e3bb1ab9d2
+- id: 4e7b19284b3e157c
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Utilisateur supprimé avec succès
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 380
+  wires:
+    - - 85f6b4fe4756cfc0
+- id: 0747d9a5266dad30
+  type: bcrypt
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  action: encrypt
+  field: payload.pass
+  hash: payload
+  target: payload
+  assignment: replace
+  match: match
+  outputs: 1
+  rounds: 10
+  x: 1450
+  'y': 860
+  wires:
+    - - a51bd472665b5fdb
+- id: 21a699a312430c68
+  type: link call
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  links:
+    - 5f1b2fed17c07631
+  linkType: static
+  timeout: '30'
+  x: 470
+  'y': 560
+  wires:
+    - - b302deb9b60c4a33
+- id: d6a73921c73395f3
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: pass
+  property: payload.pass
+  propertyType: msg
+  rules:
+    - t: neq
+      v: payload.pass2
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1290
+  'y': 560
+  wires:
+    - - 7e2eeaef60e1ad32
+    - - 4974eda3bfeeee8c
+      - 3967be973250fb8a
+- id: 7e2eeaef60e1ad32
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Les mots de passe ne correspondent pas
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 500
+  wires:
+    - - 85f6b4fe4756cfc0
+- id: 4974eda3bfeeee8c
+  type: bcrypt
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  action: encrypt
+  field: payload.pass
+  hash: payload
+  target: payload
+  assignment: replace
+  match: match
+  outputs: 1
+  rounds: 10
+  x: 1450
+  'y': 620
+  wires:
+    - - 5120abe76663785d
+- id: 5120abe76663785d
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: edit
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::auth[msg.payload.login][''pass'']'
+      pt: global
+      to: payload.pass
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 620
+  wires:
+    - - 08a692cf16731c15
+      - 5626c28fcfe281c8
+      - de6db4e3bb1ab9d2
+- id: 3967be973250fb8a
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Mot de passe mis à jour avec succès
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1610
+  'y': 560
+  wires:
+    - - 85f6b4fe4756cfc0
+- id: de6db4e3bb1ab9d2
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: clean
+  rules:
+    - t: set
+      p: login
+      pt: msg
+      to: payload.login
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1790
+  'y': 620
+  wires:
+    - - 560a5229025ecb9d
+- id: 560a5229025ecb9d
+  type: link out
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ui - user - clean
+  mode: link
+  links:
+    - 0502ea2e9ef0f780
+  x: 1915
+  'y': 620
+  wires: []
+- id: 1cf562462b7e9090
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: enabled
+  property: enabled
+  propertyType: msg
+  rules:
+    - t: 'false'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 280
+  'y': 380
+  wires:
+    - - 919f4eb75613e7ab
+      - eaf6fbb998a28d10
+      - ba2c0a6c4e22a220
+      - 5090288d785383e7
+      - b1a68537d38cba87
+    - - 21a699a312430c68
+      - cbac7c78fbba9865
+      - 39f45b16547fa68c
+      - 4b6e2b530da33965
+      - eaf6fbb998a28d10
+      - ba2c0a6c4e22a220
+- id: eaf6fbb998a28d10
+  type: ui-button
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  group: 0e1f5538e0c5b139
+  name: user - backup - export
+  label: Exporter les utilisateurs
+  order: 1
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 500
+  'y': 920
+  wires:
+    - - 5de49f01b62221a3
+- id: ba2c0a6c4e22a220
+  type: ui-file-input
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  group: 0e1f5538e0c5b139
+  name: user - backup - import
+  order: 2
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  label: Importer des utilisateurs
+  icon: ''
+  allowMultiple: false
+  accept: ''
+  className: ''
+  x: 500
+  'y': 980
+  wires:
+    - - de03d6063f93c65d
+- id: 5de49f01b62221a3
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: level
+  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+  propertyType: global
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 710
+  'y': 920
+  wires:
+    - - df896a766913d71d
+- id: 7e12373daec6b4f7
+  type: http in
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  url: /user.export.json
+  method: get
+  upload: false
+  skipBodyParsing: false
+  swaggerDoc: ''
+  x: 1240
+  'y': 920
+  wires:
+    - - 51fd87fb2d0f8249
+- id: 991691c2beb81395
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ts
+  property: payload.ts
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::time'
+      vt: flow
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1610
+  'y': 920
+  wires:
+    - - deaace2b52065689
+    - - ca27a4bc9e508834
+- id: ca27a4bc9e508834
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '404'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1780
+  'y': 920
+  wires:
+    - - 29d2bd68367739b8
+- id: 51fd87fb2d0f8249
+  type: delay
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: 1m/s
+  pauseType: rate
+  timeout: '5'
+  timeoutUnits: seconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: true
+  allowrate: false
+  outputs: 1
+  x: 1450
+  'y': 920
+  wires:
+    - - 991691c2beb81395
+- id: deaace2b52065689
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::auth'
+      tot: global
+    - t: set
+      p: statusCode
+      pt: msg
+      to: '200'
+      tot: num
+    - t: set
+      p: buffersize
+      pt: msg
+      to: msg.payload.length
+      tot: jsonata
+    - t: set
+      p: headers
+      pt: msg
+      to: "{\t    'Content-Type':'application/json',\t    'Content-Disposition':'attachment; filename=\"user.backup.json\"',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1780
+  'y': 860
+  wires:
+    - - 29d2bd68367739b8
+- id: 29d2bd68367739b8
+  type: http response
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  statusCode: ''
+  headers: {}
+  x: 1950
+  'y': 860
+  wires: []
+- id: df896a766913d71d
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: url
+  rules:
+    - t: set
+      p: time
+      pt: msg
+      to: ''
+      tot: date
+    - t: set
+      p: '#:(memoryOnly)::time'
+      pt: flow
+      to: time
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'url':'/user.export.json?ts=' & msg.time\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 870
+  'y': 920
+  wires:
+    - - 9436213abf2c9241
+- id: 9436213abf2c9241
+  type: link out
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: link out 2
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 995
+  'y': 920
+  wires: []
+- id: 4c08c3e633d35558
+  type: json
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: ''
+  property: payload
+  action: ''
+  pretty: false
+  x: 1350
+  'y': 980
+  wires:
+    - - 314dd3c75fb2b8ac
+- id: de03d6063f93c65d
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 710
+  'y': 980
+  wires:
+    - - 4f4a8eddf9e433c7
+- id: 42fef066717d59e1
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: clean
+  rules:
+    - t: delete
+      p: level
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1190
+  'y': 980
+  wires:
+    - - 4c08c3e633d35558
+- id: c402534d90951626
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: level
+  property: level
+  propertyType: msg
+  rules:
+    - t: eq
+      v: admin
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1030
+  'y': 980
+  wires:
+    - - 42fef066717d59e1
+- id: 4f4a8eddf9e433c7
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: global
+  rules:
+    - t: set
+      p: level
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 870
+  'y': 980
+  wires:
+    - - c402534d90951626
+- id: 314dd3c75fb2b8ac
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: type
+  property: payload
+  propertyType: msg
+  rules:
+    - t: istype
+      v: object
+      vt: object
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1510
+  'y': 980
+  wires:
+    - - 0facfb446c8b2cd1
+- id: 0facfb446c8b2cd1
+  type: split
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: login
+  property: payload
+  x: 1670
+  'y': 980
+  wires:
+    - - 06adb713099af37a
+- id: 2e3db75682fbb883
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: pass
+  property: payload
+  propertyType: msg
+  rules:
+    - t: hask
+      v: pass
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1990
+  'y': 920
+  wires:
+    - - 7f0f91744c2f3ae9
+    - - dd970abf37392a8c
+- id: 7f0f91744c2f3ae9
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: level
+  property: payload
+  propertyType: msg
+  rules:
+    - t: hask
+      v: level
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2150
+  'y': 900
+  wires:
+    - - 8c7b89e2fe138b61
+    - - dd970abf37392a8c
+- id: 8c7b89e2fe138b61
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: plant
+  property: payload
+  propertyType: msg
+  rules:
+    - t: hask
+      v: plant
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2310
+  'y': 880
+  wires:
+    - - b2a690e888412212
+    - - dd970abf37392a8c
+- id: b2a690e888412212
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: global
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::auth[msg.login]'
+      pt: global
+      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2470
+  'y': 860
+  wires:
+    - - dd970abf37392a8c
+- id: 0a619717ada5bdb5
+  type: link out
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: user - backup - import
+  mode: link
+  links:
+    - b75938c74c41ca5e
+    - 922d6d1c4163d169
+  x: 2915
+  'y': 800
+  wires: []
+- id: dd970abf37392a8c
+  type: join
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 2630
+  'y': 980
+  wires:
+    - - deb2b85132bb5e7b
+- id: 06adb713099af37a
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: exists
+  property: '#:(memoryOnly)::auth'
+  propertyType: global
+  rules:
+    - t: hask
+      v: login
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1830
+  'y': 980
+  wires:
+    - - dd970abf37392a8c
+    - - 2e3db75682fbb883
+- id: deb2b85132bb5e7b
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: file
+      pt: msg
+    - t: delete
+      p: login
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2790
+  'y': 800
+  wires:
+    - - 0a619717ada5bdb5
+- id: 5090288d785383e7
+  type: ui-form
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: user - edit - form
+  group: a20f184b0fc93e49
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  options:
+    - label: Identifiant
+      key: login
+      type: dropdown
+      required: true
+      rows: null
+    - label: Nouveau mot de passe
+      key: pass
+      type: password
+      required: true
+      rows: null
+    - label: Vérification du mot de passe
+      key: pass2
+      type: password
+      required: true
+      rows: null
+  formValue:
+    login: ''
+    pass: ''
+    pass2: ''
+  payload: ''
+  submit: Modifier
+  cancel: ''
+  resetOnSubmit: true
+  topic: topic
+  topicType: msg
+  splitLayout: ''
+  className: ''
+  passthru: false
+  dropdownOptions: []
+  x: 480
+  'y': 620
+  wires:
+    - - 1a2be7c9f0b87d3e
+- id: b302deb9b60c4a33
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: dropdown
+  rules:
+    - t: set
+      p: ui_update.dropdownOptions
+      pt: msg
+      to: options
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 620
+  wires:
+    - - 5090288d785383e7
+- id: 1a2be7c9f0b87d3e
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: login
+  property: '#:(memoryOnly)::auth'
+  propertyType: global
+  rules:
+    - t: hask
+      v: payload.login
+      vt: msg
+  checkall: 'true'
+  repair: false
+  outputs: 1
+  x: 1130
+  'y': 560
+  wires:
+    - - d6a73921c73395f3
+- id: b1a68537d38cba87
+  type: ui-form
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: user - add - form
+  group: e9c7dc11bf2e5dfb
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  options:
+    - label: Identifiant
+      key: login
+      type: text
+      required: true
+      rows: null
+    - label: Mot de passe
+      key: pass
+      type: password
+      required: true
+      rows: null
+    - label: Niveau
+      key: level
+      type: dropdown
+      required: true
+      rows: null
+    - label: Usine
+      key: plant
+      type: dropdown
+      required: false
+      rows: null
+  formValue:
+    login: ''
+    pass: ''
+    level: ''
+    plant: ''
+  payload: ''
+  submit: Ajouter
+  cancel: ''
+  resetOnSubmit: true
+  topic: topic
+  topicType: msg
+  splitLayout: ''
+  className: ''
+  passthru: false
+  dropdownOptions: []
+  x: 480
+  'y': 860
+  wires:
+    - - 3bed384ba098d9ef
+- id: c58a32d88dae80ee
+  type: change
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: dropdown
+  rules:
+    - t: set
+      p: ui_update.dropdownOptions
+      pt: msg
+      to: '$append(msg.ui_update.dropdownOptions,msg.options)'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 280
+  'y': 860
+  wires:
+    - - b1a68537d38cba87
+- id: 3bed384ba098d9ef
+  type: switch
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: level
+  property: '#:(memoryOnly)::describe.level'
+  propertyType: global
+  rules:
+    - t: hask
+      v: payload.level
+      vt: msg
+  checkall: 'true'
+  repair: false
+  outputs: 1
+  x: 1130
+  'y': 800
+  wires:
+    - - ebadb29361792eb0
