@@ -118,6 +118,7 @@ services:
         echo "> Creating settings"
         cp /data/projects/OptaEquipments/package.json /data/package.json
         cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
+        if [ ! -f "/data/optaequipments/icon.b64" ]; then cp /data/projects/OptaEquipments/data/icon.b64 /data/optaequipments/icon.b64; fi;
         HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw)
         HASHB=$(expr substr "$$HASH" 11 100)
         echo -n "module.exports = {
