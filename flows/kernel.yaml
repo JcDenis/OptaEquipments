@@ -38,9 +38,10 @@
     - a8cfd0368ece5ab1
     - 69014f6b27789c52
     - c4dca1e9e20d9ca3
+    - d3c22873709318bb
   x: 104
   'y': 1059
-  w: 2842
+  w: 3012
   h: 202
 - id: dcb47b97829a1b78
   type: group
@@ -55,8 +56,9 @@
     - 76e32feb14c8c8a9
     - 90fee914285e6f59
     - 575b91a30deac00d
-    - f5a29d169722a6c1
     - 7ba0dadd40d50379
+    - fe77a163f58aea3f
+    - de94cabe86867469
   x: 114
   'y': 99
   w: 882
@@ -308,10 +310,10 @@
     - 6928e2e9e62d6734
     - 6901e471ce0a074d
     - 7a10113d5c45b7de
-    - cc60f94273e4f225
     - a632cf6658ed8cde
     - eb42ee484f23555b
     - 5f41aec5b3926b24
+    - cc60f94273e4f225
   x: 104
   'y': 699
   w: 1472
@@ -380,6 +382,7 @@
     - be36f6bbac4c54f7
     - 24b18891d95734ab
     - 3595251e3e358414
+    - 9b9c102ae72a95d5
   x: 104
   'y': 1659
   w: 1452
@@ -517,7 +520,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 590
+  x: 760
   'y': 1100
   wires:
     - - 4855b0bd4a34c6c9
@@ -535,7 +538,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 430
+  x: 600
   'y': 1100
   wires:
     - - a22fb9b1d981984a
@@ -553,7 +556,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 270
+  x: 440
   'y': 1100
   wires:
     - - 7d1b85aa6f413ef9
@@ -586,7 +589,7 @@
   x: 145
   'y': 1100
   wires:
-    - - 276ea77023fcccae
+    - - d3c22873709318bb
 - id: 202424f6de068bd4
   type: change
   z: f6f2187d.f17ca8
@@ -691,7 +694,7 @@
   name: kernel - loop - boot
   links:
     - 575b91a30deac00d
-  x: 1425
+  x: 1595
   'y': 1220
   wires:
     - - 1a1bd4900c1218fd
@@ -736,9 +739,9 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::user'
+      p: '#:(memoryOnly)::describe'
       pt: global
-      to: '{}'
+      to: "{\t    'component':{\t        'run':'Lecture état de fonctionnement (run)',\t        'heat':'Lecture état de chauffe (heat)',\t        'voltage':'Lecture de tension (voltage)',\t        'power':'Lecture de puisance (power)',\t        '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t        'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t        'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t        'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t        'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t        'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t        'runreset':\"Commande de RAZ compteur partiel d'heures (runreset)\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (cyclereset)\"\t    },\t    'day':{\t        '0':'Dimanche',\t        '1':'Lundi',\t        '2':'Mardi',\t        '3':'Mercredi',\t        '4':'Jeudi',\t        '5':'Vendredi',\t        '6':'Samedi',\t        '7':'Dimanche'\t    },\t    'resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minutes',\t        '60':'1 heure'\t    },\t    'level':{\t        'prod':'Production',\t        'rp':'Responsable production',\t        'tech':'Technicien',\t        'rt':'Repsonsable technique',\t        'admin':'Administrateur'\t    },\t    'period':{\t        'a':'Matin',\t        'm':'Après-midi',\t        'n':'Nuit',\t        'j':'Journée',\t        's':'Samedi'\t    }\t}"
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::tabs'
@@ -746,25 +749,10 @@
       to: "{\t    'Authentification':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':true\t    },\t    'Maintenance':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':true\t    },\t    'Programmes':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':false\t    },\t    'Détail':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':true,\t        'prod':true\t    },\t    'Listes':{\t        'admin':true,\t        'rt':true,\t        'tech':true,\t        'rp':false,\t        'prod':false\t    },\t    'Arborescence':{\t        'admin':true,\t        'rt':true,\t        'tech':false,\t        'rp':false,\t        'prod':false\t    },\t    'Système':{\t        'admin':true,\t        'rt':false,\t        'tech':false,\t        'rp':false,\t        'prod':false\t    }\t}"
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::describe'
+      p: '#:(memoryOnly)::user'
       pt: global
-      to: "{\t    'component':{\t        'run':'Lecture état de fonctionnement (run)',\t        'heat':'Lecture état de chauffe (heat)',\t        'voltage':'Lecture de tension (voltage)',\t        'power':'Lecture de puisance (power)',\t        '1wh':\"Lecture d'impulsion de puissance par Wh (1wh)\",\t        'cycle':\"Lecture d'impulsion de cycle (cycle)\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions (cyclemeter)\",\t        'runmeter':\"Lecture de compteur partiel d'heures (runmeter)\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions (cyclemetertotal)\",\t        'runmetertotal':\"Lecture de compteur total d'heures (runmetertotal)\",\t        'heatswitch':'Commande de chauffe permanente libre (heatswitch)',\t        'heattoggle':'Commande de chauffe inverseur libre (heattoggle)',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure (heatlink)',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure (heatpulse)',\t        'runreset':\"Commande de RAZ compteur partiel d'heures (runreset)\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions (cyclereset)\"\t    },\t    'day':{\t        '0':'Dimanche',\t        '1':'Lundi',\t        '2':'Mardi',\t        '3':'Mercredi',\t        '4':'Jeudi',\t        '5':'Vendredi',\t        '6':'Samedi',\t        '7':'Dimanche'\t    },\t    'resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minutes',\t        '60':'1 heure'\t    },\t    'level':{\t        'prod':'Production',\t        'rp':'Responsable production',\t        'tech':'Technicien',\t        'rt':'Repsonsable technique',\t        'admin':'Administrateur'\t    },\t    'period':{\t        'a':'Matin',\t        'm':'Après-midi',\t        'n':'Nuit',\t        'j':'Journée',\t        's':'Samedi'\t    }\t}"
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::reverse_endpoint'
-      pt: flow
       to: '{}'
       tot: jsonata
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
   action: ''
   property: ''
   from: ''
@@ -790,17 +778,12 @@
   z: f6f2187d.f17ca8
   g: dcb47b97829a1b78
   name: boot
-  props:
-    - p: payload
-    - p: topic
-      vt: str
+  props: []
   repeat: ''
   crontab: ''
   once: true
   onceDelay: 0.1
   topic: ''
-  payload: ''
-  payloadType: str
   x: 210
   'y': 140
   wires:
@@ -1075,7 +1058,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1230
+  x: 1400
   'y': 1160
   wires:
     - - 423cf6113bf71012
@@ -1133,7 +1116,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1720
+  x: 1890
   'y': 1220
   wires:
     - - a2867f8c84273968
@@ -1152,7 +1135,7 @@
   correl: ''
   expiry: ''
   broker: f516c1341f0f634c
-  x: 1890
+  x: 2060
   'y': 1220
   wires: []
 - id: 1a1bd4900c1218fd
@@ -1178,7 +1161,7 @@
   qToggle: false
   persist: false
   storeName: default
-  x: 1550
+  x: 1720
   'y': 1220
   wires:
     - - 403e19609eb00cac
@@ -1197,7 +1180,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 910
+  x: 1080
   'y': 1160
   wires:
     - - 40abe00e99020b2f
@@ -1218,7 +1201,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1070
+  x: 1240
   'y': 1220
   wires:
     - - 40abe00e99020b2f
@@ -1235,7 +1218,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 750
+  x: 920
   'y': 1100
   wires:
     - - 655727cb36a628bd
@@ -1254,7 +1237,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1230
+  x: 1400
   'y': 1100
   wires:
     - - 423cf6113bf71012
@@ -1321,6 +1304,9 @@
       pt: msg
       to: kernel
       tot: global
+    - t: delete
+      p: automate
+      pt: msg
   action: ''
   property: ''
   from: ''
@@ -1477,6 +1463,9 @@
       pt: msg
       to: kernel
       tot: global
+    - t: delete
+      p: automate
+      pt: msg
   action: ''
   property: ''
   from: ''
@@ -1766,7 +1755,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1550
+  x: 1720
   'y': 1100
   wires:
     - - 69014f6b27789c52
@@ -1783,7 +1772,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1390
+  x: 1560
   'y': 1100
   wires:
     - []
@@ -1802,7 +1791,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2270
+  x: 2440
   'y': 1100
   wires: []
 - id: b9937d98836c0d0d
@@ -1857,7 +1846,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2070
+  x: 2240
   'y': 1100
   wires:
     - - fa344a634113a2e8
@@ -1873,7 +1862,7 @@
     - 1472ee8de6253740
     - 6f0b1eb0278764e4
     - e47fa68c1a570f10
-  x: 2195
+  x: 2365
   'y': 1160
   wires: []
 - id: 7bba6594f41302c2
@@ -1981,7 +1970,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2600
+  x: 2770
   'y': 1220
   wires:
     - - 9b7c164fdabb6ad3
@@ -2000,7 +1989,7 @@
   retentionPolicyV18Flux: ''
   org: optaequipments
   bucket: state
-  x: 2800
+  x: 2970
   'y': 1220
   wires: []
 - id: 1875a8a1b0f19fa5
@@ -2018,7 +2007,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2250
+  x: 2420
   'y': 1220
   wires:
     - - da46e356e9803207
@@ -2037,7 +2026,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2430
+  x: 2600
   'y': 1160
   wires:
     - - a9ad7634b2385d00
@@ -2097,7 +2086,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2810
+  x: 2980
   'y': 1160
   wires: []
 - id: 339a18bb070b06a2
@@ -2129,7 +2118,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1930
+  x: 2100
   'y': 1160
   wires: []
 - id: 3a4b0a3f566334ac
@@ -2198,6 +2187,11 @@
       pt: msg
       to: kernel.endpoint
       tot: global
+    - t: set
+      p: '#:(memoryOnly)::reverse_endpoint'
+      pt: flow
+      to: '{}'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -2257,7 +2251,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1720
+  x: 1890
   'y': 1100
   wires:
     - - c4dca1e9e20d9ca3
@@ -2282,7 +2276,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1900
+  x: 2070
   'y': 1100
   wires:
     - - b9937d98836c0d0d
@@ -4362,31 +4356,6 @@
   'y': 800
   wires:
     - - a632cf6658ed8cde
-- id: f5a29d169722a6c1
-  type: change
-  z: f6f2187d.f17ca8
-  g: dcb47b97829a1b78
-  name: gate
-  rules:
-    - t: set
-      p: topic
-      pt: msg
-      to: control
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: open
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 830
-  'y': 140
-  wires:
-    - - 575b91a30deac00d
 - id: 7a10113d5c45b7de
   type: link out
   z: f6f2187d.f17ca8
@@ -4409,27 +4378,8 @@
   x: 610
   'y': 140
   wires:
-    - - f5a29d169722a6c1
-- id: cc60f94273e4f225
-  type: change
-  z: f6f2187d.f17ca8
-  g: b0a29d62b8e00f94
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1250
-  'y': 800
-  wires:
-    - - eb42ee484f23555b
+    - - fe77a163f58aea3f
+      - de94cabe86867469
 - id: afd0b91e4d0f2c22
   type: link call
   z: f6f2187d.f17ca8
@@ -5186,3 +5136,90 @@
   wires:
     - - 430e091bb05b99e7
       - 3a4b0a3f566334ac
+- id: d3c22873709318bb
+  type: delay
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: 200/s
+  pauseType: rate
+  timeout: '10'
+  timeoutUnits: milliseconds
+  rate: '200'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 270
+  'y': 1100
+  wires:
+    - - 276ea77023fcccae
+- id: fe77a163f58aea3f
+  type: function
+  z: f6f2187d.f17ca8
+  g: dcb47b97829a1b78
+  name: gate
+  func: |-
+    var newMsg = { topic: 'control', payload: 'open' }
+    return newMsg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 140
+  wires:
+    - - 575b91a30deac00d
+- id: de94cabe86867469
+  type: debug
+  z: f6f2187d.f17ca8
+  g: dcb47b97829a1b78
+  name: kernel- boot
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: '''booting flow'''
+  targetType: jsonata
+  statusVal: ''
+  statusType: auto
+  x: 850
+  'y': 200
+  wires: []
+- id: cc60f94273e4f225
+  type: change
+  z: f6f2187d.f17ca8
+  g: b0a29d62b8e00f94
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: endpoint
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 800
+  wires:
+    - - eb42ee484f23555b
+- id: 9b9c102ae72a95d5
+  type: comment
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: This rebuilt the global kernel object
+  info: ''
+  x: 360
+  'y': 1760
+  wires: []
