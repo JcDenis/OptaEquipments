@@ -898,7 +898,7 @@
   width: 0
   height: 0
   head: ''
-  format: |
+  format: |-
     .v-tab-item--selected {
         color: #0094ce !important;
     }
@@ -908,19 +908,11 @@
         visibility: hidden;
         color: transparent !important;
     }
-    /*
-    .nrdb-ui-text:hover {
-        border-bottom: 2px solid #CCCCCC;
-        color: #CCCCCC !important;
-        margin-bottom: -2px;
+    .v-main {
+        padding-bottom: 2em;
     }
-    */
     #app-bar-actions img {
         margin-right: 20px;
-    }#app-bar-actions span {
-        margin-top: 0.5em;
-        font-size: 0.8em;
-        color: #0094ce;
     }
     .ui-title {
         padding: 2em;
@@ -930,7 +922,7 @@
         border-top: 2px solid #CCCCCC;
     }
   storeOutMessages: true
-  passthru: false
+  passthru: true
   resendOnRefresh: true
   templateScope: 'site:style'
   className: ''
@@ -946,8 +938,6 @@
   links:
     - 575b91a30deac00d
     - bee6a866a78902c8
-    - 184163b7c578c6aa
-    - d3ec99af4316309d
   x: 145
   'y': 3440
   wires:
@@ -2064,15 +2054,13 @@
   height: 0
   head: ''
   format: |-
-
     <template>
         <Teleport v-if="mounted" to="#app-bar-actions">
-            <span>v{{msg.version}}</span> <img height="32px" src="/icon.png" :title="msg.vendor"></img>
+            <a href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></a>
         </Teleport>
         <Teleport v-if="mounted" to="#app-bar-title">
             <span>{{msg.title}}</span>
         </Teleport>
-
     </template>
 
     <script>
@@ -2184,6 +2172,11 @@
       p: title
       pt: msg
       to: 'msg.title?msg.title:msg.app_title'
+      tot: jsonata
+    - t: set
+      p: full
+      pt: msg
+      to: '''OptaEquipments v'' & msg.version & '' for '' & msg.vendor'
       tot: jsonata
   action: ''
   property: ''
