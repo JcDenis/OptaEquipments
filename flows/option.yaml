@@ -494,7 +494,7 @@
     - t: set
       p: payload
       pt: msg
-      to: "{\t    'label':msg.payload & ' (' & msg.option.plant & ')',\t    'value':msg.option.plant\t}"
+      to: "{\t    'label':msg.payload & ' (' & msg.option.plant & ')',\t    'value':msg.option.plant,\t    'dropdown':'plant'\t}"
       tot: jsonata
     - t: set
       p: plants
@@ -3363,6 +3363,11 @@
       pt: msg
       to: '#:(memoryOnly)::plants[msg._client.socketId]'
       tot: flow
+    - t: set
+      p: options
+      pt: msg
+      to: '$append([{''label'':'''',''value'':'''',''dropdown'':''plant''}],msg.options)'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -3829,7 +3834,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.payload,''value'':msg.option.level}'
+      to: '{''label'':msg.payload,''value'':msg.option.level,''dropdown'':''level''}'
       tot: jsonata
     - t: set
       p: levels
@@ -4021,7 +4026,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.option.login,''value'':msg.option.login}'
+      to: '{''label'':msg.option.login,''value'':msg.option.login,''dropdown'':''login''}'
       tot: jsonata
     - t: set
       p: auths
