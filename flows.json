@@ -1768,7 +1768,6 @@
             "label": true
         },
         "nodes": [
-            "f8539dbcd88ad9b6",
             "ded160847ba79c1d",
             "c3fbd0eb276c1dd6",
             "25db029de29257ac",
@@ -1780,41 +1779,25 @@
             "34fa5590f0d6e124",
             "359336bc8ac8947e",
             "d8fa54a0c3f6d9a5",
-            "5849a3795c0cb01f",
             "d65327c4fbf1872c",
             "5a85864d1b0b96a3",
-            "5c3ba0b5feeefa91",
-            "c5f59626827e310e",
-            "b7acd141ed1d05a8",
-            "21205593026db95e",
-            "d56ac193ae9205d2",
-            "a476b0d5921d9eff",
-            "870125d5e88964fc",
-            "b50a32fab9773d3f",
-            "e5b4c962927260ac",
-            "d367e2212791fad3",
             "bee6a866a78902c8",
             "2d9314f6db9f0fb7",
             "99986c4ce71d1c1b",
             "3ed31290426faddb",
             "0636163612e9f6e3",
-            "4b3c94a5a6af32c3",
-            "401d415aa5640fe0",
-            "f8a3f8567dd8e027",
-            "ef7fec8756f5b443",
-            "0476a79ecc143de5",
-            "fc85e4483a6dd90f",
-            "d3ae6b0a5a6fa4f0",
-            "989fc0c7ba35b35d",
-            "81323379b072b5b3",
-            "858506bc3883b075",
             "f6e2c94e6b3f6452",
-            "dd8ce7e8d8c17c91"
+            "dd8ce7e8d8c17c91",
+            "07c662efc5f8b8d7",
+            "9ab5170ec61ff830",
+            "01004cfeb54e3a44",
+            "87fc8804b41416a0",
+            "ff46693ca235b0d0"
         ],
         "x": 104,
         "y": 639,
         "w": 1692,
-        "h": 502
+        "h": 322
     },
     {
         "id": "6083e6018629a109",
@@ -60115,9 +60098,9 @@
         "g": "6ed9fb5c0b268c66",
         "group": "a8d6d74266e4b8d2",
         "name": "ui - tool - read file",
-        "label": "Restaurer la sauvegarde",
-        "order": 1,
-        "width": "2",
+        "label": "Restaurer",
+        "order": 2,
+        "width": "1",
         "height": "1",
         "emulateClick": false,
         "tooltip": "",
@@ -60155,9 +60138,9 @@
         "g": "6ed9fb5c0b268c66",
         "group": "a8d6d74266e4b8d2",
         "name": "ui - tool - write file",
-        "label": "Enregistrer une sauvegarde",
-        "order": 2,
-        "width": "2",
+        "label": "Enregistrer",
+        "order": 3,
+        "width": "1",
         "height": "1",
         "emulateClick": false,
         "tooltip": "",
@@ -60217,46 +60200,6 @@
         "wires": []
     },
     {
-        "id": "f8539dbcd88ad9b6",
-        "type": "ui-button",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "group": "18e387e2011da847",
-        "name": "ui - tool - reload ui",
-        "label": "Recharger l'interface",
-        "order": 6,
-        "width": "0",
-        "height": "0",
-        "emulateClick": false,
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "iconPosition": "left",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "buttonColor": "",
-        "textColor": "",
-        "iconColor": "",
-        "enableClick": true,
-        "enablePointerdown": false,
-        "pointerdownPayload": "",
-        "pointerdownPayloadType": "str",
-        "enablePointerup": false,
-        "pointerupPayload": "",
-        "pointerupPayloadType": "str",
-        "x": 310,
-        "y": 1100,
-        "wires": [
-            [
-                "5849a3795c0cb01f"
-            ]
-        ]
-    },
-    {
         "id": "ded160847ba79c1d",
         "type": "link out",
         "z": "44465f18e06bb58d",
@@ -60266,8 +60209,8 @@
         "links": [
             "76e32feb14c8c8a9"
         ],
-        "x": 635,
-        "y": 1100,
+        "x": 955,
+        "y": 920,
         "wires": []
     },
     {
@@ -60573,32 +60516,6 @@
         ]
     },
     {
-        "id": "5849a3795c0cb01f",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "level",
-        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 510,
-        "y": 1100,
-        "wires": [
-            [
-                "ded160847ba79c1d"
-            ]
-        ]
-    },
-    {
         "id": "d5ccd0f597d85574",
         "type": "switch",
         "z": "44465f18e06bb58d",
@@ -60703,302 +60620,6 @@
         ]
     },
     {
-        "id": "5c3ba0b5feeefa91",
-        "type": "ui-text-input",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "group": "18e387e2011da847",
-        "name": "ui - tool - vendor",
-        "label": "Propriétaire de l'application",
-        "order": 2,
-        "width": "5",
-        "height": "1",
-        "topic": "topic",
-        "topicType": "msg",
-        "mode": "text",
-        "tooltip": "",
-        "delay": 300,
-        "passthru": false,
-        "sendOnDelay": false,
-        "sendOnBlur": true,
-        "sendOnEnter": true,
-        "className": "",
-        "clearable": false,
-        "sendOnClear": false,
-        "icon": "",
-        "iconPosition": "left",
-        "iconInnerPosition": "inside",
-        "x": 460,
-        "y": 860,
-        "wires": [
-            [
-                "b7acd141ed1d05a8"
-            ]
-        ]
-    },
-    {
-        "id": "c5f59626827e310e",
-        "type": "ui-button",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "group": "18e387e2011da847",
-        "name": "ui - tool - vendor - save",
-        "label": "Enregistrer",
-        "order": 3,
-        "width": "1",
-        "height": "1",
-        "emulateClick": false,
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "iconPosition": "left",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "buttonColor": "",
-        "textColor": "",
-        "iconColor": "",
-        "enableClick": true,
-        "enablePointerdown": false,
-        "pointerdownPayload": "",
-        "pointerdownPayloadType": "str",
-        "enablePointerup": false,
-        "pointerupPayload": "",
-        "pointerupPayloadType": "str",
-        "x": 320,
-        "y": 920,
-        "wires": [
-            [
-                "a476b0d5921d9eff"
-            ]
-        ]
-    },
-    {
-        "id": "b7acd141ed1d05a8",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "level",
-        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 650,
-        "y": 860,
-        "wires": [
-            [
-                "21205593026db95e"
-            ]
-        ]
-    },
-    {
-        "id": "21205593026db95e",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 810,
-        "y": 860,
-        "wires": [
-            [
-                "d56ac193ae9205d2"
-            ]
-        ]
-    },
-    {
-        "id": "d56ac193ae9205d2",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "flow",
-        "rules": [
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::vendor",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 970,
-        "y": 860,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a476b0d5921d9eff",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "flow",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::vendor",
-                "tot": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 920,
-        "wires": [
-            [
-                "b50a32fab9773d3f"
-            ]
-        ]
-    },
-    {
-        "id": "870125d5e88964fc",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 850,
-        "y": 920,
-        "wires": [
-            [
-                "e5b4c962927260ac"
-            ]
-        ]
-    },
-    {
-        "id": "b50a32fab9773d3f",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "level",
-        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 690,
-        "y": 920,
-        "wires": [
-            [
-                "870125d5e88964fc"
-            ]
-        ]
-    },
-    {
-        "id": "e5b4c962927260ac",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "vendor",
-        "rules": [
-            {
-                "t": "set",
-                "p": "kernel.app.vendor",
-                "pt": "global",
-                "to": "payload",
-                "tot": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::vendor",
-                "pt": "flow"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1010,
-        "y": 920,
-        "wires": [
-            [
-                "f6e2c94e6b3f6452"
-            ]
-        ]
-    },
-    {
-        "id": "d367e2212791fad3",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "vendor",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "kernel.app.vendor",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 860,
-        "wires": [
-            [
-                "5c3ba0b5feeefa91"
-            ]
-        ]
-    },
-    {
         "id": "bee6a866a78902c8",
         "type": "link out",
         "z": "44465f18e06bb58d",
@@ -61010,7 +60631,7 @@
             "6640363c796f547b"
         ],
         "x": 1755,
-        "y": 920,
+        "y": 860,
         "wires": []
     },
     {
@@ -61244,9 +60865,9 @@
         "g": "6ed9fb5c0b268c66",
         "group": "a8d6d74266e4b8d2",
         "name": "ui - tool - download",
-        "label": "Exporter une sauvegarde",
-        "order": 3,
-        "width": "2",
+        "label": "Exporter",
+        "order": 4,
+        "width": "1",
         "height": "1",
         "emulateClick": false,
         "tooltip": "",
@@ -61525,7 +61146,7 @@
         "g": "6ed9fb5c0b268c66",
         "group": "a8d6d74266e4b8d2",
         "name": "ui - tool - upload",
-        "order": 4,
+        "order": 1,
         "width": 0,
         "height": 0,
         "topic": "topic",
@@ -61841,302 +61462,6 @@
         ]
     },
     {
-        "id": "4b3c94a5a6af32c3",
-        "type": "ui-text-input",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "group": "18e387e2011da847",
-        "name": "ui - tool - title",
-        "label": "Titre de l'application",
-        "order": 4,
-        "width": "5",
-        "height": "1",
-        "topic": "topic",
-        "topicType": "msg",
-        "mode": "text",
-        "tooltip": "",
-        "delay": 300,
-        "passthru": false,
-        "sendOnDelay": false,
-        "sendOnBlur": true,
-        "sendOnEnter": true,
-        "className": "",
-        "clearable": false,
-        "sendOnClear": false,
-        "icon": "",
-        "iconPosition": "left",
-        "iconInnerPosition": "inside",
-        "x": 450,
-        "y": 980,
-        "wires": [
-            [
-                "f8a3f8567dd8e027"
-            ]
-        ]
-    },
-    {
-        "id": "401d415aa5640fe0",
-        "type": "ui-button",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "group": "18e387e2011da847",
-        "name": "ui - tool - title - save",
-        "label": "Enregistrer",
-        "order": 5,
-        "width": "1",
-        "height": "1",
-        "emulateClick": false,
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "iconPosition": "left",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "buttonColor": "",
-        "textColor": "",
-        "iconColor": "",
-        "enableClick": true,
-        "enablePointerdown": false,
-        "pointerdownPayload": "",
-        "pointerdownPayloadType": "str",
-        "enablePointerup": false,
-        "pointerupPayload": "",
-        "pointerupPayloadType": "str",
-        "x": 310,
-        "y": 1040,
-        "wires": [
-            [
-                "fc85e4483a6dd90f"
-            ]
-        ]
-    },
-    {
-        "id": "f8a3f8567dd8e027",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "level",
-        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 630,
-        "y": 980,
-        "wires": [
-            [
-                "ef7fec8756f5b443"
-            ]
-        ]
-    },
-    {
-        "id": "ef7fec8756f5b443",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 790,
-        "y": 980,
-        "wires": [
-            [
-                "0476a79ecc143de5"
-            ]
-        ]
-    },
-    {
-        "id": "0476a79ecc143de5",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "flow",
-        "rules": [
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::title",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 950,
-        "y": 980,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "fc85e4483a6dd90f",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "flow",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::title",
-                "tot": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 510,
-        "y": 1040,
-        "wires": [
-            [
-                "989fc0c7ba35b35d"
-            ]
-        ]
-    },
-    {
-        "id": "d3ae6b0a5a6fa4f0",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 830,
-        "y": 1040,
-        "wires": [
-            [
-                "81323379b072b5b3"
-            ]
-        ]
-    },
-    {
-        "id": "989fc0c7ba35b35d",
-        "type": "switch",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "level",
-        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 670,
-        "y": 1040,
-        "wires": [
-            [
-                "d3ae6b0a5a6fa4f0"
-            ]
-        ]
-    },
-    {
-        "id": "81323379b072b5b3",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "vendor",
-        "rules": [
-            {
-                "t": "set",
-                "p": "kernel.app.title",
-                "pt": "global",
-                "to": "payload",
-                "tot": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::title",
-                "pt": "flow"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 990,
-        "y": 1040,
-        "wires": [
-            [
-                "f6e2c94e6b3f6452"
-            ]
-        ]
-    },
-    {
-        "id": "858506bc3883b075",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "43bcc4020c29e03d",
-        "name": "title",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "kernel.app.title",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 980,
-        "wires": [
-            [
-                "4b3c94a5a6af32c3"
-            ]
-        ]
-    },
-    {
         "id": "f6e2c94e6b3f6452",
         "type": "change",
         "z": "44465f18e06bb58d",
@@ -62164,7 +61489,7 @@
         "to": "",
         "reg": false,
         "x": 1630,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "bee6a866a78902c8"
@@ -62185,11 +61510,193 @@
         "wires": [
             [
                 "c3fbd0eb276c1dd6",
-                "d367e2212791fad3",
-                "c5f59626827e310e",
-                "858506bc3883b075",
-                "401d415aa5640fe0",
-                "f8539dbcd88ad9b6"
+                "07c662efc5f8b8d7"
+            ]
+        ]
+    },
+    {
+        "id": "9ab5170ec61ff830",
+        "type": "ui-form",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "ui - app - form",
+        "group": "18e387e2011da847",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Propriétaire de l'application",
+                "key": "vendor",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Nom de l'application",
+                "key": "title",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Relancer l'application",
+                "key": "reload",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "vendor": "",
+            "title": "",
+            "reload": false
+        },
+        "payload": "",
+        "submit": "Enregistrer",
+        "cancel": "",
+        "resetOnSubmit": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "passthru": false,
+        "dropdownOptions": [],
+        "x": 480,
+        "y": 860,
+        "wires": [
+            [
+                "87fc8804b41416a0"
+            ]
+        ]
+    },
+    {
+        "id": "07c662efc5f8b8d7",
+        "type": "change",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "prepare",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "payload.vendor",
+                "pt": "msg",
+                "to": "kernel.app.vendor",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "payload.title",
+                "pt": "msg",
+                "to": "kernel.app.title",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 860,
+        "wires": [
+            [
+                "9ab5170ec61ff830"
+            ]
+        ]
+    },
+    {
+        "id": "01004cfeb54e3a44",
+        "type": "change",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "global",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel.app.vendor",
+                "pt": "global",
+                "to": "payload.vendor",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "kernel.app.title",
+                "pt": "global",
+                "to": "payload.title",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 860,
+        "wires": [
+            [
+                "f6e2c94e6b3f6452",
+                "07c662efc5f8b8d7"
+            ]
+        ]
+    },
+    {
+        "id": "87fc8804b41416a0",
+        "type": "switch",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "level",
+        "property": "#:(memoryOnly)::user[msg._client.socketId]['level']",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "admin",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 670,
+        "y": 860,
+        "wires": [
+            [
+                "01004cfeb54e3a44",
+                "ff46693ca235b0d0"
+            ]
+        ]
+    },
+    {
+        "id": "ff46693ca235b0d0",
+        "type": "switch",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "reload",
+        "property": "payload.reload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 920,
+        "wires": [
+            [
+                "ded160847ba79c1d"
             ]
         ]
     }
