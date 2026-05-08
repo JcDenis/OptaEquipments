@@ -71,12 +71,6 @@
     - eaf6fbb998a28d10
     - ba2c0a6c4e22a220
     - 5de49f01b62221a3
-    - 7e12373daec6b4f7
-    - 991691c2beb81395
-    - ca27a4bc9e508834
-    - 51fd87fb2d0f8249
-    - deaace2b52065689
-    - 29d2bd68367739b8
     - df896a766913d71d
     - 9436213abf2c9241
     - 4c08c3e633d35558
@@ -103,7 +97,7 @@
   x: 104
   'y': 279
   w: 2852
-  h: 742
+  h: 622
 - id: ab8192053ebeac78
   type: link in
   z: adb48ef35d9453c0
@@ -561,7 +555,7 @@
   statusVal: ''
   statusType: auto
   x: 1500
-  'y': 740
+  'y': 620
   wires: []
 - id: ebadb29361792eb0
   type: switch
@@ -613,7 +607,7 @@
   links:
     - 4e94023e8ba12f50
   x: 1455
-  'y': 680
+  'y': 560
   wires: []
 - id: cf8008026cffa667
   type: change
@@ -695,7 +689,7 @@
   allowrate: false
   outputs: 1
   x: 1490
-  'y': 800
+  'y': 680
   wires:
     - - deb2b85132bb5e7b
 - id: 1e88c6402adc3cda
@@ -926,7 +920,7 @@
   to: ''
   reg: false
   x: 1490
-  'y': 620
+  'y': 500
   wires:
     - - 560a5229025ecb9d
 - id: 560a5229025ecb9d
@@ -938,7 +932,7 @@
   links:
     - 0502ea2e9ef0f780
   x: 1615
-  'y': 620
+  'y': 500
   wires: []
 - id: 1cf562462b7e9090
   type: switch
@@ -973,10 +967,10 @@
   g: 7a7d35c0913aed9f
   group: 0e1f5538e0c5b139
   name: user - backup - export
-  label: Exporter les utilisateurs
-  order: 1
-  width: 0
-  height: 0
+  label: Exporter
+  order: 2
+  width: '1'
+  height: '1'
   emulateClick: false
   tooltip: ''
   color: ''
@@ -999,7 +993,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 500
-  'y': 920
+  'y': 800
   wires:
     - - 5de49f01b62221a3
 - id: ba2c0a6c4e22a220
@@ -1008,7 +1002,7 @@
   g: 7a7d35c0913aed9f
   group: 0e1f5538e0c5b139
   name: user - backup - import
-  order: 2
+  order: 1
   width: 0
   height: 0
   topic: topic
@@ -1019,7 +1013,7 @@
   accept: ''
   className: ''
   x: 500
-  'y': 980
+  'y': 860
   wires:
     - - de03d6063f93c65d
 - id: 5de49f01b62221a3
@@ -1037,134 +1031,9 @@
   repair: false
   outputs: 1
   x: 710
-  'y': 920
+  'y': 800
   wires:
     - - df896a766913d71d
-- id: 7e12373daec6b4f7
-  type: http in
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: ''
-  url: /user.export.json
-  method: get
-  upload: false
-  skipBodyParsing: false
-  swaggerDoc: ''
-  x: 1240
-  'y': 920
-  wires:
-    - - 51fd87fb2d0f8249
-- id: 991691c2beb81395
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: ts
-  property: payload.ts
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '#:(memoryOnly)::time'
-      vt: flow
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1610
-  'y': 920
-  wires:
-    - - deaace2b52065689
-    - - ca27a4bc9e508834
-- id: ca27a4bc9e508834
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: prepare
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '404'
-      tot: num
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1780
-  'y': 920
-  wires:
-    - - 29d2bd68367739b8
-- id: 51fd87fb2d0f8249
-  type: delay
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: 1m/s
-  pauseType: rate
-  timeout: '5'
-  timeoutUnits: seconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: true
-  allowrate: false
-  outputs: 1
-  x: 1450
-  'y': 920
-  wires:
-    - - 991691c2beb81395
-- id: deaace2b52065689
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: prepare
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::auth'
-      tot: global
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '200'
-      tot: num
-    - t: set
-      p: buffersize
-      pt: msg
-      to: msg.payload.length
-      tot: jsonata
-    - t: set
-      p: headers
-      pt: msg
-      to: "{\t    'Content-Type':'application/json',\t    'Content-Disposition':'attachment; filename=\"user.backup.json\"',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1780
-  'y': 860
-  wires:
-    - - 29d2bd68367739b8
-- id: 29d2bd68367739b8
-  type: http response
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: ''
-  statusCode: ''
-  headers: {}
-  x: 1950
-  'y': 860
-  wires: []
 - id: df896a766913d71d
   type: change
   z: adb48ef35d9453c0
@@ -1172,19 +1041,19 @@
   name: url
   rules:
     - t: set
-      p: time
+      p: random
       pt: msg
-      to: ''
-      tot: date
+      to: $floor($random() * 1000000)
+      tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::time'
-      pt: flow
-      to: time
+      p: '#:(memoryOnly)::random'
+      pt: global
+      to: random
       tot: msg
     - t: set
       p: payload
       pt: msg
-      to: "{\t    'url':'/user.export.json?ts=' & msg.time\t}"
+      to: "{\t    'url':'/user.export.json?rnd=' & msg.random }"
       tot: jsonata
   action: ''
   property: ''
@@ -1192,7 +1061,7 @@
   to: ''
   reg: false
   x: 870
-  'y': 920
+  'y': 800
   wires:
     - - 9436213abf2c9241
 - id: 9436213abf2c9241
@@ -1204,7 +1073,7 @@
   links:
     - 00818f8c0686b556
   x: 995
-  'y': 920
+  'y': 800
   wires: []
 - id: 4c08c3e633d35558
   type: json
@@ -1215,7 +1084,7 @@
   action: ''
   pretty: false
   x: 1350
-  'y': 980
+  'y': 860
   wires:
     - - 314dd3c75fb2b8ac
 - id: de03d6063f93c65d
@@ -1233,7 +1102,7 @@
   repair: false
   outputs: 1
   x: 710
-  'y': 980
+  'y': 860
   wires:
     - - 4f4a8eddf9e433c7
 - id: 42fef066717d59e1
@@ -1251,7 +1120,7 @@
   to: ''
   reg: false
   x: 1190
-  'y': 980
+  'y': 860
   wires:
     - - 4c08c3e633d35558
 - id: c402534d90951626
@@ -1269,7 +1138,7 @@
   repair: false
   outputs: 1
   x: 1030
-  'y': 980
+  'y': 860
   wires:
     - - 42fef066717d59e1
 - id: 4f4a8eddf9e433c7
@@ -1289,7 +1158,7 @@
   to: ''
   reg: false
   x: 870
-  'y': 980
+  'y': 860
   wires:
     - - c402534d90951626
 - id: 314dd3c75fb2b8ac
@@ -1307,7 +1176,7 @@
   repair: false
   outputs: 1
   x: 1510
-  'y': 980
+  'y': 860
   wires:
     - - 0facfb446c8b2cd1
 - id: 0facfb446c8b2cd1
@@ -1323,7 +1192,7 @@
   addname: login
   property: payload
   x: 1670
-  'y': 980
+  'y': 860
   wires:
     - - 06adb713099af37a
 - id: 2e3db75682fbb883
@@ -1342,7 +1211,7 @@
   repair: false
   outputs: 2
   x: 1990
-  'y': 920
+  'y': 800
   wires:
     - - 7f0f91744c2f3ae9
     - - dd970abf37392a8c
@@ -1362,7 +1231,7 @@
   repair: false
   outputs: 2
   x: 2150
-  'y': 900
+  'y': 780
   wires:
     - - 8c7b89e2fe138b61
     - - dd970abf37392a8c
@@ -1382,7 +1251,7 @@
   repair: false
   outputs: 2
   x: 2310
-  'y': 880
+  'y': 760
   wires:
     - - b2a690e888412212
     - - dd970abf37392a8c
@@ -1403,7 +1272,7 @@
   to: ''
   reg: false
   x: 2470
-  'y': 860
+  'y': 740
   wires:
     - - dd970abf37392a8c
 - id: 0a619717ada5bdb5
@@ -1416,7 +1285,7 @@
     - b75938c74c41ca5e
     - 922d6d1c4163d169
   x: 2915
-  'y': 800
+  'y': 680
   wires: []
 - id: dd970abf37392a8c
   type: join
@@ -1440,7 +1309,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 2630
-  'y': 980
+  'y': 860
   wires:
     - - deb2b85132bb5e7b
 - id: 06adb713099af37a
@@ -1459,7 +1328,7 @@
   repair: false
   outputs: 2
   x: 1830
-  'y': 980
+  'y': 860
   wires:
     - - dd970abf37392a8c
     - - 2e3db75682fbb883
@@ -1486,7 +1355,7 @@
   to: ''
   reg: false
   x: 2790
-  'y': 800
+  'y': 680
   wires:
     - - 0a619717ada5bdb5
 - id: 5090288d785383e7
@@ -1520,7 +1389,7 @@
     pass: ''
     pass2: ''
   payload: ''
-  submit: Modifier
+  submit: Enregistrer
   cancel: ''
   resetOnSubmit: true
   topic: topic
@@ -1613,7 +1482,7 @@
     level: ''
     plant: ''
   payload: ''
-  submit: Ajouter
+  submit: Enregistrer
   cancel: ''
   resetOnSubmit: true
   topic: topic

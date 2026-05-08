@@ -16,14 +16,7 @@
     - 67a829c8d69b7b01
     - d508633aa0105203
     - 2afd16a564ae6c47
-    - d5cec84ece588ffc
-    - a21747e12e479ca9
-    - 0d2c51b998a3f781
-    - d7cb5aad49f38b43
-    - f880d0ab8441869a
-    - c9befab23429b04a
     - 80e11615d0347342
-    - 88e7e099ac740bc0
     - 248ee86020acb7f2
     - 0276a7f91ac850d6
     - 4e3829a06010be64
@@ -42,9 +35,9 @@
     - 64a95942a5179c42
     - d699caf4939bf76f
   x: 104
-  'y': 1459
+  'y': 879
   w: 1742
-  h: 382
+  h: 262
 - id: 43bcc4020c29e03d
   type: group
   z: 44465f18e06bb58d
@@ -58,19 +51,11 @@
     - c3fbd0eb276c1dd6
     - 25db029de29257ac
     - cdff23747bd66c63
-    - 306b2fee3a4b886d
-    - 80538c5af3c6a70b
-    - 37ef0dacd1f0e952
-    - fe3a87fa930d465d
-    - 34fa5590f0d6e124
-    - 359336bc8ac8947e
-    - d8fa54a0c3f6d9a5
     - d65327c4fbf1872c
     - 5a85864d1b0b96a3
     - bee6a866a78902c8
     - 2d9314f6db9f0fb7
     - 99986c4ce71d1c1b
-    - 3ed31290426faddb
     - 0636163612e9f6e3
     - f6e2c94e6b3f6452
     - dd8ce7e8d8c17c91
@@ -79,10 +64,12 @@
     - 01004cfeb54e3a44
     - 87fc8804b41416a0
     - ff46693ca235b0d0
+    - 6d0093b979af9179
+    - 301bb73805b7e405
   x: 104
-  'y': 639
+  'y': 579
   w: 1692
-  h: 322
+  h: 262
 - id: c5aa438b6dcec795
   type: group
   z: 44465f18e06bb58d
@@ -100,9 +87,10 @@
     - 230e5e76372284fb
     - f83449865c366fb3
     - 1aad4693dd3e7170
+    - 53abf944080b21c2
   x: 104
   'y': 39
-  w: 712
+  w: 872
   h: 202
 - id: 6ed9fb5c0b268c66
   type: group
@@ -120,15 +108,9 @@
     - eba6e18370fbfe76
     - d5ccd0f597d85574
     - 762de910afc2c0d1
-    - d0edfe80cd189ba8
     - 2d0be523be6aa3e3
     - 69341ab189affbbd
-    - 9a76fb37e3b382b9
-    - 8c484fa5249c34f6
     - 1fffe66bed45efe7
-    - fd610372966f9686
-    - 10f099f41b3a4283
-    - 571f58fa9072eafb
     - 87e288563628f56c
     - 39d8c08b5c09c422
     - 91cf0e5e55209e34
@@ -140,7 +122,7 @@
   x: 104
   'y': 279
   w: 1212
-  h: 322
+  h: 262
 - id: 67a829c8d69b7b01
   type: ui-text-input
   z: 44465f18e06bb58d
@@ -167,7 +149,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 850
-  'y': 1620
+  'y': 1040
   wires:
     - - 64a95942a5179c42
 - id: d508633aa0105203
@@ -187,23 +169,23 @@
   accept: ''
   className: ''
   x: 840
-  'y': 1680
+  'y': 1100
   wires:
     - - c3d005124e95de2f
 - id: 2afd16a564ae6c47
   type: change
   z: 44465f18e06bb58d
   g: 7c224f2f2afc76d3
-  name: flow
+  name: global
   rules:
     - t: set
-      p: '#:(memoryOnly)::ota_version'
-      pt: flow
+      p: '#:(memoryOnly)::opta.version'
+      pt: global
       to: '#:(memoryOnly)::form_version'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::ota_buffer'
-      pt: flow
+      p: '#:(memoryOnly)::opta.buffer'
+      pt: global
       to: payload
       tot: msg
   action: ''
@@ -212,134 +194,10 @@
   to: ''
   reg: false
   x: 1390
-  'y': 1680
+  'y': 1100
   wires:
     - - 1691d83e3598e8a4
       - 4e3829a06010be64
-- id: d5cec84ece588ffc
-  type: http in
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: ''
-  url: /optafirmware.ota
-  method: get
-  upload: false
-  skipBodyParsing: false
-  swaggerDoc: ''
-  x: 320
-  'y': 1800
-  wires:
-    - - 0d2c51b998a3f781
-- id: a21747e12e479ca9
-  type: change
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: prepare
-  rules:
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '200'
-      tot: num
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::ota_buffer'
-      tot: flow
-    - t: set
-      p: buffersize
-      pt: msg
-      to: msg.payload.length
-      tot: jsonata
-    - t: set
-      p: headers
-      pt: msg
-      to: "{\t    'Accept-Ranges':'bytes',\t    'Content-Type':'application/octet-stream',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 880
-  'y': 1740
-  wires:
-    - - f880d0ab8441869a
-      - 88e7e099ac740bc0
-- id: 0d2c51b998a3f781
-  type: switch
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: version
-  property: '#:(memoryOnly)::ota_version'
-  propertyType: flow
-  rules:
-    - t: gt
-      v: '0'
-      vt: num
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 540
-  'y': 1800
-  wires:
-    - - d7cb5aad49f38b43
-    - - c9befab23429b04a
-- id: d7cb5aad49f38b43
-  type: switch
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: buffer
-  property: '#:(memoryOnly)::ota_buffer'
-  propertyType: flow
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 710
-  'y': 1740
-  wires:
-    - - a21747e12e479ca9
-    - - c9befab23429b04a
-- id: f880d0ab8441869a
-  type: http response
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: rsp
-  statusCode: ''
-  headers: {}
-  x: 1050
-  'y': 1800
-  wires: []
-- id: c9befab23429b04a
-  type: change
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: prepare
-  rules:
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '404'
-      tot: num
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 880
-  'y': 1800
-  wires:
-    - - f880d0ab8441869a
-      - 88e7e099ac740bc0
 - id: 80e11615d0347342
   type: mqtt out
   z: 44465f18e06bb58d
@@ -355,23 +213,7 @@
   expiry: ''
   broker: f516c1341f0f634c
   x: 1740
-  'y': 1500
-  wires: []
-- id: 88e7e099ac740bc0
-  type: debug
-  z: 44465f18e06bb58d
-  g: 7c224f2f2afc76d3
-  name: ui - ota - http out
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1080
-  'y': 1740
+  'y': 920
   wires: []
 - id: 248ee86020acb7f2
   type: link in
@@ -381,7 +223,7 @@
   links:
     - 6dfb47bfe7905913
   x: 145
-  'y': 1500
+  'y': 920
   wires:
     - - 0276a7f91ac850d6
 - id: 0276a7f91ac850d6
@@ -389,8 +231,8 @@
   z: 44465f18e06bb58d
   g: 7c224f2f2afc76d3
   name: version
-  property: '#:(memoryOnly)::ota_version'
-  propertyType: flow
+  property: '#:(memoryOnly)::opta.version'
+  propertyType: global
   rules:
     - t: gt
       v: '0'
@@ -399,20 +241,20 @@
   repair: false
   outputs: 1
   x: 280
-  'y': 1500
+  'y': 920
   wires:
     - - 4e3829a06010be64
 - id: 4e3829a06010be64
   type: change
   z: 44465f18e06bb58d
   g: 7c224f2f2afc76d3
-  name: flow
+  name: global
   rules:
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::ota_version'
-      tot: flow
+      to: '#:(memoryOnly)::opta.version'
+      tot: global
     - t: set
       p: payload
       pt: msg
@@ -427,7 +269,7 @@
   to: ''
   reg: false
   x: 1550
-  'y': 1500
+  'y': 920
   wires:
     - - 80e11615d0347342
       - 3ef1ad4d211cdc1a
@@ -439,7 +281,7 @@
   links:
     - 0c83fe1f9690e061
   x: 145
-  'y': 1620
+  'y': 1040
   wires:
     - - f3cac8b5cdac6603
       - 44b14fdf37109b9a
@@ -448,8 +290,8 @@
   z: 44465f18e06bb58d
   g: 7c224f2f2afc76d3
   name: version
-  property: '#:(memoryOnly)::ota_version'
-  propertyType: flow
+  property: '#:(memoryOnly)::opta.version'
+  propertyType: global
   rules:
     - t: gt
       v: '0'
@@ -459,7 +301,7 @@
   repair: false
   outputs: 2
   x: 460
-  'y': 1620
+  'y': 1040
   wires:
     - - a536b598b5e16e16
     - - 512acb8e5a49cc52
@@ -490,7 +332,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 1680
+  'y': 1100
   wires:
     - - d508633aa0105203
 - id: 06f26a04e792caa4
@@ -525,7 +367,7 @@
   to: ''
   reg: false
   x: 1220
-  'y': 1620
+  'y': 1040
   wires:
     - - 15714855907e56a4
 - id: 15714855907e56a4
@@ -544,7 +386,7 @@
   repair: false
   outputs: 2
   x: 1390
-  'y': 1620
+  'y': 1040
   wires:
     - - d508633aa0105203
     - - b96a79e7e0e13256
@@ -580,7 +422,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 1620
+  'y': 1040
   wires:
     - - 770cf39b6e6a39ae
 - id: 512acb8e5a49cc52
@@ -595,8 +437,8 @@
       to: '0'
       tot: num
     - t: set
-      p: '#:(memoryOnly)::ota_version'
-      pt: flow
+      p: '#:(memoryOnly)::opta.version'
+      pt: global
       to: payload
       tot: msg
   action: ''
@@ -605,7 +447,7 @@
   to: ''
   reg: false
   x: 640
-  'y': 1620
+  'y': 1040
   wires:
     - - 67a829c8d69b7b01
 - id: a536b598b5e16e16
@@ -617,15 +459,15 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::ota_version'
-      tot: flow
+      to: '#:(memoryOnly)::opta.version'
+      tot: global
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 640
-  'y': 1560
+  'y': 980
   wires:
     - - 67a829c8d69b7b01
 - id: 1691d83e3598e8a4
@@ -642,7 +484,7 @@
   statusVal: ''
   statusType: auto
   x: 1730
-  'y': 1680
+  'y': 1100
   wires: []
 - id: c3d005124e95de2f
   type: switch
@@ -657,7 +499,7 @@
   repair: false
   outputs: 1
   x: 1050
-  'y': 1680
+  'y': 1100
   wires:
     - - d699caf4939bf76f
 - id: b96a79e7e0e13256
@@ -667,13 +509,13 @@
   name: reset
   rules:
     - t: set
-      p: '#:(memoryOnly)::ota_version'
-      pt: flow
+      p: '#:(memoryOnly)::opta.version'
+      pt: global
       to: '0'
       tot: num
     - t: set
-      p: '#:(memoryOnly)::ota_buffer'
-      pt: flow
+      p: '#:(memoryOnly)::opta.buffer'
+      pt: global
       to: ''
       tot: str
     - t: delete
@@ -690,7 +532,7 @@
   to: ''
   reg: false
   x: 1550
-  'y': 1620
+  'y': 1040
   wires:
     - - 80e11615d0347342
       - 3ef1ad4d211cdc1a
@@ -708,7 +550,7 @@
   statusVal: ''
   statusType: auto
   x: 1730
-  'y': 1560
+  'y': 980
   wires: []
 - id: a31a6d118c265f83
   type: ui-button
@@ -806,12 +648,12 @@
   type: link out
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
-  name: ui - tool - reload ui
+  name: ui - app - boot
   mode: link
   links:
     - 76e32feb14c8c8a9
-  x: 955
-  'y': 920
+  x: 1755
+  'y': 800
   wires: []
 - id: eba6e18370fbfe76
   type: link in
@@ -844,7 +686,7 @@
   accept: image/png
   className: ''
   x: 300
-  'y': 680
+  'y': 620
   wires:
     - - 2d9314f6db9f0fb7
 - id: 25db029de29257ac
@@ -859,7 +701,7 @@
   overwriteFile: 'true'
   encoding: none
   x: 1470
-  'y': 680
+  'y': 620
   wires:
     - - f6e2c94e6b3f6452
 - id: cdff23747bd66c63
@@ -870,130 +712,9 @@
   action: ''
   property: payload
   x: 1140
-  'y': 680
+  'y': 620
   wires:
     - - 0636163612e9f6e3
-- id: 306b2fee3a4b886d
-  type: file in
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: icon
-  filename: filename
-  filenameType: msg
-  format: utf8
-  chunk: false
-  sendError: false
-  encoding: none
-  allProps: false
-  x: 630
-  'y': 740
-  wires:
-    - - 359336bc8ac8947e
-- id: 80538c5af3c6a70b
-  type: http in
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: ''
-  url: /icon.png
-  method: get
-  upload: false
-  skipBodyParsing: false
-  swaggerDoc: ''
-  x: 290
-  'y': 740
-  wires:
-    - - 3ed31290426faddb
-- id: 37ef0dacd1f0e952
-  type: http response
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: ''
-  statusCode: ''
-  headers: {}
-  x: 1150
-  'y': 740
-  wires: []
-- id: fe3a87fa930d465d
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: prepare
-  rules:
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '200'
-      tot: num
-    - t: set
-      p: buffersize
-      pt: msg
-      to: msg.payload.length
-      tot: jsonata
-    - t: set
-      p: headers
-      pt: msg
-      to: "{\t    'Content-Type':'image/png',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
-      tot: jsonata
-    - t: delete
-      p: filename
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 980
-  'y': 740
-  wires:
-    - - 37ef0dacd1f0e952
-- id: 34fa5590f0d6e124
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: prepare
-  rules:
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '404'
-      tot: num
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 980
-  'y': 800
-  wires:
-    - - 37ef0dacd1f0e952
-- id: 359336bc8ac8947e
-  type: base64
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: ''
-  action: ''
-  property: payload
-  x: 800
-  'y': 740
-  wires:
-    - - fe3a87fa930d465d
-- id: d8fa54a0c3f6d9a5
-  type: catch
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: ''
-  scope:
-    - 306b2fee3a4b886d
-  uncaught: false
-  x: 280
-  'y': 800
-  wires:
-    - - 34fa5590f0d6e124
 - id: 64a95942a5179c42
   type: switch
   z: 44465f18e06bb58d
@@ -1009,7 +730,7 @@
   repair: false
   outputs: 1
   x: 1050
-  'y': 1620
+  'y': 1040
   wires:
     - - 06f26a04e792caa4
 - id: d699caf4939bf76f
@@ -1027,7 +748,7 @@
   repair: false
   outputs: 1
   x: 1210
-  'y': 1680
+  'y': 1100
   wires:
     - - 44b14fdf37109b9a
       - 2afd16a564ae6c47
@@ -1082,7 +803,7 @@
   repair: false
   outputs: 1
   x: 970
-  'y': 680
+  'y': 620
   wires:
     - - cdff23747bd66c63
 - id: 5a85864d1b0b96a3
@@ -1100,7 +821,7 @@
   repair: false
   outputs: 1
   x: 650
-  'y': 680
+  'y': 620
   wires:
     - - 99986c4ce71d1c1b
 - id: bee6a866a78902c8
@@ -1113,7 +834,7 @@
     - 4e94023e8ba12f50
     - 6640363c796f547b
   x: 1755
-  'y': 860
+  'y': 620
   wires: []
 - id: 4175cc5bc8d98c0e
   type: link in
@@ -1147,7 +868,7 @@
     - eba6e18370fbfe76
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
-  x: 775
+  x: 935
   'y': 80
   wires: []
 - id: f6992fb779829fd1
@@ -1177,11 +898,6 @@
   name: hide
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
       p: class
       pt: msg
       to: remove
@@ -1204,18 +920,13 @@
   x: 650
   'y': 80
   wires:
-    - - 0c83fe1f9690e061
+    - - 53abf944080b21c2
 - id: 230e5e76372284fb
   type: change
   z: 44465f18e06bb58d
   g: c5aa438b6dcec795
   name: show
   rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
     - t: set
       p: class
       pt: msg
@@ -1234,7 +945,7 @@
   x: 650
   'y': 200
   wires:
-    - - 0c83fe1f9690e061
+    - - 53abf944080b21c2
 - id: f83449865c366fb3
   type: switch
   z: 44465f18e06bb58d
@@ -1255,20 +966,6 @@
   wires:
     - - 441d7fe85042013a
     - - 230e5e76372284fb
-- id: d0edfe80cd189ba8
-  type: http in
-  z: 44465f18e06bb58d
-  g: 6ed9fb5c0b268c66
-  name: ''
-  url: /kernel.export.json
-  method: get
-  upload: false
-  skipBodyParsing: false
-  swaggerDoc: ''
-  x: 320
-  'y': 500
-  wires:
-    - - 571f58fa9072eafb
 - id: 2d0be523be6aa3e3
   type: ui-button
   z: 44465f18e06bb58d
@@ -1315,51 +1012,6 @@
   x: 795
   'y': 440
   wires: []
-- id: 9a76fb37e3b382b9
-  type: http response
-  z: 44465f18e06bb58d
-  g: 6ed9fb5c0b268c66
-  name: ''
-  statusCode: ''
-  headers: {}
-  x: 1190
-  'y': 440
-  wires: []
-- id: 8c484fa5249c34f6
-  type: change
-  z: 44465f18e06bb58d
-  g: 6ed9fb5c0b268c66
-  name: prepare
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel
-      tot: global
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '200'
-      tot: num
-    - t: set
-      p: buffersize
-      pt: msg
-      to: msg.payload.length
-      tot: jsonata
-    - t: set
-      p: headers
-      pt: msg
-      to: "{\t    'Content-Type':'application/json',\t    'Content-Disposition':'attachment; filename=\"kernel.backup.json\"',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1020
-  'y': 440
-  wires:
-    - - 9a76fb37e3b382b9
 - id: 1fffe66bed45efe7
   type: change
   z: 44465f18e06bb58d
@@ -1373,7 +1025,7 @@
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::random'
-      pt: flow
+      pt: global
       to: random
       tot: msg
     - t: set
@@ -1393,72 +1045,6 @@
   'y': 440
   wires:
     - - 69341ab189affbbd
-- id: fd610372966f9686
-  type: switch
-  z: 44465f18e06bb58d
-  g: 6ed9fb5c0b268c66
-  name: random
-  property: payload.rnd
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '#:(memoryOnly)::random'
-      vt: flow
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 840
-  'y': 500
-  wires:
-    - - 8c484fa5249c34f6
-    - - 10f099f41b3a4283
-- id: 10f099f41b3a4283
-  type: change
-  z: 44465f18e06bb58d
-  g: 6ed9fb5c0b268c66
-  name: prepare
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: statusCode
-      pt: msg
-      to: '404'
-      tot: num
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1020
-  'y': 500
-  wires:
-    - - 9a76fb37e3b382b9
-- id: 571f58fa9072eafb
-  type: delay
-  z: 44465f18e06bb58d
-  g: 6ed9fb5c0b268c66
-  name: 1m/s
-  pauseType: rate
-  timeout: '5'
-  timeoutUnits: seconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: true
-  allowrate: false
-  outputs: 1
-  x: 670
-  'y': 500
-  wires:
-    - - fd610372966f9686
 - id: 87e288563628f56c
   type: switch
   z: 44465f18e06bb58d
@@ -1494,7 +1080,7 @@
   accept: .json
   className: ''
   x: 300
-  'y': 560
+  'y': 500
   wires:
     - - 955702fb29105d93
 - id: 91cf0e5e55209e34
@@ -1506,7 +1092,7 @@
   action: ''
   pretty: false
   x: 1150
-  'y': 560
+  'y': 500
   wires:
     - - eddfa49883d68d85
 - id: 63f1bb00946da6ca
@@ -1524,7 +1110,7 @@
   repair: false
   outputs: 1
   x: 990
-  'y': 560
+  'y': 500
   wires:
     - - 91cf0e5e55209e34
 - id: cf43a69a0124764e
@@ -1542,7 +1128,7 @@
   repair: false
   outputs: 1
   x: 670
-  'y': 560
+  'y': 500
   wires:
     - - '129775105e532365'
 - id: eddfa49883d68d85
@@ -1554,7 +1140,7 @@
   links:
     - be36f6bbac4c54f7
   x: 1275
-  'y': 560
+  'y': 500
   wires: []
 - id: 955702fb29105d93
   type: change
@@ -1573,7 +1159,7 @@
   to: ''
   reg: false
   x: 510
-  'y': 560
+  'y': 500
   wires:
     - - cf43a69a0124764e
 - id: 2d9314f6db9f0fb7
@@ -1593,7 +1179,7 @@
   to: ''
   reg: false
   x: 490
-  'y': 680
+  'y': 620
   wires:
     - - 5a85864d1b0b96a3
 - id: '129775105e532365'
@@ -1611,7 +1197,7 @@
   to: ''
   reg: false
   x: 830
-  'y': 560
+  'y': 500
   wires:
     - - 63f1bb00946da6ca
 - id: 99986c4ce71d1c1b
@@ -1629,37 +1215,9 @@
   to: ''
   reg: false
   x: 810
-  'y': 680
+  'y': 620
   wires:
     - - d65327c4fbf1872c
-- id: 3ed31290426faddb
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: file
-  rules:
-    - t: set
-      p: automate
-      pt: msg
-      to: '#:(memoryOnly)::app.automate'
-      tot: global
-    - t: set
-      p: filename
-      pt: msg
-      to: '''/data/'' & msg.automate & ''/icon.b64'''
-      tot: jsonata
-    - t: delete
-      p: automate
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 470
-  'y': 740
-  wires:
-    - - 306b2fee3a4b886d
 - id: 0636163612e9f6e3
   type: change
   z: 44465f18e06bb58d
@@ -1685,7 +1243,7 @@
   to: ''
   reg: false
   x: 1310
-  'y': 680
+  'y': 620
   wires:
     - - 25db029de29257ac
 - id: 1aad4693dd3e7170
@@ -1728,7 +1286,7 @@
   to: ''
   reg: false
   x: 1630
-  'y': 860
+  'y': 620
   wires:
     - - bee6a866a78902c8
 - id: dd8ce7e8d8c17c91
@@ -1739,7 +1297,7 @@
   links:
     - 0c83fe1f9690e061
   x: 145
-  'y': 680
+  'y': 620
   wires:
     - - c3fbd0eb276c1dd6
       - 07c662efc5f8b8d7
@@ -1776,7 +1334,7 @@
   payload: ''
   submit: Enregistrer
   cancel: ''
-  resetOnSubmit: true
+  resetOnSubmit: false
   topic: topic
   topicType: msg
   splitLayout: ''
@@ -1784,7 +1342,7 @@
   passthru: false
   dropdownOptions: []
   x: 480
-  'y': 860
+  'y': 680
   wires:
     - - 87fc8804b41416a0
 - id: 07c662efc5f8b8d7
@@ -1814,35 +1372,34 @@
   to: ''
   reg: false
   x: 280
-  'y': 860
+  'y': 680
   wires:
     - - 9ab5170ec61ff830
 - id: 01004cfeb54e3a44
   type: change
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
-  name: global
+  name: kernel
   rules:
     - t: set
-      p: kernel.app.vendor
-      pt: global
-      to: payload.vendor
-      tot: msg
+      p: kernel
+      pt: msg
+      to: '{''type'':''app'',''entity'':''vendor'',''value'':msg.payload.vendor}'
+      tot: jsonata
     - t: set
-      p: kernel.app.title
-      pt: global
-      to: payload.title
-      tot: msg
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 830
-  'y': 860
+  x: 1630
+  'y': 740
   wires:
-    - - f6e2c94e6b3f6452
-      - 07c662efc5f8b8d7
+    - - 301bb73805b7e405
 - id: 87fc8804b41416a0
   type: switch
   z: 44465f18e06bb58d
@@ -1857,11 +1414,13 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 670
-  'y': 860
+  x: 1470
+  'y': 680
   wires:
     - - 01004cfeb54e3a44
       - ff46693ca235b0d0
+      - 6d0093b979af9179
+      - f6e2c94e6b3f6452
 - id: ff46693ca235b0d0
   type: switch
   z: 44465f18e06bb58d
@@ -1874,7 +1433,68 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 830
-  'y': 920
+  x: 1630
+  'y': 800
   wires:
     - - ded160847ba79c1d
+- id: 6d0093b979af9179
+  type: change
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: '{''type'':''app'',''entity'':''title'',''value'':msg.payload.title}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1630
+  'y': 680
+  wires:
+    - - 301bb73805b7e405
+- id: 301bb73805b7e405
+  type: link out
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: ui - app
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1755
+  'y': 740
+  wires: []
+- id: 53abf944080b21c2
+  type: change
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: clean
+  rules:
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 810
+  'y': 80
+  wires:
+    - - 0c83fe1f9690e061
