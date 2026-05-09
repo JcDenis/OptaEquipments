@@ -49,6 +49,7 @@
     - d0acf527c52398ff
     - 3624a1105625a39a
     - f92083edcc0a8f36
+    - 39d736a26d26be10
   x: 104
   'y': 879
   w: 4222
@@ -122,6 +123,7 @@
     - 38c80d9ff98a187f
     - f7ca06e21f6e02a5
     - 0d5f1f7ce58e19dc
+    - b21493fd496a2724
   x: 104
   'y': 1239
   w: 3502
@@ -148,6 +150,7 @@
     - bbe8021b85d0f877
     - 334ff1640bec7b39
     - b5e2ab501334ef5a
+    - 85b6d076d725c2cf
   x: 104
   'y': 1539
   w: 1712
@@ -186,6 +189,7 @@
     - 6b07028d140d904f
     - 2bc15e3dfee718c1
     - 58d0698c95933c40
+    - 1f4c79010e5cc5f6
   x: 104
   'y': 1779
   w: 2472
@@ -230,6 +234,7 @@
     - bb81645613d3ebce
     - bd4e09be3ceeafcf
     - 033bdb2c1e76e680
+    - b90643337a4dc51b
   x: 104
   'y': 519
   w: 3462
@@ -252,9 +257,10 @@
     - 899e3f9968bbc8ea
     - 42ee8c89bb1f88e2
     - 5c195bb5f6aef75f
+    - de71dce191e15350
   x: 104
   'y': 39
-  w: 712
+  w: 872
   h: 224.5
 - id: 09a03117ef8741bc
   type: group
@@ -271,6 +277,23 @@
   x: 1044
   'y': 159
   w: 332
+  h: 82
+- id: c2b5521a411bcbe2
+  type: group
+  z: e97c6f12735a13c1
+  name: ui - list - empty
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 0302a60c7eed7a11
+    - 8d9c38401fa091f4
+    - 8da226f6a80d4b92
+    - cd1ed87f4d5f844d
+  x: 1044
+  'y': 39
+  w: 492
   h: 82
 - id: 28b85f45e33eef42
   type: link in
@@ -550,9 +573,10 @@
   to: ''
   reg: false
   x: 450
-  'y': 1160
+  'y': 1100
   wires:
-    - - 4e33cdfc978585da
+    - - 39d736a26d26be10
+      - 4e33cdfc978585da
 - id: 4e33cdfc978585da
   type: split
   z: e97c6f12735a13c1
@@ -829,9 +853,10 @@
   to: ''
   reg: false
   x: 440
-  'y': 1460
+  'y': 1400
   wires:
     - - 697e10f4e4fbb2a4
+      - b21493fd496a2724
 - id: cc6f2138fae2fd48
   type: ui-table
   z: e97c6f12735a13c1
@@ -1086,9 +1111,10 @@
   to: ''
   reg: false
   x: 440
-  'y': 1700
+  'y': 1640
   wires:
     - - c870a78c4523470f
+      - 85b6d076d725c2cf
 - id: 3e937cd3b8507591
   type: ui-table
   z: e97c6f12735a13c1
@@ -1485,14 +1511,15 @@
   to: ''
   reg: false
   x: 430
-  'y': 2000
+  'y': 1940
   wires:
     - - 4b462b61568ff7b1
+      - 1f4c79010e5cc5f6
 - id: 4b462b61568ff7b1
   type: split
   z: e97c6f12735a13c1
   g: 3e16528dec4157ee
-  name: ''
+  name: split
   splt: \n
   spltType: str
   arraySplt: 1
@@ -3217,9 +3244,10 @@
   to: ''
   reg: false
   x: 430
-  'y': 800
+  'y': 740
   wires:
-    - - 1316381975de2e44
+    - - b90643337a4dc51b
+      - 1316381975de2e44
 - id: 1316381975de2e44
   type: split
   z: e97c6f12735a13c1
@@ -3241,7 +3269,7 @@
   z: e97c6f12735a13c1
   g: 6f784a48183c4937
   name: ui - list - line
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -4204,7 +4232,7 @@
   mode: link
   links:
     - 28b85f45e33eef42
-  x: 775
+  x: 935
   'y': 80
   wires: []
 - id: 7e1cf20d89bfa29d
@@ -4266,7 +4294,7 @@
   x: 650
   'y': 200
   wires:
-    - - d929753382156fa2
+    - - de71dce191e15350
 - id: 899e3f9968bbc8ea
   type: switch
   z: e97c6f12735a13c1
@@ -4450,5 +4478,145 @@
   value: total
   valueType: msg
   x: 1590
+  'y': 1940
+  wires: []
+- id: de71dce191e15350
+  type: delay
+  z: e97c6f12735a13c1
+  g: 2c0f9b39f8c7dd73
+  name: 5ms
+  pauseType: delay
+  timeout: '5'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 810
+  'y': 200
+  wires:
+    - - d929753382156fa2
+- id: b90643337a4dc51b
+  type: link out
+  z: e97c6f12735a13c1
+  g: 6f784a48183c4937
+  name: ui - line - empty
+  mode: link
+  links:
+    - cd1ed87f4d5f844d
+  x: 555
+  'y': 740
+  wires: []
+- id: 39d736a26d26be10
+  type: link out
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: ui - line - empty
+  mode: link
+  links:
+    - cd1ed87f4d5f844d
+  x: 595
+  'y': 1100
+  wires: []
+- id: b21493fd496a2724
+  type: link out
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  name: ui - line - empty
+  mode: link
+  links:
+    - cd1ed87f4d5f844d
+  x: 575
+  'y': 1400
+  wires: []
+- id: 85b6d076d725c2cf
+  type: link out
+  z: e97c6f12735a13c1
+  g: baadcf077dabb0e1
+  name: ui - component - empty
+  mode: link
+  links:
+    - cd1ed87f4d5f844d
+  x: 575
+  'y': 1640
+  wires: []
+- id: 0302a60c7eed7a11
+  type: change
+  z: e97c6f12735a13c1
+  g: c2b5521a411bcbe2
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: Rien à afficher
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1370
+  'y': 80
+  wires:
+    - - 8da226f6a80d4b92
+- id: 8d9c38401fa091f4
+  type: switch
+  z: e97c6f12735a13c1
+  g: c2b5521a411bcbe2
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1210
+  'y': 80
+  wires:
+    - []
+    - - 0302a60c7eed7a11
+- id: 8da226f6a80d4b92
+  type: link out
+  z: e97c6f12735a13c1
+  g: c2b5521a411bcbe2
+  name: ui - list - empty
+  mode: link
+  links:
+    - 4e94023e8ba12f50
+  x: 1495
+  'y': 80
+  wires: []
+- id: cd1ed87f4d5f844d
+  type: link in
+  z: e97c6f12735a13c1
+  g: c2b5521a411bcbe2
+  name: ui - list - empty
+  links:
+    - 85b6d076d725c2cf
+    - b21493fd496a2724
+    - 39d736a26d26be10
+    - b90643337a4dc51b
+    - 1f4c79010e5cc5f6
+  x: 1085
+  'y': 80
+  wires:
+    - - 8d9c38401fa091f4
+- id: 1f4c79010e5cc5f6
+  type: link out
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  name: ui - alert - empty
+  mode: link
+  links:
+    - cd1ed87f4d5f844d
+  x: 555
   'y': 1940
   wires: []
