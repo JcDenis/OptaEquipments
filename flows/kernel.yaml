@@ -416,6 +416,8 @@
     - 51fd87fb2d0f8249
     - 7e12373daec6b4f7
     - 991691c2beb81395
+    - f81759728a05ec6e
+    - ab83d7d0e321cc6b
   x: 94
   'y': 3699
   w: 1032
@@ -5356,7 +5358,7 @@
   sendError: false
   encoding: none
   allProps: false
-  x: 530
+  x: 690
   'y': 3800
   wires:
     - - 359336bc8ac8947e
@@ -5373,7 +5375,7 @@
   x: 190
   'y': 3800
   wires:
-    - - 3ed31290426faddb
+    - - f81759728a05ec6e
 - id: 37ef0dacd1f0e952
   type: http response
   z: f6f2187d.f17ca8
@@ -5414,7 +5416,7 @@
   to: ''
   reg: false
   x: 880
-  'y': 3800
+  'y': 3740
   wires:
     - - 37ef0dacd1f0e952
 - id: 34fa5590f0d6e124
@@ -5450,7 +5452,7 @@
   action: ''
   property: payload
   x: 700
-  'y': 3800
+  'y': 3740
   wires:
     - - fe3a87fa930d465d
 - id: d8fa54a0c3f6d9a5
@@ -5489,7 +5491,7 @@
   from: ''
   to: ''
   reg: false
-  x: 370
+  x: 530
   'y': 3800
   wires:
     - - 306b2fee3a4b886d
@@ -5695,3 +5697,41 @@
   wires:
     - - 2f2ef7653ece263e
     - - 9b99042c4b9e6574
+- id: f81759728a05ec6e
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 64e28c88b4c7b710
+  name: exists
+  property: kernel.app.icon
+  propertyType: global
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 370
+  'y': 3800
+  wires:
+    - - ab83d7d0e321cc6b
+    - - 3ed31290426faddb
+- id: ab83d7d0e321cc6b
+  type: change
+  z: f6f2187d.f17ca8
+  g: 64e28c88b4c7b710
+  name: mem
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.app.icon
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 530
+  'y': 3740
+  wires:
+    - - 359336bc8ac8947e
