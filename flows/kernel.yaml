@@ -385,6 +385,41 @@
   'y': 1659
   w: 1452
   h: 202
+- id: 64e28c88b4c7b710
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - endpoint
+  style:
+    fill: '#ffC000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - e121bb6441bf21e5
+    - 025edbd02daf82d0
+    - 8c484fa5249c34f6
+    - fd610372966f9686
+    - 571f58fa9072eafb
+    - d0edfe80cd189ba8
+    - 306b2fee3a4b886d
+    - 80538c5af3c6a70b
+    - 37ef0dacd1f0e952
+    - fe3a87fa930d465d
+    - 34fa5590f0d6e124
+    - 359336bc8ac8947e
+    - d8fa54a0c3f6d9a5
+    - 3ed31290426faddb
+    - d5cec84ece588ffc
+    - a21747e12e479ca9
+    - 0d2c51b998a3f781
+    - d7cb5aad49f38b43
+    - deaace2b52065689
+    - 51fd87fb2d0f8249
+    - 7e12373daec6b4f7
+    - 991691c2beb81395
+  x: 94
+  'y': 3699
+  w: 1032
+  h: 382
 - id: d4449aa4abbb50fa
   type: group
   z: f6f2187d.f17ca8
@@ -504,41 +539,6 @@
   'y': 3039
   w: 2512
   h: 142
-- id: 64e28c88b4c7b710
-  type: group
-  z: f6f2187d.f17ca8
-  name: kernel - endpoint
-  style:
-    fill: '#ffC000'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - e121bb6441bf21e5
-    - 025edbd02daf82d0
-    - 8c484fa5249c34f6
-    - fd610372966f9686
-    - 571f58fa9072eafb
-    - d0edfe80cd189ba8
-    - 306b2fee3a4b886d
-    - 80538c5af3c6a70b
-    - 37ef0dacd1f0e952
-    - fe3a87fa930d465d
-    - 34fa5590f0d6e124
-    - 359336bc8ac8947e
-    - d8fa54a0c3f6d9a5
-    - 3ed31290426faddb
-    - d5cec84ece588ffc
-    - a21747e12e479ca9
-    - 0d2c51b998a3f781
-    - d7cb5aad49f38b43
-    - deaace2b52065689
-    - 51fd87fb2d0f8249
-    - 7e12373daec6b4f7
-    - 991691c2beb81395
-  x: 94
-  'y': 3699
-  w: 1032
-  h: 382
 - id: a22fb9b1d981984a
   type: switch
   z: f6f2187d.f17ca8
@@ -5382,7 +5382,7 @@
   statusCode: ''
   headers: {}
   x: 1050
-  'y': 4040
+  'y': 3740
   wires: []
 - id: fe3a87fa930d465d
   type: change
@@ -5521,7 +5521,7 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::opta.buffer'
+      to: opta.buffer
       tot: global
     - t: set
       p: buffersize
@@ -5529,9 +5529,14 @@
       to: msg.payload.length
       tot: jsonata
     - t: set
+      p: version
+      pt: msg
+      to: opta.version
+      tot: global
+    - t: set
       p: headers
       pt: msg
-      to: "{\t    'Accept-Ranges':'bytes',\t    'Content-Type':'application/octet-stream',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}"
+      to: "{\t    'Accept-Ranges':'bytes',\t    'Content-Type':'application/octet-stream',\t    'Content-Length':msg.buffersize,\t    'Connection':'close',\t    'Content-Disposition':' attachment; filename=\"' & msg.version & '.ota\"'\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -5547,7 +5552,7 @@
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
   name: version
-  property: '#:(memoryOnly)::opta.version'
+  property: opta.version
   propertyType: global
   rules:
     - t: gt
@@ -5567,7 +5572,7 @@
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
   name: buffer
-  property: '#:(memoryOnly)::opta.buffer'
+  property: opta.buffer
   propertyType: global
   rules:
     - t: nempty
