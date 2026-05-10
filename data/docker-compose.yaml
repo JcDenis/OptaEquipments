@@ -119,6 +119,7 @@ services:
         cp /data/projects/OptaEquipments/package.json /data/package.json
         cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
         cp /data/projects/OptaEquipments/data/admin.png /data/admin.png
+        mkdir -p /data/optaequipments
         if [ ! -f "/data/optaequipments/icon.b64" ]; then cp /data/projects/OptaEquipments/data/icon.b64 /data/optaequipments/icon.b64; fi;
         HASH=$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw)
         HASHB=$(expr substr "$$HASH" 11 100)
