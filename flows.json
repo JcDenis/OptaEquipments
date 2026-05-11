@@ -139,19 +139,15 @@
             "fa344a634113a2e8",
             "b9937d98836c0d0d",
             "050a29c043a85584",
-            "1a1bd4900c1218fd",
-            "403e19609eb00cac",
-            "a2867f8c84273968",
-            "aaa4b0dfa4f0d7a8",
             "1875a8a1b0f19fa5",
             "a9ad7634b2385d00",
             "9b7c164fdabb6ad3",
             "da46e356e9803207",
             "6eb86d0c1be60374",
-            "a8cfd0368ece5ab1",
             "69014f6b27789c52",
             "c4dca1e9e20d9ca3",
-            "d3c22873709318bb"
+            "d3c22873709318bb",
+            "13260a7e1b984eab"
         ],
         "x": 94,
         "y": 1059,
@@ -2773,7 +2769,7 @@
         "id": "31a48d3959ce4d06",
         "type": "group",
         "z": "f6f2187d.f17ca8",
-        "name": "kernel - mqtt",
+        "name": "kernel - mqtt in",
         "style": {
             "fill": "#ff0000",
             "fill-opacity": "0.05",
@@ -2796,7 +2792,7 @@
         ],
         "x": 104,
         "y": 879,
-        "w": 1782,
+        "w": 1802,
         "h": 142
     },
     {
@@ -3262,6 +3258,28 @@
         "x": 5334,
         "y": 3039,
         "w": 2512,
+        "h": 142
+    },
+    {
+        "id": "bbb29723a86d5dcc",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "name": "kernel - mqtt out",
+        "style": {
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "aaa4b0dfa4f0d7a8",
+            "403e19609eb00cac",
+            "a2867f8c84273968",
+            "1a1bd4900c1218fd",
+            "a8cfd0368ece5ab1"
+        ],
+        "x": 1964,
+        "y": 879,
+        "w": 662,
         "h": 142
     },
     {
@@ -4085,13 +4103,15 @@
         "id": "aaa4b0dfa4f0d7a8",
         "type": "link in",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "kernel - loop - boot",
+        "d": true,
+        "g": "bbb29723a86d5dcc",
+        "name": "kernel - mqtt out",
         "links": [
+            "13260a7e1b984eab",
             "575b91a30deac00d"
         ],
-        "x": 1425,
-        "y": 1220,
+        "x": 2005,
+        "y": 980,
         "wires": [
             [
                 "1a1bd4900c1218fd"
@@ -4547,7 +4567,8 @@
         "id": "403e19609eb00cac",
         "type": "change",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "bbb29723a86d5dcc",
         "name": "prepare",
         "rules": [
             {
@@ -4621,8 +4642,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1720,
-        "y": 1220,
+        "x": 2300,
+        "y": 980,
         "wires": [
             [
                 "a2867f8c84273968",
@@ -4634,7 +4655,8 @@
         "id": "a2867f8c84273968",
         "type": "mqtt out",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "bbb29723a86d5dcc",
         "name": "",
         "topic": "",
         "qos": "",
@@ -4645,15 +4667,16 @@
         "correl": "",
         "expiry": "",
         "broker": "f516c1341f0f634c",
-        "x": 1890,
-        "y": 1220,
+        "x": 2470,
+        "y": 980,
         "wires": []
     },
     {
         "id": "1a1bd4900c1218fd",
         "type": "q-gate",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "bbb29723a86d5dcc",
         "name": "",
         "controlTopic": "control",
         "defaultState": "closed",
@@ -4673,8 +4696,8 @@
         "qToggle": false,
         "persist": false,
         "storeName": "default",
-        "x": 1550,
-        "y": 1220,
+        "x": 2130,
+        "y": 980,
         "wires": [
             [
                 "403e19609eb00cac"
@@ -5480,7 +5503,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1550,
-        "y": 1100,
+        "y": 1160,
         "wires": [
             [
                 "69014f6b27789c52"
@@ -5512,7 +5535,7 @@
             [],
             [
                 "7c3f64b7bb0a71ef",
-                "1a1bd4900c1218fd"
+                "13260a7e1b984eab"
             ]
         ]
     },
@@ -5531,7 +5554,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2270,
-        "y": 1100,
+        "y": 1220,
         "wires": []
     },
     {
@@ -5607,7 +5630,7 @@
         "to": "",
         "reg": false,
         "x": 2070,
-        "y": 1100,
+        "y": 1160,
         "wires": [
             [
                 "fa344a634113a2e8",
@@ -5629,7 +5652,7 @@
             "e47fa68c1a570f10"
         ],
         "x": 2195,
-        "y": 1160,
+        "y": 1100,
         "wires": []
     },
     {
@@ -5778,7 +5801,7 @@
         "to": "",
         "reg": false,
         "x": 2600,
-        "y": 1220,
+        "y": 1160,
         "wires": [
             [
                 "9b7c164fdabb6ad3",
@@ -5802,7 +5825,7 @@
         "org": "optaequipments",
         "bucket": "state",
         "x": 2800,
-        "y": 1220,
+        "y": 1160,
         "wires": []
     },
     {
@@ -5827,7 +5850,7 @@
         "repair": false,
         "outputs": 2,
         "x": 2250,
-        "y": 1220,
+        "y": 1160,
         "wires": [
             [
                 "da46e356e9803207"
@@ -5856,7 +5879,7 @@
         "repair": false,
         "outputs": 1,
         "x": 2430,
-        "y": 1160,
+        "y": 1100,
         "wires": [
             [
                 "a9ad7634b2385d00"
@@ -5903,7 +5926,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2810,
-        "y": 1160,
+        "y": 1220,
         "wires": []
     },
     {
@@ -5928,8 +5951,9 @@
         "id": "a8cfd0368ece5ab1",
         "type": "debug",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "kernel - loop - mqtt",
+        "d": true,
+        "g": "bbb29723a86d5dcc",
+        "name": "kernel - mqtt out",
         "active": false,
         "tosidebar": true,
         "console": false,
@@ -5938,8 +5962,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1930,
-        "y": 1160,
+        "x": 2500,
+        "y": 920,
         "wires": []
     },
     {
@@ -6122,7 +6146,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1720,
-        "y": 1100,
+        "y": 1160,
         "wires": [
             [
                 "c4dca1e9e20d9ca3"
@@ -6157,7 +6181,7 @@
         "to": "",
         "reg": false,
         "x": 1900,
-        "y": 1100,
+        "y": 1160,
         "wires": [
             [
                 "b9937d98836c0d0d"
@@ -9220,7 +9244,7 @@
         "z": "f6f2187d.f17ca8",
         "d": true,
         "g": "31a48d3959ce4d06",
-        "name": "kernel - mqtt",
+        "name": "kernel - mqtt in",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -9229,7 +9253,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1770,
+        "x": 1780,
         "y": 920,
         "wires": []
     },
@@ -9239,7 +9263,7 @@
         "z": "f6f2187d.f17ca8",
         "d": true,
         "g": "31a48d3959ce4d06",
-        "name": "kernel - mqtt",
+        "name": "kernel - mqtt in",
         "links": [
             "575b91a30deac00d"
         ],
@@ -9257,7 +9281,7 @@
         "z": "f6f2187d.f17ca8",
         "d": true,
         "g": "31a48d3959ce4d06",
-        "name": "kernel - mqtt",
+        "name": "kernel - mqtt in",
         "mode": "link",
         "links": [
             "e60e4ab7617738c3"
@@ -10984,6 +11008,20 @@
                 "359336bc8ac8947e"
             ]
         ]
+    },
+    {
+        "id": "13260a7e1b984eab",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "kernel - loop - mqtt out",
+        "mode": "link",
+        "links": [
+            "aaa4b0dfa4f0d7a8"
+        ],
+        "x": 1515,
+        "y": 1100,
+        "wires": []
     },
     {
         "id": "546836b126dc5542",
