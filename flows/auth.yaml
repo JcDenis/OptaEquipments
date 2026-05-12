@@ -24,8 +24,6 @@
     - 09bd0767b56167b6
     - f68e1a2d7f3e0c3d
     - 6ab34b3b3d64905e
-    - fb8bbad287d6868f
-    - fb6144114761809b
     - c82457de0864e28c
     - be3b97df6b45470f
     - 88a80f7ce9615035
@@ -37,7 +35,7 @@
   x: 104
   'y': 279
   w: 1642
-  h: 262
+  h: 202
 - id: 4ef1cd4a19db42bf
   type: group
   z: 27841aa886edd1cd
@@ -105,7 +103,7 @@
   width: '0'
   height: '0'
   name: user
-  label: 'Utilisateur : '
+  label: ''
   format: '{{msg.payload}}'
   layout: row-left
   style: false
@@ -136,13 +134,34 @@
   type: change
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: login
+  name: user
   rules:
     - t: set
-      p: payload
+      p: user
       pt: msg
       to: '#:(memoryOnly)::user[msg._client.socketId]login'
       tot: global
+    - t: set
+      p: level
+      pt: msg
+      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
+      tot: global
+    - t: set
+      p: level
+      pt: msg
+      to: '#:(memoryOnly)::describe.level[msg.level]'
+      tot: global
+    - t: set
+      p: payload
+      pt: msg
+      to: '''Connecté en tant que "'' & msg.user & ''" de niveau "'' & msg.level & ''".'''
+      tot: jsonata
+    - t: delete
+      p: user
+      pt: msg
+    - t: delete
+      p: level
+      pt: msg
     - t: set
       p: class
       pt: msg
@@ -254,7 +273,6 @@
   wires:
     - - f9dc1f7a8155ebef
     - - f68e1a2d7f3e0c3d
-      - 6ebc17186e839ebb
 - id: f68e1a2d7f3e0c3d
   type: change
   z: 27841aa886edd1cd
@@ -281,6 +299,7 @@
   'y': 440
   wires:
     - - 6ab34b3b3d64905e
+      - 6ebc17186e839ebb
 - id: 6ab34b3b3d64905e
   type: delay
   z: 27841aa886edd1cd
@@ -303,64 +322,6 @@
   wires:
     - - bb71762ba2269b75
       - 8aca2e86c077d885
-- id: fb8bbad287d6868f
-  type: ui-text
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  group: 3c952a83cfc8f302
-  order: 3
-  width: '0'
-  height: '0'
-  name: level
-  label: 'Niveau : '
-  format: '{{msg.payload}}'
-  layout: row-left
-  style: false
-  font: ''
-  fontSize: 16
-  color: '#717171'
-  wrapText: false
-  className: ''
-  value: payload
-  valueType: msg
-  x: 610
-  'y': 440
-  wires: []
-- id: fb6144114761809b
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: level
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-      tot: global
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::describe.level[msg.payload]'
-      tot: global
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 450
-  'y': 440
-  wires:
-    - - fb8bbad287d6868f
 - id: c82457de0864e28c
   type: link call
   z: 27841aa886edd1cd
@@ -371,7 +332,7 @@
   linkType: static
   timeout: '30'
   x: 970
-  'y': 500
+  'y': 440
   wires:
     - - 09bd0767b56167b6
 - id: cc0b711da6ff1632
@@ -537,10 +498,9 @@
   repair: false
   outputs: 2
   x: 280
-  'y': 440
+  'y': 380
   wires:
     - - 34e005364036decc
-      - fb6144114761809b
     - - fd316ca0fdd9738b
 - id: 6fb977a9fcd9c072
   type: delay
@@ -611,7 +571,6 @@
   'y': 320
   wires:
     - - aa0e1484ee75066f
-      - fb8bbad287d6868f
       - 9833ea0e831ff8c7
       - 3361a6a4765bfb11
 - id: fd316ca0fdd9738b
@@ -644,7 +603,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 500
+  'y': 440
   wires:
     - - 3361a6a4765bfb11
 - id: 6ebc17186e839ebb
@@ -673,8 +632,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1310
-  'y': 500
+  x: 1470
+  'y': 440
   wires:
     - - 0cf63361a578f787
 - id: 0cf63361a578f787
@@ -686,8 +645,8 @@
   links:
     - 4e94023e8ba12f50
     - 9979f236b1c3baac
-  x: 1435
-  'y': 500
+  x: 1595
+  'y': 440
   wires: []
 - id: 3361a6a4765bfb11
   type: ui-form
@@ -724,7 +683,7 @@
   passthru: false
   dropdownOptions: []
   x: 610
-  'y': 500
+  'y': 440
   wires:
     - - 3da3f0a5ca052b2e
 - id: 3da3f0a5ca052b2e
@@ -754,6 +713,6 @@
   to: ''
   reg: false
   x: 780
-  'y': 500
+  'y': 440
   wires:
     - - c82457de0864e28c

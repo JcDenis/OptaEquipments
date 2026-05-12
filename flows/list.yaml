@@ -45,7 +45,6 @@
     - 5558834cfb4c437e
     - 033ea746c3e0ee22
     - 081328881d4c3965
-    - 5b61a2f94b7fd215
     - d0acf527c52398ff
     - 3624a1105625a39a
     - f92083edcc0a8f36
@@ -69,20 +68,17 @@
     - 968b8e399f39f1a5
     - 1b9a457d31b5df20
     - 1b3e234bed8047a0
-    - f9e68175f29117e0
-    - 2b9e5dc9e9557478
     - 400b36abc42f9eb4
     - bbc9788e628f814f
     - 607e3e4e380d8497
     - d6b390ca9da4bedf
-    - da53e09434c4c00c
     - ce7e7c3d3ba1ca4e
     - 2d7153020c8374c5
     - a7dc44b1e2b34553
     - 601ec973d08a23a0
   x: 104
   'y': 279
-  w: 2132
+  w: 1812
   h: 202
 - id: e86385b18b9154e7
   type: group
@@ -119,7 +115,6 @@
     - ef92b32bf7f2db5c
     - bb1c3eeed652f702
     - bdca3fe751a74b61
-    - eac3c85cf9738ef1
     - 38c80d9ff98a187f
     - f7ca06e21f6e02a5
     - 0d5f1f7ce58e19dc
@@ -184,7 +179,6 @@
     - 109a867dcb6cbb9e
     - a78d481fda0989a4
     - a0fd85dd1420f460
-    - 734a5a25ccdf3780
     - 4ac01e847d75fc52
     - 6b07028d140d904f
     - 2bc15e3dfee718c1
@@ -205,7 +199,6 @@
   nodes:
     - f66528f67c8d7cfd
     - 7e1706acf9212c17
-    - 0c9d1628fec25cd3
     - f46572655e65929d
     - 1316381975de2e44
     - 368c566b16e7b9cf
@@ -389,6 +382,16 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
   action: ''
   property: ''
   from: ''
@@ -397,8 +400,7 @@
   x: 1750
   'y': 380
   wires:
-    - - f9e68175f29117e0
-      - da53e09434c4c00c
+    - - 1b3e234bed8047a0
 - id: 1b9a457d31b5df20
   type: change
   z: e97c6f12735a13c1
@@ -434,7 +436,7 @@
   'y': 320
   wires:
     - - 408a810a7266e6fe
-      - da53e09434c4c00c
+      - 1b3e234bed8047a0
 - id: 1b3e234bed8047a0
   type: link out
   z: e97c6f12735a13c1
@@ -447,39 +449,9 @@
     - 30d9b3b967fbbc14
     - baa9eb973e71311f
     - f66528f67c8d7cfd
-  x: 2195
+  x: 1875
   'y': 320
   wires: []
-- id: f9e68175f29117e0
-  type: change
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: show
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1910
-  'y': 380
-  wires:
-    - - 2b9e5dc9e9557478
 - id: c0261e8841790dd0
   type: link in
   z: e97c6f12735a13c1
@@ -492,6 +464,8 @@
   'y': 980
   wires:
     - - 947c7adf26a6a353
+      - 4d7de69ac9f7a218
+      - f92083edcc0a8f36
 - id: 947c7adf26a6a353
   type: switch
   z: e97c6f12735a13c1
@@ -501,41 +475,15 @@
   propertyType: msg
   rules:
     - t: eq
-      v: ''
-      vt: str
-    - t: eq
       v: equipment
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 2
-  x: 270
-  'y': 980
-  wires:
-    - - 5b61a2f94b7fd215
-    - - dff38e3e504ec4ad
-      - 5b61a2f94b7fd215
-- id: 2b9e5dc9e9557478
-  type: delay
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: 10ms
-  pauseType: delay
-  timeout: '10'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
   outputs: 1
-  x: 2070
-  'y': 380
+  x: 270
+  'y': 1100
   wires:
-    - - 1b3e234bed8047a0
+    - - dff38e3e504ec4ad
 - id: dff38e3e504ec4ad
   type: change
   z: e97c6f12735a13c1
@@ -793,6 +741,8 @@
   'y': 1340
   wires:
     - - ca63d2f68f5a041f
+      - cc6f2138fae2fd48
+      - 0d5f1f7ce58e19dc
 - id: ca63d2f68f5a041f
   type: switch
   z: e97c6f12735a13c1
@@ -802,20 +752,15 @@
   propertyType: msg
   rules:
     - t: eq
-      v: ''
-      vt: str
-    - t: eq
       v: device
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 2
+  outputs: 1
   x: 270
-  'y': 1340
+  'y': 1400
   wires:
-    - - eac3c85cf9738ef1
     - - 857bca2f9f3d4d5b
-      - eac3c85cf9738ef1
 - id: 857bca2f9f3d4d5b
   type: change
   z: e97c6f12735a13c1
@@ -1051,6 +996,8 @@
   'y': 1580
   wires:
     - - 6ce3d360881e7b32
+      - 3e937cd3b8507591
+      - b5e2ab501334ef5a
 - id: 6ce3d360881e7b32
   type: switch
   z: e97c6f12735a13c1
@@ -1060,19 +1007,14 @@
   propertyType: msg
   rules:
     - t: eq
-      v: ''
-      vt: str
-    - t: eq
       v: componant
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 2
+  outputs: 1
   x: 270
-  'y': 1580
+  'y': 1640
   wires:
-    - - 3e937cd3b8507591
-      - b5e2ab501334ef5a
     - - f6b6cc9a93680bbf
 - id: f6b6cc9a93680bbf
   type: change
@@ -1446,6 +1388,8 @@
   'y': 1880
   wires:
     - - faaa75232491631f
+      - 28e40e89bfbd674f
+      - 58d0698c95933c40
 - id: faaa75232491631f
   type: switch
   z: e97c6f12735a13c1
@@ -1455,20 +1399,15 @@
   propertyType: msg
   rules:
     - t: eq
-      v: ''
-      vt: str
-    - t: eq
       v: alert
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 2
+  outputs: 1
   x: 270
-  'y': 1880
+  'y': 1940
   wires:
-    - - 734a5a25ccdf3780
     - - 672160c5582e3fc9
-      - 734a5a25ccdf3780
 - id: 672160c5582e3fc9
   type: change
   z: e97c6f12735a13c1
@@ -2136,41 +2075,6 @@
   'y': 380
   wires:
     - - bbc9788e628f814f
-- id: da53e09434c4c00c
-  type: change
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: list
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1910
-  'y': 320
-  wires:
-    - - 1b3e234bed8047a0
 - id: 1afe089173e14a79
   type: change
   z: e97c6f12735a13c1
@@ -3068,84 +2972,6 @@
   x: 4055
   'y': 1100
   wires: []
-- id: 734a5a25ccdf3780
-  type: change
-  z: e97c6f12735a13c1
-  g: 3e16528dec4157ee
-  name: raz
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 1880
-  wires:
-    - - 28e40e89bfbd674f
-      - 58d0698c95933c40
-- id: eac3c85cf9738ef1
-  type: change
-  z: e97c6f12735a13c1
-  g: e86385b18b9154e7
-  name: raz
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 1340
-  wires:
-    - - cc6f2138fae2fd48
-      - 0d5f1f7ce58e19dc
-- id: 5b61a2f94b7fd215
-  type: change
-  z: e97c6f12735a13c1
-  g: 1dd6bd6835107ce6
-  name: raz
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 980
-  wires:
-    - - 4d7de69ac9f7a218
-      - f92083edcc0a8f36
 - id: f66528f67c8d7cfd
   type: link in
   z: e97c6f12735a13c1
@@ -3158,6 +2984,8 @@
   'y': 580
   wires:
     - - 7e1706acf9212c17
+      - 033bdb2c1e76e680
+      - ba4b2b2cefb7f98c
 - id: 7e1706acf9212c17
   type: switch
   z: e97c6f12735a13c1
@@ -3167,46 +2995,15 @@
   propertyType: msg
   rules:
     - t: eq
-      v: ''
-      vt: str
-    - t: eq
       v: line
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 2
+  outputs: 1
   x: 270
-  'y': 580
+  'y': 740
   wires:
-    - - 0c9d1628fec25cd3
     - - f46572655e65929d
-      - 0c9d1628fec25cd3
-- id: 0c9d1628fec25cd3
-  type: change
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: raz
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 580
-  wires:
-    - - ba4b2b2cefb7f98c
-      - 033bdb2c1e76e680
 - id: f46572655e65929d
   type: change
   z: e97c6f12735a13c1
