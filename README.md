@@ -10,6 +10,8 @@ A live equipment dashboard application built with Node-RED, leveraging real-time
 - **InfluxDB** - Time-series database for historical data
 - **Node-RED Dashboard** - Interactive web-based UI
 
+**Finder Arduino Opta** devices MUST use [OptaLinker](https://github.com/JcDenis/OptaLinker) firwmare. Then point Opta MQTT broker to the OptaEquipments address. That's it.
+
 ## Prerequisites
 
 Before installing Opta Equipments, ensure you have:
