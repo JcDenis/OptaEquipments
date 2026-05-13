@@ -1295,7 +1295,6 @@
             "02c026f38c097405",
             "fd9bb08a4c933fdc",
             "bef01372d87b8763",
-            "f11d484a5793ea55",
             "6822e56a80bdb67e",
             "c6130b371c1a6d14",
             "86ab86902cd27664",
@@ -1353,7 +1352,13 @@
             "22a49c79934247fc",
             "0961c82da05d96c3",
             "d0b7ac5255b1b608",
-            "bdfe0cd606f6eaf4"
+            "bdfe0cd606f6eaf4",
+            "1e67914cf7da3974",
+            "1d8e92ebce509947",
+            "251fcf6cb73cc467",
+            "586e08d8137ce62a",
+            "01f6c5e4b34c70f3",
+            "ca77ad6ef975e6ee"
         ],
         "x": 104,
         "y": 819,
@@ -27615,66 +27620,6 @@
         ]
     },
     {
-        "id": "f11d484a5793ea55",
-        "type": "change",
-        "z": "852390cb9559e176",
-        "g": "d04f02d6e1c02839",
-        "name": "label",
-        "rules": [
-            {
-                "t": "set",
-                "p": "ui_update",
-                "pt": "msg",
-                "to": "{\t    'label':'',\t    'buttonColor':'0',\t    'icon':''\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 830,
-        "y": 980,
-        "wires": [
-            [
-                "6bee4842235e602e",
-                "cd35efc6bcd4b247",
-                "ebe7a8fdde3e59f8",
-                "bf0283565cf53483",
-                "c9cff0eb6beb8580",
-                "8a9b5f5cebfa012a",
-                "02c026f38c097405",
-                "c6130b371c1a6d14",
-                "f7fbba1ce6763907",
-                "7d6b7ebf730942b4",
-                "780661d35554de7d",
-                "5b6933e7dd0972d6",
-                "fbe4a6acb9f47f97",
-                "5a16afcbf5a4a9b2",
-                "cf4de81025097dc1",
-                "13b35a96f85758c7",
-                "292f488b89c6ecfe",
-                "1b969ff6122fc7e2",
-                "58c7da3bd502ba03"
-            ]
-        ]
-    },
-    {
         "id": "bef01372d87b8763",
         "type": "delay",
         "z": "852390cb9559e176",
@@ -27710,10 +27655,10 @@
             "bd7c74e40976d045"
         ],
         "x": 145,
-        "y": 980,
+        "y": 1600,
         "wires": [
             [
-                "f11d484a5793ea55"
+                "251fcf6cb73cc467"
             ]
         ]
     },
@@ -32725,6 +32670,350 @@
             [
                 "58c7da3bd502ba03"
             ]
+        ]
+    },
+    {
+        "id": "1e67914cf7da3974",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "equipment",
+        "rules": [
+            {
+                "t": "set",
+                "p": "equipment",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::form[msg._client.socketId]equipment",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 1600,
+        "wires": [
+            [
+                "1d8e92ebce509947"
+            ]
+        ]
+    },
+    {
+        "id": "1d8e92ebce509947",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "component",
+        "property": "kernel.sate",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|run'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|runmeter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|runmetertotal'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|runreset'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|cycle'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|cyclemeter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|cyclemetertotal'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|cyclereset'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|heat'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|heatswitch'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|heatlink'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|heattoggle'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|heatpulse'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|voltage'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|power'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|load1meter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|load5meter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|load15meter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|memorymeter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|diskmeter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|uptimemeter'",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 21,
+        "x": 650,
+        "y": 1600,
+        "wires": [
+            [
+                "586e08d8137ce62a"
+            ],
+            [
+                "586e08d8137ce62a"
+            ],
+            [
+                "586e08d8137ce62a"
+            ],
+            [
+                "586e08d8137ce62a"
+            ],
+            [
+                "1669e26b4db844ba"
+            ],
+            [
+                "1669e26b4db844ba"
+            ],
+            [
+                "1669e26b4db844ba"
+            ],
+            [
+                "1669e26b4db844ba"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "ca77ad6ef975e6ee"
+            ],
+            [
+                "01f6c5e4b34c70f3"
+            ],
+            [
+                "01f6c5e4b34c70f3"
+            ],
+            [
+                "01f6c5e4b34c70f3"
+            ],
+            [
+                "01f6c5e4b34c70f3"
+            ],
+            [
+                "01f6c5e4b34c70f3"
+            ],
+            [
+                "01f6c5e4b34c70f3"
+            ]
+        ]
+    },
+    {
+        "id": "251fcf6cb73cc467",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "label",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ui_update",
+                "pt": "msg",
+                "to": "{\t    'label':'',\t    'buttonColor':'0',\t    'icon':''\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "class",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 1600,
+        "wires": [
+            [
+                "1e67914cf7da3974"
+            ]
+        ]
+    },
+    {
+        "id": "586e08d8137ce62a",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "run",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 1100,
+        "wires": [
+            [
+                "6bee4842235e602e",
+                "cd35efc6bcd4b247",
+                "7d6b7ebf730942b4",
+                "ebe7a8fdde3e59f8"
+            ]
+        ]
+    },
+    {
+        "id": "01f6c5e4b34c70f3",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "cpu",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 2540,
+        "wires": [
+            [
+                "5a16afcbf5a4a9b2",
+                "cf4de81025097dc1",
+                "13b35a96f85758c7",
+                "292f488b89c6ecfe",
+                "1b969ff6122fc7e2",
+                "58c7da3bd502ba03"
+            ]
+        ]
+    },
+    {
+        "id": "1669e26b4db844ba",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "name": "cycle",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 828,
+        "y": 1519,
+        "wires": [
+            [
+                "bf0283565cf53483",
+                "c9cff0eb6beb8580",
+                "f7fbba1ce6763907",
+                "8a9b5f5cebfa012a"
+            ]
+        ]
+    },
+    {
+        "id": "ca77ad6ef975e6ee",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "heat",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 1940,
+        "wires": [
+            []
         ]
     },
     {
