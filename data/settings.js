@@ -1,0 +1,40 @@
+module.exports = {
+  flowFile: "flows.json",
+  credentialSecret: "OPTA_SECRET",
+  flowFilePretty: true,
+  adminAuth: {
+      type: "credentials",
+      users: [{
+          username: "OPTA_ADMIN_USERNAME",
+          password: "OPTA_ADMIN_HASH",
+          permissions: "*"
+      }],
+      sessionExpiryTime : 86400
+  },
+  httpAdminRoot: "/admin",
+  httpNodeRoot: "/",
+  diagnostics: { enabled: true, ui: true, },
+  runtimeState: { enabled: false, ui: false, },
+  telemetry: { enabled: false },
+  logging: { console: { level: "info", metrics: false, audit: false } },
+  contextStorage: { default: { module: "localfilesystem" }, memoryOnly: { module: "memory" }, },
+  exportGlobalContextKeys: false,
+  externalModules: { autoInstall: true, autoInstallRetry: 60 },
+  editorTheme: {
+      page: { title: "Opta Equipments nodes" },
+      header: { title: "Opta Equipments nodes", image: "/data/admin.png" },
+      palette: { },
+      projects: { enabled: true, workflow: { mode: "manual" } },
+      codeEditor: { lib: "monaco", options: { } },
+      markdownEditor: { mermaid: { enabled: true } },
+      tours: false,
+      lang: "fr",
+  },
+  functionExternalModules: true,
+  functionTimeout: 0,
+  functionGlobalContext: { },
+  ui: { path: "" },
+  debugMaxLength: 1000,
+  mqttReconnectTime: 15000,
+  dashboard: { maxHttpBufferSize: 1e7 },
+}
