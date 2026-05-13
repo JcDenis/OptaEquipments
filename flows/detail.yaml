@@ -77,10 +77,30 @@
     - e34e804ee07e7ff5
     - efc49fb24f8380c7
     - b390bbd952b85b9d
+    - d912c9e1e3e6fa15
+    - 5a16afcbf5a4a9b2
+    - 2d5c99c58d2577f7
+    - 445a69855154ef88
+    - cf4de81025097dc1
+    - fee496327f6718f8
+    - 75e184491fe18ea0
+    - 13b35a96f85758c7
+    - 5169a0687d848e91
+    - 8e2c34fc6f0a579c
+    - 292f488b89c6ecfe
+    - d3429e734dbce4fe
+    - fa94619f95eb3a2e
+    - 1b969ff6122fc7e2
+    - 95ace84584b7e415
+    - 58c7da3bd502ba03
+    - 22a49c79934247fc
+    - 0961c82da05d96c3
+    - d0b7ac5255b1b608
+    - bdfe0cd606f6eaf4
   x: 104
   'y': 819
   w: 2382
-  h: 1642
+  h: 2362
 - id: 1c87eaf6a557f02d
   type: group
   z: 852390cb9559e176
@@ -170,7 +190,7 @@
     - b2f087bc0523250a
     - b9709921d9a7079d
   x: 104
-  'y': 2499
+  'y': 3219
   w: 4402
   h: 562
 - id: af7c52c4b0905961
@@ -202,7 +222,7 @@
     - 42174b06a9dc03a4
     - 297dbbed636a64a6
   x: 104
-  'y': 3119
+  'y': 3819
   w: 1762
   h: 202
 - id: 20a2e240c83c48c2
@@ -317,7 +337,7 @@
     - 36ca816106cb746f
     - 41f6c771c0995e45
   x: 104
-  'y': 3359
+  'y': 4059
   w: 1822
   h: 202
 - id: 6829c2450480a8f8
@@ -617,9 +637,27 @@
     - t: eq
       v: power
       vt: str
+    - t: eq
+      v: load1meter
+      vt: str
+    - t: eq
+      v: load5meter
+      vt: str
+    - t: eq
+      v: load15meter
+      vt: str
+    - t: eq
+      v: memorymeter
+      vt: str
+    - t: eq
+      v: diskmeter
+      vt: str
+    - t: eq
+      v: uptimemeter
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 15
+  outputs: 21
   x: 650
   'y': 1160
   wires:
@@ -638,6 +676,12 @@
     - - d1ac5df357e9e97b
     - - 382314ac27fece2a
     - - 1956e7c29e1f6fdb
+    - - d912c9e1e3e6fa15
+    - - 445a69855154ef88
+    - - 75e184491fe18ea0
+    - - 8e2c34fc6f0a579c
+    - - fa94619f95eb3a2e
+    - - 0961c82da05d96c3
 - id: 342d09ce7abd6d86
   type: change
   z: 852390cb9559e176
@@ -741,7 +785,7 @@
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
   name: ui - runmeter
-  label: text
+  label: ''
   order: 5
   width: '1'
   height: '1'
@@ -1270,7 +1314,7 @@
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
   name: ui - cyclemeter
-  label: text
+  label: ''
   order: 9
   width: '1'
   height: '1'
@@ -1407,6 +1451,12 @@
       - 5b6933e7dd0972d6
       - fbe4a6acb9f47f97
       - b390bbd952b85b9d
+      - 5a16afcbf5a4a9b2
+      - cf4de81025097dc1
+      - 13b35a96f85758c7
+      - 292f488b89c6ecfe
+      - 1b969ff6122fc7e2
+      - 58c7da3bd502ba03
 - id: 02c026f38c097405
   type: ui-button
   z: 852390cb9559e176
@@ -1699,7 +1749,7 @@
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
   x: 145
-  'y': 2540
+  'y': 3260
   wires:
     - - 2de882ed4b5e4aa7
       - 823b7f18ffcb5342
@@ -1711,7 +1761,7 @@
   group: 1669fa4fe2f204a0
   name: ui - graph - date
   label: Date
-  order: 18
+  order: 24
   width: '2'
   height: '1'
   topic: topic
@@ -1730,7 +1780,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 1920
-  'y': 2660
+  'y': 3380
   wires:
     - - 349f0b378e7f347d
 - id: 349f0b378e7f347d
@@ -1748,7 +1798,7 @@
   repair: false
   outputs: 1
   x: 2150
-  'y': 2660
+  'y': 3380
   wires:
     - - 257342dfc837914c
 - id: 23b960bb1561651b
@@ -1769,7 +1819,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 1360
-  'y': 2780
+  'y': 3500
   wires:
     - - 0ea5804573ab020b
 - id: 3e42541f14d8d3d2
@@ -1799,7 +1849,7 @@
   to: ''
   reg: false
   x: 1720
-  'y': 2780
+  'y': 3500
   wires:
     - - 67dd6befba96ef0c
       - 436a9466d70f31e6
@@ -1825,7 +1875,7 @@
   to: ''
   reg: false
   x: 1730
-  'y': 2540
+  'y': 3260
   wires:
     - - 67dd6befba96ef0c
       - ffb6b9165aafd73f
@@ -1847,7 +1897,7 @@
   repair: false
   outputs: 1
   x: 280
-  'y': 2780
+  'y': 3500
   wires:
     - - 7d95ec8466c90bee
 - id: 257342dfc837914c
@@ -1882,7 +1932,7 @@
   to: ''
   reg: false
   x: 2320
-  'y': 2660
+  'y': 3380
   wires:
     - - c1e9137251068435
 - id: c1e9137251068435
@@ -1895,7 +1945,7 @@
   linkType: static
   timeout: '30'
   x: 1690
-  'y': 2720
+  'y': 3440
   wires:
     - - ffb6b9165aafd73f
 - id: ffb6b9165aafd73f
@@ -1906,7 +1956,7 @@
   name: ui - graph - resolution
   label: Sélectionner une résolution
   tooltip: ''
-  order: 19
+  order: 25
   width: '2'
   height: '1'
   passthru: true
@@ -1921,7 +1971,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1940
-  'y': 2720
+  'y': 3440
   wires:
     - - 5f07c668b4f7fe2f
 - id: 5f07c668b4f7fe2f
@@ -1939,7 +1989,7 @@
   repair: false
   outputs: 1
   x: 2150
-  'y': 2720
+  'y': 3440
   wires:
     - - ea6288d7d75ca45c
 - id: ea6288d7d75ca45c
@@ -1984,7 +2034,7 @@
   to: ''
   reg: false
   x: 2320
-  'y': 2720
+  'y': 3440
   wires:
     - - 38d76fb8bec3c348
       - 876dfdf9ba6020e6
@@ -2006,7 +2056,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 2820
-  'y': 2720
+  'y': 3440
   wires:
     - - ab3fb414a59117e1
 - id: 0ecbded430697061
@@ -2027,7 +2077,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3170
-  'y': 2600
+  'y': 3320
   wires:
     - - aed57b87eed6c474
 - id: aed57b87eed6c474
@@ -2048,7 +2098,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3370
-  'y': 2600
+  'y': 3320
   wires:
     - - df0990a013b7915d
 - id: e782ae90ecd18377
@@ -2069,7 +2119,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3170
-  'y': 2720
+  'y': 3440
   wires:
     - - f4d82c7df7ca7056
 - id: f4d82c7df7ca7056
@@ -2090,7 +2140,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3370
-  'y': 2720
+  'y': 3440
   wires:
     - - 6cc43fd6ece38fce
 - id: df0990a013b7915d
@@ -2120,7 +2170,7 @@
   to: ''
   reg: false
   x: 3560
-  'y': 2600
+  'y': 3320
   wires:
     - - 171d150b4d48853f
 - id: 171d150b4d48853f
@@ -2135,7 +2185,7 @@
   retentionPolicy: ''
   org: optaequipments
   x: 3770
-  'y': 2600
+  'y': 3320
   wires:
     - - 3497303f62c5ab51
 - id: 6cc43fd6ece38fce
@@ -2181,7 +2231,7 @@
   to: ''
   reg: false
   x: 3560
-  'y': 2720
+  'y': 3440
   wires:
     - - 912bed5d36f6064a
 - id: 912bed5d36f6064a
@@ -2196,7 +2246,7 @@
   retentionPolicy: ''
   org: optaequipments
   x: 3770
-  'y': 2720
+  'y': 3440
   wires:
     - - e914fa1767daf0cb
 - id: 3497303f62c5ab51
@@ -2213,7 +2263,7 @@
   repair: false
   outputs: 2
   x: 3980
-  'y': 2600
+  'y': 3320
   wires:
     - - 9d9e8ab41e604d40
     - - 1b6212ab5913cfaf
@@ -2231,7 +2281,7 @@
   repair: false
   outputs: 2
   x: 3980
-  'y': 2720
+  'y': 3440
   wires:
     - - 494a578bfb7396a0
     - - 4d52c26fcc8d13fb
@@ -2248,7 +2298,7 @@
   addname: ''
   property: payload
   x: 3830
-  'y': 2660
+  'y': 3380
   wires:
     - - db771c38740515ac
 - id: db771c38740515ac
@@ -2268,7 +2318,7 @@
   to: ''
   reg: false
   x: 3990
-  'y': 2660
+  'y': 3380
   wires:
     - - 7962737de74929a4
 - id: 7962737de74929a4
@@ -2293,7 +2343,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 4150
-  'y': 2660
+  'y': 3380
   wires:
     - - d8dbd2db52e7c87f
 - id: 9d9e8ab41e604d40
@@ -2318,7 +2368,7 @@
   to: ''
   reg: false
   x: 4150
-  'y': 2600
+  'y': 3320
   wires:
     - - d8dbd2db52e7c87f
 - id: 494a578bfb7396a0
@@ -2343,7 +2393,7 @@
   to: ''
   reg: false
   x: 4150
-  'y': 2720
+  'y': 3440
   wires:
     - - f3a4fbd1914b8411
 - id: d8dbd2db52e7c87f
@@ -2353,7 +2403,7 @@
   group: 1669fa4fe2f204a0
   name: detail - cycle - chart date
   label: cadence moyenne suivant résolution (en cycles par minute)
-  order: 21
+  order: 27
   chartType: line
   category: ''
   categoryType: none
@@ -2400,7 +2450,7 @@
   className: ''
   interpolation: step
   x: 4370
-  'y': 2600
+  'y': 3320
   wires:
     - []
 - id: f3a4fbd1914b8411
@@ -2410,7 +2460,7 @@
   group: 1669fa4fe2f204a0
   name: detail - cycle - chart hour
   label: Cadence moyenne par heure (en cycles par minute)
-  order: 23
+  order: 29
   chartType: bar
   category: ''
   categoryType: none
@@ -2457,7 +2507,7 @@
   className: ''
   interpolation: step
   x: 4370
-  'y': 2720
+  'y': 3440
   wires:
     - []
 - id: 4d52c26fcc8d13fb
@@ -2473,7 +2523,7 @@
   addname: ''
   property: payload
   x: 3510
-  'y': 2780
+  'y': 3500
   wires:
     - - 42df60fa4de47b17
 - id: 42df60fa4de47b17
@@ -2494,7 +2544,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3670
-  'y': 2780
+  'y': 3500
   wires:
     - - 16f4712aa2f4a3b9
 - id: 16f4712aa2f4a3b9
@@ -2532,7 +2582,7 @@
   to: ''
   reg: false
   x: 3830
-  'y': 2780
+  'y': 3500
   wires:
     - - bb491e75635c775c
 - id: bb491e75635c775c
@@ -2557,7 +2607,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 3990
-  'y': 2780
+  'y': 3500
   wires:
     - - b4bb323cb47c0ce8
 - id: b4bb323cb47c0ce8
@@ -2581,7 +2631,7 @@
   to: ''
   reg: false
   x: 4150
-  'y': 2780
+  'y': 3500
   wires:
     - - f3a4fbd1914b8411
 - id: 7d95ec8466c90bee
@@ -2606,7 +2656,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 2780
+  'y': 3500
   wires:
     - - 6f7f4d9d6972c32a
       - df7b9b28adb41618
@@ -2623,7 +2673,7 @@
   addname: entity
   property: payload
   x: 610
-  'y': 2780
+  'y': 3500
   wires:
     - - ae421424c4817a45
 - id: ae421424c4817a45
@@ -2656,7 +2706,7 @@
   to: ''
   reg: false
   x: 770
-  'y': 2780
+  'y': 3500
   wires:
     - - a430680e1dc2233e
 - id: a430680e1dc2233e
@@ -2674,7 +2724,7 @@
   repair: false
   outputs: 1
   x: 950
-  'y': 2780
+  'y': 3500
   wires:
     - - d9fa9986bd620364
 - id: d9fa9986bd620364
@@ -2693,7 +2743,7 @@
   repair: false
   outputs: 1
   x: 1150
-  'y': 2780
+  'y': 3500
   wires:
     - - 23b960bb1561651b
 - id: 38d76fb8bec3c348
@@ -2703,7 +2753,7 @@
   group: 1669fa4fe2f204a0
   name: ui - graph - refresh
   label: Rafraichir
-  order: 20
+  order: 26
   width: '2'
   height: '1'
   emulateClick: false
@@ -2728,7 +2778,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 1930
-  'y': 2780
+  'y': 3500
   wires:
     - - 3e42541f14d8d3d2
 - id: 8dc42518cd8b8b74
@@ -2751,7 +2801,7 @@
   to: ''
   reg: false
   x: 2650
-  'y': 2720
+  'y': 3440
   wires:
     - - ad5bda6bab168115
 - id: f647395af025317d
@@ -2772,7 +2822,7 @@
   topic: topic
   outputs: 1
   x: 2660
-  'y': 2780
+  'y': 3500
   wires:
     - - 090ceaa798caf353
 - id: ac566d146cb42b27
@@ -2787,7 +2837,7 @@
   to: ''
   reg: false
   x: 4150
-  'y': 2540
+  'y': 3260
   wires:
     - - d8dbd2db52e7c87f
       - f3a4fbd1914b8411
@@ -2807,7 +2857,7 @@
   repair: false
   outputs: 1
   x: 2490
-  'y': 2720
+  'y': 3440
   wires:
     - - 8dc42518cd8b8b74
       - f647395af025317d
@@ -2827,7 +2877,7 @@
   to: ''
   reg: false
   x: 2830
-  'y': 2780
+  'y': 3500
   wires:
     - - 3e42541f14d8d3d2
 - id: 57c986150b85f319
@@ -2842,7 +2892,7 @@
   to: ''
   reg: false
   x: 2330
-  'y': 2540
+  'y': 3260
   wires:
     - - ac566d146cb42b27
       - cf0e7cd7a6642bbd
@@ -2863,7 +2913,7 @@
   to: ''
   reg: false
   x: 2490
-  'y': 2780
+  'y': 3500
   wires:
     - - f647395af025317d
 - id: f11d484a5793ea55
@@ -2908,6 +2958,12 @@
       - 780661d35554de7d
       - 5b6933e7dd0972d6
       - fbe4a6acb9f47f97
+      - 5a16afcbf5a4a9b2
+      - cf4de81025097dc1
+      - 13b35a96f85758c7
+      - 292f488b89c6ecfe
+      - 1b969ff6122fc7e2
+      - 58c7da3bd502ba03
 - id: bef01372d87b8763
   type: delay
   z: 852390cb9559e176
@@ -2949,7 +3005,7 @@
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
   x: 145
-  'y': 3160
+  'y': 3860
   wires:
     - - 8fb53ee8d65f4165
       - 42174b06a9dc03a4
@@ -2986,7 +3042,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 3280
+  'y': 3980
   wires:
     - - 730a4a779e25e37d
       - 559b3d85382337b4
@@ -3003,7 +3059,7 @@
   addname: row.entity
   property: payload
   x: 610
-  'y': 3280
+  'y': 3980
   wires:
     - - abcdce389af63d37
 - id: abcdce389af63d37
@@ -3076,7 +3132,7 @@
   to: ''
   reg: false
   x: 770
-  'y': 3280
+  'y': 3980
   wires:
     - - 237a55abbdf2e13f
 - id: e9847ab98ea59d0c
@@ -3101,7 +3157,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1250
-  'y': 3280
+  'y': 3980
   wires:
     - - 9170fd9faa6addb9
 - id: 9170fd9faa6addb9
@@ -3127,7 +3183,7 @@
   to: ''
   reg: false
   x: 1410
-  'y': 3280
+  'y': 3980
   wires:
     - - 15615470dbdee64b
 - id: 237a55abbdf2e13f
@@ -3145,7 +3201,7 @@
   repair: true
   outputs: 1
   x: 930
-  'y': 3280
+  'y': 3980
   wires:
     - - 72ba5fc75ecd528a
 - id: 83bea62615fdc467
@@ -3162,7 +3218,7 @@
   statusVal: ''
   statusType: auto
   x: 1750
-  'y': 3280
+  'y': 3980
   wires: []
 - id: 5c746d6457cd29ed
   type: ui-table
@@ -3171,7 +3227,7 @@
   group: 1669fa4fe2f204a0
   name: ui - alert
   label: ''
-  order: 25
+  order: 31
   width: 0
   height: 0
   maxrows: 0
@@ -3216,7 +3272,7 @@
   action: replace
   className: ''
   x: 1740
-  'y': 3220
+  'y': 3920
   wires:
     - []
 - id: 72ba5fc75ecd528a
@@ -3244,7 +3300,7 @@
   to: ''
   reg: false
   x: 1090
-  'y': 3280
+  'y': 3980
   wires:
     - - e9847ab98ea59d0c
 - id: 15615470dbdee64b
@@ -3260,7 +3316,7 @@
   repair: false
   outputs: 1
   x: 1570
-  'y': 3280
+  'y': 3980
   wires:
     - - 5c746d6457cd29ed
       - 83bea62615fdc467
@@ -3552,7 +3608,7 @@
   z: 852390cb9559e176
   g: af7c52c4b0905961
   group: 1669fa4fe2f204a0
-  order: 24
+  order: 30
   width: 0
   height: 0
   name: ui - alert - title
@@ -3568,14 +3624,14 @@
   value: ' Alertes'
   valueType: str
   x: 1760
-  'y': 3160
+  'y': 3860
   wires: []
 - id: 436a9466d70f31e6
   type: ui-text
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  order: 17
+  order: 23
   width: 0
   height: 0
   name: ui - graph - title
@@ -3591,7 +3647,7 @@
   value: Suivi
   valueType: str
   x: 1920
-  'y': 2600
+  'y': 3320
   wires: []
 - id: dd017aec28af9106
   type: switch
@@ -3917,7 +3973,7 @@
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
   name: ui - voltage
-  label: text
+  label: ''
   order: 13
   width: '1'
   height: '1'
@@ -4690,7 +4746,7 @@
   repair: false
   outputs: 1
   x: 810
-  'y': 2720
+  'y': 3440
   wires:
     - - 330917bae33c4347
 - id: df7b9b28adb41618
@@ -4711,7 +4767,7 @@
   topic: _client.socketId
   outputs: 1
   x: 630
-  'y': 2720
+  'y': 3440
   wires:
     - - f4e542b1d73d54f9
 - id: 36b06554537f7f0f
@@ -4731,7 +4787,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 2720
+  'y': 3440
   wires:
     - - df7b9b28adb41618
 - id: efc49fb24f8380c7
@@ -4767,7 +4823,7 @@
   repair: false
   outputs: 1
   x: 990
-  'y': 2720
+  'y': 3440
   wires:
     - - 7d95ec8466c90bee
 - id: d11e6378e21bdb19
@@ -4785,7 +4841,7 @@
   repair: false
   outputs: 1
   x: 810
-  'y': 3220
+  'y': 3920
   wires:
     - - 81466cf131969e29
 - id: 559b3d85382337b4
@@ -4806,7 +4862,7 @@
   topic: _client.socketId
   outputs: 1
   x: 630
-  'y': 3220
+  'y': 3920
   wires:
     - - d11e6378e21bdb19
 - id: a725430845c0b181
@@ -4826,7 +4882,7 @@
   to: ''
   reg: false
   x: 450
-  'y': 3220
+  'y': 3920
   wires:
     - - 559b3d85382337b4
 - id: 81466cf131969e29
@@ -4844,7 +4900,7 @@
   repair: false
   outputs: 1
   x: 990
-  'y': 3220
+  'y': 3920
   wires:
     - - e735a826b5dcfd5b
 - id: b390bbd952b85b9d
@@ -4874,6 +4930,12 @@
       - 9d82755635df4b65
       - 8f49a36d06854646
       - e53533c181c0088b
+      - 2d5c99c58d2577f7
+      - fee496327f6718f8
+      - 5169a0687d848e91
+      - d3429e734dbce4fe
+      - 95ace84584b7e415
+      - 22a49c79934247fc
 - id: 8fb53ee8d65f4165
   type: switch
   z: 852390cb9559e176
@@ -4889,7 +4951,7 @@
   repair: false
   outputs: 1
   x: 280
-  'y': 3280
+  'y': 3980
   wires:
     - - e735a826b5dcfd5b
 - id: 42174b06a9dc03a4
@@ -4914,7 +4976,7 @@
   to: ''
   reg: false
   x: 1570
-  'y': 3160
+  'y': 3860
   wires:
     - - 67d66a8b80535ef8
       - 5c746d6457cd29ed
@@ -5070,7 +5132,7 @@
   repair: false
   outputs: 1
   x: 290
-  'y': 2720
+  'y': 3440
   wires:
     - - 36b06554537f7f0f
 - id: 297dbbed636a64a6
@@ -5088,7 +5150,7 @@
   repair: false
   outputs: 1
   x: 290
-  'y': 3220
+  'y': 3920
   wires:
     - - a725430845c0b181
 - id: 941f893b5111021a
@@ -5164,7 +5226,7 @@
   to: ''
   reg: false
   x: 3670
-  'y': 2660
+  'y': 3380
   wires:
     - - a8b8861415bce2d2
 - id: b4d41c97cb54b26d
@@ -5185,7 +5247,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3500
-  'y': 2660
+  'y': 3380
   wires:
     - - eb739ce60a549f6f
 - id: 1b6212ab5913cfaf
@@ -5210,7 +5272,7 @@
   to: ''
   reg: false
   x: 3330
-  'y': 2660
+  'y': 3380
   wires:
     - - b4d41c97cb54b26d
 - id: ab3fb414a59117e1
@@ -5238,7 +5300,7 @@
   to: ''
   reg: false
   x: 2990
-  'y': 2720
+  'y': 3440
   wires:
     - - e782ae90ecd18377
       - 0ecbded430697061
@@ -5262,7 +5324,7 @@
   to: ''
   reg: false
   x: 1550
-  'y': 2780
+  'y': 3500
   wires:
     - - 3e42541f14d8d3d2
 - id: 8fdfd037d4e5b985
@@ -5274,7 +5336,7 @@
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
   x: 145
-  'y': 3400
+  'y': 4100
   wires:
     - - 729a2778d9fb6f52
       - 69bec3d19ae4a586
@@ -5294,7 +5356,7 @@
   repair: false
   outputs: 1
   x: 290
-  'y': 3460
+  'y': 4160
   wires:
     - []
 - id: 69bec3d19ae4a586
@@ -5312,7 +5374,7 @@
   repair: false
   outputs: 1
   x: 280
-  'y': 3520
+  'y': 4220
   wires:
     - - 09948161aec8960d
 - id: 09948161aec8960d
@@ -5342,7 +5404,7 @@
   to: ''
   reg: false
   x: 460
-  'y': 3520
+  'y': 4220
   wires:
     - - 02a474099b965b9f
 - id: 02a474099b965b9f
@@ -5360,7 +5422,7 @@
   repair: false
   outputs: 1
   x: 630
-  'y': 3520
+  'y': 4220
   wires:
     - - 6846c95c9aa15481
 - id: 6846c95c9aa15481
@@ -5380,7 +5442,7 @@
   to: ''
   reg: false
   x: 790
-  'y': 3520
+  'y': 4220
   wires:
     - - f014052cb4157dbe
 - id: f014052cb4157dbe
@@ -5396,7 +5458,7 @@
   addname: team
   property: teams
   x: 950
-  'y': 3520
+  'y': 4220
   wires:
     - - 5aea27aee6f826e1
 - id: 5aea27aee6f826e1
@@ -5416,7 +5478,7 @@
   repair: false
   outputs: 2
   x: 1110
-  'y': 3520
+  'y': 4220
   wires:
     - - 2e3cd116fe8f72e6
     - - 370146c121dc42b6
@@ -5442,7 +5504,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1430
-  'y': 3520
+  'y': 4220
   wires:
     - - 8469ca2fbb3ba380
 - id: 2e3cd116fe8f72e6
@@ -5462,7 +5524,7 @@
   to: ''
   reg: false
   x: 1270
-  'y': 3460
+  'y': 4160
   wires:
     - - 370146c121dc42b6
 - id: 0e841715e2ebce0f
@@ -5472,7 +5534,7 @@
   group: 1669fa4fe2f204a0
   name: ui - period - table
   label: ''
-  order: 27
+  order: 33
   width: 0
   height: 0
   maxrows: 0
@@ -5523,7 +5585,7 @@
   action: replace
   className: ''
   x: 1810
-  'y': 3460
+  'y': 4160
   wires:
     - []
 - id: 8469ca2fbb3ba380
@@ -5556,7 +5618,7 @@
   to: ''
   reg: false
   x: 1600
-  'y': 3520
+  'y': 4220
   wires:
     - - 0e841715e2ebce0f
       - 36ca816106cb746f
@@ -5583,7 +5645,7 @@
   to: ''
   reg: false
   x: 1610
-  'y': 3400
+  'y': 4100
   wires:
     - - 0e841715e2ebce0f
       - 36ca816106cb746f
@@ -5592,7 +5654,7 @@
   z: 852390cb9559e176
   g: 6d125a0d231d55d4
   group: 1669fa4fe2f204a0
-  order: 26
+  order: 32
   width: 0
   height: 0
   name: ui - period - title
@@ -5608,7 +5670,7 @@
   value: ' Programmation'
   valueType: str
   x: 1800
-  'y': 3400
+  'y': 4100
   wires: []
 - id: 41f6c771c0995e45
   type: debug
@@ -5624,7 +5686,7 @@
   statusVal: ''
   statusType: auto
   x: 1800
-  'y': 3520
+  'y': 4220
   wires: []
 - id: 703498c96c520656
   type: change
@@ -5646,7 +5708,7 @@
   to: ''
   reg: false
   x: 2650
-  'y': 2840
+  'y': 3560
   wires:
     - - 8c8b18f7d203ece6
 - id: 8c8b18f7d203ece6
@@ -5667,7 +5729,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 2820
-  'y': 2840
+  'y': 3560
   wires:
     - - 117f2aa4295fc51a
 - id: 117f2aa4295fc51a
@@ -5695,7 +5757,7 @@
   to: ''
   reg: false
   x: 2990
-  'y': 2840
+  'y': 3560
   wires:
     - - deb8c495e1a92a3e
 - id: deb8c495e1a92a3e
@@ -5716,7 +5778,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3170
-  'y': 2840
+  'y': 3560
   wires:
     - - 3ddded88b2f03980
 - id: 3ddded88b2f03980
@@ -5737,7 +5799,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3370
-  'y': 2840
+  'y': 3560
   wires:
     - - ada4707f53f9c774
 - id: ada4707f53f9c774
@@ -5767,7 +5829,7 @@
   to: ''
   reg: false
   x: 3560
-  'y': 2840
+  'y': 3560
   wires:
     - - 43185a17776b78b4
 - id: 43185a17776b78b4
@@ -5782,7 +5844,7 @@
   retentionPolicy: ''
   org: optaequipments
   x: 3770
-  'y': 2840
+  'y': 3560
   wires:
     - - 718d4b01ccb96c20
 - id: 718d4b01ccb96c20
@@ -5799,7 +5861,7 @@
   repair: false
   outputs: 2
   x: 3980
-  'y': 2840
+  'y': 3560
   wires:
     - - 4a00cf7eba68238e
     - - b9709921d9a7079d
@@ -5825,7 +5887,7 @@
   to: ''
   reg: false
   x: 4150
-  'y': 2840
+  'y': 3560
   wires:
     - - b60617892007ab1a
 - id: a4b2c872d2b0364c
@@ -5846,7 +5908,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3470
-  'y': 3020
+  'y': 3740
   wires:
     - - e4513cbf318e2e6a
 - id: e4513cbf318e2e6a
@@ -5872,7 +5934,7 @@
   to: ''
   reg: false
   x: 3650
-  'y': 3020
+  'y': 3740
   wires:
     - - 3ce2a4cccdc391fb
 - id: b60617892007ab1a
@@ -5882,7 +5944,7 @@
   group: 1669fa4fe2f204a0
   name: detail - run - chart date
   label: Etat de fonctionnement moyen suivant résolution
-  order: 22
+  order: 28
   chartType: line
   category: ''
   categoryType: none
@@ -5929,7 +5991,7 @@
   className: ''
   interpolation: step
   x: 4360
-  'y': 2840
+  'y': 3560
   wires:
     - []
 - id: 2ac2fc27b20716d2
@@ -5954,7 +6016,7 @@
   to: ''
   reg: false
   x: 3310
-  'y': 2960
+  'y': 3680
   wires:
     - - fd5fb08fd3660a12
 - id: fd5fb08fd3660a12
@@ -5975,7 +6037,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3480
-  'y': 2960
+  'y': 3680
   wires:
     - - 8e8e85be70dd9932
 - id: 8e8e85be70dd9932
@@ -6001,7 +6063,7 @@
   to: ''
   reg: false
   x: 3650
-  'y': 2960
+  'y': 3680
   wires:
     - - a4b2c872d2b0364c
 - id: 3ce2a4cccdc391fb
@@ -6017,7 +6079,7 @@
   addname: key
   property: payload
   x: 3810
-  'y': 3020
+  'y': 3740
   wires:
     - - 17579536381ca9a3
 - id: 17579536381ca9a3
@@ -6052,7 +6114,7 @@
   to: ''
   reg: false
   x: 3980
-  'y': 3020
+  'y': 3740
   wires:
     - - eb56c24e48ed4e90
 - id: eb56c24e48ed4e90
@@ -6077,7 +6139,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 4150
-  'y': 3020
+  'y': 3740
   wires:
     - - b60617892007ab1a
 - id: b2f087bc0523250a
@@ -6098,7 +6160,7 @@
   to: ''
   reg: false
   x: 3650
-  'y': 2900
+  'y': 3620
   wires:
     - - 2ac2fc27b20716d2
 - id: b9709921d9a7079d
@@ -6119,7 +6181,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 3480
-  'y': 2900
+  'y': 3620
   wires:
     - - b2f087bc0523250a
 - id: afbf5772b8e4d09c
@@ -6143,3 +6205,519 @@
   'y': 200
   wires:
     - - 3aad74b4936add5c
+- id: d912c9e1e3e6fa15
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.value & '%'
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 2480
+  wires:
+    - - 5a16afcbf5a4a9b2
+      - 2d5c99c58d2577f7
+- id: 5a16afcbf5a4a9b2
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: 1669fa4fe2f204a0
+  name: ui - load1meter
+  label: ''
+  order: 17
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1020
+  'y': 2480
+  wires:
+    - []
+- id: 2d5c99c58d2577f7
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: refresh 1m
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '1'
+  extend: false
+  overrideDelay: false
+  units: min
+  reset: ''
+  bytopic: topic
+  topic: _client.socketId
+  outputs: 1
+  x: 1010
+  'y': 2540
+  wires:
+    - - 31891987dee9e1ba
+- id: 445a69855154ef88
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.value & '%'
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 2600
+  wires:
+    - - cf4de81025097dc1
+      - fee496327f6718f8
+- id: cf4de81025097dc1
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: 1669fa4fe2f204a0
+  name: ui - load5meter
+  label: ''
+  order: 18
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1020
+  'y': 2600
+  wires:
+    - []
+- id: fee496327f6718f8
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: refresh 1m
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '1'
+  extend: false
+  overrideDelay: false
+  units: min
+  reset: ''
+  bytopic: topic
+  topic: _client.socketId
+  outputs: 1
+  x: 1010
+  'y': 2660
+  wires:
+    - - 31891987dee9e1ba
+- id: 75e184491fe18ea0
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.value & '%'
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 2720
+  wires:
+    - - 13b35a96f85758c7
+      - 5169a0687d848e91
+- id: 13b35a96f85758c7
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: 1669fa4fe2f204a0
+  name: ui - load15meter
+  label: ''
+  order: 19
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1020
+  'y': 2720
+  wires:
+    - []
+- id: 5169a0687d848e91
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: refresh 1m
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '1'
+  extend: false
+  overrideDelay: false
+  units: min
+  reset: ''
+  bytopic: topic
+  topic: _client.socketId
+  outputs: 1
+  x: 1010
+  'y': 2780
+  wires:
+    - - 31891987dee9e1ba
+- id: 8e2c34fc6f0a579c
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.value & '%'
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 2840
+  wires:
+    - - 292f488b89c6ecfe
+      - d3429e734dbce4fe
+- id: 292f488b89c6ecfe
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: 1669fa4fe2f204a0
+  name: ui - memorymeter
+  label: ''
+  order: 20
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1030
+  'y': 2840
+  wires:
+    - []
+- id: d3429e734dbce4fe
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: refresh 1m
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '1'
+  extend: false
+  overrideDelay: false
+  units: min
+  reset: ''
+  bytopic: topic
+  topic: _client.socketId
+  outputs: 1
+  x: 1010
+  'y': 2900
+  wires:
+    - - 31891987dee9e1ba
+- id: fa94619f95eb3a2e
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.value & '%'
+      tot: jsonata
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 2960
+  wires:
+    - - 1b969ff6122fc7e2
+      - 95ace84584b7e415
+- id: 1b969ff6122fc7e2
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: 1669fa4fe2f204a0
+  name: ui - diskmeter
+  label: ''
+  order: 21
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1020
+  'y': 2960
+  wires:
+    - []
+- id: 95ace84584b7e415
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: refresh 1m
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '1'
+  extend: false
+  overrideDelay: false
+  units: min
+  reset: ''
+  bytopic: topic
+  topic: _client.socketId
+  outputs: 1
+  x: 1010
+  'y': 3020
+  wires:
+    - - 31891987dee9e1ba
+- id: 58c7da3bd502ba03
+  type: ui-text-input
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  group: 1669fa4fe2f204a0
+  name: ui - uptimemeter
+  label: ''
+  order: 22
+  width: '1'
+  height: '1'
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1020
+  'y': 3080
+  wires:
+    - []
+- id: 22a49c79934247fc
+  type: trigger
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: refresh 1m
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '1'
+  extend: false
+  overrideDelay: false
+  units: min
+  reset: ''
+  bytopic: topic
+  topic: _client.socketId
+  outputs: 1
+  x: 1010
+  'y': 3140
+  wires:
+    - - 31891987dee9e1ba
+- id: 0961c82da05d96c3
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: label
+  rules:
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.kernel.component_name}'
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: msg.kernel.value
+      tot: msg
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 470
+  'y': 3140
+  wires:
+    - - 22a49c79934247fc
+      - d0b7ac5255b1b608
+- id: d0b7ac5255b1b608
+  type: humanizer
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: ''
+  input: ''
+  x: 650
+  'y': 3080
+  wires:
+    - - bdfe0cd606f6eaf4
+- id: bdfe0cd606f6eaf4
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: value
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: payload.humanized
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 830
+  'y': 3080
+  wires:
+    - - 58c7da3bd502ba03

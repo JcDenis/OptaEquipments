@@ -143,6 +143,42 @@
   'y': 979
   w: 1972
   h: 502
+- id: dbcc4077524c4e42
+  type: group
+  z: 135b7308617dad08
+  name: model - local
+  style:
+    fill: '#0070c0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - b3ffc6b86fdc514c
+    - f9aa75323c9840bd
+    - e2fa90f82ccf222d
+    - 61f915b81e717609
+    - 28ddb9a136461f72
+    - 9bcc6405ebe2c5aa
+    - 50b8901c6e7d6ce0
+    - 52dbb3010fe0e997
+    - b165157ddc25aa16
+    - e5d1a8af91104af6
+    - cfddc070a8a410f6
+    - 57a5dd62db76d551
+    - e4a90ba331132ca8
+    - 46ec4746aad3d5ec
+    - b6b3ade01008a950
+    - 791b351f80fd0aaf
+    - b02ba3b90ab4e44d
+    - 69da3c9e01a0c873
+    - 6de668fc3fc7e950
+    - e77780c2d07146ca
+    - f583bf043a6465b7
+    - 38b20ef4f881e747
+    - 1b52d8eb8e4df9cc
+  x: 104
+  'y': 1519
+  w: 1662
+  h: 442
 - id: 10af438fbe88a4a2
   type: link in
   z: 135b7308617dad08
@@ -2177,3 +2213,431 @@
   x: 1080
   'y': 840
   wires: []
+- id: b3ffc6b86fdc514c
+  type: link in
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: model - local - describe
+  links:
+    - 575b91a30deac00d
+  x: 145
+  'y': 1560
+  wires:
+    - - f9aa75323c9840bd
+- id: f9aa75323c9840bd
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: set global model and endpoints
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::describe.model.local'
+      pt: global
+      to: Local server
+      tot: str
+    - t: set
+      p: '#:(memoryOnly)::describe.endpoint.local'
+      pt: global
+      to: "{\t    'load1meter':'Charge à 1 minute',\t    'load5meter':'Charge à 5 minutes',\t    'load15meter':'Charge à 15 minutes',\t    'memorymeter':'Utilisation mémoire',\t    'diskmeter':'Utilisation disque',\t    'uptimemeter':'Durée de fonctionnement'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 350
+  'y': 1560
+  wires:
+    - []
+- id: e2fa90f82ccf222d
+  type: link in
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: model - local - cron
+  links:
+    - 9d694324cf6b8842
+  x: 145
+  'y': 1620
+  wires:
+    - - b02ba3b90ab4e44d
+- id: 61f915b81e717609
+  type: Drives
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: ''
+  x: 930
+  'y': 1920
+  wires:
+    - - 52dbb3010fe0e997
+- id: 28ddb9a136461f72
+  type: Loadavg
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: ''
+  x: 940
+  'y': 1680
+  wires:
+    - - 50b8901c6e7d6ce0
+      - 57a5dd62db76d551
+      - e4a90ba331132ca8
+- id: 9bcc6405ebe2c5aa
+  type: Memory
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: ''
+  scale: Byte
+  x: 940
+  'y': 1860
+  wires:
+    - - 46ec4746aad3d5ec
+- id: 50b8901c6e7d6ce0
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.device & '|load1meter',\t    'value':$round(msg.payload.loadavg[0]*100,1),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 1680
+  wires:
+    - - 791b351f80fd0aaf
+- id: 52dbb3010fe0e997
+  type: split
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: ''
+  property: payload
+  x: 1110
+  'y': 1920
+  wires:
+    - - b165157ddc25aa16
+- id: b165157ddc25aa16
+  type: switch
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: data
+  property: payload.mount
+  propertyType: msg
+  rules:
+    - t: eq
+      v: /data
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1270
+  'y': 1860
+  wires:
+    - - b6b3ade01008a950
+- id: e5d1a8af91104af6
+  type: link out
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: model - local - in
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1575
+  'y': 1620
+  wires: []
+- id: cfddc070a8a410f6
+  type: debug
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: model - local - in
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1640
+  'y': 1680
+  wires: []
+- id: 57a5dd62db76d551
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.device & '|load5meter',\t    'value':$round(msg.payload.loadavg[1]*100,1),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 1740
+  wires:
+    - - 791b351f80fd0aaf
+- id: e4a90ba331132ca8
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.device & '|load15meter',\t    'value':$round(msg.payload.loadavg[2]*100,1),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 1800
+  wires:
+    - - 791b351f80fd0aaf
+- id: 46ec4746aad3d5ec
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.device & '|memorymeter',\t    'value':$round(msg.payload.memusage,1),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 1860
+  wires:
+    - - 791b351f80fd0aaf
+- id: b6b3ade01008a950
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.device & '|diskmeter',\t    'value':$round(msg.payload.capacity*100,1),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1430
+  'y': 1860
+  wires:
+    - - 791b351f80fd0aaf
+- id: 791b351f80fd0aaf
+  type: switch
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: endpoint
+  property: kernel.endpoint
+  propertyType: global
+  rules:
+    - t: hask
+      v: kernel.entity
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1280
+  'y': 1620
+  wires:
+    - - f583bf043a6465b7
+- id: b02ba3b90ab4e44d
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: device
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.device
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 1620
+  wires:
+    - - 69da3c9e01a0c873
+- id: 69da3c9e01a0c873
+  type: split
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: device
+  property: payload
+  x: 430
+  'y': 1620
+  wires:
+    - - 6de668fc3fc7e950
+- id: 6de668fc3fc7e950
+  type: switch
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: model
+  property: device
+  propertyType: msg
+  rules:
+    - t: regex
+      v: ^(local)
+      vt: str
+      case: false
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 590
+  'y': 1620
+  wires:
+    - - e77780c2d07146ca
+- id: e77780c2d07146ca
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: prepare
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.device,''|'')'
+      tot: jsonata
+    - t: set
+      p: id
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 760
+  'y': 1620
+  wires:
+    - - 61f915b81e717609
+      - 28ddb9a136461f72
+      - 9bcc6405ebe2c5aa
+      - 38b20ef4f881e747
+- id: f583bf043a6465b7
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: entity
+  rules:
+    - t: set
+      p: kernel.entity
+      pt: msg
+      to: 'kernel.endpoint[msg.kernel.entity]'
+      tot: global
+    - t: delete
+      p: parts
+      pt: msg
+    - t: delete
+      p: split
+      pt: msg
+    - t: delete
+      p: id
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1450
+  'y': 1620
+  wires:
+    - - cfddc070a8a410f6
+      - e5d1a8af91104af6
+- id: 38b20ef4f881e747
+  type: Uptime
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: ''
+  x: 940
+  'y': 1620
+  wires:
+    - - 1b52d8eb8e4df9cc
+- id: 1b52d8eb8e4df9cc
+  type: change
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'state',\t    'entity':msg.device & '|uptimemeter',\t    'value':$round(msg.payload.uptime,0),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 1620
+  wires:
+    - - 791b351f80fd0aaf
