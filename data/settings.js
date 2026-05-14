@@ -27,6 +27,8 @@ module.exports = {
       projects: { enabled: true, workflow: { mode: "manual" } },
       codeEditor: { lib: "monaco", options: { } },
       markdownEditor: { mermaid: { enabled: true } },
+      login: { image: "/data/admin.png" },
+      userMenu: false,
       tours: false,
       lang: "fr",
   },
