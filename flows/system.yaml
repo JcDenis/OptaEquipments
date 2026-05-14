@@ -91,9 +91,12 @@
     - 1aad4693dd3e7170
     - 53abf944080b21c2
     - 929519cc3e756da5
+    - f9ef8c6b987979f9
+    - 8e8e767ca137fe49
+    - 6a1ce7f23e17f6f1
   x: 104
   'y': 39
-  w: 1032
+  w: 1182
   h: 202
 - id: 6ed9fb5c0b268c66
   type: group
@@ -133,7 +136,7 @@
   group: dc73b5e0cedbb3eb
   name: ui - ota - version in
   label: Version
-  order: 1
+  order: 2
   width: '2'
   height: '1'
   topic: topic
@@ -161,7 +164,7 @@
   g: 7c224f2f2afc76d3
   group: dc73b5e0cedbb3eb
   name: ui - ota - file in
-  order: 2
+  order: 3
   width: '4'
   height: '1'
   topic: topic
@@ -555,7 +558,7 @@
   group: a8d6d74266e4b8d2
   name: ui - tool - read file
   label: Restaurer
-  order: 2
+  order: 3
   width: '1'
   height: '1'
   emulateClick: false
@@ -590,7 +593,7 @@
   group: a8d6d74266e4b8d2
   name: ui - tool - write file
   label: Enregistrer
-  order: 3
+  order: 4
   width: '1'
   height: '1'
   emulateClick: false
@@ -671,7 +674,7 @@
   g: 43bcc4020c29e03d
   group: 18e387e2011da847
   name: ui - icon - file in
-  order: 1
+  order: 2
   width: '0'
   height: '0'
   topic: topic
@@ -850,6 +853,7 @@
     - eba6e18370fbfe76
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
+    - 201932317e2e85b7
   x: 1095
   'y': 80
   wires: []
@@ -955,7 +959,7 @@
   group: a8d6d74266e4b8d2
   name: ui - tool - download
   label: Exporter
-  order: 4
+  order: 5
   width: '1'
   height: '1'
   emulateClick: false
@@ -1051,7 +1055,7 @@
   g: 6ed9fb5c0b268c66
   group: a8d6d74266e4b8d2
   name: ui - tool - upload
-  order: 1
+  order: 2
   width: 0
   height: 0
   topic: topic
@@ -1262,7 +1266,7 @@
   name: ui - app - form
   group: 18e387e2011da847
   label: ''
-  order: 2
+  order: 3
   width: 0
   height: 0
   options:
@@ -1476,6 +1480,9 @@
   'y': 80
   wires:
     - - 0c83fe1f9690e061
+      - f9ef8c6b987979f9
+      - 8e8e767ca137fe49
+      - 6a1ce7f23e17f6f1
 - id: 929519cc3e756da5
   type: delay
   z: 44465f18e06bb58d
@@ -1592,3 +1599,72 @@
   'y': 920
   wires:
     - - 301bb73805b7e405
+- id: 8e8e767ca137fe49
+  type: ui-text
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  group: 18e387e2011da847
+  order: 1
+  width: 0
+  height: 0
+  name: system - app - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: Application
+  valueType: str
+  x: 1170
+  'y': 160
+  wires: []
+- id: 6a1ce7f23e17f6f1
+  type: ui-text
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  group: dc73b5e0cedbb3eb
+  order: 1
+  width: 0
+  height: 0
+  name: system - ota - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: Firmware Opta
+  valueType: str
+  x: 1170
+  'y': 200
+  wires: []
+- id: f9ef8c6b987979f9
+  type: ui-text
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  group: a8d6d74266e4b8d2
+  order: 1
+  width: 0
+  height: 0
+  name: system - tree - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: Arborescence
+  valueType: str
+  x: 1170
+  'y': 120
+  wires: []

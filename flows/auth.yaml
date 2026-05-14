@@ -55,9 +55,10 @@
     - ad1a02bca9e6e97e
     - 0326666817409b37
     - 6fb977a9fcd9c072
+    - 775c8e4364eee51a
   x: 104
   'y': 39
-  w: 872
+  w: 962
   h: 202
 - id: 9833ea0e831ff8c7
   type: ui-button
@@ -66,7 +67,7 @@
   group: 3c952a83cfc8f302
   name: disconnect
   label: Se déconnecter
-  order: 3
+  order: 4
   width: '1'
   height: '1'
   emulateClick: false
@@ -99,7 +100,7 @@
   z: 27841aa886edd1cd
   g: 90f47fc795048184
   group: 3c952a83cfc8f302
-  order: 2
+  order: 3
   width: '0'
   height: '0'
   name: user
@@ -443,6 +444,7 @@
   'y': 200
   wires:
     - - 6fb977a9fcd9c072
+      - 775c8e4364eee51a
 - id: d08dea7b668699bf
   type: change
   z: 27841aa886edd1cd
@@ -457,7 +459,7 @@
     - t: set
       p: class
       pt: msg
-      to: remove
+      to: ''
       tot: str
     - t: set
       p: enabled
@@ -473,6 +475,7 @@
   'y': 80
   wires:
     - - ad1a02bca9e6e97e
+      - 775c8e4364eee51a
 - id: ad1a02bca9e6e97e
   type: link out
   z: 27841aa886edd1cd
@@ -481,6 +484,7 @@
   mode: link
   links:
     - 9979f236b1c3baac
+    - 9b1d2aaa12b0aa3d
   x: 935
   'y': 80
   wires: []
@@ -655,7 +659,7 @@
   name: form
   group: 3c952a83cfc8f302
   label: ''
-  order: 1
+  order: 2
   width: 0
   height: 0
   options:
@@ -716,3 +720,26 @@
   'y': 440
   wires:
     - - c82457de0864e28c
+- id: 775c8e4364eee51a
+  type: ui-text
+  z: 27841aa886edd1cd
+  g: 4ef1cd4a19db42bf
+  group: 3c952a83cfc8f302
+  order: 1
+  width: 0
+  height: 0
+  name: auth - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: Authentification
+  valueType: str
+  x: 980
+  'y': 140
+  wires: []

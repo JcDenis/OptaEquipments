@@ -60,9 +60,10 @@
     - 1af6903f4d79553b
     - a329cc8df8330ba3
     - 6f313e02b010ccb9
+    - e3c7b3428b7ae9d9
   x: 104
   'y': 39
-  w: 872
+  w: 962
   h: 202
 - id: 7f208cf2ab66dd88
   type: link call
@@ -97,7 +98,7 @@
   name: ui - alert - plant
   label: Sélectionner une usine
   tooltip: ''
-  order: 1
+  order: 2
   width: 0
   height: 0
   passthru: false
@@ -497,7 +498,7 @@
   group: ab8ef19cd1ae9d09
   name: ui - alert - table
   label: ''
-  order: 2
+  order: 3
   width: 0
   height: 0
   maxrows: 0
@@ -793,6 +794,7 @@
   'y': 80
   wires:
     - - 054bd47295999ad7
+      - e3c7b3428b7ae9d9
 - id: 1af6903f4d79553b
   type: change
   z: 476eb6fc04c55cec
@@ -823,6 +825,7 @@
   'y': 200
   wires:
     - - 6f313e02b010ccb9
+      - e3c7b3428b7ae9d9
 - id: a329cc8df8330ba3
   type: switch
   z: 476eb6fc04c55cec
@@ -862,3 +865,26 @@
   'y': 200
   wires:
     - - 054bd47295999ad7
+- id: e3c7b3428b7ae9d9
+  type: ui-text
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  group: ab8ef19cd1ae9d09
+  order: 1
+  width: 0
+  height: 0
+  name: alert - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: Maintenance
+  valueType: str
+  x: 980
+  'y': 140
+  wires: []
