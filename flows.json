@@ -170,12 +170,11 @@
             "90fee914285e6f59",
             "575b91a30deac00d",
             "7ba0dadd40d50379",
-            "fe77a163f58aea3f",
             "de94cabe86867469"
         ],
         "x": 114,
         "y": 99,
-        "w": 882,
+        "w": 852,
         "h": 142
     },
     {
@@ -4248,7 +4247,7 @@
             "ab8192053ebeac78",
             "b3ffc6b86fdc514c"
         ],
-        "x": 955,
+        "x": 795,
         "y": 140,
         "wires": []
     },
@@ -4324,12 +4323,22 @@
         "z": "f6f2187d.f17ca8",
         "g": "dcb47b97829a1b78",
         "name": "boot",
-        "props": [],
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
+        "payload": "",
+        "payloadType": "str",
         "x": 210,
         "y": 140,
         "wires": [
@@ -9154,8 +9163,8 @@
         "y": 140,
         "wires": [
             [
-                "fe77a163f58aea3f",
-                "de94cabe86867469"
+                "de94cabe86867469",
+                "575b91a30deac00d"
             ]
         ]
     },
@@ -10243,27 +10252,6 @@
         ]
     },
     {
-        "id": "fe77a163f58aea3f",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "g": "dcb47b97829a1b78",
-        "name": "gate",
-        "func": "var newMsg = { topic: 'control', payload: 'open' }\nreturn newMsg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 140,
-        "wires": [
-            [
-                "575b91a30deac00d"
-            ]
-        ]
-    },
-    {
         "id": "de94cabe86867469",
         "type": "debug",
         "z": "f6f2187d.f17ca8",
@@ -10273,8 +10261,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "'booting flow'",
-        "targetType": "jsonata",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 850,
