@@ -117,12 +117,12 @@ The project includes the following Node-RED packages:
 | Package | Version | Purpose |
 |---------|---------|---------|
 | @flowfuse/node-red-dashboard | 1.30.2 | Web-based dashboard UI |
-| node-red-contrib-queue-gate | 1.5.5 | Message queue management |
 | node-red-contrib-influxdb | 0.7.0 | InfluxDB integration |
 | node-red-node-base64 | 1.0.0 | Base64 encoding/decoding |
 | node-red-contrib-moment | 5.0.0 | Time/date utilities |
 | node-red-contrib-bcrypt | 0.1.6 | Password hashing |
 | node-red-contrib-flow-manager | 0.7.4 | Flow management tools |
+| node-red-contrib-os | 0.2.1 | System resources usage |
 
 ## Managing Containers
 
