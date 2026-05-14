@@ -2059,7 +2059,9 @@
     - t: set
       p: payload
       pt: msg
-      to: '{''label'':msg.payload,''value'':msg.option.component}'
+      to: >-
+        {'label':msg.payload & ' (' & msg.option.component &
+        ')','value':msg.option.component}
       tot: jsonata
     - t: set
       p: components
