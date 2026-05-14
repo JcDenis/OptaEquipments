@@ -94,9 +94,15 @@
     - f9ef8c6b987979f9
     - 8e8e767ca137fe49
     - 6a1ce7f23e17f6f1
+    - bbdf0754d48339d7
+    - 30704eb581efdf1a
+    - 339f0725328d16dd
+    - b2f991efb8f677d1
+    - 9e93ac7232270c9a
+    - 1a0f55a9537c6ce5
   x: 104
   'y': 39
-  w: 1182
+  w: 1502
   h: 202
 - id: 6ed9fb5c0b268c66
   type: group
@@ -1480,9 +1486,9 @@
   'y': 80
   wires:
     - - 0c83fe1f9690e061
-      - f9ef8c6b987979f9
-      - 8e8e767ca137fe49
-      - 6a1ce7f23e17f6f1
+      - 30704eb581efdf1a
+      - 339f0725328d16dd
+      - 9e93ac7232270c9a
 - id: 929519cc3e756da5
   type: delay
   z: 44465f18e06bb58d
@@ -1617,9 +1623,9 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: Application
-  valueType: str
-  x: 1170
+  value: trans_str
+  valueType: msg
+  x: 1490
   'y': 160
   wires: []
 - id: 6a1ce7f23e17f6f1
@@ -1640,9 +1646,9 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: Firmware Opta
-  valueType: str
-  x: 1170
+  value: trans_str
+  valueType: msg
+  x: 1490
   'y': 200
   wires: []
 - id: f9ef8c6b987979f9
@@ -1663,8 +1669,107 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: Arborescence
-  valueType: str
-  x: 1170
+  value: trans_str
+  valueType: msg
+  x: 1490
   'y': 120
   wires: []
+- id: bbdf0754d48339d7
+  type: link call
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: ''
+  links:
+    - 3f7dd7976ebbb035
+  linkType: static
+  timeout: '30'
+  x: 1290
+  'y': 120
+  wires:
+    - - f9ef8c6b987979f9
+- id: 30704eb581efdf1a
+  type: change
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: str
+  rules:
+    - t: set
+      p: trans_id
+      pt: msg
+      to: group_system_tree_title
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1130
+  'y': 120
+  wires:
+    - - bbdf0754d48339d7
+- id: 339f0725328d16dd
+  type: change
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: str
+  rules:
+    - t: set
+      p: trans_id
+      pt: msg
+      to: group_system_app_title
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1130
+  'y': 160
+  wires:
+    - - b2f991efb8f677d1
+- id: b2f991efb8f677d1
+  type: link call
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: ''
+  links:
+    - 3f7dd7976ebbb035
+  linkType: static
+  timeout: '30'
+  x: 1290
+  'y': 160
+  wires:
+    - - 8e8e767ca137fe49
+- id: 9e93ac7232270c9a
+  type: change
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: str
+  rules:
+    - t: set
+      p: trans_id
+      pt: msg
+      to: group_system_ota_title
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1130
+  'y': 200
+  wires:
+    - - 1a0f55a9537c6ce5
+- id: 1a0f55a9537c6ce5
+  type: link call
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: ''
+  links:
+    - 3f7dd7976ebbb035
+  linkType: static
+  timeout: '30'
+  x: 1290
+  'y': 200
+  wires:
+    - - 6a1ce7f23e17f6f1

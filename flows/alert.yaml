@@ -61,9 +61,12 @@
     - a329cc8df8330ba3
     - 6f313e02b010ccb9
     - e3c7b3428b7ae9d9
+    - 1df03500e3604d1c
+    - 544c28d405b12cc8
+    - aa52c2ce9a57b526
   x: 104
   'y': 39
-  w: 962
+  w: 1442
   h: 202
 - id: 7f208cf2ab66dd88
   type: link call
@@ -761,7 +764,7 @@
   mode: link
   links:
     - c8c91a8a8cb864f2
-  x: 935
+  x: 1095
   'y': 80
   wires: []
 - id: 99db1a3f2b383d44
@@ -793,8 +796,7 @@
   x: 650
   'y': 80
   wires:
-    - - 054bd47295999ad7
-      - e3c7b3428b7ae9d9
+    - - 544c28d405b12cc8
 - id: 1af6903f4d79553b
   type: change
   z: 476eb6fc04c55cec
@@ -825,7 +827,6 @@
   'y': 200
   wires:
     - - 6f313e02b010ccb9
-      - e3c7b3428b7ae9d9
 - id: a329cc8df8330ba3
   type: switch
   z: 476eb6fc04c55cec
@@ -864,7 +865,7 @@
   x: 810
   'y': 200
   wires:
-    - - 054bd47295999ad7
+    - - 544c28d405b12cc8
 - id: e3c7b3428b7ae9d9
   type: ui-text
   z: 476eb6fc04c55cec
@@ -883,8 +884,57 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: Maintenance
-  valueType: str
-  x: 980
+  value: trans_str
+  valueType: msg
+  x: 1460
   'y': 140
   wires: []
+- id: 1df03500e3604d1c
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: str
+  rules:
+    - t: set
+      p: trans_id
+      pt: msg
+      to: group_alert_title
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1130
+  'y': 140
+  wires:
+    - - aa52c2ce9a57b526
+- id: 544c28d405b12cc8
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 970
+  'y': 80
+  wires:
+    - - 1df03500e3604d1c
+      - 054bd47295999ad7
+- id: aa52c2ce9a57b526
+  type: link call
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: ''
+  links:
+    - 3f7dd7976ebbb035
+  linkType: static
+  timeout: '30'
+  x: 1290
+  'y': 140
+  wires:
+    - - e3c7b3428b7ae9d9
