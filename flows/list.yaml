@@ -1081,7 +1081,7 @@
       width: ''
       align: start
     - title: Composant
-      key: component_name
+      key: component_full
       keyType: key
       type: text
       width: ''
@@ -1231,6 +1231,11 @@
       pt: msg
       to: '#:(memoryOnly)::describe.component[msg.row.component]'
       tot: global
+    - t: set
+      p: row.component_full
+      pt: msg
+      to: msg.row.component_name & ' (' & msg.row.component & ')'
+      tot: jsonata
     - t: delete
       p: split
       pt: msg
@@ -1504,7 +1509,7 @@
     - t: set
       p: row.component_name
       pt: msg
-      to: 'kernel.name[msg.row.entity]'
+      to: '#:(memoryOnly)::describe.component[msg.row.component]'
       tot: global
     - t: set
       p: row.component_full

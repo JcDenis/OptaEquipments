@@ -1115,12 +1115,7 @@
     - t: set
       p: kernel.component_name
       pt: msg
-      to: msg.kernel.equipment&'|'&msg.kernel.component
-      tot: jsonata
-    - t: set
-      p: kernel.component_name
-      pt: msg
-      to: 'kernel.name[msg.kernel.component_name]'
+      to: '#:(memoryOnly)::describe.component[msg.kernel.component]'
       tot: global
     - t: delete
       p: split
@@ -3053,7 +3048,7 @@
     - t: set
       p: row.component_name
       pt: msg
-      to: 'kernel.name[msg.row.entity]'
+      to: '#:(memoryOnly)::describe.component[msg.row.component]'
       tot: global
     - t: set
       p: row.component_full

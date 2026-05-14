@@ -1878,7 +1878,7 @@
     - t: set
       p: option.name
       pt: msg
-      to: 'kernel.name[msg.payload]'
+      to: 'describe.component[msg.option.component]'
       tot: global
     - t: set
       p: payload
@@ -2761,7 +2761,7 @@
     - t: set
       p: option.name
       pt: msg
-      to: 'kernel.name[msg.option.entity]'
+      to: '#:(memoryOnly)::describe.component[msg.option.component]'
       tot: global
     - t: set
       p: payload
