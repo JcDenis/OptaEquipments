@@ -32,6 +32,8 @@
     - 0cf63361a578f787
     - 3361a6a4765bfb11
     - 3da3f0a5ca052b2e
+    - 600f8158ee5fa6b3
+    - bb28138bb34a0fa9
   x: 104
   'y': 279
   w: 1642
@@ -67,7 +69,7 @@
   g: 90f47fc795048184
   group: 3c952a83cfc8f302
   name: disconnect
-  label: Se déconnecter
+  label: ''
   order: 4
   width: '1'
   height: '1'
@@ -92,7 +94,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 630
+  x: 790
   'y': 320
   wires:
     - - f4eee7dbe5621ecf
@@ -116,7 +118,7 @@
   className: ''
   value: payload
   valueType: msg
-  x: 610
+  x: 770
   'y': 380
   wires: []
 - id: 9979f236b1c3baac
@@ -126,7 +128,6 @@
   name: ui - auth
   links:
     - ad1a02bca9e6e97e
-    - 0cf63361a578f787
   x: 145
   'y': 320
   wires:
@@ -144,25 +145,17 @@
       to: '#:(memoryOnly)::user[msg._client.socketId]login'
       tot: global
     - t: set
-      p: level
+      p: payload
       pt: msg
       to: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
       tot: global
     - t: set
-      p: level
-      pt: msg
-      to: '#:(memoryOnly)::describe.level[msg.level]'
-      tot: global
-    - t: set
       p: payload
       pt: msg
-      to: '''Vous êtes connecté en tant que "'' & msg.level & ''".'''
-      tot: jsonata
+      to: '#:(memoryOnly)::describe.level[msg.payload]'
+      tot: global
     - t: delete
       p: user
-      pt: msg
-    - t: delete
-      p: level
       pt: msg
     - t: set
       p: class
@@ -182,8 +175,8 @@
   x: 450
   'y': 380
   wires:
-    - - aa0e1484ee75066f
-      - 9833ea0e831ff8c7
+    - - 600f8158ee5fa6b3
+      - bb28138bb34a0fa9
 - id: f4eee7dbe5621ecf
   type: change
   z: 27841aa886edd1cd
@@ -193,12 +186,15 @@
     - t: delete
       p: '#:(memoryOnly)::user[msg._client.socketId]'
       pt: global
+    - t: delete
+      p: ui_update
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 830
+  x: 990
   'y': 320
   wires:
     - - 6ab34b3b3d64905e
@@ -355,6 +351,7 @@
   name: ui - auth - tab
   links:
     - 7bba6594f41302c2
+    - 0cf63361a578f787
   x: 145
   'y': 140
   wires:
@@ -572,9 +569,9 @@
   x: 450
   'y': 320
   wires:
-    - - aa0e1484ee75066f
-      - 9833ea0e831ff8c7
-      - 3361a6a4765bfb11
+    - - 3361a6a4765bfb11
+      - 600f8158ee5fa6b3
+      - bb28138bb34a0fa9
 - id: fd316ca0fdd9738b
   type: change
   z: 27841aa886edd1cd
@@ -646,7 +643,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-    - 9979f236b1c3baac
+    - bf3da41c4b5bd219
   x: 1595
   'y': 440
   wires: []
@@ -757,3 +754,59 @@
   wires:
     - - ad1a02bca9e6e97e
       - 775c8e4364eee51a
+- id: 600f8158ee5fa6b3
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: label
+  rules:
+    - t: set
+      p: label
+      pt: msg
+      to: 'dictionary[''button_auth_disconnect'']'
+      tot: msg
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.label}'
+      tot: jsonata
+    - t: delete
+      p: label
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 320
+  wires:
+    - - 9833ea0e831ff8c7
+- id: bb28138bb34a0fa9
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: label
+  rules:
+    - t: set
+      p: label
+      pt: msg
+      to: 'dictionary[''text_auth_user'']'
+      tot: msg
+    - t: set
+      p: ui_update
+      pt: msg
+      to: '{''label'':msg.label & '': ''}'
+      tot: jsonata
+    - t: delete
+      p: label
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 380
+  wires:
+    - - aa0e1484ee75066f

@@ -53,10 +53,9 @@
     - 575b91a30deac00d
     - 7ba0dadd40d50379
     - de94cabe86867469
-    - 498751471a3b68c4
   x: 114
   'y': 99
-  w: 1012
+  w: 852
   h: 142
 - id: 32da9b1ae024e8bb
   type: group
@@ -99,7 +98,7 @@
     - aab24ce12ccdfadd
   x: 104
   'y': 3099
-  w: 1812
+  w: 1852
   h: 262
 - id: ede1bcd992279676
   type: group
@@ -613,16 +612,17 @@
     - 3f7dd7976ebbb035
     - fbf331caab8db620
     - cc62ce7447c1e698
-    - 7fec60d0f53379fe
-    - da68b51985740426
     - 9d9aaa012f41c9fb
     - 34ed235932c20640
     - e579b8a83901639c
     - 53dc031706455eaf
     - d05cf09de1c61beb
+    - f2182ed60ac8e148
+    - 7e7028a4b2be932d
+    - 7534617e959dc88b
   x: 104
   'y': 3399
-  w: 1292
+  w: 1602
   h: 142
 - id: a22fb9b1d981984a
   type: switch
@@ -838,7 +838,7 @@
     - 84299714efdcf62a
     - ab8192053ebeac78
     - b3ffc6b86fdc514c
-  x: 955
+  x: 795
   'y': 140
   wires: []
 - id: 90fee914285e6f59
@@ -855,7 +855,7 @@
     - t: set
       p: '#:(memoryOnly)::dictionary'
       pt: global
-      to: "{\t    'group_auth_title':{'en':'Authentication','fr':'Authentification'},\t    'group_alert_title':{'en':'Alerts','fr':'Maintenances'},\t    'group_period_title':{'en':'Programs','fr':'Programmes'},\t    'group_detail_title':{'en':'Details','fr':'Détails'},\t    'group_detail_live_title':{'en':'Direct','fr':'Direct'},\t    'group_detail_graph_title':{'en':'Graphic','fr':'Suivi'},\t    'group_detail_alert_title':{'en':'Alert','fr':'Alertes'},\t    'group_detail_period_title':{'en':'Program','fr':'Programmes'},\t    'group_list_title':{'en':'Lists','fr':'Listes'},\t    'group_tree_title':{'en':'Tree structure','fr':'Arborescence'},\t    'group_user_list_title':{'en':'List users','fr':'Liste des utilisateurs'},\t    'group_user_add_title':{'en':'Add user','fr':'Ajouter un utilisateur'},\t    'group_user_edit_title':{'en':'Edit user','fr':'Modifier un utilisateur'},\t    'group_user_backup_title':{'en':'Backup users','fr':'Sauvegarder les utilisateurs'},\t    'group_system_tree_title':{'en':'Tree structure','fr':'Arborescence'},\t    'group_system_app_title':{'en':'Application','fr':'Application'},\t    'group_system_ota_title':{'en':'Opta firmware','fr':'Firmware Opta'}\t}"
+      to: "{\t    'group_auth_title':'Authentication',\t    'group_alert_title':'Alerts',\t    'group_period_title':'Programs',\t    'group_detail_title':'Details',\t    'group_detail_live_title':'Direct',\t    'group_detail_graph_title':'Graphic',\t    'group_detail_alert_title':'Alert',\t    'group_detail_period_title':'Program',\t    'group_list_title':'Lists',\t    'group_tree_title':'Tree structure',\t    'group_user_list_title':'List users',\t    'group_user_add_title':'Add user',\t    'group_user_edit_title':'Edit user',\t    'group_user_backup_title':'Backup users',\t    'group_system_tree_title':'Tree structure',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Opta firmware',\t    'button_auth_disconnect':'Disconnect',\t    'text_auth_user':'You are connected as'\t}"
       tot: jsonata
     - t: set
       p: '#:(memoryOnly)::auth'
@@ -872,6 +872,11 @@
       pt: global
       to: ''
       tot: str
+    - t: set
+      p: dictionary
+      pt: msg
+      to: '#:(memoryOnly)::dictionary'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -1916,7 +1921,7 @@
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
     - 6304fe8d08f0cf47
-  x: 1875
+  x: 1915
   'y': 3140
   wires: []
 - id: 4de1644d9063dd22
@@ -2698,7 +2703,7 @@
     - t: set
       p: '#:(memoryOnly)::auth[msg.login]'
       pt: global
-      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant\t}"
+      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -4421,7 +4426,8 @@
   x: 610
   'y': 140
   wires:
-    - - 498751471a3b68c4
+    - - 575b91a30deac00d
+      - de94cabe86867469
 - id: afd0b91e4d0f2c22
   type: link call
   z: f6f2187d.f17ca8
@@ -5208,7 +5214,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1010
+  x: 850
   'y': 200
   wires: []
 - id: cc60f94273e4f225
@@ -5805,20 +5811,6 @@
   'y': 2240
   wires:
     - - 78a4ccd05c446292
-- id: 498751471a3b68c4
-  type: link call
-  z: f6f2187d.f17ca8
-  g: dcb47b97829a1b78
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 850
-  'y': 140
-  wires:
-    - - 575b91a30deac00d
-      - de94cabe86867469
 - id: aab24ce12ccdfadd
   type: link call
   z: f6f2187d.f17ca8
@@ -5885,48 +5877,8 @@
   x: 430
   'y': 3500
   wires:
-    - - 7fec60d0f53379fe
-    - - da68b51985740426
-- id: 7fec60d0f53379fe
-  type: change
-  z: f6f2187d.f17ca8
-  g: 17b012ec15a86352
-  name: fr
-  rules:
-    - t: set
-      p: trans_lang
-      pt: msg
-      to: fr
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 3440
-  wires:
-    - - 34ed235932c20640
-- id: da68b51985740426
-  type: change
-  z: f6f2187d.f17ca8
-  g: 17b012ec15a86352
-  name: en
-  rules:
-    - t: set
-      p: trans_lang
-      pt: msg
-      to: en
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 3500
-  wires:
-    - - 34ed235932c20640
+    - - 7e7028a4b2be932d
+    - - d05cf09de1c61beb
 - id: 9d9aaa012f41c9fb
   type: join
   z: f6f2187d.f17ca8
@@ -5948,8 +5900,8 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1070
-  'y': 3500
+  x: 1250
+  'y': 3440
   wires:
     - - d05cf09de1c61beb
 - id: 34ed235932c20640
@@ -5964,10 +5916,10 @@
   stream: false
   addname: trans_id
   property: dictionary
-  x: 750
-  'y': 3500
+  x: 790
+  'y': 3440
   wires:
-    - - e579b8a83901639c
+    - - 7534617e959dc88b
 - id: e579b8a83901639c
   type: change
   z: f6f2187d.f17ca8
@@ -5977,15 +5929,15 @@
     - t: set
       p: dictionary
       pt: msg
-      to: 'dictionary[msg.trans_lang]'
+      to: 'trans_fr[msg.trans_id]'
       tot: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 910
-  'y': 3500
+  x: 1110
+  'y': 3480
   wires:
     - - 9d9aaa012f41c9fb
 - id: 53dc031706455eaf
@@ -5995,7 +5947,7 @@
   name: kernel - trans
   mode: return
   links: []
-  x: 1355
+  x: 1535
   'y': 3500
   wires: []
 - id: d05cf09de1c61beb
@@ -6005,7 +5957,7 @@
   name: clean
   rules:
     - t: delete
-      p: trans_lang
+      p: trans_fr
       pt: msg
     - t: delete
       p: trans_id
@@ -6018,7 +5970,64 @@
   from: ''
   to: ''
   reg: false
-  x: 1230
+  x: 1410
   'y': 3500
   wires:
     - - 53dc031706455eaf
+      - f2182ed60ac8e148
+- id: f2182ed60ac8e148
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 17b012ec15a86352
+  name: kernel- trans
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1590
+  'y': 3440
+  wires: []
+- id: 7e7028a4b2be932d
+  type: change
+  z: f6f2187d.f17ca8
+  g: 17b012ec15a86352
+  name: dictionary fr
+  rules:
+    - t: set
+      p: trans_fr
+      pt: msg
+      to: "{\t    'group_auth_title':'Authentification',\t    'group_alert_title':'Maintenances',\t    'group_period_title':'Programmes',\t    'group_detail_title':'Détails',\t    'group_detail_live_title':'Direct',\t    'group_detail_graph_title':'Suivi',\t    'group_detail_alert_title':'Alertes',\t    'group_detail_period_title':'Programmes',\t    'group_list_title':'Listes',\t    'group_tree_title':'Arborescence',\t    'group_user_list_title':'Liste des utilisateurs',\t    'group_user_add_title':'Ajouter un utilisateur',\t    'group_user_edit_title':'Modifier un utilisateur',\t    'group_user_backup_title':'Sauvegarder les utilisateurs',\t    'group_system_tree_title':'Arborescence',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Firmware Opta',\t    'button_auth_disconnect':'Se déconnecter',\t    'text_auth_user':'Vous êtes connecté en tant que'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 3440
+  wires:
+    - - 34ed235932c20640
+- id: 7534617e959dc88b
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 17b012ec15a86352
+  name: exists
+  property: trans_fr
+  propertyType: msg
+  rules:
+    - t: hask
+      v: trans_id
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 950
+  'y': 3440
+  wires:
+    - - e579b8a83901639c
+    - - 9d9aaa012f41c9fb

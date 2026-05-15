@@ -170,12 +170,11 @@
             "90fee914285e6f59",
             "575b91a30deac00d",
             "7ba0dadd40d50379",
-            "de94cabe86867469",
-            "498751471a3b68c4"
+            "de94cabe86867469"
         ],
         "x": 114,
         "y": 99,
-        "w": 1012,
+        "w": 852,
         "h": 142
     },
     {
@@ -786,7 +785,7 @@
         ],
         "x": 104,
         "y": 3099,
-        "w": 1812,
+        "w": 1852,
         "h": 262
     },
     {
@@ -2141,7 +2140,9 @@
             "6ebc17186e839ebb",
             "0cf63361a578f787",
             "3361a6a4765bfb11",
-            "3da3f0a5ca052b2e"
+            "3da3f0a5ca052b2e",
+            "600f8158ee5fa6b3",
+            "bb28138bb34a0fa9"
         ],
         "x": 104,
         "y": 279,
@@ -3450,17 +3451,18 @@
             "3f7dd7976ebbb035",
             "fbf331caab8db620",
             "cc62ce7447c1e698",
-            "7fec60d0f53379fe",
-            "da68b51985740426",
             "9d9aaa012f41c9fb",
             "34ed235932c20640",
             "e579b8a83901639c",
             "53dc031706455eaf",
-            "d05cf09de1c61beb"
+            "d05cf09de1c61beb",
+            "f2182ed60ac8e148",
+            "7e7028a4b2be932d",
+            "7534617e959dc88b"
         ],
         "x": 104,
         "y": 3399,
-        "w": 1292,
+        "w": 1602,
         "h": 142
     },
     {
@@ -4320,7 +4322,7 @@
             "ab8192053ebeac78",
             "b3ffc6b86fdc514c"
         ],
-        "x": 955,
+        "x": 795,
         "y": 140,
         "wires": []
     },
@@ -4342,7 +4344,7 @@
                 "t": "set",
                 "p": "#:(memoryOnly)::dictionary",
                 "pt": "global",
-                "to": "{\t    'group_auth_title':{'en':'Authentication','fr':'Authentification'},\t    'group_alert_title':{'en':'Alerts','fr':'Maintenances'},\t    'group_period_title':{'en':'Programs','fr':'Programmes'},\t    'group_detail_title':{'en':'Details','fr':'Détails'},\t    'group_detail_live_title':{'en':'Direct','fr':'Direct'},\t    'group_detail_graph_title':{'en':'Graphic','fr':'Suivi'},\t    'group_detail_alert_title':{'en':'Alert','fr':'Alertes'},\t    'group_detail_period_title':{'en':'Program','fr':'Programmes'},\t    'group_list_title':{'en':'Lists','fr':'Listes'},\t    'group_tree_title':{'en':'Tree structure','fr':'Arborescence'},\t    'group_user_list_title':{'en':'List users','fr':'Liste des utilisateurs'},\t    'group_user_add_title':{'en':'Add user','fr':'Ajouter un utilisateur'},\t    'group_user_edit_title':{'en':'Edit user','fr':'Modifier un utilisateur'},\t    'group_user_backup_title':{'en':'Backup users','fr':'Sauvegarder les utilisateurs'},\t    'group_system_tree_title':{'en':'Tree structure','fr':'Arborescence'},\t    'group_system_app_title':{'en':'Application','fr':'Application'},\t    'group_system_ota_title':{'en':'Opta firmware','fr':'Firmware Opta'}\t}",
+                "to": "{\t    'group_auth_title':'Authentication',\t    'group_alert_title':'Alerts',\t    'group_period_title':'Programs',\t    'group_detail_title':'Details',\t    'group_detail_live_title':'Direct',\t    'group_detail_graph_title':'Graphic',\t    'group_detail_alert_title':'Alert',\t    'group_detail_period_title':'Program',\t    'group_list_title':'Lists',\t    'group_tree_title':'Tree structure',\t    'group_user_list_title':'List users',\t    'group_user_add_title':'Add user',\t    'group_user_edit_title':'Edit user',\t    'group_user_backup_title':'Backup users',\t    'group_system_tree_title':'Tree structure',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Opta firmware',\t    'button_auth_disconnect':'Disconnect',\t    'text_auth_user':'You are connected as'\t}",
                 "tot": "jsonata"
             },
             {
@@ -4365,6 +4367,13 @@
                 "pt": "global",
                 "to": "",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "dictionary",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::dictionary",
+                "tot": "global"
             }
         ],
         "action": "",
@@ -5766,7 +5775,7 @@
             "d55041fdf28a3f36",
             "6304fe8d08f0cf47"
         ],
-        "x": 1875,
+        "x": 1915,
         "y": 3140,
         "wires": []
     },
@@ -6817,7 +6826,7 @@
                 "t": "set",
                 "p": "#:(memoryOnly)::auth[msg.login]",
                 "pt": "global",
-                "to": "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant\t}",
+                "to": "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang\t}",
                 "tot": "jsonata"
             }
         ],
@@ -9250,7 +9259,8 @@
         "y": 140,
         "wires": [
             [
-                "498751471a3b68c4"
+                "575b91a30deac00d",
+                "de94cabe86867469"
             ]
         ]
     },
@@ -10351,7 +10361,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1010,
+        "x": 850,
         "y": 200,
         "wires": []
     },
@@ -11209,26 +11219,6 @@
         ]
     },
     {
-        "id": "498751471a3b68c4",
-        "type": "link call",
-        "z": "f6f2187d.f17ca8",
-        "g": "dcb47b97829a1b78",
-        "name": "",
-        "links": [
-            "3f7dd7976ebbb035"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 850,
-        "y": 140,
-        "wires": [
-            [
-                "575b91a30deac00d",
-                "de94cabe86867469"
-            ]
-        ]
-    },
-    {
         "id": "aab24ce12ccdfadd",
         "type": "link call",
         "z": "f6f2187d.f17ca8",
@@ -11322,66 +11312,10 @@
         "y": 3500,
         "wires": [
             [
-                "7fec60d0f53379fe"
+                "7e7028a4b2be932d"
             ],
             [
-                "da68b51985740426"
-            ]
-        ]
-    },
-    {
-        "id": "7fec60d0f53379fe",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "17b012ec15a86352",
-        "name": "fr",
-        "rules": [
-            {
-                "t": "set",
-                "p": "trans_lang",
-                "pt": "msg",
-                "to": "fr",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 3440,
-        "wires": [
-            [
-                "34ed235932c20640"
-            ]
-        ]
-    },
-    {
-        "id": "da68b51985740426",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "17b012ec15a86352",
-        "name": "en",
-        "rules": [
-            {
-                "t": "set",
-                "p": "trans_lang",
-                "pt": "msg",
-                "to": "en",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 3500,
-        "wires": [
-            [
-                "34ed235932c20640"
+                "d05cf09de1c61beb"
             ]
         ]
     },
@@ -11407,8 +11341,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1070,
-        "y": 3500,
+        "x": 1250,
+        "y": 3440,
         "wires": [
             [
                 "d05cf09de1c61beb"
@@ -11428,11 +11362,11 @@
         "stream": false,
         "addname": "trans_id",
         "property": "dictionary",
-        "x": 750,
-        "y": 3500,
+        "x": 790,
+        "y": 3440,
         "wires": [
             [
-                "e579b8a83901639c"
+                "7534617e959dc88b"
             ]
         ]
     },
@@ -11447,7 +11381,7 @@
                 "t": "set",
                 "p": "dictionary",
                 "pt": "msg",
-                "to": "dictionary[msg.trans_lang]",
+                "to": "trans_fr[msg.trans_id]",
                 "tot": "msg"
             }
         ],
@@ -11456,8 +11390,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
-        "y": 3500,
+        "x": 1110,
+        "y": 3480,
         "wires": [
             [
                 "9d9aaa012f41c9fb"
@@ -11472,7 +11406,7 @@
         "name": "kernel - trans",
         "mode": "return",
         "links": [],
-        "x": 1355,
+        "x": 1535,
         "y": 3500,
         "wires": []
     },
@@ -11485,7 +11419,7 @@
         "rules": [
             {
                 "t": "delete",
-                "p": "trans_lang",
+                "p": "trans_fr",
                 "pt": "msg"
             },
             {
@@ -11504,11 +11438,90 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1230,
+        "x": 1410,
         "y": 3500,
         "wires": [
             [
-                "53dc031706455eaf"
+                "53dc031706455eaf",
+                "f2182ed60ac8e148"
+            ]
+        ]
+    },
+    {
+        "id": "f2182ed60ac8e148",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "17b012ec15a86352",
+        "name": "kernel- trans",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 3440,
+        "wires": []
+    },
+    {
+        "id": "7e7028a4b2be932d",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "17b012ec15a86352",
+        "name": "dictionary fr",
+        "rules": [
+            {
+                "t": "set",
+                "p": "trans_fr",
+                "pt": "msg",
+                "to": "{\t    'group_auth_title':'Authentification',\t    'group_alert_title':'Maintenances',\t    'group_period_title':'Programmes',\t    'group_detail_title':'Détails',\t    'group_detail_live_title':'Direct',\t    'group_detail_graph_title':'Suivi',\t    'group_detail_alert_title':'Alertes',\t    'group_detail_period_title':'Programmes',\t    'group_list_title':'Listes',\t    'group_tree_title':'Arborescence',\t    'group_user_list_title':'Liste des utilisateurs',\t    'group_user_add_title':'Ajouter un utilisateur',\t    'group_user_edit_title':'Modifier un utilisateur',\t    'group_user_backup_title':'Sauvegarder les utilisateurs',\t    'group_system_tree_title':'Arborescence',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Firmware Opta',\t    'button_auth_disconnect':'Se déconnecter',\t    'text_auth_user':'Vous êtes connecté en tant que'\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 3440,
+        "wires": [
+            [
+                "34ed235932c20640"
+            ]
+        ]
+    },
+    {
+        "id": "7534617e959dc88b",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "17b012ec15a86352",
+        "name": "exists",
+        "property": "trans_fr",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "trans_id",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 950,
+        "y": 3440,
+        "wires": [
+            [
+                "e579b8a83901639c"
+            ],
+            [
+                "9d9aaa012f41c9fb"
             ]
         ]
     },
@@ -20802,7 +20815,7 @@
         "g": "90f47fc795048184",
         "group": "3c952a83cfc8f302",
         "name": "disconnect",
-        "label": "Se déconnecter",
+        "label": "",
         "order": 4,
         "width": "1",
         "height": "1",
@@ -20827,7 +20840,7 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 630,
+        "x": 790,
         "y": 320,
         "wires": [
             [
@@ -20856,7 +20869,7 @@
         "className": "",
         "value": "payload",
         "valueType": "msg",
-        "x": 610,
+        "x": 770,
         "y": 380,
         "wires": []
     },
@@ -20867,8 +20880,7 @@
         "g": "90f47fc795048184",
         "name": "ui - auth",
         "links": [
-            "ad1a02bca9e6e97e",
-            "0cf63361a578f787"
+            "ad1a02bca9e6e97e"
         ],
         "x": 145,
         "y": 320,
@@ -20895,33 +20907,21 @@
             },
             {
                 "t": "set",
-                "p": "level",
+                "p": "payload",
                 "pt": "msg",
                 "to": "#:(memoryOnly)::user[msg._client.socketId]['level']",
                 "tot": "global"
             },
             {
                 "t": "set",
-                "p": "level",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::describe.level[msg.level]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "'Vous êtes connecté en tant que \"' & msg.level & '\".'",
-                "tot": "jsonata"
+                "to": "#:(memoryOnly)::describe.level[msg.payload]",
+                "tot": "global"
             },
             {
                 "t": "delete",
                 "p": "user",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "level",
                 "pt": "msg"
             },
             {
@@ -20948,8 +20948,8 @@
         "y": 380,
         "wires": [
             [
-                "aa0e1484ee75066f",
-                "9833ea0e831ff8c7"
+                "600f8158ee5fa6b3",
+                "bb28138bb34a0fa9"
             ]
         ]
     },
@@ -20964,6 +20964,11 @@
                 "t": "delete",
                 "p": "#:(memoryOnly)::user[msg._client.socketId]",
                 "pt": "global"
+            },
+            {
+                "t": "delete",
+                "p": "ui_update",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -20971,7 +20976,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 830,
+        "x": 990,
         "y": 320,
         "wires": [
             [
@@ -21190,7 +21195,8 @@
         "g": "4ef1cd4a19db42bf",
         "name": "ui - auth - tab",
         "links": [
-            "7bba6594f41302c2"
+            "7bba6594f41302c2",
+            "0cf63361a578f787"
         ],
         "x": 145,
         "y": 140,
@@ -21506,9 +21512,9 @@
         "y": 320,
         "wires": [
             [
-                "aa0e1484ee75066f",
-                "9833ea0e831ff8c7",
-                "3361a6a4765bfb11"
+                "3361a6a4765bfb11",
+                "600f8158ee5fa6b3",
+                "bb28138bb34a0fa9"
             ]
         ]
     },
@@ -21610,7 +21616,7 @@
         "mode": "link",
         "links": [
             "4e94023e8ba12f50",
-            "9979f236b1c3baac"
+            "bf3da41c4b5bd219"
         ],
         "x": 1595,
         "y": 440,
@@ -21750,6 +21756,86 @@
             [
                 "ad1a02bca9e6e97e",
                 "775c8e4364eee51a"
+            ]
+        ]
+    },
+    {
+        "id": "600f8158ee5fa6b3",
+        "type": "change",
+        "z": "27841aa886edd1cd",
+        "g": "90f47fc795048184",
+        "name": "label",
+        "rules": [
+            {
+                "t": "set",
+                "p": "label",
+                "pt": "msg",
+                "to": "dictionary['button_auth_disconnect']",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "ui_update",
+                "pt": "msg",
+                "to": "{'label':msg.label}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "label",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 320,
+        "wires": [
+            [
+                "9833ea0e831ff8c7"
+            ]
+        ]
+    },
+    {
+        "id": "bb28138bb34a0fa9",
+        "type": "change",
+        "z": "27841aa886edd1cd",
+        "g": "90f47fc795048184",
+        "name": "label",
+        "rules": [
+            {
+                "t": "set",
+                "p": "label",
+                "pt": "msg",
+                "to": "dictionary['text_auth_user']",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "ui_update",
+                "pt": "msg",
+                "to": "{'label':msg.label & ': '}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "label",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 380,
+        "wires": [
+            [
+                "aa0e1484ee75066f"
             ]
         ]
     },
@@ -61741,7 +61827,7 @@
                 "t": "set",
                 "p": "#:(memoryOnly)::auth[msg.login]",
                 "pt": "global",
-                "to": "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant\t}",
+                "to": "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang\t}",
                 "tot": "jsonata"
             }
         ],
@@ -62560,8 +62646,7 @@
         "y": 1160,
         "wires": [
             [
-                "0276a7f91ac850d6",
-                "6a1ce7f23e17f6f1"
+                "0276a7f91ac850d6"
             ]
         ]
     },
@@ -62646,7 +62731,8 @@
         "wires": [
             [
                 "f3cac8b5cdac6603",
-                "44b14fdf37109b9a"
+                "44b14fdf37109b9a",
+                "6a1ce7f23e17f6f1"
             ]
         ]
     },
