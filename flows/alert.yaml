@@ -61,12 +61,10 @@
     - a329cc8df8330ba3
     - 6f313e02b010ccb9
     - e3c7b3428b7ae9d9
-    - 1df03500e3604d1c
     - 544c28d405b12cc8
-    - aa52c2ce9a57b526
   x: 104
   'y': 39
-  w: 1442
+  w: 1122
   h: 202
 - id: 7f208cf2ab66dd88
   type: link call
@@ -371,7 +369,7 @@
       to: 'msg.row.state?''#008000'':''#FF0000'''
       tot: jsonata
     - t: set
-      p: alert_limit
+      p: row.limit
       pt: msg
       to: 'kernel.alert[msg.alert]'
       tot: global
@@ -383,7 +381,7 @@
     - t: set
       p: row.diff
       pt: msg
-      to: '$round($number(msg.row.alert) - $number(msg.alert_limit),1)'
+      to: '$round($number(msg.row.alert) - $number(msg.row.limit),1)'
       tot: jsonata
     - t: set
       p: row.diff_color
@@ -516,7 +514,7 @@
       keyType: key
       type: color
       width: ''
-      align: start
+      align: center
     - title: Ligne
       key: line_name
       keyType: key
@@ -534,13 +532,19 @@
       keyType: key
       type: color
       width: ''
-      align: start
-    - title: Diff
+      align: center
+    - title: Diff.
       key: diff
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
+    - title: Freq.
+      key: limit
+      keyType: key
+      type: text
+      width: ''
+      align: center
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -884,31 +888,11 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: trans_str
+  value: 'dictionary[''group_alert_title'']'
   valueType: msg
-  x: 1460
+  x: 1140
   'y': 140
   wires: []
-- id: 1df03500e3604d1c
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_alert_title
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1130
-  'y': 140
-  wires:
-    - - aa52c2ce9a57b526
 - id: 544c28d405b12cc8
   type: change
   z: 476eb6fc04c55cec
@@ -923,18 +907,5 @@
   x: 970
   'y': 80
   wires:
-    - - 1df03500e3604d1c
-      - 054bd47295999ad7
-- id: aa52c2ce9a57b526
-  type: link call
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 1290
-  'y': 140
-  wires:
-    - - e3c7b3428b7ae9d9
+    - - 054bd47295999ad7
+      - e3c7b3428b7ae9d9

@@ -252,12 +252,10 @@
     - 5c195bb5f6aef75f
     - de71dce191e15350
     - 726908f7902e2771
-    - 4b94c72cc66632fa
-    - ea7e88cca7343257
     - a19eae9b1a486ee0
   x: 104
   'y': 39
-  w: 1442
+  w: 1122
   h: 224.5
 - id: 09a03117ef8741bc
   type: group
@@ -1068,7 +1066,7 @@
   group: c605809a8fe63a3b
   name: ui - list - componant
   label: ''
-  order: 12
+  order: 13
   width: 0
   height: 0
   maxrows: 0
@@ -4180,7 +4178,7 @@
   width: 0
   height: 0
   name: ui - list - line - total
-  label: 'Nombre d''enregistrements: '
+  label: 'Nombre total d''enregistrements: '
   format: '{{msg.payload}}'
   layout: row-center
   style: false
@@ -4203,7 +4201,7 @@
   width: 0
   height: 0
   name: ui - list - equipment - total
-  label: 'Nombre d''enregistrements :'
+  label: 'Nombre total d''enregistrements :'
   format: '{{msg.payload}}'
   layout: row-center
   style: false
@@ -4226,7 +4224,7 @@
   width: 0
   height: 0
   name: ui - list - device - total
-  label: 'nombre d''enregistrements :'
+  label: 'Nombre total d''enregistrements :'
   format: '{{msg.payload}}'
   layout: row-center
   style: false
@@ -4245,11 +4243,11 @@
   z: e97c6f12735a13c1
   g: baadcf077dabb0e1
   group: c605809a8fe63a3b
-  order: 13
+  order: 12
   width: 0
   height: 0
   name: ui - list - component - total
-  label: 'Nombre d''enregistrements :'
+  label: 'Nombre total d''enregistrements :'
   format: '{{msg.payload}}'
   layout: row-center
   style: false
@@ -4272,7 +4270,7 @@
   width: 0
   height: 0
   name: ui - list - alert - total
-  label: 'Nombre d''enregistrements :'
+  label: 'Nombre total d''enregistrements :'
   format: '{{msg.payload}}'
   layout: row-center
   style: false
@@ -4444,44 +4442,11 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: trans_str
+  value: 'dictionary[''group_list_title'']'
   valueType: msg
-  x: 1460
-  'y': 160
+  x: 1140
+  'y': 140
   wires: []
-- id: 4b94c72cc66632fa
-  type: link call
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 1290
-  'y': 160
-  wires:
-    - - 726908f7902e2771
-- id: ea7e88cca7343257
-  type: change
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_list_title
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1130
-  'y': 160
-  wires:
-    - - 4b94c72cc66632fa
 - id: a19eae9b1a486ee0
   type: change
   z: e97c6f12735a13c1
@@ -4496,5 +4461,5 @@
   x: 970
   'y': 80
   wires:
-    - - ea7e88cca7343257
-      - d929753382156fa2
+    - - d929753382156fa2
+      - 726908f7902e2771

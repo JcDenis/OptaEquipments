@@ -103,7 +103,6 @@
     - 01f6c5e4b34c70f3
     - ca77ad6ef975e6ee
     - a54c84532f2c44a3
-    - 678537d18093884c
   x: 104
   'y': 819
   w: 2382
@@ -197,7 +196,6 @@
     - b2f087bc0523250a
     - b9709921d9a7079d
     - 1be3ecd73d535185
-    - 39f39227fca9bb7d
   x: 104
   'y': 3219
   w: 4402
@@ -231,10 +229,9 @@
     - 42174b06a9dc03a4
     - 297dbbed636a64a6
     - 2fded9208fda719f
-    - 7a38faa98ed650e6
   x: 104
   'y': 3819
-  w: 2082
+  w: 1922
   h: 202
 - id: 20a2e240c83c48c2
   type: group
@@ -321,11 +318,9 @@
     - afbf5772b8e4d09c
     - b3954fad993602e1
     - 4fc21c4c0d845baa
-    - 270e5eb7076ea27b
-    - bed03c9d0bcea1ef
   x: 104
   'y': 39
-  w: 1462
+  w: 1142
   h: 232
 - id: 6d125a0d231d55d4
   type: group
@@ -352,10 +347,9 @@
     - 36ca816106cb746f
     - 41f6c771c0995e45
     - 6e769cbeb2b1ada7
-    - d9167144192bbd1d
   x: 104
   'y': 4059
-  w: 2122
+  w: 1962
   h: 202
 - id: 6829c2450480a8f8
   type: link call
@@ -3562,9 +3556,9 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: trans_str
+  value: 'dictionary[''group_detail_live_title'']'
   valueType: msg
-  x: 1330
+  x: 1170
   'y': 860
   wires: []
 - id: 67d66a8b80535ef8
@@ -3585,9 +3579,9 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: trans_str
+  value: 'dictionary[''group_detail_alert_title'']'
   valueType: msg
-  x: 2080
+  x: 1920
   'y': 3860
   wires: []
 - id: 436a9466d70f31e6
@@ -3608,9 +3602,9 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: trans_str
+  value: 'dictionary[''group_detail_graph_title'']'
   valueType: msg
-  x: 2240
+  x: 2080
   'y': 3320
   wires: []
 - id: dd017aec28af9106
@@ -5631,9 +5625,9 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: ' Programmation'
-  valueType: str
-  x: 2120
+  value: 'dictionary[''group_detail_period_title'']'
+  valueType: msg
+  x: 1960
   'y': 4100
   wires: []
 - id: 41f6c771c0995e45
@@ -6928,44 +6922,11 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: trans_str
+  value: 'dictionary[''group_detail_title'']'
   valueType: msg
-  x: 1470
-  'y': 160
+  x: 1150
+  'y': 140
   wires: []
-- id: bed03c9d0bcea1ef
-  type: link call
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 1290
-  'y': 160
-  wires:
-    - - b3954fad993602e1
-- id: 270e5eb7076ea27b
-  type: change
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_detail_title
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1130
-  'y': 160
-  wires:
-    - - bed03c9d0bcea1ef
 - id: 4fc21c4c0d845baa
   type: change
   z: 852390cb9559e176
@@ -6980,19 +6941,14 @@
   x: 970
   'y': 80
   wires:
-    - - 270e5eb7076ea27b
-      - 3aad74b4936add5c
+    - - 3aad74b4936add5c
+      - b3954fad993602e1
 - id: a54c84532f2c44a3
   type: change
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_detail_live_title
-      tot: str
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
@@ -7001,31 +6957,13 @@
   x: 990
   'y': 860
   wires:
-    - - 678537d18093884c
-- id: 678537d18093884c
-  type: link call
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 1150
-  'y': 860
-  wires:
     - - c6130b371c1a6d14
 - id: 1be3ecd73d535185
   type: change
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_detail_graph_title
-      tot: str
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
@@ -7034,31 +6972,13 @@
   x: 1890
   'y': 3320
   wires:
-    - - 39f39227fca9bb7d
-- id: 39f39227fca9bb7d
-  type: link call
-  z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 2050
-  'y': 3320
-  wires:
     - - 436a9466d70f31e6
 - id: 2fded9208fda719f
   type: change
   z: 852390cb9559e176
   g: af7c52c4b0905961
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_detail_alert_title
-      tot: str
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
@@ -7067,50 +6987,19 @@
   x: 1730
   'y': 3860
   wires:
-    - - 7a38faa98ed650e6
-- id: 7a38faa98ed650e6
-  type: link call
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 1890
-  'y': 3860
-  wires:
     - - 67d66a8b80535ef8
 - id: 6e769cbeb2b1ada7
   type: change
   z: 852390cb9559e176
   g: 6d125a0d231d55d4
-  name: str
-  rules:
-    - t: set
-      p: trans_id
-      pt: msg
-      to: group_detail_period_title
-      tot: str
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1770
-  'y': 4100
-  wires:
-    - - d9167144192bbd1d
-- id: d9167144192bbd1d
-  type: link call
-  z: 852390cb9559e176
-  g: 6d125a0d231d55d4
-  name: ''
-  links:
-    - 3f7dd7976ebbb035
-  linkType: static
-  timeout: '30'
-  x: 1930
   'y': 4100
   wires:
     - - 36ca816106cb746f
