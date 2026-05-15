@@ -316,6 +316,12 @@
       type: text
       width: ''
       align: start
+    - title: Langue
+      key: lang
+      keyType: key
+      type: text
+      width: ''
+      align: start
     - title: ''
       key: delete
       keyType: key
@@ -377,6 +383,11 @@
   g: 7a7d35c0913aed9f
   name: row
   rules:
+    - t: set
+      p: row.lang
+      pt: msg
+      to: payload.lang
+      tot: msg
     - t: set
       p: row.level
       pt: msg

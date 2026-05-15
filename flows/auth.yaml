@@ -34,9 +34,10 @@
     - 3da3f0a5ca052b2e
     - 600f8158ee5fa6b3
     - bb28138bb34a0fa9
+    - fe905230c6d73c11
   x: 104
   'y': 279
-  w: 1642
+  w: 1802
   h: 202
 - id: 4ef1cd4a19db42bf
   type: group
@@ -206,7 +207,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1595
+  x: 1755
   'y': 320
   wires: []
 - id: 8aca2e86c077d885
@@ -222,7 +223,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1640
+  x: 1800
   'y': 380
   wires: []
 - id: f9dc1f7a8155ebef
@@ -249,7 +250,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1310
+  x: 1470
   'y': 380
   wires:
     - - 6ab34b3b3d64905e
@@ -266,7 +267,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1150
+  x: 1310
   'y': 440
   wires:
     - - f9dc1f7a8155ebef
@@ -293,7 +294,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1310
+  x: 1470
   'y': 440
   wires:
     - - 6ab34b3b3d64905e
@@ -315,7 +316,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1470
+  x: 1630
   'y': 320
   wires:
     - - bb71762ba2269b75
@@ -329,7 +330,7 @@
     - fdb028158b218535
   linkType: static
   timeout: '30'
-  x: 970
+  x: 1130
   'y': 440
   wires:
     - - 09bd0767b56167b6
@@ -351,7 +352,6 @@
   name: ui - auth - tab
   links:
     - 7bba6594f41302c2
-    - 0cf63361a578f787
   x: 145
   'y': 140
   wires:
@@ -569,9 +569,9 @@
   x: 450
   'y': 320
   wires:
-    - - 3361a6a4765bfb11
-      - 600f8158ee5fa6b3
+    - - 600f8158ee5fa6b3
       - bb28138bb34a0fa9
+      - fe905230c6d73c11
 - id: fd316ca0fdd9738b
   type: change
   z: 27841aa886edd1cd
@@ -604,7 +604,7 @@
   x: 450
   'y': 440
   wires:
-    - - 3361a6a4765bfb11
+    - - fe905230c6d73c11
 - id: 6ebc17186e839ebb
   type: change
   z: 27841aa886edd1cd
@@ -631,7 +631,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1470
+  x: 1630
   'y': 440
   wires:
     - - 0cf63361a578f787
@@ -643,8 +643,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-    - bf3da41c4b5bd219
-  x: 1595
+  x: 1755
   'y': 440
   wires: []
 - id: 3361a6a4765bfb11
@@ -672,7 +671,7 @@
     login: ''
     pass: ''
   payload: ''
-  submit: Se connecter
+  submit: Go
   cancel: ''
   resetOnSubmit: true
   topic: topic
@@ -681,7 +680,7 @@
   className: ''
   passthru: false
   dropdownOptions: []
-  x: 610
+  x: 770
   'y': 440
   wires:
     - - 3da3f0a5ca052b2e
@@ -711,7 +710,7 @@
   from: ''
   to: ''
   reg: false
-  x: 780
+  x: 940
   'y': 440
   wires:
     - - c82457de0864e28c
@@ -733,7 +732,7 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: 'dictionary[''group_auth_title'']'
+  value: 'dictionary[''auth_group_title'']'
   valueType: msg
   x: 1140
   'y': 140
@@ -763,7 +762,7 @@
     - t: set
       p: label
       pt: msg
-      to: 'dictionary[''button_auth_disconnect'']'
+      to: 'dictionary[''auth_button_disconnect'']'
       tot: msg
     - t: set
       p: ui_update
@@ -791,7 +790,7 @@
     - t: set
       p: label
       pt: msg
-      to: 'dictionary[''text_auth_user'']'
+      to: 'dictionary[''auth_text_user'']'
       tot: msg
     - t: set
       p: ui_update
@@ -810,3 +809,39 @@
   'y': 380
   wires:
     - - aa0e1484ee75066f
+- id: fe905230c6d73c11
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: option
+  rules:
+    - t: set
+      p: label_login
+      pt: msg
+      to: 'dictionary[''auth_input_login'']'
+      tot: msg
+    - t: set
+      p: label_pass
+      pt: msg
+      to: 'dictionary[''auth_input_pass'']'
+      tot: msg
+    - t: set
+      p: ui_update.options
+      pt: msg
+      to: "[\t    {\t        'type':'text',\t        'label':msg.label_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.label_pass,\t        'key':'pass',\t        'required':true\t    }\t]"
+      tot: jsonata
+    - t: delete
+      p: label_login
+      pt: msg
+    - t: delete
+      p: label_pass
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 440
+  wires:
+    - - 3361a6a4765bfb11
