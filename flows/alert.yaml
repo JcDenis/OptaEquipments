@@ -36,13 +36,15 @@
     - 639c9d2813f61707
     - f14b416dec70b194
     - a2994b1359ff6e08
-    - b415ac596379ee31
     - 2de64536905c42d8
     - 4bf0ff84ef62faf4
     - 186467962929c0f8
+    - 049aaf716a9eb767
+    - b415ac596379ee31
+    - 6332d3cf45ae4386
   x: 104
   'y': 279
-  w: 3612
+  w: 3812
   h: 202
 - id: d509ef3b5101effa
   type: group
@@ -56,15 +58,14 @@
     - 6a17d6825228f752
     - d7bc8fc74bfc07cb
     - 4bf3a2b77f19923b
-    - 76cdceee9af25bb0
-    - 56c52c1fe7d5b21d
     - 054bd47295999ad7
-    - 99db1a3f2b383d44
-    - 1af6903f4d79553b
-    - a329cc8df8330ba3
     - 6f313e02b010ccb9
     - e3c7b3428b7ae9d9
     - 544c28d405b12cc8
+    - 0abe74e51b3f4e51
+    - 403342275b16fb1e
+    - b5978244e0e45484
+    - 837171d0662b5d6f
   x: 104
   'y': 39
   w: 1122
@@ -79,7 +80,7 @@
   linkType: static
   timeout: '30'
   x: 630
-  'y': 380
+  'y': 440
   wires:
     - - 2de64536905c42d8
 - id: c8c91a8a8cb864f2
@@ -92,8 +93,8 @@
   x: 145
   'y': 320
   wires:
-    - - b415ac596379ee31
-      - 639c9d2813f61707
+    - - 639c9d2813f61707
+      - b415ac596379ee31
 - id: eef8f90bc9ebb816
   type: ui-dropdown
   z: 476eb6fc04c55cec
@@ -117,7 +118,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 1000
-  'y': 380
+  'y': 440
   wires:
     - - 30bd97f3094ce24d
 - id: 30bd97f3094ce24d
@@ -135,9 +136,9 @@
   repair: false
   outputs: 1
   x: 1190
-  'y': 380
+  'y': 440
   wires:
-    - - 278b948fe3397d6d
+    - - 049aaf716a9eb767
 - id: 278b948fe3397d6d
   type: change
   z: 476eb6fc04c55cec
@@ -145,7 +146,7 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
       pt: flow
       to: payload
       tot: msg
@@ -154,8 +155,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1350
-  'y': 380
+  x: 1550
+  'y': 440
   wires:
     - - 59395394cfbb7859
       - 7ab11ad4d1391433
@@ -163,32 +164,17 @@
   type: change
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1510
+  x: 1710
   'y': 320
   wires:
-    - - 4bf0ff84ef62faf4
+    - - 6332d3cf45ae4386
 - id: 7ab11ad4d1391433
   type: change
   z: 476eb6fc04c55cec
@@ -206,7 +192,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      p: '#:(memoryOnly)::rows[msg.hmi.id]'
       pt: flow
       to: '{}'
       tot: jsonata
@@ -215,7 +201,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1530
+  x: 1730
   'y': 380
   wires:
     - - e13bed64768ee41f
@@ -231,7 +217,7 @@
   stream: false
   addname: row.equipment
   property: payload
-  x: 1710
+  x: 1910
   'y': 380
   wires:
     - - e0a78c10ef6a4efe
@@ -266,7 +252,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1870
+  x: 2070
   'y': 380
   wires:
     - - 65303885356124c5
@@ -279,12 +265,12 @@
   propertyType: msg
   rules:
     - t: eq
-      v: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      v: '#:(memoryOnly)::form[msg.hmi.id]plant'
       vt: flow
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2030
+  x: 2230
   'y': 380
   wires:
     - - 1e8664c6a3717b02
@@ -302,7 +288,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2190
+  x: 2390
   'y': 380
   wires:
     - - e6c65e2eccee4ef9
@@ -320,7 +306,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 2350
+  x: 2550
   'y': 380
   wires:
     - - 76a3bcdc76d86aa3
@@ -337,7 +323,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3180
+  x: 3380
   'y': 440
   wires: []
 - id: 76a3bcdc76d86aa3
@@ -396,7 +382,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2510
+  x: 2710
   'y': 380
   wires:
     - - ba9e4d6476d595d0
@@ -421,7 +407,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2670
+  x: 2870
   'y': 380
   wires:
     - - a2b86cd0821431f3
@@ -446,7 +432,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 2830
+  x: 3030
   'y': 380
   wires:
     - - a44482562033a116
@@ -459,13 +445,13 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::rows[msg._client.socketId]'
+      to: '#:(memoryOnly)::rows[msg.hmi.id]'
       tot: flow
     - t: delete
-      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      p: '#:(memoryOnly)::rows[msg.hmi.id]'
       pt: flow
     - t: delete
-      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      p: '#:(memoryOnly)::form[msg.hmi.id]'
       pt: flow
     - t: set
       p: class
@@ -490,7 +476,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2990
+  x: 3190
   'y': 380
   wires:
     - - 2328d5396e61d3e1
@@ -552,7 +538,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 3350
+  x: 3550
   'y': 320
   wires:
     - - 09a816282f3bc371
@@ -580,7 +566,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3550
+  x: 3750
   'y': 380
   wires:
     - - ed53bb28b7006772
@@ -593,7 +579,7 @@
   links:
     - 00818f8c0686b556
     - 2045a5696769c038
-  x: 3675
+  x: 3875
   'y': 380
   wires: []
 - id: 639c9d2813f61707
@@ -622,18 +608,18 @@
   from: ''
   to: ''
   reg: false
-  x: 650
+  x: 810
   'y': 320
   wires:
     - - 59395394cfbb7859
-      - 2de64536905c42d8
+      - eef8f90bc9ebb816
 - id: a2994b1359ff6e08
   type: switch
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
   name: plant
-  property: '#:(memoryOnly)::user[msg._client.socketId]plant'
-  propertyType: global
+  property: hmi.plant
+  propertyType: msg
   rules:
     - t: nempty
     - t: else
@@ -641,7 +627,7 @@
   repair: false
   outputs: 2
   x: 450
-  'y': 440
+  'y': 380
   wires:
     - - f14b416dec70b194
     - - 7f208cf2ab66dd88
@@ -652,17 +638,17 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
       pt: flow
-      to: '#:(memoryOnly)::user[msg._client.socketId]plant'
+      to: '#:(memoryOnly)::user[msg.hmi.id]plant'
       tot: global
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1350
-  'y': 440
+  x: 1550
+  'y': 380
   wires:
     - - 59395394cfbb7859
       - 7ab11ad4d1391433
@@ -670,7 +656,7 @@
   type: change
   z: 476eb6fc04c55cec
   g: d509ef3b5101effa
-  name: clean flow
+  name: clean users
   rules:
     - t: delete
       p: '#:(memoryOnly)::rows'
@@ -683,16 +669,17 @@
   from: ''
   to: ''
   reg: false
-  x: 280
+  x: 610
   'y': 80
   wires:
-    - - 99db1a3f2b383d44
+    - - b5978244e0e45484
 - id: d7bc8fc74bfc07cb
   type: link in
   z: 476eb6fc04c55cec
   g: d509ef3b5101effa
   name: ui - alert - tab
   links:
+    - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
   'y': 140
@@ -703,66 +690,25 @@
   z: 476eb6fc04c55cec
   g: d509ef3b5101effa
   name: tab
-  property: payload
+  property: hmi.tab
   propertyType: msg
   rules:
-    - t: neq
-      v: Maintenance
-      vt: str
+    - t: eq
+      v: '99'
+      vt: num
+    - t: eq
+      v: '1'
+      vt: num
     - t: else
   checkall: 'false'
   repair: false
-  outputs: 2
+  outputs: 3
   x: 270
   'y': 140
   wires:
-    - - 76cdceee9af25bb0
-    - - a329cc8df8330ba3
-- id: 76cdceee9af25bb0
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: clean user flow
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg._client.socketId]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 460
-  'y': 140
-  wires:
-    - - 99db1a3f2b383d44
-- id: b415ac596379ee31
-  type: switch
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: enabled
-  property: enabled
-  propertyType: msg
-  rules:
-    - t: 'true'
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 280
-  'y': 440
-  wires:
-    - - a2994b1359ff6e08
-- id: 56c52c1fe7d5b21d
-  type: link in
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: ui - alert - boot
-  links:
-    - 575b91a30deac00d
-  x: 145
-  'y': 80
-  wires:
     - - 6a17d6825228f752
+    - - 0abe74e51b3f4e51
+    - - 403342275b16fb1e
 - id: 054bd47295999ad7
   type: link out
   z: 476eb6fc04c55cec
@@ -772,86 +718,8 @@
   links:
     - c8c91a8a8cb864f2
   x: 1095
-  'y': 80
+  'y': 140
   wires: []
-- id: 99db1a3f2b383d44
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 650
-  'y': 80
-  wires:
-    - - 544c28d405b12cc8
-- id: 1af6903f4d79553b
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: show
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 650
-  'y': 200
-  wires:
-    - - 6f313e02b010ccb9
-- id: a329cc8df8330ba3
-  type: switch
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-  propertyType: global
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 490
-  'y': 200
-  wires:
-    - - 1af6903f4d79553b
-    - - 99db1a3f2b383d44
 - id: 6f313e02b010ccb9
   type: delay
   z: 476eb6fc04c55cec
@@ -869,10 +737,10 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 810
-  'y': 200
+  x: 590
+  'y': 140
   wires:
-    - - 544c28d405b12cc8
+    - - 837171d0662b5d6f
 - id: e3c7b3428b7ae9d9
   type: ui-text
   z: 476eb6fc04c55cec
@@ -894,7 +762,7 @@
   value: 'dictionary[''alert_group_title'']'
   valueType: msg
   x: 1140
-  'y': 140
+  'y': 200
   wires: []
 - id: 544c28d405b12cc8
   type: change
@@ -907,8 +775,8 @@
   from: ''
   to: ''
   reg: false
-  x: 970
-  'y': 80
+  x: 950
+  'y': 140
   wires:
     - - 054bd47295999ad7
       - e3c7b3428b7ae9d9
@@ -921,7 +789,7 @@
     - t: set
       p: ui_update.label
       pt: msg
-      to: 'dictionary[''common_input_plant'']'
+      to: dictionary.common_input_plant
       tot: msg
   action: ''
   property: ''
@@ -929,7 +797,7 @@
   to: ''
   reg: false
   x: 810
-  'y': 380
+  'y': 440
   wires:
     - - eef8f90bc9ebb816
 - id: 4bf0ff84ef62faf4
@@ -947,8 +815,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3150
-  'y': 320
+  x: 3350
+  'y': 380
   wires:
     - - 2f959ccef56b1836
     - - 186467962929c0f8
@@ -1009,7 +877,165 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 3340
+  x: 3540
   'y': 380
   wires:
     - - 09a816282f3bc371
+- id: 049aaf716a9eb767
+  type: link call
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 1370
+  'y': 440
+  wires:
+    - - 278b948fe3397d6d
+- id: 0abe74e51b3f4e51
+  type: switch
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: level
+  property: hmi.level
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 140
+  wires:
+    - - 6f313e02b010ccb9
+    - - 403342275b16fb1e
+- id: 403342275b16fb1e
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: clean user
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::form[msg.hmi.id]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 610
+  'y': 200
+  wires:
+    - - b5978244e0e45484
+- id: b5978244e0e45484
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 790
+  'y': 80
+  wires:
+    - - 544c28d405b12cc8
+- id: 837171d0662b5d6f
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: show
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 790
+  'y': 140
+  wires:
+    - - 544c28d405b12cc8
+- id: b415ac596379ee31
+  type: switch
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: enabled
+  property: enabled
+  propertyType: msg
+  rules:
+    - t: 'true'
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 280
+  'y': 380
+  wires:
+    - - a2994b1359ff6e08
+- id: 6332d3cf45ae4386
+  type: change
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: hide
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3350
+  'y': 320
+  wires:
+    - - 2f959ccef56b1836
+      - 186467962929c0f8
