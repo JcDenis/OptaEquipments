@@ -39,7 +39,7 @@ Create a `.env` file in the project root with the required credentials:
 OPTA_USERNAME=your_mqtt_username
 OPTA_PASSWORD=your_mqtt_password
 
-# InfluxDB Admin Credentials
+# Node-RED and InfluxDB Admin Credentials
 OPTA_ADMIN_USERNAME=admin
 OPTA_ADMIN_PASSWORD=your_secure_password
 
