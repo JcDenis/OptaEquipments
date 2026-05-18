@@ -127,10 +127,10 @@ services:
         cp /data/projects/OptaEquipments/data/.config.projects.json /data/.config.projects.json
         cp /data/projects/OptaEquipments/data/admin.png /data/admin.png
         mkdir -p /data/optaequipments
-        sed -i -e "s/OPTA_ADMIN_USERNAME/${OPTA_ADMIN_USERNAME}/g" /data/settings.js
-        sed -i -e "s/OPTA_ADMIN_HASH/$(expr substr "$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw)" 11 100)/g" /data/settings.js
-        sed -i -e "s/OPTA_SECRET/${OPTA_SECRET}/g" /data/settings.js
-        echo "> Installing packages"
+        sed -i -e "s|OPTA_ADMIN_USERNAME|${OPTA_ADMIN_USERNAME}|g" /data/settings.js
+        sed -i -e "s|OPTA_ADMIN_HASH|$(expr substr "$(echo "${OPTA_ADMIN_PASSWORD}" | node-red admin hash-pw)" 11 100)|g" /data/settings.js
+        sed -i -e "s|OPTA_SECRET|${OPTA_SECRET}|g" /data/settings.js
+        echo "> Instaling packages"
         cd /data
         npm install --unsafe-perm --no-update-notifier --no-fund --omit=dev
         echo "> Running node-red"
