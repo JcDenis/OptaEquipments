@@ -7,7 +7,7 @@
 - id: fa7516c28cf64b47
   type: group
   z: 64ce08af468b8197
-  name: ui - plant
+  name: tree - plant
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -49,7 +49,6 @@
     - 38b3a4ebd1fca09e
     - beafd2a4d6e6e01a
     - ce99fb90d41439af
-    - 578c42fc43eaca86
     - c234a7bcf86d1bd9
     - ca4e151d7418cc02
     - 1b34e946b3fbd6ec
@@ -72,7 +71,6 @@
     - 2d95a768de2c1d9a
     - d1c7c5bedc7ddb14
     - 0507fcab7a2ea779
-    - 4f3b4c672cf55123
     - 2f1f0ca81820f9c6
     - 7155d9bbef3cc098
     - 8730ba52214ebd7a
@@ -80,9 +78,26 @@
     - 4cd01df4467b69a4
     - 32b448b0d77b7c0b
     - 244b589ddc98859f
+    - 3d841c856e41901f
+    - 8487d9ce640d9763
+    - ba58c148e19ee64a
+    - 085362987822b08f
+    - ec7b9f32f03d8298
+    - ba4e0bbe6d4cccce
+    - 88e371fb66a691d1
+    - 02de2525640fc55b
+    - fa29b8fabb2478ac
+    - ccf5c865d7519e4e
+    - 8b6f3ac6259a8854
+    - 644631e371df311b
+    - 7938528495e0425f
+    - 7fa5c8ed24a70040
+    - d853d515cfeb503c
+    - 0c8c0b7b1f09a84c
+    - 89fc3c56f4d9e5de
   x: 104
   'y': 459
-  w: 4482
+  w: 5362
   h: 442
 - id: d8d8a361ac715076
   type: group
@@ -632,7 +647,7 @@
 - id: 1b6332baa80f468b
   type: group
   z: 64ce08af468b8197
-  name: ui - tree
+  name: tree - select
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -649,12 +664,12 @@
     - 909b87c39fd369a2
   x: 104
   'y': 279
-  w: 1092
+  w: 1112
   h: 142
 - id: 836acd0bd60737d1
   type: group
   z: 64ce08af468b8197
-  name: ui - tree
+  name: tree - page
   style:
     fill: '#ff0000'
     fill-opacity: '0.05'
@@ -776,7 +791,7 @@
   type: link in
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - plant
+  name: tree - plant
   links:
     - 902fe68ecf2dae15
     - d5a2492cd9b261b1
@@ -790,8 +805,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: ui - plant - action
-  label: Sélectionner une action
+  name: tree - plant - action
+  label: ''
   tooltip: ''
   order: 3
   width: 0
@@ -819,17 +834,17 @@
   name: set client
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      p: '#:(memoryOnly)::form[msg.hmi.id]'
       pt: flow
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]action'
+      p: '#:(memoryOnly)::form[msg.hmi.id]action'
       pt: flow
       to: payload
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]time'
+      p: '#:(memoryOnly)::form[msg.hmi.id]time'
       pt: flow
       to: ''
       tot: date
@@ -853,7 +868,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1160
+  x: 1360
   'y': 560
   wires:
     - - 0480b316d029f0ba
@@ -874,8 +889,7 @@
   x: 990
   'y': 560
   wires:
-    - - 5cf49ec89673bbad
-      - 244b589ddc98859f
+    - - 3d841c856e41901f
 - id: a9f2553f14595b87
   type: change
   z: 64ce08af468b8197
@@ -946,7 +960,7 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   name: action
-  property: '#:(memoryOnly)::form[msg._client.socketId]action'
+  property: '#:(memoryOnly)::form[msg.hmi.id]action'
   propertyType: flow
   rules:
     - t: eq
@@ -961,10 +975,10 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 1330
+  x: 1530
   'y': 560
   wires:
-    - - fe979b02242af9b6
+    - - ccf5c865d7519e4e
     - - 991911fbb65784d5
     - - fa90b710f3509e75
 - id: fe979b02242af9b6
@@ -972,8 +986,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - add - identifiant
-  label: Identifiant de l'usine
+  name: tree - plant - add - identifiant
+  label: ''
   order: 5
   width: '0'
   height: '0'
@@ -992,7 +1006,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1740
+  x: 2120
   'y': 560
   wires:
     - - 158deb261a8fbcea
@@ -1001,8 +1015,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - add - name
-  label: Nom de l'usine
+  name: tree - plant - add - name
+  label: ''
   order: 6
   width: '0'
   height: '0'
@@ -1021,7 +1035,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2630
+  x: 3270
   'y': 560
   wires:
     - - 333ae357f71076ec
@@ -1036,7 +1050,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 3050
   'y': 500
   wires:
     - - 343f72e19cb63063
@@ -1064,7 +1078,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1700
+  x: 2060
   'y': 620
   wires:
     - - fe979b02242af9b6
@@ -1099,10 +1113,10 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
+  x: 3870
   'y': 560
   wires:
-    - - 97eee541bd4e9655
+    - - 0c8c0b7b1f09a84c
 - id: 3066cc55b98ce1e4
   type: change
   z: 64ce08af468b8197
@@ -1124,7 +1138,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2600
+  x: 3220
   'y': 620
   wires:
     - - 343f72e19cb63063
@@ -1149,7 +1163,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3560
+  x: 4220
   'y': 620
   wires:
     - - 97eee541bd4e9655
@@ -1158,7 +1172,7 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - add - save
+  name: tree - plant - add - save
   label: Ajouter l'usine
   order: 7
   width: 0
@@ -1184,11 +1198,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3590
+  x: 4270
   'y': 560
   wires:
-    - - f3f2a6d3dbb25158
-      - 4527a006406d377f
+    - - 02de2525640fc55b
 - id: 158deb261a8fbcea
   type: switch
   z: 64ce08af468b8197
@@ -1203,10 +1216,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1950
+  x: 2350
   'y': 560
   wires:
-    - - a69259142b57e07b
+    - - 8487d9ce640d9763
 - id: 333ae357f71076ec
   type: switch
   z: 64ce08af468b8197
@@ -1221,11 +1234,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2830
+  x: 3490
   'y': 560
   wires:
-    - - cf645c7f47ad3986
-      - 3066cc55b98ce1e4
+    - - ec7b9f32f03d8298
 - id: 4527a006406d377f
   type: change
   z: 64ce08af468b8197
@@ -1247,7 +1259,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
+  x: 4690
   'y': 560
   wires:
     - - beafd2a4d6e6e01a
@@ -1256,12 +1268,12 @@
   type: link out
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - plant
+  name: tree - plant
   mode: link
   links:
     - be594973267232f5
     - e60e4ab7617738c3
-  x: 4395
+  x: 5295
   'y': 560
   wires: []
 - id: 991911fbb65784d5
@@ -1273,17 +1285,17 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 1510
+  x: 1710
   'y': 680
   wires:
-    - - 1668a609c18888db
+    - - 8b6f3ac6259a8854
 - id: 1668a609c18888db
   type: ui-dropdown
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - del - plant
-  label: Séectionner une usine
+  name: tree - plant - delete - plant
+  label: ''
   tooltip: ''
   order: 8
   width: 0
@@ -1299,7 +1311,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1730
+  x: 2110
   'y': 680
   wires:
     - - 25fc58241ab70b84
@@ -1334,17 +1346,17 @@
   from: ''
   to: ''
   reg: false
-  x: 2120
+  x: 2720
   'y': 680
   wires:
-    - - 5d53388977faa547
+    - - d853d515cfeb503c
 - id: 5d53388977faa547
   type: ui-button
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - del - save
-  label: Suprimer l'usine
+  name: tree - plant - delete - save
+  label: ''
   order: 9
   width: 0
   height: 0
@@ -1369,11 +1381,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 2630
+  x: 3270
   'y': 680
   wires:
-    - - 359c236edd3eb910
-      - 019fe78a2c6cb4dd
+    - - ba4e0bbe6d4cccce
 - id: 25fc58241ab70b84
   type: switch
   z: 64ce08af468b8197
@@ -1388,11 +1399,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1950
+  x: 2350
   'y': 680
   wires:
-    - - fa6d9718d672de6a
-      - f0b2090250aec7d4
+    - - ba58c148e19ee64a
 - id: 721821d1377acb65
   type: change
   z: 64ce08af468b8197
@@ -1414,11 +1424,11 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
+  x: 4690
   'y': 680
   wires:
-    - - 578c42fc43eaca86
-      - ca4e151d7418cc02
+    - - ca4e151d7418cc02
+      - beafd2a4d6e6e01a
 - id: e4d88f4537b5c0ef
   type: change
   z: 64ce08af468b8197
@@ -1430,7 +1440,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1530
+  x: 1890
   'y': 500
   wires:
     - - 8a9d3294993d4592
@@ -1448,7 +1458,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3390
+  x: 4050
   'y': 500
   wires:
     - - 97eee541bd4e9655
@@ -1474,7 +1484,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1700
+  x: 2060
   'y': 740
   wires:
     - - 1668a609c18888db
@@ -1499,7 +1509,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2600
+  x: 3220
   'y': 740
   wires:
     - - 5d53388977faa547
@@ -2194,7 +2204,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2110
+  x: 2710
   'y': 560
   wires:
     - - 0b4f86391d926a8f
@@ -2216,7 +2226,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2270
+  x: 2870
   'y': 560
   wires:
     - - f1a4ce3bdf024862
@@ -2229,7 +2239,7 @@
   links:
     - 4e94023e8ba12f50
     - be594973267232f5
-  x: 2395
+  x: 2995
   'y': 560
   wires: []
 - id: f0cda36bf38c99f7
@@ -5503,7 +5513,7 @@
   name: plant id
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]id'
+      p: '#:(memoryOnly)::form[msg.hmi.id]id'
       pt: flow
       to: payload
       tot: msg
@@ -5527,10 +5537,10 @@
   from: ''
   to: ''
   reg: false
-  x: 2280
+  x: 2880
   'y': 620
   wires:
-    - - 343f72e19cb63063
+    - - 7938528495e0425f
 - id: 3c9c0f76791a548f
   type: link call
   z: 64ce08af468b8197
@@ -6071,11 +6081,11 @@
   type: link out
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - plant - notice
+  name: tree - plant - notice
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 4075
+  x: 4975
   'y': 680
   wires: []
 - id: beafd2a4d6e6e01a
@@ -6087,22 +6097,22 @@
     - t: set
       p: payload
       pt: msg
-      to: Usine ajouté avec succès
-      tot: str
+      to: dictionary.common_notice_tree_update_success
+      tot: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 3950
-  'y': 620
+  x: 4850
+  'y': 680
   wires:
     - - 38b3a4ebd1fca09e
 - id: ce99fb90d41439af
   type: debug
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
-  name: ui - tree - plant
+  name: tree - plant
   active: false
   tosidebar: true
   console: false
@@ -6111,29 +6121,9 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 4460
+  x: 5350
   'y': 620
   wires: []
-- id: 578c42fc43eaca86
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: Usine supprimé avec succès
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 3950
-  'y': 680
-  wires:
-    - - 38b3a4ebd1fca09e
 - id: c234a7bcf86d1bd9
   type: change
   z: 64ce08af468b8197
@@ -6162,7 +6152,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4270
+  x: 5170
   'y': 560
   wires:
     - - 902fe68ecf2dae15
@@ -7558,7 +7548,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 3950
+  x: 4850
   'y': 560
   wires:
     - - 8730ba52214ebd7a
@@ -7574,7 +7564,7 @@
   stream: false
   addname: ''
   property: lines
-  x: 2990
+  x: 3830
   'y': 740
   wires:
     - - 1ceef6f9246d3fef
@@ -7599,7 +7589,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2830
+  x: 3670
   'y': 740
   wires:
     - - 1b34e946b3fbd6ec
@@ -7618,7 +7608,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3150
+  x: 3990
   'y': 740
   wires:
     - - c81edc762324dc2b
@@ -7635,7 +7625,7 @@
   stream: false
   addname: ''
   property: payload
-  x: 3470
+  x: 4310
   'y': 740
   wires:
     - - 2343f1b61b7ca46a
@@ -7655,7 +7645,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3310
+  x: 4170
   'y': 680
   wires:
     - - 957407bc45713037
@@ -7672,7 +7662,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3630
+  x: 4530
   'y': 740
   wires:
     - - 721821d1377acb65
@@ -7686,14 +7676,14 @@
     - t: set
       p: payload
       pt: msg
-      to: Cette usine n'est pas vide !
-      tot: str
+      to: dictionray.common_notice_plant_noempty
+      tot: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 3950
+  x: 4850
   'y': 740
   wires:
     - - 38b3a4ebd1fca09e
@@ -7713,7 +7703,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
+  x: 4690
   'y': 740
   wires:
     - - 32bd3cca2402b7b9
@@ -10028,17 +10018,17 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 1510
+  x: 1710
   'y': 800
   wires:
-    - - 64a4f6586a2e78b7
+    - - 644631e371df311b
 - id: 64a4f6586a2e78b7
   type: ui-dropdown
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - edit - plant
-  label: Sélectionner l'usine
+  name: tree - plant - edit - plant
+  label: ''
   tooltip: ''
   order: 10
   width: 0
@@ -10054,7 +10044,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1730
+  x: 2110
   'y': 800
   wires:
     - - 445630b2d825ed6f
@@ -10072,11 +10062,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1950
+  x: 2350
   'y': 800
   wires:
-    - - d9cd6c9f80634841
-      - 0507fcab7a2ea779
+    - - 085362987822b08f
 - id: d9cd6c9f80634841
   type: change
   z: 64ce08af468b8197
@@ -10108,17 +10097,17 @@
   from: ''
   to: ''
   reg: false
-  x: 2120
+  x: 2720
   'y': 800
   wires:
-    - - b05dcc03725fe05d
+    - - 7fa5c8ed24a70040
 - id: b05dcc03725fe05d
   type: ui-text-input
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - edit - name
-  label: Nouveau nom d'usine
+  name: tree - plant - edit - name
+  label: ''
   order: 11
   width: 0
   height: 0
@@ -10137,7 +10126,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 2610
+  x: 3270
   'y': 800
   wires:
     - - 1f26b4f7dde0ba66
@@ -10155,11 +10144,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2830
+  x: 3490
   'y': 800
   wires:
-    - - ec4853b377489f18
-      - df7317dcad2218e7
+    - - 88e371fb66a691d1
 - id: ec4853b377489f18
   type: change
   z: 64ce08af468b8197
@@ -10191,10 +10179,10 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
+  x: 3870
   'y': 800
   wires:
-    - - 67e9379426db2553
+    - - 89fc3c56f4d9e5de
 - id: df7317dcad2218e7
   type: change
   z: 64ce08af468b8197
@@ -10216,7 +10204,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2580
+  x: 3220
   'y': 860
   wires:
     - - b05dcc03725fe05d
@@ -10225,7 +10213,7 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   group: 9d9e19b688919599
-  name: plant - edit - save
+  name: tree - plant - edit - save
   label: Modifier l'usine
   order: 12
   width: 0
@@ -10251,11 +10239,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 3590
+  x: 4270
   'y': 800
   wires:
-    - - 2d95a768de2c1d9a
-      - d1c7c5bedc7ddb14
+    - - fa29b8fabb2478ac
 - id: 2d95a768de2c1d9a
   type: change
   z: 64ce08af468b8197
@@ -10277,11 +10264,11 @@
   from: ''
   to: ''
   reg: false
-  x: 3790
+  x: 4690
   'y': 800
   wires:
-    - - 4f3b4c672cf55123
-      - ca4e151d7418cc02
+    - - ca4e151d7418cc02
+      - beafd2a4d6e6e01a
 - id: d1c7c5bedc7ddb14
   type: change
   z: 64ce08af468b8197
@@ -10303,7 +10290,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3560
+  x: 4220
   'y': 860
   wires:
     - - 67e9379426db2553
@@ -10328,30 +10315,10 @@
   from: ''
   to: ''
   reg: false
-  x: 1700
+  x: 2060
   'y': 860
   wires:
     - - 64a4f6586a2e78b7
-- id: 4f3b4c672cf55123
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: Usine modifiée avec succès
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 3950
-  'y': 800
-  wires:
-    - - 38b3a4ebd1fca09e
 - id: 4fc3c8451747df9d
   type: link call
   z: 64ce08af468b8197
@@ -11652,8 +11619,8 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-  propertyType: global
+  property: hmi.level
+  propertyType: msg
   rules:
     - t: eq
       v: admin
@@ -11661,7 +11628,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 4110
+  x: 5010
   'y': 560
   wires:
     - - c234a7bcf86d1bd9
@@ -12291,7 +12258,7 @@
   type: link in
   z: 64ce08af468b8197
   g: 1b6332baa80f468b
-  name: ui - tree
+  name: tree - select
   links:
     - dd627ae296fcf568
   x: 145
@@ -12391,7 +12358,7 @@
   z: 64ce08af468b8197
   g: 1b6332baa80f468b
   group: 9d9e19b688919599
-  name: ui - tree - action
+  name: tree - select - action
   label: Sélectionner une branche
   tooltip: ''
   order: 2
@@ -12408,7 +12375,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 640
+  x: 650
   'y': 380
   wires:
     - - 05a718cf073d2373
@@ -12433,7 +12400,7 @@
   from: ''
   to: ''
   reg: false
-  x: 830
+  x: 850
   'y': 380
   wires:
     - - 909b87c39fd369a2
@@ -12441,18 +12408,18 @@
   type: link out
   z: 64ce08af468b8197
   g: 1b6332baa80f468b
-  name: ui - tree
+  name: tree - select
   mode: link
   links:
-    - be594973267232f5
-    - d0be34a90b4e69b0
-    - 6520d4dd35a36d5f
-    - 898e323acce8cdc5
     - 1bd9c70a5be52bdc
-    - 8b1e3b84ed635f09
     - 2e622bfdffcf772f
     - 636d0d23ef67c933
-  x: 1155
+    - 6520d4dd35a36d5f
+    - 898e323acce8cdc5
+    - 8b1e3b84ed635f09
+    - be594973267232f5
+    - d0be34a90b4e69b0
+  x: 1175
   'y': 320
   wires: []
 - id: 5d3791b50e998db0
@@ -12483,7 +12450,7 @@
   order: 4
   width: 0
   height: 0
-  name: ui - plant - help
+  name: tree - plant - help
   label: ''
   format: '{{msg.payload}}'
   layout: row-left
@@ -12495,7 +12462,7 @@
   className: ''
   value: payload
   valueType: msg
-  x: 780
+  x: 790
   'y': 680
   wires: []
 - id: 32b448b0d77b7c0b
@@ -12932,7 +12899,7 @@
   type: link in
   z: 64ce08af468b8197
   g: 836acd0bd60737d1
-  name: ui - tree - clean - tab
+  name: tree - page
   links:
     - 575b91a30deac00d
     - 7bba6594f41302c2
@@ -13012,7 +12979,7 @@
   type: link out
   z: 64ce08af468b8197
   g: 836acd0bd60737d1
-  name: ui - tree
+  name: tree - page
   mode: link
   links:
     - 3c74c1e48218b536
@@ -13035,7 +13002,7 @@
   from: ''
   to: ''
   reg: false
-  x: 830
+  x: 850
   'y': 320
   wires:
     - - d5a2492cd9b261b1
@@ -15695,7 +15662,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1010
+  x: 1030
   'y': 380
   wires:
     - - d5a2492cd9b261b1
@@ -15740,3 +15707,288 @@
   wires:
     - - 691d8d323fb49a8d
       - 2f0bc73ac3264b4c
+- id: 3d841c856e41901f
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 1170
+  'y': 560
+  wires:
+    - - 5cf49ec89673bbad
+      - 244b589ddc98859f
+- id: 8487d9ce640d9763
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 2530
+  'y': 560
+  wires:
+    - - a69259142b57e07b
+- id: ba58c148e19ee64a
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 2530
+  'y': 680
+  wires:
+    - - fa6d9718d672de6a
+      - f0b2090250aec7d4
+- id: 085362987822b08f
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 2530
+  'y': 800
+  wires:
+    - - d9cd6c9f80634841
+      - 0507fcab7a2ea779
+- id: ec7b9f32f03d8298
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 3670
+  'y': 560
+  wires:
+    - - cf645c7f47ad3986
+      - 3066cc55b98ce1e4
+- id: ba4e0bbe6d4cccce
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 3510
+  'y': 680
+  wires:
+    - - 019fe78a2c6cb4dd
+      - 359c236edd3eb910
+- id: 88e371fb66a691d1
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 3670
+  'y': 800
+  wires:
+    - - ec4853b377489f18
+      - df7317dcad2218e7
+- id: 02de2525640fc55b
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 4510
+  'y': 560
+  wires:
+    - - 4527a006406d377f
+      - f3f2a6d3dbb25158
+- id: fa29b8fabb2478ac
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 4510
+  'y': 800
+  wires:
+    - - 2d95a768de2c1d9a
+      - d1c7c5bedc7ddb14
+- id: ccf5c865d7519e4e
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_tree_plant_ident
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 560
+  wires:
+    - - fe979b02242af9b6
+- id: 8b6f3ac6259a8854
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.common_input_plant
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 680
+  wires:
+    - - 1668a609c18888db
+- id: 644631e371df311b
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.common_input_plant
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 800
+  wires:
+    - - 64a4f6586a2e78b7
+- id: 7938528495e0425f
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_tree_plant_name
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3050
+  'y': 620
+  wires:
+    - - 343f72e19cb63063
+- id: 7fa5c8ed24a70040
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_tree_plant_name
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3050
+  'y': 800
+  wires:
+    - - b05dcc03725fe05d
+- id: d853d515cfeb503c
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_tree_plant_delete
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3050
+  'y': 680
+  wires:
+    - - 5d53388977faa547
+- id: 0c8c0b7b1f09a84c
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_tree_plant_add
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 4050
+  'y': 560
+  wires:
+    - - 97eee541bd4e9655
+- id: 89fc3c56f4d9e5de
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_tree_plant_edit
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 4050
+  'y': 800
+  wires:
+    - - 67e9379426db2553

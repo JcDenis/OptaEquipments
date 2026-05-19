@@ -7,7 +7,7 @@
 - id: d04f02d6e1c02839
   type: group
   z: 852390cb9559e176
-  name: ui- detail
+  name: detail - live
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -107,12 +107,12 @@
     - 04fedeaf450f490c
   x: 104
   'y': 819
-  w: 2582
+  w: 2642
   h: 2362
 - id: 1c87eaf6a557f02d
   type: group
   z: 852390cb9559e176
-  name: ui - graph
+  name: detail - chart
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -209,7 +209,7 @@
 - id: af7c52c4b0905961
   type: group
   z: 852390cb9559e176
-  name: ui - alert
+  name: detail - alert
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -238,12 +238,12 @@
     - f02a30318019f86b
   x: 104
   'y': 3819
-  w: 1922
+  w: 1982
   h: 262
 - id: 20a2e240c83c48c2
   type: group
   z: 852390cb9559e176
-  name: ui - select
+  name: detail - select
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -307,12 +307,12 @@
     - 5947bcc47b4d10db
   x: 104
   'y': 279
-  w: 3952
+  w: 3992
   h: 502
 - id: fe21b6421a9020d4
   type: group
   z: 852390cb9559e176
-  name: ui - detail
+  name: detail - page
   style:
     fill: '#ff0000'
     fill-opacity: '0.05'
@@ -336,7 +336,7 @@
 - id: 6d125a0d231d55d4
   type: group
   z: 852390cb9559e176
-  name: ui -period
+  name: detail - period
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -360,7 +360,7 @@
     - 28c54b4779392879
   x: 104
   'y': 4119
-  w: 2002
+  w: 2022
   h: 262
 - id: 6829c2450480a8f8
   type: link call
@@ -380,7 +380,7 @@
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
   group: 1669fa4fe2f204a0
-  name: plant
+  name: detail - plant
   label: Sélectionner une usine
   tooltip: ''
   order: 2
@@ -397,7 +397,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1350
+  x: 1370
   'y': 560
   wires:
     - - 9f40cd685f30eef2
@@ -419,7 +419,7 @@
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
   group: 1669fa4fe2f204a0
-  name: line
+  name: detail - line
   label: Sélectionner une ligne
   tooltip: ''
   order: 3
@@ -436,7 +436,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1350
+  x: 1370
   'y': 620
   wires:
     - - 345eaddc257cace0
@@ -454,7 +454,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1550
+  x: 1590
   'y': 560
   wires:
     - - 61ab6b458112101a
@@ -505,7 +505,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1550
+  x: 1590
   'y': 620
   wires:
     - - 00cc12d3df070b03
@@ -527,7 +527,7 @@
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
   group: 1669fa4fe2f204a0
-  name: equipment
+  name: detail - equipment
   label: Sélectionner un équipement
   tooltip: ''
   order: 4
@@ -544,7 +544,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1370
+  x: 1390
   'y': 680
   wires:
     - - d8828daed73f7a3a
@@ -562,7 +562,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1550
+  x: 1590
   'y': 680
   wires:
     - - 5947bcc47b4d10db
@@ -570,7 +570,7 @@
   type: debug
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: ui - view - state
+  name: detail - select
   active: false
   tosidebar: true
   console: false
@@ -579,25 +579,25 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3920
+  x: 3950
   'y': 740
   wires: []
 - id: 9cef467dfab6ffd0
   type: link out
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: ui - view - state
+  name: detail - select - state
   mode: link
   links:
     - 9fc3dfcadb19726e
-  x: 4015
+  x: 4055
   'y': 680
   wires: []
 - id: 9fc3dfcadb19726e
   type: link in
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: ui - detail
+  name: detail - live - state
   links:
     - 9cef467dfab6ffd0
   x: 145
@@ -723,7 +723,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3890
+  x: 3930
   'y': 680
   wires:
     - - 9cef467dfab6ffd0
@@ -731,7 +731,7 @@
   type: link in
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: ui - detail - hide
+  name: detail - live - hide
   links:
     - ee4c8653f8b07e2e
   x: 145
@@ -743,7 +743,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - run
+  name: detail - live - run
   label: ''
   order: 6
   width: '2'
@@ -769,7 +769,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1000
+  x: 1020
   'y': 1040
   wires:
     - []
@@ -804,7 +804,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - runmeter
+  name: detail - live - runmeter
   label: ''
   order: 7
   width: '1'
@@ -824,7 +824,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1010
+  x: 1040
   'y': 1160
   wires:
     - []
@@ -864,7 +864,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - runreset
+  name: detail - live - runreset
   label: ''
   order: 9
   width: '2'
@@ -890,7 +890,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1010
+  x: 1040
   'y': 1400
   wires:
     - - 4feb45d3d5f4d380
@@ -960,7 +960,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2410
+  x: 2450
   'y': 1400
   wires:
     - - 3c49b3039dfe7b95
@@ -969,7 +969,7 @@
   type: debug
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: ui - detail
+  name: detail - live
   active: false
   tosidebar: true
   console: false
@@ -978,7 +978,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2580
+  x: 2630
   'y': 1460
   wires: []
 - id: 71ab4779af230c83
@@ -1007,7 +1007,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2750
+  x: 2790
   'y': 680
   wires:
     - - 34e8872d43511e29
@@ -1023,7 +1023,7 @@
   stream: false
   addname: kernel.entity
   property: payload
-  x: 2910
+  x: 2950
   'y': 680
   wires:
     - - 211513ab259e58c9
@@ -1048,7 +1048,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3080
+  x: 3120
   'y': 680
   wires:
     - - bb91fea59c03a712
@@ -1064,7 +1064,7 @@
   stream: false
   addname: endpoint
   property: payload
-  x: 3250
+  x: 3290
   'y': 680
   wires:
     - - 0ddcdaa6a85f6860
@@ -1082,7 +1082,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3410
+  x: 3450
   'y': 680
   wires:
     - - cbd65acf2d2944d3
@@ -1148,7 +1148,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3570
+  x: 3610
   'y': 680
   wires:
     - - 8431f20f8655751c
@@ -1156,11 +1156,11 @@
   type: link out
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: ui - detail
+  name: detail - live
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2535
+  x: 2575
   'y': 1400
   wires: []
 - id: f9bd857da00235f6
@@ -1189,7 +1189,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - heatxxx
+  name: detail - live - heatxxx
   label: ''
   order: 17
   width: '2'
@@ -1215,7 +1215,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1010
+  x: 1040
   'y': 2240
   wires:
     - - 1bb967e8f1c5cb23
@@ -1238,7 +1238,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1190
+  x: 1230
   'y': 2240
   wires:
     - - 04fedeaf450f490c
@@ -1258,7 +1258,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1210
+  x: 1250
   'y': 1400
   wires:
     - - 404bfbe8193538ba
@@ -1267,7 +1267,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - cycle
+  name: detail - live - cycle
   label: ''
   order: 10
   width: '2'
@@ -1293,7 +1293,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1000
+  x: 1030
   'y': 1460
   wires:
     - []
@@ -1328,7 +1328,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - cyclemeter
+  name: detail - live - cyclemeter
   label: ''
   order: 11
   width: '1'
@@ -1348,7 +1348,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1020
+  x: 1050
   'y': 1580
   wires:
     - []
@@ -1388,7 +1388,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - cyclereset
+  name: detail - live - cyclereset
   label: ''
   order: 13
   width: '2'
@@ -1414,7 +1414,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1020
+  x: 1040
   'y': 1820
   wires:
     - - 4feb45d3d5f4d380
@@ -1477,7 +1477,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - heat
+  name: detail - live - heat
   label: ''
   order: 14
   width: '2'
@@ -1503,7 +1503,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1000
+  x: 1030
   'y': 1880
   wires:
     - []
@@ -1537,24 +1537,24 @@
   type: link out
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: ui - view - equipment
+  name: detail - select - equipment
   mode: link
   links:
-    - b5082fd6f739991d
     - 6822e56a80bdb67e
-    - 96e8abf144b980e2
     - 8fdfd037d4e5b985
-  x: 2715
+    - 96e8abf144b980e2
+    - b5082fd6f739991d
+  x: 2755
   'y': 740
   wires: []
 - id: b24713f215fa93c7
   type: link in
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: ui - view - select
+  name: detail - select
   links:
-    - 3aad74b4936add5c
     - 11a3e525f770e3aa
+    - 3aad74b4936add5c
   x: 145
   'y': 320
   wires:
@@ -1744,7 +1744,7 @@
   type: link in
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
-  name: ui - graph
+  name: detail - chart
   links:
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
@@ -1759,7 +1759,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  name: ui - graph - date
+  name: detail - chart - date
   label: Date
   order: 25
   width: '2'
@@ -1779,7 +1779,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1920
+  x: 1930
   'y': 3380
   wires:
     - - 349f0b378e7f347d
@@ -1953,7 +1953,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  name: ui - graph - resolution
+  name: detail - chart - resolution
   label: Sélectionner une résolution
   tooltip: ''
   order: 26
@@ -1970,7 +1970,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1940
+  x: 1950
   'y': 3440
   wires:
     - - 5f07c668b4f7fe2f
@@ -2404,7 +2404,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  name: detail - cycle - chart date
+  name: detail - chart - cycle date
   label: ''
   order: 29
   chartType: line
@@ -2461,7 +2461,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  name: detail - cycle - chart hour
+  name: detail - chart - cycle hour
   label: ''
   order: 33
   chartType: bar
@@ -2755,7 +2755,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  name: ui - graph - refresh
+  name: detail - chart - refresh
   label: Rafraichir
   order: 27
   width: '2'
@@ -2781,7 +2781,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1930
+  x: 1940
   'y': 3500
   wires:
     - - 3e42541f14d8d3d2
@@ -2948,7 +2948,7 @@
   type: link in
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: ui - detail - line
+  name: detail - live - line
   links:
     - bd7c74e40976d045
   x: 145
@@ -2959,7 +2959,7 @@
   type: link in
   z: 852390cb9559e176
   g: af7c52c4b0905961
-  name: ui - alert
+  name: detail - alert
   links:
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
@@ -3167,7 +3167,7 @@
   type: debug
   z: 852390cb9559e176
   g: af7c52c4b0905961
-  name: ui - alert - list
+  name: detail - alert
   active: false
   tosidebar: true
   console: false
@@ -3184,7 +3184,7 @@
   z: 852390cb9559e176
   g: af7c52c4b0905961
   group: 1669fa4fe2f204a0
-  name: ui - alert - fr
+  name: detail - alert - table - fr
   label: ''
   order: 35
   width: 0
@@ -3230,7 +3230,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1910
+  x: 1940
   'y': 3920
   wires:
     - []
@@ -3304,7 +3304,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
+  x: 2470
   'y': 740
   wires:
     - - 47a6c2e7767362bb
@@ -3312,14 +3312,14 @@
   type: link out
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: ui - view select
+  name: detail - select - hide
   mode: link
   links:
     - 8104e13e7b473d2f
-    - b5082fd6f739991d
-    - 96e8abf144b980e2
     - 8fdfd037d4e5b985
-  x: 2395
+    - 96e8abf144b980e2
+    - b5082fd6f739991d
+  x: 2435
   'y': 320
   wires: []
 - id: 2d12083a2c3b60a1
@@ -3353,7 +3353,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2110
+  x: 2150
   'y': 620
   wires:
     - - dbe2dc99f3174070
@@ -3374,7 +3374,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 1950
   'y': 620
   wires:
     - - 2d12083a2c3b60a1
@@ -3404,7 +3404,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2110
+  x: 2150
   'y': 680
   wires:
     - - d4dbb3c62db423dc
@@ -3425,7 +3425,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1930
+  x: 1970
   'y': 680
   wires:
     - - bc489cda6336bc1d
@@ -3445,7 +3445,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 1950
   'y': 560
   wires:
     - - 18d9e8154bc6b5dc
@@ -3480,7 +3480,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2110
+  x: 2150
   'y': 560
   wires:
     - - 0548edb6952cacb8
@@ -3511,7 +3511,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2270
+  x: 2310
   'y': 320
   wires:
     - - ee4c8653f8b07e2e
@@ -3532,7 +3532,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2590
+  x: 2630
   'y': 740
   wires:
     - - bd7c74e40976d045
@@ -3545,7 +3545,7 @@
   order: 5
   width: 0
   height: 0
-  name: ui - live - title
+  name: detail - live - title
   label: ''
   format: '{{msg.payload}}'
   layout: row-left
@@ -3557,7 +3557,7 @@
   className: ui-title
   value: dictionary.group_detail_live_title
   valueType: msg
-  x: 1170
+  x: 1180
   'y': 860
   wires: []
 - id: 67d66a8b80535ef8
@@ -3568,7 +3568,7 @@
   order: 34
   width: 0
   height: 0
-  name: ui - alert - title
+  name: detail - alert - title
   label: ''
   format: '{{msg.payload}}'
   layout: row-left
@@ -3580,7 +3580,7 @@
   className: ui-title
   value: dictionary.group_detail_alert_title
   valueType: msg
-  x: 1920
+  x: 1930
   'y': 3860
   wires: []
 - id: 436a9466d70f31e6
@@ -3591,7 +3591,7 @@
   order: 24
   width: 0
   height: 0
-  name: ui - graph - title
+  name: detail - chart - title
   label: ''
   format: '{{msg.payload}}'
   layout: row-left
@@ -3603,7 +3603,7 @@
   className: ui-title
   value: dictionary.group_detail_chart_title
   valueType: msg
-  x: 2080
+  x: 2090
   'y': 3320
   wires: []
 - id: dd017aec28af9106
@@ -3719,7 +3719,7 @@
     - 7f2964561cb984f7
   linkType: static
   timeout: '30'
-  x: 1730
+  x: 1770
   'y': 2240
   wires:
     - - e171907702d6e26e
@@ -3738,7 +3738,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1910
+  x: 1950
   'y': 2240
   wires:
     - - 5b1260fb090f1438
@@ -3749,7 +3749,7 @@
   g: d04f02d6e1c02839
   name: Play twice command for pulse command
   info: ''
-  x: 2180
+  x: 2220
   'y': 2280
   wires: []
 - id: 53c6584522e785fb
@@ -3769,7 +3769,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2270
+  x: 2310
   'y': 680
   wires:
     - - 429f3b5b4cb9ae42
@@ -3809,7 +3809,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - cyclemetertotal
+  name: detail - live - cyclemetertotal
   label: ''
   order: 12
   width: '1'
@@ -3829,7 +3829,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1030
+  x: 1060
   'y': 1700
   wires:
     - []
@@ -3869,7 +3869,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - runmetertotal
+  name: detail - live - runmetertotal
   label: ''
   order: 8
   width: '1'
@@ -3889,7 +3889,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1030
+  x: 1050
   'y': 1280
   wires:
     - []
@@ -3929,7 +3929,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - voltage
+  name: detail - live - voltage
   label: ''
   order: 15
   width: '1'
@@ -3949,7 +3949,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1010
+  x: 1040
   'y': 2000
   wires:
     - []
@@ -3989,7 +3989,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - power
+  name: detail - live - power
   label: ''
   order: 16
   width: '1'
@@ -4009,7 +4009,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1000
+  x: 1030
   'y': 2120
   wires:
     - []
@@ -4030,7 +4030,7 @@
   bytopic: all
   topic: topic
   outputs: 2
-  x: 2070
+  x: 2110
   'y': 2240
   wires:
     - - 6e45cf745ff84a30
@@ -4051,7 +4051,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2230
+  x: 2270
   'y': 2240
   wires:
     - - 6e45cf745ff84a30
@@ -4133,7 +4133,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3730
+  x: 3770
   'y': 680
   wires:
     - - 342d09ce7abd6d86
@@ -4159,7 +4159,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1210
+  x: 1250
   'y': 1160
   wires:
     - - e34e804ee07e7ff5
@@ -4424,7 +4424,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 1950
   'y': 440
   wires:
     - - 18d9e8154bc6b5dc
@@ -4449,7 +4449,7 @@
   checkall: 'true'
   repair: false
   outputs: 4
-  x: 1570
+  x: 1610
   'y': 1400
   wires:
     - - 6e45cf745ff84a30
@@ -4472,7 +4472,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1730
+  x: 1770
   'y': 1540
   wires:
     - - b42047a933d30eb6
@@ -4480,11 +4480,11 @@
   type: link out
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: ui - detail - notice
+  name: detail - live - notice
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1855
+  x: 1895
   'y': 1540
   wires: []
 - id: 0bb2abc8ca199d89
@@ -4508,7 +4508,7 @@
   checkall: 'true'
   repair: false
   outputs: 4
-  x: 1550
+  x: 1590
   'y': 2240
   wires:
     - - 15195c5b4fd0c363
@@ -4553,7 +4553,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1370
+  x: 1410
   'y': 1160
   wires:
     - - efc49fb24f8380c7
@@ -4629,7 +4629,7 @@
   type: link in
   z: 852390cb9559e176
   g: fe21b6421a9020d4
-  name: ui - detail - tab
+  name: detail - page
   links:
     - 4a798d15562c1309
     - 575b91a30deac00d
@@ -4731,7 +4731,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1550
+  x: 1590
   'y': 1160
   wires:
     - - 14123420775a7b64
@@ -4972,7 +4972,7 @@
   type: link out
   z: 852390cb9559e176
   g: fe21b6421a9020d4
-  name: ui - detail
+  name: detail - page
   mode: link
   links:
     - b24713f215fa93c7
@@ -5259,7 +5259,7 @@
   type: link in
   z: 852390cb9559e176
   g: 6d125a0d231d55d4
-  name: ui - period
+  name: detail - period
   links:
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
@@ -5441,7 +5441,7 @@
   z: 852390cb9559e176
   g: 6d125a0d231d55d4
   group: 1669fa4fe2f204a0
-  name: ui - period - table - fr
+  name: detail - period - table - fr
   label: ''
   order: 38
   width: 0
@@ -5493,7 +5493,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1980
+  x: 1990
   'y': 4220
   wires:
     - []
@@ -5565,7 +5565,7 @@
   order: 37
   width: 0
   height: 0
-  name: ui - period - title
+  name: detail - period - title
   label: ''
   format: '{{msg.payload}}'
   layout: row-left
@@ -5577,14 +5577,14 @@
   className: ui-title
   value: dictionary.group_detail_period_title
   valueType: msg
-  x: 1960
+  x: 1970
   'y': 4160
   wires: []
 - id: 41f6c771c0995e45
   type: debug
   z: 852390cb9559e176
   g: 6d125a0d231d55d4
-  name: ui - period - list
+  name: detail - period
   active: false
   tosidebar: true
   console: false
@@ -5851,7 +5851,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
-  name: detail - run - chart date
+  name: detail - chart - run date
   label: ''
   order: 31
   chartType: line
@@ -6151,7 +6151,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - load1meter
+  name: detail - live - load1meter
   label: ''
   order: 18
   width: '1'
@@ -6171,7 +6171,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1020
+  x: 1050
   'y': 2480
   wires:
     - []
@@ -6232,7 +6232,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - load5meter
+  name: detail - live - load5meter
   label: ''
   order: 19
   width: '1'
@@ -6252,7 +6252,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1020
+  x: 1050
   'y': 2600
   wires:
     - []
@@ -6313,7 +6313,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - load15meter
+  name: detail - live - load15meter
   label: ''
   order: 20
   width: '1'
@@ -6333,7 +6333,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1020
+  x: 1050
   'y': 2720
   wires:
     - []
@@ -6394,7 +6394,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - memorymeter
+  name: detail - live - memorymeter
   label: ''
   order: 21
   width: '1'
@@ -6414,7 +6414,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1030
+  x: 1060
   'y': 2840
   wires:
     - []
@@ -6475,7 +6475,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - diskmeter
+  name: detail - live - diskmeter
   label: ''
   order: 22
   width: '1'
@@ -6495,7 +6495,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1020
+  x: 1040
   'y': 2960
   wires:
     - []
@@ -6525,7 +6525,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   group: 1669fa4fe2f204a0
-  name: ui - uptimemeter
+  name: detail - live - uptimemeter
   label: ''
   order: 23
   width: '1'
@@ -6545,7 +6545,7 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 1020
+  x: 1050
   'y': 3080
   wires:
     - []
@@ -6958,7 +6958,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1390
+  x: 1430
   'y': 1400
   wires:
     - - 362bbe7c5fe388ac
@@ -6971,7 +6971,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1370
+  x: 1410
   'y': 2240
   wires:
     - - 0bb2abc8ca199d89
@@ -7042,7 +7042,7 @@
   order: 30
   width: 0
   height: 0
-  name: detail- chart - run date title
+  name: detail - chart - run date title
   label: ''
   format: '{{msg.payload}}'
   layout: row-center
@@ -7054,7 +7054,7 @@
   className: ''
   value: dictionary.group_detail_chart_rundate
   valueType: msg
-  x: 4570
+  x: 4580
   'y': 3620
   wires: []
 - id: d67c501a49d7e138
@@ -7086,7 +7086,7 @@
   z: 852390cb9559e176
   g: af7c52c4b0905961
   group: 1669fa4fe2f204a0
-  name: ui - alert - en
+  name: detail - alert - table - en
   label: ''
   order: 36
   width: 0
@@ -7132,7 +7132,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1910
+  x: 1950
   'y': 3980
   wires:
     - []
@@ -7165,7 +7165,7 @@
   z: 852390cb9559e176
   g: 6d125a0d231d55d4
   group: 1669fa4fe2f204a0
-  name: ui - period - table - en
+  name: detail - period - table - en
   label: ''
   order: 39
   width: 0
@@ -7217,7 +7217,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1980
+  x: 1990
   'y': 4280
   wires:
     - []
@@ -7290,7 +7290,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1730
+  x: 1770
   'y': 560
   wires:
     - - 76449486573851a9
@@ -7304,7 +7304,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1730
+  x: 1770
   'y': 620
   wires:
     - - 9e02d03b72ecdf9b
@@ -7318,7 +7318,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1730
+  x: 1770
   'y': 680
   wires:
     - - 8471107ba76a876b
