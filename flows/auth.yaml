@@ -7,7 +7,7 @@
 - id: 90f47fc795048184
   type: group
   z: 27841aa886edd1cd
-  name: ui - auth
+  name: auth - form
   style:
     fill: '#6f2fa0'
     fill-opacity: '0.05'
@@ -36,12 +36,12 @@
     - fe905230c6d73c11
   x: 104
   'y': 279
-  w: 1782
+  w: 1842
   h: 202
 - id: 4ef1cd4a19db42bf
   type: group
   z: 27841aa886edd1cd
-  name: ui - auth
+  name: auth - page
   style:
     fill: '#ff0000'
     fill-opacity: '0.05'
@@ -64,7 +64,7 @@
   z: 27841aa886edd1cd
   g: 90f47fc795048184
   group: 3c952a83cfc8f302
-  name: disconnect
+  name: auth - disconnect
   label: ''
   order: 4
   width: '1'
@@ -90,7 +90,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 770
+  x: 790
   'y': 320
   wires:
     - - f4eee7dbe5621ecf
@@ -102,7 +102,7 @@
   order: 3
   width: '0'
   height: '0'
-  name: user
+  name: auth - user
   label: ''
   format: '{{msg.payload}}'
   layout: row-left
@@ -114,14 +114,14 @@
   className: ''
   value: payload
   valueType: msg
-  x: 750
+  x: 770
   'y': 380
   wires: []
 - id: 9979f236b1c3baac
   type: link in
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: ui - auth
+  name: auth - form
   links:
     - ad1a02bca9e6e97e
   x: 145
@@ -176,7 +176,7 @@
   from: ''
   to: ''
   reg: false
-  x: 970
+  x: 1010
   'y': 320
   wires:
     - - 6ab34b3b3d64905e
@@ -184,18 +184,18 @@
   type: link out
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: ui - auth
+  name: auth - form
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1735
+  x: 1775
   'y': 320
   wires: []
 - id: 8aca2e86c077d885
   type: debug
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: ui - auth
+  name: auth - form
   active: false
   tosidebar: true
   console: false
@@ -204,7 +204,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1780
+  x: 1830
   'y': 380
   wires: []
 - id: f9dc1f7a8155ebef
@@ -231,7 +231,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1450
+  x: 1490
   'y': 380
   wires:
     - - 6ab34b3b3d64905e
@@ -248,7 +248,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1290
+  x: 1330
   'y': 440
   wires:
     - - f9dc1f7a8155ebef
@@ -275,7 +275,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1450
+  x: 1490
   'y': 440
   wires:
     - - 6ab34b3b3d64905e
@@ -297,7 +297,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1610
+  x: 1650
   'y': 320
   wires:
     - - bb71762ba2269b75
@@ -311,7 +311,7 @@
     - fdb028158b218535
   linkType: static
   timeout: '30'
-  x: 1110
+  x: 1150
   'y': 440
   wires:
     - - 09bd0767b56167b6
@@ -319,7 +319,7 @@
   type: link in
   z: 27841aa886edd1cd
   g: 4ef1cd4a19db42bf
-  name: ui - auth - tab
+  name: auth - page
   links:
     - 575b91a30deac00d
     - 7bba6594f41302c2
@@ -349,7 +349,7 @@
   type: link out
   z: 27841aa886edd1cd
   g: 4ef1cd4a19db42bf
-  name: ui - auth
+  name: auth - page
   mode: link
   links:
     - 9979f236b1c3baac
@@ -456,7 +456,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1610
+  x: 1650
   'y': 440
   wires:
     - - 0cf63361a578f787
@@ -464,18 +464,18 @@
   type: link out
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: ui - auth - notice
+  name: auth - form - notice
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1735
+  x: 1775
   'y': 440
   wires: []
 - id: 3361a6a4765bfb11
   type: ui-form
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: form
+  name: auth - form
   group: 3c952a83cfc8f302
   label: ''
   order: 2
@@ -505,7 +505,7 @@
   className: ''
   passthru: false
   dropdownOptions: []
-  x: 750
+  x: 770
   'y': 440
   wires:
     - - 3da3f0a5ca052b2e
@@ -535,7 +535,7 @@
   from: ''
   to: ''
   reg: false
-  x: 920
+  x: 960
   'y': 440
   wires:
     - - c82457de0864e28c
@@ -557,7 +557,7 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: 'dictionary[''auth_group_title'']'
+  value: dictionary.group_auth_title
   valueType: msg
   x: 800
   'y': 200
@@ -587,7 +587,7 @@
     - t: set
       p: ui_update
       pt: msg
-      to: '{''label'':msg.dictionary.auth_button_disconnect}'
+      to: '{''label'':msg.dictionary.group_auth_disconnect}'
       tot: jsonata
   action: ''
   property: ''
@@ -607,7 +607,7 @@
     - t: set
       p: ui_update
       pt: msg
-      to: '{''label'':msg.dictionary.auth_text_user & '': ''}'
+      to: '{''label'':msg.dictionary.group_auth_user & '': ''}'
       tot: jsonata
     - t: set
       p: payload
@@ -632,7 +632,7 @@
     - t: set
       p: ui_update.options
       pt: msg
-      to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.auth_input_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.auth_input_pass,\t        'key':'pass',\t        'required':true\t    }\t]"
+      to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.group_auth_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.group_auth_pass,\t        'key':'pass',\t        'required':true\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
