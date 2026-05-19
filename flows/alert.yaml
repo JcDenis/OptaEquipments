@@ -42,9 +42,10 @@
     - 049aaf716a9eb767
     - b415ac596379ee31
     - 6332d3cf45ae4386
+    - c1fe38bf4a62979c
   x: 104
   'y': 279
-  w: 3812
+  w: 4012
   h: 202
 - id: d509ef3b5101effa
   type: group
@@ -541,7 +542,7 @@
   x: 3550
   'y': 320
   wires:
-    - - 09a816282f3bc371
+    - - c1fe38bf4a62979c
 - id: 09a816282f3bc371
   type: change
   z: 476eb6fc04c55cec
@@ -553,20 +554,30 @@
       pt: msg
       to: payload
       tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: Détail
-      tot: str
     - t: delete
       p: action
       pt: msg
+    - t: set
+      p: hmi.tab
+      pt: msg
+      to: '3'
+      tot: num
+    - t: set
+      p: hmi.page
+      pt: msg
+      to: Détail
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: hmi.page
+      tot: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 3750
+  x: 3950
   'y': 380
   wires:
     - - ed53bb28b7006772
@@ -579,7 +590,7 @@
   links:
     - 00818f8c0686b556
     - 2045a5696769c038
-  x: 3875
+  x: 4075
   'y': 380
   wires: []
 - id: 639c9d2813f61707
@@ -825,7 +836,7 @@
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
   group: ab8ef19cd1ae9d09
-  name: ui - alert - table
+  name: ui - alert - table - en
   label: ''
   order: 4
   width: 0
@@ -877,10 +888,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 3540
+  x: 3550
   'y': 380
   wires:
-    - - 09a816282f3bc371
+    - - c1fe38bf4a62979c
 - id: 049aaf716a9eb767
   type: link call
   z: 476eb6fc04c55cec
@@ -1039,3 +1050,16 @@
   wires:
     - - 2f959ccef56b1836
       - 186467962929c0f8
+- id: c1fe38bf4a62979c
+  type: link call
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 3770
+  'y': 380
+  wires:
+    - - 09a816282f3bc371
