@@ -349,10 +349,12 @@
     - 01242cef4de43778
     - f42bd58edc8c3b68
     - 579b7304f4b11a0f
+    - d90814f6a6612373
+    - dcff637adac201c1
   x: 104
-  'y': 3099
-  w: 1942
-  h: 202
+  'y': 3159
+  w: 2302
+  h: 142
 - id: fc6029b7d49d1e93
   type: group
   z: f6f2187d.f17ca8
@@ -845,6 +847,7 @@
     - d55041fdf28a3f36
     - 2045a5696769c038
     - 05107d400a502297
+    - 53845d5ac3a352d5
   x: 995
   'y': 140
   wires: []
@@ -874,6 +877,11 @@
       pt: global
       to: ''
       tot: str
+    - t: set
+      p: dictionary
+      pt: msg
+      to: "{\t    'lang':''\t}"
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -5821,11 +5829,6 @@
       pt: msg
       to: "{\t    'tab':99,\t    'page':'',\t    'id':'',\t    'login':'',\t    'level':'',\t    'lang':'fr'\t}"
       tot: jsonata
-    - t: set
-      p: dictionary
-      pt: msg
-      to: "{\t    'lang':'en',\t    'common_button_activate':'Activate',\t    'common_button_deactivate':'Deactivate',\t    'common_button_delete':'Delete',\t    'common_input_plant':'Select a plant',\t    'common_notice_loginfail':'Wrong login ar password',\t    'common_notice_levelfail':'You are not authorized to do this action',\t    'common_notice_nodata':'No data available',\t    'common_notice_linefail':'Non empty line',\t    'common_notice_line_success':'Line successfully deleted',\t    'common_notice_equipmentfail':'Non empty equipment',\t    'common_notice_equipmentsuccess':'Equipment successfully deleted',\t    'common_notice_devicefail':'Non empty device',\t    'common_notice_devicesuccess':'Device successfully deleted',\t    'auth_group_title':'Authentication',\t    'auth_button_disconnect':'Disconnect',\t    'auth_text_user':'You are connected as',\t    'auth_input_login':'User login',\t    'auth_input_pass':'User password',\t    'alert_group_title':'Alerts',\t    'group_period_title':'Programs',\t    'group_detail_title':'Details',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Run',\t    'group_detail_live_runreset':'Reset hour counter',\t    'group_detail_live_runmeter':'Partial hours',\t    'group_detail_live_runmetertotal':'Total hours',\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Partial cycles',\t    'group_detail_live_cyclemetertotal':'Total cycles',\t    'group_detail_live_cyclereset':'Reset cycles counter',\t    'group_detail_live_heat':'Heat',\t    'group_detail_live_heatswitchon':'Switch on heat',\t    'group_detail_live_heatswitchoff':'Switch off heat',\t    'group_detail_live_heattoggle':'Revert heat',\t    'group_detail_live_voltage':'Voltage',\t    'group_detail_live_power':'Power',\t    'group_detail_live_load1meter':'1m load',\t    'group_detail_live_load5meter':'5m load',\t    'group_detail_live_load15meter':'15m load',\t    'group_detail_live_memorymeter':'Memory usage',\t    'group_detail_live_diskmeter':'Disk usage',\t    'group_detail_live_uptimemeter':'Uptime',\t    'group_detail_chart_title':'Graphic',\t    'group_detail_chart_cycledate':'',\t    'group_detail_chart_cyclehour':'',\t    'group_detail_chart_rundate':'',\t    'group_detail_alert_title':'Alert',\t    'group_detail_period_title':'Program',\t    'group_list_title':'Lists',\t    'group_list_records':'Total records:',\t    'group_tree_title':'Tree structure',\t    'group_user_list_title':'List users',\t    'group_user_add_title':'Add user',\t    'group_user_edit_title':'Edit user',\t    'group_user_backup_title':'Backup users',\t    'group_system_tree_title':'Tree structure',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Opta firmware'\t}"
-      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -5905,7 +5908,7 @@
   'y': 3260
   wires:
     - - 3e3387fe940a6901
-    - - f42bd58edc8c3b68
+    - - dcff637adac201c1
 - id: 7cc9cd3f820e4210
   type: switch
   z: f6f2187d.f17ca8
@@ -5925,7 +5928,7 @@
   'y': 3200
   wires:
     - - 2a7848ea6ca1cc86
-    - - f42bd58edc8c3b68
+    - - dcff637adac201c1
 - id: 2a7848ea6ca1cc86
   type: change
   z: f6f2187d.f17ca8
@@ -5951,9 +5954,9 @@
   to: ''
   reg: false
   x: 1230
-  'y': 3140
+  'y': 3200
   wires:
-    - - f42bd58edc8c3b68
+    - - dcff637adac201c1
 - id: 3e3387fe940a6901
   type: change
   z: f6f2187d.f17ca8
@@ -5981,7 +5984,7 @@
   name: kernel - hmi
   mode: return
   links: []
-  x: 1875
+  x: 2235
   'y': 3260
   wires: []
 - id: 07be198711177f06
@@ -6039,7 +6042,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1750
+  x: 2110
   'y': 3260
   wires:
     - - 7214e26c1a5974bd
@@ -6057,7 +6060,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1930
+  x: 2290
   'y': 3200
   wires: []
 - id: f42bd58edc8c3b68
@@ -6075,8 +6078,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1390
-  'y': 3260
+  x: 1750
+  'y': 3200
   wires:
     - - 579b7304f4b11a0f
     - - bc7921fbe0a00154
@@ -6087,18 +6090,30 @@
   name: dictionary fr
   rules:
     - t: set
-      p: lang_fr
+      p: dictionary
       pt: msg
-      to: "{\t    'lang':'fr',\t    'common_button_activate':'Activer',\t    'common_button_deactivate':'Désactiver',\t    'common_button_delete':'Supprimer',\t    'common_input_plant':'Sélectionner une usine',\t    'common_notice_loginfail':'Mauvais identifiant ou mot de passe',\t    'common_notice_levelfail':\"Vous n'êtes pas autorisé à effectuer cette action\",\t    'common_notice_nodata':'Aucune donnée à afficher',\t    'common_notice_linefail':\"Cette ligne n'est pas vide\",\t    'common_notice_line_success':'Ligne supprimée avec succès',\t    'common_notice_equipmentfail':\"Cette équipement n'est pas vide\",\t    'common_notice_equipmentsuccess':'Equipement supprimer avec succès',\t    'common_notice_devicefail':\"Ce materiel n'est pas vide\",\t    'common_notice_devicesuccess':'Materiel effacé avec succès',\t    'auth_group_title':'Authentification',\t    'auth_button_disconnect':'Se déconnecter',\t    'auth_text_user':'Vous êtes connecté en tant que',\t    'auth_input_login':'Identifiant',\t    'auth_input_pass':'Mot de passe',\t    'alert_group_title':'Maintenances',\t    'group_period_title':'Programmes',\t    'group_detail_title':'Détails',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Fonctionnement',\t    'group_detail_live_runmeter':'Heures partieles',\t    'group_detail_live_runmetertotal':'Herures totales',\t    'group_detail_live_runreset':\"RAZ compteur d'heures\",\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Cycles partiels',\t    'group_detail_live_cyclemetertotal':'Cycles totals',\t    'group_detail_live_cyclereset':'RAZ compteur de cycles',\t    'group_detail_live_heat':'Chauffe',\t    'group_detail_live_heatswitchon':'Activer la chauffe',\t    'group_detail_live_heatswitchoff':'Désactiver la chauffe',\t    'group_detail_live_heattoggle':'Inverser la chauffe',\t    'group_detail_live_voltage':'Tension',\t    'group_detail_live_power':'Puissance',\t    'group_detail_live_load1meter':'Charge à 1m',\t    'group_detail_live_load5meter':'Charge à 5m',\t    'group_detail_live_load15meter':'Charge à 15m',\t    'group_detail_live_memorymeter':'Utilisation mémoire',\t    'group_detail_live_diskmeter':'Utilisation disque',\t    'group_detail_live_uptimemeter':'Durée',\t    'group_detail_chart_title':'Suivi',\t    'group_detail_chart_cycledate':'Cadence moyenne suivant résolution (en cycles par minute)',\t    'group_detail_chart_cyclehour':'Cadence moyenne par heure (en cycles par minute)',\t    'group_detail_chart_rundate':'Etat de fonctionnement moyen suivant résolution',\t    'group_detail_alert_title':'Alertes',\t    'group_detail_period_title':'Programmes',\t    'group_list_title':'Listes',\t    'group_tree_title':'Arborescence',\t    'group_user_list_title':'Liste des utilisateurs',\t    'group_list_records':\"Nombre total d'enregistrements: \",\t    'group_user_add_title':'Ajouter un utilisateur',\t    'group_user_edit_title':'Modifier un utilisateur',\t    'group_user_backup_title':'Sauvegarder les utilisateurs',\t    'group_system_tree_title':'Arborescence',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Firmware Opta'\t}"
+      to: "$merge([msg.dictionary, {\t    'lang':'fr',\t    'common_button_activate':'Activer',\t    'common_button_deactivate':'Désactiver',\t    'common_button_delete':'Supprimer',\t    'common_input_action':'Sélectionner une action',\t    'common_input_plant':'Sélectionner une usine',\t    'common_input_line':'Sélectionner une ligne',\t    'common_input_equipment':'Sélectionner un équipement',\t    'common_option_plants':'Usines',\t    'common_option_lines':'Lignes',\t    'common_option_equipments':'Equipements',\t    'common_option_devices':'Matériels',\t    'common_option_components':'Composants',\t    'common_option_alerts':'Alertes',\t    'common_option_teams':'Equipes',\t    'common_option_day':'Changement de jour',\t    'common_notice_loginfail':'Mauvais identifiant ou mot de passe',\t    'common_notice_levelfail':\"Vous n'êtes pas autorisé à effectuer cette action\",\t    'common_notice_nodata':'Aucune donnée à afficher',\t    'common_notice_plantexists':'Cette usine existe déjà',\t    'common_notice_linefail':\"Cette ligne n'est pas vide\",\t    'common_notice_line_success':'Ligne supprimée avec succès',\t    'common_notice_equipmentfail':\"Cette équipement n'est pas vide\",\t    'common_notice_equipmentsuccess':'Equipement supprimer avec succès',\t    'common_notice_devicefail':\"Ce materiel n'est pas vide\",\t    'common_notice_devicesuccess':'Materiel effacé avec succès',\t    'auth_group_title':'Authentification',\t    'auth_button_disconnect':'Se déconnecter',\t    'auth_text_user':'Vous êtes connecté en tant que',\t    'auth_input_login':'Identifiant',\t    'auth_input_pass':'Mot de passe',\t    'alert_group_title':'Maintenances',\t    'group_period_title':'Programmes',\t    'group_detail_title':'Détails',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Fonctionnement',\t    'group_detail_live_runmeter':'Heures partieles',\t    'group_detail_live_runmetertotal':'Herures totales',\t    'group_detail_live_runreset':\"RAZ compteur d'heures\",\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Cycles partiels',\t    'group_detail_live_cyclemetertotal':'Cycles totals',\t    'group_detail_live_cyclereset':'RAZ compteur de cycles',\t    'group_detail_live_heat':'Chauffe',\t    'group_detail_live_heatswitchon':'Activer la chauffe',\t    'group_detail_live_heatswitchoff':'Désactiver la chauffe',\t    'group_detail_live_heattoggle':'Inverser la chauffe',\t    'group_detail_live_voltage':'Tension',\t    'group_detail_live_power':'Puissance',\t    'group_detail_live_load1meter':'Charge à 1m',\t    'group_detail_live_load5meter':'Charge à 5m',\t    'group_detail_live_load15meter':'Charge à 15m',\t    'group_detail_live_memorymeter':'Utilisation mémoire',\t    'group_detail_live_diskmeter':'Utilisation disque',\t    'group_detail_live_uptimemeter':'Durée',\t    'group_detail_chart_title':'Suivi',\t    'group_detail_chart_cycledate':'Cadence moyenne suivant résolution (en cycles par minute)',\t    'group_detail_chart_cyclehour':'Cadence moyenne par heure (en cycles par minute)',\t    'group_detail_chart_rundate':'Etat de fonctionnement moyen suivant résolution',\t    'group_detail_alert_title':'Alertes',\t    'group_detail_period_title':'Programmes',\t    'group_list_title':'Listes',\t    'group_list_select':'Sélectionner un type de liste',\t    'group_list_records':\"Nombre total d'enregistrements: \",\t    'group_tree_title':'Arborescence',\t    'group_tree_plant_add':'Ajouter une usine',\t    'group_tree_plant_delete':'Supprimer une usine',\t    'group_tree_plant_edit':'Modifier une usine',\t    'group_tree_line_add':'Ajouter une ligne',\t    'group_tree_line_delete':'Supprimer une ligne',\t    'group_tree_line_edit':'Modifier une ligne',\t    'group_user_list_title':'Liste des utilisateurs',\t    'group_user_add_title':'Ajouter un utilisateur',\t    'group_user_edit_title':'Modifier un utilisateur',\t    'group_user_backup_title':'Sauvegarder les utilisateurs',\t    'group_system_tree_title':'Arborescence',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Firmware Opta'\t}])"
       tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1930
+  'y': 3200
+  wires:
+    - - bc7921fbe0a00154
+- id: d90814f6a6612373
+  type: change
+  z: f6f2187d.f17ca8
+  g: 8cc9a474d6cd27ec
+  name: dictionary en
+  rules:
     - t: set
       p: dictionary
       pt: msg
-      to: '$merge([msg.dictionary,msg.lang_fr])'
+      to: "{\t    'lang':'en',\t    'common_button_activate':'Activate',\t    'common_button_deactivate':'Deactivate',\t    'common_button_delete':'Delete',\t    'common_input_action':'Select an action',\t    'common_input_plant':'Select a plant',\t    'common_input_line':'Select a line',\t    'common_input_equipment':'Select a equipment',\t    'common_option_plants':'Plants',\t    'common_option_lines':'Lines',\t    'common_option_equipments':'Equipments',\t    'common_option_devices':'Devices',\t    'common_option_components':'Components',\t    'common_option_alerts':'Alerts',\t    'common_option_teams':'Teams',\t    'common_option_day':'Day change',\t    'common_notice_loginfail':'Wrong login ar password',\t    'common_notice_levelfail':'You are not authorized to do this action',\t    'common_notice_nodata':'No data available',\t    'common_notice_plantexists':'Plant already exists',\t    'common_notice_linefail':'Non empty line',\t    'common_notice_line_success':'Line successfully deleted',\t    'common_notice_equipmentfail':'Non empty equipment',\t    'common_notice_equipmentsuccess':'Equipment successfully deleted',\t    'common_notice_devicefail':'Non empty device',\t    'common_notice_devicesuccess':'Device successfully deleted',\t    'auth_group_title':'Authentication',\t    'auth_button_disconnect':'Disconnect',\t    'auth_text_user':'You are connected as',\t    'auth_input_login':'User login',\t    'auth_input_pass':'User password',\t    'alert_group_title':'Alerts',\t    'group_period_title':'Programs',\t    'group_detail_title':'Details',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Run',\t    'group_detail_live_runreset':'Reset hour counter',\t    'group_detail_live_runmeter':'Partial hours',\t    'group_detail_live_runmetertotal':'Total hours',\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Partial cycles',\t    'group_detail_live_cyclemetertotal':'Total cycles',\t    'group_detail_live_cyclereset':'Reset cycles counter',\t    'group_detail_live_heat':'Heat',\t    'group_detail_live_heatswitchon':'Switch on heat',\t    'group_detail_live_heatswitchoff':'Switch off heat',\t    'group_detail_live_heattoggle':'Revert heat',\t    'group_detail_live_voltage':'Voltage',\t    'group_detail_live_power':'Power',\t    'group_detail_live_load1meter':'1m load',\t    'group_detail_live_load5meter':'5m load',\t    'group_detail_live_load15meter':'15m load',\t    'group_detail_live_memorymeter':'Memory usage',\t    'group_detail_live_diskmeter':'Disk usage',\t    'group_detail_live_uptimemeter':'Uptime',\t    'group_detail_chart_title':'Graphic',\t    'group_detail_chart_cycledate':'',\t    'group_detail_chart_cyclehour':'',\t    'group_detail_chart_rundate':'',\t    'group_detail_alert_title':'Alert',\t    'group_detail_period_title':'Program',\t    'group_list_title':'Lists',\t    'group_list_select':'Select a list type',\t    'group_list_records':'Total records:',\t    'group_tree_title':'Tree structure',\t    'group_tree_plant_add':'Add a plant',\t    'group_tree_plant_delete':'Delete a plant',\t    'group_tree_plant_edit':'Edit a plant',\t    'group_tree_line_add':'Add a line',\t    'group_tree_line_delete':'Delete a line',\t    'group_tree_line_edit':'Edit a line',\t    'group_user_list_title':'List users',\t    'group_user_add_title':'Add user',\t    'group_user_edit_title':'Edit user',\t    'group_user_backup_title':'Backup users',\t    'group_system_tree_title':'Tree structure',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Opta firmware'\t}"
       tot: jsonata
-    - t: delete
-      p: lang_fr
-      pt: msg
   action: ''
   property: ''
   from: ''
@@ -6107,4 +6122,24 @@
   x: 1570
   'y': 3200
   wires:
+    - - f42bd58edc8c3b68
+- id: dcff637adac201c1
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 8cc9a474d6cd27ec
+  name: lang
+  property: dictionary.lang
+  propertyType: msg
+  rules:
+    - t: neq
+      v: hmi.lang
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1390
+  'y': 3260
+  wires:
+    - - d90814f6a6612373
     - - bc7921fbe0a00154

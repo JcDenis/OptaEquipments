@@ -82,9 +82,11 @@
     - a7dc44b1e2b34553
     - 601ec973d08a23a0
     - dc496ef3eea5ccb5
+    - 1d1268fa926626b5
+    - 47f48c881c76c867
   x: 104
   'y': 279
-  w: 2012
+  w: 2352
   h: 202
 - id: e86385b18b9154e7
   type: group
@@ -330,7 +332,7 @@
   type: change
   z: e97c6f12735a13c1
   g: 1c2d5f046ccecc9d
-  name: options
+  name: option
   rules:
     - t: set
       p: topic
@@ -343,11 +345,6 @@
       to: ''
       tot: str
     - t: set
-      p: options
-      pt: msg
-      to: "[\t    {\t        'label':'Lignes',\t        'value':'line'\t    },\t    {\t        'label':'Equipements',\t        'value':'equipment'\t    },\t    {\t        'label':'Alertes',\t        'value':'alert'\t    },\t    {\t        'label':'Materiels',\t        'value':'device'\t    },\t    {\t        'label':'Composants',\t        'value':'componant'\t    }\t]"
-      tot: jsonata
-    - t: set
       p: class
       pt: msg
       to: ''
@@ -357,12 +354,22 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: options
+      pt: msg
+      to: "[\t    {\t        'label':msg.dictionary.common_option_lines,\t        'value':'line'\t    },\t    {\t        'label':msg.dictionary.common_option_equipments,\t        'value':'equipment'\t    },\t    {\t        'label':msg.dictionary.common_option_alerts,\t        'value':'alert'\t    },\t    {\t        'label':msg.dictionary.common_option_devices,\t        'value':'device'\t    },\t    {\t        'label':msg.dictionary.common_option_components,\t        'value':'componant'\t    }\t]"
+      tot: jsonata
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_list_select
+      tot: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1360
+  x: 1710
   'y': 380
   wires:
     - - 408a810a7266e6fe
@@ -372,7 +379,7 @@
   g: 1c2d5f046ccecc9d
   group: c605809a8fe63a3b
   name: ui - list - select
-  label: Sélectionner un type de liste
+  label: ''
   tooltip: ''
   order: 3
   width: 0
@@ -388,7 +395,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1560
+  x: 1900
   'y': 380
   wires:
     - - 968b8e399f39f1a5
@@ -423,7 +430,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1750
+  x: 2090
   'y': 380
   wires:
     - - dc496ef3eea5ccb5
@@ -458,7 +465,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1350
+  x: 1710
   'y': 320
   wires:
     - - 408a810a7266e6fe
@@ -475,7 +482,7 @@
     - 30d9b3b967fbbc14
     - baa9eb973e71311f
     - f66528f67c8d7cfd
-  x: 2075
+  x: 2415
   'y': 320
   wires: []
 - id: c0261e8841790dd0
@@ -2038,7 +2045,7 @@
   x: 630
   'y': 380
   wires:
-    - - d6b390ca9da4bedf
+    - - 1d1268fa926626b5
 - id: 607e3e4e380d8497
   type: change
   z: e97c6f12735a13c1
@@ -2046,12 +2053,12 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
       pt: flow
       to: payload
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]list'
+      p: '#:(memoryOnly)::form[msg.hmi.id]list'
       pt: flow
       to: ''
       tot: str
@@ -2060,7 +2067,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1190
+  x: 1550
   'y': 380
   wires:
     - - 1b9a457d31b5df20
@@ -2079,17 +2086,17 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1030
+  x: 1190
   'y': 380
   wires:
-    - - 607e3e4e380d8497
+    - - 47f48c881c76c867
 - id: d6b390ca9da4bedf
   type: ui-dropdown
   z: e97c6f12735a13c1
   g: 1c2d5f046ccecc9d
   group: c605809a8fe63a3b
   name: ui - select - plant
-  label: Sélectionner une usine
+  label: ''
   tooltip: ''
   order: 2
   width: 0
@@ -2105,7 +2112,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 840
+  x: 1000
   'y': 380
   wires:
     - - bbc9788e628f814f
@@ -3745,7 +3752,7 @@
   from: ''
   to: ''
   reg: false
-  x: 650
+  x: 810
   'y': 320
   wires:
     - - 1b9a457d31b5df20
@@ -3789,7 +3796,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1190
+  x: 1550
   'y': 440
   wires:
     - - 1b9a457d31b5df20
@@ -4490,7 +4497,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1930
+  x: 2270
   'y': 380
   wires:
     - - 1b3e234bed8047a0
@@ -5104,3 +5111,36 @@
   'y': 1940
   wires:
     - - ccc686e3895410e7
+- id: 1d1268fa926626b5
+  type: change
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.common_input_plant
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 810
+  'y': 380
+  wires:
+    - - d6b390ca9da4bedf
+- id: 47f48c881c76c867
+  type: link call
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 1370
+  'y': 380
+  wires:
+    - - 607e3e4e380d8497
