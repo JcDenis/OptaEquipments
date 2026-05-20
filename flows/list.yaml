@@ -357,13 +357,13 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'label':msg.dictionary.common_option_lines,\t        'value':'line'\t    },\t    {\t        'label':msg.dictionary.common_option_equipments,\t        'value':'equipment'\t    },\t    {\t        'label':msg.dictionary.common_option_alerts,\t        'value':'alert'\t    },\t    {\t        'label':msg.dictionary.common_option_devices,\t        'value':'device'\t    },\t    {\t        'label':msg.dictionary.common_option_components,\t        'value':'componant'\t    }\t]"
+      to: "[\t    {\t        'label':msg.dictionary.common_name_lines,\t        'value':'line'\t    },\t    {\t        'label':msg.dictionary.common_name_equipments,\t        'value':'equipment'\t    },\t    {\t        'label':msg.dictionary.common_name_alerts,\t        'value':'alert'\t    },\t    {\t        'label':msg.dictionary.common_name_devices,\t        'value':'device'\t    },\t    {\t        'label':msg.dictionary.common_name_components,\t        'value':'componant'\t    }\t]"
       tot: jsonata
     - t: set
-      p: ui_update.label
+      p: ui_update
       pt: msg
-      to: dictionary.group_list_select
-      tot: msg
+      to: '{''label'':msg.dictionary.common_select_list}'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -622,7 +622,7 @@
     - t: set
       p: row.delete
       pt: msg
-      to: dictionary.common_button_delete
+      to: dictionary.common_action_delete
       tot: msg
   action: ''
   property: ''
@@ -941,7 +941,7 @@
     - t: set
       p: row.delete
       pt: msg
-      to: dictionary.common_button_delete
+      to: dictionary.common_action_delete
       tot: msg
   action: ''
   property: ''
@@ -1590,7 +1590,7 @@
     - t: set
       p: row.delete
       pt: msg
-      to: dictionary.common_button_delete
+      to: dictionary.common_action_delete
       tot: msg
     - t: delete
       p: split
@@ -3171,7 +3171,7 @@
     - t: set
       p: row.delete
       pt: msg
-      to: dictionary.common_button_delete
+      to: dictionary.common_action_delete
       tot: msg
     - t: set
       p: row.equipment_count
@@ -3834,7 +3834,7 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_levelfail
+      to: dictionary.common_notice_level_fail
       tot: msg
     - t: set
       p: list
@@ -3883,7 +3883,7 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_levelfail
+      to: dictionary.common_notice_level_fail
       tot: msg
     - t: set
       p: list
@@ -3928,7 +3928,7 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_levelfail
+      to: dictionary.common_notice_level_fail
       tot: msg
     - t: set
       p: list
@@ -3997,7 +3997,7 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_levelfail
+      to: dictionary.common_notice_level_fail
       tot: msg
     - t: set
       p: list
@@ -5120,7 +5120,7 @@
     - t: set
       p: ui_update.label
       pt: msg
-      to: dictionary.common_input_plant
+      to: dictionary.common_select_plant
       tot: msg
   action: ''
   property: ''
