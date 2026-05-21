@@ -1907,14 +1907,14 @@
   name: prepare
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]date'
+      p: '#:(memoryOnly)::form[msg.hmi.id]date'
       pt: flow
       to: payload
       tot: msg
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]resolution'
+      to: '#:(memoryOnly)::form[msg.hmi.id]resolution'
       tot: flow
     - t: set
       p: class
@@ -1999,7 +1999,7 @@
   name: prepare
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]resolution'
+      p: '#:(memoryOnly)::form[msg.hmi.id]resolution'
       pt: flow
       to: payload
       tot: msg
@@ -2011,12 +2011,12 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]date'
+      to: '#:(memoryOnly)::form[msg.hmi.id]date'
       tot: flow
     - t: set
       p: form
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]'
+      to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
     - t: set
       p: class
@@ -2626,7 +2626,7 @@
         #:(memoryOnly)::hours[msg.hmi.id][msg.form.equipment][msg.form.component]
       tot: flow
     - t: delete
-      p: '#:(memoryOnly)::hours[msg._client.socketId]'
+      p: '#:(memoryOnly)::hours[msg.hmi.id]'
       pt: flow
   action: ''
   property: ''
@@ -4152,7 +4152,7 @@
     - t: set
       p: form_equipment
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      to: '#:(memoryOnly)::form[msg.hmi.id]equipment'
       tot: flow
   action: ''
   property: ''
@@ -4548,7 +4548,7 @@
   propertyType: flow
   rules:
     - t: hask
-      v: _client.socketId
+      v: hmi.id
       vt: msg
   checkall: 'false'
   repair: false
@@ -4835,12 +4835,10 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   name: client
-  property: _client
+  property: hmi.id
   propertyType: msg
   rules:
-    - t: hask
-      v: socketId
-      vt: str
+    - t: nempty
   checkall: 'false'
   repair: false
   outputs: 1
@@ -6640,7 +6638,7 @@
     - t: set
       p: equipment
       pt: msg
-      to: '#:(memoryOnly)::form[msg._client.socketId]equipment'
+      to: '#:(memoryOnly)::form[msg.hmi.id]equipment'
       tot: flow
   action: ''
   property: ''

@@ -2688,7 +2688,7 @@
   z: 64ce08af468b8197
   g: 7e8f13051c405b1e
   name: action
-  property: '#:(memoryOnly)::form[msg._client.socketId]action'
+  property: '#:(memoryOnly)::form[msg.hmi.id]action'
   propertyType: flow
   rules:
     - t: eq
@@ -6361,7 +6361,7 @@
       p: device
       pt: msg
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]'
+      p: '#:(memoryOnly)::form[msg.hmi.id]'
       pt: flow
       to: '{}'
       tot: jsonata
@@ -8033,7 +8033,7 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg._client.socketId]plant'
+      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
       pt: flow
       to: payload
       tot: msg
@@ -11537,8 +11537,8 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   name: level
-  property: '#:(memoryOnly)::user[msg._client.socketId][''level'']'
-  propertyType: global
+  property: hmi.level
+  propertyType: msg
   rules:
     - t: eq
       v: admin

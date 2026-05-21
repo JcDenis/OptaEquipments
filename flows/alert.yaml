@@ -396,10 +396,10 @@
     - t: set
       p: rows
       pt: msg
-      to: '#:(memoryOnly)::rows[msg._client.socketId]'
+      to: '#:(memoryOnly)::rows[msg.hmi.id]'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::rows[msg._client.socketId]'
+      p: '#:(memoryOnly)::rows[msg.hmi.id]'
       pt: flow
       to: '$append(msg.rows,msg.row)'
       tot: jsonata
