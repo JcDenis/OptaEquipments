@@ -101,9 +101,11 @@
     - 85434b774007dc4d
     - ae02a3d5cbedb090
     - 0e5010c69d730e92
+    - 85371bc10c4ae5b2
+    - 421bd90f81361dfe
   x: 104
   'y': 279
-  w: 2072
+  w: 2112
   h: 262
 - id: 4c2194718c72648c
   type: group
@@ -293,7 +295,7 @@
   z: adb48ef35d9453c0
   g: a69df92e27bcc577
   group: 71bafeee3e662114
-  name: user - list - table
+  name: user - list - table - fr
   label: ''
   order: 2
   width: 0
@@ -339,7 +341,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 480
+  x: 490
   'y': 440
   wires:
     - - 6409d1cc419c1f86
@@ -418,8 +420,8 @@
     - t: set
       p: row.delete
       pt: msg
-      to: Supprimer
-      tot: str
+      to: dictionary.common_action_delete
+      tot: msg
     - t: set
       p: payload
       pt: msg
@@ -493,7 +495,7 @@
   x: 1090
   'y': 380
   wires:
-    - - 919f4eb75613e7ab
+    - - 85371bc10c4ae5b2
 - id: 6409d1cc419c1f86
   type: switch
   z: adb48ef35d9453c0
@@ -508,7 +510,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 670
+  x: 710
   'y': 440
   wires:
     - - 0e5010c69d730e92
@@ -526,7 +528,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1030
+  x: 1070
   'y': 440
   wires:
     - - 25580183784dfa5c
@@ -544,7 +546,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1200
+  x: 1240
   'y': 440
   wires:
     - - 80656215bea3ab16
@@ -563,7 +565,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1530
+  x: 1570
   'y': 440
   wires:
     - - 99a97dd1e4c3625e
@@ -585,7 +587,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1690
+  x: 1730
   'y': 320
   wires:
     - - 3b43519fe264fe49
@@ -603,7 +605,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1690
+  x: 1730
   'y': 440
   wires:
     - - d6994fcb76afc998
@@ -625,7 +627,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1690
+  x: 1730
   'y': 380
   wires:
     - - 3b43519fe264fe49
@@ -1378,7 +1380,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1370
+  x: 1410
   'y': 440
   wires:
     - - 1e88c6402adc3cda
@@ -1455,6 +1457,7 @@
     - 6b2108622867d8a4
     - b9f317153008cccc
     - 0a619717ada5bdb5
+    - ae02a3d5cbedb090
   x: 145
   'y': 320
   wires:
@@ -1477,6 +1480,7 @@
   wires:
     - - bca8c8857b4f9717
       - 919f4eb75613e7ab
+      - 421bd90f81361dfe
     - - bca8c8857b4f9717
       - 4b6e2b530da33965
 - id: d6994fcb76afc998
@@ -1495,7 +1499,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1850
+  x: 1890
   'y': 380
   wires:
     - - 0de1e913fe6948a9
@@ -1507,7 +1511,7 @@
   mode: link
   links:
     - 0502ea2e9ef0f780
-  x: 1975
+  x: 2015
   'y': 380
   wires: []
 - id: 3b43519fe264fe49
@@ -1518,7 +1522,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1815
+  x: 1855
   'y': 320
   wires: []
 - id: 06ebae5ae27efbe3
@@ -1534,7 +1538,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1860
+  x: 1900
   'y': 500
   wires: []
 - id: dddf3a6d9709b751
@@ -1554,7 +1558,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1850
+  x: 1890
   'y': 440
   wires:
     - - 85434b774007dc4d
@@ -1580,7 +1584,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2010
+  x: 2050
   'y': 440
   wires:
     - - ae02a3d5cbedb090
@@ -1592,7 +1596,8 @@
   mode: link
   links:
     - b75938c74c41ca5e
-  x: 2135
+    - 30571b6d70631747
+  x: 2175
   'y': 440
   wires: []
 - id: ef2a2e8f65ff707e
@@ -1636,7 +1641,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 850
+  x: 890
   'y': 440
   wires:
     - - f8971e41b64f7ff4
@@ -2271,7 +2276,7 @@
     - t: set
       p: ui_update.options
       pt: msg
-      to: "[\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_level,\t        'key':'level',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_lang,\t        'key':'lang',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_plant,\t        'key':'plant',\t        'required':false\t    }\t]"
+      to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_level,\t        'key':'level',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_lang,\t        'key':'lang',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_plant,\t        'key':'plant',\t        'required':false\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -2340,3 +2345,78 @@
   'y': 80
   wires:
     - - e1988f51d9726446
+- id: 85371bc10c4ae5b2
+  type: switch
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  name: lang
+  property: hmi.lang
+  propertyType: msg
+  rules:
+    - t: eq
+      v: fr
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 270
+  'y': 440
+  wires:
+    - - 919f4eb75613e7ab
+    - - 421bd90f81361dfe
+- id: 421bd90f81361dfe
+  type: ui-table
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  group: 71bafeee3e662114
+  name: user - list - table - en
+  label: ''
+  order: 3
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Login
+      key: login
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Level
+      key: level_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Plant
+      key: plant_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Language
+      key: lang
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 500
+  'y': 500
+  wires:
+    - - 6409d1cc419c1f86
