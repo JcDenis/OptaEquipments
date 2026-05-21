@@ -1257,8 +1257,8 @@
     - t: set
       p: row.component_name
       pt: msg
-      to: '#:(memoryOnly)::describe.component[msg.row.component]'
-      tot: global
+      to: 'dictionary.option_component[msg.row.component]'
+      tot: msg
     - t: set
       p: row.component_full
       pt: msg
@@ -1545,8 +1545,8 @@
     - t: set
       p: row.component_name
       pt: msg
-      to: '#:(memoryOnly)::describe.component[msg.row.component]'
-      tot: global
+      to: 'dictionary.option_component[msg.row.component]'
+      tot: msg
     - t: set
       p: row.component_full
       pt: msg
@@ -4392,8 +4392,13 @@
   type: change
   z: e97c6f12735a13c1
   g: 2c0f9b39f8c7dd73
-  name: '-'
-  rules: []
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -4435,11 +4440,6 @@
   name: hide
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
       p: class
       pt: msg
       to: remove
@@ -4464,11 +4464,6 @@
   g: 2c0f9b39f8c7dd73
   name: show
   rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
     - t: set
       p: class
       pt: msg

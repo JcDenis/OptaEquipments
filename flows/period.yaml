@@ -384,8 +384,8 @@
     - t: set
       p: periods
       pt: msg
-      to: '#:(memoryOnly)::describe.period'
-      tot: global
+      to: '{''m'':0,''a'':0,''n'':0,''d'':0,''s'':0}'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -583,9 +583,9 @@
       to: 'periods[''n'']'
       tot: msg
     - t: set
-      p: row.j
+      p: row.d
       pt: msg
-      to: 'periods[''j'']'
+      to: 'periods[''d'']'
       tot: msg
     - t: set
       p: row.s
@@ -790,7 +790,7 @@
       to: '0'
       tot: num
     - t: set
-      p: row.j
+      p: row.d
       pt: msg
       to: '0'
       tot: num
@@ -866,7 +866,7 @@
       width: ''
       align: center
     - title: Journée
-      key: j
+      key: d
       keyType: key
       type: button
       width: ''
@@ -948,7 +948,7 @@
     - t: set
       p: kernel.value
       pt: msg
-      to: "(msg.column='m'?(msg.payload.m?'':'m'):msg.payload.m?'m':'') &\t(msg.column='a'?(msg.payload.a?'':'a'):msg.payload.a?'a':'') &\t(msg.column='n'?(msg.payload.n?'':'n'):msg.payload.n?'n':'') &\t(msg.column='j'?(msg.payload.j?'':'j'):msg.payload.j?'j':'') &\t(msg.column='s'?(msg.payload.s?'':'s'):msg.payload.s?'s':'')"
+      to: "(msg.column='m'?(msg.payload.m?'':'m'):msg.payload.m?'m':'') &\t(msg.column='a'?(msg.payload.a?'':'a'):msg.payload.a?'a':'') &\t(msg.column='n'?(msg.payload.n?'':'n'):msg.payload.n?'n':'') &\t(msg.column='d'?(msg.payload.d?'':'d'):msg.payload.d?'d':'') &\t(msg.column='s'?(msg.payload.s?'':'s'):msg.payload.s?'s':'')"
       tot: jsonata
     - t: delete
       p: column
@@ -1443,8 +1443,13 @@
   type: change
   z: 51c4b2897d2c318c
   g: 6cb8cb87cdf72081
-  name: '-'
-  rules: []
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -1537,7 +1542,7 @@
       width: ''
       align: center
     - title: Day
-      key: j
+      key: d
       keyType: key
       type: button
       width: ''
@@ -1593,11 +1598,6 @@
   name: hide
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
       p: class
       pt: msg
       to: remove
@@ -1622,11 +1622,6 @@
   g: 6cb8cb87cdf72081
   name: show
   rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
     - t: set
       p: class
       pt: msg

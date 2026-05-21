@@ -779,8 +779,13 @@
   type: change
   z: 476eb6fc04c55cec
   g: d509ef3b5101effa
-  name: '-'
-  rules: []
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -950,11 +955,6 @@
   name: hide
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
       p: class
       pt: msg
       to: remove
@@ -979,11 +979,6 @@
   g: d509ef3b5101effa
   name: show
   rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
     - t: set
       p: class
       pt: msg

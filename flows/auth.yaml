@@ -136,11 +136,6 @@
   name: show
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
       p: class
       pt: msg
       to: ''
@@ -405,11 +400,6 @@
   name: hide
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
       p: class
       pt: msg
       to: remove
@@ -566,8 +556,13 @@
   type: change
   z: 27841aa886edd1cd
   g: 4ef1cd4a19db42bf
-  name: '-'
-  rules: []
+  name: clean
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -612,8 +607,8 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::describe.level[msg.hmi.level]'
-      tot: global
+      to: 'dictionary.option_level[msg.hmi.level]'
+      tot: msg
   action: ''
   property: ''
   from: ''
