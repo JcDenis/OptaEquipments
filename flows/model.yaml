@@ -307,7 +307,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.state,\t    'value':msg.payload,\t    'loop':true\t}"
+      to: "{\t    'type':'state',\t    'entity':msg.state,\t    'value':msg.payload,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: topic
@@ -1181,7 +1181,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'state',\t    'entity':$join([msg.device,msg.inputs], '|'),\t    'value':0,\t    'loop':true\t}"
+      to: "{\t    'type':'state',\t    'entity':$join([msg.device,msg.inputs], '|'),\t    'value':0,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -1381,7 +1381,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.state,\t    'value':msg.payload,\t    'loop':true\t}"
+      to: "{\t    'type':'state',\t    'entity':msg.state,\t    'value':msg.payload,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: topic
