@@ -1362,17 +1362,17 @@
     - t: set
       p: hmi.tab
       pt: msg
-      to: '3'
-      tot: num
+      to: '#:(memoryOnly)::describe.pages.detail.tab'
+      tot: global
     - t: set
       p: hmi.page
       pt: msg
-      to: Détail
-      tot: str
+      to: '#:(memoryOnly)::describe.pages.detail.name'
+      tot: global
     - t: set
       p: payload
       pt: msg
-      to: hmi.page
+      to: hmi.tab
       tot: msg
   action: ''
   property: ''
@@ -1579,8 +1579,8 @@
       v: '99'
       vt: num
     - t: eq
-      v: '2'
-      vt: num
+      v: '#:(memoryOnly)::describe.pages.period.tab'
+      vt: global
     - t: else
   checkall: 'false'
   repair: false

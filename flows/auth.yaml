@@ -220,8 +220,8 @@
     - t: set
       p: payload
       pt: msg
-      to: Maintenance
-      tot: str
+      to: '#:(memoryOnly)::describe.pages.alert.tab'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -264,8 +264,8 @@
     - t: set
       p: payload
       pt: msg
-      to: Authentification
-      tot: str
+      to: '#:(memoryOnly)::describe.pages.auth.tab'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -490,7 +490,7 @@
     login: ''
     pass: ''
   payload: ''
-  submit: Go
+  submit: ►
   cancel: ''
   resetOnSubmit: true
   topic: topic
@@ -653,8 +653,8 @@
       v: '99'
       vt: num
     - t: eq
-      v: '0'
-      vt: num
+      v: '#:(memoryOnly)::describe.pages.auth.tab'
+      vt: global
     - t: else
   checkall: 'false'
   repair: false
