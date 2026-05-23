@@ -94,8 +94,6 @@
     - 58c7da3bd502ba03
     - 22a49c79934247fc
     - 0961c82da05d96c3
-    - d0b7ac5255b1b608
-    - bdfe0cd606f6eaf4
     - 1e67914cf7da3974
     - 1d8e92ebce509947
     - 251fcf6cb73cc467
@@ -6575,8 +6573,8 @@
     - t: set
       p: payload
       pt: msg
-      to: msg.kernel.value
-      tot: msg
+      to: '$round(msg.kernel.value /60 /60 /24,1)'
+      tot: jsonata
     - t: set
       p: enabled
       pt: msg
@@ -6587,41 +6585,11 @@
   from: ''
   to: ''
   reg: false
-  x: 470
-  'y': 3140
-  wires:
-    - - 22a49c79934247fc
-      - d0b7ac5255b1b608
-- id: d0b7ac5255b1b608
-  type: humanizer
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: ''
-  input: ''
-  x: 650
-  'y': 3080
-  wires:
-    - - bdfe0cd606f6eaf4
-- id: bdfe0cd606f6eaf4
-  type: change
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: value
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: payload.humanized
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
   x: 830
   'y': 3080
   wires:
-    - - 58c7da3bd502ba03
+    - - 22a49c79934247fc
+      - 58c7da3bd502ba03
 - id: 1e67914cf7da3974
   type: change
   z: 852390cb9559e176
