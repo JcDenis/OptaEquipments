@@ -1105,6 +1105,14 @@
         border-radius: 4px;
         box-shadow: 3px 2px 2px rgba(0, 55, 77, 0.25);
     }
+    .oe_nav {
+        background: rgb(var(--v-theme-navigation-background));
+    }
+    #oe_header {
+        border-bottom: 1px solid #CCCCCC;
+        padding-left: 1em;
+        background: rgb(var(--v-theme-navigation-background));
+    }
   storeOutMessages: true
   passthru: true
   resendOnRefresh: true
@@ -2201,11 +2209,8 @@
   head: ''
   format: |-
     <template>
-        <Teleport v-if="mounted" to="#app-bar-title">
-            <a href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></a> 
-            <span>{{msg.title}}</span> 
-        </Teleport>
-        <Teleport v-if="mounted" to="#app-bar-actions">
+        <Teleport v-if="mounted" to="#oe_header">
+            <v-toolbar class="oe_nav"> 
             <v-btn-group variant="outlined" divided>
                 <v-btn v-if="oe_menus.alert" @click="oe_nav('alert')" :title="oe_titles.alert" icon="mdi-wrench"></v-btn> 
                 <v-btn v-if="oe_menus.period" @click="oe_nav('period')" :title="oe_titles.period" icon="mdi-clock"></v-btn> 
@@ -2216,6 +2221,9 @@
                 <v-btn v-if="oe_menus.system" @click="oe_nav('system')" :title="oe_titles.system" icon="mdi-cog"></v-btn> 
                 <v-btn v-if="oe_menus.auth" @click="oe_nav('auth')" :title="oe_titles.auth" icon="mdi-login"></v-btn> 
             </v-btn-group>
+            <v-toolbar-title :text="msg.title"></v-toolbar-title>
+            <v-btn href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></v-btn>
+            </v-toolbar>
         </Teleport>
     </template>
 
@@ -2231,6 +2239,9 @@
             mounted() {
                 const blang = navigator.language || navigator.userLanguage;
                 this.send(blang);
+                let div = document.createElement("div");
+                div.id="oe_header";
+                const el = document.body.querySelector("#app").prepend(div);
                 this.mounted = true;
             },
             methods: {
