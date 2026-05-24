@@ -4841,6 +4841,13 @@
                 "pt": "msg",
                 "to": "{\t    'lang':''\t}",
                 "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[[{'label':'','value':''}]]",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -6469,7 +6476,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe_nav\"> \n        <v-btn-group variant=\"outlined\" divided>\n            <v-btn v-if=\"oe_menus.alert\" @click=\"oe_nav('alert')\" :title=\"oe_titles.alert\" icon=\"mdi-wrench\"></v-btn> \n            <v-btn v-if=\"oe_menus.period\" @click=\"oe_nav('period')\" :title=\"oe_titles.period\" icon=\"mdi-clock\"></v-btn> \n            <v-btn v-if=\"oe_menus.detail\" @click=\"oe_nav('detail')\" :title=\"oe_titles.detail\" icon=\"mdi-magnify\"></v-btn> \n            <v-btn v-if=\"oe_menus.list\" @click=\"oe_nav('list')\" :title=\"oe_titles.list\" icon=\"mdi-format-list-bulleted-square\"></v-btn> \n            <v-btn v-if=\"oe_menus.tree\" @click=\"oe_nav('tree')\" :title=\"oe_titles.tree\" icon=\"mdi-file-tree\"></i></v-btn> \n            <v-btn v-if=\"oe_menus.users\" @click=\"oe_nav('users')\" :title=\"oe_titles.users\" icon=\"mdi-account\"></v-btn> \n            <v-btn v-if=\"oe_menus.system\" @click=\"oe_nav('system')\" :title=\"oe_titles.system\" icon=\"mdi-cog\"></v-btn> \n            <v-btn v-if=\"oe_menus.auth\" @click=\"oe_nav('auth')\" :title=\"oe_titles.auth\" icon=\"mdi-login\"></v-btn> \n        </v-btn-group>\n        <v-toolbar-title :text=\"msg.title\"></v-toolbar-title>\n        <v-btn href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.full\"></img></v-btn>\n        </v-toolbar>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_menus: { auth: false, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },\n                oe_titles: { auth: '', alert: '', period: '', detail: '', list: '', tree: '', users: '', system: '' },\n                mounted: false\n            }\n        },\n        mounted() {\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n            let div = document.createElement(\"div\");\n            div.id=\"oe_header\";\n            const el = document.body.querySelector(\"#app\").prepend(div);\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (page) {\n                this.send(page)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.dictionary.lang);\n                document.title = msg.page_title;\n                this.oe_menus = msg.menus;\n                this.oe_titles = msg.titles;\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe_nav\"> \n        <v-btn-group variant=\"outlined\" divided>\n            <v-btn v-if=\"oe_menus.alert\" @click=\"oe_nav('alert')\" :title=\"oe_titles.alert\" icon=\"mdi-wrench\"></v-btn> \n            <v-btn v-if=\"oe_menus.period\" @click=\"oe_nav('period')\" :title=\"oe_titles.period\" icon=\"mdi-clock\"></v-btn> \n            <v-btn v-if=\"oe_menus.detail\" @click=\"oe_nav('detail')\" :title=\"oe_titles.detail\" icon=\"mdi-magnify\"></v-btn> \n            <v-btn v-if=\"oe_menus.list\" @click=\"oe_nav('list')\" :title=\"oe_titles.list\" icon=\"mdi-format-list-bulleted-square\"></v-btn> \n            <v-btn v-if=\"oe_menus.tree\" @click=\"oe_nav('tree')\" :title=\"oe_titles.tree\" icon=\"mdi-file-tree\"></i></v-btn> \n            <v-btn v-if=\"oe_menus.users\" @click=\"oe_nav('users')\" :title=\"oe_titles.users\" icon=\"mdi-account\"></v-btn> \n            <v-btn v-if=\"oe_menus.system\" @click=\"oe_nav('system')\" :title=\"oe_titles.system\" icon=\"mdi-cog\"></v-btn> \n            <v-btn v-if=\"oe_menus.auth\" @click=\"oe_nav('auth')\" :title=\"oe_titles.auth\" icon=\"mdi-login\"></v-btn> \n        </v-btn-group>\n        <v-toolbar-title :text=\"msg.title\"></v-toolbar-title>\n        <v-btn href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.full\"></img></v-btn>\n        </v-toolbar>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_menus: { auth: false, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },\n                oe_titles: { auth: '', alert: '', period: '', detail: '', list: '', tree: '', users: '', system: '' },\n                mounted: false\n            }\n        },\n        mounted() {\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n            let div = document.createElement(\"div\");\n            div.id=\"oe_header\";\n            const el = document.body.querySelector(\"#app\").prepend(div);\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (page) {\n                this.send(page)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.title = msg.page_title;\n                this.oe_menus = msg.menus;\n                this.oe_titles = msg.titles;\n            }\n        }\n    }\n\n</script>",
         "storeOutMessages": true,
         "passthru": false,
         "resendOnRefresh": true,
@@ -8520,6 +8527,13 @@
                 "pt": "msg",
                 "to": "#:(memoryOnly)::page_title",
                 "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "page_lang",
+                "pt": "msg",
+                "to": "dictionary.lang",
+                "tot": "msg"
             },
             {
                 "t": "delete",
@@ -12226,6 +12240,13 @@
                 "pt": "msg",
                 "to": "hmi.page",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[{'label':'','value':''}]",
+                "tot": "jsonata"
             },
             {
                 "t": "delete",
@@ -50092,11 +50113,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -50104,6 +50120,13 @@
                 "t": "delete",
                 "p": "class",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -50169,11 +50192,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -50181,6 +50199,13 @@
                 "t": "delete",
                 "p": "class",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -50461,11 +50486,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -50473,6 +50493,13 @@
                 "t": "delete",
                 "p": "class",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -50509,9 +50536,11 @@
                 "pt": "msg"
             },
             {
-                "t": "delete",
+                "t": "set",
                 "p": "options",
-                "pt": "msg"
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "delete",
@@ -50647,11 +50676,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -50669,6 +50693,13 @@
                 "t": "delete",
                 "p": "device",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -54067,11 +54098,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -54079,6 +54105,13 @@
                 "t": "delete",
                 "p": "class",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -57910,20 +57943,6 @@
                 "pt": "msg",
                 "to": "remove",
                 "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "options",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "list",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -58448,13 +58467,6 @@
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "options",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -58624,7 +58636,7 @@
         "y": 200,
         "wires": [
             [
-                "a70433a1d960780a"
+                "235cd51c69a6a1e3"
             ]
         ]
     },
@@ -59833,11 +59845,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -59845,6 +59852,13 @@
                 "t": "delete",
                 "p": "class",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -60683,11 +60697,6 @@
             },
             {
                 "t": "delete",
-                "p": "options",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
                 "p": "enabled",
                 "pt": "msg"
             },
@@ -60695,6 +60704,13 @@
                 "t": "delete",
                 "p": "class",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -65196,13 +65212,6 @@
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "options",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -66683,13 +66692,6 @@
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "options",
-                "pt": "msg",
-                "to": "[]",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -68791,6 +68793,13 @@
                 "tot": "str"
             },
             {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
+            },
+            {
                 "t": "delete",
                 "p": "file",
                 "pt": "msg"
@@ -69387,6 +69396,13 @@
                 "pt": "msg",
                 "to": "",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "jsonata"
             },
             {
                 "t": "delete",
@@ -70680,13 +70696,6 @@
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "options",
-                "pt": "msg",
-                "to": "[]",
-                "tot": "jsonata"
             }
         ],
         "action": "",

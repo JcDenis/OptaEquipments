@@ -994,6 +994,11 @@
       pt: msg
       to: "{\t    'lang':''\t}"
       tot: jsonata
+    - t: set
+      p: options
+      pt: msg
+      to: '[[{''label'':'''',''value'':''''}]]'
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -2251,7 +2256,7 @@
             },
             watch: {
                 msg: function (msg) {
-                    document.documentElement.setAttribute("lang", msg.dictionary.lang);
+                    document.documentElement.setAttribute("lang", msg.page_lang);
                     document.title = msg.page_title;
                     this.oe_menus = msg.menus;
                     this.oe_titles = msg.titles;
@@ -3740,6 +3745,11 @@
       pt: msg
       to: '#:(memoryOnly)::page_title'
       tot: flow
+    - t: set
+      p: page_lang
+      pt: msg
+      to: dictionary.lang
+      tot: msg
     - t: delete
       p: hide
       pt: msg
@@ -6338,6 +6348,11 @@
       pt: msg
       to: hmi.page
       tot: msg
+    - t: set
+      p: options
+      pt: msg
+      to: '[{''label'':'''',''value'':''''}]'
+      tot: jsonata
     - t: delete
       p: pages
       pt: msg
