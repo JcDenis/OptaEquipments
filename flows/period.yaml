@@ -91,6 +91,8 @@
     - a56fb1258f090a3e
     - d9fa5487f4e11c69
     - 482622d47dd8f977
+    - f4f846fcf380110e
+    - bd720f4ed1f034f8
   x: 104
   'y': 279
   w: 6622
@@ -592,6 +594,31 @@
       pt: msg
       to: 'periods[''s'']'
       tot: msg
+    - t: set
+      p: row.tm
+      pt: msg
+      to: 'msg.row.m?''►'':''█'''
+      tot: jsonata
+    - t: set
+      p: row.ta
+      pt: msg
+      to: 'msg.row.a?''►'':''█'''
+      tot: jsonata
+    - t: set
+      p: row.tn
+      pt: msg
+      to: 'msg.row.n?''►'':''█'''
+      tot: jsonata
+    - t: set
+      p: row.td
+      pt: msg
+      to: 'msg.row.d?''►'':''█'''
+      tot: jsonata
+    - t: set
+      p: row.ts
+      pt: msg
+      to: 'msg.row.s?''►'':''█'''
+      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -812,8 +839,7 @@
     - t: set
       p: row.todisable_name
       pt: msg
-      to: >-
-        msg.row.todisable?msg.dictionary.common_action_deactivate:msg.dictionary.common_action_activate
+      to: 'msg.row.todisable?''►'':''█'''
       tot: jsonata
   action: ''
   property: ''
@@ -848,31 +874,31 @@
       width: ''
       align: start
     - title: Matin
-      key: m
+      key: tm
       keyType: key
       type: button
       width: ''
       align: center
     - title: Après-midi
-      key: a
+      key: ta
       keyType: key
       type: button
       width: ''
       align: center
     - title: Nuit
-      key: 'n'
+      key: tn
       keyType: key
       type: button
       width: ''
       align: center
     - title: Journée
-      key: d
+      key: td
       keyType: key
       type: button
       width: ''
       align: center
     - title: Samedi
-      key: s
+      key: ts
       keyType: key
       type: button
       width: ''
@@ -882,7 +908,7 @@
       keyType: key
       type: button
       width: ''
-      align: start
+      align: center
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -948,7 +974,7 @@
     - t: set
       p: kernel.value
       pt: msg
-      to: "(msg.column='m'?(msg.payload.m?'':'m'):msg.payload.m?'m':'') &\t(msg.column='a'?(msg.payload.a?'':'a'):msg.payload.a?'a':'') &\t(msg.column='n'?(msg.payload.n?'':'n'):msg.payload.n?'n':'') &\t(msg.column='d'?(msg.payload.d?'':'d'):msg.payload.d?'d':'') &\t(msg.column='s'?(msg.payload.s?'':'s'):msg.payload.s?'s':'')"
+      to: "(msg.column='tm'?(msg.payload.m?'':'m'):msg.payload.m?'m':'') &\t(msg.column='ta'?(msg.payload.a?'':'a'):msg.payload.a?'a':'') &\t(msg.column='tn'?(msg.payload.n?'':'n'):msg.payload.n?'n':'') &\t(msg.column='td'?(msg.payload.d?'':'d'):msg.payload.d?'d':'') &\t(msg.column='ts'?(msg.payload.s?'':'s'):msg.payload.s?'s':'')"
       tot: jsonata
     - t: delete
       p: column
@@ -1499,7 +1525,9 @@
   'y': 560
   wires:
     - - d0bfea36099bd97c
+      - bd720f4ed1f034f8
     - - 0cbca936c25fa514
+      - bd720f4ed1f034f8
 - id: 0cbca936c25fa514
   type: ui-table
   z: 51c4b2897d2c318c
@@ -1524,31 +1552,31 @@
       width: ''
       align: start
     - title: Morning
-      key: m
+      key: tm
       keyType: key
       type: button
       width: ''
       align: center
     - title: Afternoon
-      key: a
+      key: ta
       keyType: key
       type: button
       width: ''
       align: center
     - title: Night
-      key: 'n'
+      key: tn
       keyType: key
       type: button
       width: ''
       align: center
     - title: Day
-      key: d
+      key: td
       keyType: key
       type: button
       width: ''
       align: center
     - title: Saturday
-      key: s
+      key: ts
       keyType: key
       type: button
       width: ''
@@ -1690,6 +1718,7 @@
   wires:
     - - d0bfea36099bd97c
       - 0cbca936c25fa514
+      - bd720f4ed1f034f8
 - id: 482622d47dd8f977
   type: link call
   z: 51c4b2897d2c318c
@@ -1703,3 +1732,46 @@
   'y': 320
   wires:
     - - b53331a4b55c76c9
+- id: f4f846fcf380110e
+  type: ui-text
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  group: 09b574b24dc3ba17
+  order: 5
+  width: 0
+  height: 0
+  name: period - table - help
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-right
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: dictionary.group_period_state_help
+  valueType: msg
+  x: 5690
+  'y': 440
+  wires: []
+- id: bd720f4ed1f034f8
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: label
+  rules:
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.group_period_state_title
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 5490
+  'y': 440
+  wires:
+    - - f4f846fcf380110e
