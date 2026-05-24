@@ -79,7 +79,7 @@
     - 64e28c88b4c7b710
   x: 68
   'y': 3133
-  w: 3524
+  w: 3864
   h: 1094
 - id: 23adbb4a30523ae7
   type: group
@@ -249,9 +249,12 @@
     - 802c09c733863247
     - 68593265cb4e2507
     - c3b9841c9c743b57
+    - 311b7dd5f16646f6
+    - 8e920aa173984a41
+    - ac6f7f04a922a68e
   x: 104
   'y': 3399
-  w: 3462
+  w: 3802
   h: 382
 - id: ede1bcd992279676
   type: group
@@ -1045,7 +1048,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3450
+  x: 3790
   'y': 3440
   wires: []
 - id: ba6ef07c6e523872
@@ -2032,7 +2035,7 @@
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
     - 6304fe8d08f0cf47
-  x: 3395
+  x: 3735
   'y': 3500
   wires: []
 - id: 4de1644d9063dd22
@@ -2204,7 +2207,6 @@
         </Teleport>
         <Teleport v-if="mounted" to="#app-bar-actions">
             <v-btn-group variant="outlined" divided>
-                <v-btn v-if="oe_menus.auth" @click="oe_nav('auth')" :title="oe_titles.auth" icon="mdi-login"></v-btn> 
                 <v-btn v-if="oe_menus.alert" @click="oe_nav('alert')" :title="oe_titles.alert" icon="mdi-wrench"></v-btn> 
                 <v-btn v-if="oe_menus.period" @click="oe_nav('period')" :title="oe_titles.period" icon="mdi-clock"></v-btn> 
                 <v-btn v-if="oe_menus.detail" @click="oe_nav('detail')" :title="oe_titles.detail" icon="mdi-magnify"></v-btn> 
@@ -2212,6 +2214,7 @@
                 <v-btn v-if="oe_menus.tree" @click="oe_nav('tree')" :title="oe_titles.tree" icon="mdi-file-tree"></i></v-btn> 
                 <v-btn v-if="oe_menus.users" @click="oe_nav('users')" :title="oe_titles.users" icon="mdi-account"></v-btn> 
                 <v-btn v-if="oe_menus.system" @click="oe_nav('system')" :title="oe_titles.system" icon="mdi-cog"></v-btn> 
+                <v-btn v-if="oe_menus.auth" @click="oe_nav('auth')" :title="oe_titles.auth" icon="mdi-login"></v-btn> 
             </v-btn-group>
         </Teleport>
     </template>
@@ -2238,6 +2241,7 @@
             watch: {
                 msg: function (msg) {
                     document.documentElement.setAttribute("lang", msg.dictionary.lang);
+                    document.title = msg.page_title;
                     this.oe_menus = msg.menus;
                     this.oe_titles = msg.titles;
                 }
@@ -2250,7 +2254,7 @@
   resendOnRefresh: true
   templateScope: 'widget:ui'
   className: ''
-  x: 2320
+  x: 2660
   'y': 3680
   wires:
     - - fd8f5c34fcd9dea4
@@ -2348,12 +2352,18 @@
       pt: msg
       to: '''OptaEquipments v'' & msg.version & '' for '' & msg.vendor'
       tot: jsonata
+    - t: delete
+      p: dictionary
+      pt: msg
+    - t: delete
+      p: pages
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 2140
+  x: 2480
   'y': 3680
   wires:
     - - 3450fffd4f368319
@@ -3698,9 +3708,6 @@
     - t: delete
       p: '#:(memoryOnly)::pages[msg.hmi.id]'
       pt: flow
-    - t: delete
-      p: show
-      pt: msg
     - t: set
       p: menus
       pt: msg
@@ -3717,18 +3724,26 @@
     - t: delete
       p: '#:(memoryOnly)::titles'
       pt: flow
-    - t: delete
-      p: page
+    - t: set
+      p: page_title
       pt: msg
+      to: '#:(memoryOnly)::page_title'
+      tot: flow
     - t: delete
       p: hide
+      pt: msg
+    - t: delete
+      p: show
+      pt: msg
+    - t: delete
+      p: page
       pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1970
+  x: 2310
   'y': 3620
   wires:
     - - 48debe782e04315f
@@ -3751,7 +3766,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 3270
+  x: 3610
   'y': 3500
   wires:
     - - 7bba6594f41302c2
@@ -3839,7 +3854,7 @@
   'y': 3680
   wires:
     - - 430e091bb05b99e7
-      - 3a4b0a3f566334ac
+      - ac6f7f04a922a68e
 - id: d3c22873709318bb
   type: delay
   z: f6f2187d.f17ca8
@@ -4712,7 +4727,7 @@
     - t: set
       p: dictionary
       pt: msg
-      to: "$merge([msg.dictionary, {\t    'lang':'fr',\t    'common_action_activate':'Activer',\t    'common_action_deactivate':'Désactiver',\t    'common_action_add':'Ajouter',\t    'common_action_edit':'Modifier',\t    'common_action_delete':'Supprimer',\t    'common_action_save':'Enregistrer',\t    'common_action_export':'Exporter',\t    'common_action_import':'Importer',\t    'common_select_action':'Sélectionner une action',\t    'common_select_plant':'Sélectionner une usine',\t    'common_select_line':'Sélectionner une ligne',\t    'common_select_equipment':'Sélectionner un équipement',\t    'common_select_model':'Sélectionner un modèle',\t    'common_select_device':'Sélectionner un matériel',\t    'common_select_component':'Sélectionner un composant',\t    'common_select_endpoint':'Sélectionner une entrée/sortie',\t    'common_select_link':'Sélectionner une liaison',\t    'common_select_contact':'Sélectionner un type de contact',\t    'common_select_limit':'Sélectionner une limite',\t    'common_select_list':'Séletionner une liste',\t    'common_select_team':'Séletionner une équipe',\t    'common_select_timezone':'Séletionner une zone horaire',\t    'common_name_plants':'Usines',\t    'common_name_lines':'Lignes',\t    'common_name_equipments':'Equipements',\t    'common_name_devices':'Matériels',\t    'common_name_components':'Composants',\t    'common_name_alerts':'Alertes',\t    'common_name_teams':'Equipes',\t    'common_name_day':'Changement de jour',\t    'common_name_team_morning':'Matin',\t    'common_name_team_afternoon':'Après-midi',\t    'common_name_team_night':'Nuit',\t    'common_name_team_day':'Journée',\t    'common_name_team_saturday':'Samedi',\t    'common_name_login':'Identifiant',\t    'common_name_pass':'Mot de passe',\t    'common_name_lang':'Langue',\t    'common_name_level':'Niveau',\t    'common_name_plant':'Usine',\t    'common_notice_login_fail':'Mauvais identifiant ou mot de passe',\t    'common_notice_level_fail':\"Vous n'êtes pas autorisé à effectuer cette action\",\t    'common_notice_nodata':'Aucune donnée à afficher',\t    'common_notice_tree_update_success':'Arborescence mise à jour avec succès',\t    'common_notice_plant_exists':'Cette usine existe déjà',\t    'common_notice_plant_noempty':\"Cette usine n'est pas vide\",\t    'common_notice_line_exists':'Line already exists',\t    'common_notice_line_noempty':\"Cette ligne n'est pas vide\",\t    'common_notice_equipment_exists':'Cet équipement existe déjà',\t    'common_notice_equipment_noempty':\"Cette équipement n'est pas vide\",\t    'common_notice_device_noempty':\"Ce materiel n'est pas vide\",\t    'common_notice_user_noempty':'Cet utilisateur existe déjà',\t    'common_notice_pass_mismatch':'Les mots de passe ne correspondent pas',\t    'common_notice_admin_nodelete':\"Supression de l'administration interdite\",\t    'common_notice_file_write_success':'Ecriture du fichier réussi',\t    'common_notice_file_write_fail':\"Echec d'écriture du fichier\",\t    'group_auth_title':'Authentification',\t    'group_auth_disconnect':'Se déconnecter',\t    'group_auth_user':'Vous êtes connecté en tant que',\t    'group_auth_login':'Identifiant',\t    'group_auth_pass':'Mot de passe',\t    'group_alert_title':'Maintenances',\t    'group_period_title':'Programmes',\t    'group_period_state_title':'Etat actuel : ',\t    'group_period_state_help':'► est activé, █ est désactivé',\t    'group_detail_title':'Détails',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Fonctionnement',\t    'group_detail_live_runmeter':'Heures partieles',\t    'group_detail_live_runmetertotal':'Herures totales',\t    'group_detail_live_runreset':\"RAZ compteur d'heures\",\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Cycles partiels',\t    'group_detail_live_cyclemetertotal':'Cycles totals',\t    'group_detail_live_cyclereset':'RAZ compteur de cycles',\t    'group_detail_live_heat':'Chauffe',\t    'group_detail_live_heatswitchon':'Activer la chauffe',\t    'group_detail_live_heatswitchoff':'Désactiver la chauffe',\t    'group_detail_live_heattoggle':'Inverser la chauffe',\t    'group_detail_live_voltage':'Tension',\t    'group_detail_live_power':'Puissance',\t    'group_detail_live_load1meter':'Charge à 1m',\t    'group_detail_live_load5meter':'Charge à 5m',\t    'group_detail_live_load15meter':'Charge à 15m',\t    'group_detail_live_memorymeter':'Utilisation mémoire',\t    'group_detail_live_diskmeter':'Utilisation disque',\t    'group_detail_live_uptimemeter':'Durée',\t    'group_detail_chart_title':'Suivi',\t    'group_detail_chart_cycledate':'Cadence moyenne suivant résolution (en cycles par minute)',\t    'group_detail_chart_cyclehour':'Cadence moyenne par heure (en cycles par minute)',\t    'group_detail_chart_rundate':'Etat de fonctionnement moyen suivant résolution',\t    'group_detail_alert_title':'Alertes',\t    'group_detail_period_title':'Programmes',\t    'group_list_title':'Listes',\t    'group_list_records':\"Nombre total d'enregistrements: \",\t    'group_tree_title':'Arborescence',\t    'group_tree_plant_ident':\"Identifiant de l'usine\",\t    'group_tree_plant_name':\"Nom de l'usine\",\t    'group_tree_line_ident':'Identifiant de la ligne',\t    'group_tree_line_name':'Nom de la ligne',\t    'group_tree_equipment_ident':\"Identifiant de l'équipement\",\t    'group_tree_equipment_name':\"Nom de l'équipement\",\t    'group_tree_device_ident':'Identifiant du matériel',\t    'group_tree_start_time':'Heure de début',\t    'group_tree_stop_time':'Heure de fin',\t    'group_tree_day_starttime':'Heure de début de la première équipe du jour',\t    'group_user_list_title':'Liste des utilisateurs',\t    'group_user_add_title':'Ajouter un utilisateur',\t    'group_user_edit_title':'Modifier un utilisateur',\t    'group_user_backup_title':'Sauvegarder les utilisateurs',\t    'group_user_pass2':'Vérification du mot de passe',\t    'group_system_tree_title':'Arborescence',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Firmware Opta',\t    'option_resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minuts',\t        '60':'1 heure'\t    },\t    'option_level':{\t        'prod':'Production',\t        'rp':'Responsable production',\t        'tech':'Technicien',\t        'rt':'Responsable technique',\t        'admin':'Administrateur'\t    },\t    'option_team':{\t        'm':'Matin',\t        'a':'Après-midi',\t        'n':'Nuit',\t        'd':'Journée',\t        's':'Samedi'\t    },\t    'option_lang':{\t        'en':'Anglais',\t        'fr':'Français'\t    },\t    'option_component':{\t        'run':'Lecture état de fonctionnement',\t        'heat':'Lecture état de chauffe',\t        'voltage':'Lecture de tension',\t        'power':'Lecture de puisance',\t        '1wh':\"Lecture d'impulsion de puissance par Wh\",\t        'cycle':\"Lecture d'impulsion de cycle\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions\",\t        'runmeter':\"Lecture de compteur partiel d'heures\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions\",\t        'runmetertotal':\"Lecture de compteur total d'heures\",\t        'heatswitch':'Commande de chauffe permanente libre',\t        'heattoggle':'Commande de chauffe inverseur libre',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure',\t        'runreset':\"Commande de RAZ compteur partiel d'heures\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions\",\t        'load1meter':'Charge système à 1 minute',\t        'load5meter':'Charge système à 5 minutes',\t        'load15meter':'Charge système à 15 minutes',\t        'memorymeter':'Utilisation mémoire',\t        'diskmeter':'Utilisation disque',\t        'uptimemeter':'Durée de fonctionnement'\t    }\t}])"
+      to: "$merge([msg.dictionary, {\t    'lang':'fr',\t    'common_action_activate':'Activer',\t    'common_action_deactivate':'Désactiver',\t    'common_action_add':'Ajouter',\t    'common_action_edit':'Modifier',\t    'common_action_delete':'Supprimer',\t    'common_action_save':'Enregistrer',\t    'common_action_export':'Exporter',\t    'common_action_import':'Importer',\t    'common_select_action':'Sélectionner une action',\t    'common_select_plant':'Sélectionner une usine',\t    'common_select_line':'Sélectionner une ligne',\t    'common_select_equipment':'Sélectionner un équipement',\t    'common_select_model':'Sélectionner un modèle',\t    'common_select_device':'Sélectionner un matériel',\t    'common_select_component':'Sélectionner un composant',\t    'common_select_endpoint':'Sélectionner une entrée/sortie',\t    'common_select_link':'Sélectionner une liaison',\t    'common_select_contact':'Sélectionner un type de contact',\t    'common_select_limit':'Sélectionner une limite',\t    'common_select_list':'Séletionner une liste',\t    'common_select_team':'Séletionner une équipe',\t    'common_select_timezone':'Séletionner une zone horaire',\t    'common_name_plants':'Usines',\t    'common_name_lines':'Lignes',\t    'common_name_equipments':'Equipements',\t    'common_name_devices':'Matériels',\t    'common_name_components':'Composants',\t    'common_name_alerts':'Alertes',\t    'common_name_teams':'Equipes',\t    'common_name_day':'Changement de jour',\t    'common_name_team_morning':'Matin',\t    'common_name_team_afternoon':'Après-midi',\t    'common_name_team_night':'Nuit',\t    'common_name_team_day':'Journée',\t    'common_name_team_saturday':'Samedi',\t    'common_name_login':'Identifiant',\t    'common_name_pass':'Mot de passe',\t    'common_name_lang':'Langue',\t    'common_name_level':'Niveau',\t    'common_name_plant':'Usine',\t    'common_notice_login_fail':'Mauvais identifiant ou mot de passe',\t    'common_notice_level_fail':\"Vous n'êtes pas autorisé à effectuer cette action\",\t    'common_notice_nodata':'Aucune donnée à afficher',\t    'common_notice_tree_update_success':'Arborescence mise à jour avec succès',\t    'common_notice_plant_exists':'Cette usine existe déjà',\t    'common_notice_plant_noempty':\"Cette usine n'est pas vide\",\t    'common_notice_line_exists':'Line already exists',\t    'common_notice_line_noempty':\"Cette ligne n'est pas vide\",\t    'common_notice_equipment_exists':'Cet équipement existe déjà',\t    'common_notice_equipment_noempty':\"Cette équipement n'est pas vide\",\t    'common_notice_device_noempty':\"Ce materiel n'est pas vide\",\t    'common_notice_user_noempty':'Cet utilisateur existe déjà',\t    'common_notice_pass_mismatch':'Les mots de passe ne correspondent pas',\t    'common_notice_admin_nodelete':\"Supression de l'administration interdite\",\t    'common_notice_file_write_success':'Ecriture du fichier réussi',\t    'common_notice_file_write_fail':\"Echec d'écriture du fichier\",\t    'group_auth_disconnect':'Se déconnecter',\t    'group_auth_user':'Vous êtes connecté en tant que',\t    'group_auth_login':'Identifiant',\t    'group_auth_pass':'Mot de passe',\t    'group_period_state_title':'Etat actuel : ',\t    'group_period_state_help':'► est activé, █ est désactivé',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Fonctionnement',\t    'group_detail_live_runmeter':'Heures partieles',\t    'group_detail_live_runmetertotal':'Herures totales',\t    'group_detail_live_runreset':\"RAZ compteur d'heures\",\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Cycles partiels',\t    'group_detail_live_cyclemetertotal':'Cycles totals',\t    'group_detail_live_cyclereset':'RAZ compteur de cycles',\t    'group_detail_live_heat':'Chauffe',\t    'group_detail_live_heatswitchon':'Activer la chauffe',\t    'group_detail_live_heatswitchoff':'Désactiver la chauffe',\t    'group_detail_live_heattoggle':'Inverser la chauffe',\t    'group_detail_live_voltage':'Tension',\t    'group_detail_live_power':'Puissance',\t    'group_detail_live_load1meter':'Charge à 1m',\t    'group_detail_live_load5meter':'Charge à 5m',\t    'group_detail_live_load15meter':'Charge à 15m',\t    'group_detail_live_memorymeter':'Utilisation mémoire',\t    'group_detail_live_diskmeter':'Utilisation disque',\t    'group_detail_live_uptimemeter':'Durée',\t    'group_detail_chart_title':'Suivi',\t    'group_detail_chart_cycledate':'Cadence moyenne suivant résolution (en cycles par minute)',\t    'group_detail_chart_cyclehour':'Cadence moyenne par heure (en cycles par minute)',\t    'group_detail_chart_rundate':'Etat de fonctionnement moyen suivant résolution',\t    'group_list_records':\"Nombre total d'enregistrements: \",\t    'group_tree_plant_ident':\"Identifiant de l'usine\",\t    'group_tree_plant_name':\"Nom de l'usine\",\t    'group_tree_line_ident':'Identifiant de la ligne',\t    'group_tree_line_name':'Nom de la ligne',\t    'group_tree_equipment_ident':\"Identifiant de l'équipement\",\t    'group_tree_equipment_name':\"Nom de l'équipement\",\t    'group_tree_device_ident':'Identifiant du matériel',\t    'group_tree_start_time':'Heure de début',\t    'group_tree_stop_time':'Heure de fin',\t    'group_tree_day_starttime':'Heure de début de la première équipe du jour',\t    'group_user_list_title':'Liste des utilisateurs',\t    'group_user_add_title':'Ajouter un utilisateur',\t    'group_user_edit_title':'Modifier un utilisateur',\t    'group_user_backup_title':'Sauvegarder les utilisateurs',\t    'group_user_pass2':'Vérification du mot de passe',\t    'group_system_tree_title':'Arborescence',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Firmware Opta',\t    'option_page':{\t        'auth':'Authentification',\t        'alert':'Alertes',\t        'period':'Programmes',\t        'detail':'Detail',\t        'list':'Liste',\t        'tree':'Arborescence',\t        'users':'Utilisateurs',\t        'sysetm':'Système'\t    },\t    'option_resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minuts',\t        '60':'1 heure'\t    },\t    'option_level':{\t        'prod':'Production',\t        'rp':'Responsable production',\t        'tech':'Technicien',\t        'rt':'Responsable technique',\t        'admin':'Administrateur'\t    },\t    'option_team':{\t        'm':'Matin',\t        'a':'Après-midi',\t        'n':'Nuit',\t        'd':'Journée',\t        's':'Samedi'\t    },\t    'option_lang':{\t        'en':'Anglais',\t        'fr':'Français'\t    },\t    'option_component':{\t        'run':'Lecture état de fonctionnement',\t        'heat':'Lecture état de chauffe',\t        'voltage':'Lecture de tension',\t        'power':'Lecture de puisance',\t        '1wh':\"Lecture d'impulsion de puissance par Wh\",\t        'cycle':\"Lecture d'impulsion de cycle\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions\",\t        'runmeter':\"Lecture de compteur partiel d'heures\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions\",\t        'runmetertotal':\"Lecture de compteur total d'heures\",\t        'heatswitch':'Commande de chauffe permanente libre',\t        'heattoggle':'Commande de chauffe inverseur libre',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure',\t        'runreset':\"Commande de RAZ compteur partiel d'heures\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions\",\t        'load1meter':'Charge système à 1 minute',\t        'load5meter':'Charge système à 5 minutes',\t        'load15meter':'Charge système à 15 minutes',\t        'memorymeter':'Utilisation mémoire',\t        'diskmeter':'Utilisation disque',\t        'uptimemeter':'Durée de fonctionnement'\t    }\t}])"
       tot: jsonata
   action: ''
   property: ''
@@ -4732,7 +4747,7 @@
     - t: set
       p: dictionary
       pt: msg
-      to: "{\t    'lang':'en',\t    'common_action_activate':'Activate',\t    'common_action_deactivate':'Deactivate',\t    'common_action_add':'Add',\t    'common_action_edit':'Edit',\t    'common_action_delete':'Delete',\t    'common_action_save':'Save',\t    'common_action_export':'Export',\t    'common_action_import':'Import',\t    'common_select_action':'Select an action',\t    'common_select_plant':'Select a plant',\t    'common_select_line':'Select a line',\t    'common_select_equipment':'Select a equipment',\t    'common_select_model':'Select a model',\t    'common_select_device':'Select a device',\t    'common_select_component':'Select a component',\t    'common_select_endpoint':'Select an endpoint',\t    'common_select_link':'Select a link',\t    'common_select_contact':'Select a contact type',\t    'common_select_limit':'Select a limit',\t    'common_select_list':'Select a list',\t    'common_select_team':'Select a team',\t    'common_select_timezone':'Select a timezone',\t    'common_name_plants':'Plants',\t    'common_name_lines':'Lines',\t    'common_name_equipments':'Equipments',\t    'common_name_devices':'Devices',\t    'common_name_components':'Components',\t    'common_name_alerts':'Alerts',\t    'common_name_teams':'Teams',\t    'common_name_day':'Day change',\t    'common_name_team_morning':'Morning',\t    'common_name_team_afternoon':'Afternoon',\t    'common_name_team_night':'Night',\t    'common_name_team_day':'Day',\t    'common_name_team_saturday':'Saturday',\t    'common_name_login':'Login',\t    'common_name_pass':'Password',\t    'common_name_lang':'Lang',\t    'common_name_level':'Level',\t    'common_name_plant':'Plant',\t    'common_notice_login_fail':'Wrong login or password',\t    'common_notice_level_fail':'You are not authorized to do this action',\t    'common_notice_nodata':'No data available',\t    'common_notice_tree_update_success':'Tree updated successuflly',\t    'common_notice_plant_exists':'Plant already exists',\t    'common_notice_plant_noempty':'Non empty plant',\t    'common_notice_line_exists':'Line already exists',\t    'common_notice_line_noempty':'Non empty line',\t    'common_notice_equipment_exists':'Equipment already exists',\t    'common_notice_equipment_noempty':'Non empty equipment',\t    'common_notice_device_noempty':'Non empty device',\t    'common_notice_user_noempty':'User laready exists',\t    'common_notice_pass_mismatch':'Passwords mismatch',\t    'common_notice_admin_nodelete':'Admin deletion not allowed',\t    'common_notice_file_write_success':'File write succeed',\t    'common_notice_file_write_fail':'File write failed',\t    'group_auth_title':'Authentication',\t    'group_auth_disconnect':'Disconnect',\t    'group_auth_user':'You are connected as',\t    'group_auth_login':'User login',\t    'group_auth_pass':'User password',\t    'group_alert_title':'Alerts',\t    'group_period_title':'Programs',\t    'group_period_state_title':'Actual state: ',\t    'group_period_state_help':'► is enabled, █ is disabled',\t    'group_detail_title':'Details',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Run',\t    'group_detail_live_runreset':'Reset hour counter',\t    'group_detail_live_runmeter':'Partial hours',\t    'group_detail_live_runmetertotal':'Total hours',\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Partial cycles',\t    'group_detail_live_cyclemetertotal':'Total cycles',\t    'group_detail_live_cyclereset':'Reset cycles counter',\t    'group_detail_live_heat':'Heat',\t    'group_detail_live_heatswitchon':'Switch on heat',\t    'group_detail_live_heatswitchoff':'Switch off heat',\t    'group_detail_live_heattoggle':'Revert heat',\t    'group_detail_live_voltage':'Voltage',\t    'group_detail_live_power':'Power',\t    'group_detail_live_load1meter':'1m load',\t    'group_detail_live_load5meter':'5m load',\t    'group_detail_live_load15meter':'15m load',\t    'group_detail_live_memorymeter':'Memory usage',\t    'group_detail_live_diskmeter':'Disk usage',\t    'group_detail_live_uptimemeter':'Uptime',\t    'group_detail_chart_title':'Graphic',\t    'group_detail_chart_cycledate':'',\t    'group_detail_chart_cyclehour':'',\t    'group_detail_chart_rundate':'',\t    'group_detail_alert_title':'Alert',\t    'group_detail_period_title':'Program',\t    'group_list_title':'Lists',\t    'group_list_records':'Total records:',\t    'group_tree_title':'Tree structure',\t    'group_tree_plant_ident':'Plant ident',\t    'group_tree_plant_name':'Plant name',\t    'group_tree_line_ident':'Line ident',\t    'group_tree_line_name':'Line name',\t    'group_tree_equipment_ident':'Equipment ident',\t    'group_tree_equipment_name':'Equipment name',\t    'group_tree_device_ident':'Device ident',\t    'group_tree_start_time':'Start time',\t    'group_tree_stop_time':'Stop time',\t    'group_tree_day_starttime':'Start time of the first team of the day',\t    'group_user_list_title':'List users',\t    'group_user_add_title':'Add user',\t    'group_user_edit_title':'Edit user',\t    'group_user_backup_title':'Backup users',\t    'group_user_pass2':'Password verification',\t    'group_system_tree_title':'Tree structure',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Opta firmware',\t    'option_resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minuts',\t        '60':'1 hour'\t    },\t    'option_level':{\t        'prod':'Production',\t        'rp':'Production manager',\t        'tech':'Technician',\t        'rt':'Technician manager',\t        'admin':'Administrator'\t    },\t    'option_team':{\t        'm':'Morning',\t        'a':'Afternoon',\t        'n':'Night',\t        'd':'Day',\t        's':'Saturday'\t    },\t    'option_lang':{\t        'en':'English',\t        'fr':'French'\t    },\t    'option_component':{\t        'run':'Lecture état de fonctionnement',\t        'heat':'Lecture état de chauffe',\t        'voltage':'Lecture de tension',\t        'power':'Lecture de puisance',\t        '1wh':\"Lecture d'impulsion de puissance par Wh\",\t        'cycle':\"Lecture d'impulsion de cycle\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions\",\t        'runmeter':\"Lecture de compteur partiel d'heures\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions\",\t        'runmetertotal':\"Lecture de compteur total d'heures\",\t        'heatswitch':'Commande de chauffe permanente libre',\t        'heattoggle':'Commande de chauffe inverseur libre',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure',\t        'runreset':\"Commande de RAZ compteur partiel d'heures\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions\",\t        'load1meter':'Charge système à 1 minute',\t        'load5meter':'Charge système à 5 minutes',\t        'load15meter':'Charge système à 15 minutes',\t        'memorymeter':'Utilisation mémoire',\t        'diskmeter':'Utilisation disque',\t        'uptimemeter':'Durée de fonctionnement'\t    }\t}"
+      to: "{\t    'lang':'en',\t    'common_action_activate':'Activate',\t    'common_action_deactivate':'Deactivate',\t    'common_action_add':'Add',\t    'common_action_edit':'Edit',\t    'common_action_delete':'Delete',\t    'common_action_save':'Save',\t    'common_action_export':'Export',\t    'common_action_import':'Import',\t    'common_select_action':'Select an action',\t    'common_select_plant':'Select a plant',\t    'common_select_line':'Select a line',\t    'common_select_equipment':'Select a equipment',\t    'common_select_model':'Select a model',\t    'common_select_device':'Select a device',\t    'common_select_component':'Select a component',\t    'common_select_endpoint':'Select an endpoint',\t    'common_select_link':'Select a link',\t    'common_select_contact':'Select a contact type',\t    'common_select_limit':'Select a limit',\t    'common_select_list':'Select a list',\t    'common_select_team':'Select a team',\t    'common_select_timezone':'Select a timezone',\t    'common_name_plants':'Plants',\t    'common_name_lines':'Lines',\t    'common_name_equipments':'Equipments',\t    'common_name_devices':'Devices',\t    'common_name_components':'Components',\t    'common_name_alerts':'Alerts',\t    'common_name_teams':'Teams',\t    'common_name_day':'Day change',\t    'common_name_team_morning':'Morning',\t    'common_name_team_afternoon':'Afternoon',\t    'common_name_team_night':'Night',\t    'common_name_team_day':'Day',\t    'common_name_team_saturday':'Saturday',\t    'common_name_login':'Login',\t    'common_name_pass':'Password',\t    'common_name_lang':'Lang',\t    'common_name_level':'Level',\t    'common_name_plant':'Plant',\t    'common_notice_login_fail':'Wrong login or password',\t    'common_notice_level_fail':'You are not authorized to do this action',\t    'common_notice_nodata':'No data available',\t    'common_notice_tree_update_success':'Tree updated successuflly',\t    'common_notice_plant_exists':'Plant already exists',\t    'common_notice_plant_noempty':'Non empty plant',\t    'common_notice_line_exists':'Line already exists',\t    'common_notice_line_noempty':'Non empty line',\t    'common_notice_equipment_exists':'Equipment already exists',\t    'common_notice_equipment_noempty':'Non empty equipment',\t    'common_notice_device_noempty':'Non empty device',\t    'common_notice_user_noempty':'User laready exists',\t    'common_notice_pass_mismatch':'Passwords mismatch',\t    'common_notice_admin_nodelete':'Admin deletion not allowed',\t    'common_notice_file_write_success':'File write succeed',\t    'common_notice_file_write_fail':'File write failed',\t    'group_auth_disconnect':'Disconnect',\t    'group_auth_user':'You are connected as',\t    'group_auth_login':'User login',\t    'group_auth_pass':'User password',\t    'group_period_state_title':'Actual state: ',\t    'group_period_state_help':'► is enabled, █ is disabled',\t    'group_detail_live_title':'Direct',\t    'group_detail_live_run':'Run',\t    'group_detail_live_runreset':'Reset hour counter',\t    'group_detail_live_runmeter':'Partial hours',\t    'group_detail_live_runmetertotal':'Total hours',\t    'group_detail_live_cycle':'Cycle',\t    'group_detail_live_cyclemeter':'Partial cycles',\t    'group_detail_live_cyclemetertotal':'Total cycles',\t    'group_detail_live_cyclereset':'Reset cycles counter',\t    'group_detail_live_heat':'Heat',\t    'group_detail_live_heatswitchon':'Switch on heat',\t    'group_detail_live_heatswitchoff':'Switch off heat',\t    'group_detail_live_heattoggle':'Revert heat',\t    'group_detail_live_voltage':'Voltage',\t    'group_detail_live_power':'Power',\t    'group_detail_live_load1meter':'1m load',\t    'group_detail_live_load5meter':'5m load',\t    'group_detail_live_load15meter':'15m load',\t    'group_detail_live_memorymeter':'Memory usage',\t    'group_detail_live_diskmeter':'Disk usage',\t    'group_detail_live_uptimemeter':'Uptime',\t    'group_detail_chart_title':'Graphic',\t    'group_detail_chart_cycledate':'',\t    'group_detail_chart_cyclehour':'',\t    'group_detail_chart_rundate':'',\t    'group_detail_alert_title':'Alert',\t    'group_detail_period_title':'Program',\t    'group_list_records':'Total records:',\t    'group_tree_plant_ident':'Plant ident',\t    'group_tree_plant_name':'Plant name',\t    'group_tree_line_ident':'Line ident',\t    'group_tree_line_name':'Line name',\t    'group_tree_equipment_ident':'Equipment ident',\t    'group_tree_equipment_name':'Equipment name',\t    'group_tree_device_ident':'Device ident',\t    'group_tree_start_time':'Start time',\t    'group_tree_stop_time':'Stop time',\t    'group_tree_day_starttime':'Start time of the first team of the day',\t    'group_user_list_title':'List users',\t    'group_user_add_title':'Add user',\t    'group_user_edit_title':'Edit user',\t    'group_user_backup_title':'Backup users',\t    'group_user_pass2':'Password verification',\t    'group_system_tree_title':'Tree structure',\t    'group_system_app_title':'Application',\t    'group_system_ota_title':'Opta firmware',\t    'option_page':{\t        'auth':'Authentication',\t        'alert':'Alerts',\t        'period':'Programs',\t        'detail':'Detail',\t        'list':'List',\t        'tree':'Tree',\t        'users':'Users',\t        'sysetm':'System'\t    },\t    'option_resolution':{\t        '1':'1 minute',\t        '2':'2 minutes',\t        '5':'5 minutes',\t        '15':'15 minutes',\t        '30':'30 minuts',\t        '60':'1 hour'\t    },\t    'option_level':{\t        'prod':'Production',\t        'rp':'Production manager',\t        'tech':'Technician',\t        'rt':'Technician manager',\t        'admin':'Administrator'\t    },\t    'option_team':{\t        'm':'Morning',\t        'a':'Afternoon',\t        'n':'Night',\t        'd':'Day',\t        's':'Saturday'\t    },\t    'option_lang':{\t        'en':'English',\t        'fr':'French'\t    },\t    'option_component':{\t        'run':'Lecture état de fonctionnement',\t        'heat':'Lecture état de chauffe',\t        'voltage':'Lecture de tension',\t        'power':'Lecture de puisance',\t        '1wh':\"Lecture d'impulsion de puissance par Wh\",\t        'cycle':\"Lecture d'impulsion de cycle\",\t        'cyclemeter':\"Lecture de compteur partiel d'impulsions\",\t        'runmeter':\"Lecture de compteur partiel d'heures\",\t        'cyclemetertotal':\"Lecture de compteur total d'impulsions\",\t        'runmetertotal':\"Lecture de compteur total d'heures\",\t        'heatswitch':'Commande de chauffe permanente libre',\t        'heattoggle':'Commande de chauffe inverseur libre',\t        'heatlink':'Commande de chauffe inverseur liée à une mesure',\t        'heatpulse':'Commande de chauffe pulsé liée à une mesure',\t        'runreset':\"Commande de RAZ compteur partiel d'heures\",\t        'cyclereset':\"Commande de RAZ compteur partiel d'impulsions\",\t        'load1meter':'Charge système à 1 minute',\t        'load5meter':'Charge système à 5 minutes',\t        'load15meter':'Charge système à 15 minutes',\t        'memorymeter':'Utilisation mémoire',\t        'diskmeter':'Utilisation disque',\t        'uptimemeter':'Durée de fonctionnement'\t    }\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -4875,7 +4890,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2660
+  x: 3000
   'y': 3740
   wires:
     - - 8df8d13de236ed2f
@@ -4891,7 +4906,7 @@
   stream: false
   addname: id
   property: payload
-  x: 2830
+  x: 3170
   'y': 3740
   wires:
     - - 25ce46799598746f
@@ -4909,7 +4924,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3000
+  x: 3340
   'y': 3740
   wires:
     - - e46db1ec42fe4b24
@@ -4930,7 +4945,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3170
+  x: 3510
   'y': 3740
   wires:
     - []
@@ -6263,7 +6278,7 @@
   stream: false
   addname: ''
   property: pages
-  x: 2290
+  x: 2630
   'y': 3500
   wires:
     - - e6478bccef57bc01
@@ -6281,7 +6296,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2450
+  x: 2790
   'y': 3500
   wires:
     - - 5006c57a0459019b
@@ -6300,7 +6315,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2610
+  x: 2950
   'y': 3500
   wires:
     - - 7af904b89868d24e
@@ -6318,7 +6333,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2780
+  x: 3120
   'y': 3440
   wires:
     - - 44c2ade6151d3fbd
@@ -6342,7 +6357,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3110
+  x: 3450
   'y': 3500
   wires:
     - - cbbcc12908fc0cf8
@@ -6367,7 +6382,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2950
+  x: 3290
   'y': 3560
   wires:
     - - 44c2ade6151d3fbd
@@ -6389,7 +6404,7 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 2130
+  x: 2470
   'y': 3560
   wires:
     - - 58884d38873750e3
@@ -6493,7 +6508,7 @@
     - t: set
       p: '#:(memoryOnly)::titles[msg.hmi.id][msg.page]'
       pt: flow
-      to: pages.name
+      to: 'dictionary.option_page[msg.page]'
       tot: msg
   action: ''
   property: ''
@@ -6503,7 +6518,7 @@
   x: 1650
   'y': 3560
   wires:
-    - - c59077c15ba8ebca
+    - - 311b7dd5f16646f6
 - id: be000b4422b3ec07
   type: change
   z: f6f2187d.f17ca8
@@ -6528,7 +6543,7 @@
     - t: set
       p: '#:(memoryOnly)::titles[msg.hmi.id][msg.page]'
       pt: flow
-      to: pages.name
+      to: 'dictionary.option_page[msg.page]'
       tot: msg
   action: ''
   property: ''
@@ -6538,7 +6553,7 @@
   x: 1650
   'y': 3620
   wires:
-    - - c59077c15ba8ebca
+    - - 311b7dd5f16646f6
 - id: c59077c15ba8ebca
   type: join
   z: f6f2187d.f17ca8
@@ -6560,7 +6575,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1810
+  x: 2150
   'y': 3620
   wires:
     - - b4db32f45f392912
@@ -6687,7 +6702,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2490
+  x: 2830
   'y': 3680
   wires:
     - - c842607773be1bd0
@@ -6718,7 +6733,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2650
+  x: 2990
   'y': 3680
   wires:
     - - 802c09c733863247
@@ -6731,7 +6746,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 3250
+  x: 3590
   'y': 3680
   wires:
     - - 68593265cb4e2507
@@ -6743,7 +6758,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 3395
+  x: 3735
   'y': 3620
   wires: []
 - id: c3b9841c9c743b57
@@ -6771,3 +6786,73 @@
   'y': 3500
   wires:
     - - 6a0278acb1566849
+- id: 311b7dd5f16646f6
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: current
+  property: pages.tab
+  propertyType: msg
+  rules:
+    - t: eq
+      v: hmi.tab
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1820
+  'y': 3620
+  wires:
+    - - 8e920aa173984a41
+    - - c59077c15ba8ebca
+- id: 8e920aa173984a41
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: title
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::page_title'
+      pt: flow
+      to: 'dictionary.option_page[msg.page]'
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1990
+  'y': 3560
+  wires:
+    - - c59077c15ba8ebca
+- id: ac6f7f04a922a68e
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: clean
+  rules:
+    - t: set
+      p: menus
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: titles
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: page_title
+      pt: msg
+      to: '#:(memoryOnly)::describe.app.title'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2310
+  'y': 3680
+  wires:
+    - - 3a4b0a3f566334ac
