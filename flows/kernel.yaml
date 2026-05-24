@@ -93,7 +93,6 @@
     - dc6a70342d1f4be8
     - 11d526c7bb2a1306
     - b7ad155ab6d29f69
-    - 9c591890e0e18f21
     - 8df8d13de236ed2f
     - 25ce46799598746f
     - e46db1ec42fe4b24
@@ -111,10 +110,14 @@
     - 4c2887bed7059a62
     - be000b4422b3ec07
     - c59077c15ba8ebca
+    - fd8f5c34fcd9dea4
+    - c842607773be1bd0
+    - 802c09c733863247
+    - 68593265cb4e2507
   x: 104
   'y': 3399
   w: 3302
-  h: 262
+  h: 382
 - id: ede1bcd992279676
   type: group
   z: f6f2187d.f17ca8
@@ -261,7 +264,7 @@
     - f81759728a05ec6e
     - ab83d7d0e321cc6b
   x: 94
-  'y': 3699
+  'y': 3819
   w: 1032
   h: 382
 - id: cd997db4fac54cae
@@ -352,7 +355,7 @@
     - 7d481df1a0362e5a
     - cd36ac26e65bd7c0
   x: 68
-  'y': 4153
+  'y': 4273
   w: 2984
   h: 1034
 - id: fc6029b7d49d1e93
@@ -538,7 +541,7 @@
     - 3a9bbe50fd5e77de
     - b3b9f0ad1f7b81dc
   x: 94
-  'y': 4359
+  'y': 4479
   w: 2012
   h: 209.5
 - id: ac235be34fa874cd
@@ -572,7 +575,7 @@
     - 4caa9adc5f52a6a3
     - bb291082cf05a7b8
   x: 94
-  'y': 4599
+  'y': 4719
   w: 2932
   h: 202
 - id: 7d481df1a0362e5a
@@ -604,7 +607,7 @@
     - d0bf81ce512ab961
     - 494f4167adde1a5f
   x: 94
-  'y': 4839
+  'y': 4959
   w: 2692
   h: 202
 - id: d555605b8833d020
@@ -624,7 +627,7 @@
     - f19974c432c729fd
     - 316ce98ece8ea011
   x: 104
-  'y': 4179
+  'y': 4299
   w: 722
   h: 142
 - id: cd36ac26e65bd7c0
@@ -640,7 +643,7 @@
     - ffd5478901273f0d
     - 43e31718ad9c51ca
   x: 94
-  'y': 5079
+  'y': 5199
   w: 412
   h: 82
 - id: 41bba9b342eebdae
@@ -661,7 +664,7 @@
   x: 68
   'y': 3133
   w: 3364
-  h: 974
+  h: 1094
 - id: 023034158f7c14f0
   type: group
   z: f6f2187d.f17ca8
@@ -1042,7 +1045,7 @@
   statusVal: ''
   statusType: auto
   x: 3290
-  'y': 3560
+  'y': 3440
   wires: []
 - id: ba6ef07c6e523872
   type: ui-control
@@ -1105,7 +1108,7 @@
   templateScope: 'site:style'
   className: ''
   x: 440
-  'y': 3500
+  'y': 3740
   wires:
     - []
 - id: 6640363c796f547b
@@ -1117,7 +1120,7 @@
     - 575b91a30deac00d
     - bee6a866a78902c8
   x: 145
-  'y': 3440
+  'y': 3680
   wires:
     - - 5f23a488a272fea1
 - id: 457bd17747e44d56
@@ -1139,7 +1142,7 @@
   className: ''
   name: ui - notice
   x: 280
-  'y': 3620
+  'y': 3440
   wires:
     - - 3808fde4099a032e
 - id: 4e94023e8ba12f50
@@ -1178,7 +1181,7 @@
     - 9f779446d59dedd9
     - 688c8cd091260c94
   x: 145
-  'y': 3620
+  'y': 3440
   wires:
     - - 457bd17747e44d56
 - id: 451ea07f88244a01
@@ -1588,7 +1591,7 @@
   statusVal: ''
   statusType: auto
   x: 460
-  'y': 3620
+  'y': 3440
   wires: []
 - id: 208f67135b531d2d
   type: change
@@ -2020,7 +2023,6 @@
   name: ui - control - change
   mode: link
   links:
-    - 00818f8c0686b556
     - d7bc8fc74bfc07cb
     - 2045a5696769c038
     - 53845d5ac3a352d5
@@ -2082,11 +2084,11 @@
     - 716fd198bbd63dcb
     - ed53bb28b7006772
     - bb71762ba2269b75
-    - 7bba6594f41302c2
     - 7e5f2b517cfd181c
     - 69341ab189affbbd
     - 4a798d15562c1309
     - 9436213abf2c9241
+    - 68593265cb4e2507
   x: 145
   'y': 3560
   wires:
@@ -2192,40 +2194,73 @@
   head: ''
   format: |-
     <template>
-        <Teleport v-if="mounted" to="#app-bar-actions">
-            <a href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></a>
-        </Teleport>
         <Teleport v-if="mounted" to="#app-bar-title">
-            <span>{{msg.title}}</span>
+            <a href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></a> 
+            <span>{{msg.title}}</span> 
+        </Teleport>
+        <Teleport v-if="mounted" to="#app-bar-actions">
+            <v-btn-group variant="outlined" divided>
+                <v-btn v-if="btn_auth" @click="gonav('auth')" icon="mdi-login"></v-btn> 
+                <v-btn v-if="btn_alert" @click="gonav('alert')" icon="mdi-wrench"></v-btn> 
+                <v-btn v-if="btn_period" @click="gonav('period')" icon="mdi-clock"></v-btn> 
+                <v-btn v-if="btn_detail" @click="gonav('detail')" icon="mdi-magnify"></v-btn> 
+                <v-btn v-if="btn_list" @click="gonav('list')" icon="mdi-format-list-bulleted-square"></v-btn> 
+                <v-btn v-if="btn_tree" @click="gonav('tree')" icon="mdi-file-tree"></i></v-btn> 
+                <v-btn v-if="btn_users" @click="gonav('users')" icon="mdi-account"></v-btn> 
+                <v-btn v-if="btn_system" @click="gonav('system')" icon="mdi-cog"></v-btn> 
+            </v-btn-group>
         </Teleport>
     </template>
 
     <script>
-        
-
         export default {
             data() {
                 return {
+                    btn_auth: false,
+                    btn_alert: false,
+                    btn_period: false,
+                    btn_detail: false,
+                    btn_list: false,
+                    btn_tree: false,
+                    btn_users: false,
+                    btn_system: false,
                     mounted: false
                 }
             },
             mounted() {
                 const blang = navigator.language || navigator.userLanguage;
                 this.send(blang);
-                this.mounted = true
+                this.mounted = true;
+            },
+            methods: {
+                gonav: function (page) {
+                    this.send(page)
+                }
+            },
+            watch: {
+                msg: function (msg) {
+                    this.btn_auth = msg.menu?.auth;
+                    this.btn_alert = msg.menu?.alert;
+                    this.btn_period = msg.menu?.period;
+                    this.btn_detail = msg.menu?.detail;
+                    this.btn_list = msg.menu?.list;
+                    this.btn_tree = msg.menu?.tree;
+                    this.btn_users = msg.menu?.users;
+                    this.btn_system = msg.menu?.system;
+                }
             }
         }
+
     </script>
   storeOutMessages: true
   passthru: false
   resendOnRefresh: true
   templateScope: 'widget:ui'
   className: ''
-  x: 620
-  'y': 3440
+  x: 2160
+  'y': 3680
   wires:
-    - - b7ad155ab6d29f69
-      - 9c591890e0e18f21
+    - - fd8f5c34fcd9dea4
 - id: 6eb86d0c1be60374
   type: debug
   z: f6f2187d.f17ca8
@@ -2325,8 +2360,8 @@
   from: ''
   to: ''
   reg: false
-  x: 440
-  'y': 3440
+  x: 1980
+  'y': 3680
   wires:
     - - 3450fffd4f368319
 - id: 69014f6b27789c52
@@ -3330,7 +3365,7 @@
   links:
     - f8fd7e92f9a55a9c
   x: 145
-  'y': 4280
+  'y': 4400
   wires:
     - - 2dbfc6a47bde3a50
 - id: d0bf81ce512ab961
@@ -3342,7 +3377,7 @@
   links:
     - e60e4ab7617738c3
   x: 2575
-  'y': 4940
+  'y': 5060
   wires: []
 - id: 2c4e7cd9d987d51e
   type: inject
@@ -3501,7 +3536,7 @@
   skipBodyParsing: false
   swaggerDoc: ''
   x: 170
-  'y': 3740
+  'y': 3860
   wires:
     - - 025edbd02daf82d0
 - id: 025edbd02daf82d0
@@ -3513,7 +3548,7 @@
   headers:
     Location: /dashboard
   x: 340
-  'y': 3740
+  'y': 3860
   wires: []
 - id: 32238bfb65baf1bc
   type: link out
@@ -3642,6 +3677,11 @@
       pt: flow
       to: "{\t    'pages': {\t        'show': [\t            ],\t        'hide': [\t            ]\t    }\t}"
       tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::menus'
+      pt: flow
+      to: '{}'
+      tot: json
   action: ''
   property: ''
   from: ''
@@ -3668,8 +3708,19 @@
     - t: delete
       p: show
       pt: msg
+    - t: set
+      p: menu
+      pt: msg
+      to: '#:(memoryOnly)::menus[msg.hmi.id]'
+      tot: flow
+    - t: delete
+      p: '#:(memoryOnly)::menus[msg.hmi.id]'
+      pt: flow
     - t: delete
       p: hide
+      pt: msg
+    - t: delete
+      p: page
       pt: msg
   action: ''
   property: ''
@@ -3677,10 +3728,11 @@
   to: ''
   reg: false
   x: 1810
-  'y': 3560
+  'y': 3620
   wires:
     - - 48debe782e04315f
-      - ba6ef07c6e523872
+      - 3a4b0a3f566334ac
+      - 68593265cb4e2507
 - id: cbbcc12908fc0cf8
   type: delay
   z: f6f2187d.f17ca8
@@ -3703,6 +3755,7 @@
   wires:
     - - 7bba6594f41302c2
       - 23dd24021e2cecf1
+      - 68593265cb4e2507
 - id: e6df69338d3a3e21
   type: switch
   z: f6f2187d.f17ca8
@@ -3782,7 +3835,7 @@
   allowrate: false
   outputs: 1
   x: 270
-  'y': 3440
+  'y': 3680
   wires:
     - - 430e091bb05b99e7
       - 3a4b0a3f566334ac
@@ -3864,7 +3917,7 @@
   to: ''
   reg: false
   x: 880
-  'y': 3920
+  'y': 4040
   wires:
     - - 37ef0dacd1f0e952
 - id: fd610372966f9686
@@ -3883,7 +3936,7 @@
   repair: false
   outputs: 2
   x: 700
-  'y': 3920
+  'y': 4040
   wires:
     - - 8c484fa5249c34f6
     - - 34fa5590f0d6e124
@@ -3905,7 +3958,7 @@
   allowrate: false
   outputs: 1
   x: 530
-  'y': 3920
+  'y': 4040
   wires:
     - - fd610372966f9686
 - id: d0edfe80cd189ba8
@@ -3919,7 +3972,7 @@
   skipBodyParsing: false
   swaggerDoc: ''
   x: 220
-  'y': 3920
+  'y': 4040
   wires:
     - - 571f58fa9072eafb
 - id: 306b2fee3a4b886d
@@ -3935,7 +3988,7 @@
   encoding: none
   allProps: false
   x: 690
-  'y': 3800
+  'y': 3920
   wires:
     - - fe3a87fa930d465d
 - id: 80538c5af3c6a70b
@@ -3949,7 +4002,7 @@
   skipBodyParsing: false
   swaggerDoc: ''
   x: 190
-  'y': 3800
+  'y': 3920
   wires:
     - - f81759728a05ec6e
 - id: 37ef0dacd1f0e952
@@ -3960,7 +4013,7 @@
   statusCode: ''
   headers: {}
   x: 1050
-  'y': 3740
+  'y': 3860
   wires: []
 - id: fe3a87fa930d465d
   type: change
@@ -3992,7 +4045,7 @@
   to: ''
   reg: false
   x: 880
-  'y': 3740
+  'y': 3860
   wires:
     - - 37ef0dacd1f0e952
 - id: 34fa5590f0d6e124
@@ -4017,7 +4070,7 @@
   to: ''
   reg: false
   x: 880
-  'y': 4040
+  'y': 4160
   wires:
     - - 37ef0dacd1f0e952
 - id: 359336bc8ac8947e
@@ -4028,7 +4081,7 @@
   action: ''
   property: payload
   x: 700
-  'y': 3740
+  'y': 3860
   wires:
     - - fe3a87fa930d465d
 - id: d8fa54a0c3f6d9a5
@@ -4040,7 +4093,7 @@
     - 306b2fee3a4b886d
   uncaught: false
   x: 180
-  'y': 4040
+  'y': 4160
   wires:
     - - 34fa5590f0d6e124
 - id: 3ed31290426faddb
@@ -4068,7 +4121,7 @@
   to: ''
   reg: false
   x: 530
-  'y': 3800
+  'y': 3920
   wires:
     - - 306b2fee3a4b886d
 - id: d5cec84ece588ffc
@@ -4082,7 +4135,7 @@
   skipBodyParsing: false
   swaggerDoc: ''
   x: 220
-  'y': 3980
+  'y': 4100
   wires:
     - - 0d2c51b998a3f781
 - id: a21747e12e479ca9
@@ -4122,7 +4175,7 @@
   to: ''
   reg: false
   x: 880
-  'y': 3980
+  'y': 4100
   wires:
     - - 37ef0dacd1f0e952
 - id: 0d2c51b998a3f781
@@ -4141,7 +4194,7 @@
   repair: false
   outputs: 2
   x: 540
-  'y': 3980
+  'y': 4100
   wires:
     - - d7cb5aad49f38b43
     - - 34fa5590f0d6e124
@@ -4159,7 +4212,7 @@
   repair: false
   outputs: 2
   x: 710
-  'y': 3980
+  'y': 4100
   wires:
     - - a21747e12e479ca9
     - - 34fa5590f0d6e124
@@ -4181,7 +4234,7 @@
   allowrate: false
   outputs: 1
   x: 530
-  'y': 3860
+  'y': 3980
   wires:
     - - 991691c2beb81395
 - id: deaace2b52065689
@@ -4216,7 +4269,7 @@
   to: ''
   reg: false
   x: 880
-  'y': 3860
+  'y': 3980
   wires:
     - - 37ef0dacd1f0e952
 - id: 7e12373daec6b4f7
@@ -4230,7 +4283,7 @@
   skipBodyParsing: false
   swaggerDoc: ''
   x: 220
-  'y': 3860
+  'y': 3980
   wires:
     - - 51fd87fb2d0f8249
 - id: 991691c2beb81395
@@ -4249,7 +4302,7 @@
   repair: false
   outputs: 2
   x: 700
-  'y': 3860
+  'y': 3980
   wires:
     - - deaace2b52065689
     - - 34fa5590f0d6e124
@@ -4267,7 +4320,7 @@
   repair: false
   outputs: 2
   x: 370
-  'y': 3800
+  'y': 3920
   wires:
     - - ab83d7d0e321cc6b
     - - 3ed31290426faddb
@@ -4288,7 +4341,7 @@
   to: ''
   reg: false
   x: 530
-  'y': 3740
+  'y': 3860
   wires:
     - - 359336bc8ac8947e
 - id: 13260a7e1b984eab
@@ -4821,26 +4874,10 @@
   from: ''
   to: ''
   reg: false
-  x: 800
-  'y': 3440
+  x: 2500
+  'y': 3740
   wires:
     - - 8df8d13de236ed2f
-- id: 9c591890e0e18f21
-  type: debug
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: ui - head
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 800
-  'y': 3500
-  wires: []
 - id: 8df8d13de236ed2f
   type: split
   z: f6f2187d.f17ca8
@@ -4853,8 +4890,8 @@
   stream: false
   addname: id
   property: payload
-  x: 970
-  'y': 3440
+  x: 2670
+  'y': 3740
   wires:
     - - 25ce46799598746f
 - id: 25ce46799598746f
@@ -4871,8 +4908,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1140
-  'y': 3440
+  x: 2840
+  'y': 3740
   wires:
     - - e46db1ec42fe4b24
 - id: e46db1ec42fe4b24
@@ -4892,8 +4929,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1310
-  'y': 3440
+  x: 3010
+  'y': 3740
   wires:
     - []
 - id: 02475a726b8ae97e
@@ -4947,7 +4984,7 @@
   to: ''
   reg: false
   x: 170
-  'y': 4520
+  'y': 4640
   wires:
     - - 9494479482c67136
 - id: 9494479482c67136
@@ -4963,7 +5000,7 @@
   addname: row.key
   property: payload
   x: 330
-  'y': 4520
+  'y': 4640
   wires:
     - - 29a9b95e09a86b21
 - id: eb384e257ce24740
@@ -4978,7 +5015,7 @@
   onceDelay: 0.1
   topic: ''
   x: 270
-  'y': 4220
+  'y': 4340
   wires:
     - - 2dbfc6a47bde3a50
 - id: 29a9b95e09a86b21
@@ -5051,7 +5088,7 @@
   to: ''
   reg: false
   x: 500
-  'y': 4520
+  'y': 4640
   wires:
     - - 7b58751c1b3a46de
 - id: 7b58751c1b3a46de
@@ -5072,7 +5109,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 690
-  'y': 4520
+  'y': 4640
   wires:
     - - 305376649ae585e7
 - id: 305376649ae585e7
@@ -5093,7 +5130,7 @@
   outputType: msg
   outTz: Europe/Paris
   x: 890
-  'y': 4520
+  'y': 4640
   wires:
     - - aac6b45c24c3fa73
       - b3b9f0ad1f7b81dc
@@ -5116,7 +5153,7 @@
   repair: false
   outputs: 3
   x: 1070
-  'y': 4520
+  'y': 4640
   wires:
     - - 5c3c371211bdcfd4
     - - 55792325d720c571
@@ -5137,7 +5174,7 @@
   repair: false
   outputs: 2
   x: 1230
-  'y': 4400
+  'y': 4520
   wires:
     - - 21603aba58190337
     - - 5c3c371211bdcfd4
@@ -5157,7 +5194,7 @@
   repair: false
   outputs: 2
   x: 1230
-  'y': 4460
+  'y': 4580
   wires:
     - - 21603aba58190337
     - - 5c3c371211bdcfd4
@@ -5178,7 +5215,7 @@
   to: ''
   reg: false
   x: 1710
-  'y': 4520
+  'y': 4640
   wires:
     - - 6fc19351cfc35137
 - id: 21603aba58190337
@@ -5197,7 +5234,7 @@
   repair: false
   outputs: 2
   x: 1390
-  'y': 4400
+  'y': 4520
   wires:
     - - 2b4a45df10764325
     - - 5c3c371211bdcfd4
@@ -5217,7 +5254,7 @@
   repair: false
   outputs: 2
   x: 1550
-  'y': 4400
+  'y': 4520
   wires:
     - - 29e387724419322d
     - - 5c3c371211bdcfd4
@@ -5238,7 +5275,7 @@
   to: ''
   reg: false
   x: 1710
-  'y': 4400
+  'y': 4520
   wires:
     - - 6fc19351cfc35137
 - id: 6fc19351cfc35137
@@ -5263,7 +5300,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1870
-  'y': 4520
+  'y': 4640
   wires:
     - - 742522df7fb4e7a2
 - id: 742522df7fb4e7a2
@@ -5292,7 +5329,7 @@
   to: ''
   reg: false
   x: 2030
-  'y': 4520
+  'y': 4640
   wires:
     - - ba3702fdc149a3a1
 - id: ba3702fdc149a3a1
@@ -5317,7 +5354,7 @@
   to: ''
   reg: false
   x: 180
-  'y': 4760
+  'y': 4880
   wires:
     - - caf0fa5940ea9b74
 - id: caf0fa5940ea9b74
@@ -5333,7 +5370,7 @@
   addname: row.line
   property: payload
   x: 350
-  'y': 4760
+  'y': 4880
   wires:
     - - 9fb547c9bf0c3d9c
 - id: 9fb547c9bf0c3d9c
@@ -5368,7 +5405,7 @@
   to: ''
   reg: false
   x: 510
-  'y': 4760
+  'y': 4880
   wires:
     - - 71bc259069b356ae
 - id: 71bc259069b356ae
@@ -5385,7 +5422,7 @@
   repair: false
   outputs: 2
   x: 680
-  'y': 4760
+  'y': 4880
   wires:
     - - bb291082cf05a7b8
     - - 60444de44b9b105c
@@ -5405,7 +5442,7 @@
   repair: false
   outputs: 2
   x: 850
-  'y': 4700
+  'y': 4820
   wires:
     - - d2cb81ea62e201fa
     - - 4caa9adc5f52a6a3
@@ -5422,7 +5459,7 @@
   addname: ''
   property: payload
   x: 1010
-  'y': 4680
+  'y': 4800
   wires:
     - - 3122527b04e71b07
 - id: 3a9bbe50fd5e77de
@@ -5432,7 +5469,7 @@
   name: check plants teams usage - flow.teams
   info: ''
   x: 270
-  'y': 4400
+  'y': 4520
   wires: []
 - id: a059c4106b0023d0
   type: comment
@@ -5441,7 +5478,7 @@
   name: check lines teams usage - flow.pilots
   info: ''
   x: 260
-  'y': 4640
+  'y': 4760
   wires: []
 - id: 3122527b04e71b07
   type: switch
@@ -5459,7 +5496,7 @@
   repair: false
   outputs: 2
   x: 1170
-  'y': 4680
+  'y': 4800
   wires:
     - - bdb1eca08edf0b23
     - - 98413fa281923c5a
@@ -5479,7 +5516,7 @@
   repair: false
   outputs: 2
   x: 1330
-  'y': 4660
+  'y': 4780
   wires:
     - - bfcc97c13ebcf4a4
     - - 98413fa281923c5a
@@ -5511,7 +5548,7 @@
   to: ''
   reg: false
   x: 2950
-  'y': 4760
+  'y': 4880
   wires:
     - - e47f12474f86e305
 - id: 3d319b36210dd6a8
@@ -5521,7 +5558,7 @@
   name: check equipments componants and pilot them
   info: ''
   x: 290
-  'y': 4880
+  'y': 5000
   wires: []
 - id: 6a3e8d3fe7c52a79
   type: switch
@@ -5537,7 +5574,7 @@
   repair: false
   outputs: 2
   x: 1650
-  'y': 4640
+  'y': 4760
   wires:
     - - 294343e8f6b91c27
     - - 98413fa281923c5a
@@ -5558,7 +5595,7 @@
   to: ''
   reg: false
   x: 1490
-  'y': 4640
+  'y': 4760
   wires:
     - - 6a3e8d3fe7c52a79
 - id: 294343e8f6b91c27
@@ -5578,7 +5615,7 @@
   to: ''
   reg: false
   x: 1810
-  'y': 4640
+  'y': 4760
   wires:
     - - 98413fa281923c5a
 - id: 98413fa281923c5a
@@ -5603,7 +5640,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1970
-  'y': 4680
+  'y': 4800
   wires:
     - - 7e7e5c542503c914
 - id: 7e7e5c542503c914
@@ -5620,7 +5657,7 @@
   repair: false
   outputs: 2
   x: 2130
-  'y': 4680
+  'y': 4800
   wires:
     - - 7cf164b169128459
     - - bb291082cf05a7b8
@@ -5640,7 +5677,7 @@
   repair: false
   outputs: 2
   x: 2290
-  'y': 4660
+  'y': 4780
   wires:
     - - 9f1e69efcaa4280b
     - - bb291082cf05a7b8
@@ -5658,7 +5695,7 @@
   repair: false
   outputs: 2
   x: 2450
-  'y': 4660
+  'y': 4780
   wires:
     - - 19b64dcacfbb2e10
     - - 4caa9adc5f52a6a3
@@ -5684,7 +5721,7 @@
   to: ''
   reg: false
   x: 2630
-  'y': 4660
+  'y': 4780
   wires:
     - - bb291082cf05a7b8
 - id: 4caa9adc5f52a6a3
@@ -5709,7 +5746,7 @@
   to: ''
   reg: false
   x: 2630
-  'y': 4720
+  'y': 4840
   wires:
     - - bb291082cf05a7b8
 - id: bb291082cf05a7b8
@@ -5734,7 +5771,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 2790
-  'y': 4760
+  'y': 4880
   wires:
     - - 3aa9714bb4804e28
 - id: e47f12474f86e305
@@ -5759,7 +5796,7 @@
   to: ''
   reg: false
   x: 170
-  'y': 5000
+  'y': 5120
   wires:
     - - a267ddd6d73021d0
 - id: 922cb235f01a6bb5
@@ -5799,7 +5836,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 4280
+  'y': 4400
   wires:
     - - 2992b94eb45e9376
 - id: a267ddd6d73021d0
@@ -5815,7 +5852,7 @@
   addname: row.entity
   property: payload
   x: 330
-  'y': 5000
+  'y': 5120
   wires:
     - - 50b2058aba28a3bc
 - id: 50b2058aba28a3bc
@@ -5853,7 +5890,7 @@
   to: ''
   reg: false
   x: 510
-  'y': 5000
+  'y': 5120
   wires:
     - - bd0bf46a5cad87e4
 - id: bd0bf46a5cad87e4
@@ -5872,7 +5909,7 @@
   repair: false
   outputs: 2
   x: 710
-  'y': 5000
+  'y': 5120
   wires:
     - - 1cce8554382bef66
     - - 7de41ff682f3d530
@@ -5892,7 +5929,7 @@
   repair: false
   outputs: 2
   x: 900
-  'y': 4980
+  'y': 5100
   wires:
     - - 801e1fa5f0215d53
     - - 7de41ff682f3d530
@@ -5923,7 +5960,7 @@
   to: ''
   reg: false
   x: 1280
-  'y': 4940
+  'y': 5060
   wires:
     - - 414a253aa91476b8
 - id: 414a253aa91476b8
@@ -5942,7 +5979,7 @@
   repair: false
   outputs: 2
   x: 1470
-  'y': 4940
+  'y': 5060
   wires:
     - - 097dab22c460b69a
     - - ea1106317f4b582b
@@ -5963,7 +6000,7 @@
   repair: false
   outputs: 2
   x: 1090
-  'y': 4960
+  'y': 5080
   wires:
     - - 3a08e95dd0d7436f
     - - 7de41ff682f3d530
@@ -5984,7 +6021,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 4900
+  'y': 5020
   wires:
     - - 9c2d87f6c7858ec0
 - id: 9c2d87f6c7858ec0
@@ -6003,7 +6040,7 @@
   repair: false
   outputs: 2
   x: 1810
-  'y': 4900
+  'y': 5020
   wires:
     - - f495490e76667115
     - - 7de41ff682f3d530
@@ -6025,7 +6062,7 @@
   topic: topic
   outputs: 2
   x: 1970
-  'y': 4880
+  'y': 5000
   wires:
     - - ea1106317f4b582b
     - - 994034a88510c20c
@@ -6046,7 +6083,7 @@
   to: ''
   reg: false
   x: 2130
-  'y': 4880
+  'y': 5000
   wires:
     - - ea1106317f4b582b
 - id: ea1106317f4b582b
@@ -6082,7 +6119,7 @@
   to: ''
   reg: false
   x: 2290
-  'y': 4940
+  'y': 5060
   wires:
     - - 7de41ff682f3d530
       - 494f4167adde1a5f
@@ -6100,7 +6137,7 @@
   statusVal: ''
   statusType: auto
   x: 2650
-  'y': 4880
+  'y': 5000
   wires: []
 - id: 7de41ff682f3d530
   type: join
@@ -6124,7 +6161,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 2450
-  'y': 5000
+  'y': 5120
   wires:
     - - ffd5478901273f0d
 - id: ffd5478901273f0d
@@ -6154,7 +6191,7 @@
   to: ''
   reg: false
   x: 170
-  'y': 5120
+  'y': 5240
   wires:
     - - 43e31718ad9c51ca
 - id: 494f4167adde1a5f
@@ -6177,7 +6214,7 @@
   to: ''
   reg: false
   x: 2450
-  'y': 4940
+  'y': 5060
   wires:
     - - d0bf81ce512ab961
       - 1043f6d05886c68c
@@ -6195,7 +6232,7 @@
   statusVal: ''
   statusType: auto
   x: 370
-  'y': 5120
+  'y': 5240
   wires: []
 - id: b3b9f0ad1f7b81dc
   type: debug
@@ -6211,7 +6248,7 @@
   statusVal: ''
   statusType: auto
   x: 910
-  'y': 4460
+  'y': 4580
   wires: []
 - id: c89db73a12c35b16
   type: split
@@ -6319,6 +6356,11 @@
       pt: msg
       to: '#:(memoryOnly)::describe.pages.auth.tab'
       tot: global
+    - t: set
+      p: hmi.page
+      pt: msg
+      to: '#:(memoryOnly)::describe.pages.auth.name'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -6362,7 +6404,7 @@
   arraySplt: 1
   arraySpltType: len
   stream: false
-  addname: ''
+  addname: page
   property: pages
   x: 990
   'y': 3560
@@ -6442,6 +6484,11 @@
       pt: flow
       to: '$append(msg.show,[$string(msg.pages.name)])'
       tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::menus[msg.hmi.id][msg.page]'
+      pt: flow
+      to: 'true'
+      tot: bool
   action: ''
   property: ''
   from: ''
@@ -6467,6 +6514,11 @@
       pt: flow
       to: '$append(msg.hide,[$string(msg.pages.name)])'
       tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::menus[msg.hmi.id][msg.page]'
+      pt: flow
+      to: 'false'
+      tot: bool
   action: ''
   property: ''
   from: ''
@@ -6498,7 +6550,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 1650
-  'y': 3560
+  'y': 3620
   wires:
     - - b4db32f45f392912
 - id: 2dbfc6a47bde3a50
@@ -6514,7 +6566,7 @@
   repair: false
   outputs: 1
   x: 270
-  'y': 4280
+  'y': 4400
   wires:
     - - f19974c432c729fd
 - id: f19974c432c729fd
@@ -6530,7 +6582,7 @@
   repair: false
   outputs: 1
   x: 430
-  'y': 4280
+  'y': 4400
   wires:
     - - 316ce98ece8ea011
 - id: 316ce98ece8ea011
@@ -6546,7 +6598,7 @@
   repair: false
   outputs: 1
   x: 590
-  'y': 4280
+  'y': 4400
   wires:
     - - 922cb235f01a6bb5
 - id: 8415b61e8bd93936
@@ -6608,4 +6660,78 @@
   statusType: auto
   x: 250
   'y': 1520
+  wires: []
+- id: fd8f5c34fcd9dea4
+  type: switch
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: pages
+  property: '#:(memoryOnly)::describe.pages'
+  propertyType: global
+  rules:
+    - t: hask
+      v: payload
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2330
+  'y': 3680
+  wires:
+    - - c842607773be1bd0
+    - - b7ad155ab6d29f69
+- id: c842607773be1bd0
+  type: change
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: page
+  rules:
+    - t: set
+      p: tab
+      pt: msg
+      to: '#:(memoryOnly)::describe.pages[msg.payload]tab'
+      tot: global
+    - t: set
+      p: name
+      pt: msg
+      to: '#:(memoryOnly)::describe.pages[msg.payload]name'
+      tot: global
+    - t: set
+      p: payload
+      pt: msg
+      to: name
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2490
+  'y': 3680
+  wires:
+    - - 802c09c733863247
+- id: 802c09c733863247
+  type: link call
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 3090
+  'y': 3680
+  wires:
+    - - 68593265cb4e2507
+- id: 68593265cb4e2507
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ui - control - loop
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 3235
+  'y': 3620
   wires: []
