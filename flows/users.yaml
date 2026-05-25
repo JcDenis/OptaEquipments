@@ -326,6 +326,12 @@
       type: text
       width: ''
       align: start
+    - title: Telegram
+      key: telegram
+      keyType: key
+      type: text
+      width: ''
+      align: start
     - title: ''
       key: delete
       keyType: key
@@ -396,6 +402,11 @@
       p: row.level
       pt: msg
       to: payload.level
+      tot: msg
+    - t: set
+      p: row.telegram
+      pt: msg
+      to: payload.telegram
       tot: msg
     - t: set
       p: row.level_full
@@ -1930,7 +1941,7 @@
     - t: set
       p: '#:(memoryOnly)::auth[msg.payload.login]'
       pt: global
-      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang\t}"
+      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang,\t    'telegram':msg.payload.telegram\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -2068,12 +2079,18 @@
       type: dropdown
       required: false
       rows: null
+    - label: Telegram
+      key: telegram
+      type: text
+      required: false
+      rows: null
   formValue:
     login: ''
     pass: ''
     lang: ''
     level: ''
     plant: ''
+    telegram: ''
   payload: ''
   submit: Enregistrer
   cancel: ''
@@ -2281,7 +2298,7 @@
     - t: set
       p: ui_update.options
       pt: msg
-      to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_level,\t        'key':'level',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_lang,\t        'key':'lang',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_plant,\t        'key':'plant',\t        'required':false\t    }\t]"
+      to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_level,\t        'key':'level',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_lang,\t        'key':'lang',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_plant,\t        'key':'plant',\t        'required':false\t    },\t    {\t        'type':'text',\t        'label':msg.dictionary.group_user_telegram,\t        'key':'telegram',\t        'required':false\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -2407,6 +2424,12 @@
       align: start
     - title: Language
       key: lang
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Telegram
+      key: telegram
       keyType: key
       type: text
       width: ''
