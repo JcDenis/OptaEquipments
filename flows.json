@@ -3321,11 +3321,13 @@
             "fcd072654982d9a9",
             "d2f04fa042a21b15",
             "a193988fd07c6490",
-            "07419889da1453bd"
+            "07419889da1453bd",
+            "aa7f0f9e1e8d8a3c",
+            "7651419cd42e979b"
         ],
-        "x": 114,
+        "x": 94,
         "y": 459,
-        "w": 1932,
+        "w": 2092,
         "h": 682
     },
     {
@@ -3372,11 +3374,13 @@
             "914061c9052b4e1d",
             "6364aa6250ff4bd5",
             "2a5d1c11c4c3ebad",
-            "26a84f5b44a9c347"
+            "26a84f5b44a9c347",
+            "2bb6bcbae48d04c1",
+            "de90cd63e86f8a18"
         ],
         "x": 104,
         "y": 279,
-        "w": 1232,
+        "w": 1572,
         "h": 142
     },
     {
@@ -19386,8 +19390,8 @@
         "useregex": false,
         "removeregexcommand": false,
         "outputs": 2,
-        "x": 220,
-        "y": 680,
+        "x": 200,
+        "y": 560,
         "wires": [
             [
                 "a3cf203e62b03bbe"
@@ -19421,12 +19425,11 @@
         "bot": "8775814af2fc0b33",
         "event": "callback_query",
         "autoanswer": false,
-        "x": 490,
-        "y": 800,
+        "x": 210,
+        "y": 680,
         "wires": [
             [
-                "cdc717104a3cf2de",
-                "50a6a6bb674dfbd7"
+                "aa7f0f9e1e8d8a3c"
             ]
         ]
     },
@@ -19472,8 +19475,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 860,
+        "x": 660,
+        "y": 740,
         "wires": []
     },
     {
@@ -19482,15 +19485,15 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "plants",
-        "func": "function oe_opts(){\n  var plants = global.get('kernel.plant', 'default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in plants){\n    opts[i++] = [{\n      'callback_data':'plant|'+key,\n      'text':plants[key]\n    }];\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"Bonjour @\" + msg.originalMessage.from.username + \".\\n A quelle usine allons nous travailler ?\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts()})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(){\n  var plants = global.get('kernel.plant', 'default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in plants){\n    opts[i++] = [{\n      'callback_data':'plant|'+key,\n      'text':plants[key]\n    }];\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"Bonjour @\" + msg.user.telegram + \".\\n A quelle usine allons nous travailler ?\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts()})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
-        "y": 620,
+        "x": 1710,
+        "y": 500,
         "wires": [
             [
                 "e2aa80428d893745"
@@ -19526,20 +19529,6 @@
                 "tot": "msg"
             },
             {
-                "t": "set",
-                "p": "id",
-                "pt": "msg",
-                "to": "originalMessage.from.id",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "user",
-                "pt": "msg",
-                "to": "originalMessage.from.username",
-                "tot": "msg"
-            },
-            {
                 "t": "delete",
                 "p": "split",
                 "pt": "msg"
@@ -19550,8 +19539,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
-        "y": 800,
+        "x": 830,
+        "y": 680,
         "wires": [
             [
                 "a9514358329d4de7"
@@ -19599,8 +19588,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 6,
-        "x": 1010,
-        "y": 800,
+        "x": 1150,
+        "y": 680,
         "wires": [
             [
                 "2db6cfd4d2c7bc4f"
@@ -19635,8 +19624,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
-        "y": 560,
+        "x": 1710,
+        "y": 1040,
         "wires": [
             [
                 "e2aa80428d893745"
@@ -19652,21 +19641,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]plant",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]plant",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]line",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]line",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
@@ -19677,8 +19666,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 740,
+        "x": 1310,
+        "y": 620,
         "wires": [
             [
                 "b4d4ce8fa8bc8014"
@@ -19691,15 +19680,15 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "lines",
-        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous avez choisi l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nIl nous faut choisir une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nIl nous faut choisir une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
-        "y": 740,
+        "x": 1710,
+        "y": 620,
         "wires": [
             [
                 "e2aa80428d893745"
@@ -19720,8 +19709,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1920,
-        "y": 1040,
+        "x": 2060,
+        "y": 920,
         "wires": []
     },
     {
@@ -19733,14 +19722,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]line",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]line",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
@@ -19751,8 +19740,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 800,
+        "x": 1310,
+        "y": 680,
         "wires": [
             [
                 "2b6df9c4d74761c4"
@@ -19768,7 +19757,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
@@ -19777,14 +19766,14 @@
                 "t": "set",
                 "p": "plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::query[msg.user]plant",
+                "to": "#:(memoryOnly)::query[msg.user.telegram]plant",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::query[msg.user]line",
+                "to": "#:(memoryOnly)::query[msg.user.telegram]line",
                 "tot": "flow"
             }
         ],
@@ -19793,8 +19782,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1190,
-        "y": 860,
+        "x": 1330,
+        "y": 740,
         "wires": [
             [
                 "4fd2a9fdc429f969",
@@ -19808,15 +19797,15 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "equipments",
-        "func": "function oe_opts(line){\n  var equipments = global.get('kernel.equipment','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in equipments){\n    var comp = global.get('kernel.equipments.' + key, 'default');\n    if (comp == line) {\n      opts[i++] = [{\n        'callback_data':'equipment|'+key,\n        'text':equipments[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous avez choisi la ligne '\" + global.get('kernel.line.' + msg.entity, 'default') + \"'.\\nReste à sélectionner un equipment :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(line){\n  var equipments = global.get('kernel.equipment','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in equipments){\n    var comp = global.get('kernel.equipments.' + key, 'default');\n    if (comp == line) {\n      opts[i++] = [{\n        'callback_data':'equipment|'+key,\n        'text':equipments[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi la ligne '\" + global.get('kernel.line.' + msg.entity, 'default') + \"'.\\nReste à sélectionner un equipment :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1550,
-        "y": 800,
+        "x": 1690,
+        "y": 680,
         "wires": [
             [
                 "e2aa80428d893745"
@@ -19829,15 +19818,15 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "confirm",
-        "func": "msg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous avez choisi l'équipement '\" + global.get('kernel.equipment.' + msg.entity, 'default') + \"'.\\nVoyons ce qu'on peut faire...\"\n}\n\nreturn msg;",
+        "func": "msg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi l'équipement '\" + global.get('kernel.equipment.' + msg.entity, 'default') + \"'.\\nVoyons ce qu'on peut faire...\"\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1560,
-        "y": 860,
+        "x": 1700,
+        "y": 740,
         "wires": [
             [
                 "e2aa80428d893745"
@@ -19856,8 +19845,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 560,
+        "x": 1310,
+        "y": 1040,
         "wires": [
             [
                 "3726cc70ce9badd0",
@@ -19883,8 +19872,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1050,
-        "y": 920,
+        "x": 1190,
+        "y": 800,
         "wires": [
             [
                 "670d8646787df10d"
@@ -19900,7 +19889,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.originalMessage.from.username]",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]",
                 "pt": "flow",
                 "to": "{'time':$millis()}",
                 "tot": "jsonata"
@@ -19911,8 +19900,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 620,
+        "x": 1310,
+        "y": 500,
         "wires": [
             [
                 "f524efc356b2d4bc"
@@ -19930,15 +19919,15 @@
         "rules": [
             {
                 "t": "hask",
-                "v": "user",
+                "v": "user.telegram",
                 "vt": "msg"
             }
         ],
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 850,
-        "y": 800,
+        "x": 990,
+        "y": 680,
         "wires": [
             [
                 "0f3e5f41eb3c7649"
@@ -20079,8 +20068,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 1210,
-        "y": 920,
+        "x": 1350,
+        "y": 800,
         "wires": [
             [
                 "408b427cbcff1bb2"
@@ -20093,15 +20082,15 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "heat",
-        "func": "var opts = [[]];\nvar i = 0;\nif (global.get('kernel.state.' + msg.entity + '|' + msg.component) == 1) {\n  opts[0][i++] = {\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }\n} else {\n  opts[0][i++] = {\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }\n}\nif (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line) === true) {\n    opts[0][i++] = {\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }\n  } else {\n    opts[0][i++] = {\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }\n  }\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de la chauffe:',\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
+        "func": "var opts = [[]];\nvar i = 0;\nvar state = global.get('kernel.state.' + msg.entity + '|' + msg.component);\nif (global.get('kernel.reverse.' + msg.entity + '|' + msg.component)) {\n  state = !state;\n}\nif (state) {\n  opts[0][i++] = {\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }\n} else {\n  opts[0][i++] = {\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }\n}\nif (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line) === true) {\n    opts[0][i++] = {\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }\n  } else {\n    opts[0][i++] = {\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }\n  }\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de la chauffe:',\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
-        "y": 920,
+        "x": 1710,
+        "y": 800,
         "wires": [
             [
                 "e2aa80428d893745"
@@ -20128,8 +20117,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1390,
-        "y": 920,
+        "x": 1530,
+        "y": 800,
         "wires": [
             [
                 "bdd5c6474370efe4"
@@ -20145,7 +20134,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]state",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]state",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
@@ -20154,14 +20143,14 @@
                 "t": "set",
                 "p": "equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::query[msg.user]equipment",
+                "to": "#:(memoryOnly)::query[msg.user.telegram]equipment",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::query[msg.user]line",
+                "to": "#:(memoryOnly)::query[msg.user.telegram]line",
                 "tot": "flow"
             }
         ],
@@ -20170,8 +20159,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 980,
+        "x": 1310,
+        "y": 860,
         "wires": [
             [
                 "5d25f1a65fcb3c60"
@@ -20196,8 +20185,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 1370,
-        "y": 980,
+        "x": 1510,
+        "y": 860,
         "wires": [
             [
                 "22983125331ba5c5",
@@ -20214,47 +20203,31 @@
         "rules": [
             {
                 "t": "set",
-                "p": "kernel",
+                "p": "reverse",
                 "pt": "msg",
-                "to": "{\t    'type':'state',\t    'entity':msg.equipment & '|heatswitch',\t    'value':$number(msg.entity),\t    'loop':false\t}",
+                "to": "msg.equipment & '|heatswitch'",
                 "tot": "jsonata"
             },
             {
-                "t": "delete",
-                "p": "originalMessage",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "tree",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "entity",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "id",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "user",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "equipment",
-                "pt": "msg"
+                "t": "set",
+                "p": "reverse",
+                "pt": "msg",
+                "to": "kernel.reverse[msg.reverse]",
+                "tot": "global"
             },
             {
                 "t": "set",
-                "p": "telegramBot",
+                "p": "entity",
                 "pt": "msg",
-                "to": "",
-                "tot": "str"
+                "to": "$number(msg.entity)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "kernel",
+                "pt": "msg",
+                "to": "{\t    'type':'state',\t    'entity':msg.equipment & '|heatswitch',\t    'value':msg.reverse=true?(msg.entity=1?0:1):msg.entity,\t    'loop':false\t}",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -20269,8 +20242,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1570,
-        "y": 980,
+        "x": 1710,
+        "y": 860,
         "wires": [
             [
                 "ded3b3a1e563034d",
@@ -20288,8 +20261,8 @@
         "links": [
             "e60e4ab7617738c3"
         ],
-        "x": 1855,
-        "y": 980,
+        "x": 1995,
+        "y": 860,
         "wires": []
     },
     {
@@ -20319,8 +20292,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1570,
-        "y": 1040,
+        "x": 1710,
+        "y": 920,
         "wires": [
             [
                 "ded3b3a1e563034d",
@@ -20366,11 +20339,14 @@
                 "pt": "msg"
             },
             {
-                "t": "set",
+                "t": "delete",
                 "p": "telegramBot",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "reverse",
+                "pt": "msg"
             },
             {
                 "t": "set",
@@ -20385,12 +20361,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1730,
-        "y": 980,
+        "x": 1870,
+        "y": 860,
         "wires": [
             [
-                "b2f6563a68507a55",
-                "ab5ccbea64a1b397"
+                "ab5ccbea64a1b397",
+                "b2f6563a68507a55"
             ]
         ]
     },
@@ -20413,8 +20389,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1370,
-        "y": 1040,
+        "x": 1510,
+        "y": 920,
         "wires": [
             [],
             [
@@ -20440,8 +20416,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1170,
-        "y": 1040,
+        "x": 1310,
+        "y": 920,
         "wires": [
             [
                 "0756b0b50e8d4ee1"
@@ -20462,8 +20438,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1360,
-        "y": 500,
+        "x": 1500,
+        "y": 1100,
         "wires": []
     },
     {
@@ -20475,7 +20451,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]period",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]period",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
@@ -20484,14 +20460,14 @@
                 "t": "set",
                 "p": "equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::query[msg.user]equipment",
+                "to": "#:(memoryOnly)::query[msg.user.telegram]equipment",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::query[msg.user]line",
+                "to": "#:(memoryOnly)::query[msg.user.telegram]line",
                 "tot": "flow"
             }
         ],
@@ -20500,8 +20476,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 1100,
+        "x": 1310,
+        "y": 980,
         "wires": [
             [
                 "b72ab0a669e01a4f"
@@ -20535,8 +20511,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1570,
-        "y": 1100,
+        "x": 1710,
+        "y": 980,
         "wires": [
             [
                 "ded3b3a1e563034d",
@@ -20571,8 +20547,8 @@
         "links": [
             "b62a3b02d3d8dabc"
         ],
-        "x": 1695,
-        "y": 920,
+        "x": 1835,
+        "y": 800,
         "wires": []
     },
     {
@@ -20678,7 +20654,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.originalMessage.from.username]",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]",
                 "pt": "flow",
                 "to": "{'time':$millis()}",
                 "tot": "jsonata"
@@ -20689,8 +20665,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 830,
-        "y": 680,
+        "x": 970,
+        "y": 560,
         "wires": [
             [
                 "d2f04fa042a21b15"
@@ -20705,7 +20681,7 @@
         "name": "telegram - user",
         "links": [],
         "x": 145,
-        "y": 320,
+        "y": 380,
         "wires": [
             [
                 "69f84b8eb3684a75"
@@ -20733,10 +20709,10 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 320,
+        "y": 380,
         "wires": [
             [
-                "66da27deb7de39a2"
+                "2bb6bcbae48d04c1"
             ]
         ]
     },
@@ -20752,9 +20728,9 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "key",
-        "property": "payload",
-        "x": 460,
-        "y": 320,
+        "property": "users",
+        "x": 640,
+        "y": 360,
         "wires": [
             [
                 "d3e8fc62c04a67f6"
@@ -20782,8 +20758,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 650,
-        "y": 320,
+        "x": 830,
+        "y": 340,
         "wires": [
             [
                 "389e628796cf3670"
@@ -20799,7 +20775,7 @@
         "z": "c886080f59e5c106",
         "g": "37ab0c5a35f9a77b",
         "name": "is user",
-        "property": "payload.telegram",
+        "property": "users.telegram",
         "propertyType": "msg",
         "rules": [
             {
@@ -20814,7 +20790,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 830,
+        "x": 1010,
         "y": 320,
         "wires": [
             [
@@ -20852,11 +20828,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1000,
+        "x": 1180,
         "y": 320,
         "wires": [
             [
-                "2a5d1c11c4c3ebad"
+                "de90cd63e86f8a18"
             ]
         ]
     },
@@ -20871,7 +20847,7 @@
                 "t": "set",
                 "p": "user",
                 "pt": "msg",
-                "to": "{'id':''}",
+                "to": "{'id':'','telegam':''}",
                 "tot": "jsonata"
             }
         ],
@@ -20880,11 +20856,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1000,
+        "x": 1180,
         "y": 380,
         "wires": [
             [
-                "2a5d1c11c4c3ebad"
+                "de90cd63e86f8a18"
             ]
         ]
     },
@@ -20911,7 +20887,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
+        "x": 1510,
         "y": 320,
         "wires": [
             [
@@ -20927,7 +20903,7 @@
         "name": "telegram - user",
         "mode": "return",
         "links": [],
-        "x": 1295,
+        "x": 1635,
         "y": 320,
         "wires": []
     },
@@ -20943,7 +20919,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 440,
-        "y": 680,
+        "y": 560,
         "wires": [
             [
                 "fcd072654982d9a9"
@@ -20969,7 +20945,7 @@
         "repair": false,
         "outputs": 1,
         "x": 650,
-        "y": 680,
+        "y": 560,
         "wires": [
             [
                 "6918e7a555bc8e79"
@@ -20997,8 +20973,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 990,
-        "y": 680,
+        "x": 1130,
+        "y": 560,
         "wires": [
             [
                 "3ffdfce719e47e0a"
@@ -21017,21 +20993,28 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]plant",
+                "p": "entity",
+                "pt": "msg",
+                "to": "user.plant",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]plant",
                 "pt": "flow",
                 "to": "user.plant",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]line",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]line",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "p": "#:(memoryOnly)::query[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
@@ -21042,8 +21025,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 680,
+        "x": 1310,
+        "y": 560,
         "wires": [
             [
                 "07419889da1453bd"
@@ -21056,17 +21039,125 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "lines",
-        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous travaillez sur l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nIl nous faut choisir une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous travaillez sur l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nIl nous faut choisir une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
+        "x": 1710,
+        "y": 560,
+        "wires": [
+            [
+                "e2aa80428d893745"
+            ]
+        ]
+    },
+    {
+        "id": "2bb6bcbae48d04c1",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "no users",
+        "property": "users",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 460,
+        "y": 380,
+        "wires": [
+            [
+                "66da27deb7de39a2"
+            ],
+            [
+                "6364aa6250ff4bd5"
+            ]
+        ]
+    },
+    {
+        "id": "de90cd63e86f8a18",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1350,
+        "y": 320,
+        "wires": [
+            [
+                "2a5d1c11c4c3ebad"
+            ]
+        ]
+    },
+    {
+        "id": "aa7f0f9e1e8d8a3c",
+        "type": "link call",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "",
+        "links": [
+            "a76485eacddbf18c"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 440,
         "y": 680,
         "wires": [
-            []
+            [
+                "7651419cd42e979b",
+                "cdc717104a3cf2de"
+            ]
+        ]
+    },
+    {
+        "id": "7651419cd42e979b",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "has telegram",
+        "property": "user.id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 680,
+        "wires": [
+            [
+                "50a6a6bb674dfbd7"
+            ]
         ]
     },
     {
