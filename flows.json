@@ -15,6 +15,14 @@
         "env": []
     },
     {
+        "id": "c886080f59e5c106",
+        "type": "tab",
+        "label": "telegram",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "135b7308617dad08",
         "type": "tab",
         "label": "model",
@@ -4510,6 +4518,33 @@
         "visible": "true",
         "disabled": "false",
         "groupType": "default"
+    },
+    {
+        "id": "8775814af2fc0b33",
+        "type": "telegram bot",
+        "botname": "telegram",
+        "usernames": "",
+        "chatids": "${OPTA_TELEGRAM_CHAT}",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": 300,
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": 6667,
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbothost": "0.0.0.0",
+        "localbotport": 8443,
+        "publicbotport": 8443,
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
     },
     {
         "id": "a22fb9b1d981984a",
@@ -19204,6 +19239,1146 @@
         "x": 460,
         "y": 2060,
         "wires": []
+    },
+    {
+        "id": "48c679cabeacfa79",
+        "type": "telegram command",
+        "z": "c886080f59e5c106",
+        "name": "",
+        "command": "/lara",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "8775814af2fc0b33",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "731fc9f888bd44af",
+                "3ffdfce719e47e0a"
+            ],
+            [
+                "dea6bdb86d3d972b"
+            ]
+        ]
+    },
+    {
+        "id": "822c44e89d6a6355",
+        "type": "telegram sender",
+        "z": "c886080f59e5c106",
+        "name": "",
+        "bot": "8775814af2fc0b33",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1630,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "731fc9f888bd44af",
+        "type": "debug",
+        "z": "c886080f59e5c106",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f98f6f428257b5f9",
+        "type": "telegram event",
+        "z": "c886080f59e5c106",
+        "name": "",
+        "bot": "8775814af2fc0b33",
+        "event": "callback_query",
+        "autoanswer": false,
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "cdc717104a3cf2de",
+                "50a6a6bb674dfbd7"
+            ]
+        ]
+    },
+    {
+        "id": "dea6bdb86d3d972b",
+        "type": "debug",
+        "z": "c886080f59e5c106",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f80d43b2ca981124",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "chatId",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.chatId",
+                "pt": "msg",
+                "to": "${OPTA_TELEGRAM_CHAT}",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1430,
+        "y": 120,
+        "wires": [
+            [
+                "822c44e89d6a6355"
+            ]
+        ]
+    },
+    {
+        "id": "cdc717104a3cf2de",
+        "type": "debug",
+        "z": "c886080f59e5c106",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f524efc356b2d4bc",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "plants",
+        "func": "function oe_opts(){\n  var plants = global.get('kernel.plant', 'default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in plants){\n    opts[0][i++] = {\n      'callback_data':'plant|'+key,\n      'text':plants[key]\n    };\n  }\n  return opts;\n}\n\nmsg.payload = {\n    'type':'message',\n    'content':'Bonjour ' + msg.originalMessage.from.username + '.' + \"\\n\" + ' A quelle usine allons nous travailler ?',\n//    'messageId':99,\n//    'sentMessageId':99,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts()})}\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 240,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "50a6a6bb674dfbd7",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "split",
+        "rules": [
+            {
+                "t": "set",
+                "p": "split",
+                "pt": "msg",
+                "to": "$split(msg.payload.content,'|')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "tree",
+                "pt": "msg",
+                "to": "split[0]",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "entity",
+                "pt": "msg",
+                "to": "split[1]",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "id",
+                "pt": "msg",
+                "to": "originalMessage.from.id",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "user",
+                "pt": "msg",
+                "to": "originalMessage.from.username",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "split",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 420,
+        "wires": [
+            [
+                "a9514358329d4de7"
+            ]
+        ]
+    },
+    {
+        "id": "0f3e5f41eb3c7649",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "name": "group",
+        "property": "tree",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "plant",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "line",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "equipment",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "heat",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 710,
+        "y": 420,
+        "wires": [
+            [
+                "2db6cfd4d2c7bc4f"
+            ],
+            [
+                "7d6a957fba0e2ad2"
+            ],
+            [
+                "b6e5b74603191745"
+            ],
+            [
+                "dc64a06d455c191f"
+            ],
+            [
+                "da2349cefaad6334"
+            ]
+        ]
+    },
+    {
+        "id": "3726cc70ce9badd0",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "error",
+        "func": "msg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"Je n'ai pas compris. désolé...\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 180,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "c2351353cb2dc872",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "confirm",
+        "func": "msg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous avez choisi l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 300,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "2db6cfd4d2c7bc4f",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "plant",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]plant",
+                "pt": "flow",
+                "to": "entity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]line",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 300,
+        "wires": [
+            [
+                "c2351353cb2dc872",
+                "d47794b0948a3fa2"
+            ]
+        ]
+    },
+    {
+        "id": "b4d4ce8fa8bc8014",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "lines",
+        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[0][i++] = {\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      };\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n    'type':'message',\n    'content':'Il nous faut choisir une ligne :',\n//    'messageId':99,\n//    'sentMessageId':99,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 360,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "d47794b0948a3fa2",
+        "type": "delay",
+        "z": "c886080f59e5c106",
+        "name": "50ms",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 360,
+        "wires": [
+            [
+                "b4d4ce8fa8bc8014"
+            ]
+        ]
+    },
+    {
+        "id": "ab5ccbea64a1b397",
+        "type": "debug",
+        "z": "c886080f59e5c106",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "7d6a957fba0e2ad2",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "line",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]line",
+                "pt": "flow",
+                "to": "entity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 420,
+        "wires": [
+            [
+                "62cb886546421ba7",
+                "3473b689a3d34c31"
+            ]
+        ]
+    },
+    {
+        "id": "62cb886546421ba7",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "confirm",
+        "func": "msg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous avez choisi la ligne '\" + global.get('kernel.line.' + msg.entity, 'default') + \"'\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 420,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "b6e5b74603191745",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "equipment",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]equipment",
+                "pt": "flow",
+                "to": "entity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 540,
+        "wires": [
+            [
+                "4fd2a9fdc429f969",
+                "0f76f87348311370"
+            ]
+        ]
+    },
+    {
+        "id": "2b6df9c4d74761c4",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "equipments",
+        "func": "function oe_opts(line){\n  var equipments = global.get('kernel.equipment','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in equipments){\n    var comp = global.get('kernel.equipments.' + key, 'default');\n    if (comp == line) {\n      opts[0][i++] = {\n        'callback_data':'equipment|'+key,\n        'text':equipments[key]\n      };\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n    'type':'message',\n    'content':'Reste à sélectionner un equipment :',\n//    'messageId':99,\n//    'sentMessageId':99,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 480,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "3473b689a3d34c31",
+        "type": "delay",
+        "z": "c886080f59e5c106",
+        "name": "50ms",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 480,
+        "wires": [
+            [
+                "2b6df9c4d74761c4"
+            ]
+        ]
+    },
+    {
+        "id": "4fd2a9fdc429f969",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "confirm",
+        "func": "msg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user + \", vous avez choisi l'équipement '\" + global.get('kernel.equipment.' + msg.entity, 'default') + \"'\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 540,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "da2349cefaad6334",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "-",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 180,
+        "wires": [
+            [
+                "3726cc70ce9badd0"
+            ]
+        ]
+    },
+    {
+        "id": "0f76f87348311370",
+        "type": "delay",
+        "z": "c886080f59e5c106",
+        "name": "50ms",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 750,
+        "y": 600,
+        "wires": [
+            [
+                "670d8646787df10d"
+            ]
+        ]
+    },
+    {
+        "id": "3ffdfce719e47e0a",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "user",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.originalMessage.from.username]",
+                "pt": "flow",
+                "to": "{'time':$millis()}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 240,
+        "wires": [
+            [
+                "f524efc356b2d4bc"
+            ]
+        ]
+    },
+    {
+        "id": "a9514358329d4de7",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "name": "user",
+        "property": "#:(memoryOnly)::query",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "user",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "0f3e5f41eb3c7649"
+            ]
+        ]
+    },
+    {
+        "id": "f5634d48a4893d6a",
+        "type": "link in",
+        "z": "c886080f59e5c106",
+        "name": "telegram - clean",
+        "links": [
+            "f8fd7e92f9a55a9c"
+        ],
+        "x": 145,
+        "y": 120,
+        "wires": [
+            [
+                "a6e441bd78891f97"
+            ]
+        ]
+    },
+    {
+        "id": "a6e441bd78891f97",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "users",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "48cb5a0f803d4f0d"
+            ]
+        ]
+    },
+    {
+        "id": "48cb5a0f803d4f0d",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "name": "split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "user",
+        "property": "payload",
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "80ed90926dcf8278"
+            ]
+        ]
+    },
+    {
+        "id": "80ed90926dcf8278",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "name": "time",
+        "property": "payload.time",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "$millis() - (5 * 60 *1000)",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 120,
+        "wires": [
+            [
+                "93c50119e61df6e4"
+            ]
+        ]
+    },
+    {
+        "id": "93c50119e61df6e4",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "delete",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "#:(memoryOnly)::query[msg.user]",
+                "pt": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "670d8646787df10d",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "name": "state",
+        "property": "kernel.state",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "msg.entity & '|heatswitch'",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 600,
+        "wires": [
+            [
+                "408b427cbcff1bb2"
+            ]
+        ]
+    },
+    {
+        "id": "bdd5c6474370efe4",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "name": "heat",
+        "func": "var opts = [[]];\nvar i = 0;\nif (global.get('kernel.state.' + msg.entity + '|' + msg.component) == 1) {\n  opts[0][i++] = {\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }\n} else {\n  opts[0][i++] = {\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }\n}\n\nmsg.payload = {\n    'type':'message',\n    'content':'Que voulez vous faire ?',\n//    'messageId':99,\n//    'sentMessageId':99,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 600,
+        "wires": [
+            [
+                "f80d43b2ca981124"
+            ]
+        ]
+    },
+    {
+        "id": "408b427cbcff1bb2",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "component",
+        "rules": [
+            {
+                "t": "set",
+                "p": "component",
+                "pt": "msg",
+                "to": "heatswitch",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 600,
+        "wires": [
+            [
+                "bdd5c6474370efe4"
+            ]
+        ]
+    },
+    {
+        "id": "dc64a06d455c191f",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "state",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]state",
+                "pt": "flow",
+                "to": "entity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "equipment",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query[msg.user]equipment",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 660,
+        "wires": [
+            [
+                "5d25f1a65fcb3c60"
+            ]
+        ]
+    },
+    {
+        "id": "5d25f1a65fcb3c60",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "name": "state",
+        "property": "kernel.state",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "msg.equipment & '|heatswitch'",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 660,
+        "wires": [
+            [
+                "22983125331ba5c5",
+                "f9f342767993a934"
+            ]
+        ]
+    },
+    {
+        "id": "22983125331ba5c5",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "kernel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel",
+                "pt": "msg",
+                "to": "{\t    'type':'state',\t    'entity':msg.equipment & '|heatswitch',\t    'value':$number(msg.entity),\t    'loop':false\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "originalMessage",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "tree",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "entity",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "id",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "user",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "equipment",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "telegramBot",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{    'type':'message',    'content':\"C'est fait.\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1270,
+        "y": 660,
+        "wires": [
+            [
+                "f80d43b2ca981124",
+                "ded3b3a1e563034d"
+            ]
+        ]
+    },
+    {
+        "id": "b2f6563a68507a55",
+        "type": "link out",
+        "z": "c886080f59e5c106",
+        "name": "telegram - action",
+        "mode": "link",
+        "links": [
+            "e60e4ab7617738c3"
+        ],
+        "x": 1555,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c7f5e328c409800e",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "kernel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel",
+                "pt": "msg",
+                "to": "{\t    'type':'disabled',\t    'entity':msg.equipment,\t    'value':true,\t    'loop':false\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{    'type':'message',    'content':\"Attention ceci a désactivé la programmation de la ligne.\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1270,
+        "y": 720,
+        "wires": [
+            [
+                "f80d43b2ca981124",
+                "ded3b3a1e563034d"
+            ]
+        ]
+    },
+    {
+        "id": "ded3b3a1e563034d",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "clean",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "originalMessage",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "tree",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "entity",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "id",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "user",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "equipment",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "telegramBot",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1430,
+        "y": 660,
+        "wires": [
+            [
+                "b2f6563a68507a55",
+                "ab5ccbea64a1b397"
+            ]
+        ]
+    },
+    {
+        "id": "0756b0b50e8d4ee1",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "name": "period",
+        "property": "kernel.disabled[msg.equipment]",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1070,
+        "y": 720,
+        "wires": [
+            [],
+            [
+                "c7f5e328c409800e"
+            ]
+        ]
+    },
+    {
+        "id": "f9f342767993a934",
+        "type": "delay",
+        "z": "c886080f59e5c106",
+        "name": "20ms",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 720,
+        "wires": [
+            [
+                "0756b0b50e8d4ee1"
+            ]
+        ]
     },
     {
         "id": "10af438fbe88a4a2",
