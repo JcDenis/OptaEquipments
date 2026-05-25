@@ -19486,12 +19486,17 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "period",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 5,
+        "outputs": 6,
         "x": 710,
         "y": 420,
         "wires": [
@@ -19506,6 +19511,9 @@
             ],
             [
                 "dc64a06d455c191f"
+            ],
+            [
+                "55fa9cd9733cde73"
             ],
             [
                 "da2349cefaad6334"
@@ -19819,7 +19827,8 @@
         "y": 180,
         "wires": [
             [
-                "3726cc70ce9badd0"
+                "3726cc70ce9badd0",
+                "4f9432cfb4690925"
             ]
         ]
     },
@@ -20041,7 +20050,7 @@
         "type": "function",
         "z": "c886080f59e5c106",
         "name": "heat",
-        "func": "var opts = [[]];\nvar i = 0;\nif (global.get('kernel.state.' + msg.entity + '|' + msg.component) == 1) {\n  opts[0][i++] = {\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }\n} else {\n  opts[0][i++] = {\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }\n}\n\nmsg.payload = {\n    'type':'message',\n    'content':'Que voulez vous faire ?',\n//    'messageId':99,\n//    'sentMessageId':99,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
+        "func": "var opts = [[]];\nvar i = 0;\nif (global.get('kernel.state.' + msg.entity + '|' + msg.component) == 1) {\n  opts[0][i++] = {\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }\n} else {\n  opts[0][i++] = {\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }\n}\nif (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line) === true) {\n    opts[0][i++] = {\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }\n  } else {\n    opts[0][i++] = {\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }\n  }\n}\nmsg.payload = {\n    'type':'message',\n    'content':'Que voulez vous faire ?',\n//    'messageId':99,\n//    'sentMessageId':99,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -20068,6 +20077,20 @@
                 "pt": "msg",
                 "to": "heatswitch",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "plant",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query[msg.user]plant",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "line",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query[msg.user]line",
+                "tot": "flow"
             }
         ],
         "action": "",
@@ -20101,6 +20124,13 @@
                 "p": "equipment",
                 "pt": "msg",
                 "to": "#:(memoryOnly)::query[msg.user]equipment",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "line",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query[msg.user]line",
                 "tot": "flow"
             }
         ],
@@ -20238,7 +20268,7 @@
                 "t": "set",
                 "p": "kernel",
                 "pt": "msg",
-                "to": "{\t    'type':'disabled',\t    'entity':msg.equipment,\t    'value':true,\t    'loop':false\t}",
+                "to": "{\t    'type':'disabled',\t    'entity':msg.line,\t    'value':true,\t    'loop':false\t}",
                 "tot": "jsonata"
             },
             {
@@ -20333,7 +20363,7 @@
         "type": "switch",
         "z": "c886080f59e5c106",
         "name": "period",
-        "property": "kernel.disabled[msg.equipment]",
+        "property": "kernel.disabled[msg.line]",
         "propertyType": "global",
         "rules": [
             {
@@ -20377,6 +20407,99 @@
         "wires": [
             [
                 "0756b0b50e8d4ee1"
+            ]
+        ]
+    },
+    {
+        "id": "4f9432cfb4690925",
+        "type": "debug",
+        "z": "c886080f59e5c106",
+        "name": "telegram - error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "55fa9cd9733cde73",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "period",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::query[msg.user]period",
+                "pt": "flow",
+                "to": "entity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "equipment",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query[msg.user]equipment",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "line",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::query[msg.user]line",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 780,
+        "wires": [
+            [
+                "b72ab0a669e01a4f"
+            ]
+        ]
+    },
+    {
+        "id": "b72ab0a669e01a4f",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "name": "kernel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel",
+                "pt": "msg",
+                "to": "{\t    'type':'disabled',\t    'entity':msg.line,\t    'value':msg.entity='1'?false:true,\t    'loop':false\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    'type':'message',\t    'content':\"OK, c'est fait.\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1270,
+        "y": 780,
+        "wires": [
+            [
+                "f80d43b2ca981124",
+                "ded3b3a1e563034d"
             ]
         ]
     },
