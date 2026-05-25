@@ -45,6 +45,10 @@ OPTA_ADMIN_PASSWORD=your_secure_password
 
 # InfluxDB Secret Token (for Node-RED authentication)
 OPTA_SECRET=your_secret_token_here
+
+# Telegram bot
+OPTA_TELEGRAM_BOT=your_telegram_bot_token
+OPTA_TELEGRAM_CHAT=your_authorized_telegram_chat_id
 ```
 
 **⚠️ Security Note:** Use strong passwords, especially for `OPTA_ADMIN_PASSWORD` and `OPTA_SECRET`. Do not commit the `.env` file to version control.
@@ -123,6 +127,7 @@ The project includes the following Node-RED packages:
 | node-red-contrib-bcrypt | 0.1.6 | Password hashing |
 | node-red-contrib-flow-manager | 0.7.4 | Flow management tools |
 | node-red-contrib-os | 0.2.1 | System resources usage |
+| node-red-contrib-telegrambot | 17.4.12 | Telegram bot nodes for Node-RED |
 
 ## Managing Containers
 
