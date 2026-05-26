@@ -3361,11 +3361,43 @@
             "5bb6e90e19833e36",
             "349927f5b9b2c671",
             "ca326f19b5edccd3",
-            "3fe4168193b36db4"
+            "3fe4168193b36db4",
+            "f15315d0b8d20d29",
+            "c90b9068313569fd",
+            "c17755f687d23af6",
+            "1fa622e75df3eeb8",
+            "82c22db79c9f61b8",
+            "acc67281361976e0",
+            "c1943ab4385b1b52",
+            "fc0a99e381071565",
+            "d7cb227f86ab436f",
+            "3cf28f1c0b2e41f7",
+            "2e035cb1fa0153a8",
+            "8d3590047b211381",
+            "63defb0a792f1d83",
+            "995e3a4cf47f5479",
+            "f8889ac9f68c7a11",
+            "5d3cb5b7ff2d925f",
+            "bb60b8673ba3ac18",
+            "726bd9c0bdad6924",
+            "7d6dae3ac01c7ded",
+            "3a9f1f6741b54eed",
+            "5f51c05d7d39bb66",
+            "4507c753aa6e13ef",
+            "94f9960c33395898",
+            "75dbf245685ad614",
+            "ae21d2abf28ddd51",
+            "d2ec78f2156fe1b2",
+            "d5c94e74bad18991",
+            "6cfd89198805119a",
+            "99a0c147cbbb71a6",
+            "c89e1ae21473370e",
+            "a5b2d841998b3f62",
+            "f07a8fafa76b231c"
         ],
         "x": 94,
         "y": 459,
-        "w": 3272,
+        "w": 4492,
         "h": 1462
     },
     {
@@ -21372,7 +21404,7 @@
         "rules": [
             {
                 "t": "regex",
-                "v": "'^('&msg.key&')'",
+                "v": "'^('&msg.key&'(|s))'",
                 "vt": "jsonata",
                 "case": false
             },
@@ -21383,7 +21415,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1620,
+        "x": 1640,
         "y": 1460,
         "wires": [
             [
@@ -21437,7 +21469,7 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1950,
+        "x": 1970,
         "y": 1460,
         "wires": [
             [
@@ -21467,7 +21499,7 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 2110,
+        "x": 2130,
         "y": 1460,
         "wires": [
             [
@@ -21491,7 +21523,7 @@
             },
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::lara[msg.user.telegram]left[msg.key]",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]left[msg.needle]",
                 "pt": "flow"
             }
         ],
@@ -21500,7 +21532,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1790,
+        "x": 1810,
         "y": 1400,
         "wires": [
             [
@@ -21558,8 +21590,8 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "has state",
-        "property": "#:(memoryOnly)::lara[msg.user.telegram]",
-        "propertyType": "flow",
+        "property": "rsp",
+        "propertyType": "msg",
         "rules": [
             {
                 "t": "hask",
@@ -21576,7 +21608,9 @@
         "x": 1020,
         "y": 1820,
         "wires": [
-            [],
+            [
+                "82c22db79c9f61b8"
+            ],
             [
                 "7a7a53bcdd05c5d2"
             ]
@@ -21602,8 +21636,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1190,
-        "y": 1820,
+        "x": 1630,
+        "y": 1880,
         "wires": [
             [
                 "23a78f8d1af58a4d"
@@ -21620,8 +21654,8 @@
         "links": [
             "b62a3b02d3d8dabc"
         ],
-        "x": 1335,
-        "y": 1820,
+        "x": 2655,
+        "y": 1880,
         "wires": []
     },
     {
@@ -22053,7 +22087,7 @@
         "type": "comment",
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
-        "name": "action",
+        "name": "state",
         "info": "",
         "x": 1010,
         "y": 1400,
@@ -22097,18 +22131,26 @@
         "type": "change",
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
-        "name": "...",
-        "rules": [],
+        "name": "words haystack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "needles",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]left",
+                "tot": "flow"
+            }
+        ],
         "action": "",
         "property": "",
         "from": "",
         "to": "",
         "reg": false,
-        "x": 850,
+        "x": 820,
         "y": 1520,
         "wires": [
             [
-                "ca326f19b5edccd3"
+                "f15315d0b8d20d29"
             ]
         ]
     },
@@ -22117,18 +22159,26 @@
         "type": "change",
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
-        "name": "...",
-        "rules": [],
+        "name": "words haystack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "needles",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]left",
+                "tot": "flow"
+            }
+        ],
         "action": "",
         "property": "",
         "from": "",
         "to": "",
         "reg": false,
-        "x": 850,
+        "x": 820,
         "y": 1640,
         "wires": [
             [
-                "b7e3e48a6d0adcd8"
+                "acc67281361976e0"
             ]
         ]
     },
@@ -22149,6 +22199,1000 @@
         "x": 1040,
         "y": 1880,
         "wires": []
+    },
+    {
+        "id": "f15315d0b8d20d29",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "split words",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "needle",
+        "property": "needles",
+        "x": 1030,
+        "y": 1580,
+        "wires": [
+            [
+                "c90b9068313569fd"
+            ]
+        ]
+    },
+    {
+        "id": "c90b9068313569fd",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "check",
+        "property": "needle",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "chauffe",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1210,
+        "y": 1580,
+        "wires": [
+            [
+                "c17755f687d23af6"
+            ],
+            [
+                "1fa622e75df3eeb8"
+            ]
+        ]
+    },
+    {
+        "id": "c17755f687d23af6",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "add",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]component",
+                "pt": "flow",
+                "to": "heat",
+                "tot": "str"
+            },
+            {
+                "t": "delete",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['left'][msg.needle]",
+                "pt": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1370,
+        "y": 1520,
+        "wires": [
+            [
+                "1fa622e75df3eeb8"
+            ]
+        ]
+    },
+    {
+        "id": "1fa622e75df3eeb8",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1530,
+        "y": 1580,
+        "wires": [
+            [
+                "ca326f19b5edccd3"
+            ]
+        ]
+    },
+    {
+        "id": "82c22db79c9f61b8",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "has component",
+        "property": "rsp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "component",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1220,
+        "y": 1800,
+        "wires": [
+            [
+                "d2ec78f2156fe1b2"
+            ],
+            [
+                "7a7a53bcdd05c5d2"
+            ]
+        ]
+    },
+    {
+        "id": "acc67281361976e0",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "equipments haystack",
+        "rules": [
+            {
+                "t": "set",
+                "p": "haystack",
+                "pt": "msg",
+                "to": "kernel.equipment",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "row",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]equipments",
+                "pt": "flow",
+                "to": "{}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1060,
+        "y": 1700,
+        "wires": [
+            [
+                "c1943ab4385b1b52"
+            ]
+        ]
+    },
+    {
+        "id": "c1943ab4385b1b52",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "split equipments",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "row.equipment",
+        "property": "haystack",
+        "x": 1300,
+        "y": 1700,
+        "wires": [
+            [
+                "fc0a99e381071565"
+            ]
+        ]
+    },
+    {
+        "id": "fc0a99e381071565",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "row",
+        "rules": [
+            {
+                "t": "set",
+                "p": "row.equipment_name",
+                "pt": "msg",
+                "to": "haystack",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "row.equipment_lower",
+                "pt": "msg",
+                "to": "$lowercase(msg.row.equipment_name)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "row.line",
+                "pt": "msg",
+                "to": "kernel.equipments[msg.row.equipment]",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "row.plant",
+                "pt": "msg",
+                "to": "kernel.lines[msg.row.line]",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['equipments'][msg.row.line]",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 1700,
+        "wires": [
+            [
+                "7d6dae3ac01c7ded"
+            ]
+        ]
+    },
+    {
+        "id": "d7cb227f86ab436f",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "split words",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "needle",
+        "property": "needles",
+        "x": 2010,
+        "y": 1640,
+        "wires": [
+            [
+                "3cf28f1c0b2e41f7"
+            ]
+        ]
+    },
+    {
+        "id": "3cf28f1c0b2e41f7",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "compare",
+        "property": "row.equipment_name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "'('&msg.needle&')'",
+                "vt": "jsonata",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 2200,
+        "y": 1640,
+        "wires": [
+            [
+                "2e035cb1fa0153a8"
+            ],
+            [
+                "8d3590047b211381"
+            ]
+        ]
+    },
+    {
+        "id": "2e035cb1fa0153a8",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "add",
+        "rules": [
+            {
+                "t": "set",
+                "p": "tmp",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]['equipments'][msg.row.line]",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['equipments'][msg.row.line]",
+                "pt": "flow",
+                "to": "msg.tmp+1",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['match'][msg.needle]",
+                "pt": "flow",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2370,
+        "y": 1580,
+        "wires": [
+            [
+                "8d3590047b211381"
+            ]
+        ]
+    },
+    {
+        "id": "8d3590047b211381",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2530,
+        "y": 1640,
+        "wires": [
+            [
+                "63defb0a792f1d83"
+            ]
+        ]
+    },
+    {
+        "id": "63defb0a792f1d83",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2690,
+        "y": 1700,
+        "wires": [
+            [
+                "995e3a4cf47f5479"
+            ]
+        ]
+    },
+    {
+        "id": "995e3a4cf47f5479",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "left",
+        "rules": [
+            {
+                "t": "set",
+                "p": "haystack",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]left",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2850,
+        "y": 1700,
+        "wires": [
+            [
+                "f8889ac9f68c7a11"
+            ]
+        ]
+    },
+    {
+        "id": "f8889ac9f68c7a11",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "split left",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "needle",
+        "property": "haystack",
+        "x": 3020,
+        "y": 1700,
+        "wires": [
+            [
+                "5d3cb5b7ff2d925f"
+            ]
+        ]
+    },
+    {
+        "id": "5d3cb5b7ff2d925f",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "compare",
+        "property": "#:(memoryOnly)::lara[msg.user.telegram]['match']",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "needle",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 3200,
+        "y": 1700,
+        "wires": [
+            [
+                "bb60b8673ba3ac18"
+            ],
+            [
+                "726bd9c0bdad6924"
+            ]
+        ]
+    },
+    {
+        "id": "bb60b8673ba3ac18",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "remove",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['left'][msg.needle]",
+                "pt": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3380,
+        "y": 1640,
+        "wires": [
+            [
+                "726bd9c0bdad6924"
+            ]
+        ]
+    },
+    {
+        "id": "726bd9c0bdad6924",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 3550,
+        "y": 1700,
+        "wires": [
+            [
+                "5f51c05d7d39bb66"
+            ]
+        ]
+    },
+    {
+        "id": "7d6dae3ac01c7ded",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "plant",
+        "property": "user.plant",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1650,
+        "y": 1640,
+        "wires": [
+            [
+                "d7cb227f86ab436f"
+            ],
+            [
+                "3a9f1f6741b54eed"
+            ]
+        ]
+    },
+    {
+        "id": "3a9f1f6741b54eed",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "compare",
+        "property": "row.plant",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "user.plant",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1820,
+        "y": 1700,
+        "wires": [
+            [
+                "d7cb227f86ab436f"
+            ],
+            [
+                "63defb0a792f1d83"
+            ]
+        ]
+    },
+    {
+        "id": "5f51c05d7d39bb66",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "clean equipments",
+        "rules": [
+            {
+                "t": "set",
+                "p": "haystack",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]equipments",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3750,
+        "y": 1700,
+        "wires": [
+            [
+                "4507c753aa6e13ef"
+            ]
+        ]
+    },
+    {
+        "id": "4507c753aa6e13ef",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "split equipments",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "equipment",
+        "property": "haystack",
+        "x": 3980,
+        "y": 1700,
+        "wires": [
+            [
+                "94f9960c33395898"
+            ]
+        ]
+    },
+    {
+        "id": "94f9960c33395898",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "empty",
+        "property": "haystack",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 4170,
+        "y": 1700,
+        "wires": [
+            [
+                "ae21d2abf28ddd51"
+            ],
+            [
+                "75dbf245685ad614"
+            ]
+        ]
+    },
+    {
+        "id": "75dbf245685ad614",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 4510,
+        "y": 1700,
+        "wires": [
+            [
+                "b7e3e48a6d0adcd8"
+            ]
+        ]
+    },
+    {
+        "id": "ae21d2abf28ddd51",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "remove",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['equipments'][msg.equipment]",
+                "pt": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 4340,
+        "y": 1640,
+        "wires": [
+            [
+                "75dbf245685ad614"
+            ]
+        ]
+    },
+    {
+        "id": "d2ec78f2156fe1b2",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "has equipment",
+        "property": "rsp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1440,
+        "y": 1780,
+        "wires": [
+            [
+                "6cfd89198805119a"
+            ],
+            [
+                "7a7a53bcdd05c5d2"
+            ]
+        ]
+    },
+    {
+        "id": "d5c94e74bad18991",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "row",
+        "rules": [
+            {
+                "t": "set",
+                "p": "row.name",
+                "pt": "msg",
+                "to": "kernel.equipment[msg.row.equipment]",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "row.state",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]['state']",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "row.component",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]['component']",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "tmp",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]['opts']",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['opts']",
+                "pt": "flow",
+                "to": "$append(msg.tmp,msg.row)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1990,
+        "y": 1820,
+        "wires": [
+            [
+                "c89e1ae21473370e"
+            ]
+        ]
+    },
+    {
+        "id": "6cfd89198805119a",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "equipments",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::lara[msg.user.telegram]['opts']",
+                "pt": "flow",
+                "to": "{}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "rows",
+                "pt": "msg",
+                "to": "rsp.equipments",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "row",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 1780,
+        "wires": [
+            [
+                "99a0c147cbbb71a6"
+            ]
+        ]
+    },
+    {
+        "id": "99a0c147cbbb71a6",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "row.equipment",
+        "property": "rows",
+        "x": 1830,
+        "y": 1820,
+        "wires": [
+            [
+                "d5c94e74bad18991"
+            ]
+        ]
+    },
+    {
+        "id": "c89e1ae21473370e",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 2150,
+        "y": 1820,
+        "wires": [
+            [
+                "f07a8fafa76b231c"
+            ]
+        ]
+    },
+    {
+        "id": "a5b2d841998b3f62",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "equipments",
+        "func": "function oe_opts(options){\n  var opts = [[]];\n  var i = 0;\n  for(var key in options){\n    opts[i++] = [{\n      'callback_data': 'lara|' + options[key]['equipment'] + '|' + options[key]['component'] + '|' + options[key]['state'],\n      'text':options[key]['name']\n    }];\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", voici ce que j'ai trouvé :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.options)})}\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2510,
+        "y": 1820,
+        "wires": [
+            [
+                "23a78f8d1af58a4d"
+            ]
+        ]
+    },
+    {
+        "id": "f07a8fafa76b231c",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "options",
+        "rules": [
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::lara[msg.user.telegram]['opts']",
+                "tot": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "options[0]",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2320,
+        "y": 1820,
+        "wires": [
+            [
+                "a5b2d841998b3f62"
+            ]
+        ]
     },
     {
         "id": "10af438fbe88a4a2",
