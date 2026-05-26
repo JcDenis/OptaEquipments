@@ -39,7 +39,7 @@
     - fc6029b7d49d1e93
   x: 78
   'y': 2233
-  w: 3514
+  w: 3894
   h: 854
 - id: ecdd30c5ac5655a2
   type: group
@@ -470,9 +470,11 @@
     - 45fec39ce210f1d4
     - 9f7fc8c3bf66bac8
     - 1763b75bf53ed1f8
+    - e77258f07dd75879
+    - 3d713f68d0b43529
   x: 104
   'y': 2259
-  w: 3462
+  w: 3842
   h: 262
 - id: 7ea06c29d525f7ce
   type: group
@@ -2512,7 +2514,7 @@
   topic: ''
   payload: ''
   payloadType: str
-  x: 2760
+  x: 3140
   'y': 2360
   wires:
     - - cca39ee5b2794b76
@@ -2535,7 +2537,7 @@
     - t: set
       p: payload
       pt: msg
-      to: "{\t    msg.opta_admin_username:{\t        'pass':msg.opta_admin_password,\t        'level':'admin',\t        'plant':'',\t        'lang':'fr'\t    }\t}"
+      to: "{\t    msg.opta_admin_username:{\t        'pass':msg.opta_admin_password,\t        'level':'admin',\t        'plant':'',\t        'lang':'fr',\t        'telegram':''\t    }\t}"
       tot: jsonata
     - t: delete
       p: opta_admin_username
@@ -2548,7 +2550,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2930
+  x: 3310
   'y': 2480
   wires:
     - - fa7160372fcfe3b2
@@ -2576,7 +2578,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3270
+  x: 3650
   'y': 2480
   wires:
     - - 44a9a10bea4cbb76
@@ -2589,7 +2591,7 @@
   mode: link
   links:
     - b75938c74c41ca5e
-  x: 3395
+  x: 3775
   'y': 2480
   wires: []
 - id: fe6f397caf384046
@@ -2608,11 +2610,6 @@
       pt: msg
       to: '''/data/'' & msg.automate & ''/user.json'''
       tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel
-      tot: global
     - t: set
       p: '#:(memoryOnly)::has_admin'
       pt: flow
@@ -2769,8 +2766,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1750
-  'y': 2360
+  x: 2130
+  'y': 2320
   wires:
     - - e6df69338d3a3e21
     - - 5f907dbb8c336d1c
@@ -2783,14 +2780,14 @@
     - t: set
       p: '#:(memoryOnly)::auth[msg.login]'
       pt: global
-      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang\t}"
+      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang,\t    'telegram':msg.payload.telegram\t}"
       tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 2250
+  x: 2630
   'y': 2360
   wires:
     - - 5f907dbb8c336d1c
@@ -2815,7 +2812,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 2410
+  x: 2790
   'y': 2420
   wires:
     - - 45fec39ce210f1d4
@@ -2832,7 +2829,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2750
+  x: 3130
   'y': 2420
   wires:
     - - aae1f5d9a3931146
@@ -2850,7 +2847,7 @@
   targetType: msg
   statusVal: ''
   statusType: auto
-  x: 3450
+  x: 3830
   'y': 2420
   wires: []
 - id: d1737d208c83ee99
@@ -3318,7 +3315,7 @@
   match: match
   outputs: 1
   rounds: 10
-  x: 3100
+  x: 3480
   'y': 2480
   wires:
     - - c207171ed4430df8
@@ -3677,7 +3674,7 @@
   g: fc6029b7d49d1e93
   name: 'reset users, set main user from env variable (see docker compose)'
   info: ''
-  x: 3120
+  x: 3500
   'y': 2360
   wires: []
 - id: 6a0278acb1566849
@@ -3808,7 +3805,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1920
+  x: 2300
   'y': 2300
   wires:
     - - 8c6cbe899f2b904d
@@ -3829,7 +3826,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2090
+  x: 2470
   'y': 2300
   wires:
     - - f46130b91c535b91
@@ -3850,7 +3847,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2570
+  x: 2950
   'y': 2420
   wires:
     - - 8e12e262806af7b7
@@ -4420,7 +4417,7 @@
   x: 1450
   'y': 2320
   wires:
-    - - 78a4ccd05c446292
+    - - e77258f07dd75879
     - - 1763b75bf53ed1f8
 - id: 1763b75bf53ed1f8
   type: change
@@ -4441,7 +4438,7 @@
   x: 1610
   'y': 2300
   wires:
-    - - 78a4ccd05c446292
+    - - e77258f07dd75879
 - id: 56e6a7b9b0e66451
   type: link in
   z: f6f2187d.f17ca8
@@ -6830,3 +6827,43 @@
   'y': 3560
   wires:
     - - c59077c15ba8ebca
+- id: e77258f07dd75879
+  type: switch
+  z: f6f2187d.f17ca8
+  g: fc6029b7d49d1e93
+  name: telegram
+  property: payload
+  propertyType: msg
+  rules:
+    - t: hask
+      v: telegram
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1780
+  'y': 2320
+  wires:
+    - - 78a4ccd05c446292
+    - - 3d713f68d0b43529
+- id: 3d713f68d0b43529
+  type: change
+  z: f6f2187d.f17ca8
+  g: fc6029b7d49d1e93
+  name: telegram
+  rules:
+    - t: set
+      p: payload.telegram
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1960
+  'y': 2300
+  wires:
+    - - 78a4ccd05c446292
