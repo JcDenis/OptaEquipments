@@ -72,10 +72,48 @@
     - 07419889da1453bd
     - aa7f0f9e1e8d8a3c
     - 7651419cd42e979b
+    - 036aca8f1f48e50b
+    - 3a1b7b2db1b8c5af
+    - 5db2b127873ff47d
+    - baebd9ee841d7b24
+    - 524b5e2b8fb7542b
+    - 53f9db72809d33a7
+    - 240c904ed970e0b9
+    - 51a0b39e6a3f004e
+    - cdaccbde29c6aa0e
+    - eebcb89dab74a1ef
+    - 4180d57ba6539fa8
+    - b7e3e48a6d0adcd8
+    - 2b1cc4c9781b3520
+    - 7a7a53bcdd05c5d2
+    - 23a78f8d1af58a4d
+    - b15836a90ebf5200
+    - 289072ca898f3133
+    - 0bd2734221d19d6b
+    - 06ef952931b65360
+    - f5a650379c7d7050
+    - 7deb3f1115c8da6b
+    - 95a9e42e1e964022
+    - 234e3af808fd2440
+    - ed4bc3745cf348ee
+    - ed90386457cddb37
+    - abd17aa58cd2fbe5
+    - 7add42c813a63f99
+    - 7b532d13fb9bc98a
+    - 3074dbb309e3d328
+    - 54b74cf85f7f0256
+    - 354f4c26776da0b3
+    - b47ad47927cf5f9b
+    - 3553abd0049e4da9
+    - e2da9cccd6e5ef9c
+    - 5bb6e90e19833e36
+    - 349927f5b9b2c671
+    - ca326f19b5edccd3
+    - 3fe4168193b36db4
   x: 94
   'y': 459
-  w: 2092
-  h: 682
+  w: 3272
+  h: 1462
 - id: 2c44f2042c405e97
   type: group
   z: c886080f59e5c106
@@ -125,7 +163,7 @@
   type: telegram command
   z: c886080f59e5c106
   g: 9530b4911db3e343
-  name: telegram - start
+  name: telegram - pilot
   command: /pilot
   description: ''
   registercommand: false
@@ -1084,6 +1122,7 @@
   name: telegram - send
   links:
     - e2aa80428d893745
+    - 23a78f8d1af58a4d
   x: 145
   'y': 200
   wires:
@@ -1551,3 +1590,702 @@
   'y': 680
   wires:
     - - 50a6a6bb674dfbd7
+- id: 036aca8f1f48e50b
+  type: telegram command
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: telegram - lara
+  command: /lara
+  description: ''
+  registercommand: false
+  language: ''
+  scope: default
+  bot: 8775814af2fc0b33
+  strict: false
+  hasresponse: true
+  useregex: false
+  removeregexcommand: false
+  outputs: 2
+  x: 190
+  'y': 1280
+  wires:
+    - - 3a1b7b2db1b8c5af
+    - []
+- id: 3a1b7b2db1b8c5af
+  type: link call
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: ''
+  links:
+    - a76485eacddbf18c
+  linkType: static
+  timeout: '30'
+  x: 440
+  'y': 1280
+  wires:
+    - - 5db2b127873ff47d
+- id: 5db2b127873ff47d
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: has telegram
+  property: user.id
+  propertyType: msg
+  rules:
+    - t: neq
+      v: ''
+      vt: str
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 650
+  'y': 1280
+  wires:
+    - - baebd9ee841d7b24
+- id: baebd9ee841d7b24
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: prepare
+  rules:
+    - t: set
+      p: payload.content
+      pt: msg
+      to: ' $trim($lowercase(msg.payload.content))'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::lara[msg.user.telegram]'
+      pt: flow
+      to: "{\t    'time':$millis(),\t    'sentence':msg.payload.content,\t    'words':$split(msg.payload.content,' '),\t    'left':{}\t}"
+      tot: jsonata
+    - t: set
+      p: needles
+      pt: msg
+      to: '#:(memoryOnly)::lara[msg.user.telegram]words'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 840
+  'y': 1280
+  wires:
+    - - 0bd2734221d19d6b
+- id: 524b5e2b8fb7542b
+  type: split
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: split words
+  splt: ' '
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: needle
+  property: needles
+  x: 1250
+  'y': 1460
+  wires:
+    - - 51a0b39e6a3f004e
+- id: 53f9db72809d33a7
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: action haystack
+  rules:
+    - t: set
+      p: haystack
+      pt: msg
+      to: "{\t    'met':1,\t    'allume':1,\t    'active':1,\t    'desactive':0,\t    'désactive':0,\t    'éteind':0,\t    'eteind':0,\t    'supprime':0\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1040
+  'y': 1460
+  wires:
+    - - 524b5e2b8fb7542b
+- id: 240c904ed970e0b9
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: compare
+  property: needle
+  propertyType: msg
+  rules:
+    - t: regex
+      v: '''^(''&msg.key&'')'''
+      vt: jsonata
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1620
+  'y': 1460
+  wires:
+    - - 4180d57ba6539fa8
+    - - cdaccbde29c6aa0e
+- id: 51a0b39e6a3f004e
+  type: split
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: split action
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: key
+  property: haystack
+  x: 1450
+  'y': 1460
+  wires:
+    - - 240c904ed970e0b9
+- id: cdaccbde29c6aa0e
+  type: join
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 1950
+  'y': 1460
+  wires:
+    - - eebcb89dab74a1ef
+- id: eebcb89dab74a1ef
+  type: join
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 2110
+  'y': 1460
+  wires:
+    - - 349927f5b9b2c671
+- id: 4180d57ba6539fa8
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: state
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::lara[msg.user.telegram]state'
+      pt: flow
+      to: haystack
+      tot: msg
+    - t: delete
+      p: '#:(memoryOnly)::lara[msg.user.telegram]left[msg.key]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1790
+  'y': 1400
+  wires:
+    - - cdaccbde29c6aa0e
+- id: b7e3e48a6d0adcd8
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: clean
+  rules:
+    - t: set
+      p: rsp
+      pt: msg
+      to: '#:(memoryOnly)::lara[msg.user.telegram]'
+      tot: flow
+    - t: delete
+      p: key
+      pt: msg
+    - t: delete
+      p: haystack
+      pt: msg
+    - t: delete
+      p: needle
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 850
+  'y': 1760
+  wires:
+    - - 2b1cc4c9781b3520
+      - 3fe4168193b36db4
+- id: 2b1cc4c9781b3520
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: has state
+  property: '#:(memoryOnly)::lara[msg.user.telegram]'
+  propertyType: flow
+  rules:
+    - t: hask
+      v: state
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1020
+  'y': 1820
+  wires:
+    - []
+    - - 7a7a53bcdd05c5d2
+- id: 7a7a53bcdd05c5d2
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: error
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: "{\t    'type':'message',\t    'content':\"Je n'ai pas trouvé d'action a mener.\"\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1190
+  'y': 1820
+  wires:
+    - - 23a78f8d1af58a4d
+- id: 23a78f8d1af58a4d
+  type: link out
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: telegram - lara
+  mode: link
+  links:
+    - b62a3b02d3d8dabc
+  x: 1335
+  'y': 1820
+  wires: []
+- id: b15836a90ebf5200
+  type: split
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: split words
+  splt: ' '
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: ''
+  property: needles
+  x: 1250
+  'y': 1340
+  wires:
+    - - 289072ca898f3133
+- id: 289072ca898f3133
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: empty
+  property: needles
+  propertyType: msg
+  rules:
+    - t: nempty
+    - t: else
+  checkall: 'true'
+  repair: false
+  outputs: 2
+  x: 1430
+  'y': 1340
+  wires:
+    - - ed90386457cddb37
+    - - 54b74cf85f7f0256
+- id: 0bd2734221d19d6b
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: trash haystack
+  rules:
+    - t: set
+      p: haystack
+      pt: msg
+      to: "[\t    'le',\t    'la',\t    'les',\t    'de',\t    'du',\t    'tu',\t    'en',\t    'à',\t    'a'\t]"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1040
+  'y': 1340
+  wires:
+    - - b15836a90ebf5200
+- id: 06ef952931b65360
+  type: split
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: split trash
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: ''
+  property: haystack
+  x: 1760
+  'y': 1280
+  wires:
+    - - f5a650379c7d7050
+- id: f5a650379c7d7050
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: compare
+  property: needles
+  propertyType: msg
+  rules:
+    - t: eq
+      v: haystack
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1940
+  'y': 1280
+  wires:
+    - - 7deb3f1115c8da6b
+    - - 95a9e42e1e964022
+- id: 7deb3f1115c8da6b
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: mark
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::lara[msg.user.telegram][''left''][msg.needles]'
+      pt: flow
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2110
+  'y': 1240
+  wires:
+    - - 95a9e42e1e964022
+- id: 95a9e42e1e964022
+  type: join
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 2270
+  'y': 1280
+  wires:
+    - - 54b74cf85f7f0256
+- id: 234e3af808fd2440
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: words haystack
+  rules:
+    - t: set
+      p: needles
+      pt: msg
+      to: '#:(memoryOnly)::lara[msg.user.telegram]left'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 820
+  'y': 1400
+  wires:
+    - - 53f9db72809d33a7
+- id: ed4bc3745cf348ee
+  type: join
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 3290
+  'y': 1340
+  wires:
+    - - 234e3af808fd2440
+- id: ed90386457cddb37
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: add
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::lara[msg.user.telegram][''left''][msg.needles]'
+      pt: flow
+      to: '1'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1590
+  'y': 1280
+  wires:
+    - - 06ef952931b65360
+- id: abd17aa58cd2fbe5
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: left
+  rules:
+    - t: set
+      p: haystack
+      pt: msg
+      to: '#:(memoryOnly)::lara[msg.user.telegram]left'
+      tot: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2590
+  'y': 1340
+  wires:
+    - - 7add42c813a63f99
+- id: 7add42c813a63f99
+  type: split
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: split left
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: needle
+  property: haystack
+  x: 2760
+  'y': 1340
+  wires:
+    - - 7b532d13fb9bc98a
+- id: 7b532d13fb9bc98a
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: compare
+  property: haystack
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '0'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2940
+  'y': 1340
+  wires:
+    - - 3074dbb309e3d328
+    - - ed4bc3745cf348ee
+- id: 3074dbb309e3d328
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: remove
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::lara[msg.user.telegram][''left''][msg.needle]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3120
+  'y': 1280
+  wires:
+    - - ed4bc3745cf348ee
+- id: 54b74cf85f7f0256
+  type: join
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 2430
+  'y': 1340
+  wires:
+    - - abd17aa58cd2fbe5
+- id: 354f4c26776da0b3
+  type: comment
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: trash
+  info: ''
+  x: 1010
+  'y': 1280
+  wires: []
+- id: b47ad47927cf5f9b
+  type: comment
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: action
+  info: ''
+  x: 1010
+  'y': 1400
+  wires: []
+- id: 3553abd0049e4da9
+  type: comment
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: response
+  info: ''
+  x: 1020
+  'y': 1760
+  wires: []
+- id: e2da9cccd6e5ef9c
+  type: comment
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: component
+  info: ''
+  x: 1020
+  'y': 1520
+  wires: []
+- id: 5bb6e90e19833e36
+  type: comment
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: equipment
+  info: ''
+  x: 1020
+  'y': 1640
+  wires: []
+- id: 349927f5b9b2c671
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: ...
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 850
+  'y': 1520
+  wires:
+    - - ca326f19b5edccd3
+- id: ca326f19b5edccd3
+  type: change
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: ...
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 850
+  'y': 1640
+  wires:
+    - - b7e3e48a6d0adcd8
+- id: 3fe4168193b36db4
+  type: debug
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: telegram - lara
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1040
+  'y': 1880
+  wires: []
