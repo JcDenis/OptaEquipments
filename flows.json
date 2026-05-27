@@ -3377,19 +3377,21 @@
             "69f84b8eb3684a75",
             "66da27deb7de39a2",
             "d3e8fc62c04a67f6",
-            "389e628796cf3670",
-            "914061c9052b4e1d",
-            "6364aa6250ff4bd5",
             "2a5d1c11c4c3ebad",
             "26a84f5b44a9c347",
             "2bb6bcbae48d04c1",
-            "de90cd63e86f8a18",
-            "077db65ed4ed8445"
+            "2664ceb706e6962a",
+            "e55bc2db5ee867cb",
+            "d56ed65415166f69",
+            "d3ce53a10cf99cad",
+            "53ce0ae78fa563a0",
+            "69ab6214012d2418",
+            "8ae1fb68a2b73a40"
         ],
         "x": 104,
-        "y": 399,
-        "w": 1572,
-        "h": 202
+        "y": 391.5,
+        "w": 2212,
+        "h": 209.5
     },
     {
         "id": "569324cc42ab32e4",
@@ -20261,7 +20263,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "heat",
-        "func": "var opts = [[]];\nvar i = 0;\nvar state = global.get('kernel.state.' + msg.entity + '|' + msg.component);\nif (global.get('kernel.reverse.' + msg.entity + '|' + msg.component)) {\n  state = !state;\n}\nif (state) {\n  opts[0][i++] = {\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }\n} else {\n  opts[0][i++] = {\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }\n}\nif (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line) === true) {\n    opts[0][i++] = {\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }\n  } else {\n    opts[0][i++] = {\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }\n  }\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de la chauffe:',\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
+        "func": "var opts = [[]];\nvar i = 0;\nvar state = global.get('kernel.state.' + msg.entity + '|' + msg.component);\nif (global.get('kernel.reverse.' + msg.entity + '|' + msg.component)) {\n  state = !state;\n}\nif (state) {\n  opts[i++] = [{\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }];\n} else {\n  opts[i++] = [{\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }];\n}\nif (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line) === true) {\n    opts[i++] = [{\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }];\n  } else {\n    opts[i++] = [{\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }];\n  }\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de la chauffe:',\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -20707,7 +20709,8 @@
         "name": "telegram - send",
         "links": [
             "e2aa80428d893745",
-            "23a78f8d1af58a4d"
+            "23a78f8d1af58a4d",
+            "17be5f58b0068d4b"
         ],
         "x": 145,
         "y": 260,
@@ -20899,6 +20902,13 @@
                 "pt": "msg",
                 "to": "#:(memoryOnly)::auth",
                 "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::user",
+                "pt": "flow",
+                "to": "{'id':'','telegam':''}",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -20928,7 +20938,7 @@
         "addname": "key",
         "property": "users",
         "x": 640,
-        "y": 540,
+        "y": 500,
         "wires": [
             [
                 "d3e8fc62c04a67f6"
@@ -20957,108 +20967,13 @@
         "repair": false,
         "outputs": 2,
         "x": 830,
-        "y": 520,
+        "y": 500,
         "wires": [
             [
-                "389e628796cf3670"
+                "2664ceb706e6962a"
             ],
             [
-                "077db65ed4ed8445"
-            ]
-        ]
-    },
-    {
-        "id": "389e628796cf3670",
-        "type": "switch",
-        "z": "c886080f59e5c106",
-        "g": "37ab0c5a35f9a77b",
-        "name": "is user",
-        "property": "users.telegram",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "msg.originalMessage.from.username",
-                "vt": "msg"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1010,
-        "y": 440,
-        "wires": [
-            [
-                "914061c9052b4e1d"
-            ],
-            [
-                "077db65ed4ed8445"
-            ]
-        ]
-    },
-    {
-        "id": "914061c9052b4e1d",
-        "type": "change",
-        "z": "c886080f59e5c106",
-        "g": "37ab0c5a35f9a77b",
-        "name": "set user",
-        "rules": [
-            {
-                "t": "set",
-                "p": "user",
-                "pt": "msg",
-                "to": "users",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "user.id",
-                "pt": "msg",
-                "to": "key",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1180,
-        "y": 440,
-        "wires": [
-            [
-                "de90cd63e86f8a18"
-            ]
-        ]
-    },
-    {
-        "id": "6364aa6250ff4bd5",
-        "type": "change",
-        "z": "c886080f59e5c106",
-        "g": "37ab0c5a35f9a77b",
-        "name": "set user",
-        "rules": [
-            {
-                "t": "set",
-                "p": "user",
-                "pt": "msg",
-                "to": "{'id':'','telegam':''}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1340,
-        "y": 560,
-        "wires": [
-            [
-                "2a5d1c11c4c3ebad"
+                "69ab6214012d2418"
             ]
         ]
     },
@@ -21070,6 +20985,13 @@
         "name": "clean",
         "rules": [
             {
+                "t": "set",
+                "p": "user",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::user",
+                "tot": "flow"
+            },
+            {
                 "t": "delete",
                 "p": "key",
                 "pt": "msg"
@@ -21078,6 +21000,11 @@
                 "t": "delete",
                 "p": "users",
                 "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "split",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -21085,8 +21012,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1510,
-        "y": 500,
+        "x": 2150,
+        "y": 560,
         "wires": [
             [
                 "26a84f5b44a9c347"
@@ -21101,8 +21028,8 @@
         "name": "telegram - user",
         "mode": "return",
         "links": [],
-        "x": 1635,
-        "y": 500,
+        "x": 2275,
+        "y": 560,
         "wires": []
     },
     {
@@ -21278,36 +21205,6 @@
             [
                 "66da27deb7de39a2"
             ],
-            [
-                "6364aa6250ff4bd5"
-            ]
-        ]
-    },
-    {
-        "id": "de90cd63e86f8a18",
-        "type": "join",
-        "z": "c886080f59e5c106",
-        "g": "37ab0c5a35f9a77b",
-        "name": "join",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 1350,
-        "y": 500,
-        "wires": [
             [
                 "2a5d1c11c4c3ebad"
             ]
@@ -23344,34 +23241,6 @@
         ]
     },
     {
-        "id": "077db65ed4ed8445",
-        "type": "change",
-        "z": "c886080f59e5c106",
-        "g": "37ab0c5a35f9a77b",
-        "name": "set user",
-        "rules": [
-            {
-                "t": "set",
-                "p": "user",
-                "pt": "msg",
-                "to": "{'id':'','telegam':''}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1180,
-        "y": 500,
-        "wires": [
-            [
-                "de90cd63e86f8a18"
-            ]
-        ]
-    },
-    {
         "id": "0f97f148241331ad",
         "type": "debug",
         "z": "c886080f59e5c106",
@@ -23796,7 +23665,9 @@
         "g": "569324cc42ab32e4",
         "name": "telegram - tree",
         "mode": "link",
-        "links": [],
+        "links": [
+            "b62a3b02d3d8dabc"
+        ],
         "x": 1435,
         "y": 740,
         "wires": []
@@ -23898,6 +23769,216 @@
         "y": 140,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "2664ceb706e6962a",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "telegram",
+        "rules": [
+            {
+                "t": "set",
+                "p": "split",
+                "pt": "msg",
+                "to": "$split(msg.users.telegram,',')",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 440,
+        "wires": [
+            [
+                "e55bc2db5ee867cb"
+            ]
+        ]
+    },
+    {
+        "id": "e55bc2db5ee867cb",
+        "type": "split",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "split",
+        "x": 1190,
+        "y": 440,
+        "wires": [
+            [
+                "8ae1fb68a2b73a40"
+            ]
+        ]
+    },
+    {
+        "id": "d56ed65415166f69",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "is user",
+        "property": "split",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "empty"
+            },
+            {
+                "t": "eq",
+                "v": "msg.originalMessage.from.username",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 1510,
+        "y": 440,
+        "wires": [
+            [
+                "53ce0ae78fa563a0"
+            ],
+            [
+                "d3ce53a10cf99cad"
+            ],
+            [
+                "53ce0ae78fa563a0"
+            ]
+        ]
+    },
+    {
+        "id": "d3ce53a10cf99cad",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "set user",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::user",
+                "pt": "flow",
+                "to": "users",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "#:(memoryOnly)::user.id",
+                "pt": "flow",
+                "to": "key",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1680,
+        "y": 480,
+        "wires": [
+            [
+                "53ce0ae78fa563a0"
+            ]
+        ]
+    },
+    {
+        "id": "53ce0ae78fa563a0",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1850,
+        "y": 440,
+        "wires": [
+            [
+                "69ab6214012d2418"
+            ]
+        ]
+    },
+    {
+        "id": "69ab6214012d2418",
+        "type": "join",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1990,
+        "y": 500,
+        "wires": [
+            [
+                "2a5d1c11c4c3ebad"
+            ]
+        ]
+    },
+    {
+        "id": "8ae1fb68a2b73a40",
+        "type": "change",
+        "z": "c886080f59e5c106",
+        "g": "37ab0c5a35f9a77b",
+        "name": "trim",
+        "rules": [
+            {
+                "t": "set",
+                "p": "split",
+                "pt": "msg",
+                "to": "$trim(msg.split)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1350,
+        "y": 440,
+        "wires": [
+            [
+                "d56ed65415166f69"
+            ]
         ]
     },
     {
