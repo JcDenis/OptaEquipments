@@ -1731,7 +1731,6 @@
             "f3cac8b5cdac6603",
             "512acb8e5a49cc52",
             "a536b598b5e16e16",
-            "1691d83e3598e8a4",
             "c3d005124e95de2f",
             "b96a79e7e0e13256",
             "3ef1ad4d211cdc1a",
@@ -1739,7 +1738,8 @@
             "d699caf4939bf76f",
             "6a1ce7f23e17f6f1",
             "90669edd6a23c826",
-            "414c5199cd809cf0"
+            "414c5199cd809cf0",
+            "2a12eb6ca897762e"
         ],
         "x": 104,
         "y": 1119,
@@ -74600,6 +74600,21 @@
                 "t": "delete",
                 "p": "topic",
                 "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "hmi",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "dictionary",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "file",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -74889,24 +74904,6 @@
         ]
     },
     {
-        "id": "1691d83e3598e8a4",
-        "type": "debug",
-        "z": "44465f18e06bb58d",
-        "g": "7c224f2f2afc76d3",
-        "name": "system - ota - form",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2130,
-        "y": 1340,
-        "wires": []
-    },
-    {
         "id": "c3d005124e95de2f",
         "type": "switch",
         "z": "44465f18e06bb58d",
@@ -74952,16 +74949,26 @@
                 "tot": "str"
             },
             {
-                "t": "delete",
-                "p": "topic",
-                "pt": "msg"
-            },
-            {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
                 "to": "0",
                 "tot": "num"
+            },
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "hmi",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "dictionary",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -75225,13 +75232,11 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 1770,
+        "x": 1430,
         "y": 1340,
         "wires": [
             [
-                "44b14fdf37109b9a",
-                "4e3829a06010be64",
-                "1691d83e3598e8a4"
+                "2a12eb6ca897762e"
             ]
         ]
     },
@@ -76555,6 +76560,42 @@
         "wires": [
             [
                 "441d7fe85042013a"
+            ]
+        ]
+    },
+    {
+        "id": "2a12eb6ca897762e",
+        "type": "change",
+        "z": "44465f18e06bb58d",
+        "g": "7c224f2f2afc76d3",
+        "name": "prepare",
+        "rules": [
+            {
+                "t": "set",
+                "p": "opta.version",
+                "pt": "global",
+                "to": "#:(memoryOnly)::form_version",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "opta.buffer",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1760,
+        "y": 1340,
+        "wires": [
+            [
+                "44b14fdf37109b9a",
+                "4e3829a06010be64"
             ]
         ]
     }
