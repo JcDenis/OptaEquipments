@@ -88,12 +88,12 @@
     - 0c83fe1f9690e061
     - 441d7fe85042013a
     - 230e5e76372284fb
-    - f83449865c366fb3
     - 1aad4693dd3e7170
     - 53abf944080b21c2
     - 929519cc3e756da5
     - fceff626f4a0cfbf
     - 0d7c72be0d6bd539
+    - ff3c9585225fb548
   x: 104
   'y': 39
   w: 1012
@@ -870,26 +870,6 @@
   'y': 140
   wires:
     - - 53abf944080b21c2
-- id: f83449865c366fb3
-  type: switch
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: neq
-      v: admin
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - 0d7c72be0d6bd539
-    - - 929519cc3e756da5
 - id: 2d0be523be6aa3e3
   type: ui-button
   z: 44465f18e06bb58d
@@ -1530,7 +1510,7 @@
   'y': 140
   wires:
     - - 0d7c72be0d6bd539
-    - - f83449865c366fb3
+    - - ff3c9585225fb548
     - - 1aad4693dd3e7170
 - id: 5c246c4ede5a0c33
   type: link call
@@ -1701,3 +1681,21 @@
   wires:
     - - 44b14fdf37109b9a
       - 4e3829a06010be64
+- id: ff3c9585225fb548
+  type: switch
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: level
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 140
+  wires:
+    - - 929519cc3e756da5
+    - - 1aad4693dd3e7170

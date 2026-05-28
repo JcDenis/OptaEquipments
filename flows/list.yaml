@@ -272,13 +272,13 @@
     - 05107d400a502297
     - d929753382156fa2
     - 42ee8c89bb1f88e2
-    - 5c195bb5f6aef75f
     - de71dce191e15350
     - 726908f7902e2771
     - a19eae9b1a486ee0
     - 5aabca9b87fb9ba4
     - 04e3c845f4d9de6a
     - 7807f917f86c7b73
+    - dd257e5ca1b24c21
   x: 104
   'y': 39
   w: 1122
@@ -4078,38 +4078,6 @@
   'y': 200
   wires:
     - - 04e3c845f4d9de6a
-- id: 5c195bb5f6aef75f
-  type: switch
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: eq
-      v: rt
-      vt: str
-    - t: eq
-      v: tech
-      vt: str
-    - t: eq
-      v: rp
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 5
-  x: 430
-  'y': 140
-  wires:
-    - - de71dce191e15350
-    - - de71dce191e15350
-    - - de71dce191e15350
-    - - de71dce191e15350
-    - - 42ee8c89bb1f88e2
 - id: 033bdb2c1e76e680
   type: ui-text
   z: e97c6f12735a13c1
@@ -4431,7 +4399,7 @@
   'y': 140
   wires:
     - - 8042b16220cb6f8f
-    - - 5c195bb5f6aef75f
+    - - dd257e5ca1b24c21
     - - 42ee8c89bb1f88e2
 - id: 04e3c845f4d9de6a
   type: change
@@ -5139,3 +5107,21 @@
   'y': 380
   wires:
     - - 607e3e4e380d8497
+- id: dd257e5ca1b24c21
+  type: switch
+  z: e97c6f12735a13c1
+  g: 2c0f9b39f8c7dd73
+  name: level
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 140
+  wires:
+    - - de71dce191e15350
+    - - 42ee8c89bb1f88e2

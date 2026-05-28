@@ -17,13 +17,13 @@
     - d55041fdf28a3f36
     - 2f4cc22df5d1af36
     - 11a3e525f770e3aa
-    - 3e63d0b10c7928bf
     - 1b64d0b5886f5573
     - 3a19e0ec83e6803a
     - 8c2f36f3d0630835
     - e643dc3727997ae0
     - a6662f1c1581d38f
     - 694a649b4a6f37ed
+    - 99f5d8cab1939302
   x: 104
   'y': 39
   w: 1122
@@ -157,38 +157,6 @@
   x: 1075
   'y': 140
   wires: []
-- id: 3e63d0b10c7928bf
-  type: switch
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: eq
-      v: rt
-      vt: str
-    - t: eq
-      v: tech
-      vt: str
-    - t: eq
-      v: rp
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 5
-  x: 430
-  'y': 140
-  wires:
-    - - 1b64d0b5886f5573
-    - - 1b64d0b5886f5573
-    - - 1b64d0b5886f5573
-    - - 1b64d0b5886f5573
-    - - 2f4cc22df5d1af36
 - id: c4b06dfab80353d9
   type: switch
   z: 51c4b2897d2c318c
@@ -944,13 +912,10 @@
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
   name: level
-  property: hmi.level
-  propertyType: msg
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
   rules:
-    - t: regex
-      v: ^(admin|rt|tech|rp)$
-      vt: str
-      case: false
+    - t: 'true'
     - t: else
   checkall: 'false'
   repair: false
@@ -1096,13 +1061,10 @@
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
   name: level
-  property: hmi.level
-  propertyType: msg
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
   rules:
-    - t: regex
-      v: ^(admin|rt|tech|rp)$
-      vt: str
-      case: false
+    - t: 'true'
     - t: else
   checkall: 'false'
   repair: false
@@ -1617,7 +1579,7 @@
   'y': 140
   wires:
     - - 598922d88f856d89
-    - - 3e63d0b10c7928bf
+    - - 99f5d8cab1939302
     - - 2f4cc22df5d1af36
 - id: a6662f1c1581d38f
   type: change
@@ -1775,3 +1737,21 @@
   'y': 440
   wires:
     - - f4f846fcf380110e
+- id: 99f5d8cab1939302
+  type: switch
+  z: 51c4b2897d2c318c
+  g: 6cb8cb87cdf72081
+  name: level
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 140
+  wires:
+    - - 1b64d0b5886f5573
+    - - 2f4cc22df5d1af36

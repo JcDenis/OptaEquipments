@@ -21,8 +21,8 @@
     - 0241ca22fa9d07b6
     - 43db6718c6675864
     - 7161f321fc17076b
-    - 23cf484a30b693f0
     - 3b79f6a078128a33
+    - 79f7abe2870c8049
   x: 104
   'y': 39
   w: 1012
@@ -1432,28 +1432,8 @@
   'y': 140
   wires:
     - - 3b79f6a078128a33
-    - - 23cf484a30b693f0
+    - - 79f7abe2870c8049
     - - 67d842f3b7ccfa6f
-- id: 23cf484a30b693f0
-  type: switch
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: neq
-      v: admin
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - 3b79f6a078128a33
-    - - 0241ca22fa9d07b6
 - id: 30571b6d70631747
   type: link in
   z: adb48ef35d9453c0
@@ -2448,3 +2428,21 @@
   'y': 500
   wires:
     - - 6409d1cc419c1f86
+- id: 79f7abe2870c8049
+  type: switch
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: level
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 140
+  wires:
+    - - 0241ca22fa9d07b6
+    - - 67d842f3b7ccfa6f
