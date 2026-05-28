@@ -915,12 +915,10 @@
   z: 476eb6fc04c55cec
   g: d509ef3b5101effa
   name: level
-  property: hmi.level
-  propertyType: msg
+  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
+  propertyType: global
   rules:
-    - t: neq
-      v: ''
-      vt: str
+    - t: 'true'
     - t: else
   checkall: 'false'
   repair: false

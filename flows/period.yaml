@@ -93,10 +93,22 @@
     - 482622d47dd8f977
     - f4f846fcf380110e
     - bd720f4ed1f034f8
+    - ab542793b32e076a
+    - 1a12385f5431dc5d
+    - 51f8e13a5424ae56
+    - 59cbee7b90b20165
+    - 3fed0fafd456f89d
+    - d809ccb04a816744
+    - 1f363971cfd7b7d1
+    - 87da49a0dfaa67a3
+    - beac0cb54e4ebf07
+    - 0a07351e72c8426a
+    - 81b2f7d38fd25d09
+    - bade08026654ecc9
   x: 104
   'y': 279
   w: 6622
-  h: 322
+  h: 442
 - id: 598922d88f856d89
   type: change
   z: 51c4b2897d2c318c
@@ -284,6 +296,7 @@
   wires:
     - - ee588a552ba9d8c0
       - a79527edfa815621
+      - ab542793b32e076a
 - id: 521ce922774ffc87
   type: change
   z: 51c4b2897d2c318c
@@ -310,6 +323,7 @@
   wires:
     - - ee588a552ba9d8c0
       - a79527edfa815621
+      - ab542793b32e076a
 - id: a79527edfa815621
   type: change
   z: 51c4b2897d2c318c
@@ -1681,6 +1695,8 @@
     - - d0bfea36099bd97c
       - 0cbca936c25fa514
       - bd720f4ed1f034f8
+      - beac0cb54e4ebf07
+      - bade08026654ecc9
 - id: 482622d47dd8f977
   type: link call
   z: 51c4b2897d2c318c
@@ -1755,3 +1771,356 @@
   wires:
     - - 1b64d0b5886f5573
     - - 2f4cc22df5d1af36
+- id: ab542793b32e076a
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: teams
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: kernel.team
+      tot: global
+    - t: set
+      p: row
+      pt: msg
+      to: '{}'
+      tot: jsonata
+    - t: set
+      p: '#:(memoryOnly)::teams[msg.hmi.id]'
+      pt: flow
+      to: '{}'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 680
+  wires:
+    - - 1a12385f5431dc5d
+- id: 1a12385f5431dc5d
+  type: split
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: split
+  splt: \n
+  spltType: str
+  arraySplt: 1
+  arraySpltType: len
+  stream: false
+  addname: row.entity
+  property: payload
+  x: 1850
+  'y': 680
+  wires:
+    - - 51f8e13a5424ae56
+- id: 51f8e13a5424ae56
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: row
+  rules:
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.row.entity,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.plant
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.team
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: set
+      p: split
+      pt: msg
+      to: '$split(msg.payload,''|'')'
+      tot: jsonata
+    - t: set
+      p: row.starttime
+      pt: msg
+      to: 'split[0]'
+      tot: msg
+    - t: set
+      p: row.stoptime
+      pt: msg
+      to: 'split[1]'
+      tot: msg
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2010
+  'y': 680
+  wires:
+    - - 59cbee7b90b20165
+- id: 59cbee7b90b20165
+  type: switch
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: plant
+  property: row.plant
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '#:(memoryOnly)::form[msg.hmi.id]plant'
+      vt: flow
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2170
+  'y': 680
+  wires:
+    - - 3fed0fafd456f89d
+    - - 1f363971cfd7b7d1
+- id: 3fed0fafd456f89d
+  type: switch
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: team
+  property: dictionary.option_team
+  propertyType: msg
+  rules:
+    - t: hask
+      v: row.team
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 2330
+  'y': 660
+  wires:
+    - - d809ccb04a816744
+    - - 1f363971cfd7b7d1
+- id: d809ccb04a816744
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: add
+  rules:
+    - t: set
+      p: row.name
+      pt: msg
+      to: 'dictionary.option_team[msg.row.team]'
+      tot: msg
+    - t: set
+      p: tmp
+      pt: msg
+      to: '#:(memoryOnly)::teams[msg.hmi.id]'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::teams[msg.hmi.id]'
+      pt: flow
+      to: '$append(msg.tmp,msg.row)'
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2490
+  'y': 640
+  wires:
+    - - 1f363971cfd7b7d1
+- id: 1f363971cfd7b7d1
+  type: join
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: join
+  mode: auto
+  build: object
+  property: payload
+  propertyType: msg
+  key: topic
+  joiner: \n
+  joinerType: str
+  useparts: false
+  accumulate: true
+  timeout: ''
+  count: ''
+  reduceRight: false
+  reduceExp: ''
+  reduceInit: ''
+  reduceInitType: ''
+  reduceFixup: ''
+  x: 2650
+  'y': 680
+  wires:
+    - - 87da49a0dfaa67a3
+- id: 87da49a0dfaa67a3
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: prepare
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::teams[msg.hmi.id]'
+      tot: flow
+    - t: delete
+      p: tmp
+      pt: msg
+    - t: delete
+      p: row
+      pt: msg
+    - t: delete
+      p: '#:(memoryOnly)::teams[msg.hmi.id]'
+      pt: flow
+    - t: delete
+      p: 'payload[0]'
+      pt: msg
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2820
+  'y': 680
+  wires:
+    - - 0a07351e72c8426a
+- id: beac0cb54e4ebf07
+  type: ui-table
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  group: 09b574b24dc3ba17
+  name: period - team - fr
+  label: ''
+  order: 6
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Equipe
+      key: name
+      keyType: key
+      type: text
+      width: 80%
+      align: end
+    - title: Début
+      key: starttime
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: Fin
+      key: stoptime
+      keyType: key
+      type: text
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 5520
+  'y': 620
+  wires:
+    - []
+- id: 0a07351e72c8426a
+  type: switch
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: empty
+  property: payload
+  propertyType: msg
+  rules:
+    - t: nempty
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 2990
+  'y': 680
+  wires:
+    - - 81b2f7d38fd25d09
+- id: 81b2f7d38fd25d09
+  type: switch
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: lang
+  property: dictionary.lang
+  propertyType: msg
+  rules:
+    - t: eq
+      v: fr
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 5330
+  'y': 680
+  wires:
+    - - beac0cb54e4ebf07
+    - - bade08026654ecc9
+- id: bade08026654ecc9
+  type: ui-table
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  group: 09b574b24dc3ba17
+  name: period - team - en
+  label: ''
+  order: 7
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Team
+      key: name
+      keyType: key
+      type: text
+      width: 80%
+      align: end
+    - title: Begin
+      key: starttime
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: End
+      key: stoptime
+      keyType: key
+      type: text
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 5530
+  'y': 680
+  wires:
+    - []
