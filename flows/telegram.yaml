@@ -73,10 +73,12 @@
     - 9741ddf1c198bb62
     - 39c33854c2d6d209
     - bca0fa8d57942073
+    - 3e34d912c7789926
+    - 7eedbec7c5bb52c0
   x: 94
   'y': 1579
   w: 2292
-  h: 622
+  h: 682
 - id: 2c44f2042c405e97
   type: group
   z: c886080f59e5c106
@@ -451,7 +453,7 @@
   finalize: ''
   libs: []
   x: 1890
-  'y': 2160
+  'y': 2220
   wires:
     - - e2aa80428d893745
       - 4f9432cfb4690925
@@ -675,7 +677,7 @@
   to: ''
   reg: false
   x: 1490
-  'y': 2160
+  'y': 2220
   wires:
     - - 3726cc70ce9badd0
 - id: 0f76f87348311370
@@ -699,6 +701,7 @@
   'y': 1920
   wires:
     - - 670d8646787df10d
+      - 7eedbec7c5bb52c0
 - id: 3ffdfce719e47e0a
   type: change
   z: c886080f59e5c106
@@ -844,13 +847,19 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: heat
-  func: |-
+  func: >-
     var opts = [[]];
+
     var i = 0;
-    var state = global.get('kernel.state.' + msg.entity + '|' + msg.component);
-    if (global.get('kernel.reverse.' + msg.entity + '|' + msg.component)) {
+
+    var state = global.get('kernel.state.' + msg.entity + '|' + msg.component,
+    'default');
+
+    if (global.get('kernel.reverse.' + msg.entity + '|' + msg.component,
+    'default')) {
       state = !state;
     }
+
     if (state) {
       opts[i++] = [{
         "text": "Désactiver la chauffe",
@@ -862,8 +871,10 @@
         "callback_data": "heat|1"
       }];
     }
-    if (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {
-      if (global.get('kernel.disabled.' + msg.line) === true) {
+
+    if (global.get('kernel.team.' + msg.plant + '|m', 'default') !== undefined)
+    {
+      if (global.get('kernel.disabled.' + msg.line, 'default') === true) {
         opts[i++] = [{
           "text": "Activer la programmation",
           "callback_data": "period|1"
@@ -875,13 +886,17 @@
         }];
       }
     }
+
     msg.payload = {
+
     //    'messageId':99,
+
     //    'sentMessageId':99,
         'type':'message',
         'content':'Gestion de la chauffe:',
         'options': {reply_markup: JSON.stringify({"inline_keyboard":opts})}
     }
+
 
     return msg;
   outputs: 1
@@ -941,7 +956,7 @@
   to: ''
   reg: false
   x: 1490
-  'y': 1980
+  'y': 2040
   wires:
     - - 5d25f1a65fcb3c60
 - id: 5d25f1a65fcb3c60
@@ -959,7 +974,7 @@
   repair: false
   outputs: 1
   x: 1690
-  'y': 1980
+  'y': 2040
   wires:
     - - 22983125331ba5c5
       - f9f342767993a934
@@ -1000,7 +1015,7 @@
   to: ''
   reg: false
   x: 1890
-  'y': 1980
+  'y': 2040
   wires:
     - - ded3b3a1e563034d
       - e2aa80428d893745
@@ -1039,7 +1054,7 @@
   to: ''
   reg: false
   x: 1890
-  'y': 2040
+  'y': 2100
   wires:
     - - ded3b3a1e563034d
       - e2aa80428d893745
@@ -1102,7 +1117,7 @@
   repair: false
   outputs: 2
   x: 1690
-  'y': 2040
+  'y': 2100
   wires:
     - []
     - - c7f5e328c409800e
@@ -1124,7 +1139,7 @@
   allowrate: false
   outputs: 1
   x: 1330
-  'y': 2040
+  'y': 2100
   wires:
     - - 0756b0b50e8d4ee1
 - id: 4f9432cfb4690925
@@ -1141,7 +1156,7 @@
   statusVal: ''
   statusType: auto
   x: 2100
-  'y': 2160
+  'y': 2220
   wires: []
 - id: 55fa9cd9733cde73
   type: change
@@ -1170,7 +1185,7 @@
   to: ''
   reg: false
   x: 1490
-  'y': 2100
+  'y': 2160
   wires:
     - - b72ab0a669e01a4f
 - id: b72ab0a669e01a4f
@@ -1195,7 +1210,7 @@
   to: ''
   reg: false
   x: 1890
-  'y': 2100
+  'y': 2160
   wires:
     - - ded3b3a1e563034d
       - e2aa80428d893745
@@ -3087,7 +3102,7 @@
   z: c886080f59e5c106
   g: 569324cc42ab32e4
   name: telegram - tree - in
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -3605,3 +3620,82 @@
   'y': 440
   wires:
     - - d56ed65415166f69
+- id: 3e34d912c7789926
+  type: function
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: meter
+  func: >-
+    var opts = [[]];
+
+    var content = '';
+
+    var i = 0;
+
+
+    var runmeter = global.get('kernel.state.' + msg.entity + '|runmeter',
+    'default')
+
+    if (runmeter !== undefined) {
+      content += "\n* Compteur partiel d'heures: " + runmeter + 'h';
+      opts[i++] = [{
+        "text": "RAZ compteur d'heures",
+        "callback_data": "runmeter|0"
+      }];
+    }
+
+    var cyclemeter = global.get('kernel.state.' + msg.entity + '|cyclemeter',
+    'default');
+
+    if (cyclemeter !== undefined) {
+      content += "\n* Compteur partiel de cycles: " + cyclemeter + ' c';
+      opts[i++] = [{
+        "text": "RAZ compteur de cycles",
+        "callback_data": "cyclemeter|0"
+      }];
+    }
+
+    msg.payload = {
+
+    //    'messageId':99,
+
+    //    'sentMessageId':99,
+        'type':'message',
+        'content':'Gestion de compteur:' + content,
+        'options': {reply_markup: JSON.stringify({"inline_keyboard":opts})}
+    }
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1890
+  'y': 1980
+  wires:
+    - - e2aa80428d893745
+- id: 7eedbec7c5bb52c0
+  type: switch
+  z: c886080f59e5c106
+  g: 9530b4911db3e343
+  name: state
+  property: kernel.state
+  propertyType: global
+  rules:
+    - t: hask
+      v: msg.entity & '|runmeter'
+      vt: jsonata
+    - t: hask
+      v: msg.entity & '|cyclemeter'
+      vt: jsonata
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1490
+  'y': 1980
+  wires:
+    - - 3e34d912c7789926
+    - - 3e34d912c7789926

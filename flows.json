@@ -3346,12 +3346,14 @@
             "1a2f55a069418a86",
             "9741ddf1c198bb62",
             "39c33854c2d6d209",
-            "bca0fa8d57942073"
+            "bca0fa8d57942073",
+            "3e34d912c7789926",
+            "7eedbec7c5bb52c0"
         ],
         "x": 94,
         "y": 1579,
         "w": 2292,
-        "h": 622
+        "h": 682
     },
     {
         "id": "2c44f2042c405e97",
@@ -19991,7 +19993,7 @@
         "finalize": "",
         "libs": [],
         "x": 1890,
-        "y": 2160,
+        "y": 2220,
         "wires": [
             [
                 "e2aa80428d893745",
@@ -20213,7 +20215,7 @@
         "to": "",
         "reg": false,
         "x": 1490,
-        "y": 2160,
+        "y": 2220,
         "wires": [
             [
                 "3726cc70ce9badd0"
@@ -20242,7 +20244,8 @@
         "y": 1920,
         "wires": [
             [
-                "670d8646787df10d"
+                "670d8646787df10d",
+                "7eedbec7c5bb52c0"
             ]
         ]
     },
@@ -20449,7 +20452,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "heat",
-        "func": "var opts = [[]];\nvar i = 0;\nvar state = global.get('kernel.state.' + msg.entity + '|' + msg.component);\nif (global.get('kernel.reverse.' + msg.entity + '|' + msg.component)) {\n  state = !state;\n}\nif (state) {\n  opts[i++] = [{\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }];\n} else {\n  opts[i++] = [{\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }];\n}\nif (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line) === true) {\n    opts[i++] = [{\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }];\n  } else {\n    opts[i++] = [{\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }];\n  }\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de la chauffe:',\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
+        "func": "var opts = [[]];\nvar i = 0;\nvar state = global.get('kernel.state.' + msg.entity + '|' + msg.component, 'default');\nif (global.get('kernel.reverse.' + msg.entity + '|' + msg.component, 'default')) {\n  state = !state;\n}\nif (state) {\n  opts[i++] = [{\n    \"text\": \"Désactiver la chauffe\",\n    \"callback_data\": \"heat|0\"\n  }];\n} else {\n  opts[i++] = [{\n    \"text\": \"Activer la chauffe\",\n    \"callback_data\": \"heat|1\"\n  }];\n}\nif (global.get('kernel.team.' + msg.plant + '|m', 'default') !== undefined) {\n  if (global.get('kernel.disabled.' + msg.line, 'default') === true) {\n    opts[i++] = [{\n      \"text\": \"Activer la programmation\",\n      \"callback_data\": \"period|1\"\n    }];\n  } else {\n    opts[i++] = [{\n      \"text\": \"Désatciver la programmation\",\n      \"callback_data\": \"period|0\"\n    }];\n  }\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de la chauffe:',\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -20527,7 +20530,7 @@
         "to": "",
         "reg": false,
         "x": 1490,
-        "y": 1980,
+        "y": 2040,
         "wires": [
             [
                 "5d25f1a65fcb3c60"
@@ -20553,7 +20556,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1690,
-        "y": 1980,
+        "y": 2040,
         "wires": [
             [
                 "22983125331ba5c5",
@@ -20610,7 +20613,7 @@
         "to": "",
         "reg": false,
         "x": 1890,
-        "y": 1980,
+        "y": 2040,
         "wires": [
             [
                 "ded3b3a1e563034d",
@@ -20660,7 +20663,7 @@
         "to": "",
         "reg": false,
         "x": 1890,
-        "y": 2040,
+        "y": 2100,
         "wires": [
             [
                 "ded3b3a1e563034d",
@@ -20757,7 +20760,7 @@
         "repair": false,
         "outputs": 2,
         "x": 1690,
-        "y": 2040,
+        "y": 2100,
         "wires": [
             [],
             [
@@ -20784,7 +20787,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 1330,
-        "y": 2040,
+        "y": 2100,
         "wires": [
             [
                 "0756b0b50e8d4ee1"
@@ -20806,7 +20809,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2100,
-        "y": 2160,
+        "y": 2220,
         "wires": []
     },
     {
@@ -20844,7 +20847,7 @@
         "to": "",
         "reg": false,
         "x": 1490,
-        "y": 2100,
+        "y": 2160,
         "wires": [
             [
                 "b72ab0a669e01a4f"
@@ -20879,7 +20882,7 @@
         "to": "",
         "reg": false,
         "x": 1890,
-        "y": 2100,
+        "y": 2160,
         "wires": [
             [
                 "ded3b3a1e563034d",
@@ -23450,7 +23453,7 @@
         "z": "c886080f59e5c106",
         "g": "569324cc42ab32e4",
         "name": "telegram - tree - in",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -24164,6 +24167,61 @@
         "wires": [
             [
                 "d56ed65415166f69"
+            ]
+        ]
+    },
+    {
+        "id": "3e34d912c7789926",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "meter",
+        "func": "var opts = [[]];\nvar content = '';\nvar i = 0;\n\nvar runmeter = global.get('kernel.state.' + msg.entity + '|runmeter', 'default')\nif (runmeter !== undefined) {\n  content += \"\\n* Compteur partiel d'heures: \" + runmeter + 'h';\n  opts[i++] = [{\n    \"text\": \"RAZ compteur d'heures\",\n    \"callback_data\": \"runmeter|0\"\n  }];\n}\nvar cyclemeter = global.get('kernel.state.' + msg.entity + '|cyclemeter', 'default');\nif (cyclemeter !== undefined) {\n  content += \"\\n* Compteur partiel de cycles: \" + cyclemeter + ' c';\n  opts[i++] = [{\n    \"text\": \"RAZ compteur de cycles\",\n    \"callback_data\": \"cyclemeter|0\"\n  }];\n}\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':'Gestion de compteur:' + content,\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":opts})}\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1890,
+        "y": 1980,
+        "wires": [
+            [
+                "e2aa80428d893745"
+            ]
+        ]
+    },
+    {
+        "id": "7eedbec7c5bb52c0",
+        "type": "switch",
+        "z": "c886080f59e5c106",
+        "g": "9530b4911db3e343",
+        "name": "state",
+        "property": "kernel.state",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "msg.entity & '|runmeter'",
+                "vt": "jsonata"
+            },
+            {
+                "t": "hask",
+                "v": "msg.entity & '|cyclemeter'",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1490,
+        "y": 1980,
+        "wires": [
+            [
+                "3e34d912c7789926"
+            ],
+            [
+                "3e34d912c7789926"
             ]
         ]
     },
