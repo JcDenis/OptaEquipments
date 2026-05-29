@@ -27,7 +27,6 @@
     - c82457de0864e28c
     - be3b97df6b45470f
     - 88a80f7ce9615035
-    - 6ebc17186e839ebb
     - 0cf63361a578f787
     - 3361a6a4765bfb11
     - 3da3f0a5ca052b2e
@@ -36,9 +35,10 @@
     - fe905230c6d73c11
     - 775c8e4364eee51a
     - f3b837acb99f6326
+    - 9093d61ed9142cff
   x: 104
   'y': 279
-  w: 1842
+  w: 2042
   h: 262
 - id: 4ef1cd4a19db42bf
   type: group
@@ -184,7 +184,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1775
+  x: 1975
   'y': 380
   wires: []
 - id: 8aca2e86c077d885
@@ -200,7 +200,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1830
+  x: 2030
   'y': 440
   wires: []
 - id: f9dc1f7a8155ebef
@@ -227,7 +227,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1490
+  x: 1690
   'y': 440
   wires:
     - - 6ab34b3b3d64905e
@@ -244,7 +244,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1330
+  x: 1530
   'y': 500
   wires:
     - - f9dc1f7a8155ebef
@@ -253,7 +253,7 @@
   type: change
   z: 27841aa886edd1cd
   g: 90f47fc795048184
-  name: global
+  name: notice
   rules:
     - t: delete
       p: '#:(memoryOnly)::user[msg._client.socketId]'
@@ -264,18 +264,17 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::describe.pages.auth.tab'
-      tot: global
+      to: dictionary.common_notice_login_fail
+      tot: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1490
+  x: 1690
   'y': 500
   wires:
-    - - 6ab34b3b3d64905e
-      - 6ebc17186e839ebb
+    - - 0cf63361a578f787
 - id: 6ab34b3b3d64905e
   type: delay
   z: 27841aa886edd1cd
@@ -293,11 +292,11 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1650
+  x: 1850
   'y': 380
   wires:
-    - - bb71762ba2269b75
-      - 8aca2e86c077d885
+    - - 8aca2e86c077d885
+      - bb71762ba2269b75
 - id: c82457de0864e28c
   type: link call
   z: 27841aa886edd1cd
@@ -307,7 +306,7 @@
     - fdb028158b218535
   linkType: static
   timeout: '30'
-  x: 1150
+  x: 1350
   'y': 500
   wires:
     - - 09bd0767b56167b6
@@ -424,36 +423,6 @@
       - bb28138bb34a0fa9
       - fe905230c6d73c11
       - 775c8e4364eee51a
-- id: 6ebc17186e839ebb
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: Notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.common_notice_login_fail
-      tot: msg
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1650
-  'y': 500
-  wires:
-    - - 0cf63361a578f787
 - id: 0cf63361a578f787
   type: link out
   z: 27841aa886edd1cd
@@ -462,7 +431,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1775
+  x: 1815
   'y': 500
   wires: []
 - id: 3361a6a4765bfb11
@@ -502,7 +471,7 @@
   x: 770
   'y': 500
   wires:
-    - - 3da3f0a5ca052b2e
+    - - 9093d61ed9142cff
 - id: 3da3f0a5ca052b2e
   type: change
   z: 27841aa886edd1cd
@@ -529,7 +498,7 @@
   from: ''
   to: ''
   reg: false
-  x: 960
+  x: 1160
   'y': 500
   wires:
     - - c82457de0864e28c
@@ -692,3 +661,16 @@
   x: 940
   'y': 320
   wires: []
+- id: 9093d61ed9142cff
+  type: link call
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 970
+  'y': 500
+  wires:
+    - - 3da3f0a5ca052b2e
