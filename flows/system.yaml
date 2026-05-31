@@ -36,9 +36,10 @@
     - 90669edd6a23c826
     - 414c5199cd809cf0
     - 2a12eb6ca897762e
+    - a4fb301472039371
   x: 104
   'y': 1119
-  w: 2162
+  w: 2222
   h: 262
 - id: 43bcc4020c29e03d
   type: group
@@ -185,7 +186,7 @@
   type: mqtt out
   z: 44465f18e06bb58d
   g: 7c224f2f2afc76d3
-  name: firmware version
+  name: firmware version // deprecated
   topic: opta/firmware/version
   qos: '0'
   retain: 'true'
@@ -195,8 +196,8 @@
   correl: ''
   expiry: ''
   broker: f516c1341f0f634c
-  x: 2120
-  'y': 1160
+  x: 2170
+  'y': 1220
   wires: []
 - id: 248ee86020acb7f2
   type: link in
@@ -265,6 +266,7 @@
   wires:
     - - 80e11615d0347342
       - 3ef1ad4d211cdc1a
+      - a4fb301472039371
 - id: c344b98bc4ee57db
   type: link in
   z: 44465f18e06bb58d
@@ -509,6 +511,7 @@
   wires:
     - - 80e11615d0347342
       - 3ef1ad4d211cdc1a
+      - a4fb301472039371
 - id: 3ef1ad4d211cdc1a
   type: debug
   z: 44465f18e06bb58d
@@ -523,7 +526,7 @@
   statusVal: ''
   statusType: auto
   x: 2130
-  'y': 1220
+  'y': 1280
   wires: []
 - id: a31a6d118c265f83
   type: ui-button
@@ -1699,3 +1702,20 @@
   wires:
     - - 929519cc3e756da5
     - - 1aad4693dd3e7170
+- id: a4fb301472039371
+  type: mqtt out
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: firmware version
+  topic: opta/distant/ota/version
+  qos: '0'
+  retain: 'true'
+  respTopic: ''
+  contentType: ''
+  userProps: ''
+  correl: ''
+  expiry: ''
+  broker: f516c1341f0f634c
+  x: 2120
+  'y': 1160
+  wires: []
