@@ -130,9 +130,11 @@
     - b0258b77304923c4
     - aaa2305fbe03acaa
     - fe18cb76e28e410c
+    - 091ec14021d6b409
+    - 75059252b5720bbe
   x: 104
   'y': 1599
-  w: 3882
+  w: 4222
   h: 262
 - id: baadcf077dabb0e1
   type: group
@@ -887,6 +889,12 @@
       type: text
       width: ''
       align: start
+    - title: Chien de garde
+      key: watchdog_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
     - title: ''
       key: delete
       keyType: key
@@ -897,7 +905,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1620
+  x: 1960
   'y': 1700
   wires:
     - - fe18cb76e28e410c
@@ -914,7 +922,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1390
+  x: 1730
   'y': 1700
   wires: []
 - id: 697e10f4e4fbb2a4
@@ -927,7 +935,7 @@
   arraySplt: 1
   arraySpltType: len
   stream: false
-  addname: row.device
+  addname: row.entity
   property: payload
   x: 610
   'y': 1820
@@ -942,7 +950,7 @@
     - t: set
       p: split
       pt: msg
-      to: '$split(msg.row.device,''|'')'
+      to: '$split(msg.row.entity,''|'')'
       tot: jsonata
     - t: set
       p: row.model
@@ -969,6 +977,11 @@
       pt: msg
       to: dictionary.common_action_delete
       tot: msg
+    - t: set
+      p: row.watchdog_color
+      pt: msg
+      to: '#CCCCCC'
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -977,7 +990,7 @@
   x: 770
   'y': 1820
   wires:
-    - - b240c158e5f018f1
+    - - 091ec14021d6b409
 - id: 427c7563b820b3ec
   type: join
   z: e97c6f12735a13c1
@@ -999,7 +1012,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1090
+  x: 1430
   'y': 1820
   wires:
     - - c1429cfff4e8c827
@@ -1035,7 +1048,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1250
+  x: 1590
   'y': 1820
   wires:
     - - 44444a4dc024b4e4
@@ -2277,7 +2290,7 @@
   from: ''
   to: ''
   reg: false
-  x: 930
+  x: 1270
   'y': 1820
   wires:
     - - 427c7563b820b3ec
@@ -2295,7 +2308,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2030
+  x: 2370
   'y': 1700
   wires:
     - - 38c80d9ff98a187f
@@ -2313,7 +2326,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2360
+  x: 2700
   'y': 1760
   wires:
     - - b9195d0faf532d0b
@@ -2348,7 +2361,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2530
+  x: 2870
   'y': 1760
   wires:
     - - 2dc9f2120275ce1c
@@ -2364,7 +2377,7 @@
   stream: false
   addname: endpoint
   property: payload
-  x: 2690
+  x: 3030
   'y': 1760
   wires:
     - - 58de7de6c5d02ccd
@@ -2389,7 +2402,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 3170
+  x: 3510
   'y': 1760
   wires:
     - - dc77a91b0904e505
@@ -2409,7 +2422,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2850
+  x: 3190
   'y': 1760
   wires:
     - - 5eb1a27a33c99bf5
@@ -2430,7 +2443,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3010
+  x: 3350
   'y': 1700
   wires:
     - - 1391b4f38bf21b92
@@ -2447,7 +2460,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3330
+  x: 3670
   'y': 1760
   wires:
     - - 40878c6b8a646992
@@ -2466,7 +2479,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3850
+  x: 4190
   'y': 1760
   wires: []
 - id: 40878c6b8a646992
@@ -2490,7 +2503,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3490
+  x: 3830
   'y': 1700
   wires:
     - - 07f04015f0eb92c6
@@ -2502,7 +2515,7 @@
   mode: link
   links:
     - 468277bb16c8903c
-  x: 3615
+  x: 3955
   'y': 1700
   wires: []
 - id: 4c58fc0882d1d844
@@ -2531,7 +2544,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3490
+  x: 3830
   'y': 1760
   wires:
     - - 07f04015f0eb92c6
@@ -2576,7 +2589,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3490
+  x: 3830
   'y': 1820
   wires:
     - - ef92b32bf7f2db5c
@@ -2597,7 +2610,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 3650
+  x: 3990
   'y': 1820
   wires:
     - - bb1c3eeed652f702
@@ -2610,7 +2623,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 3775
+  x: 4115
   'y': 1820
   wires: []
 - id: 80b99c125ddfdb04
@@ -3872,7 +3885,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2190
+  x: 2530
   'y': 1700
   wires:
     - - d41e847ccdd25e24
@@ -3898,7 +3911,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3490
+  x: 3830
   'y': 1640
   wires:
     - - 07f04015f0eb92c6
@@ -4103,7 +4116,7 @@
   className: ''
   value: total
   valueType: msg
-  x: 1770
+  x: 2110
   'y': 1640
   wires: []
 - id: b5e2ab501334ef5a
@@ -4670,7 +4683,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1410
+  x: 1750
   'y': 1640
   wires:
     - - cc6f2138fae2fd48
@@ -4726,7 +4739,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1570
+  x: 1910
   'y': 1640
   wires:
     - - 0d5f1f7ce58e19dc
@@ -4745,7 +4758,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1410
+  x: 1750
   'y': 1760
   wires:
     - - ff677fe25af37929
@@ -4781,6 +4794,12 @@
       type: text
       width: ''
       align: start
+    - title: Watchdog
+      key: watchdog_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
     - title: ''
       key: delete
       keyType: key
@@ -4791,7 +4810,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1620
+  x: 1960
   'y': 1760
   wires:
     - - fe18cb76e28e410c
@@ -4804,7 +4823,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1850
+  x: 2190
   'y': 1700
   wires:
     - - 4a03a1d71cccb371
@@ -5471,3 +5490,53 @@
   'y': 620
   wires:
     - - 4c1093802ef038cc
+- id: 091ec14021d6b409
+  type: switch
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  name: watchdog
+  property: kernel.watchdog
+  propertyType: global
+  rules:
+    - t: hask
+      v: row.entity
+      vt: msg
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 940
+  'y': 1820
+  wires:
+    - - 75059252b5720bbe
+    - - b240c158e5f018f1
+- id: 75059252b5720bbe
+  type: change
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  name: color
+  rules:
+    - t: set
+      p: row.watchdog
+      pt: msg
+      to: 'kernel.watchdog[msg.row.entity]'
+      tot: global
+    - t: set
+      p: row.watchdog
+      pt: msg
+      to: $millis() - msg.row.watchdog
+      tot: jsonata
+    - t: set
+      p: row.watchdog_color
+      pt: msg
+      to: 'msg.row.watchdog < 120000 ? ''#008000'':''#FF0000'''
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1110
+  'y': 1780
+  wires:
+    - - b240c158e5f018f1
