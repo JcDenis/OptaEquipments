@@ -17,11 +17,10 @@
     - 8a7a3a70659b94d8
     - 2ee1493983ba4b61
     - 54b98447d0c5d77d
-    - baac8744f67f1428
     - a19f3e8eb6bfdf87
   x: 104
   'y': 39
-  w: 712
+  w: 532
   h: 142
 - id: 82ce08693206f664
   type: group
@@ -482,7 +481,7 @@
   name: option - plant
   mode: return
   links: []
-  x: 775
+  x: 595
   'y': 80
   wires: []
 - id: 8a7a3a70659b94d8
@@ -498,7 +497,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 630
+  x: 450
   'y': 140
   wires: []
 - id: 22a6cc8a0964f595
@@ -510,7 +509,7 @@
   x: 145
   'y': 80
   wires:
-    - - baac8744f67f1428
+    - - a19f3e8eb6bfdf87
 - id: c6beaa316079a739
   type: link in
   z: adb9fbf379118d77
@@ -2899,7 +2898,7 @@
     - cd21bdc2e85b8b8e
   linkType: static
   timeout: '30'
-  x: 630
+  x: 450
   'y': 80
   wires:
     - - 2ee1493983ba4b61
@@ -3561,27 +3560,6 @@
   wires:
     - - 33a3406faa9b04df
     - - 952c80fb231bdf3f
-- id: baac8744f67f1428
-  type: delay
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: 5msg/s
-  pauseType: rate
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '5'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 280
-  'y': 80
-  wires:
-    - - a19f3e8eb6bfdf87
 - id: c1434a5d8ee0f5b2
   type: switch
   z: adb9fbf379118d77
@@ -4774,7 +4752,12 @@
   g: fa94e5dda0432e95
   name: plants
   func: |-
-    msg.options = [{'label':'','value':'','dropdown':'plant'}];
+    msg.options = [{
+        'label':'',
+        'value':'',
+        'dropdown':'plant'
+    }];
+
     var plants = global.get('kernel.plant', 'default');
     var i = 1;
 
@@ -4795,7 +4778,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 450
+  x: 270
   'y': 80
   wires:
     - - 54b98447d0c5d77d

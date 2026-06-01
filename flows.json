@@ -109,12 +109,11 @@
             "8a7a3a70659b94d8",
             "2ee1493983ba4b61",
             "54b98447d0c5d77d",
-            "baac8744f67f1428",
             "a19f3e8eb6bfdf87"
         ],
         "x": 104,
         "y": 39,
-        "w": 712,
+        "w": 532,
         "h": 142
     },
     {
@@ -13475,7 +13474,7 @@
         "name": "option - plant",
         "mode": "return",
         "links": [],
-        "x": 775,
+        "x": 595,
         "y": 80,
         "wires": []
     },
@@ -13493,7 +13492,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 630,
+        "x": 450,
         "y": 140,
         "wires": []
     },
@@ -13508,7 +13507,7 @@
         "y": 80,
         "wires": [
             [
-                "baac8744f67f1428"
+                "a19f3e8eb6bfdf87"
             ]
         ]
     },
@@ -16854,7 +16853,7 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 630,
+        "x": 450,
         "y": 80,
         "wires": [
             [
@@ -17822,32 +17821,6 @@
             ],
             [
                 "952c80fb231bdf3f"
-            ]
-        ]
-    },
-    {
-        "id": "baac8744f67f1428",
-        "type": "delay",
-        "z": "adb9fbf379118d77",
-        "g": "fa94e5dda0432e95",
-        "name": "5msg/s",
-        "pauseType": "rate",
-        "timeout": "50",
-        "timeoutUnits": "milliseconds",
-        "rate": "5",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 280,
-        "y": 80,
-        "wires": [
-            [
-                "a19f3e8eb6bfdf87"
             ]
         ]
     },
@@ -19510,14 +19483,14 @@
         "z": "adb9fbf379118d77",
         "g": "fa94e5dda0432e95",
         "name": "plants",
-        "func": "msg.options = [{'label':'','value':'','dropdown':'plant'}];\nvar plants = global.get('kernel.plant', 'default');\nvar i = 1;\n\nif (typeof plants === 'object') {\n    for (const plant in plants) {\n        msg.options[i++] = {\n            'label':plants[plant] + ' (' + plant + ')',\n            'value':plant,\n            'dropdown':'plant'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'plant'\n}];\n\nvar plants = global.get('kernel.plant', 'default');\nvar i = 1;\n\nif (typeof plants === 'object') {\n    for (const plant in plants) {\n        msg.options[i++] = {\n            'label':plants[plant] + ' (' + plant + ')',\n            'value':plant,\n            'dropdown':'plant'\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
+        "x": 270,
         "y": 80,
         "wires": [
             [
