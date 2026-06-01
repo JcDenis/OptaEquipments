@@ -154,9 +154,11 @@
     - 07419889da1453bd
     - 85789881c2cbe0ba
     - 17be5f58b0068d4b
+    - 179c6e6ee987fce1
+    - 6bd78153ab356cad
   x: 94
   'y': 639
-  w: 1382
+  w: 1582
   h: 142
 - id: 2bb43b669f72b0e4
   type: group
@@ -247,7 +249,7 @@
   z: c886080f59e5c106
   g: 569324cc42ab32e4
   name: telegram - tree
-  command: /pilot
+  command: /bot
   description: ''
   registercommand: false
   language: ''
@@ -345,7 +347,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"Bonjour @" + msg.user.telegram + ".\n A quelle usine allons nous travailler ?",
+        'content':"@" + msg.user.telegram + ", vous êtes " + msg.dictionary.option_level[msg.user.level] + "\nSélectionnez une usine :",
         'options': {reply_markup: JSON.stringify({"inline_keyboard":oe_opts()})}
     }
 
@@ -356,7 +358,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1310
+  x: 1510
   'y': 680
   wires:
     - - 17be5f58b0068d4b
@@ -514,7 +516,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"@" + msg.user.telegram + ", vous avez choisi l'usine '" + global.get('kernel.plant.' + msg.entity, 'default') + "'.\nIl nous faut choisir une ligne :",
+        'content':"@" + msg.user.telegram + ", vous avez choisi l'usine '" + global.get('kernel.plant.' + msg.entity, 'default') + "'.\nSélectionnez une ligne :",
         'options': {reply_markup: JSON.stringify({"inline_keyboard":oe_opts(msg.entity)})}
     }
 
@@ -627,7 +629,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"@" + msg.user.telegram + ", vous avez choisi la ligne '" + global.get('kernel.line.' + msg.entity, 'default') + "'.\nReste à sélectionner un equipment :",
+        'content':"@" + msg.user.telegram + ", vous avez choisi la ligne '" + global.get('kernel.line.' + msg.entity, 'default') + "'.\nSélectionnez un equipment :",
         'options': {reply_markup: JSON.stringify({"inline_keyboard":oe_opts(msg.entity)})}
     }
 
@@ -719,7 +721,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1150
+  x: 1350
   'y': 680
   wires:
     - - f524efc356b2d4bc
@@ -1329,7 +1331,7 @@
   from: ''
   to: ''
   reg: false
-  x: 810
+  x: 1010
   'y': 680
   wires:
     - - d2f04fa042a21b15
@@ -1424,6 +1426,11 @@
     - t: delete
       p: split
       pt: msg
+    - t: set
+      p: hmi.lang
+      pt: msg
+      to: user.lang
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -1474,7 +1481,7 @@
   x: 630
   'y': 680
   wires:
-    - - 6918e7a555bc8e79
+    - - 6bd78153ab356cad
 - id: d2f04fa042a21b15
   type: switch
   z: c886080f59e5c106
@@ -1490,7 +1497,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 970
+  x: 1170
   'y': 680
   wires:
     - - 3ffdfce719e47e0a
@@ -1526,7 +1533,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1150
+  x: 1350
   'y': 740
   wires:
     - - 07419889da1453bd
@@ -1556,7 +1563,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"@" + msg.user.telegram + ", vous travaillez sur l'usine '" + global.get('kernel.plant.' + msg.entity, 'default') + "'.\nIl nous faut choisir une ligne :",
+        'content':"@" + msg.user.telegram + ", vous êtes " + msg.dictionary.option_level[msg.user.level] + "\nSélectionnez une ligne :",
         'options': {reply_markup: JSON.stringify({"inline_keyboard":oe_opts(msg.entity)})}
     }
 
@@ -1567,7 +1574,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1310
+  x: 1510
   'y': 740
   wires:
     - - 17be5f58b0068d4b
@@ -3393,7 +3400,7 @@
   mode: link
   links:
     - b62a3b02d3d8dabc
-  x: 1435
+  x: 1635
   'y': 740
   wires: []
 - id: d1598a49d24e5335
@@ -3711,3 +3718,33 @@
   'y': 320
   wires:
     - - 5eb7da78ea80fc2e
+- id: 179c6e6ee987fce1
+  type: debug
+  z: c886080f59e5c106
+  g: 569324cc42ab32e4
+  name: debug 1
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1020
+  'y': 740
+  wires: []
+- id: 6bd78153ab356cad
+  type: link call
+  z: c886080f59e5c106
+  g: 569324cc42ab32e4
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 830
+  'y': 680
+  wires:
+    - - 6918e7a555bc8e79
+      - 179c6e6ee987fce1

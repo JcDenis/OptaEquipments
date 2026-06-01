@@ -3452,11 +3452,13 @@
             "a193988fd07c6490",
             "07419889da1453bd",
             "85789881c2cbe0ba",
-            "17be5f58b0068d4b"
+            "17be5f58b0068d4b",
+            "179c6e6ee987fce1",
+            "6bd78153ab356cad"
         ],
         "x": 94,
         "y": 639,
-        "w": 1382,
+        "w": 1582,
         "h": 142
     },
     {
@@ -3925,11 +3927,13 @@
             "d90814f6a6612373",
             "dcff637adac201c1",
             "0c3d1fb79d42c450",
-            "02475a726b8ae97e"
+            "02475a726b8ae97e",
+            "4b0d4458c427f01a",
+            "3559383320acacb9"
         ],
         "x": 104,
         "y": 2979,
-        "w": 2622,
+        "w": 2962,
         "h": 202
     },
     {
@@ -9937,7 +9941,7 @@
         "y": 3140,
         "wires": [
             [
-                "febce8a59eab724a"
+                "4b0d4458c427f01a"
             ]
         ]
     },
@@ -9952,7 +9956,7 @@
                 "t": "set",
                 "p": "hmi",
                 "pt": "msg",
-                "to": "{\t    'tab':99,\t    'page':'',\t    'id':'',\t    'login':'',\t    'level':'',\t    'lang':'en'\t}",
+                "to": "{\t    'tab':99,\t    'page':'',\t    'id':'',\t    'login':'',\t    'level':'',\t    'lang':msg.hmi.lang\t}",
                 "tot": "jsonata"
             }
         ],
@@ -9961,7 +9965,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 270,
+        "x": 610,
         "y": 3140,
         "wires": [
             [
@@ -9990,7 +9994,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 430,
+        "x": 770,
         "y": 3140,
         "wires": [
             [
@@ -10038,7 +10042,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 590,
+        "x": 930,
         "y": 3080,
         "wires": [
             [
@@ -10067,7 +10071,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 750,
+        "x": 1090,
         "y": 3140,
         "wires": [
             [
@@ -10099,7 +10103,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1390,
+        "x": 1730,
         "y": 3080,
         "wires": [
             [
@@ -10142,7 +10146,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1550,
+        "x": 1890,
         "y": 3020,
         "wires": [
             [
@@ -10170,7 +10174,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1230,
+        "x": 1570,
         "y": 3080,
         "wires": [
             [
@@ -10186,7 +10190,7 @@
         "name": "kernel - hmi",
         "mode": "return",
         "links": [],
-        "x": 2555,
+        "x": 2895,
         "y": 3140,
         "wires": []
     },
@@ -10264,7 +10268,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2430,
+        "x": 2770,
         "y": 3140,
         "wires": [
             [
@@ -10287,7 +10291,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2610,
+        "x": 2950,
         "y": 3080,
         "wires": []
     },
@@ -10312,7 +10316,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 2070,
+        "x": 2410,
         "y": 3080,
         "wires": [
             [
@@ -10343,7 +10347,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2250,
+        "x": 2590,
         "y": 3080,
         "wires": [
             [
@@ -10371,7 +10375,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1890,
+        "x": 2230,
         "y": 3080,
         "wires": [
             [
@@ -10400,7 +10404,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1710,
+        "x": 2050,
         "y": 3140,
         "wires": [
             [
@@ -10511,7 +10515,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1070,
+        "x": 1410,
         "y": 3020,
         "wires": [
             [
@@ -10672,7 +10676,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 910,
+        "x": 1250,
         "y": 3080,
         "wires": [
             [
@@ -13752,6 +13756,66 @@
             ],
             [
                 "aac6b45c24c3fa73"
+            ]
+        ]
+    },
+    {
+        "id": "4b0d4458c427f01a",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "g": "8cc9a474d6cd27ec",
+        "name": "force lang",
+        "property": "hmi",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "lang",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 280,
+        "y": 3140,
+        "wires": [
+            [
+                "febce8a59eab724a"
+            ],
+            [
+                "3559383320acacb9"
+            ]
+        ]
+    },
+    {
+        "id": "3559383320acacb9",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "g": "8cc9a474d6cd27ec",
+        "name": "lang",
+        "rules": [
+            {
+                "t": "set",
+                "p": "hmi.lang",
+                "pt": "msg",
+                "to": "en",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 3080,
+        "wires": [
+            [
+                "febce8a59eab724a"
             ]
         ]
     },
@@ -20054,7 +20118,7 @@
         "z": "c886080f59e5c106",
         "g": "569324cc42ab32e4",
         "name": "telegram - tree",
-        "command": "/pilot",
+        "command": "/bot",
         "description": "",
         "registercommand": false,
         "language": "",
@@ -20159,14 +20223,14 @@
         "z": "c886080f59e5c106",
         "g": "569324cc42ab32e4",
         "name": "plants",
-        "func": "function oe_opts(){\n  var plants = global.get('kernel.plant', 'default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in plants){\n    opts[i++] = [{\n      'callback_data':'plant|'+key,\n      'text':plants[key]\n    }];\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"Bonjour @\" + msg.user.telegram + \".\\n A quelle usine allons nous travailler ?\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts()})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(){\n  var plants = global.get('kernel.plant', 'default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in plants){\n    opts[i++] = [{\n      'callback_data':'plant|'+key,\n      'text':plants[key]\n    }];\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous êtes \" + msg.dictionary.option_level[msg.user.level] + \"\\nSélectionnez une usine :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts()})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1310,
+        "x": 1510,
         "y": 680,
         "wires": [
             [
@@ -20361,7 +20425,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "lines",
-        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nIl nous faut choisir une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nSélectionnez une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -20478,7 +20542,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "equipments",
-        "func": "function oe_opts(line){\n  var equipments = global.get('kernel.equipment','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in equipments){\n    var comp = global.get('kernel.equipments.' + key, 'default');\n    if (comp == line) {\n      opts[i++] = [{\n        'callback_data':'equipment|'+key,\n        'text':equipments[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi la ligne '\" + global.get('kernel.line.' + msg.entity, 'default') + \"'.\\nReste à sélectionner un equipment :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(line){\n  var equipments = global.get('kernel.equipment','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in equipments){\n    var comp = global.get('kernel.equipments.' + key, 'default');\n    if (comp == line) {\n      opts[i++] = [{\n        'callback_data':'equipment|'+key,\n        'text':equipments[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous avez choisi la ligne '\" + global.get('kernel.line.' + msg.entity, 'default') + \"'.\\nSélectionnez un equipment :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -20581,7 +20645,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1150,
+        "x": 1350,
         "y": 680,
         "wires": [
             [
@@ -21367,7 +21431,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 810,
+        "x": 1010,
         "y": 680,
         "wires": [
             [
@@ -21506,6 +21570,13 @@
                 "t": "delete",
                 "p": "split",
                 "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "hmi.lang",
+                "pt": "msg",
+                "to": "user.lang",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -21575,7 +21646,7 @@
         "y": 680,
         "wires": [
             [
-                "6918e7a555bc8e79"
+                "6bd78153ab356cad"
             ]
         ]
     },
@@ -21600,7 +21671,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 970,
+        "x": 1170,
         "y": 680,
         "wires": [
             [
@@ -21652,7 +21723,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1150,
+        "x": 1350,
         "y": 740,
         "wires": [
             [
@@ -21666,14 +21737,14 @@
         "z": "c886080f59e5c106",
         "g": "569324cc42ab32e4",
         "name": "lines",
-        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous travaillez sur l'usine '\" + global.get('kernel.plant.' + msg.entity, 'default') + \"'.\\nIl nous faut choisir une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
+        "func": "function oe_opts(plant){\n  var lines = global.get('kernel.line','default');\n  var opts = [[]];\n  var i = 0;\n  for(var key in lines){\n    var comp = global.get('kernel.lines.' + key, 'default');\n    if (comp == plant) {\n      opts[i++] = [{\n        'callback_data':'line|'+key,\n        'text':lines[key]\n      }];\n    }\n  }\n  return opts;\n}\n\nmsg.payload = {\n//    'messageId':99,\n//    'sentMessageId':99,\n    'type':'message',\n    'content':\"@\" + msg.user.telegram + \", vous êtes \" + msg.dictionary.option_level[msg.user.level] + \"\\nSélectionnez une ligne :\",\n    'options': {reply_markup: JSON.stringify({\"inline_keyboard\":oe_opts(msg.entity)})}\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1310,
+        "x": 1510,
         "y": 740,
         "wires": [
             [
@@ -24169,7 +24240,7 @@
         "links": [
             "b62a3b02d3d8dabc"
         ],
-        "x": 1435,
+        "x": 1635,
         "y": 740,
         "wires": []
     },
@@ -24551,6 +24622,44 @@
         "wires": [
             [
                 "5eb7da78ea80fc2e"
+            ]
+        ]
+    },
+    {
+        "id": "179c6e6ee987fce1",
+        "type": "debug",
+        "z": "c886080f59e5c106",
+        "g": "569324cc42ab32e4",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "6bd78153ab356cad",
+        "type": "link call",
+        "z": "c886080f59e5c106",
+        "g": "569324cc42ab32e4",
+        "name": "",
+        "links": [
+            "56e6a7b9b0e66451"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 830,
+        "y": 680,
+        "wires": [
+            [
+                "6918e7a555bc8e79",
+                "179c6e6ee987fce1"
             ]
         ]
     },
