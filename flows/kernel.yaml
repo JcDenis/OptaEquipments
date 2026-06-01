@@ -78,9 +78,9 @@
     - 32da9b1ae024e8bb
     - 64e28c88b4c7b710
   x: 68
-  'y': 2953
+  'y': 3013
   w: 3864
-  h: 1094
+  h: 1034
 - id: 23adbb4a30523ae7
   type: group
   z: f6f2187d.f17ca8
@@ -434,13 +434,6 @@
     label: true
   nodes:
     - 56e6a7b9b0e66451
-    - febce8a59eab724a
-    - bc8583902ea0385a
-    - c689ea39a5827bbc
-    - addc310b18e89742
-    - 7cc9cd3f820e4210
-    - 2a7848ea6ca1cc86
-    - 3e3387fe940a6901
     - 7214e26c1a5974bd
     - bc7921fbe0a00154
     - 01242cef4de43778
@@ -448,14 +441,11 @@
     - 579b7304f4b11a0f
     - d90814f6a6612373
     - dcff637adac201c1
-    - 0c3d1fb79d42c450
-    - 02475a726b8ae97e
-    - 4b0d4458c427f01a
-    - 3559383320acacb9
+    - 89bd63c1cca31299
   x: 104
-  'y': 2979
-  w: 2962
-  h: 202
+  'y': 3039
+  w: 1342
+  h: 142
 - id: fc6029b7d49d1e93
   type: group
   z: f6f2187d.f17ca8
@@ -4497,166 +4487,7 @@
   x: 145
   'y': 3140
   wires:
-    - - 4b0d4458c427f01a
-- id: febce8a59eab724a
-  type: change
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: hmi
-  rules:
-    - t: set
-      p: hmi
-      pt: msg
-      to: "{\t    'tab':99,\t    'page':'',\t    'id':'',\t    'login':'',\t    'level':'',\t    'lang':msg.hmi.lang\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 3140
-  wires:
-    - - bc8583902ea0385a
-- id: bc8583902ea0385a
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: tab
-  property: tab
-  propertyType: msg
-  rules:
-    - t: istype
-      v: number
-      vt: number
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 770
-  'y': 3140
-  wires:
-    - - c689ea39a5827bbc
-    - - addc310b18e89742
-- id: c689ea39a5827bbc
-  type: change
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: tab
-  rules:
-    - t: set
-      p: hmi.tab
-      pt: msg
-      to: tab
-      tot: msg
-    - t: set
-      p: hmi.page
-      pt: msg
-      to: name
-      tot: msg
-    - t: delete
-      p: tab
-      pt: msg
-    - t: delete
-      p: name
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 930
-  'y': 3080
-  wires:
-    - - addc310b18e89742
-- id: addc310b18e89742
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: client
-  property: _client
-  propertyType: msg
-  rules:
-    - t: hask
-      v: socketId
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1090
-  'y': 3140
-  wires:
-    - - 02475a726b8ae97e
-    - - dcff637adac201c1
-- id: 7cc9cd3f820e4210
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: user
-  property: '#:(memoryOnly)::user'
-  propertyType: global
-  rules:
-    - t: hask
-      v: hmi.id
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1730
-  'y': 3080
-  wires:
-    - - 2a7848ea6ca1cc86
-    - - dcff637adac201c1
-- id: 2a7848ea6ca1cc86
-  type: change
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: user
-  rules:
-    - t: set
-      p: user
-      pt: msg
-      to: '#:(memoryOnly)::user[msg.hmi.id]'
-      tot: global
-    - t: set
-      p: hmi
-      pt: msg
-      to: '$merge([msg.hmi,msg.user])'
-      tot: jsonata
-    - t: delete
-      p: user
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1890
-  'y': 3020
-  wires:
-    - - dcff637adac201c1
-- id: 3e3387fe940a6901
-  type: change
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: id
-  rules:
-    - t: set
-      p: hmi.id
-      pt: msg
-      to: _client.socketId
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1570
-  'y': 3080
-  wires:
-    - - 7cc9cd3f820e4210
+    - - 89bd63c1cca31299
 - id: 7214e26c1a5974bd
   type: link out
   z: f6f2187d.f17ca8
@@ -4664,7 +4495,7 @@
   name: kernel - hmi
   mode: return
   links: []
-  x: 2895
+  x: 1275
   'y': 3140
   wires: []
 - id: 07be198711177f06
@@ -4722,7 +4553,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2770
+  x: 1150
   'y': 3140
   wires:
     - - 7214e26c1a5974bd
@@ -4740,7 +4571,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2950
+  x: 1330
   'y': 3080
   wires: []
 - id: f42bd58edc8c3b68
@@ -4758,7 +4589,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2410
+  x: 790
   'y': 3080
   wires:
     - - 579b7304f4b11a0f
@@ -4779,7 +4610,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2590
+  x: 970
   'y': 3080
   wires:
     - - bc7921fbe0a00154
@@ -4799,7 +4630,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2230
+  x: 610
   'y': 3080
   wires:
     - - f42bd58edc8c3b68
@@ -4818,7 +4649,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2050
+  x: 430
   'y': 3140
   wires:
     - - d90814f6a6612373
@@ -4879,26 +4710,6 @@
   x: 1190
   'y': 800
   wires: []
-- id: 0c3d1fb79d42c450
-  type: change
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: lang
-  rules:
-    - t: set
-      p: hmi.lang
-      pt: msg
-      to: '#:(memoryOnly)::browser[msg._client.socketId]lang'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1410
-  'y': 3020
-  wires:
-    - - 3e3387fe940a6901
 - id: b7ad155ab6d29f69
   type: change
   z: f6f2187d.f17ca8
@@ -4994,26 +4805,6 @@
   'y': 3560
   wires:
     - []
-- id: 02475a726b8ae97e
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: exists
-  property: '#:(memoryOnly)::browser'
-  propertyType: global
-  rules:
-    - t: hask
-      v: _client.socketId
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1250
-  'y': 3080
-  wires:
-    - - 0c3d1fb79d42c450
-    - - 3e3387fe940a6901
 - id: 35287abdbc7e9ea3
   type: comment
   z: f6f2187d.f17ca8
@@ -7190,43 +6981,57 @@
   wires:
     - - ace56bd72ba1c606
     - - aac6b45c24c3fa73
-- id: 4b0d4458c427f01a
-  type: switch
+- id: 89bd63c1cca31299
+  type: function
   z: f6f2187d.f17ca8
   g: 8cc9a474d6cd27ec
-  name: force lang
-  property: hmi
-  propertyType: msg
-  rules:
-    - t: hask
-      v: lang
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 280
+  name: hmi
+  func: |-
+    if (typeof msg.hmi === 'undefined') {
+        msg.hmi = {
+            'tab':99,
+            'page':'',
+            'id':'',
+            'login':'',
+            'level':'',
+            'plant':''
+        };
+    }
+
+    if (typeof msg.hmi.lang !== 'string') {
+        msg.hmi.lang = 'en';
+    }
+
+    if (typeof msg.tab === 'number') {
+        msg.hmi.tab = msg.tab;
+        msg.hmi.page = msg.name;
+        delete msg.tab;
+        delete msg.name;
+    }
+
+    if (typeof msg._client?.socketId !== 'undefined') {
+        var browser_lang = global.get('browser.' + msg._client.socketId + '.lang', 'memoryOnly');
+        if (typeof browser_lang === 'string') {
+            msg.hmi.lang = browser_lang;
+        }
+        msg.hmi.id = msg._client.socketId;
+
+        var user = global.get('user.' + msg.hmi.id, 'memoryOnly');
+        if (typeof user === 'object') {
+            msg.hmi = Object.assign({}, msg.hmi, user);
+        }
+    }
+
+    msg.hmi.time = Date.now();
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
   'y': 3140
   wires:
-    - - febce8a59eab724a
-    - - 3559383320acacb9
-- id: 3559383320acacb9
-  type: change
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: lang
-  rules:
-    - t: set
-      p: hmi.lang
-      pt: msg
-      to: en
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 450
-  'y': 3080
-  wires:
-    - - febce8a59eab724a
+    - - dcff637adac201c1

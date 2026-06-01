@@ -14,20 +14,14 @@
     fill-opacity: '0.05'
   nodes:
     - 22a6cc8a0964f595
-    - 3bf77d1356ae793b
-    - d105cc4740682ce7
-    - 33dd4371e05a81c8
-    - 87802e572d076447
     - 8a7a3a70659b94d8
     - 2ee1493983ba4b61
-    - 546836b126dc5542
-    - dc3d190f46da8204
     - 54b98447d0c5d77d
-    - 8fbb1f74ec9eb706
     - baac8744f67f1428
+    - a19f3e8eb6bfdf87
   x: 104
   'y': 39
-  w: 1672
+  w: 712
   h: 142
 - id: 82ce08693206f664
   type: group
@@ -481,39 +475,6 @@
   'y': 1959
   w: 552
   h: 142
-- id: 546836b126dc5542
-  type: change
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: old_payload
-      tot: msg
-    - t: delete
-      p: option
-      pt: msg
-    - t: delete
-      p: old_payload
-      pt: msg
-    - t: delete
-      p: plants
-      pt: msg
-    - t: delete
-      p: '#:(memoryOnly)::plants[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1410
-  'y': 140
-  wires:
-    - - 8a7a3a70659b94d8
-      - 54b98447d0c5d77d
 - id: 2ee1493983ba4b61
   type: link out
   z: adb9fbf379118d77
@@ -521,7 +482,7 @@
   name: option - plant
   mode: return
   links: []
-  x: 1735
+  x: 775
   'y': 80
   wires: []
 - id: 8a7a3a70659b94d8
@@ -537,115 +498,9 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1590
+  x: 630
   'y': 140
   wires: []
-- id: 87802e572d076447
-  type: join
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 1090
-  'y': 80
-  wires:
-    - - 8fbb1f74ec9eb706
-- id: 33dd4371e05a81c8
-  type: change
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: add
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "{\t    'label':msg.payload & ' (' & msg.option.plant & ')',\t    'value':msg.option.plant,\t    'dropdown':'plant'\t}"
-      tot: jsonata
-    - t: set
-      p: plants
-      pt: msg
-      to: '#:(memoryOnly)::plants[msg.hmi.id]'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::plants[msg.hmi.id]'
-      pt: flow
-      to: '$append(msg.plants,msg.payload)'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 930
-  'y': 80
-  wires:
-    - - 87802e572d076447
-- id: d105cc4740682ce7
-  type: split
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: option.plant
-  property: payload
-  x: 770
-  'y': 80
-  wires:
-    - - 33dd4371e05a81c8
-- id: 3bf77d1356ae793b
-  type: change
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: get
-  rules:
-    - t: set
-      p: old_payload
-      pt: msg
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel.plant
-      tot: global
-    - t: set
-      p: option
-      pt: msg
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::plants[msg.hmi.id]'
-      pt: flow
-      to: '[]'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 450
-  'y': 140
-  wires:
-    - - dc3d190f46da8204
 - id: 22a6cc8a0964f595
   type: link in
   z: adb9fbf379118d77
@@ -653,7 +508,7 @@
   name: option - plant
   links: []
   x: 145
-  'y': 140
+  'y': 80
   wires:
     - - baac8744f67f1428
 - id: c6beaa316079a739
@@ -1704,24 +1559,6 @@
   wires:
     - - af4f0442013c1457
     - - eb3aaa6af3934e70
-- id: dc3d190f46da8204
-  type: switch
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 610
-  'y': 140
-  wires:
-    - - d105cc4740682ce7
-    - - 546836b126dc5542
 - id: 2a43493e33a5c2be
   type: switch
   z: adb9fbf379118d77
@@ -3062,7 +2899,7 @@
     - cd21bdc2e85b8b8e
   linkType: static
   timeout: '30'
-  x: 1590
+  x: 630
   'y': 80
   wires:
     - - 2ee1493983ba4b61
@@ -3444,31 +3281,6 @@
   'y': 1700
   wires:
     - - 76908a8d1b9c32c5
-- id: 8fbb1f74ec9eb706
-  type: change
-  z: adb9fbf379118d77
-  g: fa94e5dda0432e95
-  name: flow
-  rules:
-    - t: set
-      p: options
-      pt: msg
-      to: '#:(memoryOnly)::plants[msg.hmi.id]'
-      tot: flow
-    - t: set
-      p: options
-      pt: msg
-      to: '$append([{''label'':'''',''value'':'''',''dropdown'':''plant''}],msg.options)'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1250
-  'y': 80
-  wires:
-    - - 546836b126dc5542
 - id: 5e72f41bbc44d1f1
   type: change
   z: adb9fbf379118d77
@@ -3767,9 +3579,9 @@
   allowrate: false
   outputs: 1
   x: 280
-  'y': 140
+  'y': 80
   wires:
-    - - 3bf77d1356ae793b
+    - - a19f3e8eb6bfdf87
 - id: c1434a5d8ee0f5b2
   type: switch
   z: adb9fbf379118d77
@@ -4956,3 +4768,35 @@
   x: 460
   'y': 2060
   wires: []
+- id: a19f3e8eb6bfdf87
+  type: function
+  z: adb9fbf379118d77
+  g: fa94e5dda0432e95
+  name: plants
+  func: |-
+    msg.options = [{'label':'','value':'','dropdown':'plant'}];
+    var plants = global.get('kernel.plant', 'default');
+    var i = 1;
+
+    if (typeof plants === 'object') {
+        for (const plant in plants) {
+            msg.options[i++] = {
+                'label':plants[plant] + ' (' + plant + ')',
+                'value':plant,
+                'dropdown':'plant'
+            }
+        }
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 450
+  'y': 80
+  wires:
+    - - 54b98447d0c5d77d
+      - 8a7a3a70659b94d8
