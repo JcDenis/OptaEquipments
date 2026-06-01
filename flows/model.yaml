@@ -146,10 +146,11 @@
     - 1788b11b4dc67404
     - 3ebd2719b1d522df
     - ee5b70483bf7f91c
+    - 3680c4078ba7fbc1
   x: 94
   'y': 819
   w: 1972
-  h: 502
+  h: 562
 - id: dbcc4077524c4e42
   type: group
   z: 135b7308617dad08
@@ -186,7 +187,7 @@
     - d1be07f97bcb18f0
     - e47cf5d1982a21b9
   x: 94
-  'y': 1359
+  'y': 1419
   w: 1672
   h: 442
 - id: 10af438fbe88a4a2
@@ -1264,7 +1265,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 920
+  'y': 980
   wires:
     - []
 - id: 0867279186d4420d
@@ -1275,7 +1276,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 920
+  'y': 980
   wires:
     - - 74be18b1282eabf2
 - id: 774226969c84134d
@@ -1287,7 +1288,7 @@
     https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO
   info: ''
   x: 450
-  'y': 1280
+  'y': 1340
   wires: []
 - id: c001811311778442
   type: change
@@ -1306,7 +1307,7 @@
   to: ''
   reg: false
   x: 390
-  'y': 980
+  'y': 1040
   wires:
     - - ecd439977e7961df
 - id: 7a824134c270f925
@@ -1323,7 +1324,7 @@
   rh: 0
   inputs: 0
   x: 190
-  'y': 980
+  'y': 1040
   wires:
     - - c001811311778442
 - id: adf884f302c2073e
@@ -1340,7 +1341,7 @@
   statusVal: ''
   statusType: auto
   x: 1900
-  'y': 920
+  'y': 980
   wires: []
 - id: 4d3f4a7ba233fe67
   type: switch
@@ -1412,20 +1413,24 @@
   type: switch
   z: 135b7308617dad08
   g: 0bd0a0e550d3bcc1
-  name: input
+  name: path
   property: 'split[3]'
   propertyType: msg
   rules:
     - t: eq
       v: input
       vt: str
+    - t: eq
+      v: device
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 570
-  'y': 980
+  'y': 1040
   wires:
     - - ce558a1c98b4df20
+    - - 3680c4078ba7fbc1
 - id: 7424c6064adde611
   type: change
   z: 135b7308617dad08
@@ -1455,7 +1460,7 @@
   links:
     - e60e4ab7617738c3
   x: 1795
-  'y': 980
+  'y': 1040
   wires: []
 - id: e47fa68c1a570f10
   type: link in
@@ -1465,7 +1470,7 @@
   links:
     - 050a29c043a85584
   x: 145
-  'y': 1100
+  'y': 1160
   wires:
     - - 2359c98c14ccbed1
 - id: 2359c98c14ccbed1
@@ -1483,7 +1488,7 @@
   repair: false
   outputs: 1
   x: 270
-  'y': 1100
+  'y': 1160
   wires:
     - - f93ba285c4133982
 - id: f93ba285c4133982
@@ -1506,7 +1511,7 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 1100
+  'y': 1160
   wires:
     - - dec0483961c4e8a8
     - - 432d553d09e31c8a
@@ -1537,7 +1542,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 1100
+  'y': 1160
   wires:
     - - ce49dce4c6876098
 - id: ce49dce4c6876098
@@ -1570,7 +1575,7 @@
   to: ''
   reg: false
   x: 750
-  'y': 1100
+  'y': 1160
   wires:
     - - db81b60b48f97b07
       - fca43f70cc3e5520
@@ -1589,7 +1594,7 @@
   expiry: ''
   broker: f516c1341f0f634c
   x: 910
-  'y': 1100
+  'y': 1160
   wires: []
 - id: fca43f70cc3e5520
   type: debug
@@ -1605,7 +1610,7 @@
   statusVal: ''
   statusType: auto
   x: 990
-  'y': 1160
+  'y': 1220
   wires: []
 - id: ce558a1c98b4df20
   type: change
@@ -1771,7 +1776,7 @@
   repair: false
   outputs: 1
   x: 610
-  'y': 1220
+  'y': 1280
   wires:
     - - 657382c78169115b
 - id: 3ef81c0ad00ed950
@@ -1821,7 +1826,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 1220
+  'y': 1280
   wires:
     - - 3635210474545f29
 - id: 657382c78169115b
@@ -1844,7 +1849,7 @@
   repair: false
   outputs: 2
   x: 810
-  'y': 1220
+  'y': 1280
   wires:
     - - bb4d950858ec0833
     - - cb0d604b626b1e97
@@ -1865,7 +1870,7 @@
   to: ''
   reg: false
   x: 1010
-  'y': 1220
+  'y': 1280
   wires:
     - - 3ef81c0ad00ed950
 - id: cb0d604b626b1e97
@@ -1885,7 +1890,7 @@
   to: ''
   reg: false
   x: 1010
-  'y': 1280
+  'y': 1340
   wires:
     - - 3ef81c0ad00ed950
 - id: 18765a45c26360d8
@@ -1896,7 +1901,7 @@
   links:
     - 9d694324cf6b8842
   x: 145
-  'y': 1040
+  'y': 1100
   wires:
     - - 0b13e66fc97af381
 - id: 0b13e66fc97af381
@@ -1916,7 +1921,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 1040
+  'y': 1100
   wires:
     - - 5f548db916944ddf
 - id: ec887ae828f757c5
@@ -1935,7 +1940,7 @@
   repair: false
   outputs: 1
   x: 610
-  'y': 1040
+  'y': 1100
   wires:
     - - 9dd086de93067548
 - id: 5f548db916944ddf
@@ -1951,7 +1956,7 @@
   addname: endpoint
   property: payload
   x: 450
-  'y': 1040
+  'y': 1100
   wires:
     - - ec887ae828f757c5
 - id: 9dd086de93067548
@@ -1974,7 +1979,7 @@
   repair: false
   outputs: 2
   x: 790
-  'y': 1040
+  'y': 1100
   wires:
     - - 7e15bfbdfddaf8eb
     - - 7735296519b3f1a3
@@ -1995,7 +2000,7 @@
   to: ''
   reg: false
   x: 990
-  'y': 1020
+  'y': 1080
   wires:
     - - 1788b11b4dc67404
 - id: 7735296519b3f1a3
@@ -2015,7 +2020,7 @@
   to: ''
   reg: false
   x: 990
-  'y': 1060
+  'y': 1120
   wires:
     - - 1788b11b4dc67404
 - id: f2c969d385c32235
@@ -2076,7 +2081,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 1040
+  'y': 1100
   wires:
     - - 3635210474545f29
 - id: 5294ddb8f6df06b0
@@ -2094,7 +2099,7 @@
   repair: false
   outputs: 1
   x: 1330
-  'y': 1040
+  'y': 1100
   wires:
     - - f2c969d385c32235
 - id: 1788b11b4dc67404
@@ -2134,7 +2139,7 @@
   to: ''
   reg: false
   x: 1170
-  'y': 1040
+  'y': 1100
   wires:
     - - 5294ddb8f6df06b0
 - id: 3ebd2719b1d522df
@@ -2214,7 +2219,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 1460
+  'y': 1520
   wires:
     - - f9aa75323c9840bd
 - id: f9aa75323c9840bd
@@ -2239,7 +2244,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 1460
+  'y': 1520
   wires:
     - []
 - id: e2fa90f82ccf222d
@@ -2250,7 +2255,7 @@
   links:
     - 9d694324cf6b8842
   x: 145
-  'y': 1400
+  'y': 1460
   wires:
     - - b02ba3b90ab4e44d
 - id: 61f915b81e717609
@@ -2259,7 +2264,7 @@
   g: dbcc4077524c4e42
   name: ''
   x: 930
-  'y': 1760
+  'y': 1820
   wires:
     - - 52dbb3010fe0e997
 - id: 28ddb9a136461f72
@@ -2268,7 +2273,7 @@
   g: dbcc4077524c4e42
   name: ''
   x: 940
-  'y': 1520
+  'y': 1580
   wires:
     - - 50b8901c6e7d6ce0
       - 57a5dd62db76d551
@@ -2280,7 +2285,7 @@
   name: ''
   scale: Byte
   x: 940
-  'y': 1700
+  'y': 1760
   wires:
     - - 46ec4746aad3d5ec
 - id: 50b8901c6e7d6ce0
@@ -2305,7 +2310,7 @@
   to: ''
   reg: false
   x: 1110
-  'y': 1520
+  'y': 1580
   wires:
     - - 791b351f80fd0aaf
 - id: 52dbb3010fe0e997
@@ -2321,7 +2326,7 @@
   addname: ''
   property: payload
   x: 1110
-  'y': 1760
+  'y': 1820
   wires:
     - - b165157ddc25aa16
 - id: b165157ddc25aa16
@@ -2339,7 +2344,7 @@
   repair: false
   outputs: 1
   x: 1270
-  'y': 1760
+  'y': 1820
   wires:
     - - b6b3ade01008a950
 - id: e5d1a8af91104af6
@@ -2351,7 +2356,7 @@
   links:
     - e60e4ab7617738c3
   x: 1575
-  'y': 1400
+  'y': 1460
   wires: []
 - id: cfddc070a8a410f6
   type: debug
@@ -2367,7 +2372,7 @@
   statusVal: ''
   statusType: auto
   x: 1640
-  'y': 1460
+  'y': 1520
   wires: []
 - id: 57a5dd62db76d551
   type: change
@@ -2391,7 +2396,7 @@
   to: ''
   reg: false
   x: 1110
-  'y': 1580
+  'y': 1640
   wires:
     - - 791b351f80fd0aaf
 - id: e4a90ba331132ca8
@@ -2416,7 +2421,7 @@
   to: ''
   reg: false
   x: 1110
-  'y': 1640
+  'y': 1700
   wires:
     - - 791b351f80fd0aaf
 - id: 46ec4746aad3d5ec
@@ -2441,7 +2446,7 @@
   to: ''
   reg: false
   x: 1110
-  'y': 1700
+  'y': 1760
   wires:
     - - 791b351f80fd0aaf
 - id: b6b3ade01008a950
@@ -2466,7 +2471,7 @@
   to: ''
   reg: false
   x: 1430
-  'y': 1760
+  'y': 1820
   wires:
     - - 791b351f80fd0aaf
 - id: 791b351f80fd0aaf
@@ -2484,7 +2489,7 @@
   repair: false
   outputs: 1
   x: 1280
-  'y': 1460
+  'y': 1520
   wires:
     - - f583bf043a6465b7
 - id: b02ba3b90ab4e44d
@@ -2504,7 +2509,7 @@
   to: ''
   reg: false
   x: 270
-  'y': 1400
+  'y': 1460
   wires:
     - - 69da3c9e01a0c873
 - id: 69da3c9e01a0c873
@@ -2520,7 +2525,7 @@
   addname: device
   property: payload
   x: 430
-  'y': 1400
+  'y': 1460
   wires:
     - - 6de668fc3fc7e950
 - id: 6de668fc3fc7e950
@@ -2539,7 +2544,7 @@
   repair: false
   outputs: 1
   x: 590
-  'y': 1400
+  'y': 1460
   wires:
     - - e77780c2d07146ca
       - e47cf5d1982a21b9
@@ -2565,7 +2570,7 @@
   to: ''
   reg: false
   x: 760
-  'y': 1460
+  'y': 1520
   wires:
     - - 61f915b81e717609
       - 28ddb9a136461f72
@@ -2597,7 +2602,7 @@
   to: ''
   reg: false
   x: 1450
-  'y': 1460
+  'y': 1520
   wires:
     - - cfddc070a8a410f6
       - e5d1a8af91104af6
@@ -2607,7 +2612,7 @@
   g: dbcc4077524c4e42
   name: ''
   x: 940
-  'y': 1460
+  'y': 1520
   wires:
     - - 1b52d8eb8e4df9cc
 - id: 1b52d8eb8e4df9cc
@@ -2632,7 +2637,7 @@
   to: ''
   reg: false
   x: 1110
-  'y': 1460
+  'y': 1520
   wires:
     - - 791b351f80fd0aaf
 - id: f51de6b35c533aec
@@ -2642,7 +2647,7 @@
   name: 'Node-red-contrib-os - https://flows.nodered.org/node/node-red-contrib-os'
   info: ''
   x: 380
-  'y': 1700
+  'y': 1760
   wires: []
 - id: d1be07f97bcb18f0
   type: comment
@@ -2651,7 +2656,7 @@
   name: Used to grab local server stats
   info: ''
   x: 240
-  'y': 1760
+  'y': 1820
   wires: []
 - id: 030a2f2eac3f5f35
   type: link in
@@ -2825,7 +2830,7 @@
   to: ''
   reg: false
   x: 1450
-  'y': 1400
+  'y': 1460
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
@@ -2854,3 +2859,45 @@
   'y': 560
   wires:
     - - ac509dada2597e3c
+- id: 3680c4078ba7fbc1
+  type: change
+  z: 135b7308617dad08
+  g: 0bd0a0e550d3bcc1
+  name: kernel
+  rules:
+    - t: set
+      p: kernel
+      pt: msg
+      to: "{\t    'type':'watchdog',\t    'entity':'ep32s3eth8di8ro|' & msg.split[2],\t    'value':$millis(),\t    'loop':false\t}"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: delete
+      p: state
+      pt: msg
+    - t: delete
+      p: qos
+      pt: msg
+    - t: delete
+      p: retain
+      pt: msg
+    - t: delete
+      p: split
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1650
+  'y': 1040
+  wires:
+    - - 3635210474545f29
