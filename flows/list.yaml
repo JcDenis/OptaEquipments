@@ -5527,16 +5527,24 @@
       to: $millis() - msg.row.watchdog
       tot: jsonata
     - t: set
+      p: time
+      pt: msg
+      to: kernel.app.watchdog
+      tot: global
+    - t: set
       p: row.watchdog_color
       pt: msg
-      to: 'msg.row.watchdog < 120000 ? ''#008000'':''#FF0000'''
+      to: 'msg.row.watchdog < ($number(msg.time) * 1000) ? ''#008000'':''#FF0000'''
       tot: jsonata
+    - t: delete
+      p: time
+      pt: msg
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 1110
-  'y': 1780
+  'y': 1760
   wires:
     - - b240c158e5f018f1
