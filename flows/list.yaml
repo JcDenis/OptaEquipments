@@ -23,9 +23,6 @@
     - 4d7de69ac9f7a218
     - 8c90f15432b5f5f2
     - f29ed3c0b737adda
-    - 9a2dd28da599ef13
-    - 0f20e88920ac6725
-    - 44382e283cda58f7
     - 1afe089173e14a79
     - d0834b8366b3c16d
     - 80b99c125ddfdb04
@@ -53,9 +50,11 @@
     - f3822b37eee7fdb8
     - 1565ba3336e4b5cf
     - 6e36418c3c8f5a7c
+    - 8c51a1bfba38190a
+    - 036ef505711f8a70
   x: 104
   'y': 1299
-  w: 4622
+  w: 4502
   h: 262
 - id: 1c2d5f046ccecc9d
   type: group
@@ -132,9 +131,10 @@
     - fe18cb76e28e410c
     - 091ec14021d6b409
     - 75059252b5720bbe
+    - 66226f3b64ad19a9
   x: 104
   'y': 1599
-  w: 4222
+  w: 4422
   h: 262
 - id: baadcf077dabb0e1
   type: group
@@ -241,10 +241,6 @@
     - 1e30e586678e32a6
     - 7a4fe35c856c8831
     - ba4b2b2cefb7f98c
-    - 83c8828e2e53db56
-    - dff3caf449f1124f
-    - cc24a26a3ebc5010
-    - 9913a3823edbb605
     - cd6dec73fe223470
     - ca12c3e9835ca06d
     - affb55afb21afdd3
@@ -265,9 +261,11 @@
     - 5c5ce9cd5daaf007
     - adc8289fbb27facb
     - 907986dd946c13a0
+    - a8353c91019d5999
+    - 85eb60f582d6b7ae
   x: 104
   'y': 939
-  w: 3822
+  w: 3382
   h: 322
 - id: 2c0f9b39f8c7dd73
   type: group
@@ -291,7 +289,7 @@
     - dd257e5ca1b24c21
   x: 104
   'y': 39
-  w: 1122
+  w: 1102
   h: 202
 - id: 09a03117ef8741bc
   type: group
@@ -601,7 +599,7 @@
   x: 630
   'y': 1520
   wires:
-    - - 9a2dd28da599ef13
+    - - f3d9ead3e7b3be9c
 - id: f3d9ead3e7b3be9c
   type: change
   z: e97c6f12735a13c1
@@ -653,15 +651,25 @@
       pt: msg
       to: dictionary.common_action_delete
       tot: msg
+    - t: set
+      p: row.component_count
+      pt: msg
+      to: '0'
+      tot: num
+    - t: set
+      p: row.state_color
+      pt: msg
+      to: '#CCCCCC'
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1270
+  x: 790
   'y': 1520
   wires:
-    - - d0834b8366b3c16d
+    - - 036ef505711f8a70
 - id: 95c61ec7ed45ee56
   type: join
   z: e97c6f12735a13c1
@@ -683,7 +691,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1750
+  x: 1630
   'y': 1520
   wires:
     - - da647da1a3bbd5c6
@@ -719,7 +727,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 1790
   'y': 1520
   wires:
     - - 8c90f15432b5f5f2
@@ -759,6 +767,12 @@
       type: text
       width: ''
       align: start
+    - title: Composants
+      key: component_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
     - title: ''
       key: delete
       keyType: key
@@ -769,7 +783,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2290
+  x: 2170
   'y': 1400
   wires:
     - - 1565ba3336e4b5cf
@@ -786,7 +800,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2040
+  x: 1920
   'y': 1400
   wires: []
 - id: 2310141e1336bdc7
@@ -894,7 +908,13 @@
       keyType: key
       type: text
       width: ''
-      align: start
+      align: end
+    - title: Composants
+      key: component_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
     - title: ''
       key: delete
       keyType: key
@@ -905,7 +925,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1960
+  x: 2160
   'y': 1700
   wires:
     - - fe18cb76e28e410c
@@ -922,7 +942,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1730
+  x: 1930
   'y': 1700
   wires: []
 - id: 697e10f4e4fbb2a4
@@ -982,6 +1002,11 @@
       pt: msg
       to: '#CCCCCC'
       tot: str
+    - t: set
+      p: row.component_count
+      pt: msg
+      to: '0'
+      tot: num
   action: ''
   property: ''
   from: ''
@@ -990,7 +1015,7 @@
   x: 770
   'y': 1820
   wires:
-    - - 091ec14021d6b409
+    - - 66226f3b64ad19a9
 - id: 427c7563b820b3ec
   type: join
   z: e97c6f12735a13c1
@@ -1012,7 +1037,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1430
+  x: 1630
   'y': 1820
   wires:
     - - c1429cfff4e8c827
@@ -1048,7 +1073,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1590
+  x: 1790
   'y': 1820
   wires:
     - - 44444a4dc024b4e4
@@ -1807,6 +1832,7 @@
     - ab34825782b762a6
     - c3cf65de797d07e3
     - f29ed3c0b737adda
+    - 85eb60f582d6b7ae
   x: 145
   'y': 440
   wires:
@@ -1819,7 +1845,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 2855
+  x: 2735
   'y': 1340
   wires: []
 - id: c3cf65de797d07e3
@@ -1987,76 +2013,6 @@
   wires:
     - - 689e8c8f85f8601b
       - 595883d023c5b862
-- id: 0f20e88920ac6725
-  type: switch
-  z: e97c6f12735a13c1
-  g: 1dd6bd6835107ce6
-  name: state
-  property: kernel.state
-  propertyType: global
-  rules:
-    - t: hask
-      v: state
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 950
-  'y': 1520
-  wires:
-    - - 44382e283cda58f7
-    - - f3d9ead3e7b3be9c
-- id: 44382e283cda58f7
-  type: change
-  z: e97c6f12735a13c1
-  g: 1dd6bd6835107ce6
-  name: color
-  rules:
-    - t: set
-      p: state
-      pt: msg
-      to: 'kernel.state[msg.state]'
-      tot: global
-    - t: set
-      p: row.state_color
-      pt: msg
-      to: 'msg.state=1?''#008000'':''#FF0000'''
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 1460
-  wires:
-    - - f3d9ead3e7b3be9c
-- id: 9a2dd28da599ef13
-  type: change
-  z: e97c6f12735a13c1
-  g: 1dd6bd6835107ce6
-  name: state
-  rules:
-    - t: set
-      p: state
-      pt: msg
-      to: msg.row.equipment & '|run'
-      tot: jsonata
-    - t: set
-      p: row.state_color
-      pt: msg
-      to: '#CCCCCC'
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 1520
-  wires:
-    - - 0f20e88920ac6725
 - id: 400b36abc42f9eb4
   type: link call
   z: e97c6f12735a13c1
@@ -2161,7 +2117,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1590
+  x: 1470
   'y': 1520
   wires:
     - - 95c61ec7ed45ee56
@@ -2179,7 +2135,7 @@
   checkall: 'false'
   repair: true
   outputs: 1
-  x: 1430
+  x: 1310
   'y': 1520
   wires:
     - - 1afe089173e14a79
@@ -2290,7 +2246,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1270
+  x: 1470
   'y': 1820
   wires:
     - - 427c7563b820b3ec
@@ -2308,7 +2264,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2370
+  x: 2570
   'y': 1700
   wires:
     - - 38c80d9ff98a187f
@@ -2326,7 +2282,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 2700
+  x: 2900
   'y': 1760
   wires:
     - - b9195d0faf532d0b
@@ -2361,7 +2317,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2870
+  x: 3070
   'y': 1760
   wires:
     - - 2dc9f2120275ce1c
@@ -2377,7 +2333,7 @@
   stream: false
   addname: endpoint
   property: payload
-  x: 3030
+  x: 3230
   'y': 1760
   wires:
     - - 58de7de6c5d02ccd
@@ -2402,7 +2358,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 3510
+  x: 3710
   'y': 1760
   wires:
     - - dc77a91b0904e505
@@ -2422,7 +2378,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3190
+  x: 3390
   'y': 1760
   wires:
     - - 5eb1a27a33c99bf5
@@ -2443,7 +2399,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3350
+  x: 3550
   'y': 1700
   wires:
     - - 1391b4f38bf21b92
@@ -2460,7 +2416,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3670
+  x: 3870
   'y': 1760
   wires:
     - - 40878c6b8a646992
@@ -2479,7 +2435,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 4190
+  x: 4390
   'y': 1760
   wires: []
 - id: 40878c6b8a646992
@@ -2503,7 +2459,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3830
+  x: 4030
   'y': 1700
   wires:
     - - 07f04015f0eb92c6
@@ -2515,7 +2471,7 @@
   mode: link
   links:
     - 468277bb16c8903c
-  x: 3955
+  x: 4155
   'y': 1700
   wires: []
 - id: 4c58fc0882d1d844
@@ -2544,7 +2500,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3830
+  x: 4030
   'y': 1760
   wires:
     - - 07f04015f0eb92c6
@@ -2589,7 +2545,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3830
+  x: 4030
   'y': 1820
   wires:
     - - ef92b32bf7f2db5c
@@ -2610,7 +2566,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 3990
+  x: 4190
   'y': 1820
   wires:
     - - bb1c3eeed652f702
@@ -2623,7 +2579,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 4115
+  x: 4315
   'y': 1820
   wires: []
 - id: 80b99c125ddfdb04
@@ -2640,7 +2596,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3060
+  x: 2940
   'y': 1460
   wires:
     - - e76d8bbc0fe98b2c
@@ -2661,7 +2617,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2730
+  x: 2610
   'y': 1400
   wires:
     - - f29ed3c0b737adda
@@ -2692,7 +2648,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3230
+  x: 3110
   'y': 1460
   wires:
     - - b17fe1840894d752
@@ -2708,7 +2664,7 @@
   stream: false
   addname: ''
   property: payload
-  x: 3390
+  x: 3270
   'y': 1460
   wires:
     - - 680957c84dc6ae52
@@ -2728,7 +2684,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3550
+  x: 3430
   'y': 1460
   wires:
     - - c2c733e235d8afea
@@ -2749,7 +2705,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3710
+  x: 3590
   'y': 1400
   wires:
     - - 390b7052924a3936
@@ -2774,7 +2730,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 3870
+  x: 3750
   'y': 1460
   wires:
     - - 417e1fd24477ca8d
@@ -2791,7 +2747,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4030
+  x: 3910
   'y': 1460
   wires:
     - - 800caf0e4b341ebd
@@ -2819,7 +2775,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4190
+  x: 4070
   'y': 1400
   wires:
     - - f1491390ad3bbec6
@@ -2831,7 +2787,7 @@
   mode: link
   links:
     - 468277bb16c8903c
-  x: 4315
+  x: 4195
   'y': 1400
   wires: []
 - id: 118e82f1b0b7e8ee
@@ -2875,7 +2831,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4190
+  x: 4070
   'y': 1460
   wires:
     - []
@@ -2905,7 +2861,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4190
+  x: 4070
   'y': 1460
   wires:
     - - f1491390ad3bbec6
@@ -2926,7 +2882,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 4350
+  x: 4230
   'y': 1520
   wires:
     - - 5558834cfb4c437e
@@ -2944,7 +2900,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 4570
+  x: 4450
   'y': 1460
   wires: []
 - id: 033ea746c3e0ee22
@@ -2988,7 +2944,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4190
+  x: 4070
   'y': 1520
   wires:
     - - 7bd6c57c545838f7
@@ -3000,7 +2956,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 4475
+  x: 4355
   'y': 1520
   wires: []
 - id: f66528f67c8d7cfd
@@ -3103,7 +3059,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2180
+  x: 1740
   'y': 1060
   wires: []
 - id: f75afbfaf748cf90
@@ -3124,7 +3080,7 @@
   x: 910
   'y': 1180
   wires:
-    - - 83c8828e2e53db56
+    - - a8353c91019d5999
     - - 1e30e586678e32a6
 - id: 07821e379d041785
   type: change
@@ -3167,16 +3123,6 @@
       pt: msg
       to: '0'
       tot: num
-    - t: set
-      p: equipments
-      pt: msg
-      to: kernel.equipments
-      tot: global
-    - t: set
-      p: '#:(memoryOnly)::count[msg.hmi.id][msg.row.line]'
-      pt: flow
-      to: '0'
-      tot: num
   action: ''
   property: ''
   from: ''
@@ -3193,14 +3139,6 @@
   name: add
   rules:
     - t: set
-      p: row.equipment_count
-      pt: msg
-      to: '#:(memoryOnly)::count[msg.hmi.id][msg.row.line]'
-      tot: flow
-    - t: delete
-      p: '#:(memoryOnly)::count[msg.hmi.id][msg.row.line]'
-      pt: flow
-    - t: set
       p: rows
       pt: msg
       to: '#:(memoryOnly)::rows[msg.hmi.id]'
@@ -3215,7 +3153,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1710
+  x: 1270
   'y': 1120
   wires:
     - - 1e30e586678e32a6
@@ -3240,7 +3178,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1870
+  x: 1430
   'y': 1180
   wires:
     - - 7a4fe35c856c8831
@@ -3279,7 +3217,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2030
+  x: 1590
   'y': 1180
   wires:
     - - 368c566b16e7b9cf
@@ -3299,7 +3237,7 @@
   autocols: false
   showSearch: true
   deselect: true
-  selectionType: none
+  selectionType: click
   columns:
     - title: Ligne
       key: line_full
@@ -3312,7 +3250,7 @@
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
     - title: ''
       key: delete
       keyType: key
@@ -3323,96 +3261,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2390
+  x: 1950
   'y': 1060
   wires:
     - - 86bd28f7680213aa
-- id: 83c8828e2e53db56
-  type: split
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: ''
-  property: equipments
-  x: 1070
-  'y': 1120
-  wires:
-    - - dff3caf449f1124f
-- id: dff3caf449f1124f
-  type: switch
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: rel
-  property: equipments
-  propertyType: msg
-  rules:
-    - t: eq
-      v: row.line
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1230
-  'y': 1120
-  wires:
-    - - cc24a26a3ebc5010
-    - - 9913a3823edbb605
-- id: cc24a26a3ebc5010
-  type: change
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: flow
-  rules:
-    - t: set
-      p: count
-      pt: msg
-      to: '#:(memoryOnly)::count[msg.hmi.id][msg.row.line]'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::count[msg.hmi.id][msg.row.line]'
-      pt: flow
-      to: msg.count + 1
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1390
-  'y': 1060
-  wires:
-    - - 9913a3823edbb605
-- id: 9913a3823edbb605
-  type: join
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 1550
-  'y': 1120
-  wires:
-    - - 40b2703358658c80
 - id: cd6dec73fe223470
   type: switch
   z: e97c6f12735a13c1
@@ -3422,14 +3274,18 @@
   propertyType: msg
   rules:
     - t: eq
+      v: row_click
+      vt: str
+    - t: eq
       v: button_click
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
-  x: 2790
+  outputs: 2
+  x: 2350
   'y': 1060
   wires:
+    - - 85eb60f582d6b7ae
     - - bb81645613d3ebce
 - id: ca12c3e9835ca06d
   type: switch
@@ -3445,7 +3301,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3120
+  x: 2680
   'y': 1100
   wires:
     - - affb55afb21afdd3
@@ -3464,7 +3320,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3290
+  x: 2850
   'y': 1100
   wires:
     - - de4eda720d74910a
@@ -3492,7 +3348,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3450
+  x: 3010
   'y': 1040
   wires:
     - - 8fdbc68cf0ee65f4
@@ -3504,7 +3360,7 @@
   mode: link
   links:
     - 468277bb16c8903c
-  x: 3575
+  x: 3135
   'y': 1040
   wires: []
 - id: fca0e5309e6a4f90
@@ -3548,7 +3404,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3450
+  x: 3010
   'y': 1160
   wires:
     - - d54c0cef6e716093
@@ -3593,7 +3449,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3450
+  x: 3010
   'y': 1220
   wires:
     - - d54c0cef6e716093
@@ -3623,7 +3479,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3450
+  x: 3010
   'y': 1100
   wires:
     - - 8fdbc68cf0ee65f4
@@ -3644,7 +3500,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 3610
+  x: 3170
   'y': 1160
   wires:
     - - 0ec06aaf1a321681
@@ -3662,7 +3518,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3800
+  x: 3360
   'y': 1100
   wires: []
 - id: 3b216df2f7859362
@@ -3673,7 +3529,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 3735
+  x: 3295
   'y': 1160
   wires: []
 - id: ce7e7c3d3ba1ca4e
@@ -3790,7 +3646,7 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 2950
+  x: 2510
   'y': 1060
   wires:
     - - ca12c3e9835ca06d
@@ -3817,7 +3673,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3450
+  x: 3010
   'y': 980
   wires:
     - - 8fdbc68cf0ee65f4
@@ -3839,7 +3695,7 @@
   checkall: 'false'
   repair: false
   outputs: 3
-  x: 2890
+  x: 2770
   'y': 1400
   wires:
     - - 80b99c125ddfdb04
@@ -3866,7 +3722,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4190
+  x: 4070
   'y': 1340
   wires:
     - - f1491390ad3bbec6
@@ -3885,7 +3741,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2530
+  x: 2730
   'y': 1700
   wires:
     - - d41e847ccdd25e24
@@ -3911,7 +3767,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3830
+  x: 4030
   'y': 1640
   wires:
     - - 07f04015f0eb92c6
@@ -4029,7 +3885,7 @@
   mode: link
   links:
     - 28b85f45e33eef42
-  x: 1095
+  x: 1075
   'y': 140
   wires: []
 - id: 42ee8c89bb1f88e2
@@ -4070,7 +3926,7 @@
   className: ''
   value: total
   valueType: msg
-  x: 2540
+  x: 2100
   'y': 1000
   wires: []
 - id: f92083edcc0a8f36
@@ -4093,7 +3949,7 @@
   className: ''
   value: total
   valueType: msg
-  x: 2440
+  x: 2320
   'y': 1340
   wires: []
 - id: 0d5f1f7ce58e19dc
@@ -4116,7 +3972,7 @@
   className: ''
   value: total
   valueType: msg
-  x: 2110
+  x: 2310
   'y': 1640
   wires: []
 - id: b5e2ab501334ef5a
@@ -4325,7 +4181,7 @@
   className: ui-title
   value: dictionary.option_page.list
   valueType: msg
-  x: 1140
+  x: 1120
   'y': 200
   wires: []
 - id: a19eae9b1a486ee0
@@ -4344,7 +4200,7 @@
   from: ''
   to: ''
   reg: false
-  x: 970
+  x: 950
   'y': 140
   wires:
     - - d929753382156fa2
@@ -4447,7 +4303,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2190
+  x: 1750
   'y': 1000
   wires:
     - - ba4b2b2cefb7f98c
@@ -4462,7 +4318,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 2610
+  x: 2170
   'y': 1060
   wires:
     - - cd6dec73fe223470
@@ -4481,7 +4337,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2190
+  x: 1750
   'y': 1120
   wires:
     - - ba4b2b2cefb7f98c
@@ -4503,7 +4359,7 @@
   autocols: false
   showSearch: true
   deselect: true
-  selectionType: none
+  selectionType: click
   columns:
     - title: Line
       key: line_full
@@ -4516,7 +4372,7 @@
       keyType: key
       type: text
       width: ''
-      align: start
+      align: center
     - title: ''
       key: delete
       keyType: key
@@ -4527,7 +4383,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2390
+  x: 1950
   'y': 1120
   wires:
     - - 86bd28f7680213aa
@@ -4542,7 +4398,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2070
+  x: 1950
   'y': 1340
   wires:
     - - 4d7de69ac9f7a218
@@ -4563,7 +4419,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2070
+  x: 1950
   'y': 1460
   wires:
     - - 4d7de69ac9f7a218
@@ -4605,6 +4461,12 @@
       type: text
       width: ''
       align: start
+    - title: Components
+      key: component_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
     - title: ''
       key: delete
       keyType: key
@@ -4615,7 +4477,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2300
+  x: 2180
   'y': 1460
   wires:
     - - 1565ba3336e4b5cf
@@ -4628,7 +4490,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 2550
+  x: 2430
   'y': 1400
   wires:
     - - 3ad85da85960e3fc
@@ -4648,7 +4510,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2350
+  x: 1910
   'y': 1000
   wires:
     - - 033bdb2c1e76e680
@@ -4668,7 +4530,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2230
+  x: 2110
   'y': 1340
   wires:
     - - f92083edcc0a8f36
@@ -4683,7 +4545,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1750
+  x: 1950
   'y': 1640
   wires:
     - - cc6f2138fae2fd48
@@ -4739,7 +4601,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1910
+  x: 2110
   'y': 1640
   wires:
     - - 0d5f1f7ce58e19dc
@@ -4758,7 +4620,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1750
+  x: 1950
   'y': 1760
   wires:
     - - ff677fe25af37929
@@ -4799,7 +4661,13 @@
       keyType: key
       type: text
       width: ''
-      align: start
+      align: end
+    - title: Components
+      key: component_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
     - title: ''
       key: delete
       keyType: key
@@ -4810,7 +4678,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1960
+  x: 2160
   'y': 1760
   wires:
     - - fe18cb76e28e410c
@@ -4823,7 +4691,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 2190
+  x: 2390
   'y': 1700
   wires:
     - - 4a03a1d71cccb371
@@ -5505,7 +5373,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 940
+  x: 1140
   'y': 1820
   wires:
     - - 75059252b5720bbe
@@ -5544,7 +5412,130 @@
   from: ''
   to: ''
   reg: false
-  x: 1110
+  x: 1310
   'y': 1760
   wires:
     - - b240c158e5f018f1
+- id: 66226f3b64ad19a9
+  type: function
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  name: components
+  func: >-
+    var components = global.get('kernel.endpoint');
+
+    var entity = new RegExp('^(' + msg.row.model + '\\|' + msg.row.device +
+    '\\|)');
+
+
+    if (typeof components === 'object') {
+        for (const component in components) {
+            if (component.match(entity) !== null) {
+                msg.row.component_count += 1;
+            }
+        }
+    }
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 950
+  'y': 1820
+  wires:
+    - - 091ec14021d6b409
+- id: 8c51a1bfba38190a
+  type: function
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: components
+  func: |-
+    var components = global.get('kernel.endpoint');
+    var entity = new RegExp('^(' + msg.row.equipment + '\\|)');
+
+    if (typeof components === 'object') {
+        for (const component in components) {
+            if (components[component].match(entity) !== null) {
+                msg.row.component_count += 1;
+            }
+        }
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1130
+  'y': 1520
+  wires:
+    - - d0834b8366b3c16d
+- id: a8353c91019d5999
+  type: function
+  z: e97c6f12735a13c1
+  g: 6f784a48183c4937
+  name: equipments
+  func: |-
+    var equipments = global.get('kernel.equipments');
+
+    if (typeof equipments === 'object') {
+        for (const equipment in equipments) {
+            if (equipments[equipment] === msg.row.line) {
+                msg.row.equipment_count += 1;
+            }
+        }
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1090
+  'y': 1120
+  wires:
+    - - 40b2703358658c80
+- id: 85eb60f582d6b7ae
+  type: link out
+  z: e97c6f12735a13c1
+  g: 6f784a48183c4937
+  name: list - line
+  mode: link
+  links:
+    - 576ca6cfd2aca638
+  x: 2475
+  'y': 1000
+  wires: []
+- id: 036ef505711f8a70
+  type: function
+  z: e97c6f12735a13c1
+  g: 1dd6bd6835107ce6
+  name: color
+  func: >-
+    var state = global.get('kernel.state.' + msg.row.equipment + '|run',
+    'default');
+
+    if (typeof state === 'number') {
+        msg.row.state_color = (state === 0 ? '#FF0000':'#008000');
+    }
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 950
+  'y': 1520
+  wires:
+    - - 8c51a1bfba38190a
