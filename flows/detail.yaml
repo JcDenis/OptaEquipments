@@ -103,9 +103,11 @@
     - a54c84532f2c44a3
     - 404bfbe8193538ba
     - 04fedeaf450f490c
+    - e93987aef3574f62
+    - 2b59cd98758af02f
   x: 104
   'y': 819
-  w: 2662
+  w: 2842
   h: 2362
 - id: 1c87eaf6a557f02d
   type: group
@@ -961,7 +963,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2470
+  x: 2650
   'y': 1400
   wires:
     - - 3c49b3039dfe7b95
@@ -979,7 +981,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2650
+  x: 2830
   'y': 1460
   wires: []
 - id: 71ab4779af230c83
@@ -1161,7 +1163,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2595
+  x: 2775
   'y': 1400
   wires: []
 - id: f9bd857da00235f6
@@ -1183,8 +1185,8 @@
   x: 830
   'y': 2240
   wires:
-    - - 780661d35554de7d
-      - b3afc609202c34ed
+    - - b3afc609202c34ed
+      - e93987aef3574f62
 - id: 780661d35554de7d
   type: ui-button
   z: 852390cb9559e176
@@ -1216,7 +1218,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 1040
+  x: 1220
   'y': 2240
   wires:
     - - 1bb967e8f1c5cb23
@@ -1239,7 +1241,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1270
+  x: 1430
   'y': 2240
   wires:
     - - 04fedeaf450f490c
@@ -3675,8 +3677,8 @@
   x: 830
   'y': 2300
   wires:
-    - - 780661d35554de7d
-      - b3afc609202c34ed
+    - - b3afc609202c34ed
+      - e93987aef3574f62
 - id: df12b76a3c117fcd
   type: change
   z: 852390cb9559e176
@@ -3696,8 +3698,8 @@
   x: 830
   'y': 2360
   wires:
-    - - 780661d35554de7d
-      - b3afc609202c34ed
+    - - b3afc609202c34ed
+      - e93987aef3574f62
 - id: 14123420775a7b64
   type: link call
   z: 852390cb9559e176
@@ -3720,7 +3722,7 @@
     - 7f2964561cb984f7
   linkType: static
   timeout: '30'
-  x: 1810
+  x: 1970
   'y': 2240
   wires:
     - - e171907702d6e26e
@@ -3739,7 +3741,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1990
+  x: 2150
   'y': 2240
   wires:
     - - 5b1260fb090f1438
@@ -3750,7 +3752,7 @@
   g: d04f02d6e1c02839
   name: Play twice command for pulse command
   info: ''
-  x: 2260
+  x: 2420
   'y': 2280
   wires: []
 - id: 53c6584522e785fb
@@ -4018,7 +4020,7 @@
   type: trigger
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: repeat
+  name: pulse
   op1: ''
   op2: ''
   op1type: pay
@@ -4031,28 +4033,28 @@
   bytopic: all
   topic: topic
   outputs: 2
-  x: 2150
+  x: 2310
   'y': 2240
   wires:
-    - - 6e45cf745ff84a30
+    - - 2b59cd98758af02f
     - - c3dfafa9a4ca2083
 - id: c3dfafa9a4ca2083
   type: change
   z: 852390cb9559e176
   g: d04f02d6e1c02839
-  name: inv
+  name: pulse off
   rules:
     - t: set
       p: kernel.value
       pt: msg
-      to: 'msg.kernel.value=0?1:0'
-      tot: jsonata
+      to: '0'
+      tot: num
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 2310
+  x: 2480
   'y': 2240
   wires:
     - - 6e45cf745ff84a30
@@ -4093,8 +4095,8 @@
   x: 830
   'y': 2420
   wires:
-    - - 780661d35554de7d
-      - b3afc609202c34ed
+    - - b3afc609202c34ed
+      - e93987aef3574f62
 - id: 882a274532d44076
   type: change
   z: 852390cb9559e176
@@ -4455,7 +4457,7 @@
   checkall: 'true'
   repair: false
   outputs: 4
-  x: 1610
+  x: 1790
   'y': 1400
   wires:
     - - 6e45cf745ff84a30
@@ -4478,7 +4480,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1770
+  x: 1950
   'y': 1540
   wires:
     - - b42047a933d30eb6
@@ -4490,7 +4492,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1895
+  x: 2075
   'y': 1540
   wires: []
 - id: 0bb2abc8ca199d89
@@ -4520,7 +4522,7 @@
   checkall: 'true'
   repair: false
   outputs: 6
-  x: 1630
+  x: 1790
   'y': 2240
   wires:
     - - 15195c5b4fd0c363
@@ -6894,7 +6896,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1430
+  x: 1610
   'y': 1400
   wires:
     - - 362bbe7c5fe388ac
@@ -6907,7 +6909,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1450
+  x: 1610
   'y': 2240
   wires:
     - - 0bb2abc8ca199d89
@@ -7315,3 +7317,47 @@
   wires:
     - - afbf5772b8e4d09c
     - - 587535c8d0c4c954
+- id: e93987aef3574f62
+  type: function
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: running
+  func: |-
+    var entity = msg.kernel.equipment + '|run';
+    var state = global.get('kernel.state.' + entity, 'default');
+
+    if (typeof state === 'number' && state === 1) {
+        msg.enabled = false;
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1000
+  'y': 2240
+  wires:
+    - - 780661d35554de7d
+- id: 2b59cd98758af02f
+  type: change
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: pulse on
+  rules:
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: '1'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2480
+  'y': 2180
+  wires:
+    - - 6e45cf745ff84a30
