@@ -1061,7 +1061,12 @@
     - t: set
       p: payload
       pt: msg
-      to: "$sort(msg.payload, function($l, $r) {\t  $l.model_full < $r.model_full\t})"
+      to: "$sort(msg.payload, function($l, $r) {\t  $l.device > $r.device\t})"
+      tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: "$sort(msg.payload, function($l, $r) {\t  $l.model_full > $r.model_full\t})"
       tot: jsonata
     - t: set
       p: total
