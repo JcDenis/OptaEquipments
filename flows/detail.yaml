@@ -4077,6 +4077,11 @@
       pt: msg
       to: "{\t    'label':msg.tmp=1?msg.dictionary.group_detail_live_heatswitchoff:msg.dictionary.group_detail_live_heatswitchon,\t    'buttonColor':'#0094ce',\t    'icon':msg.kernel.value=1?'circle':'circle-outline'\t    }"
       tot: jsonata
+    - t: set
+      p: payload
+      pt: msg
+      to: 'msg.tmp=1?0:1'
+      tot: jsonata
     - t: delete
       p: tmp
       pt: msg
