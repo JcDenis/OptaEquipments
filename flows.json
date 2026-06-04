@@ -3142,8 +3142,8 @@
         ],
         "x": 78,
         "y": 553,
-        "w": 3214,
-        "h": 614
+        "w": 2294,
+        "h": 554
     },
     {
         "id": "f9da6ea6fa5cc954",
@@ -3490,12 +3490,7 @@
         },
         "nodes": [
             "e60e4ab7617738c3",
-            "276ea77023fcccae",
-            "7d1b85aa6f413ef9",
-            "a22fb9b1d981984a",
             "40abe00e99020b2f",
-            "79c1498fbe448949",
-            "4855b0bd4a34c6c9",
             "655727cb36a628bd",
             "423cf6113bf71012",
             "7c3f64b7bb0a71ef",
@@ -3511,14 +3506,12 @@
             "c4dca1e9e20d9ca3",
             "d3c22873709318bb",
             "13260a7e1b984eab",
-            "ef48fff9a754e189",
-            "3e0e7e5dbe6776d4",
-            "067eff7ad817b219"
+            "09c888ae37553c13"
         ],
         "x": 104,
         "y": 579,
-        "w": 3162,
-        "h": 262
+        "w": 2242,
+        "h": 202
     },
     {
         "id": "dcb47b97829a1b78",
@@ -3700,7 +3693,7 @@
             "8415b61e8bd93936"
         ],
         "x": 104,
-        "y": 1059,
+        "y": 999,
         "w": 512,
         "h": 82
     },
@@ -3732,7 +3725,7 @@
             "9b9c102ae72a95d5"
         ],
         "x": 104,
-        "y": 879,
+        "y": 819,
         "w": 1452,
         "h": 142
     },
@@ -4778,84 +4771,6 @@
         "verboselogging": true
     },
     {
-        "id": "a22fb9b1d981984a",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "value",
-        "property": "kernel",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "value",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 750,
-        "y": 620,
-        "wires": [
-            [
-                "4855b0bd4a34c6c9"
-            ]
-        ]
-    },
-    {
-        "id": "7d1b85aa6f413ef9",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "entity",
-        "property": "kernel",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "entity",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 590,
-        "y": 620,
-        "wires": [
-            [
-                "a22fb9b1d981984a"
-            ]
-        ]
-    },
-    {
-        "id": "276ea77023fcccae",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "type",
-        "property": "kernel",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "type",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 430,
-        "y": 620,
-        "wires": [
-            [
-                "7d1b85aa6f413ef9"
-            ]
-        ]
-    },
-    {
         "id": "e60e4ab7617738c3",
         "type": "link in",
         "z": "f6f2187d.f17ca8",
@@ -4888,7 +4803,7 @@
             "59d89682cd69e5c1"
         ],
         "x": 145,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
                 "d3c22873709318bb"
@@ -5428,7 +5343,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1550,
+        "x": 630,
         "y": 740,
         "wires": [
             [
@@ -5543,68 +5458,6 @@
         "wires": []
     },
     {
-        "id": "79c1498fbe448949",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "new",
-        "property": "kernel[msg.kernel.type][msg.kernel.entity]",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "kernel.value",
-                "vt": "msg"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1070,
-        "y": 680,
-        "wires": [
-            [
-                "423cf6113bf71012"
-            ],
-            [
-                "ef48fff9a754e189"
-            ]
-        ]
-    },
-    {
-        "id": "4855b0bd4a34c6c9",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "delete",
-        "property": "kernel.delete",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 900,
-        "y": 620,
-        "wires": [
-            [
-                "655727cb36a628bd"
-            ],
-            [
-                "79c1498fbe448949"
-            ]
-        ]
-    },
-    {
         "id": "655727cb36a628bd",
         "type": "change",
         "z": "f6f2187d.f17ca8",
@@ -5622,7 +5475,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1550,
+        "x": 630,
         "y": 620,
         "wires": [
             [
@@ -6010,7 +5863,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 880,
-        "y": 980,
+        "y": 920,
         "wires": []
     },
     {
@@ -6032,7 +5885,7 @@
         "repair": false,
         "outputs": 1,
         "x": 270,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "cc258e5789d12e79"
@@ -6065,7 +5918,7 @@
         "to": "",
         "reg": false,
         "x": 430,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "ec685ff85f3403d1"
@@ -6086,7 +5939,7 @@
         "addname": "kernel.type",
         "property": "payload",
         "x": 590,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "9f484ae35b520c21"
@@ -6107,7 +5960,7 @@
         "addname": "kernel.entity",
         "property": "payload",
         "x": 750,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "24cd8a5a5db7fd27"
@@ -6161,7 +6014,7 @@
         "to": "",
         "reg": false,
         "x": 910,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "62a937227be99b05",
@@ -6181,7 +6034,7 @@
             "e60e4ab7617738c3"
         ],
         "x": 1195,
-        "y": 920,
+        "y": 860,
         "wires": []
     },
     {
@@ -6342,7 +6195,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 1870,
+        "x": 950,
         "y": 680,
         "wires": [
             [
@@ -6369,7 +6222,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1710,
+        "x": 790,
         "y": 680,
         "wires": [
             [],
@@ -6393,7 +6246,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2590,
+        "x": 1670,
         "y": 740,
         "wires": []
     },
@@ -6469,7 +6322,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2390,
+        "x": 1470,
         "y": 680,
         "wires": [
             [
@@ -6491,7 +6344,7 @@
             "6f0b1eb0278764e4",
             "e47fa68c1a570f10"
         ],
-        "x": 2515,
+        "x": 1595,
         "y": 620,
         "wires": []
     },
@@ -6646,7 +6499,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2920,
+        "x": 2000,
         "y": 680,
         "wires": [
             [
@@ -6670,7 +6523,7 @@
         "retentionPolicyV18Flux": "",
         "org": "optaequipments",
         "bucket": "state",
-        "x": 3120,
+        "x": 2200,
         "y": 680,
         "wires": []
     },
@@ -6695,7 +6548,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 2570,
+        "x": 1650,
         "y": 680,
         "wires": [
             [
@@ -6724,7 +6577,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 2750,
+        "x": 1830,
         "y": 620,
         "wires": [
             [
@@ -6773,7 +6626,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 3130,
+        "x": 2210,
         "y": 740,
         "wires": []
     },
@@ -6918,7 +6771,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 2040,
+        "x": 1120,
         "y": 680,
         "wires": [
             [
@@ -6953,7 +6806,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2220,
+        "x": 1300,
         "y": 680,
         "wires": [
             [
@@ -6984,7 +6837,7 @@
         "reduceInitType": "",
         "reduceFixup": "",
         "x": 1070,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "9d76591ea56468ed"
@@ -7014,7 +6867,7 @@
         "reduceInitType": "",
         "reduceFixup": "",
         "x": 1230,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "b9aa052475bd7dc8"
@@ -7042,7 +6895,7 @@
         "to": "",
         "reg": false,
         "x": 1390,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "32238bfb65baf1bc"
@@ -8351,7 +8204,7 @@
         "name": "kernel - reverse endpoint",
         "links": [],
         "x": 145,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "8415b61e8bd93936"
@@ -8367,7 +8220,7 @@
         "mode": "return",
         "links": [],
         "x": 575,
-        "y": 1100,
+        "y": 1040,
         "wires": []
     },
     {
@@ -8428,7 +8281,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 450,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "7a10113d5c45b7de"
@@ -8539,7 +8392,7 @@
             "4e94023e8ba12f50"
         ],
         "x": 1515,
-        "y": 980,
+        "y": 920,
         "wires": []
     },
     {
@@ -8567,7 +8420,7 @@
             "eddfa49883d68d85"
         ],
         "x": 145,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "8c1c5bf80798ae2b"
@@ -8593,7 +8446,7 @@
         "to": "",
         "reg": false,
         "x": 1070,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "8894c5d4699b0a0c"
@@ -8960,10 +8813,10 @@
         "allowrate": false,
         "outputs": 1,
         "x": 270,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
-                "276ea77023fcccae"
+                "09c888ae37553c13"
             ]
         ]
     },
@@ -8993,7 +8846,7 @@
         "name": "This rebuilt the global kernel object",
         "info": "",
         "x": 360,
-        "y": 980,
+        "y": 920,
         "wires": []
     },
     {
@@ -9661,7 +9514,7 @@
         "links": [
             "aaa4b0dfa4f0d7a8"
         ],
-        "x": 1835,
+        "x": 915,
         "y": 620,
         "wires": []
     },
@@ -10030,75 +9883,6 @@
         "info": "",
         "x": 560,
         "y": 140,
-        "wires": []
-    },
-    {
-        "id": "ef48fff9a754e189",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "read",
-        "property": "kernel.loop",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1230,
-        "y": 740,
-        "wires": [
-            [
-                "40abe00e99020b2f"
-            ],
-            [
-                "3e0e7e5dbe6776d4"
-            ]
-        ]
-    },
-    {
-        "id": "3e0e7e5dbe6776d4",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "loop",
-        "rules": [
-            {
-                "t": "set",
-                "p": "kernel.loop",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1390,
-        "y": 800,
-        "wires": [
-            [
-                "40abe00e99020b2f"
-            ]
-        ]
-    },
-    {
-        "id": "067eff7ad817b219",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "loop  from read file",
-        "info": "",
-        "x": 1190,
-        "y": 800,
         "wires": []
     },
     {
@@ -12587,7 +12371,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "eb42ee484f23555b"
@@ -13427,6 +13211,33 @@
         "x": 510,
         "y": 5420,
         "wires": []
+    },
+    {
+        "id": "09c888ae37553c13",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "check kernel",
+        "func": "/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        return [msg, null, null];\n    } else {\n        var current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is the same as existing */\n        if (current === msg.kernel.value) {\n            return [null, msg, null];\n        } else {\n            if (typeof msg.kernel.loop === \"boolean\" && msg.kernel.loop === true) {\n            } else {\n                /* loop from read file */\n                msg.kernel.loop = false;\n            }\n            return [null, null, msg];\n        }\n    }\n}\n\nreturn;",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 680,
+        "wires": [
+            [
+                "655727cb36a628bd"
+            ],
+            [
+                "423cf6113bf71012"
+            ],
+            [
+                "40abe00e99020b2f"
+            ]
+        ]
     },
     {
         "id": "2ee1493983ba4b61",
@@ -20112,7 +19923,7 @@
                 "t": "set",
                 "p": "#:(memoryOnly)::describe.endpoint.opta",
                 "pt": "global",
-                "to": "{\t    'i0state':'Etat entrée 1',\t    'i1state':'Etat entrée 2',\t    'i2state':'Etat entrée 3',\t    'i3state':'Etat entrée 4',\t    'i4state':'Etat entrée 5',\t    'i5state':'Etat entrée 6',\t    'i6state':'Etat entrée 7',\t    'i7state':'Etat entrée 8',\t    'i0partialPulse':\"Compteur partiel d'impulstions entrée 1\",\t    'i1partialPulse':\"Compteur partiel d'impulstions entrée 2\",\t    'i2partialPulse':\"Compteur partiel d'impulstions entrée 3\",\t    'i3partialPulse':\"Compteur partiel d'impulstions entrée 4\",\t    'i4partialPulse':\"Compteur partiel d'impulstions entrée 5\",\t    'i5partialPulse':\"Compteur partiel d'impulstions entrée 6\",\t    'i6partialPulse':\"Compteur partiel d'impulstions entrée 7\",\t    'i7partialPulse':\"Compteur partiel d'impulstions entrée 8\",\t    'i0pulse':\"Compteur total d'impulstions entrée 1\",\t    'i1pulse':\"Compteur total d'impulstions entrée 2\",\t    'i2pulse':\"Compteur total d'impulstions entrée 3\",\t    'i3pulse':\"Compteur total d'impulstions entrée 4\",\t    'i4pulse':\"Compteur total d'impulstions entrée 5\",\t    'i5pulse':\"Compteur total d'impulstions entrée 6\",\t    'i6pulse':\"Compteur total d'impulstions entrée 7\",\t    'i7pulse':\"Compteur total d'impulstions entrée 8\",\t    'i0partialHigh':\"Compteur partiel d'heures entrée 1\",\t    'i1partialHigh':\"Compteur partiel d'heures entrée 2\",\t    'i2partialHigh':\"Compteur partiel d'heures entrée 3\",\t    'i3partialHigh':\"Compteur partiel d'heures entrée 4\",\t    'i4partialHigh':\"Compteur partiel d'heures entrée 5\",\t    'i5partialHigh':\"Compteur partiel d'heures entrée 6\",\t    'i6partialHigh':\"Compteur partiel d'heures entrée 7\",\t    'i7partialHigh':\"Compteur partiel d'heures entrée 8\",\t    'i0high':\"Compteur total d'heures entrée 1\",\t    'i1high':\"Compteur total d'heures entrée 2\",\t    'i2high':\"Compteur total d'heures entrée 3\",\t    'i3high':\"Compteur total d'heures entrée 4\",\t    'i4high':\"Compteur total d'heures entrée 5\",\t    'i5high':\"Compteur total d'heures entrée 6\",\t    'i6high':\"Compteur total d'heures entrée 7\",\t    'i7high':\"Compteur total d'heures entrée 8\",\t    'o0state':'Commande de sortie 1',\t    'o1state':'Commande de sortie 2',\t    'o2state':'Commande de sortie 3',\t    'o3state':'Commande de sortie 4',\t    'o4state':'Commande de sortie 5',\t    'o5state':'Commande de sortie 6',\t    'o6state':'Commande de sortie 7',\t    'o7state':'Commande de sortie 8',\t    'i0reset':\"Raz compteurs partiels entrée 1\",\t    'i1reset':\"Raz compteurs partiels entrée 2\",\t    'i2reset':\"Raz compteurs partiels entrée 3\",\t    'i3reset':\"Raz compteurs partiels entrée 4\",\t    'i4reset':\"Raz compteurs partiels entrée 5\",\t    'i5reset':\"Raz compteurs partiels entrée 6\",\t    'i6reset':\"Raz compteurs partiels entrée 7\",\t    'i7reset':\"Raz compteurs partiels entrée 8\",\t    'watchdog':'Chien de garde'\t}",
+                "to": "{\t    'i0state':'Etat entrée 1',\t    'i1state':'Etat entrée 2',\t    'i2state':'Etat entrée 3',\t    'i3state':'Etat entrée 4',\t    'i4state':'Etat entrée 5',\t    'i5state':'Etat entrée 6',\t    'i6state':'Etat entrée 7',\t    'i7state':'Etat entrée 8',\t    'i0partialPulse':\"Compteur partiel d'impulstions entrée 1\",\t    'i1partialPulse':\"Compteur partiel d'impulstions entrée 2\",\t    'i2partialPulse':\"Compteur partiel d'impulstions entrée 3\",\t    'i3partialPulse':\"Compteur partiel d'impulstions entrée 4\",\t    'i4partialPulse':\"Compteur partiel d'impulstions entrée 5\",\t    'i5partialPulse':\"Compteur partiel d'impulstions entrée 6\",\t    'i6partialPulse':\"Compteur partiel d'impulstions entrée 7\",\t    'i7partialPulse':\"Compteur partiel d'impulstions entrée 8\",\t    'i0pulse':\"Compteur total d'impulstions entrée 1\",\t    'i1pulse':\"Compteur total d'impulstions entrée 2\",\t    'i2pulse':\"Compteur total d'impulstions entrée 3\",\t    'i3pulse':\"Compteur total d'impulstions entrée 4\",\t    'i4pulse':\"Compteur total d'impulstions entrée 5\",\t    'i5pulse':\"Compteur total d'impulstions entrée 6\",\t    'i6pulse':\"Compteur total d'impulstions entrée 7\",\t    'i7pulse':\"Compteur total d'impulstions entrée 8\",\t    'i0partialHigh':\"Compteur partiel d'heures entrée 1\",\t    'i1partialHigh':\"Compteur partiel d'heures entrée 2\",\t    'i2partialHigh':\"Compteur partiel d'heures entrée 3\",\t    'i3partialHigh':\"Compteur partiel d'heures entrée 4\",\t    'i4partialHigh':\"Compteur partiel d'heures entrée 5\",\t    'i5partialHigh':\"Compteur partiel d'heures entrée 6\",\t    'i6partialHigh':\"Compteur partiel d'heures entrée 7\",\t    'i7partialHigh':\"Compteur partiel d'heures entrée 8\",\t    'i0high':\"Compteur total d'heures entrée 1\",\t    'i1high':\"Compteur total d'heures entrée 2\",\t    'i2high':\"Compteur total d'heures entrée 3\",\t    'i3high':\"Compteur total d'heures entrée 4\",\t    'i4high':\"Compteur total d'heures entrée 5\",\t    'i5high':\"Compteur total d'heures entrée 6\",\t    'i6high':\"Compteur total d'heures entrée 7\",\t    'i7high':\"Compteur total d'heures entrée 8\",\t    'o0state':'Commande de sortie 1',\t    'o1state':'Commande de sortie 2',\t    'o2state':'Commande de sortie 3',\t    'o3state':'Commande de sortie 4',\t    'o4state':'Commande de sortie 5',\t    'o5state':'Commande de sortie 6',\t    'o6state':'Commande de sortie 7',\t    'o7state':'Commande de sortie 8',\t    'i0reset':\"Raz compteurs partiels entrée 1\",\t    'i1reset':\"Raz compteurs partiels entrée 2\",\t    'i2reset':\"Raz compteurs partiels entrée 3\",\t    'i3reset':\"Raz compteurs partiels entrée 4\",\t    'i4reset':\"Raz compteurs partiels entrée 5\",\t    'i5reset':\"Raz compteurs partiels entrée 6\",\t    'i6reset':\"Raz compteurs partiels entrée 7\",\t    'i7reset':\"Raz compteurs partiels entrée 8\"\t}",
                 "tot": "jsonata"
             }
         ],
@@ -54491,7 +54302,9 @@
             [
                 "a9ed95a59ea9d1b4"
             ],
-            []
+            [
+                "8324173b669c15d7"
+            ]
         ]
     },
     {
