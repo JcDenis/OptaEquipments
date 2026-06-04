@@ -1911,7 +1911,7 @@
             row.starttime = vsplit[0];
             row.stoptime = vsplit[1];
 
-            if (row.plant === flow.get('form.' + msg.hmi.id + '.plant', 'memoryOnly')) {
+            if (row.plant === flow.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 var name = msg.dictionary?.option_team[row.team];
                 if (typeof name == 'string') {
                     row.name = name;

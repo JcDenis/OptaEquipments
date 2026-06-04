@@ -5390,28 +5390,10 @@
   name: color
   rules:
     - t: set
-      p: row.watchdog
-      pt: msg
-      to: 'kernel.watchdog[msg.row.entity]'
-      tot: global
-    - t: set
-      p: row.watchdog
-      pt: msg
-      to: $millis() - msg.row.watchdog
-      tot: jsonata
-    - t: set
-      p: time
-      pt: msg
-      to: kernel.app.watchdog
-      tot: global
-    - t: set
       p: row.watchdog_color
       pt: msg
-      to: 'msg.row.watchdog < ($number(msg.time) * 1000) ? ''#008000'':''#FF0000'''
+      to: 'msg.payload=1 ? ''#008000'':''#FF0000'''
       tot: jsonata
-    - t: delete
-      p: time
-      pt: msg
   action: ''
   property: ''
   from: ''
@@ -5525,7 +5507,7 @@
   g: 1dd6bd6835107ce6
   name: color
   func: >-
-    var state = global.get('kernel.state.' + msg.row.equipment + '|run',
+    var state = global.get('kernel.state["' + msg.row.equipment + '|run"]',
     'default');
 
     if (typeof state === 'number') {

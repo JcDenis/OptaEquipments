@@ -2756,7 +2756,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'watchdog',\t    'entity':'opta|' & msg.split[1],\t    'value':msg.payload,\t    'loop':false\t}"
+      to: "{\t    'type':'watchdog',\t    'entity':'opta|' & msg.split[1],\t    'value':$millis(),\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: topic

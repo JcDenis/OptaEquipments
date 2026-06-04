@@ -1691,7 +1691,7 @@
 
     if (typeof lines === 'object') {
         for (const line in lines) {
-            var line_plant = global.get('kernel.lines.' + line, 'default');
+            var line_plant = global.get('kernel.lines["' + line + '"]', 'default');
             if (typeof msg.limit_plant === 'undefined' || msg.limit_plant === line_plant) {
                 msg.options[i++] = {
                     'label':lines[line] + ' (' + line + ')',
@@ -1733,7 +1733,7 @@
 
     if (typeof equipments === 'object') {
         for (const equipment in equipments) {
-            var equipment_line = global.get('kernel.equipments.' + equipment, 'default');
+            var equipment_line = global.get('kernel.equipments["' + equipment + '"]', 'default');
             if (typeof msg.limit_line === 'undefined' || msg.limit_line === equipment_line) {
                 msg.options[i++] = {
                     'label':equipments[equipment] + ' (' + equipment + ')',
@@ -2120,7 +2120,7 @@
     var i = 1;
 
     if (typeof msg.limit_model !== 'undefined') {
-        var endpoints = global.get('describe.endpoint.' + msg.limit_model, 'memoryOnly');
+        var endpoints = global.get('describe.endpoint["' + msg.limit_model + '"]', 'memoryOnly');
         if (typeof endpoints === 'object') {
             for (const endpoint in endpoints) {
                 msg.options[i++] = {
