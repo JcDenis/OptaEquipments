@@ -116,8 +116,8 @@
     - 216f821485a9eb19
   x: 78
   'y': 553
-  w: 1504
-  h: 554
+  w: 1034
+  h: 614
 - id: f9da6ea6fa5cc954
   type: group
   z: f6f2187d.f17ca8
@@ -339,7 +339,7 @@
     - eb42ee484f23555b
     - 8415b61e8bd93936
   x: 104
-  'y': 999
+  'y': 1059
   w: 512
   h: 82
 - id: f84a47fbf723594b
@@ -353,23 +353,16 @@
     label: true
   nodes:
     - 62a937227be99b05
-    - 8c1c5bf80798ae2b
-    - cc258e5789d12e79
-    - ec685ff85f3403d1
-    - 9f484ae35b520c21
-    - 24cd8a5a5db7fd27
     - 8894c5d4699b0a0c
-    - bf3c7544afbda610
-    - 9d76591ea56468ed
-    - b9aa052475bd7dc8
     - 32238bfb65baf1bc
     - be36f6bbac4c54f7
-    - 24b18891d95734ab
     - 9b9c102ae72a95d5
+    - eda91fc78f2fdb61
+    - 70d7a1661a2e02de
   x: 104
   'y': 819
-  w: 1452
-  h: 142
+  w: 642
+  h: 202
 - id: 64e28c88b4c7b710
   type: group
   z: f6f2187d.f17ca8
@@ -1554,122 +1547,9 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 880
-  'y': 920
+  x: 620
+  'y': 860
   wires: []
-- id: 8c1c5bf80798ae2b
-  type: switch
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: hask
-      v: plant
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 270
-  'y': 860
-  wires:
-    - - cc258e5789d12e79
-- id: cc258e5789d12e79
-  type: change
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: clear
-  rules:
-    - t: delete
-      p: kernel
-      pt: global
-    - t: set
-      p: kernel
-      pt: msg
-      to: '{}'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 860
-  wires:
-    - - ec685ff85f3403d1
-- id: ec685ff85f3403d1
-  type: split
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.type
-  property: payload
-  x: 590
-  'y': 860
-  wires:
-    - - 9f484ae35b520c21
-- id: 9f484ae35b520c21
-  type: split
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: kernel.entity
-  property: payload
-  x: 750
-  'y': 860
-  wires:
-    - - 24cd8a5a5db7fd27
-- id: 24cd8a5a5db7fd27
-  type: change
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: kernel
-  rules:
-    - t: set
-      p: kernel.value
-      pt: msg
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: kernel.loop
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: kernel.delete
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: delete
-      p: filename
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 910
-  'y': 860
-  wires:
-    - - 62a937227be99b05
-      - bf3c7544afbda610
-      - 24b18891d95734ab
 - id: 8894c5d4699b0a0c
   type: link out
   z: f6f2187d.f17ca8
@@ -1678,8 +1558,8 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1195
-  'y': 860
+  x: 555
+  'y': 920
   wires: []
 - id: ddf293f86a1dd28c
   type: inject
@@ -2091,76 +1971,6 @@
   'y': 3500
   wires:
     - - 3450fffd4f368319
-- id: bf3c7544afbda610
-  type: join
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 1070
-  'y': 920
-  wires:
-    - - 9d76591ea56468ed
-- id: 9d76591ea56468ed
-  type: join
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 1230
-  'y': 920
-  wires:
-    - - b9aa052475bd7dc8
-- id: b9aa052475bd7dc8
-  type: change
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: Lecture du fichier de sauvegarde terminée
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1390
-  'y': 920
-  wires:
-    - - 32238bfb65baf1bc
 - id: 6e04acdf428261ac
   type: inject
   z: f6f2187d.f17ca8
@@ -2908,7 +2718,7 @@
   name: kernel - reverse endpoint
   links: []
   x: 145
-  'y': 1040
+  'y': 1100
   wires:
     - - 8415b61e8bd93936
 - id: 7a10113d5c45b7de
@@ -2919,7 +2729,7 @@
   mode: return
   links: []
   x: 575
-  'y': 1040
+  'y': 1100
   wires: []
 - id: 7ba0dadd40d50379
   type: link call
@@ -2966,7 +2776,7 @@
   allowrate: false
   outputs: 1
   x: 450
-  'y': 1040
+  'y': 1100
   wires:
     - - 7a10113d5c45b7de
 - id: 5e63e5a8296ee640
@@ -3049,8 +2859,8 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1515
-  'y': 920
+  x: 555
+  'y': 980
   wires: []
 - id: b70ce1d253cc53c8
   type: link out
@@ -3072,27 +2882,9 @@
     - b70ce1d253cc53c8
     - eddfa49883d68d85
   x: 145
-  'y': 860
+  'y': 920
   wires:
-    - - 8c1c5bf80798ae2b
-- id: 24b18891d95734ab
-  type: change
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: clean
-  rules:
-    - t: delete
-      p: parts
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1070
-  'y': 860
-  wires:
-    - - 8894c5d4699b0a0c
+    - - eda91fc78f2fdb61
 - id: 7f71d2575c92f1e5
   type: comment
   z: f6f2187d.f17ca8
@@ -3328,7 +3120,7 @@
   name: This rebuilt the global kernel object
   info: ''
   x: 360
-  'y': 920
+  'y': 980
   wires: []
 - id: 8c484fa5249c34f6
   type: change
@@ -5815,7 +5607,7 @@
   finalize: ''
   libs: []
   x: 280
-  'y': 1040
+  'y': 1100
   wires:
     - - eb42ee484f23555b
 - id: 688c8cd091260c94
@@ -6747,3 +6539,72 @@
   'y': 2600
   wires:
     - - 0e94cde52c021d45
+- id: eda91fc78f2fdb61
+  type: function
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: kernel
+  func: |-
+    let newMsg = {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'',
+            'entity':'',
+            'value':'',
+            'loop':true,
+            'delete':false
+        }
+    };
+
+    /* Check if payload is well formed */
+    if (typeof msg.payload?.app?.vendor === 'string') {
+        /* Delete current kernel */
+        //global.set('kernel', newMsg.kernel, 'default');
+
+        for (const type in msg.payload) {
+            newMsg.kernel.type = type;
+
+            for (const entity in msg.payload[type]) {
+                newMsg.kernel.entity = entity;
+                newMsg.kernel.value = msg.payload[type][entity];
+
+                node.send(newMsg);
+            }
+        }
+    }
+
+    msg.payload = 'Lecture du fichier de sauvegarde terminée';
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 920
+  wires:
+    - - 70d7a1661a2e02de
+- id: 70d7a1661a2e02de
+  type: switch
+  z: f6f2187d.f17ca8
+  g: f84a47fbf723594b
+  name: notice
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: ''
+      vt: str
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 430
+  'y': 920
+  wires:
+    - - 62a937227be99b05
+      - 8894c5d4699b0a0c
+    - - 32238bfb65baf1bc
