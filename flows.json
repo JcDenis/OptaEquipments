@@ -644,11 +644,7 @@
             "cb37ad5c78abc0bb",
             "32c655ef0f3f7523",
             "dee4ca80401dbbcd",
-            "6748e16626b3ac2a",
-            "0c9b9544e30107a2",
             "acfb859312b6b5ad",
-            "632dbcef04de01c6",
-            "a9ed95a59ea9d1b4",
             "b62953bab75fbfb1",
             "e1930e7b5c1b153f",
             "c541efeb7d23c25a",
@@ -670,11 +666,11 @@
             "cca9bdcdbc3a69a7",
             "f8d85654092d7e90",
             "7c95207ce9d01b60",
-            "8324173b669c15d7"
+            "0ac126dc2df887dc"
         ],
         "x": 104,
         "y": 3279,
-        "w": 3082,
+        "w": 2442,
         "h": 622
     },
     {
@@ -49616,7 +49612,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2410,
+        "x": 1770,
         "y": 3680,
         "wires": [
             [
@@ -49636,7 +49632,7 @@
             "898e323acce8cdc5",
             "e60e4ab7617738c3"
         ],
-        "x": 3015,
+        "x": 2375,
         "y": 3680,
         "wires": []
     },
@@ -49952,23 +49948,9 @@
         "rules": [
             {
                 "t": "set",
-                "p": "form",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "device",
-                "pt": "msg",
-                "to": "$join([msg.form.model,msg.form.id],'|')",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
                 "p": "kernel",
                 "pt": "msg",
-                "to": "{\t    'type':'device',\t    'entity':msg.device,\t    'value':'',\t    'loop':false,\t    'delete':true\t}",
+                "to": "{\t    'type':'device',\t    'entity':msg.model & '|' & msg.device,\t    'value':'',\t    'loop':false,\t    'delete':true\t}",
                 "tot": "jsonata"
             },
             {
@@ -49978,8 +49960,8 @@
             },
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::exists",
-                "pt": "flow"
+                "p": "model",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -49987,7 +49969,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2410,
+        "x": 1770,
         "y": 3800,
         "wires": [
             [
@@ -50031,7 +50013,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmiid]id",
+                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -51835,7 +51817,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2890,
+        "x": 2250,
         "y": 3680,
         "wires": [
             [
@@ -51858,7 +51840,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 3070,
+        "x": 2430,
         "y": 3740,
         "wires": []
     },
@@ -51882,7 +51864,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2570,
+        "x": 1930,
         "y": 3740,
         "wires": [
             [
@@ -51900,7 +51882,7 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 2695,
+        "x": 2055,
         "y": 3740,
         "wires": []
     },
@@ -53040,7 +53022,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2570,
+        "x": 1930,
         "y": 3680,
         "wires": [
             [
@@ -53812,8 +53794,13 @@
             },
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::exists",
-                "pt": "flow"
+                "p": "device",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "model",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -53821,75 +53808,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2410,
+        "x": 1770,
         "y": 3860,
         "wires": [
             [
                 "b62953bab75fbfb1",
                 "32c655ef0f3f7523"
-            ]
-        ]
-    },
-    {
-        "id": "6748e16626b3ac2a",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "771b362aacd557cd",
-        "name": "exists",
-        "property": "#:(memoryOnly)::exists",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "false"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 2250,
-        "y": 3860,
-        "wires": [
-            [
-                "dd9c60ea70834ff9"
-            ],
-            [
-                "dee4ca80401dbbcd"
-            ]
-        ]
-    },
-    {
-        "id": "0c9b9544e30107a2",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "771b362aacd557cd",
-        "name": "exists",
-        "property": "endpoint",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "regex",
-                "v": "'^(' & msg.device & '\\\\|)'",
-                "vt": "jsonata",
-                "case": false
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1770,
-        "y": 3860,
-        "wires": [
-            [
-                "a9ed95a59ea9d1b4"
-            ],
-            [
-                "8324173b669c15d7"
             ]
         ]
     },
@@ -53900,13 +53824,6 @@
         "g": "771b362aacd557cd",
         "name": "endpoints",
         "rules": [
-            {
-                "t": "set",
-                "p": "endpoints",
-                "pt": "msg",
-                "to": "kernel.endpoint",
-                "tot": "global"
-            },
             {
                 "t": "set",
                 "p": "model",
@@ -53920,20 +53837,6 @@
                 "pt": "msg",
                 "to": "#:(memoryOnly)::form[msg.hmi.id]id",
                 "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "device",
-                "pt": "msg",
-                "to": "msg.model & '\\\\|' & msg.device",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::exists",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
             }
         ],
         "action": "",
@@ -53945,56 +53848,7 @@
         "y": 3860,
         "wires": [
             [
-                "632dbcef04de01c6"
-            ]
-        ]
-    },
-    {
-        "id": "632dbcef04de01c6",
-        "type": "split",
-        "z": "64ce08af468b8197",
-        "g": "771b362aacd557cd",
-        "name": "split",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "endpoint",
-        "property": "endpoints",
-        "x": 1610,
-        "y": 3860,
-        "wires": [
-            [
-                "0c9b9544e30107a2"
-            ]
-        ]
-    },
-    {
-        "id": "a9ed95a59ea9d1b4",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "771b362aacd557cd",
-        "name": "set",
-        "rules": [
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::exists",
-                "pt": "flow",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1930,
-        "y": 3800,
-        "wires": [
-            [
-                "8324173b669c15d7"
+                "0ac126dc2df887dc"
             ]
         ]
     },
@@ -54018,7 +53872,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2570,
+        "x": 1930,
         "y": 3860,
         "wires": [
             [
@@ -58898,7 +58752,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 2730,
+        "x": 2090,
         "y": 3680,
         "wires": [
             [
@@ -65846,36 +65700,6 @@
         ]
     },
     {
-        "id": "8324173b669c15d7",
-        "type": "join",
-        "z": "64ce08af468b8197",
-        "g": "771b362aacd557cd",
-        "name": "join",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 2090,
-        "y": 3860,
-        "wires": [
-            [
-                "6748e16626b3ac2a"
-            ]
-        ]
-    },
-    {
         "id": "8a23f24d268a2abc",
         "type": "change",
         "z": "64ce08af468b8197",
@@ -67896,6 +67720,30 @@
             ],
             [
                 "696117cbea1d662a"
+            ]
+        ]
+    },
+    {
+        "id": "0ac126dc2df887dc",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "771b362aacd557cd",
+        "name": "empty",
+        "func": "var endpoints = global.get('kernel.endpoints', 'default');\nvar needle = new RegExp('^(' + msg.model + '\\\\|' + msg.device + '\\\\|)');\nif (typeof endpoints === 'object') {\n    for (const endpoint in endpoints) {\n        if (endpoint.match(needle) !== null) {\n            return [null, msg];\n        }\n    }\n}\n\nreturn [msg, null];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1610,
+        "y": 3860,
+        "wires": [
+            [
+                "dd9c60ea70834ff9"
+            ],
+            [
+                "dee4ca80401dbbcd"
             ]
         ]
     },
