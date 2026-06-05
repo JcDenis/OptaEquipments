@@ -17780,8 +17780,8 @@
   g: 771b362aacd557cd
   name: empty
   func: |-
-    var endpoints = global.get('kernel.endpoints', 'default');
-    var needle = new RegExp('^(' + msg.model + '\\|' + msg.device + '\\|)');
+    let endpoints = global.get('kernel.endpoints', 'default');
+    let needle = new RegExp('^(' + msg.model + '\\|' + msg.device + '\\|)');
     if (typeof endpoints === 'object') {
         for (const endpoint in endpoints) {
             if (endpoint.match(needle) !== null) {

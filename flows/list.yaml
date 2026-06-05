@@ -5364,7 +5364,7 @@
   g: e86385b18b9154e7
   name: more
   func: >-
-    var watchdog = global.get('kernel.watchdog["' + msg.row.entity + '"]',
+    let watchdog = global.get('kernel.watchdog["' + msg.row.entity + '"]',
     'default');
 
     if (typeof watchdog === 'number') {
@@ -5372,9 +5372,9 @@
     }
 
 
-    var components = global.get('kernel.endpoint');
+    let components = global.get('kernel.endpoint');
 
-    var entity = new RegExp('^(' + msg.row.model + '\\|' + msg.row.device +
+    let entity = new RegExp('^(' + msg.row.model + '\\|' + msg.row.device +
     '\\|)');
 
 
@@ -5404,7 +5404,7 @@
   g: 1dd6bd6835107ce6
   name: more
   func: >-
-    var state = global.get('kernel.state["' + msg.row.equipment + '|run"]',
+    let state = global.get('kernel.state["' + msg.row.equipment + '|run"]',
     'default');
 
     if (typeof state === 'number') {
@@ -5412,9 +5412,9 @@
     }
 
 
-    var components = global.get('kernel.endpoint');
+    let components = global.get('kernel.endpoint');
 
-    var entity = new RegExp('^(' + msg.row.equipment + '\\|)');
+    let entity = new RegExp('^(' + msg.row.equipment + '\\|)');
 
 
     if (typeof components === 'object') {
@@ -5443,7 +5443,7 @@
   g: 6f784a48183c4937
   name: more
   func: |-
-    var equipments = global.get('kernel.equipments');
+    let equipments = global.get('kernel.equipments');
     if (typeof equipments === 'object') {
         for (const equipment in equipments) {
             if (equipments[equipment] === msg.row.line) {

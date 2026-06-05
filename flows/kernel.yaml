@@ -5945,7 +5945,7 @@
   name: reverse
   func: >-
     function inverse(obj){
-      var retobj = {};
+      let retobj = {};
       for(var key in obj){
         retobj[obj[key]] = key;
       }
@@ -6403,13 +6403,13 @@
     }
 
     if (typeof msg._client?.socketId === 'string') {
-        var browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]', 'memoryOnly');
+        let browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]', 'memoryOnly');
         if (typeof browser_lang === 'string') {
             msg.hmi.lang = browser_lang;
         }
         msg.hmi.id = msg._client.socketId;
 
-        var user = global.get('user["' + msg.hmi.id + '"]', 'memoryOnly');
+        let user = global.get('user["' + msg.hmi.id + '"]', 'memoryOnly');
         if (typeof user === 'object') {
             msg.hmi = Object.assign({}, msg.hmi, user);
         }
@@ -6528,8 +6528,8 @@
   g: 7d481df1a0362e5a
   name: running
   func: |
-    var entity = msg.row.equipment + '|run';
-    var state = global.get('kernel.state["' + entity + '"]', 'default');
+    let entity = msg.row.equipment + '|run';
+    let state = global.get('kernel.state["' + entity + '"]', 'default');
 
     if (typeof state === 'number' && state === 1) {
         return [null, msg];
@@ -6592,14 +6592,14 @@
     msg.topic = '';
     msg.payload = '';
 
-    var time = global.get('kernel.app.watchdog', 'default')||120;
-    var limit = Date.now() - (time * 1000);
+    let time = global.get('kernel.app.watchdog', 'default')||120;
+    let limit = Date.now() - (time * 1000);
 
-    var devices = global.get('kernel.device', 'default');
+    let devices = global.get('kernel.device', 'default');
     if (typeof devices === 'object') {
         for (const device in devices) {
 
-            var watchdog = global.get('kernel.watchdog["' + device + '"]', 'default')||0;
+            let watchdog = global.get('kernel.watchdog["' + device + '"]', 'default')||0;
 
             msg.kernel = {
                 'type':'device',
@@ -6658,6 +6658,9 @@
   g: 216f821485a9eb19
   name: loop
   func: |-
+    delete msg.qos;
+    delete msg.retain;
+
     /* check kernel message */
     if (typeof msg.kernel === 'object'
         && typeof msg.kernel.type === 'string'
@@ -6668,7 +6671,7 @@
         if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
             global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', undefined, 'default');
         } else {
-            var current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'default');
+            let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'default');
             /* new value is not the same as existing */
             if (current !== msg.kernel.value) {
                 if (typeof msg.kernel.loop === "boolean" && msg.kernel.loop === true) {
@@ -6706,14 +6709,14 @@
   name: kernel
   func: |-
     if (msg.kernel.type === 'state') {
-        var endpoint = flow.get('reverse_endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
+        let endpoint = flow.get('reverse_endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
         if (typeof endpoint === 'string') {
-            var esplit = endpoint.split("|");
+            let esplit = endpoint.split("|");
             msg.kernel.model = esplit[0];
             msg.kernel.device = esplit[1];
             msg.kernel.endpoint = esplit[2];
 
-            var csplit = msg.kernel.entity.split("|");
+            let csplit = msg.kernel.entity.split("|");
             msg.kernel.equipment = csplit[0];
             msg.kernel.component = csplit[1];
 

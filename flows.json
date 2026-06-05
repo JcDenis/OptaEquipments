@@ -1795,18 +1795,14 @@
         },
         "nodes": [
             "7f2964561cb984f7",
-            "d05f7ccc7689d0cb",
-            "75e2a5e73add2e09",
-            "fefb8a3a6532e22a",
-            "45a08cd16de6b33f",
-            "e61d0e2786793621",
-            "181fed2155280141",
-            "53dc6b1e11bb92b5"
+            "53dc6b1e11bb92b5",
+            "2fd96a75e738066b",
+            "5feac3c5a0f2229e"
         ],
         "x": 104,
         "y": 3159,
-        "w": 1272,
-        "h": 262
+        "w": 462,
+        "h": 142
     },
     {
         "id": "c0b72044a49a3f76",
@@ -2429,17 +2425,13 @@
         },
         "nodes": [
             "12dd534f81c34fbe",
-            "6fa42981820e2824",
-            "d2f4b4f5545b78dc",
-            "4ed98ac58ec0dc48",
-            "eb609c106fef0abf",
-            "445f0e12f2d767b7",
-            "8e92c8a2ead8793d",
-            "dfe652167a11eb08"
+            "dfe652167a11eb08",
+            "04a50b31474aceeb",
+            "89e8132f071da088"
         ],
         "x": 104,
-        "y": 3459,
-        "w": 972,
+        "y": 3339,
+        "w": 462,
         "h": 142
     },
     {
@@ -11853,7 +11845,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "b0a29d62b8e00f94",
         "name": "reverse",
-        "func": "function inverse(obj){\n  var retobj = {};\n  for(var key in obj){\n    retobj[obj[key]] = key;\n  }\n  return retobj;\n}\n\nflow.set('reverse_endpoint',{},'memoryOnly');\nflow.set('reverse_endpoint',inverse(global.get('kernel.endpoint','default')),'memoryOnly');\n\nmsg.payload = '';\nreturn msg;",
+        "func": "function inverse(obj){\n  let retobj = {};\n  for(var key in obj){\n    retobj[obj[key]] = key;\n  }\n  return retobj;\n}\n\nflow.set('reverse_endpoint',{},'memoryOnly');\nflow.set('reverse_endpoint',inverse(global.get('kernel.endpoint','default')),'memoryOnly');\n\nmsg.payload = '';\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12441,7 +12433,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "hmi",
-        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':''\n    };\n}\n\nif (typeof msg.hmi.lang !== 'string') {\n    msg.hmi.lang = 'en';\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    var browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    var user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nmsg.hmi.time = Date.now();\n\nreturn msg;",
+        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':''\n    };\n}\n\nif (typeof msg.hmi.lang !== 'string') {\n    msg.hmi.lang = 'en';\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nmsg.hmi.time = Date.now();\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12597,7 +12589,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "7d481df1a0362e5a",
         "name": "running",
-        "func": "var entity = msg.row.equipment + '|run';\nvar state = global.get('kernel.state[\"' + entity + '\"]', 'default');\n\nif (typeof state === 'number' && state === 1) {\n    return [null, msg];\n} else {\n    return [msg, null];\n}\n",
+        "func": "let entity = msg.row.equipment + '|run';\nlet state = global.get('kernel.state[\"' + entity + '\"]', 'default');\n\nif (typeof state === 'number' && state === 1) {\n    return [null, msg];\n} else {\n    return [msg, null];\n}\n",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -12654,7 +12646,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "ce2669cea2e618a0",
         "name": "device state",
-        "func": "msg.kernel = {};\nmsg.topic = '';\nmsg.payload = '';\n\nvar time = global.get('kernel.app.watchdog', 'default')||120;\nvar limit = Date.now() - (time * 1000);\n\nvar devices = global.get('kernel.device', 'default');\nif (typeof devices === 'object') {\n    for (const device in devices) {\n\n        var watchdog = global.get('kernel.watchdog[\"' + device + '\"]', 'default')||0;\n\n        msg.kernel = {\n            'type':'device',\n            'entity':device,\n            'value': watchdog < limit ? 0:1,\n            'loop':false\n        };\n\n        node.send(msg);\n    }\n}\n\nreturn;",
+        "func": "msg.kernel = {};\nmsg.topic = '';\nmsg.payload = '';\n\nlet time = global.get('kernel.app.watchdog', 'default')||120;\nlet limit = Date.now() - (time * 1000);\n\nlet devices = global.get('kernel.device', 'default');\nif (typeof devices === 'object') {\n    for (const device in devices) {\n\n        let watchdog = global.get('kernel.watchdog[\"' + device + '\"]', 'default')||0;\n\n        msg.kernel = {\n            'type':'device',\n            'entity':device,\n            'value': watchdog < limit ? 0:1,\n            'loop':false\n        };\n\n        node.send(msg);\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12709,7 +12701,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "loop",
-        "func": "/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        var current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            if (typeof msg.kernel.loop === \"boolean\" && msg.kernel.loop === true) {\n            } else {\n                /* loop from read file */\n                msg.kernel.loop = false;\n            }\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        /* do loop */\n        if (typeof msg.kernel.loop === 'boolean' && msg.kernel.loop === false) {\n            return msg;\n        }\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            if (typeof msg.kernel.loop === \"boolean\" && msg.kernel.loop === true) {\n            } else {\n                /* loop from read file */\n                msg.kernel.loop = false;\n            }\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        /* do loop */\n        if (typeof msg.kernel.loop === 'boolean' && msg.kernel.loop === false) {\n            return msg;\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12731,7 +12723,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "kernel",
-        "func": "if (msg.kernel.type === 'state') {\n    var endpoint = flow.get('reverse_endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n    if (typeof endpoint === 'string') {\n        var esplit = endpoint.split(\"|\");\n        msg.kernel.model = esplit[0];\n        msg.kernel.device = esplit[1];\n        msg.kernel.endpoint = esplit[2];\n\n        var csplit = msg.kernel.entity.split(\"|\");\n        msg.kernel.equipment = csplit[0];\n        msg.kernel.component = csplit[1];\n\n        /* used elsewhere */\n        msg.endpoint = endpoint;\n        msg.payload = msg.kernel.entity\n\n        return msg;\n    }\n}\n\nreturn;",
+        "func": "if (msg.kernel.type === 'state') {\n    let endpoint = flow.get('reverse_endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n    if (typeof endpoint === 'string') {\n        let esplit = endpoint.split(\"|\");\n        msg.kernel.model = esplit[0];\n        msg.kernel.device = esplit[1];\n        msg.kernel.endpoint = esplit[2];\n\n        let csplit = msg.kernel.entity.split(\"|\");\n        msg.kernel.equipment = csplit[0];\n        msg.kernel.component = csplit[1];\n\n        /* used elsewhere */\n        msg.endpoint = endpoint;\n        msg.payload = msg.kernel.entity\n\n        return msg;\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -13714,192 +13706,10 @@
         "name": "value - NC",
         "links": [],
         "x": 145,
-        "y": 3380,
-        "wires": [
-            [
-                "d05f7ccc7689d0cb"
-            ]
-        ]
-    },
-    {
-        "id": "d05f7ccc7689d0cb",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "2dadce6cd1694d7d",
-        "name": "equipment",
-        "property": "kernel",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "equipment",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 290,
-        "y": 3380,
-        "wires": [
-            [
-                "75e2a5e73add2e09"
-            ],
-            [
-                "53dc6b1e11bb92b5"
-            ]
-        ]
-    },
-    {
-        "id": "75e2a5e73add2e09",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "2dadce6cd1694d7d",
-        "name": "componant",
-        "property": "kernel",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "component",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 490,
-        "y": 3320,
-        "wires": [
-            [
-                "fefb8a3a6532e22a"
-            ],
-            [
-                "53dc6b1e11bb92b5"
-            ]
-        ]
-    },
-    {
-        "id": "fefb8a3a6532e22a",
-        "type": "change",
-        "z": "adb9fbf379118d77",
-        "g": "2dadce6cd1694d7d",
-        "name": "entity",
-        "rules": [
-            {
-                "t": "set",
-                "p": "entity",
-                "pt": "msg",
-                "to": "$join([msg.kernel.equipment,msg.kernel.component],'|')",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 670,
-        "y": 3260,
-        "wires": [
-            [
-                "45a08cd16de6b33f"
-            ]
-        ]
-    },
-    {
-        "id": "45a08cd16de6b33f",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "2dadce6cd1694d7d",
-        "name": "componant",
-        "property": "kernel.reverse",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "entity",
-                "vt": "msg"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 850,
-        "y": 3260,
-        "wires": [
-            [
-                "e61d0e2786793621"
-            ],
-            [
-                "53dc6b1e11bb92b5"
-            ]
-        ]
-    },
-    {
-        "id": "e61d0e2786793621",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "2dadce6cd1694d7d",
-        "name": "NC",
-        "property": "kernel.reverse[msg.entity]",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1030,
         "y": 3200,
         "wires": [
             [
-                "181fed2155280141"
-            ],
-            [
-                "53dc6b1e11bb92b5"
-            ]
-        ]
-    },
-    {
-        "id": "181fed2155280141",
-        "type": "change",
-        "z": "adb9fbf379118d77",
-        "g": "2dadce6cd1694d7d",
-        "name": "reverse",
-        "rules": [
-            {
-                "t": "set",
-                "p": "kernel.value",
-                "pt": "msg",
-                "to": "msg.kernel.value=1?0:1",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1200,
-        "y": 3200,
-        "wires": [
-            [
-                "53dc6b1e11bb92b5"
+                "2fd96a75e738066b"
             ]
         ]
     },
@@ -13911,8 +13721,8 @@
         "name": "value - NC",
         "mode": "return",
         "links": [],
-        "x": 1335,
-        "y": 3380,
+        "x": 415,
+        "y": 3200,
         "wires": []
     },
     {
@@ -14076,244 +13886,10 @@
         "name": "value - team",
         "links": [],
         "x": 145,
-        "y": 3560,
+        "y": 3380,
         "wires": [
             [
-                "6fa42981820e2824"
-            ]
-        ]
-    },
-    {
-        "id": "6fa42981820e2824",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "f4f856958bf793b7",
-        "name": "plant",
-        "property": "limit_plant",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 270,
-        "y": 3560,
-        "wires": [
-            [
-                "d2f4b4f5545b78dc"
-            ],
-            [
-                "8e92c8a2ead8793d"
-            ]
-        ]
-    },
-    {
-        "id": "d2f4b4f5545b78dc",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "f4f856958bf793b7",
-        "name": "team",
-        "property": "limit_team",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 430,
-        "y": 3500,
-        "wires": [
-            [
-                "eb609c106fef0abf"
-            ],
-            [
-                "8e92c8a2ead8793d"
-            ]
-        ]
-    },
-    {
-        "id": "4ed98ac58ec0dc48",
-        "type": "switch",
-        "z": "adb9fbf379118d77",
-        "g": "f4f856958bf793b7",
-        "name": "global",
-        "property": "kernel.team",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "period",
-                "vt": "msg"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 750,
-        "y": 3500,
-        "wires": [
-            [
-                "445f0e12f2d767b7"
-            ],
-            [
-                "8e92c8a2ead8793d"
-            ]
-        ]
-    },
-    {
-        "id": "eb609c106fef0abf",
-        "type": "change",
-        "z": "adb9fbf379118d77",
-        "g": "f4f856958bf793b7",
-        "name": "period",
-        "rules": [
-            {
-                "t": "set",
-                "p": "period",
-                "pt": "msg",
-                "to": "msg.limit_plant & '|' & msg.limit_team",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 3500,
-        "wires": [
-            [
-                "4ed98ac58ec0dc48"
-            ]
-        ]
-    },
-    {
-        "id": "445f0e12f2d767b7",
-        "type": "change",
-        "z": "adb9fbf379118d77",
-        "g": "f4f856958bf793b7",
-        "name": "split",
-        "rules": [
-            {
-                "t": "set",
-                "p": "split",
-                "pt": "msg",
-                "to": "kernel.team[msg.period]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "split",
-                "pt": "msg",
-                "to": "$split(msg.split,'|')",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "starttime",
-                "pt": "msg",
-                "to": "split[0]",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "stoptime",
-                "pt": "msg",
-                "to": "split[1]",
-                "tot": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "split",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "period",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "limit_plant",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "limit_team",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 910,
-        "y": 3500,
-        "wires": [
-            [
-                "dfe652167a11eb08"
-            ]
-        ]
-    },
-    {
-        "id": "8e92c8a2ead8793d",
-        "type": "change",
-        "z": "adb9fbf379118d77",
-        "g": "f4f856958bf793b7",
-        "name": "split",
-        "rules": [
-            {
-                "t": "set",
-                "p": "starttime",
-                "pt": "msg",
-                "to": "0",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "stoptime",
-                "pt": "msg",
-                "to": "0",
-                "tot": "str"
-            },
-            {
-                "t": "delete",
-                "p": "limit_plant",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "limit_team",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 910,
-        "y": 3560,
-        "wires": [
-            [
-                "dfe652167a11eb08"
+                "04a50b31474aceeb"
             ]
         ]
     },
@@ -14325,8 +13901,8 @@
         "name": "value - team",
         "mode": "return",
         "links": [],
-        "x": 1035,
-        "y": 3560,
+        "x": 395,
+        "y": 3380,
         "wires": []
     },
     {
@@ -14592,7 +14168,7 @@
         "z": "adb9fbf379118d77",
         "g": "fa94e5dda0432e95",
         "name": "plants",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'plant'\n}];\n\nvar plants = global.get('kernel.plant', 'default');\nvar i = 1;\n\nif (typeof plants === 'object') {\n    for (const plant in plants) {\n        msg.options[i++] = {\n            'label':plants[plant] + ' (' + plant + ')',\n            'value':plant,\n            'dropdown':'plant'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'plant'\n}];\n\nlet plants = global.get('kernel.plant', 'default');\nlet i = 1;\n\nif (typeof plants === 'object') {\n    for (const plant in plants) {\n        msg.options[i++] = {\n            'label':plants[plant] + ' (' + plant + ')',\n            'value':plant,\n            'dropdown':'plant'\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14614,7 +14190,7 @@
         "z": "adb9fbf379118d77",
         "g": "82ce08693206f664",
         "name": "lines",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'line'\n}];\n\nvar lines = global.get('kernel.line', 'default');\nvar i = 1;\n\nif (typeof lines === 'object') {\n    for (const line in lines) {\n        var line_plant = global.get('kernel.lines[\"' + line + '\"]', 'default');\n        if (typeof msg.limit_plant === 'undefined' || msg.limit_plant === line_plant) {\n            msg.options[i++] = {\n                'label':lines[line] + ' (' + line + ')',\n                'value':line,\n                'dropdown':'line'\n            }\n        }\n    }\n}\n\ndelete msg.limit_plant;\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'line'\n}];\n\nlet lines = global.get('kernel.line', 'default');\nlet i = 1;\n\nif (typeof lines === 'object') {\n    for (const line in lines) {\n        let line_plant = global.get('kernel.lines[\"' + line + '\"]', 'default');\n        if (typeof msg.limit_plant === 'undefined' || msg.limit_plant === line_plant) {\n            msg.options[i++] = {\n                'label':lines[line] + ' (' + line + ')',\n                'value':line,\n                'dropdown':'line'\n            }\n        }\n    }\n}\n\ndelete msg.limit_plant;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14636,7 +14212,7 @@
         "z": "adb9fbf379118d77",
         "g": "0ca8991c60d8e2f2",
         "name": "equipments",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'equipment'\n}];\n\nvar equipments = global.get('kernel.equipment', 'default');\nvar i = 1;\n\nif (typeof equipments === 'object') {\n    for (const equipment in equipments) {\n        var equipment_line = global.get('kernel.equipments[\"' + equipment + '\"]', 'default');\n        if (typeof msg.limit_line === 'undefined' || msg.limit_line === equipment_line) {\n            msg.options[i++] = {\n                'label':equipments[equipment] + ' (' + equipment + ')',\n                'value':equipment,\n                'dropdown':'equipment'\n            }\n        }\n    }\n}\n\ndelete msg.limit_line;\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'equipment'\n}];\n\nlet equipments = global.get('kernel.equipment', 'default');\nlet i = 1;\n\nif (typeof equipments === 'object') {\n    for (const equipment in equipments) {\n        let equipment_line = global.get('kernel.equipments[\"' + equipment + '\"]', 'default');\n        if (typeof msg.limit_line === 'undefined' || msg.limit_line === equipment_line) {\n            msg.options[i++] = {\n                'label':equipments[equipment] + ' (' + equipment + ')',\n                'value':equipment,\n                'dropdown':'equipment'\n            }\n        }\n    }\n}\n\ndelete msg.limit_line;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14658,7 +14234,7 @@
         "z": "adb9fbf379118d77",
         "g": "de5e425a71b62e85",
         "name": "models",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'model'\n}];\n\nvar models = global.get('describe.model', 'memoryOnly');\nvar i = 1;\n\nif (typeof models === 'object') {\n    for (const model in models) {\n        msg.options[i++] = {\n            'label':models[model] + ' (' + model + ')',\n            'value':model,\n            'dropdown':'model'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'model'\n}];\n\nlet models = global.get('describe.model', 'memoryOnly');\nlet i = 1;\n\nif (typeof models === 'object') {\n    for (const model in models) {\n        msg.options[i++] = {\n            'label':models[model] + ' (' + model + ')',\n            'value':model,\n            'dropdown':'model'\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14680,7 +14256,7 @@
         "z": "adb9fbf379118d77",
         "g": "13e61c4c6242c6c4",
         "name": "teams",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'team'\n}];\n\nvar teams = msg.dictionary?.option_team;\nvar i = 1;\n\nif (typeof teams === 'object') {\n    for (const team in teams) {\n        msg.options[i++] = {\n            'label':teams[team] + ' (' + team + ')',\n            'value':team,\n            'dropdown':'team'\n        }\n    }\n}\n\nmsg.nosort = true;\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'team'\n}];\n\nlet teams = msg.dictionary?.option_team;\nlet i = 1;\n\nif (typeof teams === 'object') {\n    for (const team in teams) {\n        msg.options[i++] = {\n            'label':teams[team] + ' (' + team + ')',\n            'value':team,\n            'dropdown':'team'\n        }\n    }\n}\n\nmsg.nosort = true;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14702,7 +14278,7 @@
         "z": "adb9fbf379118d77",
         "g": "e31b0476c804c00a",
         "name": "resolutions",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'resolution'\n}];\n\nvar resolutions = msg.dictionary?.option_resolution;\nvar i = 1;\n\nif (typeof resolutions === 'object') {\n    for (const resolution in resolutions) {\n        msg.options[i++] = {\n            'label': resolutions[resolution],\n            'value': resolution,\n            'dropdown':'resolution'\n        }\n    }\n}\n\nmsg.nosort = true;\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'resolution'\n}];\n\nlet resolutions = msg.dictionary?.option_resolution;\nlet i = 1;\n\nif (typeof resolutions === 'object') {\n    for (const resolution in resolutions) {\n        msg.options[i++] = {\n            'label': resolutions[resolution],\n            'value': resolution,\n            'dropdown':'resolution'\n        }\n    }\n}\n\nmsg.nosort = true;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14724,7 +14300,7 @@
         "z": "adb9fbf379118d77",
         "g": "8dcbc02d7cca2b6e",
         "name": "levels",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'level'\n}];\n\nvar levels = msg.dictionary?.option_level;\nvar i = 1;\n\nif (typeof levels === 'object') {\n    for (const level in levels) {\n        msg.options[i++] = {\n            'label': levels[level],\n            'value': level,\n            'dropdown':'level'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'level'\n}];\n\nlet levels = msg.dictionary?.option_level;\nlet i = 1;\n\nif (typeof levels === 'object') {\n    for (const level in levels) {\n        msg.options[i++] = {\n            'label': levels[level],\n            'value': level,\n            'dropdown':'level'\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14765,7 +14341,7 @@
         "z": "adb9fbf379118d77",
         "g": "f406268fcecbbfa2",
         "name": "langs",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'lang'\n}];\n\nvar langs = msg.dictionary?.option_lang;\nvar i = 1;\n\nif (typeof langs === 'object') {\n    for (const lang in langs) {\n        msg.options[i++] = {\n            'label': langs[lang] + ' (' + lang + ')',\n            'value': lang,\n            'dropdown':'lang'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'lang'\n}];\n\nlet langs = msg.dictionary?.option_lang;\nlet i = 1;\n\nif (typeof langs === 'object') {\n    for (const lang in langs) {\n        msg.options[i++] = {\n            'label': langs[lang] + ' (' + lang + ')',\n            'value': lang,\n            'dropdown':'lang'\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14806,7 +14382,7 @@
         "z": "adb9fbf379118d77",
         "g": "2da5c1ad6337dbb0",
         "name": "logins",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'login'\n}];\n\nvar logins = global.get('auth', 'memoryOnly');\nvar i = 1;\n\nif (typeof logins === 'object') {\n    for (const login in logins) {\n        msg.options[i++] = {\n            'label':login,\n            'value':login,\n            'dropdown':'login'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'login'\n}];\n\nlet logins = global.get('auth', 'memoryOnly');\nlet i = 1;\n\nif (typeof logins === 'object') {\n    for (const login in logins) {\n        msg.options[i++] = {\n            'label':login,\n            'value':login,\n            'dropdown':'login'\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14847,7 +14423,7 @@
         "z": "adb9fbf379118d77",
         "g": "c0aabb40d929c1de",
         "name": "alerts",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'alert'\n}];\n\nvar alerts = global.get('kernel.alert', 'default');\nvar i = 1;\n\nif (typeof alerts === 'object') {\n    for (const alert in alerts) {\n        const split = alert.split(\"|\");\n        if (typeof msg.limit_equipment === 'undefined' || msg.limit_equipment === split[0]) {\n            var name = msg.dictionary.option_component[split[1]];\n            msg.options[i++] = {\n                'label':name + ' (' + alert + ')',\n                'value':alert,\n                'dropdown':'alert'\n            }\n        }\n    }\n}\n\ndelete msg.limit_equipment;\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'alert'\n}];\n\nlet alerts = global.get('kernel.alert', 'default');\nlet i = 1;\n\nif (typeof alerts === 'object') {\n    for (const alert in alerts) {\n        const split = alert.split(\"|\");\n        if (typeof msg.limit_equipment === 'undefined' || msg.limit_equipment === split[0]) {\n            let name = msg.dictionary.option_component[split[1]];\n            msg.options[i++] = {\n                'label':name + ' (' + alert + ')',\n                'value':alert,\n                'dropdown':'alert'\n            }\n        }\n    }\n}\n\ndelete msg.limit_equipment;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14869,7 +14445,7 @@
         "z": "adb9fbf379118d77",
         "g": "f4772c8ec8d416b2",
         "name": "components",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'component'\n}];\n\nvar components = msg.dictionary?.option_component;\nvar i = 1;\n\nif (typeof components === 'object') {\n    for (const component in components) {\n        if (typeof msg.limit_component === 'undefined' || component.match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {\n            msg.options[i++] = {\n                'label': components[component] + ' (' + component + ')',\n                'value': component,\n                'dropdown':'component'\n            }\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'component'\n}];\n\nlet components = msg.dictionary?.option_component;\nlet i = 1;\n\nif (typeof components === 'object') {\n    for (const component in components) {\n        if (typeof msg.limit_component === 'undefined' || component.match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {\n            msg.options[i++] = {\n                'label': components[component] + ' (' + component + ')',\n                'value': component,\n                'dropdown':'component'\n            }\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14891,7 +14467,7 @@
         "z": "adb9fbf379118d77",
         "g": "a9c861bdf9fdd630",
         "name": "endpoints",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'endpoint'\n}];\n\nvar i = 1;\n\nif (typeof msg.limit_model !== 'undefined') {\n    var endpoints = global.get('describe.endpoint[\"' + msg.limit_model + '\"]', 'memoryOnly');\n    if (typeof endpoints === 'object') {\n        for (const endpoint in endpoints) {\n            msg.options[i++] = {\n                'label': endpoints[endpoint] + ' (' + endpoint + ')',\n                'value': endpoint,\n                'dropdown':'endpoint'\n            }\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'endpoint'\n}];\n\nlet i = 1;\n\nif (typeof msg.limit_model !== 'undefined') {\n    let endpoints = global.get('describe.endpoint[\"' + msg.limit_model + '\"]', 'memoryOnly');\n    if (typeof endpoints === 'object') {\n        for (const endpoint in endpoints) {\n            msg.options[i++] = {\n                'label': endpoints[endpoint] + ' (' + endpoint + ')',\n                'value': endpoint,\n                'dropdown':'endpoint'\n            }\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14913,7 +14489,7 @@
         "z": "adb9fbf379118d77",
         "g": "8429a00ec08b9d76",
         "name": "devices",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'device'\n}];\n\nvar i = 1;\n\nif (typeof msg.limit_model !== 'undefined') {\n    var devices = global.get('kernel.device', 'default');\n    if (typeof devices === 'object') {\n        for (const device in devices) {\n            /* 0 = model, 1 = device */\n            var split = device.split(\"|\");\n            if (msg.limit_model === split[0]) {\n                msg.options[i++] = {\n                    'label': split[1],\n                    'value': split[1],\n                    'dropdown':'device'\n                }\n            }\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'device'\n}];\n\nlet i = 1;\n\nif (typeof msg.limit_model !== 'undefined') {\n    let devices = global.get('kernel.device', 'default');\n    if (typeof devices === 'object') {\n        for (const device in devices) {\n            /* 0 = model, 1 = device */\n            let split = device.split(\"|\");\n            if (msg.limit_model === split[0]) {\n                msg.options[i++] = {\n                    'label': split[1],\n                    'value': split[1],\n                    'dropdown':'device'\n                }\n            }\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14935,7 +14511,7 @@
         "z": "adb9fbf379118d77",
         "g": "ed61df18f5488ebe",
         "name": "links",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'link'\n}];\n\nvar i = 1;\n\nvar links = global.get('kernel.endpoint', 'default');\nif (typeof links === 'object') {\n    for (const link in links) {\n        /* 0 = equipment, 1 = component */\n        var split = links[link].split(\"|\");\n        if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {\n            if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {\n                var name = msg.dictionary?.option_component[split[1]];\n                msg.options[i++] = {\n                    'label': name + ' (' + link + ')',\n                    'value': link,\n                    'dropdown':'link'\n                }\n            }\n        }\n    }\n}\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'link'\n}];\n\nlet i = 1;\n\nlet links = global.get('kernel.endpoint', 'default');\nif (typeof links === 'object') {\n    for (const link in links) {\n        /* 0 = equipment, 1 = component */\n        let split = links[link].split(\"|\");\n        if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {\n            if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {\n                let name = msg.dictionary?.option_component[split[1]];\n                msg.options[i++] = {\n                    'label': name + ' (' + link + ')',\n                    'value': link,\n                    'dropdown':'link'\n                }\n            }\n        }\n    }\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14950,6 +14526,86 @@
                 "3c599d800d92b4fe"
             ]
         ]
+    },
+    {
+        "id": "04a50b31474aceeb",
+        "type": "function",
+        "z": "adb9fbf379118d77",
+        "g": "f4f856958bf793b7",
+        "name": "times",
+        "func": "msg.starttime = 0;\nmsg.stoptime = 0;\n\nif (typeof msg.limit_plant === 'string' && msg.limit_plant !== '' && typeof msg.limit_team === 'string' && msg.limit_team != '') {\n    let period = msg.limit_plant + '|' + msg.limit_team;\n    let times = global.get('kernel.team[\"' + period + '\"]', 'default');\n    if (typeof times === 'string') {\n        let split = times.split(\"|\");\n        msg.starttime = split[0];\n        msg.stoptime = split[1];\n    }\n}\n\ndelete msg.limit_plant;\ndelete msg.limit_team;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 3380,
+        "wires": [
+            [
+                "89e8132f071da088",
+                "dfe652167a11eb08"
+            ]
+        ]
+    },
+    {
+        "id": "89e8132f071da088",
+        "type": "debug",
+        "z": "adb9fbf379118d77",
+        "g": "f4f856958bf793b7",
+        "name": "value - team",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 3440,
+        "wires": []
+    },
+    {
+        "id": "2fd96a75e738066b",
+        "type": "function",
+        "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
+        "name": "reverse",
+        "func": "if (typeof msg.kernel?.equipment === 'string' && typeof msg.kernel?.component === 'string') {\n    let reverse = global.get('kernel.reverse[\"' + msg.kernel.equipment + '|' + msg.kernel.component + '\"]', 'default');\n    if (typeof reverse === 'boolean' && reverse === true) {\n        msg.kernel.value = msg.kernel.value === 0 ? 1 : 0;\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 3200,
+        "wires": [
+            [
+                "53dc6b1e11bb92b5",
+                "5feac3c5a0f2229e"
+            ]
+        ]
+    },
+    {
+        "id": "5feac3c5a0f2229e",
+        "type": "debug",
+        "z": "adb9fbf379118d77",
+        "g": "2dadce6cd1694d7d",
+        "name": "value - nc",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 3260,
+        "wires": []
     },
     {
         "id": "48c679cabeacfa79",
@@ -22581,7 +22237,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "kernel",
-        "func": "/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io */\nvar split = msg.topic.split('/');\n\nif (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        msg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Date.now(),\n            'loop': false\n        };\n\n        return msg;\n    }\n} else if (split[2] === 'input' || split[2] === 'output') {\n    var endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    var entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* in hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360000) / 10;\n        }\n\n        msg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            'loop': false \n        };\n\n        return msg;\n    }\n}\n\nreturn;",
+        "func": "/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        msg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Date.now(),\n            'loop': false\n        };\n\n        return msg;\n    }\n} else if (split[2] === 'input' || split[2] === 'output') {\n    let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    let entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* in hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360000) / 10;\n        }\n\n        msg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            'loop': false \n        };\n\n        return msg;\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -27320,7 +26976,7 @@
         "z": "51c4b2897d2c318c",
         "g": "744a665a3304c311",
         "name": "teams",
-        "func": "var teams = global.get('kernel.team','default');\nvar i = 0;\n\nmsg.payload = [];\n\nif (typeof teams === 'object') {\n    for (const team in teams) {\n        var row = {};\n        /* 0 = plant, 1 = team */\n        var ksplit = team.split(\"|\");\n        row.plant = ksplit[0];\n        row.team = ksplit[1];\n        /* 0 = starttime, 1 = stoptime */\n        var vsplit = teams[team].split(\"|\");\n        row.starttime = vsplit[0];\n        row.stoptime = vsplit[1];\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')) {\n            var name = msg.dictionary?.option_team[row.team];\n            if (typeof name == 'string') {\n                row.name = name;\n\n                msg.payload[i++] = row;\n            }\n        }\n    }\n}\n\nreturn msg;",
+        "func": "let teams = global.get('kernel.team','default');\nlet i = 0;\n\nmsg.payload = [];\n\nif (typeof teams === 'object') {\n    for (const team in teams) {\n        let row = {};\n        /* 0 = plant, 1 = team */\n        let ksplit = team.split(\"|\");\n        row.plant = ksplit[0];\n        row.team = ksplit[1];\n        /* 0 = starttime, 1 = stoptime */\n        let vsplit = teams[team].split(\"|\");\n        row.starttime = vsplit[0];\n        row.stoptime = vsplit[1];\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')) {\n            let name = msg.dictionary?.option_team[row.team];\n            if (typeof name == 'string') {\n                row.name = name;\n\n                msg.payload[i++] = row;\n            }\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -36758,7 +36414,7 @@
         "z": "852390cb9559e176",
         "g": "d04f02d6e1c02839",
         "name": "running",
-        "func": "var entity = msg.kernel.equipment + '|run';\nvar state = global.get('kernel.state[\"' + entity + '\"]', 'default');\n\nif (typeof state === 'number' && state === 1) {\n    msg.enabled = false;\n}\n\nreturn msg;",
+        "func": "let entity = msg.kernel.equipment + '|run';\nlet state = global.get('kernel.state[\"' + entity + '\"]', 'default');\n\nif (typeof state === 'number' && state === 1) {\n    msg.enabled = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -43714,7 +43370,7 @@
         "z": "e97c6f12735a13c1",
         "g": "e86385b18b9154e7",
         "name": "more",
-        "func": "var watchdog = global.get('kernel.watchdog[\"' + msg.row.entity + '\"]', 'default');\nif (typeof watchdog === 'number') {\n    msg.row.watchdog_color = msg.payload === 1 ? '#008000' : '#FF0000';\n}\n\nvar components = global.get('kernel.endpoint');\nvar entity = new RegExp('^(' + msg.row.model + '\\\\|' + msg.row.device + '\\\\|)');\n\nif (typeof components === 'object') {\n    for (const component in components) {\n        if (component.match(entity) !== null) {\n            msg.row.component_count += 1;\n        }\n    }\n}\n\nreturn msg;",
+        "func": "let watchdog = global.get('kernel.watchdog[\"' + msg.row.entity + '\"]', 'default');\nif (typeof watchdog === 'number') {\n    msg.row.watchdog_color = msg.payload === 1 ? '#008000' : '#FF0000';\n}\n\nlet components = global.get('kernel.endpoint');\nlet entity = new RegExp('^(' + msg.row.model + '\\\\|' + msg.row.device + '\\\\|)');\n\nif (typeof components === 'object') {\n    for (const component in components) {\n        if (component.match(entity) !== null) {\n            msg.row.component_count += 1;\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -43735,7 +43391,7 @@
         "z": "e97c6f12735a13c1",
         "g": "1dd6bd6835107ce6",
         "name": "more",
-        "func": "var state = global.get('kernel.state[\"' + msg.row.equipment + '|run\"]', 'default');\nif (typeof state === 'number') {\n    msg.row.state_color = (state === 0 ? '#FF0000' : '#008000');\n}\n\nvar components = global.get('kernel.endpoint');\nvar entity = new RegExp('^(' + msg.row.equipment + '\\\\|)');\n\nif (typeof components === 'object') {\n    for (const component in components) {\n        if (components[component].match(entity) !== null) {\n            msg.row.component_count += 1;\n        }\n    }\n}\n\nreturn msg;",
+        "func": "let state = global.get('kernel.state[\"' + msg.row.equipment + '|run\"]', 'default');\nif (typeof state === 'number') {\n    msg.row.state_color = (state === 0 ? '#FF0000' : '#008000');\n}\n\nlet components = global.get('kernel.endpoint');\nlet entity = new RegExp('^(' + msg.row.equipment + '\\\\|)');\n\nif (typeof components === 'object') {\n    for (const component in components) {\n        if (components[component].match(entity) !== null) {\n            msg.row.component_count += 1;\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -43756,7 +43412,7 @@
         "z": "e97c6f12735a13c1",
         "g": "6f784a48183c4937",
         "name": "more",
-        "func": "var equipments = global.get('kernel.equipments');\nif (typeof equipments === 'object') {\n    for (const equipment in equipments) {\n        if (equipments[equipment] === msg.row.line) {\n            msg.row.equipment_count += 1;\n        }\n    }\n}\n\nreturn msg;",
+        "func": "let equipments = global.get('kernel.equipments');\nif (typeof equipments === 'object') {\n    for (const equipment in equipments) {\n        if (equipments[equipment] === msg.row.line) {\n            msg.row.equipment_count += 1;\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -67003,7 +66659,7 @@
         "z": "64ce08af468b8197",
         "g": "771b362aacd557cd",
         "name": "empty",
-        "func": "var endpoints = global.get('kernel.endpoints', 'default');\nvar needle = new RegExp('^(' + msg.model + '\\\\|' + msg.device + '\\\\|)');\nif (typeof endpoints === 'object') {\n    for (const endpoint in endpoints) {\n        if (endpoint.match(needle) !== null) {\n            return [null, msg];\n        }\n    }\n}\n\nreturn [msg, null];",
+        "func": "let endpoints = global.get('kernel.endpoints', 'default');\nlet needle = new RegExp('^(' + msg.model + '\\\\|' + msg.device + '\\\\|)');\nif (typeof endpoints === 'object') {\n    for (const endpoint in endpoints) {\n        if (endpoint.match(needle) !== null) {\n            return [null, msg];\n        }\n    }\n}\n\nreturn [msg, null];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,

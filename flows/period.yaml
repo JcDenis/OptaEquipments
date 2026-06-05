@@ -1894,25 +1894,25 @@
   g: 744a665a3304c311
   name: teams
   func: |-
-    var teams = global.get('kernel.team','default');
-    var i = 0;
+    let teams = global.get('kernel.team','default');
+    let i = 0;
 
     msg.payload = [];
 
     if (typeof teams === 'object') {
         for (const team in teams) {
-            var row = {};
+            let row = {};
             /* 0 = plant, 1 = team */
-            var ksplit = team.split("|");
+            let ksplit = team.split("|");
             row.plant = ksplit[0];
             row.team = ksplit[1];
             /* 0 = starttime, 1 = stoptime */
-            var vsplit = teams[team].split("|");
+            let vsplit = teams[team].split("|");
             row.starttime = vsplit[0];
             row.stoptime = vsplit[1];
 
             if (row.plant === flow.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
-                var name = msg.dictionary?.option_team[row.team];
+                let name = msg.dictionary?.option_team[row.team];
                 if (typeof name == 'string') {
                     row.name = name;
 

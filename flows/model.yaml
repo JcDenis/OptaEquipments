@@ -2393,7 +2393,7 @@
   name: kernel
   func: |-
     /* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io */
-    var split = msg.topic.split('/');
+    let split = msg.topic.split('/');
 
     if (split[2] === 'watchdog') {
         if (split[1] !== 'distant') {
@@ -2407,8 +2407,8 @@
             return msg;
         }
     } else if (split[2] === 'input' || split[2] === 'output') {
-        var endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];
-        var entity = global.get('kernel.endpoint["' + endpoint + '"]', 'default');
+        let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];
+        let entity = global.get('kernel.endpoint["' + endpoint + '"]', 'default');
         if (typeof entity === 'string') {
             if (split[3] === 'partialHigh' || split[3] === 'high') {
                 /* in hours, round to one decimal */

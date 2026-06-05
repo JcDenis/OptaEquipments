@@ -229,17 +229,13 @@
     stroke: '#92d04f'
   nodes:
     - 7f2964561cb984f7
-    - d05f7ccc7689d0cb
-    - 75e2a5e73add2e09
-    - fefb8a3a6532e22a
-    - 45a08cd16de6b33f
-    - e61d0e2786793621
-    - 181fed2155280141
     - 53dc6b1e11bb92b5
+    - 2fd96a75e738066b
+    - 5feac3c5a0f2229e
   x: 104
   'y': 3159
-  w: 1272
-  h: 262
+  w: 462
+  h: 142
 - id: 8dcbc02d7cca2b6e
   type: group
   z: adb9fbf379118d77
@@ -289,16 +285,12 @@
     stroke: '#92d04f'
   nodes:
     - 12dd534f81c34fbe
-    - 6fa42981820e2824
-    - d2f4b4f5545b78dc
-    - 4ed98ac58ec0dc48
-    - eb609c106fef0abf
-    - 445f0e12f2d767b7
-    - 8e92c8a2ead8793d
     - dfe652167a11eb08
+    - 04a50b31474aceeb
+    - 89e8132f071da088
   x: 104
-  'y': 3459
-  w: 972
+  'y': 3339
+  w: 462
   h: 142
 - id: f406268fcecbbfa2
   type: group
@@ -1024,127 +1016,9 @@
   name: value - NC
   links: []
   x: 145
-  'y': 3380
-  wires:
-    - - d05f7ccc7689d0cb
-- id: d05f7ccc7689d0cb
-  type: switch
-  z: adb9fbf379118d77
-  g: 2dadce6cd1694d7d
-  name: equipment
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: equipment
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 290
-  'y': 3380
-  wires:
-    - - 75e2a5e73add2e09
-    - - 53dc6b1e11bb92b5
-- id: 75e2a5e73add2e09
-  type: switch
-  z: adb9fbf379118d77
-  g: 2dadce6cd1694d7d
-  name: componant
-  property: kernel
-  propertyType: msg
-  rules:
-    - t: hask
-      v: component
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 490
-  'y': 3320
-  wires:
-    - - fefb8a3a6532e22a
-    - - 53dc6b1e11bb92b5
-- id: fefb8a3a6532e22a
-  type: change
-  z: adb9fbf379118d77
-  g: 2dadce6cd1694d7d
-  name: entity
-  rules:
-    - t: set
-      p: entity
-      pt: msg
-      to: '$join([msg.kernel.equipment,msg.kernel.component],''|'')'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 670
-  'y': 3260
-  wires:
-    - - 45a08cd16de6b33f
-- id: 45a08cd16de6b33f
-  type: switch
-  z: adb9fbf379118d77
-  g: 2dadce6cd1694d7d
-  name: componant
-  property: kernel.reverse
-  propertyType: global
-  rules:
-    - t: hask
-      v: entity
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 850
-  'y': 3260
-  wires:
-    - - e61d0e2786793621
-    - - 53dc6b1e11bb92b5
-- id: e61d0e2786793621
-  type: switch
-  z: adb9fbf379118d77
-  g: 2dadce6cd1694d7d
-  name: NC
-  property: 'kernel.reverse[msg.entity]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: 'false'
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1030
   'y': 3200
   wires:
-    - - 181fed2155280141
-    - - 53dc6b1e11bb92b5
-- id: 181fed2155280141
-  type: change
-  z: adb9fbf379118d77
-  g: 2dadce6cd1694d7d
-  name: reverse
-  rules:
-    - t: set
-      p: kernel.value
-      pt: msg
-      to: 'msg.kernel.value=1?0:1'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1200
-  'y': 3200
-  wires:
-    - - 53dc6b1e11bb92b5
+    - - 2fd96a75e738066b
 - id: 53dc6b1e11bb92b5
   type: link out
   z: adb9fbf379118d77
@@ -1152,8 +1026,8 @@
   name: value - NC
   mode: return
   links: []
-  x: 1335
-  'y': 3380
+  x: 415
+  'y': 3200
   wires: []
 - id: 952c80fb231bdf3f
   type: change
@@ -1275,163 +1149,9 @@
   name: value - team
   links: []
   x: 145
-  'y': 3560
+  'y': 3380
   wires:
-    - - 6fa42981820e2824
-- id: 6fa42981820e2824
-  type: switch
-  z: adb9fbf379118d77
-  g: f4f856958bf793b7
-  name: plant
-  property: limit_plant
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 270
-  'y': 3560
-  wires:
-    - - d2f4b4f5545b78dc
-    - - 8e92c8a2ead8793d
-- id: d2f4b4f5545b78dc
-  type: switch
-  z: adb9fbf379118d77
-  g: f4f856958bf793b7
-  name: team
-  property: limit_team
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 3500
-  wires:
-    - - eb609c106fef0abf
-    - - 8e92c8a2ead8793d
-- id: 4ed98ac58ec0dc48
-  type: switch
-  z: adb9fbf379118d77
-  g: f4f856958bf793b7
-  name: global
-  property: kernel.team
-  propertyType: global
-  rules:
-    - t: hask
-      v: period
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 750
-  'y': 3500
-  wires:
-    - - 445f0e12f2d767b7
-    - - 8e92c8a2ead8793d
-- id: eb609c106fef0abf
-  type: change
-  z: adb9fbf379118d77
-  g: f4f856958bf793b7
-  name: period
-  rules:
-    - t: set
-      p: period
-      pt: msg
-      to: msg.limit_plant & '|' & msg.limit_team
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 3500
-  wires:
-    - - 4ed98ac58ec0dc48
-- id: 445f0e12f2d767b7
-  type: change
-  z: adb9fbf379118d77
-  g: f4f856958bf793b7
-  name: split
-  rules:
-    - t: set
-      p: split
-      pt: msg
-      to: 'kernel.team[msg.period]'
-      tot: global
-    - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.split,''|'')'
-      tot: jsonata
-    - t: set
-      p: starttime
-      pt: msg
-      to: 'split[0]'
-      tot: msg
-    - t: set
-      p: stoptime
-      pt: msg
-      to: 'split[1]'
-      tot: msg
-    - t: delete
-      p: split
-      pt: msg
-    - t: delete
-      p: period
-      pt: msg
-    - t: delete
-      p: limit_plant
-      pt: msg
-    - t: delete
-      p: limit_team
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 910
-  'y': 3500
-  wires:
-    - - dfe652167a11eb08
-- id: 8e92c8a2ead8793d
-  type: change
-  z: adb9fbf379118d77
-  g: f4f856958bf793b7
-  name: split
-  rules:
-    - t: set
-      p: starttime
-      pt: msg
-      to: '0'
-      tot: str
-    - t: set
-      p: stoptime
-      pt: msg
-      to: '0'
-      tot: str
-    - t: delete
-      p: limit_plant
-      pt: msg
-    - t: delete
-      p: limit_team
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 910
-  'y': 3560
-  wires:
-    - - dfe652167a11eb08
+    - - 04a50b31474aceeb
 - id: dfe652167a11eb08
   type: link out
   z: adb9fbf379118d77
@@ -1439,8 +1159,8 @@
   name: value - team
   mode: return
   links: []
-  x: 1035
-  'y': 3560
+  x: 395
+  'y': 3380
   wires: []
 - id: b5671d3f870045be
   type: link in
@@ -1649,8 +1369,8 @@
         'dropdown':'plant'
     }];
 
-    var plants = global.get('kernel.plant', 'default');
-    var i = 1;
+    let plants = global.get('kernel.plant', 'default');
+    let i = 1;
 
     if (typeof plants === 'object') {
         for (const plant in plants) {
@@ -1686,12 +1406,12 @@
         'dropdown':'line'
     }];
 
-    var lines = global.get('kernel.line', 'default');
-    var i = 1;
+    let lines = global.get('kernel.line', 'default');
+    let i = 1;
 
     if (typeof lines === 'object') {
         for (const line in lines) {
-            var line_plant = global.get('kernel.lines["' + line + '"]', 'default');
+            let line_plant = global.get('kernel.lines["' + line + '"]', 'default');
             if (typeof msg.limit_plant === 'undefined' || msg.limit_plant === line_plant) {
                 msg.options[i++] = {
                     'label':lines[line] + ' (' + line + ')',
@@ -1728,12 +1448,12 @@
         'dropdown':'equipment'
     }];
 
-    var equipments = global.get('kernel.equipment', 'default');
-    var i = 1;
+    let equipments = global.get('kernel.equipment', 'default');
+    let i = 1;
 
     if (typeof equipments === 'object') {
         for (const equipment in equipments) {
-            var equipment_line = global.get('kernel.equipments["' + equipment + '"]', 'default');
+            let equipment_line = global.get('kernel.equipments["' + equipment + '"]', 'default');
             if (typeof msg.limit_line === 'undefined' || msg.limit_line === equipment_line) {
                 msg.options[i++] = {
                     'label':equipments[equipment] + ' (' + equipment + ')',
@@ -1770,8 +1490,8 @@
         'dropdown':'model'
     }];
 
-    var models = global.get('describe.model', 'memoryOnly');
-    var i = 1;
+    let models = global.get('describe.model', 'memoryOnly');
+    let i = 1;
 
     if (typeof models === 'object') {
         for (const model in models) {
@@ -1807,8 +1527,8 @@
         'dropdown':'team'
     }];
 
-    var teams = msg.dictionary?.option_team;
-    var i = 1;
+    let teams = msg.dictionary?.option_team;
+    let i = 1;
 
     if (typeof teams === 'object') {
         for (const team in teams) {
@@ -1846,8 +1566,8 @@
         'dropdown':'resolution'
     }];
 
-    var resolutions = msg.dictionary?.option_resolution;
-    var i = 1;
+    let resolutions = msg.dictionary?.option_resolution;
+    let i = 1;
 
     if (typeof resolutions === 'object') {
         for (const resolution in resolutions) {
@@ -1885,8 +1605,8 @@
         'dropdown':'level'
     }];
 
-    var levels = msg.dictionary?.option_level;
-    var i = 1;
+    let levels = msg.dictionary?.option_level;
+    let i = 1;
 
     if (typeof levels === 'object') {
         for (const level in levels) {
@@ -1935,8 +1655,8 @@
         'dropdown':'lang'
     }];
 
-    var langs = msg.dictionary?.option_lang;
-    var i = 1;
+    let langs = msg.dictionary?.option_lang;
+    let i = 1;
 
     if (typeof langs === 'object') {
         for (const lang in langs) {
@@ -1985,8 +1705,8 @@
         'dropdown':'login'
     }];
 
-    var logins = global.get('auth', 'memoryOnly');
-    var i = 1;
+    let logins = global.get('auth', 'memoryOnly');
+    let i = 1;
 
     if (typeof logins === 'object') {
         for (const login in logins) {
@@ -2035,14 +1755,14 @@
         'dropdown':'alert'
     }];
 
-    var alerts = global.get('kernel.alert', 'default');
-    var i = 1;
+    let alerts = global.get('kernel.alert', 'default');
+    let i = 1;
 
     if (typeof alerts === 'object') {
         for (const alert in alerts) {
             const split = alert.split("|");
             if (typeof msg.limit_equipment === 'undefined' || msg.limit_equipment === split[0]) {
-                var name = msg.dictionary.option_component[split[1]];
+                let name = msg.dictionary.option_component[split[1]];
                 msg.options[i++] = {
                     'label':name + ' (' + alert + ')',
                     'value':alert,
@@ -2078,8 +1798,8 @@
         'dropdown':'component'
     }];
 
-    var components = msg.dictionary?.option_component;
-    var i = 1;
+    let components = msg.dictionary?.option_component;
+    let i = 1;
 
     if (typeof components === 'object') {
         for (const component in components) {
@@ -2117,10 +1837,10 @@
         'dropdown':'endpoint'
     }];
 
-    var i = 1;
+    let i = 1;
 
     if (typeof msg.limit_model !== 'undefined') {
-        var endpoints = global.get('describe.endpoint["' + msg.limit_model + '"]', 'memoryOnly');
+        let endpoints = global.get('describe.endpoint["' + msg.limit_model + '"]', 'memoryOnly');
         if (typeof endpoints === 'object') {
             for (const endpoint in endpoints) {
                 msg.options[i++] = {
@@ -2156,14 +1876,14 @@
         'dropdown':'device'
     }];
 
-    var i = 1;
+    let i = 1;
 
     if (typeof msg.limit_model !== 'undefined') {
-        var devices = global.get('kernel.device', 'default');
+        let devices = global.get('kernel.device', 'default');
         if (typeof devices === 'object') {
             for (const device in devices) {
                 /* 0 = model, 1 = device */
-                var split = device.split("|");
+                let split = device.split("|");
                 if (msg.limit_model === split[0]) {
                     msg.options[i++] = {
                         'label': split[1],
@@ -2199,16 +1919,16 @@
         'dropdown':'link'
     }];
 
-    var i = 1;
+    let i = 1;
 
-    var links = global.get('kernel.endpoint', 'default');
+    let links = global.get('kernel.endpoint', 'default');
     if (typeof links === 'object') {
         for (const link in links) {
             /* 0 = equipment, 1 = component */
-            var split = links[link].split("|");
+            let split = links[link].split("|");
             if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {
                 if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {
-                    var name = msg.dictionary?.option_component[split[1]];
+                    let name = msg.dictionary?.option_component[split[1]];
                     msg.options[i++] = {
                         'label': name + ' (' + link + ')',
                         'value': link,
@@ -2230,3 +1950,102 @@
   wires:
     - - aa2dbc03369b7149
       - 3c599d800d92b4fe
+- id: 04a50b31474aceeb
+  type: function
+  z: adb9fbf379118d77
+  g: f4f856958bf793b7
+  name: times
+  func: >-
+    msg.starttime = 0;
+
+    msg.stoptime = 0;
+
+
+    if (typeof msg.limit_plant === 'string' && msg.limit_plant !== '' && typeof
+    msg.limit_team === 'string' && msg.limit_team != '') {
+        let period = msg.limit_plant + '|' + msg.limit_team;
+        let times = global.get('kernel.team["' + period + '"]', 'default');
+        if (typeof times === 'string') {
+            let split = times.split("|");
+            msg.starttime = split[0];
+            msg.stoptime = split[1];
+        }
+    }
+
+
+    delete msg.limit_plant;
+
+    delete msg.limit_team;
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 3380
+  wires:
+    - - 89e8132f071da088
+      - dfe652167a11eb08
+- id: 89e8132f071da088
+  type: debug
+  z: adb9fbf379118d77
+  g: f4f856958bf793b7
+  name: value - team
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 450
+  'y': 3440
+  wires: []
+- id: 2fd96a75e738066b
+  type: function
+  z: adb9fbf379118d77
+  g: 2dadce6cd1694d7d
+  name: reverse
+  func: >-
+    if (typeof msg.kernel?.equipment === 'string' && typeof
+    msg.kernel?.component === 'string') {
+        let reverse = global.get('kernel.reverse["' + msg.kernel.equipment + '|' + msg.kernel.component + '"]', 'default');
+        if (typeof reverse === 'boolean' && reverse === true) {
+            msg.kernel.value = msg.kernel.value === 0 ? 1 : 0;
+        }
+    }
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 280
+  'y': 3200
+  wires:
+    - - 53dc6b1e11bb92b5
+      - 5feac3c5a0f2229e
+- id: 5feac3c5a0f2229e
+  type: debug
+  z: adb9fbf379118d77
+  g: 2dadce6cd1694d7d
+  name: value - nc
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 460
+  'y': 3260
+  wires: []

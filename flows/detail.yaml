@@ -7326,8 +7326,8 @@
   g: d04f02d6e1c02839
   name: running
   func: |-
-    var entity = msg.kernel.equipment + '|run';
-    var state = global.get('kernel.state["' + entity + '"]', 'default');
+    let entity = msg.kernel.equipment + '|run';
+    let state = global.get('kernel.state["' + entity + '"]', 'default');
 
     if (typeof state === 'number' && state === 1) {
         msg.enabled = false;
