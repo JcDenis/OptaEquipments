@@ -150,10 +150,13 @@
     - bd4743d319d07a5a
     - 59d89682cd69e5c1
     - 338c88da7812b818
+    - 9a4674dbb273d694
+    - 3c215bf586961f13
+    - 7cfdee38944d5efd
   x: 104
   'y': 5319
-  w: 542
-  h: 142
+  w: 722
+  h: 202
 - id: 216f821485a9eb19
   type: group
   z: f6f2187d.f17ca8
@@ -6362,7 +6365,7 @@
   links:
     - 9d694324cf6b8842
   x: 145
-  'y': 5360
+  'y': 5420
   wires:
     - - bd4743d319d07a5a
 - id: 6670d8fdcca8497a
@@ -6696,10 +6699,11 @@
   finalize: ''
   libs: []
   x: 290
-  'y': 5360
+  'y': 5420
   wires:
     - - 338c88da7812b818
       - 59d89682cd69e5c1
+      - 9a4674dbb273d694
 - id: 59d89682cd69e5c1
   type: link out
   z: f6f2187d.f17ca8
@@ -6709,7 +6713,7 @@
   links:
     - e60e4ab7617738c3
   x: 435
-  'y': 5360
+  'y': 5420
   wires: []
 - id: 338c88da7812b818
   type: debug
@@ -6725,7 +6729,7 @@
   statusVal: ''
   statusType: auto
   x: 510
-  'y': 5420
+  'y': 5360
   wires: []
 - id: 09c888ae37553c13
   type: function
@@ -6841,3 +6845,59 @@
   wires:
     - - 9b7c164fdabb6ad3
       - 6eb86d0c1be60374
+- id: 9a4674dbb273d694
+  type: function
+  z: f6f2187d.f17ca8
+  g: ce2669cea2e618a0
+  name: db
+  func: |-
+    msg.measurement = msg.kernel.entity;
+    msg.payload = [{'watchdog': msg.kernel.value }];
+
+    delete msg.kernel;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 470
+  'y': 5480
+  wires:
+    - - 7cfdee38944d5efd
+      - 3c215bf586961f13
+- id: 7cfdee38944d5efd
+  type: influxdb out
+  z: f6f2187d.f17ca8
+  g: ce2669cea2e618a0
+  influxdb: 71289f771ef25fc5
+  name: influxdb - state
+  measurement: ''
+  precision: ''
+  retentionPolicy: ''
+  database: database
+  precisionV18FluxV20: ms
+  retentionPolicyV18Flux: ''
+  org: optaequipments
+  bucket: state
+  x: 660
+  'y': 5480
+  wires: []
+- id: 3c215bf586961f13
+  type: debug
+  z: f6f2187d.f17ca8
+  g: ce2669cea2e618a0
+  name: kernel - watchdog - db
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 680
+  'y': 5420
+  wires: []
