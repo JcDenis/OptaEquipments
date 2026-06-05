@@ -105,10 +105,11 @@
     - 421bd90f81361dfe
     - 7e3eaa285d5a39cb
     - b994e33934e8b492
-    - 336b85f6912b0c50
+    - b8b6901556439331
+    - 9673105b1ce8621f
   x: 104
   'y': 279
-  w: 2112
+  w: 2242
   h: 262
 - id: 4c2194718c72648c
   type: group
@@ -557,7 +558,7 @@
   x: 1070
   'y': 440
   wires:
-    - - 25580183784dfa5c
+    - - 80656215bea3ab16
 - id: 25580183784dfa5c
   type: switch
   z: adb48ef35d9453c0
@@ -575,11 +576,11 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1240
+  x: 1400
   'y': 440
   wires:
-    - - 80656215bea3ab16
-    - - 336b85f6912b0c50
+    - - 1e88c6402adc3cda
+    - - b994e33934e8b492
 - id: 1e88c6402adc3cda
   type: switch
   z: adb48ef35d9453c0
@@ -595,7 +596,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1570
+  x: 1590
   'y': 440
   wires:
     - - 99a97dd1e4c3625e
@@ -617,7 +618,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1730
+  x: 1750
   'y': 320
   wires:
     - - 3b43519fe264fe49
@@ -635,12 +636,11 @@
   from: ''
   to: ''
   reg: false
-  x: 1730
+  x: 1750
   'y': 440
   wires:
     - - d6994fcb76afc998
-      - 06ebae5ae27efbe3
-      - dddf3a6d9709b751
+      - 85434b774007dc4d
 - id: 4e7b19284b3e157c
   type: change
   z: adb48ef35d9453c0
@@ -657,7 +657,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1730
+  x: 1750
   'y': 380
   wires:
     - - 3b43519fe264fe49
@@ -1410,10 +1410,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1410
+  x: 1230
   'y': 440
   wires:
-    - - 1e88c6402adc3cda
+    - - 25580183784dfa5c
 - id: 43db6718c6675864
   type: change
   z: adb48ef35d9453c0
@@ -1467,7 +1467,7 @@
     - 6b2108622867d8a4
     - b9f317153008cccc
     - 0a619717ada5bdb5
-    - ae02a3d5cbedb090
+    - 9673105b1ce8621f
   x: 145
   'y': 320
   wires:
@@ -1509,7 +1509,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1890
+  x: 1910
   'y': 380
   wires:
     - - 0de1e913fe6948a9
@@ -1521,7 +1521,7 @@
   mode: link
   links:
     - 0502ea2e9ef0f780
-  x: 2015
+  x: 2035
   'y': 380
   wires: []
 - id: 3b43519fe264fe49
@@ -1532,7 +1532,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1855
+  x: 1875
   'y': 320
   wires: []
 - id: 06ebae5ae27efbe3
@@ -1548,8 +1548,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1900
-  'y': 500
+  x: 2240
+  'y': 380
   wires: []
 - id: dddf3a6d9709b751
   type: delay
@@ -1568,10 +1568,12 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1890
+  x: 2070
   'y': 440
   wires:
-    - - 85434b774007dc4d
+    - - 06ebae5ae27efbe3
+      - ae02a3d5cbedb090
+      - 9673105b1ce8621f
 - id: 85434b774007dc4d
   type: change
   z: adb48ef35d9453c0
@@ -1594,10 +1596,10 @@
   from: ''
   to: ''
   reg: false
-  x: 2050
+  x: 1910
   'y': 440
   wires:
-    - - ae02a3d5cbedb090
+    - - dddf3a6d9709b751
 - id: ae02a3d5cbedb090
   type: link out
   z: adb48ef35d9453c0
@@ -1606,8 +1608,7 @@
   mode: link
   links:
     - b75938c74c41ca5e
-    - 30571b6d70631747
-  x: 2175
+  x: 2195
   'y': 440
   wires: []
 - id: ef2a2e8f65ff707e
@@ -2488,7 +2489,7 @@
   g: a69df92e27bcc577
   name: session
   func: |-
-    msg.row.session = '';
+    msg.row.session = '-';
     msg.row.session_color = '#FF0000';
 
     let users = global.get('user', 'memoryOnly');
@@ -2521,31 +2522,50 @@
     - t: delete
       p: '#:(memoryOnly)::user[msg.payload.session]'
       pt: global
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1560
+  x: 1580
   'y': 500
   wires:
     - - 4e7b19284b3e157c
-      - dddf3a6d9709b751
-- id: 336b85f6912b0c50
-  type: switch
+      - b8b6901556439331
+- id: b8b6901556439331
+  type: delay
   z: adb48ef35d9453c0
   g: a69df92e27bcc577
-  name: self
-  property: hmi.login
-  propertyType: msg
-  rules:
-    - t: neq
-      v: payload.login
-      vt: msg
-  checkall: 'false'
-  repair: false
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
   outputs: 1
-  x: 1410
+  x: 2070
   'y': 500
   wires:
-    - - b994e33934e8b492
+    - - 9673105b1ce8621f
+- id: 9673105b1ce8621f
+  type: link out
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  name: user- list - session
+  mode: link
+  links:
+    - 30571b6d70631747
+  x: 2195
+  'y': 500
+  wires: []
