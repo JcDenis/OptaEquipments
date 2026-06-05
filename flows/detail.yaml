@@ -928,6 +928,11 @@
       pt: msg
       to: '$join([msg.kernel.equipment,msg.topic],''|'')'
       tot: jsonata
+    - t: set
+      p: kernel.loop
+      pt: msg
+      to: 'false'
+      tot: bool
     - t: delete
       p: kernel.equipment
       pt: msg
