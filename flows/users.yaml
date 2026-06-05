@@ -103,6 +103,9 @@
     - 0e5010c69d730e92
     - 85371bc10c4ae5b2
     - 421bd90f81361dfe
+    - 7e3eaa285d5a39cb
+    - b994e33934e8b492
+    - 336b85f6912b0c50
   x: 104
   'y': 279
   w: 2112
@@ -302,6 +305,12 @@
   deselect: true
   selectionType: none
   columns:
+    - title: Etat
+      key: session_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
     - title: Identifiant
       key: login
       keyType: key
@@ -334,6 +343,12 @@
       align: start
     - title: ''
       key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+    - title: ''
+      key: disconnect
       keyType: key
       type: button
       width: ''
@@ -433,6 +448,11 @@
       pt: msg
       to: row
       tot: msg
+    - t: set
+      p: row.disconnect
+      pt: msg
+      to: dictionary.common_action_disconnect
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -441,7 +461,7 @@
   x: 770
   'y': 380
   wires:
-    - - 145348469d0defad
+    - - 7e3eaa285d5a39cb
 - id: 145348469d0defad
   type: join
   z: adb48ef35d9453c0
@@ -463,7 +483,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 930
+  x: 1110
   'y': 380
   wires:
     - - b4a9dc422dc10a63
@@ -498,7 +518,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1090
+  x: 1270
   'y': 380
   wires:
     - - 85371bc10c4ae5b2
@@ -549,13 +569,17 @@
     - t: eq
       v: delete
       vt: str
+    - t: eq
+      v: disconnect
+      vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 1240
   'y': 440
   wires:
     - - 80656215bea3ab16
+    - - 336b85f6912b0c50
 - id: 1e88c6402adc3cda
   type: switch
   z: adb48ef35d9453c0
@@ -2384,6 +2408,12 @@
   deselect: true
   selectionType: none
   columns:
+    - title: State
+      key: session_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
     - title: Login
       key: login
       keyType: key
@@ -2420,6 +2450,12 @@
       type: button
       width: ''
       align: start
+    - title: ''
+      key: disconnect
+      keyType: key
+      type: button
+      width: ''
+      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -2446,3 +2482,70 @@
   wires:
     - - 0241ca22fa9d07b6
     - - 67d842f3b7ccfa6f
+- id: 7e3eaa285d5a39cb
+  type: function
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  name: session
+  func: |-
+    msg.row.session = '';
+    msg.row.session_color = '#FF0000';
+
+    let users = global.get('user', 'memoryOnly');
+    if (typeof users === 'object') {
+        for (const user in users) {
+            if (users[user]["login"] === msg.row.login) {
+                msg.row.session = user;
+                msg.row.session_color = '#008000';
+            }
+        }
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 940
+  'y': 380
+  wires:
+    - - 145348469d0defad
+- id: b994e33934e8b492
+  type: change
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  name: session
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::user[msg.payload.session]'
+      pt: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1560
+  'y': 500
+  wires:
+    - - 4e7b19284b3e157c
+      - dddf3a6d9709b751
+- id: 336b85f6912b0c50
+  type: switch
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  name: self
+  property: hmi.login
+  propertyType: msg
+  rules:
+    - t: neq
+      v: payload.login
+      vt: msg
+  checkall: 'false'
+  repair: false
+  outputs: 1
+  x: 1410
+  'y': 500
+  wires:
+    - - b994e33934e8b492
