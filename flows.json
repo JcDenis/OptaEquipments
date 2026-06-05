@@ -3857,19 +3857,16 @@
         },
         "nodes": [
             "fdb028158b218535",
-            "6fea9a36a5a116fc",
-            "d6d7186fef5b0008",
             "e0302181e220fb24",
-            "8e3207bb2992362b",
             "7b7124a46b1a0dcb",
             "58ebf510744db0ee",
             "4b4db5a5c5bcb3c6",
-            "807b4788c6931196",
-            "2dbd34bfcf7eed32"
+            "2dbd34bfcf7eed32",
+            "20f654f00ef52950"
         ],
         "x": 104,
         "y": 2739,
-        "w": 1282,
+        "w": 802,
         "h": 142
     },
     {
@@ -7224,99 +7221,7 @@
         "y": 2840,
         "wires": [
             [
-                "6fea9a36a5a116fc"
-            ]
-        ]
-    },
-    {
-        "id": "6fea9a36a5a116fc",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "bd007f48192aa2f3",
-        "name": "login",
-        "property": "login",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 270,
-        "y": 2840,
-        "wires": [
-            [
-                "d6d7186fef5b0008"
-            ],
-            [
-                "58ebf510744db0ee"
-            ]
-        ]
-    },
-    {
-        "id": "d6d7186fef5b0008",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "bd007f48192aa2f3",
-        "name": "pass",
-        "property": "pass",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 430,
-        "y": 2820,
-        "wires": [
-            [
-                "8e3207bb2992362b"
-            ],
-            [
-                "58ebf510744db0ee"
-            ]
-        ]
-    },
-    {
-        "id": "8e3207bb2992362b",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "bd007f48192aa2f3",
-        "name": "login",
-        "property": "#:(memoryOnly)::auth",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "login",
-                "vt": "msg"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 590,
-        "y": 2800,
-        "wires": [
-            [
-                "807b4788c6931196"
-            ],
-            [
-                "58ebf510744db0ee"
+                "20f654f00ef52950"
             ]
         ]
     },
@@ -7385,7 +7290,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1090,
+        "x": 610,
         "y": 2780,
         "wires": [
             [
@@ -7431,7 +7336,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1090,
+        "x": 610,
         "y": 2840,
         "wires": [
             [
@@ -7448,37 +7353,9 @@
         "name": "user - check",
         "mode": "return",
         "links": [],
-        "x": 1215,
+        "x": 735,
         "y": 2780,
         "wires": []
-    },
-    {
-        "id": "807b4788c6931196",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "bd007f48192aa2f3",
-        "name": "hash",
-        "rules": [
-            {
-                "t": "set",
-                "p": "hash",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::auth[msg.login]['pass']",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 750,
-        "y": 2780,
-        "wires": [
-            [
-                "e0302181e220fb24"
-            ]
-        ]
     },
     {
         "id": "2dbd34bfcf7eed32",
@@ -7494,7 +7371,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
+        "x": 790,
         "y": 2840,
         "wires": []
     },
@@ -7712,7 +7589,7 @@
         "match": "match",
         "outputs": 2,
         "rounds": 10,
-        "x": 920,
+        "x": 440,
         "y": 2780,
         "wires": [
             [
@@ -12951,6 +12828,30 @@
         "x": 680,
         "y": 5420,
         "wires": []
+    },
+    {
+        "id": "20f654f00ef52950",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "bd007f48192aa2f3",
+        "name": "hash",
+        "func": "if (typeof msg.login === 'string' && msg.login !== \"\" && typeof msg.pass === 'string' && msg.pass !== \"\") {\n    let hash = global.get('auth[\"' + msg.login + '\"][\"pass\"]', 'memoryOnly');\n    if (typeof hash === 'string') {\n        msg.hash = hash;\n\n        return msg;\n    }\n}\n\nreturn msg;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 2840,
+        "wires": [
+            [
+                "e0302181e220fb24"
+            ],
+            [
+                "58ebf510744db0ee"
+            ]
+        ]
     },
     {
         "id": "2ee1493983ba4b61",
