@@ -60,19 +60,19 @@
     - dd8ce7e8d8c17c91
     - 07c662efc5f8b8d7
     - 9ab5170ec61ff830
-    - 01004cfeb54e3a44
     - 87fc8804b41416a0
     - ff46693ca235b0d0
-    - 6d0093b979af9179
     - 301bb73805b7e405
-    - fa1f9abdf8c15631
-    - 2b26c778c0b5e3b4
-    - 87bb08b80167b9e9
     - 8e8e767ca137fe49
     - 1ba632cbd8f9184d
     - c56ba8da3c3b44f4
     - 3cd8b687840d79e4
-    - cd3659d24085aa7c
+    - 1c423cb24f5a5aed
+    - 1c87f841143f4612
+    - cf4a12c7d7a329eb
+    - e63131037fb16dd4
+    - c58b883c9be07c8f
+    - af97c0473e39e9c9
   x: 104
   'y': 639
   w: 1452
@@ -677,8 +677,8 @@
   x: 1060
   'y': 740
   wires:
-    - - fa1f9abdf8c15631
-      - f6e2c94e6b3f6452
+    - - f6e2c94e6b3f6452
+      - 1c423cb24f5a5aed
 - id: 64a95942a5179c42
   type: switch
   z: 44465f18e06bb58d
@@ -1213,31 +1213,6 @@
   'y': 800
   wires:
     - - 9ab5170ec61ff830
-- id: 01004cfeb54e3a44
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'app',\t    'entity':'vendor',\t    'value':msg.payload.vendor,\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 860
-  wires:
-    - - 301bb73805b7e405
 - id: 87fc8804b41416a0
   type: switch
   z: 44465f18e06bb58d
@@ -1255,13 +1230,13 @@
   x: 1070
   'y': 800
   wires:
-    - - 01004cfeb54e3a44
-      - ff46693ca235b0d0
-      - 6d0093b979af9179
+    - - ff46693ca235b0d0
       - f6e2c94e6b3f6452
-      - 2b26c778c0b5e3b4
-      - 87bb08b80167b9e9
-      - cd3659d24085aa7c
+      - 1c87f841143f4612
+      - cf4a12c7d7a329eb
+      - e63131037fb16dd4
+      - c58b883c9be07c8f
+      - af97c0473e39e9c9
 - id: ff46693ca235b0d0
   type: switch
   z: 44465f18e06bb58d
@@ -1278,31 +1253,6 @@
   'y': 1100
   wires:
     - - 3cd8b687840d79e4
-- id: 6d0093b979af9179
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'app',\t    'entity':'title',\t    'value':msg.payload.title,\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 800
-  wires:
-    - - 301bb73805b7e405
 - id: 301bb73805b7e405
   type: link out
   z: 44465f18e06bb58d
@@ -1311,7 +1261,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1355
+  x: 1375
   'y': 800
   wires: []
 - id: 53abf944080b21c2
@@ -1360,81 +1310,6 @@
   'y': 140
   wires:
     - - 230e5e76372284fb
-- id: fa1f9abdf8c15631
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'app',\t    'entity':'icon',\t    'value':msg.payload,\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 740
-  wires:
-    - - 301bb73805b7e405
-- id: 2b26c778c0b5e3b4
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'app',\t    'entity':'tomqtt',\t    'value':msg.payload.tomqtt,\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 920
-  wires:
-    - - 301bb73805b7e405
-- id: 87bb08b80167b9e9
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'app',\t    'entity':'frommqtt',\t    'value':msg.payload.frommqtt,\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 980
-  wires:
-    - - 301bb73805b7e405
 - id: 8e8e767ca137fe49
   type: ui-text
   z: 44465f18e06bb58d
@@ -1732,28 +1607,159 @@
   x: 2120
   'y': 1220
   wires: []
-- id: cd3659d24085aa7c
-  type: change
+- id: 1c423cb24f5a5aed
+  type: function
   z: 44465f18e06bb58d
   g: 43bcc4020c29e03d
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'app',\t    'entity':'watchdog',\t    'value':$number(msg.payload.watchdog),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
+  name: icon
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'app',
+            'entity':'icon',
+            'value':msg.payload,
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
   x: 1230
+  'y': 740
+  wires:
+    - - 301bb73805b7e405
+- id: 1c87f841143f4612
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: title
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'app',
+            'entity':'title',
+            'value':msg.payload.title,
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1230
+  'y': 800
+  wires:
+    - - 301bb73805b7e405
+- id: cf4a12c7d7a329eb
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: vendor
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'app',
+            'entity':'vendor',
+            'value':msg.payload.vendor,
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1230
+  'y': 860
+  wires:
+    - - 301bb73805b7e405
+- id: e63131037fb16dd4
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: tomqtt
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'app',
+            'entity':'tomqtt',
+            'value':msg.payload.tomqtt,
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1230
+  'y': 920
+  wires:
+    - - 301bb73805b7e405
+- id: c58b883c9be07c8f
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: frommqtt
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'app',
+            'entity':'frommqtt',
+            'value':msg.payload.frommqtt,
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1240
+  'y': 980
+  wires:
+    - - 301bb73805b7e405
+- id: af97c0473e39e9c9
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: watchdog
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'app',
+            'entity':'watchdog',
+            'value':Number(msg.payload.watchdog),
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1240
   'y': 1040
   wires:
     - - 301bb73805b7e405

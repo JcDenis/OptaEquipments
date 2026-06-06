@@ -22,7 +22,6 @@
     - c144168a9d95a46c
     - ebe7a8fdde3e59f8
     - 234944ace99399ca
-    - 6e45cf745ff84a30
     - 3c49b3039dfe7b95
     - cd9312927e6f5747
     - f9bd857da00235f6
@@ -105,6 +104,7 @@
     - 04fedeaf450f490c
     - e93987aef3574f62
     - 2b59cd98758af02f
+    - 020683f769d75bef
   x: 104
   'y': 819
   w: 2842
@@ -917,62 +917,6 @@
   'y': 1400
   wires:
     - - ebe7a8fdde3e59f8
-- id: 6e45cf745ff84a30
-  type: change
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: kernel
-  rules:
-    - t: set
-      p: kernel.entity
-      pt: msg
-      to: '$join([msg.kernel.equipment,msg.topic],''|'')'
-      tot: jsonata
-    - t: set
-      p: kernel.loop
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: delete
-      p: kernel.equipment
-      pt: msg
-    - t: delete
-      p: kernel.component
-      pt: msg
-    - t: delete
-      p: kernel.component_name
-      pt: msg
-    - t: delete
-      p: endpoint
-      pt: msg
-    - t: delete
-      p: ui_update
-      pt: msg
-    - t: delete
-      p: class
-      pt: msg
-    - t: delete
-      p: enabled
-      pt: msg
-    - t: delete
-      p: limit_plant
-      pt: msg
-    - t: delete
-      p: limit_line
-      pt: msg
-    - t: delete
-      p: limit_equipment
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2650
-  'y': 1400
-  wires:
-    - - 3c49b3039dfe7b95
-      - cd9312927e6f5747
 - id: 3c49b3039dfe7b95
   type: debug
   z: 852390cb9559e176
@@ -3753,7 +3697,7 @@
   'y': 2240
   wires:
     - - 5b1260fb090f1438
-    - - 6e45cf745ff84a30
+    - - 020683f769d75bef
 - id: ba586dfb98614db0
   type: comment
   z: 852390cb9559e176
@@ -4065,7 +4009,7 @@
   x: 2480
   'y': 2240
   wires:
-    - - 6e45cf745ff84a30
+    - - 020683f769d75bef
 - id: d1ac5df357e9e97b
   type: change
   z: 852390cb9559e176
@@ -4468,9 +4412,9 @@
   x: 1790
   'y': 1400
   wires:
-    - - 6e45cf745ff84a30
-    - - 6e45cf745ff84a30
-    - - 6e45cf745ff84a30
+    - - 020683f769d75bef
+    - - 020683f769d75bef
+    - - 020683f769d75bef
     - - 1e242d16cf9d3a58
 - id: 1e242d16cf9d3a58
   type: change
@@ -7368,4 +7312,31 @@
   x: 2480
   'y': 2180
   wires:
-    - - 6e45cf745ff84a30
+    - - 020683f769d75bef
+- id: 020683f769d75bef
+  type: function
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: kernel
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':msg.kernel.type,
+            'entity':msg.kernel.equipment + '|' + msg.topic,
+            'value':msg.kernel.value,
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2650
+  'y': 1400
+  wires:
+    - - cd9312927e6f5747
+      - 3c49b3039dfe7b95

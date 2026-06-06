@@ -164,16 +164,16 @@
     - 51974180c2ba645a
     - f2bbf1d6cb8144ec
     - 2c99740dedf8a8c5
-    - 6bfbdeb178a37312
     - 253691a930658b1b
     - 23de37c45b16e5e1
     - 841c4b4fc304d74d
     - 3951b0295c8e5c71
     - f897c1d0d175caca
     - ab0c6ab36a88151a
+    - 756d45065d53c09e
   x: 104
   'y': 1899
-  w: 3162
+  w: 3182
   h: 202
 - id: 3e16528dec4157ee
   type: group
@@ -195,7 +195,6 @@
     - 28e40e89bfbd674f
     - c3cf65de797d07e3
     - ccc686e3895410e7
-    - 74ee62c83d04215c
     - e4d2d800b48b6084
     - a4166a35f4e31509
     - 689e8c8f85f8601b
@@ -214,6 +213,7 @@
     - 0141b8a66cd888f5
     - 8a8fce6c3d3e6928
     - a7dcb0e628715135
+    - e9440cb703cde66d
   x: 104
   'y': 2139
   w: 3222
@@ -1894,36 +1894,6 @@
   wires:
     - - c3cf65de797d07e3
     - - 6b07028d140d904f
-- id: 74ee62c83d04215c
-  type: change
-  z: e97c6f12735a13c1
-  g: 3e16528dec4157ee
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'alert',\t    'entity':msg.payload.entity,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
-      tot: jsonata
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2830
-  'y': 2180
-  wires:
-    - - a7dcb0e628715135
 - id: e4d2d800b48b6084
   type: change
   z: e97c6f12735a13c1
@@ -3789,9 +3759,9 @@
   'y': 2240
   wires:
     - - e4d2d800b48b6084
-      - 74ee62c83d04215c
-    - - 74ee62c83d04215c
-      - e4d2d800b48b6084
+      - e9440cb703cde66d
+    - - e4d2d800b48b6084
+      - e9440cb703cde66d
     - - 2bc15e3dfee718c1
 - id: 2bc15e3dfee718c1
   type: change
@@ -5038,51 +5008,6 @@
   'y': 2000
   wires:
     - - 253691a930658b1b
-- id: 6bfbdeb178a37312
-  type: change
-  z: e97c6f12735a13c1
-  g: baadcf077dabb0e1
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'endpoint',\t    'entity':msg.payload.model & '|' & msg.payload.device & '|' & msg.payload.endpoint,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
-      tot: jsonata
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: action
-      pt: msg
-    - t: delete
-      p: column
-      pt: msg
-    - t: delete
-      p: settings
-      pt: msg
-    - t: delete
-      p: regexp
-      pt: msg
-    - t: delete
-      p: endpoint
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2730
-  'y': 1940
-  wires:
-    - - ab0c6ab36a88151a
 - id: 253691a930658b1b
   type: link out
   z: e97c6f12735a13c1
@@ -5102,7 +5027,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 3015
+  x: 3035
   'y': 1940
   wires: []
 - id: 841c4b4fc304d74d
@@ -5118,7 +5043,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3110
+  x: 3130
   'y': 2000
   wires: []
 - id: 3951b0295c8e5c71
@@ -5142,10 +5067,10 @@
   x: 2570
   'y': 2000
   wires:
-    - - 6bfbdeb178a37312
-      - 2c99740dedf8a8c5
-    - - 6bfbdeb178a37312
-      - 2c99740dedf8a8c5
+    - - 2c99740dedf8a8c5
+      - 756d45065d53c09e
+    - - 2c99740dedf8a8c5
+      - 756d45065d53c09e
     - - f897c1d0d175caca
 - id: f897c1d0d175caca
   type: change
@@ -5447,7 +5372,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 2890
+  x: 2910
   'y': 1940
   wires:
     - - 841c4b4fc304d74d
@@ -5474,3 +5399,57 @@
   wires:
     - - 689e8c8f85f8601b
       - 595883d023c5b862
+- id: 756d45065d53c09e
+  type: function
+  z: e97c6f12735a13c1
+  g: baadcf077dabb0e1
+  name: endpoint
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'endpoint',
+            'entity':msg.payload.model + '|' + msg.payload.device + '|' + msg.payload.endpoint,
+            'value':'',
+            'loop':false,
+            'delete':true
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2740
+  'y': 1940
+  wires:
+    - - ab0c6ab36a88151a
+- id: e9440cb703cde66d
+  type: function
+  z: e97c6f12735a13c1
+  g: 3e16528dec4157ee
+  name: alert
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'alert',
+            'entity':msg.payload.entity,
+            'value':'',
+            'loop':false,
+            'delete':true
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2830
+  'y': 2180
+  wires:
+    - - a7dcb0e628715135
