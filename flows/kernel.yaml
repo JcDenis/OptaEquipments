@@ -19,7 +19,7 @@
     - 31a48d3959ce4d06
   x: 78
   'y': 1633
-  w: 1874
+  w: 1054
   h: 374
 - id: 8d2869ca423714d6
   type: group
@@ -542,22 +542,17 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 202424f6de068bd4
     - 10c82357a69cfd98
     - 05790def660c66fb
     - a0fc8abe01156f55
-    - 451ea07f88244a01
-    - 96b60125fedbd2dd
-    - f22358dfa31523c3
-    - 4de1644d9063dd22
     - 5e63e5a8296ee640
     - 84299714efdcf62a
     - dcda7e0dd52aaa6d
     - a2a838967876ba43
-    - 670fb201be95b0ca
+    - dfc9dad1cc3c345e
   x: 104
   'y': 1659
-  w: 1822
+  w: 1002
   h: 142
 - id: bbb29723a86d5dcc
   type: group
@@ -773,26 +768,6 @@
   'y': 680
   wires:
     - - d3c22873709318bb
-- id: 202424f6de068bd4
-  type: change
-  z: f6f2187d.f17ca8
-  g: 31a48d3959ce4d06
-  name: split
-  rules:
-    - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.topic,''/'')'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1130
-  'y': 1760
-  wires:
-    - - 451ea07f88244a01
 - id: 10c82357a69cfd98
   type: delay
   z: f6f2187d.f17ca8
@@ -810,10 +785,10 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 810
+  x: 630
   'y': 1760
   wires:
-    - - f22358dfa31523c3
+    - - dfc9dad1cc3c345e
 - id: 05790def660c66fb
   type: mqtt in
   z: f6f2187d.f17ca8
@@ -830,7 +805,7 @@
   x: 470
   'y': 1760
   wires:
-    - - 670fb201be95b0ca
+    - - 10c82357a69cfd98
 - id: a0fc8abe01156f55
   type: change
   z: f6f2187d.f17ca8
@@ -838,14 +813,14 @@
   name: subscription
   rules:
     - t: set
-      p: payload
+      p: topic
       pt: msg
       to: '#:(memoryOnly)::describe.app.automate'
       tot: global
     - t: set
       p: topic
       pt: msg
-      to: msg.payload & '/#'
+      to: msg.topic & '/#'
       tot: jsonata
     - t: set
       p: action
@@ -1140,63 +1115,6 @@
   'y': 3260
   wires:
     - - 457bd17747e44d56
-- id: 451ea07f88244a01
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 31a48d3959ce4d06
-  name: length
-  property: split
-  propertyType: msg
-  rules:
-    - t: hask
-      v: '2'
-      vt: num
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1290
-  'y': 1760
-  wires:
-    - - 96b60125fedbd2dd
-- id: 96b60125fedbd2dd
-  type: change
-  z: f6f2187d.f17ca8
-  g: 31a48d3959ce4d06
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':msg.split[1],\t    'entity':msg.split[2],\t    'value':msg.payload,\t    'loop':true\t}"
-      tot: jsonata
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: split
-      pt: msg
-    - t: delete
-      p: qos
-      pt: msg
-    - t: delete
-      p: retain
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1450
-  'y': 1760
-  wires:
-    - - 4de1644d9063dd22
 - id: 403e19609eb00cac
   type: change
   z: f6f2187d.f17ca8
@@ -1273,24 +1191,6 @@
   x: 610
   'y': 1940
   wires: []
-- id: f22358dfa31523c3
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 31a48d3959ce4d06
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: neq
-      v: ''
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 970
-  'y': 1760
-  wires:
-    - - 202424f6de068bd4
 - id: d29c391315d7b6cc
   type: link in
   z: f6f2187d.f17ca8
@@ -1709,25 +1609,6 @@
   x: 3735
   'y': 3320
   wires: []
-- id: 4de1644d9063dd22
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 31a48d3959ce4d06
-  name: exists
-  property: 'kernel[msg.kernel.type]'
-  propertyType: global
-  rules:
-    - t: hask
-      v: kernel.entity
-      vt: msg
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1610
-  'y': 1760
-  wires:
-    - - 5e63e5a8296ee640
-      - dcda7e0dd52aaa6d
 - id: e0b4c721460909ae
   type: switch
   z: f6f2187d.f17ca8
@@ -2793,7 +2674,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1800
+  x: 980
   'y': 1700
   wires: []
 - id: 84299714efdcf62a
@@ -2815,7 +2696,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1735
+  x: 915
   'y': 1760
   wires: []
 - id: a2a838967876ba43
@@ -3609,22 +3490,6 @@
   'y': 1940
   wires:
     - - 403e19609eb00cac
-- id: 670fb201be95b0ca
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 31a48d3959ce4d06
-  name: frommqtt
-  property: kernel.app.frommqtt
-  propertyType: global
-  rules:
-    - t: 'true'
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 640
-  'y': 1760
-  wires:
-    - - 10c82357a69cfd98
 - id: 9f7fc8c3bf66bac8
   type: switch
   z: f6f2187d.f17ca8
@@ -6617,3 +6482,39 @@
   x: 1320
   'y': 260
   wires: []
+- id: dfc9dad1cc3c345e
+  type: function
+  z: f6f2187d.f17ca8
+  g: 31a48d3959ce4d06
+  name: topic
+  func: >-
+    if (global.get('kernel.app.frommqtt', 'default') === true && msg.payload !==
+    '') {
+        let tsplit = msg.topic.split('/');
+        if (tsplit.length === 3 && typeof global.get('kernel["' + tsplit[1] + '"]["' + tsplit[2] + '"]', 'default') !== 'undefined') {
+            return {
+                'topic':'',
+                'payload':'',
+                'kernel':{
+                    'type':tsplit[1],
+                    'entity':tsplit[2],
+                    'value':msg.payload,
+                    'loop':true
+                }
+            }
+        }
+    }
+
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 1760
+  wires:
+    - - 5e63e5a8296ee640
+      - dcda7e0dd52aaa6d
