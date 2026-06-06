@@ -5499,7 +5499,11 @@
 
             /* do loop */
             if (msg.kernel.loop === false) {
-                return msg;
+                return {
+                    'topic':'',
+                    'payload':'',
+                    'kernel':msg.kernel
+                };
             }
         }
     }
@@ -5533,10 +5537,6 @@
             let csplit = msg.kernel.entity.split("|");
             msg.kernel.equipment = csplit[0];
             msg.kernel.component = csplit[1];
-
-            /* used elsewhere */
-            msg.endpoint = endpoint;
-            msg.payload = msg.kernel.entity
 
             return msg;
         }
