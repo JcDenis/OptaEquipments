@@ -2392,19 +2392,25 @@
   g: 44d39e7547289d97
   name: kernel
   func: |-
+    let newMsg = {
+        'topic':'',
+        'payload':'',
+        'kernel':{}
+    };
+
     /* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io */
     let split = msg.topic.split('/');
 
     if (split[2] === 'watchdog') {
         if (split[1] !== 'distant') {
-            msg.kernel = {
+            newMsg.kernel = {
                 'type': 'watchdog',
                 'entity': 'opta|' + split[1],
                 'value': Date.now(),
                 'loop': false
             };
 
-            return msg;
+            return newMsg;
         }
     } else if (split[2] === 'input' || split[2] === 'output') {
         let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];
@@ -2415,14 +2421,14 @@
                 msg.payload = Math.round(msg.payload / 360000) / 10;
             }
 
-            msg.kernel = {
+            newMsg.kernel = {
                 'type': 'state',
                 'entity': entity,
                 'value': msg.payload,
                 'loop': false 
             };
 
-            return msg;
+            return newMsg;
         }
     }
 

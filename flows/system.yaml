@@ -1222,7 +1222,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: '{''type'':''app'',''entity'':''vendor'',''value'':msg.payload.vendor}'
+      to: "{\t    'type':'app',\t    'entity':'vendor',\t    'value':msg.payload.vendor,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload
@@ -1287,7 +1287,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: '{''type'':''app'',''entity'':''title'',''value'':msg.payload.title}'
+      to: "{\t    'type':'app',\t    'entity':'title',\t    'value':msg.payload.title,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload
@@ -1369,7 +1369,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: '{''type'':''app'',''entity'':''icon'',''value'':msg.payload}'
+      to: "{\t    'type':'app',\t    'entity':'icon',\t    'value':msg.payload,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload
@@ -1394,7 +1394,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: '{''type'':''app'',''entity'':''tomqtt'',''value'':msg.payload.tomqtt}'
+      to: "{\t    'type':'app',\t    'entity':'tomqtt',\t    'value':msg.payload.tomqtt,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload
@@ -1419,7 +1419,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: '{''type'':''app'',''entity'':''frommqtt'',''value'':msg.payload.frommqtt}'
+      to: "{\t    'type':'app',\t    'entity':'frommqtt',\t    'value':msg.payload.frommqtt,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload
@@ -1741,7 +1741,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'app',\t    'entity':'watchdog',\t    'value':$number(msg.payload.watchdog)\t}"
+      to: "{\t    'type':'app',\t    'entity':'watchdog',\t    'value':$number(msg.payload.watchdog),\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload

@@ -6228,9 +6228,11 @@
   g: ce2669cea2e618a0
   name: device state
   func: |-
-    msg.kernel = {};
-    msg.topic = '';
-    msg.payload = '';
+    let newMsg = {
+        'kernel':{},
+        'topic':'',
+        'payload':''
+    };
 
     let time = global.get('kernel.app.watchdog', 'default')||120;
     let limit = Date.now() - (time * 1000);
@@ -6241,14 +6243,14 @@
 
             let watchdog = global.get('kernel.watchdog["' + device + '"]', 'default')||0;
 
-            msg.kernel = {
+            newMsg.kernel = {
                 'type':'device',
                 'entity':device,
                 'value': watchdog < limit ? 0:1,
                 'loop':false
             };
 
-            node.send(msg);
+            node.send(newMsg);
         }
     }
 
@@ -6306,6 +6308,7 @@
         && typeof msg.kernel.type === 'string'
         && typeof msg.kernel.entity === 'string'
         && typeof msg.kernel.value !== 'undefined'
+        && typeof msg.kernel.loop === 'boolean'
     ) {
         /* deletion requested */
         if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
@@ -6314,17 +6317,13 @@
             let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'default');
             /* new value is not the same as existing */
             if (current !== msg.kernel.value) {
-                if (typeof msg.kernel.loop === "boolean" && msg.kernel.loop === true) {
-                } else {
-                    /* loop from read file */
-                    msg.kernel.loop = false;
-                }
+                //msg.kernel.loop = false;
                 /* update kernel value */
                 global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', msg.kernel.value, 'default');
             }
 
             /* do loop */
-            if (typeof msg.kernel.loop === 'boolean' && msg.kernel.loop === false) {
+            if (msg.kernel.loop === false) {
                 return msg;
             }
         }
