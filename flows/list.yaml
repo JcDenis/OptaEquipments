@@ -277,16 +277,11 @@
     - 05107d400a502297
     - d929753382156fa2
     - 42ee8c89bb1f88e2
-    - de71dce191e15350
     - 726908f7902e2771
-    - a19eae9b1a486ee0
-    - 5aabca9b87fb9ba4
-    - 04e3c845f4d9de6a
-    - 7807f917f86c7b73
-    - dd257e5ca1b24c21
+    - 16a8aa9d41637b79
   x: 104
   'y': 39
-  w: 1102
+  w: 572
   h: 202
 - id: 09a03117ef8741bc
   type: group
@@ -3808,10 +3803,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 80
   wires:
-    - - 04e3c845f4d9de6a
+    - - d929753382156fa2
 - id: 05107d400a502297
   type: link in
   z: e97c6f12735a13c1
@@ -3824,7 +3819,7 @@
   x: 145
   'y': 140
   wires:
-    - - 5aabca9b87fb9ba4
+    - - 16a8aa9d41637b79
 - id: d929753382156fa2
   type: link out
   z: e97c6f12735a13c1
@@ -3833,7 +3828,7 @@
   mode: link
   links:
     - 28b85f45e33eef42
-  x: 1075
+  x: 635
   'y': 140
   wires: []
 - id: 42ee8c89bb1f88e2
@@ -3850,10 +3845,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 200
   wires:
-    - - 04e3c845f4d9de6a
+    - - d929753382156fa2
 - id: 033bdb2c1e76e680
   type: ui-text
   z: e97c6f12735a13c1
@@ -3969,27 +3964,6 @@
   x: 1900
   'y': 2180
   wires: []
-- id: de71dce191e15350
-  type: delay
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 590
-  'y': 140
-  wires:
-    - - 7807f917f86c7b73
 - id: b90643337a4dc51b
   type: link out
   z: e97c6f12735a13c1
@@ -4129,104 +4103,9 @@
   className: ui-title
   value: dictionary.option_page.list
   valueType: msg
-  x: 1120
-  'y': 200
+  x: 480
+  'y': 140
   wires: []
-- id: a19eae9b1a486ee0
-  type: change
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 140
-  wires:
-    - - d929753382156fa2
-      - 726908f7902e2771
-- id: 5aabca9b87fb9ba4
-  type: switch
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.list.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 8042b16220cb6f8f
-    - - dd257e5ca1b24c21
-    - - 42ee8c89bb1f88e2
-- id: 04e3c845f4d9de6a
-  type: change
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 80
-  wires:
-    - - a19eae9b1a486ee0
-- id: 7807f917f86c7b73
-  type: change
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 140
-  wires:
-    - - a19eae9b1a486ee0
 - id: dc496ef3eea5ccb5
   type: link call
   z: e97c6f12735a13c1
@@ -4907,24 +4786,6 @@
   'y': 800
   wires:
     - - 607e3e4e380d8497
-- id: dd257e5ca1b24c21
-  type: switch
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: level
-  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - de71dce191e15350
-    - - 42ee8c89bb1f88e2
 - id: 3ac3ebaf6b3fe555
   type: link call
   z: e97c6f12735a13c1
@@ -5453,3 +5314,55 @@
   'y': 2180
   wires:
     - - a7dcb0e628715135
+- id: 16a8aa9d41637b79
+  type: function
+  z: e97c6f12735a13c1
+  g: 2c0f9b39f8c7dd73
+  name: tab &  level
+  func: >-
+    let check = 'list';
+
+
+    msg.class = 'remove';
+
+    msg.enabled = false;
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+        ) {
+            msg.class = '';
+            msg.enabled = true;
+
+            return [null,msg,null];
+        } else {
+            return [null, null, msg];
+        }
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 8042b16220cb6f8f
+    - - 726908f7902e2771
+      - d929753382156fa2
+    - - 42ee8c89bb1f88e2

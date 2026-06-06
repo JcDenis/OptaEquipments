@@ -88,17 +88,12 @@
   nodes:
     - fbeb08a94e71e7bf
     - 0c83fe1f9690e061
-    - 441d7fe85042013a
-    - 230e5e76372284fb
     - 1aad4693dd3e7170
-    - 53abf944080b21c2
-    - 929519cc3e756da5
-    - fceff626f4a0cfbf
     - 0d7c72be0d6bd539
-    - ff3c9585225fb548
+    - a94368f2bf7b4951
   x: 104
   'y': 39
-  w: 1012
+  w: 572
   h: 202
 - id: 6ed9fb5c0b268c66
   type: group
@@ -810,7 +805,7 @@
   x: 145
   'y': 140
   wires:
-    - - fceff626f4a0cfbf
+    - - a94368f2bf7b4951
 - id: 0c83fe1f9690e061
   type: link out
   z: 44465f18e06bb58d
@@ -821,59 +816,9 @@
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
     - eba6e18370fbfe76
-  x: 1075
+  x: 635
   'y': 140
   wires: []
-- id: 441d7fe85042013a
-  type: change
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 80
-  wires:
-    - - 53abf944080b21c2
-- id: 230e5e76372284fb
-  type: change
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 140
-  wires:
-    - - 53abf944080b21c2
 - id: 2d0be523be6aa3e3
   type: ui-button
   z: 44465f18e06bb58d
@@ -1064,10 +1009,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 200
   wires:
-    - - 441d7fe85042013a
+    - - 0c83fe1f9690e061
 - id: f6e2c94e6b3f6452
   type: change
   z: 44465f18e06bb58d
@@ -1264,52 +1209,6 @@
   x: 1375
   'y': 800
   wires: []
-- id: 53abf944080b21c2
-  type: change
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: clean
-  rules:
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 140
-  wires:
-    - - 0c83fe1f9690e061
-- id: 929519cc3e756da5
-  type: delay
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 590
-  'y': 140
-  wires:
-    - - 230e5e76372284fb
 - id: 8e8e767ca137fe49
   type: ui-text
   z: 44465f18e06bb58d
@@ -1379,30 +1278,6 @@
   x: 310
   'y': 320
   wires: []
-- id: fceff626f4a0cfbf
-  type: switch
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.system.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 0d7c72be0d6bd539
-    - - ff3c9585225fb548
-    - - 1aad4693dd3e7170
 - id: 5c246c4ede5a0c33
   type: link call
   z: 44465f18e06bb58d
@@ -1542,10 +1417,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 80
   wires:
-    - - 441d7fe85042013a
+    - - 0c83fe1f9690e061
 - id: 2a12eb6ca897762e
   type: change
   z: 44465f18e06bb58d
@@ -1572,24 +1447,6 @@
   wires:
     - - 44b14fdf37109b9a
       - 4e3829a06010be64
-- id: ff3c9585225fb548
-  type: switch
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: level
-  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - 929519cc3e756da5
-    - - 1aad4693dd3e7170
 - id: a4fb301472039371
   type: mqtt out
   z: 44465f18e06bb58d
@@ -1763,3 +1620,54 @@
   'y': 1040
   wires:
     - - 301bb73805b7e405
+- id: a94368f2bf7b4951
+  type: function
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: tab &  level
+  func: >-
+    let check = 'system';
+
+
+    msg.class = 'remove';
+
+    msg.enabled = false;
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+        ) {
+            msg.class = '';
+            msg.enabled = true;
+
+            return [null,msg,null];
+        } else {
+            return [null, null, msg];
+        }
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 0d7c72be0d6bd539
+    - - 0c83fe1f9690e061
+    - - 1aad4693dd3e7170

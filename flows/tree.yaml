@@ -760,16 +760,11 @@
     - 53845d5ac3a352d5
     - 696117cbea1d662a
     - dd627ae296fcf568
-    - 049a49017896b84e
     - 5ffe3a59f8715e17
-    - eeeab0fe7df191d2
-    - bed185cac4eb1980
-    - a70433a1d960780a
-    - 235cd51c69a6a1e3
-    - 82fe127e9aeee994
+    - 18599644b9f5e31c
   x: 104
   'y': 39
-  w: 1102
+  w: 572
   h: 202
 - id: 1ac161d9a8075225
   type: group
@@ -10910,10 +10905,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 80
   wires:
-    - - a70433a1d960780a
+    - - dd627ae296fcf568
 - id: 53845d5ac3a352d5
   type: link in
   z: 64ce08af468b8197
@@ -10925,7 +10920,7 @@
   x: 145
   'y': 140
   wires:
-    - - bed185cac4eb1980
+    - - 18599644b9f5e31c
 - id: 696117cbea1d662a
   type: change
   z: 64ce08af468b8197
@@ -10940,10 +10935,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 200
   wires:
-    - - a70433a1d960780a
+    - - dd627ae296fcf568
 - id: dd627ae296fcf568
   type: link out
   z: 64ce08af468b8197
@@ -10952,7 +10947,7 @@
   mode: link
   links:
     - 3c74c1e48218b536
-  x: 1075
+  x: 635
   'y': 140
   wires: []
 - id: bb44a5ee9eb79c84
@@ -13212,27 +13207,6 @@
   wires:
     - - d42f192ca122f48a
       - c1b07dbe39802345
-- id: 049a49017896b84e
-  type: delay
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 590
-  'y': 140
-  wires:
-    - - 235cd51c69a6a1e3
 - id: 5ffe3a59f8715e17
   type: ui-text
   z: 64ce08af468b8197
@@ -13253,104 +13227,9 @@
   className: ui-title
   value: dictionary.option_page.tree
   valueType: msg
-  x: 1120
-  'y': 200
+  x: 480
+  'y': 140
   wires: []
-- id: eeeab0fe7df191d2
-  type: change
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 140
-  wires:
-    - - dd627ae296fcf568
-      - 5ffe3a59f8715e17
-- id: bed185cac4eb1980
-  type: switch
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.tree.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 63f86678c491ee38
-    - - 82fe127e9aeee994
-    - - 696117cbea1d662a
-- id: a70433a1d960780a
-  type: change
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 80
-  wires:
-    - - eeeab0fe7df191d2
-- id: 235cd51c69a6a1e3
-  type: change
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 140
-  wires:
-    - - eeeab0fe7df191d2
 - id: 909b87c39fd369a2
   type: link call
   z: 64ce08af468b8197
@@ -16380,24 +16259,6 @@
   'y': 1220
   wires:
     - - 89fc3c56f4d9e5de
-- id: 82fe127e9aeee994
-  type: switch
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: level
-  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - 049a49017896b84e
-    - - 696117cbea1d662a
 - id: 0ac126dc2df887dc
   type: function
   z: 64ce08af468b8197
@@ -17563,3 +17424,55 @@
   'y': 3680
   wires:
     - - 32c655ef0f3f7523
+- id: 18599644b9f5e31c
+  type: function
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: tab &  level
+  func: >-
+    let check = 'tree';
+
+
+    msg.class = 'remove';
+
+    msg.enabled = false;
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+        ) {
+            msg.class = '';
+            msg.enabled = true;
+
+            return [null,msg,null];
+        } else {
+            return [null, null, msg];
+        }
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 63f86678c491ee38
+    - - dd627ae296fcf568
+      - 5ffe3a59f8715e17
+    - - 696117cbea1d662a

@@ -56,20 +56,15 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 6a17d6825228f752
     - d7bc8fc74bfc07cb
-    - 4bf3a2b77f19923b
     - 054bd47295999ad7
-    - 6f313e02b010ccb9
     - e3c7b3428b7ae9d9
-    - 544c28d405b12cc8
-    - 0abe74e51b3f4e51
+    - 6cf8cb9e6b8ecf5c
     - 403342275b16fb1e
-    - b5978244e0e45484
-    - 837171d0662b5d6f
+    - 6a17d6825228f752
   x: 104
   'y': 39
-  w: 1102
+  w: 572
   h: 202
 - id: 7f208cf2ab66dd88
   type: link call
@@ -663,27 +658,6 @@
   wires:
     - - 59395394cfbb7859
       - 7ab11ad4d1391433
-- id: 6a17d6825228f752
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::rows'
-      pt: flow
-    - t: delete
-      p: '#:(memoryOnly)::form'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 80
-  wires:
-    - - b5978244e0e45484
 - id: d7bc8fc74bfc07cb
   type: link in
   z: 476eb6fc04c55cec
@@ -695,31 +669,7 @@
   x: 145
   'y': 140
   wires:
-    - - 4bf3a2b77f19923b
-- id: 4bf3a2b77f19923b
-  type: switch
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.alert.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 6a17d6825228f752
-    - - 0abe74e51b3f4e51
-    - - 403342275b16fb1e
+    - - 6cf8cb9e6b8ecf5c
 - id: 054bd47295999ad7
   type: link out
   z: 476eb6fc04c55cec
@@ -728,30 +678,9 @@
   mode: link
   links:
     - c8c91a8a8cb864f2
-  x: 1075
+  x: 635
   'y': 140
   wires: []
-- id: 6f313e02b010ccb9
-  type: delay
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 590
-  'y': 140
-  wires:
-    - - 837171d0662b5d6f
 - id: e3c7b3428b7ae9d9
   type: ui-text
   z: 476eb6fc04c55cec
@@ -772,30 +701,9 @@
   className: ui-title
   value: dictionary.option_page.alert
   valueType: msg
-  x: 1120
-  'y': 200
-  wires: []
-- id: 544c28d405b12cc8
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
+  x: 480
   'y': 140
-  wires:
-    - - 054bd47295999ad7
-      - e3c7b3428b7ae9d9
+  wires: []
 - id: 2de64536905c42d8
   type: change
   z: 476eb6fc04c55cec
@@ -910,92 +818,6 @@
   'y': 440
   wires:
     - - 278b948fe3397d6d
-- id: 0abe74e51b3f4e51
-  type: switch
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: level
-  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - 6f313e02b010ccb9
-    - - 403342275b16fb1e
-- id: 403342275b16fb1e
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: clean user
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 200
-  wires:
-    - - b5978244e0e45484
-- id: b5978244e0e45484
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 80
-  wires:
-    - - 544c28d405b12cc8
-- id: 837171d0662b5d6f
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 140
-  wires:
-    - - 544c28d405b12cc8
 - id: b415ac596379ee31
   type: switch
   z: 476eb6fc04c55cec
@@ -1056,3 +878,94 @@
   'y': 380
   wires:
     - - 09a816282f3bc371
+- id: 6cf8cb9e6b8ecf5c
+  type: function
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: tab &  level
+  func: >-
+    let check = 'alert';
+
+
+    msg.class = 'remove';
+
+    msg.enabled = false;
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+        ) {
+            msg.class = '';
+            msg.enabled = true;
+
+            return [null,msg,null];
+        } else {
+            return [null, null, msg];
+        }
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 6a17d6825228f752
+    - - e3c7b3428b7ae9d9
+      - 054bd47295999ad7
+    - - 403342275b16fb1e
+- id: 403342275b16fb1e
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: clean user
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::form[msg.hmi.id]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 490
+  'y': 200
+  wires:
+    - - 054bd47295999ad7
+- id: 6a17d6825228f752
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: clean users
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::rows'
+      pt: flow
+    - t: delete
+      p: '#:(memoryOnly)::form'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 490
+  'y': 80
+  wires:
+    - - 054bd47295999ad7

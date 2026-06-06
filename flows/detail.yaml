@@ -324,17 +324,12 @@
     - 7f236a1111335459
     - 2045a5696769c038
     - 587535c8d0c4c954
-    - 80aaebfa270b96ee
-    - 1e58e82c924967b4
     - 3aad74b4936add5c
-    - afbf5772b8e4d09c
     - b3954fad993602e1
-    - 4fc21c4c0d845baa
-    - 8309f87dd4412d63
-    - ccb51ea14112ed99
+    - 0d8f27717a354010
   x: 104
   'y': 39
-  w: 1122
+  w: 572
   h: 202
 - id: 6d125a0d231d55d4
   type: group
@@ -4503,10 +4498,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 80
   wires:
-    - - 80aaebfa270b96ee
+    - - 3aad74b4936add5c
 - id: e34e804ee07e7ff5
   type: switch
   z: 852390cb9559e176
@@ -4607,7 +4602,7 @@
   x: 145
   'y': 140
   wires:
-    - - 8309f87dd4412d63
+    - - 0d8f27717a354010
 - id: 587535c8d0c4c954
   type: change
   z: 852390cb9559e176
@@ -4622,10 +4617,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 200
   wires:
-    - - 80aaebfa270b96ee
+    - - 3aad74b4936add5c
 - id: f4e542b1d73d54f9
   type: switch
   z: 852390cb9559e176
@@ -4874,56 +4869,6 @@
     - - 5c746d6457cd29ed
       - f02a30318019f86b
       - 67d66a8b80535ef8
-- id: 80aaebfa270b96ee
-  type: change
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 80
-  wires:
-    - - 4fc21c4c0d845baa
-- id: 1e58e82c924967b4
-  type: change
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 140
-  wires:
-    - - 4fc21c4c0d845baa
 - id: 3aad74b4936add5c
   type: link out
   z: 852390cb9559e176
@@ -4932,7 +4877,7 @@
   mode: link
   links:
     - b24713f215fa93c7
-  x: 1075
+  x: 635
   'y': 140
   wires: []
 - id: 18e77c99c8f24b09
@@ -6014,27 +5959,6 @@
   'y': 3620
   wires:
     - - b2f087bc0523250a
-- id: afbf5772b8e4d09c
-  type: delay
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 590
-  'y': 140
-  wires:
-    - - 1e58e82c924967b4
 - id: d912c9e1e3e6fa15
   type: change
   z: 852390cb9559e176
@@ -6766,25 +6690,9 @@
   className: ui-title
   value: dictionary.option_page.detail
   valueType: msg
-  x: 1130
-  'y': 200
-  wires: []
-- id: 4fc21c4c0d845baa
-  type: change
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: clean
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
+  x: 490
   'y': 140
-  wires:
-    - - 3aad74b4936add5c
-      - b3954fad993602e1
+  wires: []
 - id: a54c84532f2c44a3
   type: change
   z: 852390cb9559e176
@@ -6815,30 +6723,6 @@
   'y': 3320
   wires:
     - - 436a9466d70f31e6
-- id: 8309f87dd4412d63
-  type: switch
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.detail.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 7f236a1111335459
-    - - ccb51ea14112ed99
-    - - 587535c8d0c4c954
 - id: 404bfbe8193538ba
   type: link call
   z: 852390cb9559e176
@@ -7251,24 +7135,6 @@
   'y': 3500
   wires:
     - - 3e42541f14d8d3d2
-- id: ccb51ea14112ed99
-  type: switch
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: level
-  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - afbf5772b8e4d09c
-    - - 587535c8d0c4c954
 - id: e93987aef3574f62
   type: function
   z: 852390cb9559e176
@@ -7340,3 +7206,55 @@
   wires:
     - - cd9312927e6f5747
       - 3c49b3039dfe7b95
+- id: 0d8f27717a354010
+  type: function
+  z: 852390cb9559e176
+  g: fe21b6421a9020d4
+  name: tab &  level
+  func: >-
+    let check = 'detail';
+
+
+    msg.class = 'remove';
+
+    msg.enabled = false;
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+        ) {
+            msg.class = '';
+            msg.enabled = true;
+
+            return [null,msg,null];
+        } else {
+            return [null, null, msg];
+        }
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 7f236a1111335459
+    - - 3aad74b4936add5c
+      - b3954fad993602e1
+    - - 587535c8d0c4c954

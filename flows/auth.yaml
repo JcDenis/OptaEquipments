@@ -50,15 +50,13 @@
     label: true
   nodes:
     - bf3da41c4b5bd219
-    - 2a6b5b192fbe63e0
     - ad1a02bca9e6e97e
-    - 6fb977a9fcd9c072
-    - 54a66f179427a1c6
-    - 8b97864cfc0f79c1
     - 055d756d699325e7
+    - 7f21a38bf715a6f8
+    - 2a6b5b192fbe63e0
   x: 104
   'y': 39
-  w: 692
+  w: 572
   h: 202
 - id: 9833ea0e831ff8c7
   type: ui-button
@@ -321,25 +319,7 @@
   x: 145
   'y': 140
   wires:
-    - - 8b97864cfc0f79c1
-- id: 2a6b5b192fbe63e0
-  type: change
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::user'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 450
-  'y': 80
-  wires:
-    - - 54a66f179427a1c6
+    - - 7f21a38bf715a6f8
 - id: ad1a02bca9e6e97e
   type: link out
   z: 27841aa886edd1cd
@@ -348,7 +328,7 @@
   mode: link
   links:
     - 9979f236b1c3baac
-  x: 755
+  x: 635
   'y': 140
   wires: []
 - id: be3b97df6b45470f
@@ -374,27 +354,6 @@
       - 775c8e4364eee51a
     - - fe905230c6d73c11
       - 775c8e4364eee51a
-- id: 6fb977a9fcd9c072
-  type: delay
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 430
-  'y': 140
-  wires:
-    - - 54a66f179427a1c6
 - id: 88a80f7ce9615035
   type: change
   z: 27841aa886edd1cd
@@ -525,26 +484,6 @@
   x: 600
   'y': 320
   wires: []
-- id: 54a66f179427a1c6
-  type: change
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 630
-  'y': 140
-  wires:
-    - - ad1a02bca9e6e97e
 - id: 600f8158ee5fa6b3
   type: change
   z: 27841aa886edd1cd
@@ -610,30 +549,6 @@
   'y': 500
   wires:
     - - 3361a6a4765bfb11
-- id: 8b97864cfc0f79c1
-  type: switch
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.auth.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 2a6b5b192fbe63e0
-    - - 6fb977a9fcd9c072
-    - - 055d756d699325e7
 - id: 055d756d699325e7
   type: change
   z: 27841aa886edd1cd
@@ -648,10 +563,10 @@
   from: ''
   to: ''
   reg: false
-  x: 450
+  x: 490
   'y': 200
   wires:
-    - - 54a66f179427a1c6
+    - - ad1a02bca9e6e97e
 - id: f3b837acb99f6326
   type: comment
   z: 27841aa886edd1cd
@@ -674,3 +589,59 @@
   'y': 500
   wires:
     - - 3da3f0a5ca052b2e
+- id: 7f21a38bf715a6f8
+  type: function
+  z: 27841aa886edd1cd
+  g: 4ef1cd4a19db42bf
+  name: tab &  level
+  func: >-
+    let check = 'period';
+
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        return [null,msg,null];
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 2a6b5b192fbe63e0
+    - - ad1a02bca9e6e97e
+    - - 055d756d699325e7
+- id: 2a6b5b192fbe63e0
+  type: change
+  z: 27841aa886edd1cd
+  g: 4ef1cd4a19db42bf
+  name: clean users
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::user'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 490
+  'y': 80
+  wires:
+    - - ad1a02bca9e6e97e

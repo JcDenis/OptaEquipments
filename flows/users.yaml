@@ -15,17 +15,12 @@
   nodes:
     - 6304fe8d08f0cf47
     - 6b2108622867d8a4
-    - e1988f51d9726446
-    - 59eb596a76a5694a
     - 67d842f3b7ccfa6f
-    - 0241ca22fa9d07b6
-    - 43db6718c6675864
-    - 7161f321fc17076b
     - 3b79f6a078128a33
-    - 79f7abe2870c8049
+    - a183a01927caf5ae
   x: 104
   'y': 39
-  w: 1012
+  w: 572
   h: 202
 - id: 7a7d35c0913aed9f
   type: group
@@ -194,7 +189,7 @@
   x: 145
   'y': 140
   wires:
-    - - 7161f321fc17076b
+    - - a183a01927caf5ae
 - id: 6b2108622867d8a4
   type: link out
   z: adb48ef35d9453c0
@@ -206,59 +201,9 @@
     - 30571b6d70631747
     - ef2a2e8f65ff707e
     - feb590d38372e404
-  x: 1075
+  x: 635
   'y': 140
   wires: []
-- id: e1988f51d9726446
-  type: change
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 80
-  wires:
-    - - 43db6718c6675864
-- id: 59eb596a76a5694a
-  type: change
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 140
-  wires:
-    - - 43db6718c6675864
 - id: 67d842f3b7ccfa6f
   type: change
   z: adb48ef35d9453c0
@@ -273,10 +218,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 200
   wires:
-    - - e1988f51d9726446
+    - - 6b2108622867d8a4
 - id: 922d6d1c4163d169
   type: link in
   z: adb48ef35d9453c0
@@ -1243,27 +1188,6 @@
   'y': 740
   wires:
     - - d6a73921c73395f3
-- id: 0241ca22fa9d07b6
-  type: delay
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: 5ms
-  pauseType: delay
-  timeout: '5'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 590
-  'y': 140
-  wires:
-    - - 59eb596a76a5694a
 - id: d4eed103d53be0ad
   type: ui-text
   z: adb48ef35d9453c0
@@ -1414,50 +1338,6 @@
   'y': 440
   wires:
     - - 25580183784dfa5c
-- id: 43db6718c6675864
-  type: change
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 950
-  'y': 140
-  wires:
-    - - 6b2108622867d8a4
-- id: 7161f321fc17076b
-  type: switch
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: tab
-  property: hmi.tab
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '99'
-      vt: num
-    - t: eq
-      v: '#:(memoryOnly)::describe.pages.users.tab'
-      vt: global
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 270
-  'y': 140
-  wires:
-    - - 3b79f6a078128a33
-    - - 79f7abe2870c8049
-    - - 67d842f3b7ccfa6f
 - id: 30571b6d70631747
   type: link in
   z: adb48ef35d9453c0
@@ -2368,10 +2248,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 490
   'y': 80
   wires:
-    - - e1988f51d9726446
+    - - 6b2108622867d8a4
 - id: 85371bc10c4ae5b2
   type: switch
   z: adb48ef35d9453c0
@@ -2465,24 +2345,6 @@
   'y': 500
   wires:
     - - 6409d1cc419c1f86
-- id: 79f7abe2870c8049
-  type: switch
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: level
-  property: '#:(memoryOnly)::describe.pages.period.level[msg.hmi.level]'
-  propertyType: global
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 140
-  wires:
-    - - 0241ca22fa9d07b6
-    - - 67d842f3b7ccfa6f
 - id: 7e3eaa285d5a39cb
   type: function
   z: adb48ef35d9453c0
@@ -2569,3 +2431,54 @@
   x: 2195
   'y': 500
   wires: []
+- id: a183a01927caf5ae
+  type: function
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: tab &  level
+  func: >-
+    let check = 'users';
+
+
+    msg.class = 'remove';
+
+    msg.enabled = false;
+
+    msg.topic = '';
+
+    msg.payload = '';
+
+
+    if (msg.hmi.tab === global.get('describe.pages["' + check +
+    '"]["tab"]','memoryOnly')) {
+        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+        ) {
+            msg.class = '';
+            msg.enabled = true;
+
+            return [null,msg,null];
+        } else {
+            return [null, null, msg];
+        }
+    }
+
+
+    if (msg.hmi.tab === 99) {
+        return [msg,null,null];
+    }
+
+
+    return [null,null,msg];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 140
+  wires:
+    - - 3b79f6a078128a33
+    - - 6b2108622867d8a4
+    - - 67d842f3b7ccfa6f
