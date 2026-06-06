@@ -147,30 +147,21 @@
     - 61f915b81e717609
     - 28ddb9a136461f72
     - 9bcc6405ebe2c5aa
-    - 50b8901c6e7d6ce0
-    - 52dbb3010fe0e997
-    - b165157ddc25aa16
     - e5d1a8af91104af6
     - cfddc070a8a410f6
-    - 57a5dd62db76d551
-    - e4a90ba331132ca8
-    - 46ec4746aad3d5ec
-    - b6b3ade01008a950
-    - 791b351f80fd0aaf
-    - b02ba3b90ab4e44d
-    - 69da3c9e01a0c873
-    - 6de668fc3fc7e950
-    - e77780c2d07146ca
-    - f583bf043a6465b7
     - 38b20ef4f881e747
-    - 1b52d8eb8e4df9cc
     - f51de6b35c533aec
     - d1be07f97bcb18f0
-    - e47cf5d1982a21b9
+    - 0b1c1ba728d3208a
+    - 8cb2cb755f550ff7
+    - 077f662324cf44a6
+    - 35bba3915e3ab86b
+    - 3fe36612a53ef445
+    - f0ac8f741cf8ed8b
   x: 94
   'y': 1419
-  w: 1672
-  h: 442
+  w: 872
+  h: 382
 - id: 10af438fbe88a4a2
   type: link in
   z: 135b7308617dad08
@@ -1855,96 +1846,35 @@
   x: 145
   'y': 1460
   wires:
-    - - b02ba3b90ab4e44d
+    - - 0b1c1ba728d3208a
 - id: 61f915b81e717609
   type: Drives
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: ''
-  x: 930
-  'y': 1820
+  x: 450
+  'y': 1700
   wires:
-    - - 52dbb3010fe0e997
+    - - 3fe36612a53ef445
 - id: 28ddb9a136461f72
   type: Loadavg
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: ''
-  x: 940
+  x: 460
   'y': 1580
   wires:
-    - - 50b8901c6e7d6ce0
-      - 57a5dd62db76d551
-      - e4a90ba331132ca8
+    - - 077f662324cf44a6
 - id: 9bcc6405ebe2c5aa
   type: Memory
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: ''
   scale: Byte
-  x: 940
-  'y': 1760
+  x: 460
+  'y': 1640
   wires:
-    - - 46ec4746aad3d5ec
-- id: 50b8901c6e7d6ce0
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.device & '|load1meter',\t    'value':$round(msg.payload.loadavg[0]*100,1),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 1580
-  wires:
-    - - 791b351f80fd0aaf
-- id: 52dbb3010fe0e997
-  type: split
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: ''
-  property: payload
-  x: 1110
-  'y': 1820
-  wires:
-    - - b165157ddc25aa16
-- id: b165157ddc25aa16
-  type: switch
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: data
-  property: payload.mount
-  propertyType: msg
-  rules:
-    - t: eq
-      v: /data
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1270
-  'y': 1820
-  wires:
-    - - b6b3ade01008a950
+    - - 35bba3915e3ab86b
 - id: e5d1a8af91104af6
   type: link out
   z: 135b7308617dad08
@@ -1953,7 +1883,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1575
+  x: 775
   'y': 1460
   wires: []
 - id: cfddc070a8a410f6
@@ -1961,7 +1891,7 @@
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: model - local - in
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -1969,275 +1899,18 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1640
+  x: 840
   'y': 1520
   wires: []
-- id: 57a5dd62db76d551
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.device & '|load5meter',\t    'value':$round(msg.payload.loadavg[1]*100,1),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 1640
-  wires:
-    - - 791b351f80fd0aaf
-- id: e4a90ba331132ca8
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.device & '|load15meter',\t    'value':$round(msg.payload.loadavg[2]*100,1),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 1700
-  wires:
-    - - 791b351f80fd0aaf
-- id: 46ec4746aad3d5ec
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.device & '|memorymeter',\t    'value':$round(msg.payload.memusage,1),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 1760
-  wires:
-    - - 791b351f80fd0aaf
-- id: b6b3ade01008a950
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.device & '|diskmeter',\t    'value':$round(msg.payload.capacity*100,1),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1430
-  'y': 1820
-  wires:
-    - - 791b351f80fd0aaf
-- id: 791b351f80fd0aaf
-  type: switch
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: endpoint
-  property: kernel.endpoint
-  propertyType: global
-  rules:
-    - t: hask
-      v: kernel.entity
-      vt: msg
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1280
-  'y': 1520
-  wires:
-    - - f583bf043a6465b7
-- id: b02ba3b90ab4e44d
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: device
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel.device
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 270
-  'y': 1460
-  wires:
-    - - 69da3c9e01a0c873
-- id: 69da3c9e01a0c873
-  type: split
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: device
-  property: payload
-  x: 430
-  'y': 1460
-  wires:
-    - - 6de668fc3fc7e950
-- id: 6de668fc3fc7e950
-  type: switch
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: model
-  property: device
-  propertyType: msg
-  rules:
-    - t: regex
-      v: ^(local)
-      vt: str
-      case: false
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 590
-  'y': 1460
-  wires:
-    - - e77780c2d07146ca
-      - e47cf5d1982a21b9
-- id: e77780c2d07146ca
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: prepare
-  rules:
-    - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.device,''|'')'
-      tot: jsonata
-    - t: set
-      p: id
-      pt: msg
-      to: 'split[1]'
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 760
-  'y': 1520
-  wires:
-    - - 61f915b81e717609
-      - 28ddb9a136461f72
-      - 9bcc6405ebe2c5aa
-      - 38b20ef4f881e747
-- id: f583bf043a6465b7
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: entity
-  rules:
-    - t: set
-      p: kernel.entity
-      pt: msg
-      to: 'kernel.endpoint[msg.kernel.entity]'
-      tot: global
-    - t: delete
-      p: parts
-      pt: msg
-    - t: delete
-      p: split
-      pt: msg
-    - t: delete
-      p: id
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1450
-  'y': 1520
-  wires:
-    - - cfddc070a8a410f6
-      - e5d1a8af91104af6
 - id: 38b20ef4f881e747
   type: Uptime
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: ''
-  x: 940
+  x: 460
   'y': 1520
   wires:
-    - - 1b52d8eb8e4df9cc
-- id: 1b52d8eb8e4df9cc
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.device & '|uptimemeter',\t    'value':$round(msg.payload.uptime,0),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1110
-  'y': 1520
-  wires:
-    - - 791b351f80fd0aaf
+    - - 8cb2cb755f550ff7
 - id: f51de6b35c533aec
   type: comment
   z: 135b7308617dad08
@@ -2253,8 +1926,8 @@
   g: dbcc4077524c4e42
   name: Used to grab local server stats
   info: ''
-  x: 240
-  'y': 1820
+  x: 820
+  'y': 1760
   wires: []
 - id: 030a2f2eac3f5f35
   type: link in
@@ -2293,32 +1966,6 @@
   wires:
     - - 7c5f93321a4b2009
       - d6d4db548fefad53
-- id: e47cf5d1982a21b9
-  type: change
-  z: 135b7308617dad08
-  g: dbcc4077524c4e42
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'watchdog',\t    'entity':msg.device,\t    'value':$millis(),\t    'loop':false\t}"
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1450
-  'y': 1460
-  wires:
-    - - e5d1a8af91104af6
-      - cfddc070a8a410f6
 - id: 14c3c7950eb43435
   type: change
   z: 135b7308617dad08
@@ -2501,3 +2148,227 @@
   wires:
     - - 7c5f93321a4b2009
       - d6d4db548fefad53
+- id: 0b1c1ba728d3208a
+  type: function
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: devices
+  func: |-
+    let devices = global.get('kernel.device','default');
+    if (typeof devices === 'object') {
+        for (const device in devices) {
+            if (device.match((new RegExp('^(local)'))) !== null) {
+                msg.device = device;
+                msg.id = device.split('|')[1];
+
+                node.send(msg);
+            }
+        }
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 280
+  'y': 1460
+  wires:
+    - - 38b20ef4f881e747
+      - 28ddb9a136461f72
+      - 9bcc6405ebe2c5aa
+      - 61f915b81e717609
+      - f0ac8f741cf8ed8b
+- id: 8cb2cb755f550ff7
+  type: function
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: uptime
+  func: >-
+    let endpoint = global.get('kernel.endpoint["' + msg.device +
+    '|uptimemeter"]', 'default');
+
+    if (typeof endpoint === 'string') {
+        return {
+            'topic':'',
+            'payload':'',
+            'kernel':{
+                'type':'state',
+                'entity':endpoint,
+                'value':Math.round(msg.payload.uptime),
+                'loop':false
+            }
+        };
+    }
+
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 650
+  'y': 1520
+  wires:
+    - - e5d1a8af91104af6
+      - cfddc070a8a410f6
+- id: 077f662324cf44a6
+  type: function
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: load
+  func: >-
+    let load1meter = global.get('kernel.endpoint["' + msg.device +
+    '|load1meter"]', 'default');
+
+    if (typeof load1meter === 'string') {
+        node.send({
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'state',
+                'entity': load1meter,
+                'value': (Math.round(msg.payload.loadavg[0] * 1000) / 10),
+                'loop': false
+            }
+        });
+    }
+
+
+    let load5meter = global.get('kernel.endpoint["' + msg.device +
+    '|load5meter"]', 'default');
+
+    if (typeof load5meter === 'string') {
+        node.send({
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'state',
+                'entity': load5meter,
+                'value': (Math.round(msg.payload.loadavg[1] * 1000) / 10),
+                'loop': false
+            }
+        });
+    }
+
+
+    let load15meter = global.get('kernel.endpoint["' + msg.device +
+    '|load15meter"]', 'default');
+
+    if (typeof load15meter === 'string') {
+        node.send({
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'state',
+                'entity': load15meter,
+                'value': (Math.round(msg.payload.loadavg[2] * 1000) / 10),
+                'loop': false
+            }
+        });
+    }
+
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 650
+  'y': 1580
+  wires:
+    - - e5d1a8af91104af6
+      - cfddc070a8a410f6
+- id: 35bba3915e3ab86b
+  type: function
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: memory
+  func: |-
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'state',
+            'entity':msg.device + '|memorymeter',
+            'value':(Math.round(msg.payload.memusage*10) / 10),
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 640
+  'y': 1640
+  wires:
+    - - e5d1a8af91104af6
+      - cfddc070a8a410f6
+- id: 3fe36612a53ef445
+  type: function
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: disk
+  func: |-
+    for (const key in msg.payload) {
+        if (msg.payload[key]['mount'] === '/data') {
+            return {
+                'topic':'',
+                'payload':'',
+                'kernel':{
+                    'type':'state',
+                    'entity':msg.device + '|diskmeter',
+                    'value':(Math.round(msg.payload[key]['capacity'] * 1000) / 10),
+                    'loop':false
+                }
+            };
+        }
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 650
+  'y': 1700
+  wires:
+    - - e5d1a8af91104af6
+      - cfddc070a8a410f6
+- id: f0ac8f741cf8ed8b
+  type: function
+  z: 135b7308617dad08
+  g: dbcc4077524c4e42
+  name: watchdog
+  func: |
+    return {
+        'topic':'',
+        'payload':'',
+        'kernel':{
+            'type':'watchdog',
+            'entity':msg.device,
+            'value':Date.now(),
+            'loop':false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 640
+  'y': 1460
+  wires:
+    - - e5d1a8af91104af6
+      - cfddc070a8a410f6
