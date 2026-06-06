@@ -906,9 +906,9 @@
             "57773a77659dbe20",
             "5c470758da04c4b5",
             "030a2f2eac3f5f35",
-            "db2ba28df474820f",
             "524019ddb3bbdcaa",
-            "eac42932b3a0198e"
+            "eac42932b3a0198e",
+            "c6faebb9fc8de11c"
         ],
         "x": 94,
         "y": 39,
@@ -17695,7 +17695,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 280,
+        "x": 320,
         "y": 80,
         "wires": [
             []
@@ -20107,43 +20107,7 @@
         "y": 260,
         "wires": [
             [
-                "db2ba28df474820f"
-            ]
-        ]
-    },
-    {
-        "id": "db2ba28df474820f",
-        "type": "change",
-        "z": "135b7308617dad08",
-        "g": "44d39e7547289d97",
-        "name": "topic",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "opta/distant/watchdog",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "date"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 330,
-        "y": 260,
-        "wires": [
-            [
-                "7c5f93321a4b2009",
-                "d6d4db548fefad53"
+                "c6faebb9fc8de11c"
             ]
         ]
     },
@@ -20271,7 +20235,7 @@
         "type": "function",
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
-        "name": "topic",
+        "name": "command",
         "func": "if (msg.kernel.model === 'opta') {\n\n    if (msg.kernel.endpoint.match((new RegExp('(reset)$'))) !== null) {\n        for (let rio = 0; rio < 8; rio++) {\n            /* reset an input */\n            if (msg.kernel.endpoint === ('i' + rio + 'reset')) {\n                msg.topic = 'opta/' + msg.kernel.device + '/input/reset';\n                msg.payload = rio;\n\n                delete msg.kernel;\n\n                return msg;\n                /* reset an output */\n            } else if (msg.kernel.endpoint === ('o' + rio + 'reset')) {\n                msg.topic = 'opta/' + msg.kernel.device + '/output/reset';\n                msg.payload = rio;\n\n                delete msg.kernel;\n\n                return msg;\n            }\n        }\n    }\n\n    /* command an output */\n    if (msg.kernel.endpoint.match((new RegExp('^(o)'))) !== null) {\n        for (let eio = 0; eio < 8; eio++) {\n            if (msg.kernel.endpoint === ('o' + eio + 'state')) {\n                msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + eio;\n                msg.payload = msg.kernel.value;\n\n                delete msg.kernel;\n\n                return msg;\n            }\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
@@ -20279,7 +20243,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
+        "x": 320,
         "y": 200,
         "wires": [
             [
@@ -20420,6 +20384,28 @@
             [
                 "e5d1a8af91104af6",
                 "cfddc070a8a410f6"
+            ]
+        ]
+    },
+    {
+        "id": "c6faebb9fc8de11c",
+        "type": "function",
+        "z": "135b7308617dad08",
+        "g": "44d39e7547289d97",
+        "name": "watchdog",
+        "func": "return {\n    'topic':'opta/distant/watchdog',\n    'payload':Date.now()\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "7c5f93321a4b2009",
+                "d6d4db548fefad53"
             ]
         ]
     },

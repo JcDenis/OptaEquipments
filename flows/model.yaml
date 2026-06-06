@@ -24,9 +24,9 @@
     - 57773a77659dbe20
     - 5c470758da04c4b5
     - 030a2f2eac3f5f35
-    - db2ba28df474820f
     - 524019ddb3bbdcaa
     - eac42932b3a0198e
+    - c6faebb9fc8de11c
   x: 94
   'y': 39
   w: 532
@@ -194,7 +194,7 @@
   from: ''
   to: ''
   reg: false
-  x: 280
+  x: 320
   'y': 80
   wires:
     - []
@@ -1939,33 +1939,7 @@
   x: 145
   'y': 260
   wires:
-    - - db2ba28df474820f
-- id: db2ba28df474820f
-  type: change
-  z: 135b7308617dad08
-  g: 44d39e7547289d97
-  name: topic
-  rules:
-    - t: set
-      p: topic
-      pt: msg
-      to: opta/distant/watchdog
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: date
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 330
-  'y': 260
-  wires:
-    - - 7c5f93321a4b2009
-      - d6d4db548fefad53
+    - - c6faebb9fc8de11c
 - id: 14c3c7950eb43435
   type: change
   z: 135b7308617dad08
@@ -2095,7 +2069,7 @@
   type: function
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: topic
+  name: command
   func: |-
     if (msg.kernel.model === 'opta') {
 
@@ -2143,7 +2117,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 330
+  x: 320
   'y': 200
   wires:
     - - 7c5f93321a4b2009
@@ -2372,3 +2346,24 @@
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
+- id: c6faebb9fc8de11c
+  type: function
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: watchdog
+  func: |-
+    return {
+        'topic':'opta/distant/watchdog',
+        'payload':Date.now()
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 320
+  'y': 260
+  wires:
+    - - 7c5f93321a4b2009
+      - d6d4db548fefad53
