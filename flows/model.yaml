@@ -263,7 +263,7 @@
   z: 135b7308617dad08
   g: 44d39e7547289d97
   name: opta - out
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -1666,10 +1666,10 @@
 
             return newMsg;
         }
-    //* else if ((split[2] === 'input' || split[2] === 'output') && split[3] !==
-    'set') {*/
+    } else if ((split[2] === 'input' || split[2] === 'output') && split[3] !==
+    'set') {
 
-    } else if (split[2] === 'input') {
+    //} else if (split[2] === 'input') {
         let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];
         let entity = global.get('kernel.endpoint["' + endpoint + '"]', 'default');
         if (typeof entity === 'string') {
@@ -1683,8 +1683,8 @@
                 'entity': entity,
                 'value': msg.payload,
                 /* Do not loop output */
-                /*'loop': split[2] === 'output' ? true : false */
-                'loop': false 
+                'loop': split[2] === 'output' ? true : false
+                //'loop': false 
             };
 
             return newMsg;
