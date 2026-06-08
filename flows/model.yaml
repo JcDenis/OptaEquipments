@@ -27,10 +27,12 @@
     - 524019ddb3bbdcaa
     - eac42932b3a0198e
     - c6faebb9fc8de11c
+    - 268afb141777587b
+    - cfd036160380a8a6
   x: 94
   'y': 39
-  w: 532
-  h: 382
+  w: 992
+  h: 322
 - id: c0b72044a49a3f76
   type: group
   z: 135b7308617dad08
@@ -253,7 +255,7 @@
   correl: ''
   expiry: ''
   broker: f516c1341f0f634c
-  x: 490
+  x: 670
   'y': 200
   wires: []
 - id: d6d4db548fefad53
@@ -287,8 +289,8 @@
   g: 44d39e7547289d97
   name: 'Using firmware OptaLinker - https://github.com/JcDenis/OptaLinker'
   info: ''
-  x: 360
-  'y': 380
+  x: 820
+  'y': 320
   wires: []
 - id: f7245ef690c212b6
   type: link in
@@ -1450,7 +1452,7 @@
   g: c0b72044a49a3f76
   name: 'Settings after a reset: 192.168.1.2 admin/admin'
   info: ''
-  x: 1080
+  x: 1100
   'y': 680
   wires: []
 - id: b3ffc6b86fdc514c
@@ -1640,15 +1642,18 @@
   z: 135b7308617dad08
   g: 44d39e7547289d97
   name: kernel
-  func: |-
+  func: >-
     let newMsg = {
         'topic':'',
         'payload':'',
         'kernel':{}
     };
 
-    /* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io */
+
+    /* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */
+
     let split = msg.topic.split('/');
+
 
     if (split[2] === 'watchdog') {
         if (split[1] !== 'distant') {
@@ -1661,7 +1666,10 @@
 
             return newMsg;
         }
-    } else if (split[2] === 'input' || split[2] === 'output') {
+    //* else if ((split[2] === 'input' || split[2] === 'output') && split[3] !==
+    'set') {*/
+
+    } else if (split[2] === 'input') {
         let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];
         let entity = global.get('kernel.endpoint["' + endpoint + '"]', 'default');
         if (typeof entity === 'string') {
@@ -1674,12 +1682,15 @@
                 'type': 'state',
                 'entity': entity,
                 'value': msg.payload,
+                /* Do not loop output */
+                /*'loop': split[2] === 'output' ? true : false */
                 'loop': false 
             };
 
             return newMsg;
         }
     }
+
 
     return;
   outputs: 1
@@ -1748,8 +1759,8 @@
   x: 320
   'y': 200
   wires:
-    - - 7c5f93321a4b2009
-      - d6d4db548fefad53
+    - - d6d4db548fefad53
+      - 268afb141777587b
 - id: 0b1c1ba728d3208a
   type: function
   z: 135b7308617dad08
@@ -1993,8 +2004,8 @@
   x: 320
   'y': 260
   wires:
-    - - 7c5f93321a4b2009
-      - d6d4db548fefad53
+    - - d6d4db548fefad53
+      - 268afb141777587b
 - id: 646cb6874a24fd76
   type: function
   z: 135b7308617dad08
@@ -2123,3 +2134,33 @@
   'y': 620
   wires:
     - - 88c665fa97189006
+- id: 268afb141777587b
+  type: delay
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: 2msg/s/t
+  pauseType: rate
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '2'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 500
+  'y': 200
+  wires:
+    - - 7c5f93321a4b2009
+- id: cfd036160380a8a6
+  type: comment
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: opta bugs if more than 2 mgs / sec !?
+  info: ''
+  x: 640
+  'y': 160
+  wires: []

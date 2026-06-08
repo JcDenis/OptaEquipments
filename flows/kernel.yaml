@@ -61,7 +61,7 @@
   x: 68
   'y': 3853
   w: 2984
-  h: 1094
+  h: 1054
 - id: 41bba9b342eebdae
   type: group
   z: f6f2187d.f17ca8
@@ -648,7 +648,7 @@
     - 6403a6dd4a93026f
     - 1381a082a7aefd44
   x: 94
-  'y': 4579
+  'y': 4539
   w: 2892
   h: 222
 - id: d555605b8833d020
@@ -663,13 +663,11 @@
   nodes:
     - c7dc8df688a74cbe
     - eb384e257ce24740
-    - 922cb235f01a6bb5
-    - 2dbfc6a47bde3a50
-    - f19974c432c729fd
-    - 316ce98ece8ea011
+    - aa33c973e7084ab0
+    - bf59724bfb1762b4
   x: 104
   'y': 3879
-  w: 722
+  w: 522
   h: 142
 - id: cd36ac26e65bd7c0
   type: group
@@ -684,7 +682,7 @@
     - ffd5478901273f0d
     - 43e31718ad9c51ca
   x: 94
-  'y': 4839
+  'y': 4799
   w: 412
   h: 82
 - id: 023034158f7c14f0
@@ -2499,7 +2497,7 @@
   x: 145
   'y': 3980
   wires:
-    - - 2dbfc6a47bde3a50
+    - - bf59724bfb1762b4
 - id: d0bf81ce512ab961
   type: link out
   z: f6f2187d.f17ca8
@@ -2509,7 +2507,7 @@
   links:
     - e60e4ab7617738c3
   x: 2775
-  'y': 4700
+  'y': 4660
   wires: []
 - id: 2c4e7cd9d987d51e
   type: inject
@@ -2615,7 +2613,7 @@
   z: f6f2187d.f17ca8
   g: 31a48d3959ce4d06
   name: kernel - mqtt in
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -3580,7 +3578,7 @@
   x: 270
   'y': 3920
   wires:
-    - - 2dbfc6a47bde3a50
+    - - bf59724bfb1762b4
 - id: 29a9b95e09a86b21
   type: change
   z: f6f2187d.f17ca8
@@ -4072,7 +4070,7 @@
   name: check equipments componants and pilot them
   info: ''
   x: 290
-  'y': 4640
+  'y': 4600
   wires: []
 - id: 6a3e8d3fe7c52a79
   type: switch
@@ -4310,49 +4308,9 @@
   to: ''
   reg: false
   x: 170
-  'y': 4760
+  'y': 4720
   wires:
     - - a267ddd6d73021d0
-- id: 922cb235f01a6bb5
-  type: change
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: set
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::teams'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::periods'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::exists'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::pilots'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: row
-      pt: msg
-      to: '{}'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 750
-  'y': 3980
-  wires:
-    - - 2992b94eb45e9376
 - id: a267ddd6d73021d0
   type: split
   z: f6f2187d.f17ca8
@@ -4366,7 +4324,7 @@
   addname: row.entity
   property: payload
   x: 330
-  'y': 4760
+  'y': 4720
   wires:
     - - 50b2058aba28a3bc
 - id: 50b2058aba28a3bc
@@ -4404,7 +4362,7 @@
   to: ''
   reg: false
   x: 510
-  'y': 4760
+  'y': 4720
   wires:
     - - bd0bf46a5cad87e4
 - id: bd0bf46a5cad87e4
@@ -4423,7 +4381,7 @@
   repair: false
   outputs: 2
   x: 710
-  'y': 4760
+  'y': 4720
   wires:
     - - 1cce8554382bef66
     - - 7de41ff682f3d530
@@ -4443,7 +4401,7 @@
   repair: false
   outputs: 2
   x: 900
-  'y': 4740
+  'y': 4700
   wires:
     - - 801e1fa5f0215d53
     - - 7de41ff682f3d530
@@ -4466,7 +4424,7 @@
     - t: set
       p: row.value
       pt: msg
-      to: 'msg.reverse=true?(msg.row.value=true?0:1):$number(msg.row.value)'
+      to: 'msg.reverse=true?(msg.row.value=true?0:1):(msg.row.value=true?1:0)'
       tot: jsonata
   action: ''
   property: ''
@@ -4474,7 +4432,7 @@
   to: ''
   reg: false
   x: 1460
-  'y': 4680
+  'y': 4640
   wires:
     - - 414a253aa91476b8
 - id: 414a253aa91476b8
@@ -4493,7 +4451,7 @@
   repair: false
   outputs: 2
   x: 1650
-  'y': 4680
+  'y': 4640
   wires:
     - - 097dab22c460b69a
     - - ea1106317f4b582b
@@ -4514,7 +4472,7 @@
   repair: false
   outputs: 2
   x: 1090
-  'y': 4720
+  'y': 4680
   wires:
     - - 1381a082a7aefd44
     - - 7de41ff682f3d530
@@ -4540,7 +4498,7 @@
   to: ''
   reg: false
   x: 1830
-  'y': 4660
+  'y': 4620
   wires:
     - - 9c2d87f6c7858ec0
 - id: 9c2d87f6c7858ec0
@@ -4559,7 +4517,7 @@
   repair: false
   outputs: 2
   x: 1990
-  'y': 4660
+  'y': 4620
   wires:
     - - f495490e76667115
     - - 7de41ff682f3d530
@@ -4581,7 +4539,7 @@
   topic: topic
   outputs: 2
   x: 2150
-  'y': 4640
+  'y': 4600
   wires:
     - - 6403a6dd4a93026f
     - - 994034a88510c20c
@@ -4602,7 +4560,7 @@
   to: ''
   reg: false
   x: 2320
-  'y': 4660
+  'y': 4620
   wires:
     - - ea1106317f4b582b
 - id: ea1106317f4b582b
@@ -4641,7 +4599,7 @@
   to: ''
   reg: false
   x: 2490
-  'y': 4700
+  'y': 4660
   wires:
     - - 7de41ff682f3d530
       - 494f4167adde1a5f
@@ -4659,7 +4617,7 @@
   statusVal: ''
   statusType: auto
   x: 2850
-  'y': 4640
+  'y': 4600
   wires: []
 - id: 7de41ff682f3d530
   type: join
@@ -4683,7 +4641,7 @@
   reduceInitType: ''
   reduceFixup: ''
   x: 2650
-  'y': 4760
+  'y': 4720
   wires:
     - - ffd5478901273f0d
 - id: ffd5478901273f0d
@@ -4733,7 +4691,7 @@
   to: ''
   reg: false
   x: 170
-  'y': 4880
+  'y': 4840
   wires:
     - - 43e31718ad9c51ca
 - id: 494f4167adde1a5f
@@ -4756,7 +4714,7 @@
   to: ''
   reg: false
   x: 2650
-  'y': 4700
+  'y': 4660
   wires:
     - - d0bf81ce512ab961
       - 1043f6d05886c68c
@@ -4774,7 +4732,7 @@
   statusVal: ''
   statusType: auto
   x: 370
-  'y': 4880
+  'y': 4840
   wires: []
 - id: b3b9f0ad1f7b81dc
   type: debug
@@ -4820,54 +4778,6 @@
   'y': 3200
   wires:
     - - 886e458678ddf131
-- id: 2dbfc6a47bde3a50
-  type: switch
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: team
-  property: kernel.team
-  propertyType: global
-  rules:
-    - t: nempty
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 270
-  'y': 3980
-  wires:
-    - - f19974c432c729fd
-- id: f19974c432c729fd
-  type: switch
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: period
-  property: kernel.period
-  propertyType: global
-  rules:
-    - t: nempty
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 430
-  'y': 3980
-  wires:
-    - - 316ce98ece8ea011
-- id: 316ce98ece8ea011
-  type: switch
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: state
-  property: kernel.state
-  propertyType: global
-  rules:
-    - t: nempty
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 590
-  'y': 3980
-  wires:
-    - - 922cb235f01a6bb5
 - id: 8415b61e8bd93936
   type: function
   z: f6f2187d.f17ca8
@@ -5334,7 +5244,7 @@
   to: ''
   reg: false
   x: 2320
-  'y': 4620
+  'y': 4580
   wires:
     - - ea1106317f4b582b
 - id: 1381a082a7aefd44
@@ -5358,7 +5268,7 @@
   finalize: ''
   libs: []
   x: 1280
-  'y': 4700
+  'y': 4660
   wires:
     - - 3a08e95dd0d7436f
     - - 7de41ff682f3d530
@@ -5975,3 +5885,53 @@
     - - 7bba6594f41302c2
       - 68593265cb4e2507
       - 23dd24021e2cecf1
+- id: aa33c973e7084ab0
+  type: debug
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: kernel - period - 1/5
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 490
+  'y': 3980
+  wires: []
+- id: bf59724bfb1762b4
+  type: function
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: prepare
+  func: |-
+    if (typeof global.get('kernel.team','default') === 'object'
+        && typeof global.get('kernel.period','default') === 'object'
+        && typeof global.get('kernel.state','default') === 'object'
+    ) {
+        flow.set('teams', {}, 'memoryOnly');
+        flow.set('periods', {}, 'memoryOnly');
+        flow.set('exists', {}, 'memoryOnly');
+        flow.set('pilots', {}, 'memoryOnly');
+
+        return {
+            'topic':'',
+            'payload':'',
+            'row':{}
+        };
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 280
+  'y': 3980
+  wires:
+    - - 2992b94eb45e9376
+      - aa33c973e7084ab0
