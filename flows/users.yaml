@@ -42,26 +42,16 @@
     - 4c08c3e633d35558
     - de03d6063f93c65d
     - c402534d90951626
-    - 314dd3c75fb2b8ac
-    - 0facfb446c8b2cd1
-    - 2e3db75682fbb883
-    - 7f0f91744c2f3ae9
-    - 8c7b89e2fe138b61
-    - b2a690e888412212
     - 0a619717ada5bdb5
-    - dd970abf37392a8c
-    - 06adb713099af37a
-    - deb2b85132bb5e7b
-    - f86e9f63b099b15d
-    - e12f39dddbe8b107
     - 960524ae838673ed
     - 804a79a88a862567
     - 6b45402461798a78
     - dc1ce6f61f7a41ac
     - 9d8037e6153c0303
+    - 30d032935f880160
   x: 104
   'y': 1179
-  w: 3232
+  w: 1632
   h: 202
 - id: a69df92e27bcc577
   type: group
@@ -867,7 +857,7 @@
   x: 1410
   'y': 1340
   wires:
-    - - 314dd3c75fb2b8ac
+    - - 30d032935f880160
 - id: de03d6063f93c65d
   type: switch
   z: adb48ef35d9453c0
@@ -904,120 +894,6 @@
   'y': 1340
   wires:
     - - 4c08c3e633d35558
-- id: 314dd3c75fb2b8ac
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: type
-  property: payload
-  propertyType: msg
-  rules:
-    - t: istype
-      v: object
-      vt: object
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1570
-  'y': 1340
-  wires:
-    - - 0facfb446c8b2cd1
-- id: 0facfb446c8b2cd1
-  type: split
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: login
-  property: payload
-  x: 1730
-  'y': 1340
-  wires:
-    - - 06adb713099af37a
-- id: 2e3db75682fbb883
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: pass
-  property: payload
-  propertyType: msg
-  rules:
-    - t: hask
-      v: pass
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 2050
-  'y': 1280
-  wires:
-    - - 7f0f91744c2f3ae9
-    - - dd970abf37392a8c
-- id: 7f0f91744c2f3ae9
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: level
-  property: payload
-  propertyType: msg
-  rules:
-    - t: hask
-      v: level
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 2210
-  'y': 1260
-  wires:
-    - - 8c7b89e2fe138b61
-    - - dd970abf37392a8c
-- id: 8c7b89e2fe138b61
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: plant
-  property: payload
-  propertyType: msg
-  rules:
-    - t: hask
-      v: plant
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 2370
-  'y': 1240
-  wires:
-    - - f86e9f63b099b15d
-    - - dd970abf37392a8c
-- id: b2a690e888412212
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: global
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::auth[msg.login]'
-      pt: global
-      to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2850
-  'y': 1220
-  wires:
-    - - dd970abf37392a8c
 - id: 0a619717ada5bdb5
   type: link out
   z: adb48ef35d9453c0
@@ -1028,80 +904,9 @@
     - 30571b6d70631747
     - 922d6d1c4163d169
     - b75938c74c41ca5e
-  x: 3295
+  x: 1695
   'y': 1340
   wires: []
-- id: dd970abf37392a8c
-  type: join
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 3010
-  'y': 1340
-  wires:
-    - - deb2b85132bb5e7b
-- id: 06adb713099af37a
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: exists
-  property: '#:(memoryOnly)::auth'
-  propertyType: global
-  rules:
-    - t: hask
-      v: login
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1890
-  'y': 1340
-  wires:
-    - - dd970abf37392a8c
-    - - 2e3db75682fbb883
-- id: deb2b85132bb5e7b
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: file
-      pt: msg
-    - t: delete
-      p: login
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 3170
-  'y': 1340
-  wires:
-    - - 0a619717ada5bdb5
 - id: 5090288d785383e7
   type: ui-form
   z: adb48ef35d9453c0
@@ -1281,46 +1086,6 @@
   x: 490
   'y': 1220
   wires: []
-- id: f86e9f63b099b15d
-  type: switch
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: lang
-  property: payload
-  propertyType: msg
-  rules:
-    - t: hask
-      v: lang
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 2530
-  'y': 1220
-  wires:
-    - - b2a690e888412212
-    - - e12f39dddbe8b107
-- id: e12f39dddbe8b107
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: lang
-  rules:
-    - t: set
-      p: payload.lang
-      pt: msg
-      to: fr
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2690
-  'y': 1280
-  wires:
-    - - b2a690e888412212
 - id: 80656215bea3ab16
   type: switch
   z: adb48ef35d9453c0
@@ -2504,3 +2269,55 @@
   'y': 140
   wires:
     - - 6b2108622867d8a4
+- id: 30d032935f880160
+  type: function
+  z: adb48ef35d9453c0
+  g: 7a7d35c0913aed9f
+  name: users
+  func: |-
+    if (typeof msg.payload === 'object') {
+        for (const login in msg.payload) {
+            if (typeof msg.payload[login]["pass"] === 'string'
+                && typeof msg.payload[login]["pass"] === 'string'
+                && typeof msg.payload[login]["plant"] === 'string'
+                && typeof msg.payload[login]["level"] === 'string'
+                && typeof global.get('auth["' + login + '"]["level"]', 'memoryOnly') !== 'string'
+            ) {
+                if (typeof msg.payload[login]["lang"] !== 'string') {
+                    msg.payload[login]["lang"] = 'fr';
+                }
+                if (typeof msg.payload[login]["telegram"] !== 'string') {
+                    msg.payload[login]["telegram"] = '';
+                }
+
+                if (msg.payload[login]["level"] === 'admin') {
+                    flow.set('has_admin', true, 'memoryOnly');
+                }
+
+                global.set('auth["' + login + '"]',{
+                    'pass':msg.payload[login]["pass"],
+                    'level':msg.payload[login]["level"],
+                    'plant':msg.payload[login]["plant"],
+                    'lang': msg.payload[login]["lang"],
+                    'telegram': msg.payload[login]["telegram"]
+                }, 'memoryOnly');
+            }
+        }
+
+        msg.payload = '';
+        delete msg.file;
+
+        return msg;
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1570
+  'y': 1340
+  wires:
+    - - 0a619717ada5bdb5
