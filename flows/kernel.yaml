@@ -153,6 +153,7 @@
     - 9a4674dbb273d694
     - 3c215bf586961f13
     - 7cfdee38944d5efd
+    - 326a65be9a48891b
   x: 104
   'y': 4839
   w: 722
@@ -537,13 +538,13 @@
     label: true
   nodes:
     - aaa4b0dfa4f0d7a8
-    - 403e19609eb00cac
     - a2867f8c84273968
     - a8cfd0368ece5ab1
-    - bdcf649d70349dfc
+    - 1fdf8a4e8af306b6
+    - c3bd86c35d3e4867
   x: 104
   'y': 1839
-  w: 662
+  w: 482
   h: 142
 - id: a49a01470fb908e8
   type: group
@@ -588,7 +589,7 @@
     - 226dbf7cf0162748
   x: 94
   'y': 4239
-  w: 832
+  w: 812
   h: 142
 - id: 7d481df1a0362e5a
   type: group
@@ -698,6 +699,7 @@
     - e5d1a8af91104af6
     - 23de37c45b16e5e1
     - 59d89682cd69e5c1
+    - e7c92a87345bf679
   x: 145
   'y': 680
   wires:
@@ -786,7 +788,7 @@
   x: 145
   'y': 1940
   wires:
-    - - bdcf649d70349dfc
+    - - 1fdf8a4e8af306b6
 - id: 575b91a30deac00d
   type: link out
   z: f6f2187d.f17ca8
@@ -1049,65 +1051,6 @@
   'y': 3140
   wires:
     - - 457bd17747e44d56
-- id: 403e19609eb00cac
-  type: change
-  z: f6f2187d.f17ca8
-  g: bbb29723a86d5dcc
-  name: prepare
-  rules:
-    - t: set
-      p: automate
-      pt: msg
-      to: '#:(memoryOnly)::describe.app.automate'
-      tot: global
-    - t: set
-      p: topic
-      pt: msg
-      to: '$join([msg.automate, msg.kernel.type, msg.kernel.entity], ''/'')'
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: kernel.value
-      tot: msg
-    - t: set
-      p: qos
-      pt: msg
-      to: '0'
-      tot: num
-    - t: set
-      p: retain
-      pt: msg
-      to: msg.kernel.delete=true
-      tot: jsonata
-    - t: delete
-      p: kernel
-      pt: msg
-    - t: delete
-      p: form
-      pt: msg
-    - t: delete
-      p: options
-      pt: msg
-    - t: delete
-      p: action
-      pt: msg
-    - t: delete
-      p: automate
-      pt: msg
-    - t: delete
-      p: endpoint
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 440
-  'y': 1940
-  wires:
-    - - a2867f8c84273968
-      - a8cfd0368ece5ab1
 - id: a2867f8c84273968
   type: mqtt out
   z: f6f2187d.f17ca8
@@ -1122,7 +1065,7 @@
   correl: ''
   expiry: ''
   broker: f516c1341f0f634c
-  x: 610
+  x: 430
   'y': 1940
   wires: []
 - id: d29c391315d7b6cc
@@ -1681,7 +1624,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 640
+  x: 460
   'y': 1880
   wires: []
 - id: 3a4b0a3f566334ac
@@ -2595,9 +2538,9 @@
   type: comment
   z: f6f2187d.f17ca8
   g: 31a48d3959ce4d06
-  name: update kernel values from mqtt
+  name: from kernel mqtt topic
   info: ''
-  x: 350
+  x: 240
   'y': 1700
   wires: []
 - id: e121bb6441bf21e5
@@ -3245,22 +3188,6 @@
   x: 555
   'y': 620
   wires: []
-- id: bdcf649d70349dfc
-  type: switch
-  z: f6f2187d.f17ca8
-  g: bbb29723a86d5dcc
-  name: tomqtt
-  property: kernel.app.tomqtt
-  propertyType: global
-  rules:
-    - t: 'true'
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 270
-  'y': 1940
-  wires:
-    - - 403e19609eb00cac
 - id: 9f7fc8c3bf66bac8
   type: switch
   z: f6f2187d.f17ca8
@@ -3562,7 +3489,7 @@
   z: f6f2187d.f17ca8
   g: cd36ac26e65bd7c0
   name: kernel - period - 5/5
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -4728,7 +4655,7 @@
   from: ''
   to: ''
   reg: false
-  x: 200
+  x: 180
   'y': 4340
   wires:
     - - c1734db88ce0f26c
@@ -4744,7 +4671,7 @@
   stream: false
   addname: row.line
   property: payload
-  x: 370
+  x: 350
   'y': 4340
   wires:
     - - 78e60df6e7d55f08
@@ -4805,7 +4732,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 530
+  x: 510
   'y': 4340
   wires:
     - - c465f42f7c279af1
@@ -4831,7 +4758,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 690
+  x: 670
   'y': 4340
   wires:
     - - a381b9c95d8571bd
@@ -4848,7 +4775,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 730
+  x: 710
   'y': 4280
   wires: []
 - id: a381b9c95d8571bd
@@ -4870,7 +4797,7 @@
   from: ''
   to: ''
   reg: false
-  x: 850
+  x: 830
   'y': 4340
   wires:
     - - 869d5da5446a4209
@@ -5131,3 +5058,48 @@
     - - 13260a7e1b984eab
     - - 050a29c043a85584
     - - 11918aa3566a7384
+- id: 1fdf8a4e8af306b6
+  type: function
+  z: f6f2187d.f17ca8
+  g: bbb29723a86d5dcc
+  name: topic
+  func: |-
+    if (global.get('kernel.app.tomqtt', 'default') === true) {
+        return  {
+            'topic': [(global.get('describe.app.automate', 'default') || 'optaequipments'), msg.kernel.type, msg.kernel.entity].join('/'),
+            'payload':msg.kernel.value,
+            'qos':0,
+            'retain':msg.kernel?.delete === true ? true : false
+        };
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 1940
+  wires:
+    - - a2867f8c84273968
+      - a8cfd0368ece5ab1
+- id: c3bd86c35d3e4867
+  type: comment
+  z: f6f2187d.f17ca8
+  g: bbb29723a86d5dcc
+  name: to kernel mqtt topic
+  info: ''
+  x: 230
+  'y': 1880
+  wires: []
+- id: 326a65be9a48891b
+  type: comment
+  z: f6f2187d.f17ca8
+  g: ce2669cea2e618a0
+  name: Send ping to Opta devices
+  info: ''
+  x: 250
+  'y': 4880
+  wires: []
