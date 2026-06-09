@@ -271,7 +271,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 500
+  x: 680
   'y': 260
   wires: []
 - id: 57773a77659dbe20
@@ -1710,6 +1710,9 @@
   g: 44d39e7547289d97
   name: command
   func: |-
+    delete msg.qos;
+    delete msg.retain;
+
     if (msg.kernel.model === 'opta') {
 
         if (msg.kernel.endpoint.match((new RegExp('(reset)$'))) !== null) {
@@ -1759,8 +1762,7 @@
   x: 320
   'y': 200
   wires:
-    - - d6d4db548fefad53
-      - 268afb141777587b
+    - - 268afb141777587b
 - id: 0b1c1ba728d3208a
   type: function
   z: 135b7308617dad08
@@ -2004,8 +2006,7 @@
   x: 320
   'y': 260
   wires:
-    - - d6d4db548fefad53
-      - 268afb141777587b
+    - - 268afb141777587b
 - id: 646cb6874a24fd76
   type: function
   z: 135b7308617dad08
@@ -2155,6 +2156,7 @@
   'y': 200
   wires:
     - - 7c5f93321a4b2009
+      - d6d4db548fefad53
 - id: cfd036160380a8a6
   type: comment
   z: 135b7308617dad08

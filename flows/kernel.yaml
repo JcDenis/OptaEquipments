@@ -116,7 +116,7 @@
     - 216f821485a9eb19
   x: 78
   'y': 553
-  w: 1034
+  w: 874
   h: 614
 - id: f9da6ea6fa5cc954
   type: group
@@ -168,19 +168,16 @@
     label: true
   nodes:
     - e60e4ab7617738c3
-    - fa344a634113a2e8
     - 050a29c043a85584
     - 9b7c164fdabb6ad3
     - 6eb86d0c1be60374
     - d3c22873709318bb
     - 13260a7e1b984eab
-    - 09c888ae37553c13
-    - 392fd96f1252f664
     - 11918aa3566a7384
-    - 77ce3e55fadf8875
+    - d45e4f001b17cb32
   x: 104
   'y': 579
-  w: 982
+  w: 822
   h: 202
 - id: dcb47b97829a1b78
   type: group
@@ -335,10 +332,9 @@
     - be36f6bbac4c54f7
     - 9b9c102ae72a95d5
     - eda91fc78f2fdb61
-    - 70d7a1661a2e02de
   x: 104
   'y': 819
-  w: 642
+  w: 482
   h: 202
 - id: 64e28c88b4c7b710
   type: group
@@ -1386,7 +1382,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 620
+  x: 460
   'y': 860
   wires: []
 - id: 8894c5d4699b0a0c
@@ -1397,7 +1393,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 555
+  x: 395
   'y': 920
   wires: []
 - id: ddf293f86a1dd28c
@@ -1500,22 +1496,6 @@
   'y': 1340
   wires:
     - - 688c8cd091260c94
-- id: fa344a634113a2e8
-  type: debug
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: kernel - loop - state
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 790
-  'y': 740
-  wires: []
 - id: 050a29c043a85584
   type: link out
   z: f6f2187d.f17ca8
@@ -1526,8 +1506,8 @@
     - 1472ee8de6253740
     - 6f0b1eb0278764e4
     - e47fa68c1a570f10
-  x: 715
-  'y': 620
+  x: 555
+  'y': 680
   wires: []
 - id: 7bba6594f41302c2
   type: link out
@@ -1579,8 +1559,8 @@
   retentionPolicyV18Flux: ''
   org: optaequipments
   bucket: state
-  x: 940
-  'y': 680
+  x: 780
+  'y': 740
   wires: []
 - id: 3450fffd4f368319
   type: ui-template
@@ -1669,8 +1649,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 950
-  'y': 620
+  x: 790
+  'y': 680
   wires: []
 - id: 339a18bb070b06a2
   type: debug
@@ -2653,7 +2633,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 555
+  x: 395
   'y': 980
   wires: []
 - id: b70ce1d253cc53c8
@@ -2769,7 +2749,7 @@
   x: 270
   'y': 680
   wires:
-    - - 09c888ae37553c13
+    - - d45e4f001b17cb32
 - id: de94cabe86867469
   type: debug
   z: f6f2187d.f17ca8
@@ -2790,10 +2770,10 @@
   type: comment
   z: f6f2187d.f17ca8
   g: f84a47fbf723594b
-  name: This rebuilt the global kernel object
+  name: RAZ & rebuilt kernel
   info: ''
-  x: 360
-  'y': 980
+  x: 230
+  'y': 860
   wires: []
 - id: 8c484fa5249c34f6
   type: change
@@ -4025,92 +4005,6 @@
   x: 510
   'y': 4880
   wires: []
-- id: 09c888ae37553c13
-  type: function
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: loop
-  func: |-
-    delete msg.qos;
-    delete msg.retain;
-
-    /* check kernel message */
-    if (typeof msg.kernel === 'object'
-        && typeof msg.kernel.type === 'string'
-        && typeof msg.kernel.entity === 'string'
-        && typeof msg.kernel.value !== 'undefined'
-        && typeof msg.kernel.loop === 'boolean'
-    ) {
-        /* deletion requested */
-        if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
-            global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', undefined, 'default');
-        } else {
-            let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'default');
-            /* new value is not the same as existing */
-            if (current !== msg.kernel.value) {
-                //msg.kernel.loop = false;
-                /* update kernel value */
-                global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', msg.kernel.value, 'default');
-            }
-
-            /* do loop */
-            if (msg.kernel.loop === false) {
-                return {
-                    'topic':'',
-                    'payload':'',
-                    'kernel':msg.kernel
-                };
-            }
-        }
-    }
-
-    return;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 430
-  'y': 680
-  wires:
-    - - 13260a7e1b984eab
-      - 392fd96f1252f664
-- id: 392fd96f1252f664
-  type: function
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: kernel
-  func: |-
-    if (msg.kernel.type === 'state') {
-        let endpoint = flow.get('reverse_endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
-        if (typeof endpoint === 'string') {
-            let esplit = endpoint.split("|");
-            msg.kernel.model = esplit[0];
-            msg.kernel.device = esplit[1];
-            msg.kernel.endpoint = esplit[2];
-
-            let csplit = msg.kernel.entity.split("|");
-            msg.kernel.equipment = csplit[0];
-            msg.kernel.component = csplit[1];
-
-            return msg;
-        }
-    }
-
-    return;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 590
-  'y': 680
-  wires:
-    - - 050a29c043a85584
-      - fa344a634113a2e8
-      - 11918aa3566a7384
 - id: 11918aa3566a7384
   type: function
   z: f6f2187d.f17ca8
@@ -4134,8 +4028,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 740
-  'y': 680
+  x: 590
+  'y': 740
   wires:
     - - 9b7c164fdabb6ad3
       - 6eb86d0c1be60374
@@ -4307,8 +4201,8 @@
 
     msg.payload = 'Lecture du fichier de sauvegarde terminée';
 
-    return msg;
-  outputs: 1
+    return [null,msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -4317,27 +4211,8 @@
   x: 270
   'y': 920
   wires:
-    - - 70d7a1661a2e02de
-- id: 70d7a1661a2e02de
-  type: switch
-  z: f6f2187d.f17ca8
-  g: f84a47fbf723594b
-  name: notice
-  property: payload
-  propertyType: msg
-  rules:
-    - t: eq
-      v: ''
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 920
-  wires:
-    - - 62a937227be99b05
-      - 8894c5d4699b0a0c
+    - - 8894c5d4699b0a0c
+      - 62a937227be99b05
     - - 32238bfb65baf1bc
 - id: dfc9dad1cc3c345e
   type: function
@@ -5179,12 +5054,80 @@
   'y': 4580
   wires:
     - - ffd5478901273f0d
-- id: 77ce3e55fadf8875
-  type: comment
+- id: d45e4f001b17cb32
+  type: function
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
-  name: 'todo: always update db'
-  info: ''
-  x: 480
-  'y': 740
-  wires: []
+  name: loop
+  func: |-
+    delete msg.qos;
+    delete msg.retain;
+
+    /* Node counter */
+    /*
+    let loopCount = flow.get('loopCount','memoryOnly')||0;
+    flow.set('loopCount', loopCount +1, 'memoryOnly');
+    node.status({text:loopCount});
+    //*/
+
+    /* check kernel message */
+    if (typeof msg.kernel === 'object'
+        && typeof msg.kernel.type === 'string'
+        && typeof msg.kernel.entity === 'string'
+        && typeof msg.kernel.value !== 'undefined'
+        && typeof msg.kernel.loop === 'boolean'
+    ) {
+        /* deletion requested */
+        if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
+            global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', undefined, 'default');
+        } else {
+            let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'default');
+            /* new value is not the same as existing */
+            if (current !== msg.kernel.value) {
+                //msg.kernel.loop = false;
+                /* update kernel value */
+                global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', msg.kernel.value, 'default');
+            }
+
+            delete msg.kernel.model;
+            if (msg.kernel.type === 'state') {
+                let endpoint = flow.get('reverse_endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
+                if (typeof endpoint === 'string') {
+                    let esplit = endpoint.split("|");
+                    msg.kernel.model = esplit[0];
+                    msg.kernel.device = esplit[1];
+                    msg.kernel.endpoint = esplit[2];
+
+                    let csplit = msg.kernel.entity.split("|");
+                    msg.kernel.equipment = csplit[0];
+                    msg.kernel.component = csplit[1];
+                }
+            }
+
+            let newMsg = {
+                'topic':'',
+                'payload':'',
+                'kernel':msg.kernel
+            };
+
+            return [
+                msg.kernel.loop === false ? newMsg : null,
+                typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,
+                typeof msg.kernel.model === 'string' ? newMsg : null
+            ];
+        }
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 430
+  'y': 680
+  wires:
+    - - 13260a7e1b984eab
+    - - 050a29c043a85584
+    - - 11918aa3566a7384
