@@ -1824,7 +1824,7 @@
             "cae4fb60a956e73b"
         ],
         "x": 94,
-        "y": 459,
+        "y": 399,
         "w": 1272,
         "h": 262
     },
@@ -1884,7 +1884,7 @@
             "3680c4078ba7fbc1"
         ],
         "x": 94,
-        "y": 759,
+        "y": 699,
         "w": 1972,
         "h": 562
     },
@@ -2744,7 +2744,7 @@
             "f0ac8f741cf8ed8b"
         ],
         "x": 94,
-        "y": 1359,
+        "y": 1299,
         "w": 872,
         "h": 382
     },
@@ -3611,7 +3611,7 @@
         "type": "group",
         "z": "f6f2187d.f17ca8",
         "g": "41bba9b342eebdae",
-        "name": "kernel - endpoint",
+        "name": "kernel - uri",
         "style": {
             "fill": "#ffC000",
             "fill-opacity": "0.05",
@@ -7978,7 +7978,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "cd36ac26e65bd7c0",
         "name": "kernel - period - 5/5",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8344,7 +8344,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "ce2669cea2e618a0",
         "name": "device state",
-        "func": "let newMsg = {\n    'kernel':{},\n    'topic':'',\n    'payload':''\n};\n\nlet time = global.get('kernel.app.watchdog', 'default')||120;\nlet limit = Date.now() - (time * 1000);\n\nlet devices = global.get('kernel.device', 'default');\nif (typeof devices === 'object') {\n    for (const device in devices) {\n\n        let watchdog = global.get('kernel.watchdog[\"' + device + '\"]', 'default')||0;\n\n        newMsg.kernel = {\n            'type':'device',\n            'entity':device,\n            'value': watchdog < limit ? 0:1,\n            'loop':false\n        };\n\n        node.send(newMsg);\n    }\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'kernel':{},\n    'topic':'',\n    'payload':''\n};\n\nlet time = global.get('kernel.app.watchdog', 'default')||120;\nlet limit = Math.round(Date.now() / 1000) - time;\n\nlet devices = global.get('kernel.device', 'default');\nif (typeof devices === 'object') {\n    for (const device in devices) {\n\n        let watchdog = global.get('kernel.watchdog[\"' + device + '\"]', 'default')||0;\n\n        newMsg.kernel = {\n            'type':'device',\n            'entity':device,\n            'value': watchdog < limit ? 0:1,\n            'loop':false\n        };\n\n        node.send(newMsg);\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -9249,7 +9249,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "loop",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet loopCount = flow.get('loopCount','memoryOnly')||0;\nflow.set('loopCount', loopCount +1, 'memoryOnly');\nnode.status({text:loopCount});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            let endpoint = flow.get('reverse_endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof endpoint === 'string') {\n                let esplit = endpoint.split(\"|\");\n                msg.kernel.model = esplit[0];\n                msg.kernel.device = esplit[1];\n                msg.kernel.endpoint = esplit[2];\n\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            msg.kernel.loop === false ? newMsg : null,\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet loopCount = flow.get('loopCount','memoryOnly')||0;\nflow.set('loopCount', loopCount +1, 'memoryOnly');\nnode.status({text:loopCount});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let endpoint = flow.get('reverse_endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof endpoint === 'string') {\n                let esplit = endpoint.split(\"|\");\n                msg.kernel.model = esplit[0];\n                msg.kernel.device = esplit[1];\n                msg.kernel.endpoint = esplit[2];\n\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -15838,7 +15838,7 @@
             "575b91a30deac00d"
         ],
         "x": 145,
-        "y": 500,
+        "y": 440,
         "wires": [
             [
                 "8f0b635916cdcf8e"
@@ -15873,7 +15873,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 500,
+        "y": 440,
         "wires": [
             []
         ]
@@ -15888,7 +15888,7 @@
             "050a29c043a85584"
         ],
         "x": 145,
-        "y": 620,
+        "y": 560,
         "wires": [
             [
                 "cae4fb60a956e73b"
@@ -15913,7 +15913,7 @@
         "senderr": false,
         "headers": [],
         "x": 470,
-        "y": 620,
+        "y": 560,
         "wires": [
             [
                 "f53e9cf22eb4309b"
@@ -15930,7 +15930,7 @@
             "9d694324cf6b8842"
         ],
         "x": 145,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "646cb6874a24fd76"
@@ -15945,7 +15945,7 @@
         "name": "Teracom System TCW122B-CM  - https://www.teracomsystems.com/ethernet/remote-io-module-tcw122b-cm/",
         "info": "",
         "x": 490,
-        "y": 680,
+        "y": 620,
         "wires": []
     },
     {
@@ -15966,7 +15966,7 @@
         "senderr": false,
         "headers": [],
         "x": 470,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "17ce1315ae099462"
@@ -15992,7 +15992,7 @@
         "repair": false,
         "outputs": 1,
         "x": 650,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "c4ab97e109e46f9a"
@@ -16009,7 +16009,7 @@
         "attr": "",
         "chr": "",
         "x": 810,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "4ac5879e40df9f2b"
@@ -16027,7 +16027,7 @@
             "e60e4ab7617738c3"
         ],
         "x": 1115,
-        "y": 560,
+        "y": 500,
         "wires": []
     },
     {
@@ -16045,7 +16045,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1210,
-        "y": 620,
+        "y": 560,
         "wires": []
     },
     {
@@ -16060,7 +16060,7 @@
         ],
         "uncaught": false,
         "x": 510,
-        "y": 500,
+        "y": 440,
         "wires": [
             [
                 "0e29e8c70d282a5f"
@@ -16082,7 +16082,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 810,
-        "y": 500,
+        "y": 440,
         "wires": []
     },
     {
@@ -16113,7 +16113,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 920,
+        "y": 860,
         "wires": [
             []
         ]
@@ -16128,7 +16128,7 @@
             "575b91a30deac00d"
         ],
         "x": 145,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "74be18b1282eabf2"
@@ -16143,7 +16143,7 @@
         "name": "Waveshare ESP32-S3-ETH-8DI-8RO - https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO",
         "info": "",
         "x": 450,
-        "y": 1280,
+        "y": 1220,
         "wires": []
     },
     {
@@ -16167,7 +16167,7 @@
         "to": "",
         "reg": false,
         "x": 390,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "ecd439977e7961df"
@@ -16189,7 +16189,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 190,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "c001811311778442"
@@ -16211,7 +16211,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1900,
-        "y": 920,
+        "y": 860,
         "wires": []
     },
     {
@@ -16233,7 +16233,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1160,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "3ebd2719b1d522df"
@@ -16302,7 +16302,7 @@
         "to": "",
         "reg": false,
         "x": 1650,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "adf884f302c2073e",
@@ -16334,7 +16334,7 @@
         "repair": false,
         "outputs": 2,
         "x": 570,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "ce558a1c98b4df20"
@@ -16365,7 +16365,7 @@
         "to": "",
         "reg": false,
         "x": 1490,
-        "y": 860,
+        "y": 800,
         "wires": [
             [
                 "0d22665f8ff032a1"
@@ -16383,7 +16383,7 @@
             "e60e4ab7617738c3"
         ],
         "x": 1795,
-        "y": 980,
+        "y": 920,
         "wires": []
     },
     {
@@ -16396,7 +16396,7 @@
             "050a29c043a85584"
         ],
         "x": 145,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "2359c98c14ccbed1"
@@ -16422,7 +16422,7 @@
         "repair": false,
         "outputs": 1,
         "x": 270,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "f93ba285c4133982"
@@ -16455,7 +16455,7 @@
         "repair": false,
         "outputs": 2,
         "x": 430,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "dec0483961c4e8a8"
@@ -16500,7 +16500,7 @@
         "to": "",
         "reg": false,
         "x": 590,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "ce49dce4c6876098"
@@ -16551,7 +16551,7 @@
         "to": "",
         "reg": false,
         "x": 750,
-        "y": 1100,
+        "y": 1040,
         "wires": [
             [
                 "db81b60b48f97b07",
@@ -16575,7 +16575,7 @@
         "expiry": "",
         "broker": "f516c1341f0f634c",
         "x": 910,
-        "y": 1100,
+        "y": 1040,
         "wires": []
     },
     {
@@ -16593,7 +16593,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 990,
-        "y": 1160,
+        "y": 1100,
         "wires": []
     },
     {
@@ -16617,7 +16617,7 @@
         "to": "",
         "reg": false,
         "x": 740,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "4d3f4a7ba233fe67",
@@ -16647,7 +16647,7 @@
         "to": "",
         "reg": false,
         "x": 930,
-        "y": 860,
+        "y": 800,
         "wires": [
             [
                 "e3fe502e00951085"
@@ -16673,7 +16673,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1160,
-        "y": 860,
+        "y": 800,
         "wires": [
             [
                 "da66b6e52e88aae9"
@@ -16699,7 +16699,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1330,
-        "y": 800,
+        "y": 740,
         "wires": [
             [
                 "eb1240874ff593d7"
@@ -16741,7 +16741,7 @@
         "to": "",
         "reg": false,
         "x": 1490,
-        "y": 800,
+        "y": 740,
         "wires": [
             [
                 "0d22665f8ff032a1"
@@ -16769,7 +16769,7 @@
         "to": "",
         "reg": false,
         "x": 950,
-        "y": 800,
+        "y": 740,
         "wires": [
             [
                 "4621a63c15468fc5"
@@ -16795,7 +16795,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1160,
-        "y": 800,
+        "y": 740,
         "wires": [
             [
                 "da66b6e52e88aae9"
@@ -16822,7 +16822,7 @@
         "repair": false,
         "outputs": 1,
         "x": 610,
-        "y": 1220,
+        "y": 1160,
         "wires": [
             [
                 "657382c78169115b"
@@ -16896,7 +16896,7 @@
         "to": "",
         "reg": false,
         "x": 1650,
-        "y": 1220,
+        "y": 1160,
         "wires": [
             [
                 "3635210474545f29"
@@ -16929,7 +16929,7 @@
         "repair": false,
         "outputs": 2,
         "x": 810,
-        "y": 1220,
+        "y": 1160,
         "wires": [
             [
                 "bb4d950858ec0833"
@@ -16960,7 +16960,7 @@
         "to": "",
         "reg": false,
         "x": 1010,
-        "y": 1220,
+        "y": 1160,
         "wires": [
             [
                 "3ef81c0ad00ed950"
@@ -16988,7 +16988,7 @@
         "to": "",
         "reg": false,
         "x": 1010,
-        "y": 1280,
+        "y": 1220,
         "wires": [
             [
                 "3ef81c0ad00ed950"
@@ -17005,7 +17005,7 @@
             "9d694324cf6b8842"
         ],
         "x": 145,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "0b13e66fc97af381"
@@ -17033,7 +17033,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "5f548db916944ddf"
@@ -17060,7 +17060,7 @@
         "repair": false,
         "outputs": 1,
         "x": 610,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "9dd086de93067548"
@@ -17081,7 +17081,7 @@
         "addname": "endpoint",
         "property": "payload",
         "x": 450,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "ec887ae828f757c5"
@@ -17114,7 +17114,7 @@
         "repair": false,
         "outputs": 2,
         "x": 790,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "7e15bfbdfddaf8eb"
@@ -17145,7 +17145,7 @@
         "to": "",
         "reg": false,
         "x": 990,
-        "y": 1020,
+        "y": 960,
         "wires": [
             [
                 "1788b11b4dc67404"
@@ -17173,7 +17173,7 @@
         "to": "",
         "reg": false,
         "x": 990,
-        "y": 1060,
+        "y": 1000,
         "wires": [
             [
                 "1788b11b4dc67404"
@@ -17264,7 +17264,7 @@
         "to": "",
         "reg": false,
         "x": 1650,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "3635210474545f29"
@@ -17290,7 +17290,7 @@
         "repair": false,
         "outputs": 1,
         "x": 1330,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "f2c969d385c32235"
@@ -17346,7 +17346,7 @@
         "to": "",
         "reg": false,
         "x": 1170,
-        "y": 1040,
+        "y": 980,
         "wires": [
             [
                 "5294ddb8f6df06b0"
@@ -17380,7 +17380,7 @@
         "repair": false,
         "outputs": 3,
         "x": 1330,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "7424c6064adde611"
@@ -17414,7 +17414,7 @@
         "to": "",
         "reg": false,
         "x": 1490,
-        "y": 920,
+        "y": 860,
         "wires": [
             [
                 "0d22665f8ff032a1"
@@ -17436,7 +17436,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 710,
-        "y": 620,
+        "y": 560,
         "wires": []
     },
     {
@@ -17447,7 +17447,7 @@
         "name": "Settings after a reset: 192.168.1.2 admin/admin",
         "info": "",
         "x": 1100,
-        "y": 680,
+        "y": 620,
         "wires": []
     },
     {
@@ -17460,7 +17460,7 @@
             "575b91a30deac00d"
         ],
         "x": 145,
-        "y": 1460,
+        "y": 1400,
         "wires": [
             [
                 "f9aa75323c9840bd"
@@ -17495,7 +17495,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 1460,
+        "y": 1400,
         "wires": [
             []
         ]
@@ -17510,7 +17510,7 @@
             "9d694324cf6b8842"
         ],
         "x": 145,
-        "y": 1400,
+        "y": 1340,
         "wires": [
             [
                 "0b1c1ba728d3208a"
@@ -17524,7 +17524,7 @@
         "g": "dbcc4077524c4e42",
         "name": "",
         "x": 450,
-        "y": 1640,
+        "y": 1580,
         "wires": [
             [
                 "3fe36612a53ef445"
@@ -17538,7 +17538,7 @@
         "g": "dbcc4077524c4e42",
         "name": "",
         "x": 460,
-        "y": 1520,
+        "y": 1460,
         "wires": [
             [
                 "077f662324cf44a6"
@@ -17553,7 +17553,7 @@
         "name": "",
         "scale": "Byte",
         "x": 460,
-        "y": 1580,
+        "y": 1520,
         "wires": [
             [
                 "35bba3915e3ab86b"
@@ -17571,7 +17571,7 @@
             "e60e4ab7617738c3"
         ],
         "x": 775,
-        "y": 1400,
+        "y": 1340,
         "wires": []
     },
     {
@@ -17589,7 +17589,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 840,
-        "y": 1460,
+        "y": 1400,
         "wires": []
     },
     {
@@ -17599,7 +17599,7 @@
         "g": "dbcc4077524c4e42",
         "name": "",
         "x": 460,
-        "y": 1460,
+        "y": 1400,
         "wires": [
             [
                 "8cb2cb755f550ff7"
@@ -17614,7 +17614,7 @@
         "name": "Node-red-contrib-os - https://flows.nodered.org/node/node-red-contrib-os",
         "info": "",
         "x": 380,
-        "y": 1700,
+        "y": 1640,
         "wires": []
     },
     {
@@ -17625,7 +17625,7 @@
         "name": "Used to grab local server stats",
         "info": "",
         "x": 820,
-        "y": 1700,
+        "y": 1640,
         "wires": []
     },
     {
@@ -17700,7 +17700,7 @@
         "to": "",
         "reg": false,
         "x": 1650,
-        "y": 980,
+        "y": 920,
         "wires": [
             [
                 "3635210474545f29"
@@ -17713,7 +17713,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "kernel",
-        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Date.now(),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n//} else if (split[2] === 'input') {\n    let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    let entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* in hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360000) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n            //'loop': false \n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Date.now(),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n//} else if (split[2] === 'input') {\n    let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    let entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n            //'loop': false \n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17764,7 +17764,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 1400,
+        "y": 1340,
         "wires": [
             [
                 "38b20ef4f881e747",
@@ -17789,7 +17789,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 1460,
+        "y": 1400,
         "wires": [
             [
                 "e5d1a8af91104af6",
@@ -17811,7 +17811,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 1520,
+        "y": 1460,
         "wires": [
             [
                 "e5d1a8af91104af6",
@@ -17833,7 +17833,7 @@
         "finalize": "",
         "libs": [],
         "x": 640,
-        "y": 1580,
+        "y": 1520,
         "wires": [
             [
                 "e5d1a8af91104af6",
@@ -17855,7 +17855,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 1640,
+        "y": 1580,
         "wires": [
             [
                 "e5d1a8af91104af6",
@@ -17869,7 +17869,7 @@
         "z": "135b7308617dad08",
         "g": "dbcc4077524c4e42",
         "name": "watchdog",
-        "func": "return {\n    'topic':'',\n    'payload':'',\n    'kernel':{\n        'type':'watchdog',\n        'entity':msg.device,\n        'value':Date.now(),\n        'loop':false\n    }\n};\n",
+        "func": "return {\n    'topic':'',\n    'payload':'',\n    'kernel':{\n        'type':'watchdog',\n        'entity':msg.device,\n        'value':Math.round(Date.now() / 1000),\n        'loop':false\n    }\n};\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17877,7 +17877,7 @@
         "finalize": "",
         "libs": [],
         "x": 640,
-        "y": 1400,
+        "y": 1340,
         "wires": [
             [
                 "e5d1a8af91104af6",
@@ -17891,7 +17891,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "watchdog",
-        "func": "return {\n    'topic':'opta/distant/watchdog',\n    'payload':Date.now()\n};",
+        "func": "return {\n    'topic':'opta/distant/watchdog',\n    'payload': Math.round(Date.now() / 1000)\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17920,7 +17920,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "f19f34db8160a728"
@@ -17933,7 +17933,7 @@
         "z": "135b7308617dad08",
         "g": "c0b72044a49a3f76",
         "name": "kernels",
-        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\nlet inputs = {'DigitalInput1':'','DigitalInput2':'','AnalogInput1':'','AnalogInput2':''};\n\nfunction substringBefore(str, chars) {\n    const index = str.indexOf(chars);\n    return index === -1 ? str : str.substring(0, index);\n}\n\nif (typeof msg.payload['Monitor'] !== 'undefined') {\n    /* Watchdog */\n    newMsg.kernel = {\n        'type':'watchdog',\n        'entity':msg.device,\n        'value':Date.now(),\n        'loop':false\n    };\n\n    node.send(newMsg);\n\n    for (const input in inputs) {\n        if (typeof global.get('kernel.endpoint[\"' + msg.device + '|' + input + '\"]') === 'string') {\n            if (input.match((new RegExp('^(Digital)'))) !== null) {\n                /* Digital */\n                newMsg.kernel = {\n                    'type':'state',\n                    'entity':msg.device + '|' + input,\n                    'value':msg.payload.Monitor[input][0] === 'OPEN' ? 1 : 0,\n                    'loop':false\n                }\n            } else {\n                /* Analog */\n                newMsg.kernel = {\n                    'type':'state',\n                    'entity':msg.device + '|' + input,\n                    'value': Number(substringBefore(msg.payload.Monitor[input][0], 'V')),\n                    'loop':false\n                }\n            }\n        }\n    }\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\nlet inputs = {'DigitalInput1':'','DigitalInput2':'','AnalogInput1':'','AnalogInput2':''};\n\nfunction substringBefore(str, chars) {\n    const index = str.indexOf(chars);\n    return index === -1 ? str : str.substring(0, index);\n}\n\nif (typeof msg.payload['Monitor'] !== 'undefined') {\n    /* Watchdog */\n    newMsg.kernel = {\n        'type':'watchdog',\n        'entity':msg.device,\n        'value': Math.round(Date.now() / 1000),\n        'loop':false\n    };\n\n    node.send(newMsg);\n\n    for (const input in inputs) {\n        if (typeof global.get('kernel.endpoint[\"' + msg.device + '|' + input + '\"]') === 'string') {\n            if (input.match((new RegExp('^(Digital)'))) !== null) {\n                /* Digital */\n                newMsg.kernel = {\n                    'type':'state',\n                    'entity':msg.device + '|' + input,\n                    'value':msg.payload.Monitor[input][0] === 'OPEN' ? 1 : 0,\n                    'loop':false\n                }\n            } else {\n                /* Analog */\n                newMsg.kernel = {\n                    'type':'state',\n                    'entity':msg.device + '|' + input,\n                    'value': Number(substringBefore(msg.payload.Monitor[input][0], 'V')),\n                    'loop':false\n                }\n            }\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17941,7 +17941,7 @@
         "finalize": "",
         "libs": [],
         "x": 980,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "ac509dada2597e3c",
@@ -17963,7 +17963,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 620,
+        "y": 560,
         "wires": [
             [
                 "88c665fa97189006"

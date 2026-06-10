@@ -341,7 +341,7 @@
   type: group
   z: f6f2187d.f17ca8
   g: 41bba9b342eebdae
-  name: kernel - endpoint
+  name: kernel - uri
   style:
     fill: '#ffC000'
     fill-opacity: '0.05'
@@ -3251,7 +3251,7 @@
   z: f6f2187d.f17ca8
   g: cd36ac26e65bd7c0
   name: kernel - period - 5/5
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -3595,7 +3595,7 @@
     };
 
     let time = global.get('kernel.app.watchdog', 'default')||120;
-    let limit = Date.now() - (time * 1000);
+    let limit = Math.round(Date.now() / 1000) - time;
 
     let devices = global.get('kernel.device', 'default');
     if (typeof devices === 'object') {
@@ -4740,6 +4740,7 @@
 
             delete msg.kernel.model;
             if (msg.kernel.type === 'state') {
+                // For kernel state, retrieve component definition
                 let endpoint = flow.get('reverse_endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
                 if (typeof endpoint === 'string') {
                     let esplit = endpoint.split("|");
@@ -4760,8 +4761,11 @@
             };
 
             return [
+                // to kernel MQTT loop
                 msg.kernel.loop === false ? newMsg : null,
+                // to device loop
                 typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,
+                // to db
                 typeof msg.kernel.model === 'string' ? newMsg : null
             ];
         }
