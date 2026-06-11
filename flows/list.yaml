@@ -129,6 +129,7 @@
     - aaa2305fbe03acaa
     - fe18cb76e28e410c
     - 66226f3b64ad19a9
+    - 8e69ca3076d6dd0a
   x: 104
   'y': 1599
   w: 4042
@@ -882,7 +883,7 @@
   autocols: false
   showSearch: true
   deselect: true
-  selectionType: none
+  selectionType: click
   columns:
     - title: Etat
       key: watchdog_color
@@ -2205,14 +2206,18 @@
   propertyType: msg
   rules:
     - t: eq
+      v: row_click
+      vt: str
+    - t: eq
       v: button_click
       vt: str
   checkall: 'false'
   repair: false
-  outputs: 1
+  outputs: 2
   x: 2190
   'y': 1700
   wires:
+    - - 8e69ca3076d6dd0a
     - - 38c80d9ff98a187f
 - id: d41e847ccdd25e24
   type: switch
@@ -4470,7 +4475,7 @@
   autocols: false
   showSearch: true
   deselect: true
-  selectionType: none
+  selectionType: click
   columns:
     - title: State
       key: watchdog_color
@@ -5388,3 +5393,14 @@
   wires:
     - - d929753382156fa2
       - 726908f7902e2771
+- id: 8e69ca3076d6dd0a
+  type: link out
+  z: e97c6f12735a13c1
+  g: e86385b18b9154e7
+  name: list - device
+  mode: link
+  links:
+    - 31f72f6c4d5ded3b
+  x: 2315
+  'y': 1640
+  wires: []
