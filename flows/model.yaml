@@ -2188,6 +2188,7 @@
   g: 44d39e7547289d97
   name: info
   func: |-
+    let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];
     msg.topic = '';
     let device = flow.get('devices["' + msg.payload.entity + '"]','memoryOnly');
     if (typeof device === 'object') {
@@ -2196,7 +2197,8 @@
             "<strong>ID: </strong>" + msg.payload.device + " <br />\n" +
             "<strong>Type: </strong>" + device.type + " <br />\n" +
             "<strong>IP: </strong><a href=\"http://" + device.ip + "\">" + device.ip + "</a> <br />\n" +
-            "<strong>Revision: </strong>" + device.revision + " <br />\n"
+            "<strong>Revision: </strong>" + device.revision + " <br />\n" +
+            "<strong>Ota state: </strong>" + states[device.ota] + " <br />\n"
             ;
     } else {
         msg.payload = "Aucune information disponible";

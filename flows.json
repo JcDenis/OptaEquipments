@@ -18036,7 +18036,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "info",
-        "func": "msg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]','memoryOnly');\nif (typeof device === 'object') {\n    msg.payload =\n        \"<strong>Model: </strong>\" + msg.payload.model_name + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\"\n        ;\n} else {\n    msg.payload = \"Aucune information disponible\";\n}\n\nreturn msg;",
+        "func": "let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]','memoryOnly');\nif (typeof device === 'object') {\n    msg.payload =\n        \"<strong>Model: </strong>\" + msg.payload.model_name + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota state: </strong>\" + states[device.ota] + \" <br />\\n\"\n        ;\n} else {\n    msg.payload = \"Aucune information disponible\";\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
