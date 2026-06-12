@@ -2353,11 +2353,9 @@
             "f4f846fcf380110e",
             "bd720f4ed1f034f8",
             "beac0cb54e4ebf07",
-            "0a07351e72c8426a",
             "81b2f7d38fd25d09",
             "bade08026654ecc9",
             "39cf9bc6de140b04",
-            "8e7d22e40470b21a",
             "00645952425ccbc5",
             "1b15c8f4cfa6885a",
             "a292cf30fb647936"
@@ -3935,8 +3933,7 @@
             "aa33c973e7084ab0",
             "bf59724bfb1762b4",
             "0a6f746a33c66866",
-            "8023109f6e0ad2c8",
-            "96de13c626c2784e"
+            "8023109f6e0ad2c8"
         ],
         "x": 104,
         "y": 3819,
@@ -6570,8 +6567,7 @@
         "y": 3920,
         "wires": [
             [
-                "0a6f746a33c66866",
-                "96de13c626c2784e"
+                "0a6f746a33c66866"
             ]
         ]
     },
@@ -9396,24 +9392,6 @@
                 "bf59724bfb1762b4"
             ]
         ]
-    },
-    {
-        "id": "96de13c626c2784e",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "g": "d555605b8833d020",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 260,
-        "y": 3860,
-        "wires": []
     },
     {
         "id": "2ee1493983ba4b61",
@@ -22224,30 +22202,6 @@
         ]
     },
     {
-        "id": "0a07351e72c8426a",
-        "type": "switch",
-        "z": "51c4b2897d2c318c",
-        "g": "744a665a3304c311",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 2010,
-        "y": 620,
-        "wires": [
-            [
-                "81b2f7d38fd25d09"
-            ]
-        ]
-    },
-    {
         "id": "81b2f7d38fd25d09",
         "type": "switch",
         "z": "51c4b2897d2c318c",
@@ -22338,7 +22292,7 @@
         "z": "51c4b2897d2c318c",
         "g": "744a665a3304c311",
         "name": "teams",
-        "func": "let teams = global.get('kernel.team','default');\nlet i = 0;\n\nmsg.payload = [];\n\nif (typeof teams === 'object') {\n    for (const team in teams) {\n        let row = {};\n        /* 0 = plant, 1 = team */\n        let ksplit = team.split(\"|\");\n        row.plant = ksplit[0];\n        row.team = ksplit[1];\n        /* 0 = starttime, 1 = stoptime */\n        let vsplit = teams[team].split(\"|\");\n        row.starttime = vsplit[0];\n        row.stoptime = vsplit[1];\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')) {\n            let name = msg.dictionary?.option_team[row.team];\n            if (typeof name == 'string') {\n                row.name = name;\n\n                msg.payload[i++] = row;\n            }\n        }\n    }\n}\n\nreturn msg;",
+        "func": "let teams = global.get('kernel.team','default');\nlet i = 0;\n\nmsg.payload = [];\n\nif (typeof teams === 'object') {\n    for (const team in teams) {\n        let row = {};\n        /* 0 = plant, 1 = team */\n        let ksplit = team.split(\"|\");\n        row.plant = ksplit[0];\n        row.team = ksplit[1];\n        /* 0 = starttime, 1 = stoptime */\n        let vsplit = teams[team].split(\"|\");\n        row.starttime = vsplit[0];\n        row.stoptime = vsplit[1];\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')) {\n            let name = msg.dictionary?.option_team[row.team];\n            if (typeof name == 'string') {\n                row.name = name;\n\n                msg.payload[i++] = row;\n            }\n        }\n    }\n}\n\nif (i > 0) {\n    msg.class = '';\n    msg.enabled = true\n\n    return msg;\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -22349,42 +22303,7 @@
         "y": 620,
         "wires": [
             [
-                "8e7d22e40470b21a"
-            ]
-        ]
-    },
-    {
-        "id": "8e7d22e40470b21a",
-        "type": "change",
-        "z": "51c4b2897d2c318c",
-        "g": "744a665a3304c311",
-        "name": "clean",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1850,
-        "y": 620,
-        "wires": [
-            [
-                "0a07351e72c8426a"
+                "81b2f7d38fd25d09"
             ]
         ]
     },

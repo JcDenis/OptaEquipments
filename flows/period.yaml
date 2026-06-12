@@ -88,11 +88,9 @@
     - f4f846fcf380110e
     - bd720f4ed1f034f8
     - beac0cb54e4ebf07
-    - 0a07351e72c8426a
     - 81b2f7d38fd25d09
     - bade08026654ecc9
     - 39cf9bc6de140b04
-    - 8e7d22e40470b21a
     - 00645952425ccbc5
     - 1b15c8f4cfa6885a
     - a292cf30fb647936
@@ -1584,22 +1582,6 @@
   'y': 560
   wires:
     - []
-- id: 0a07351e72c8426a
-  type: switch
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: nempty
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 2010
-  'y': 620
-  wires:
-    - - 81b2f7d38fd25d09
 - id: 81b2f7d38fd25d09
   type: switch
   z: 51c4b2897d2c318c
@@ -1697,7 +1679,14 @@
         }
     }
 
-    return msg;
+    if (i > 0) {
+        msg.class = '';
+        msg.enabled = true
+
+        return msg;
+    }
+
+    return;
   outputs: 1
   timeout: 0
   noerr: 0
@@ -1707,32 +1696,7 @@
   x: 1690
   'y': 620
   wires:
-    - - 8e7d22e40470b21a
-- id: 8e7d22e40470b21a
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: clean
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1850
-  'y': 620
-  wires:
-    - - 0a07351e72c8426a
+    - - 81b2f7d38fd25d09
 - id: 00645952425ccbc5
   type: function
   z: 51c4b2897d2c318c
