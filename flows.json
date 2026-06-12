@@ -750,8 +750,6 @@
             "3310e53111281bbe",
             "a2a3053a6cbe1783",
             "32da1c56b79d529c",
-            "4baac0db51d3ac4f",
-            "b612b515bd3e534b",
             "c2f3dcd585da9474",
             "a35eda7dde757c91",
             "53dd04fd8623952e",
@@ -877,7 +875,8 @@
             "68aab93a8f53f85e",
             "a15a5a96e0394ab6",
             "7367a4695350e53e",
-            "8303bbe666cce6fa"
+            "8303bbe666cce6fa",
+            "b47a452c3a323b37"
         ],
         "x": 104,
         "y": 3939,
@@ -8060,7 +8059,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "b0a29d62b8e00f94",
         "name": "reverse",
-        "func": "function inverse(obj){\n  let retobj = {};\n  for(var key in obj){\n    retobj[obj[key]] = key;\n  }\n  return retobj;\n}\n\nflow.set('reverse_endpoint',{},'memoryOnly');\nflow.set('reverse_endpoint',inverse(global.get('kernel.endpoint','default')),'memoryOnly');\n\nmsg.payload = '';\nreturn msg;",
+        "func": "function inverse(obj){\n  let retobj = {};\n  for(var key in obj){\n    retobj[obj[key]] = key;\n  }\n  return retobj;\n}\n\nglobal.set('io',{},'memoryOnly');\nglobal.set('io',inverse(global.get('kernel.endpoint','default')),'memoryOnly');\n\nmsg.payload = '';\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -10782,7 +10781,7 @@
         "z": "adb9fbf379118d77",
         "g": "de5e425a71b62e85",
         "name": "models",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'model'\n}];\n\nlet models = global.get('describe.model', 'memoryOnly');\nlet i = 1;\n\nif (typeof models === 'object') {\n    for (const model in models) {\n        msg.options[i++] = {\n            'label':models[model] + ' (' + model + ')',\n            'value':model,\n            'dropdown':'model'\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'model'\n}];\n\nlet models = global.get('describe.model', 'memoryOnly');\nlet i = 1;\n\nif (typeof models === 'object') {\n    for (const model in models) {\n        if (typeof msg.limit_component === 'undefined' || global.get('describe.support[\"' + model + '\"][\"' + msg.limit_component + '\"]', 'memoryOnly') === true) {\n            msg.options[i++] = {\n                'label':models[model] + ' (' + model + ')',\n                'value':model,\n                'dropdown':'model'\n            }\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -11059,7 +11058,7 @@
         "z": "adb9fbf379118d77",
         "g": "ed61df18f5488ebe",
         "name": "links",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'link'\n}];\n\nlet i = 1;\n\nlet links = global.get('kernel.endpoint', 'default');\nif (typeof links === 'object') {\n    for (const link in links) {\n        /* 0 = equipment, 1 = component */\n        let split = links[link].split(\"|\");\n        if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {\n            if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {\n                let name = msg.dictionary?.option_component[split[1]];\n                msg.options[i++] = {\n                    'label': name + ' (' + link + ')',\n                    'value': link,\n                    'dropdown':'link'\n                }\n            }\n        }\n    }\n}\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'link'\n}];\n\nlet i = 1;\n\nlet links = global.get('kernel.endpoint', 'default');\nif (typeof links === 'object') {\n    for (const link in links) {\n        /* 0 = equipment, 1 = component */\n        let split = link.split(\"|\");\n        if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {\n            if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {\n                let name = msg.dictionary?.option_component[split[1]];\n                msg.options[i++] = {\n                    'label': name + ' (' + link + ')',\n                    'value': link,\n                    'dropdown':'link'\n                }\n            }\n        }\n    }\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15739,9 +15738,9 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.endpoint.opta",
+                "p": "#:(memoryOnly)::describe.support.opta",
                 "pt": "global",
-                "to": "{\t    'i0state':'Etat entrée 1',\t    'i1state':'Etat entrée 2',\t    'i2state':'Etat entrée 3',\t    'i3state':'Etat entrée 4',\t    'i4state':'Etat entrée 5',\t    'i5state':'Etat entrée 6',\t    'i6state':'Etat entrée 7',\t    'i7state':'Etat entrée 8',\t    'i0partialPulse':\"Compteur partiel d'impulstions entrée 1\",\t    'i1partialPulse':\"Compteur partiel d'impulstions entrée 2\",\t    'i2partialPulse':\"Compteur partiel d'impulstions entrée 3\",\t    'i3partialPulse':\"Compteur partiel d'impulstions entrée 4\",\t    'i4partialPulse':\"Compteur partiel d'impulstions entrée 5\",\t    'i5partialPulse':\"Compteur partiel d'impulstions entrée 6\",\t    'i6partialPulse':\"Compteur partiel d'impulstions entrée 7\",\t    'i7partialPulse':\"Compteur partiel d'impulstions entrée 8\",\t    'i0pulse':\"Compteur total d'impulstions entrée 1\",\t    'i1pulse':\"Compteur total d'impulstions entrée 2\",\t    'i2pulse':\"Compteur total d'impulstions entrée 3\",\t    'i3pulse':\"Compteur total d'impulstions entrée 4\",\t    'i4pulse':\"Compteur total d'impulstions entrée 5\",\t    'i5pulse':\"Compteur total d'impulstions entrée 6\",\t    'i6pulse':\"Compteur total d'impulstions entrée 7\",\t    'i7pulse':\"Compteur total d'impulstions entrée 8\",\t    'i0partialHigh':\"Compteur partiel d'heures entrée 1\",\t    'i1partialHigh':\"Compteur partiel d'heures entrée 2\",\t    'i2partialHigh':\"Compteur partiel d'heures entrée 3\",\t    'i3partialHigh':\"Compteur partiel d'heures entrée 4\",\t    'i4partialHigh':\"Compteur partiel d'heures entrée 5\",\t    'i5partialHigh':\"Compteur partiel d'heures entrée 6\",\t    'i6partialHigh':\"Compteur partiel d'heures entrée 7\",\t    'i7partialHigh':\"Compteur partiel d'heures entrée 8\",\t    'i0high':\"Compteur total d'heures entrée 1\",\t    'i1high':\"Compteur total d'heures entrée 2\",\t    'i2high':\"Compteur total d'heures entrée 3\",\t    'i3high':\"Compteur total d'heures entrée 4\",\t    'i4high':\"Compteur total d'heures entrée 5\",\t    'i5high':\"Compteur total d'heures entrée 6\",\t    'i6high':\"Compteur total d'heures entrée 7\",\t    'i7high':\"Compteur total d'heures entrée 8\",\t    'o0state':'Commande de sortie 1',\t    'o1state':'Commande de sortie 2',\t    'o2state':'Commande de sortie 3',\t    'o3state':'Commande de sortie 4',\t    'o4state':'Commande de sortie 5',\t    'o5state':'Commande de sortie 6',\t    'o6state':'Commande de sortie 7',\t    'o7state':'Commande de sortie 8',\t    'i0reset':\"Raz compteurs partiels entrée 1\",\t    'i1reset':\"Raz compteurs partiels entrée 2\",\t    'i2reset':\"Raz compteurs partiels entrée 3\",\t    'i3reset':\"Raz compteurs partiels entrée 4\",\t    'i4reset':\"Raz compteurs partiels entrée 5\",\t    'i5reset':\"Raz compteurs partiels entrée 6\",\t    'i6reset':\"Raz compteurs partiels entrée 7\",\t    'i7reset':\"Raz compteurs partiels entrée 8\"\t}",
+                "to": "{\t    'run':true,\t\t'runmeter':true,\t    'runmetertotal':true,\t    'runreset':true,\t    'cycle':true,\t    'cyclemeter':true,\t    'cyclemetertotal':true,\t    'cyclereset':true,\t    'heat':true,\t    'heatswitch':true,\t    'heattoggle':true,\t    'heatlink':true,\t    'heatpulse':true,\t    'voltage':true\t}",
                 "tot": "jsonata"
             }
         ],
@@ -42599,6 +42598,13 @@
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "limit_component",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -44106,56 +44112,6 @@
         ]
     },
     {
-        "id": "4baac0db51d3ac4f",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "20722623c07d09d8",
-        "name": "",
-        "links": [
-            "d4d85e7db9b920c1"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 410,
-        "y": 4520,
-        "wires": [
-            [
-                "986c6f4f3cc1d53c"
-            ]
-        ]
-    },
-    {
-        "id": "b612b515bd3e534b",
-        "type": "ui-dropdown",
-        "z": "64ce08af468b8197",
-        "g": "20722623c07d09d8",
-        "group": "9d9e19b688919599",
-        "name": "tree - component - add - endpoint",
-        "label": "",
-        "tooltip": "",
-        "order": 59,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "multiple": false,
-        "chips": false,
-        "clearable": false,
-        "options": [],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "typeIsComboBox": true,
-        "msgTrigger": "onChange",
-        "x": 860,
-        "y": 4520,
-        "wires": [
-            [
-                "a35eda7dde757c91"
-            ]
-        ]
-    },
-    {
         "id": "c2f3dcd585da9474",
         "type": "change",
         "z": "64ce08af468b8197",
@@ -44186,7 +44142,7 @@
         "y": 4520,
         "wires": [
             [
-                "4baac0db51d3ac4f"
+                "986c6f4f3cc1d53c"
             ]
         ]
     },
@@ -44200,9 +44156,9 @@
         "propertyType": "msg",
         "rules": [
             {
-                "t": "neq",
-                "v": "",
-                "vt": "str"
+                "t": "gte",
+                "v": "0",
+                "vt": "num"
             }
         ],
         "checkall": "false",
@@ -44221,11 +44177,11 @@
         "type": "change",
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
-        "name": "endpoint",
+        "name": "io",
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]endpoint",
+                "p": "#:(memoryOnly)::form[msg.hmi.id]io",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -44236,7 +44192,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1480,
+        "x": 1470,
         "y": 4520,
         "wires": [
             [
@@ -45373,7 +45329,7 @@
                 "t": "set",
                 "p": "kernel",
                 "pt": "msg",
-                "to": "{\t    'type':'endpoint',\t    'entity':msg.device,\t    'value':msg.endpoint,\t    'loop':false\t}",
+                "to": "{\t    'type':'endpoint',\t    'entity':msg.endpoint,\t    'value':msg.device,\t    'loop':false\t}",
                 "tot": "jsonata"
             }
         ],
@@ -45409,7 +45365,7 @@
                 "t": "set",
                 "p": "device",
                 "pt": "msg",
-                "to": "$join([msg.form.model,msg.form.device,msg.form.endpoint],'|')",
+                "to": "$join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.form.component],'|')",
                 "tot": "jsonata"
             },
             {
@@ -45451,17 +45407,10 @@
             },
             {
                 "t": "set",
-                "p": "device",
-                "pt": "msg",
-                "to": "$join([msg.form.model,msg.form.device,msg.form.endpoint],'|')",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
                 "p": "endpoint",
                 "pt": "msg",
-                "to": "$join([msg.form.equipment,msg.form.component],'|')",
-                "tot": "jsonata"
+                "to": "form.endpoint",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -45519,7 +45468,7 @@
                 "t": "set",
                 "p": "kernel",
                 "pt": "msg",
-                "to": "{\t    'type':'endpoint',\t    'entity':msg.device,\t    'value':'',\t    'loop':false,\t    'delete':true\t}",
+                "to": "{\t    'type':'endpoint',\t    'entity':msg.endpoint,\t    'value':'',\t    'loop':false,\t    'delete':true\t}",
                 "tot": "jsonata"
             }
         ],
@@ -46042,7 +45991,7 @@
         "y": 4460,
         "wires": [
             [
-                "4baac0db51d3ac4f"
+                "986c6f4f3cc1d53c"
             ]
         ]
     },
@@ -51219,7 +51168,6 @@
                 "d8baaa7058d36779",
                 "5371d6f81b743e0c",
                 "02611363216ba3f4",
-                "b612b515bd3e534b",
                 "93dadc68baa38a29",
                 "2ea85ba6c549da42",
                 "346544028cd8a774",
@@ -51230,7 +51178,8 @@
                 "87c0890a24329591",
                 "2c9a3428a9ca7243",
                 "202807528f231a92",
-                "90f09c8d83cff770"
+                "90f09c8d83cff770",
+                "b47a452c3a323b37"
             ]
         ]
     },
@@ -55208,10 +55157,10 @@
             },
             {
                 "t": "set",
-                "p": "form.endpoint",
+                "p": "endpoint",
                 "pt": "msg",
-                "to": "kernel.endpoint[msg.form.endpoint]",
-                "tot": "global"
+                "to": "form.endpoint",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -57952,7 +57901,7 @@
         "y": 4520,
         "wires": [
             [
-                "b612b515bd3e534b"
+                "b47a452c3a323b37"
             ]
         ]
     },
@@ -60852,6 +60801,42 @@
             [
                 "dd627ae296fcf568",
                 "5ffe3a59f8715e17"
+            ]
+        ]
+    },
+    {
+        "id": "b47a452c3a323b37",
+        "type": "ui-number-input",
+        "z": "64ce08af468b8197",
+        "g": "20722623c07d09d8",
+        "group": "9d9e19b688919599",
+        "name": "tree - component - add - io",
+        "label": "",
+        "order": 59,
+        "width": 0,
+        "height": 0,
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "1000",
+        "step": 1,
+        "tooltip": "",
+        "delay": 300,
+        "passthru": false,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "spinner": "default",
+        "x": 840,
+        "y": 4520,
+        "wires": [
+            [
+                "a35eda7dde757c91"
             ]
         ]
     },

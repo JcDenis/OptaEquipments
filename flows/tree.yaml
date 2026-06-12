@@ -481,8 +481,6 @@
     - 3310e53111281bbe
     - a2a3053a6cbe1783
     - 32da1c56b79d529c
-    - 4baac0db51d3ac4f
-    - b612b515bd3e534b
     - c2f3dcd585da9474
     - a35eda7dde757c91
     - 53dd04fd8623952e
@@ -609,6 +607,7 @@
     - a15a5a96e0394ab6
     - 7367a4695350e53e
     - 8303bbe666cce6fa
+    - b47a452c3a323b37
   x: 104
   'y': 3939
   w: 2862
@@ -3899,6 +3898,11 @@
       pt: flow
       to: payload
       tot: msg
+    - t: set
+      p: limit_component
+      pt: msg
+      to: payload
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -5004,45 +5008,6 @@
   wires:
     - - 40bd4f7be746e889
       - a2a3053a6cbe1783
-- id: 4baac0db51d3ac4f
-  type: link call
-  z: 64ce08af468b8197
-  g: 20722623c07d09d8
-  name: ''
-  links:
-    - d4d85e7db9b920c1
-  linkType: static
-  timeout: '30'
-  x: 410
-  'y': 4520
-  wires:
-    - - 986c6f4f3cc1d53c
-- id: b612b515bd3e534b
-  type: ui-dropdown
-  z: 64ce08af468b8197
-  g: 20722623c07d09d8
-  group: 9d9e19b688919599
-  name: tree - component - add - endpoint
-  label: ''
-  tooltip: ''
-  order: 59
-  width: 0
-  height: 0
-  passthru: false
-  multiple: false
-  chips: false
-  clearable: false
-  options: []
-  payload: ''
-  topic: topic
-  topicType: msg
-  className: ''
-  typeIsComboBox: true
-  msgTrigger: onChange
-  x: 860
-  'y': 4520
-  wires:
-    - - a35eda7dde757c91
 - id: c2f3dcd585da9474
   type: change
   z: 64ce08af468b8197
@@ -5067,7 +5032,7 @@
   x: 200
   'y': 4520
   wires:
-    - - 4baac0db51d3ac4f
+    - - 986c6f4f3cc1d53c
 - id: a35eda7dde757c91
   type: switch
   z: 64ce08af468b8197
@@ -5076,9 +5041,9 @@
   property: payload
   propertyType: msg
   rules:
-    - t: neq
-      v: ''
-      vt: str
+    - t: gte
+      v: '0'
+      vt: num
   checkall: 'false'
   repair: false
   outputs: 1
@@ -5090,10 +5055,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: endpoint
+  name: io
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]endpoint'
+      p: '#:(memoryOnly)::form[msg.hmi.id]io'
       pt: flow
       to: payload
       tot: msg
@@ -5102,7 +5067,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1480
+  x: 1470
   'y': 4520
   wires:
     - - 79642165f3c70da6
@@ -5956,7 +5921,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'endpoint',\t    'entity':msg.device,\t    'value':msg.endpoint,\t    'loop':false\t}"
+      to: "{\t    'type':'endpoint',\t    'entity':msg.endpoint,\t    'value':msg.device,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -5982,7 +5947,8 @@
     - t: set
       p: device
       pt: msg
-      to: '$join([msg.form.model,msg.form.device,msg.form.endpoint],''|'')'
+      to: >-
+        $join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.form.component],'|')
       tot: jsonata
     - t: set
       p: endpoint
@@ -6012,15 +5978,10 @@
       to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
     - t: set
-      p: device
-      pt: msg
-      to: '$join([msg.form.model,msg.form.device,msg.form.endpoint],''|'')'
-      tot: jsonata
-    - t: set
       p: endpoint
       pt: msg
-      to: '$join([msg.form.equipment,msg.form.component],''|'')'
-      tot: jsonata
+      to: form.endpoint
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -6062,7 +6023,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'endpoint',\t    'entity':msg.device,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'endpoint',\t    'entity':msg.endpoint,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6444,7 +6405,7 @@
   x: 1670
   'y': 4460
   wires:
-    - - 4baac0db51d3ac4f
+    - - 986c6f4f3cc1d53c
 - id: 79642165f3c70da6
   type: change
   z: 64ce08af468b8197
@@ -10235,7 +10196,6 @@
       - d8baaa7058d36779
       - 5371d6f81b743e0c
       - 02611363216ba3f4
-      - b612b515bd3e534b
       - 93dadc68baa38a29
       - 2ea85ba6c549da42
       - 346544028cd8a774
@@ -10247,6 +10207,7 @@
       - 2c9a3428a9ca7243
       - 202807528f231a92
       - 90f09c8d83cff770
+      - b47a452c3a323b37
 - id: 1bd9c70a5be52bdc
   type: link in
   z: 64ce08af468b8197
@@ -13138,10 +13099,10 @@
       to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
     - t: set
-      p: form.endpoint
+      p: endpoint
       pt: msg
-      to: 'kernel.endpoint[msg.form.endpoint]'
-      tot: global
+      to: form.endpoint
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -15091,7 +15052,7 @@
   x: 610
   'y': 4520
   wires:
-    - - b612b515bd3e534b
+    - - b47a452c3a323b37
 - id: 9066daa0141347f7
   type: change
   z: 64ce08af468b8197
@@ -17498,3 +17459,34 @@
   wires:
     - - dd627ae296fcf568
       - 5ffe3a59f8715e17
+- id: b47a452c3a323b37
+  type: ui-number-input
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  group: 9d9e19b688919599
+  name: tree - component - add - io
+  label: ''
+  order: 59
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  min: 0
+  max: '1000'
+  step: 1
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  spinner: default
+  x: 840
+  'y': 4520
+  wires:
+    - - a35eda7dde757c91
