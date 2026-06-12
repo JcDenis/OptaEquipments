@@ -2985,10 +2985,10 @@
         },
         "nodes": [
             "d555605b8833d020",
-            "a49a01470fb908e8",
             "ac235be34fa874cd",
             "7d481df1a0362e5a",
-            "cd36ac26e65bd7c0"
+            "cd36ac26e65bd7c0",
+            "a49a01470fb908e8"
         ],
         "x": 68,
         "y": 3793,
@@ -3933,11 +3933,14 @@
             "c7dc8df688a74cbe",
             "eb384e257ce24740",
             "aa33c973e7084ab0",
-            "bf59724bfb1762b4"
+            "bf59724bfb1762b4",
+            "0a6f746a33c66866",
+            "8023109f6e0ad2c8",
+            "96de13c626c2784e"
         ],
         "x": 104,
         "y": 3819,
-        "w": 522,
+        "w": 862,
         "h": 142
     },
     {
@@ -6560,13 +6563,15 @@
         "g": "d555605b8833d020",
         "name": "kernel - period",
         "links": [
-            "f8fd7e92f9a55a9c"
+            "f8fd7e92f9a55a9c",
+            "a292cf30fb647936"
         ],
         "x": 145,
         "y": 3920,
         "wires": [
             [
-                "bf59724bfb1762b4"
+                "0a6f746a33c66866",
+                "96de13c626c2784e"
             ]
         ]
     },
@@ -7867,7 +7872,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 270,
+        "x": 450,
         "y": 3860,
         "wires": [
             [
@@ -8667,7 +8672,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 830,
         "y": 3860,
         "wires": []
     },
@@ -8684,7 +8689,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
+        "x": 620,
         "y": 3920,
         "wires": [
             [
@@ -9339,6 +9344,76 @@
                 "45fec39ce210f1d4"
             ]
         ]
+    },
+    {
+        "id": "0a6f746a33c66866",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "d555605b8833d020",
+        "name": "50ms",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 3920,
+        "wires": [
+            [
+                "8023109f6e0ad2c8"
+            ]
+        ]
+    },
+    {
+        "id": "8023109f6e0ad2c8",
+        "type": "trigger",
+        "z": "f6f2187d.f17ca8",
+        "g": "d555605b8833d020",
+        "name": "wait 5s",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 440,
+        "y": 3920,
+        "wires": [
+            [
+                "bf59724bfb1762b4"
+            ]
+        ]
+    },
+    {
+        "id": "96de13c626c2784e",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "d555605b8833d020",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 3860,
+        "wires": []
     },
     {
         "id": "2ee1493983ba4b61",
@@ -17718,7 +17793,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "kernel",
-        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'device') {\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"' + split[3] + '\"]',msg.payload,'memoryOnly');\n} else if (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n//} else if (split[2] === 'input') {\n    let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    let entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n            //'loop': false \n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'device') {\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"' + split[3] + '\"]', msg.payload, 'memoryOnly');\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"date\"]', Date.now(), 'memoryOnly');\n} else if (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n//} else if (split[2] === 'input') {\n    let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    let entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n            //'loop': false \n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18036,7 +18111,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "info",
-        "func": "let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]','memoryOnly');\nif (typeof device === 'object') {\n    msg.payload =\n        \"<strong>Model: </strong>\" + msg.payload.model_name + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota state: </strong>\" + states[device.ota] + \" <br />\\n\"\n        ;\n} else {\n    msg.payload = \"Aucune information disponible\";\n}\n\nreturn msg;",
+        "func": "let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]','memoryOnly');\nif (typeof device === 'object') {\n    let dt = global.get('kernel.watchdog[\"' + msg.payload.entity  + '\"]','default')||0;\n    msg.payload =\n        \"<strong>Model: </strong>\" + msg.payload.model_name + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota: </strong>\" + states[device.ota] + \" <br />\\n\" +\n        \"<strong>Ping: </strong>\" + (new Date(dt*1000).toISOString()) + \" <br />\\n\"\n        ;\n} else {\n    msg.payload = \"Aucune information disponible\";\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -22364,7 +22439,8 @@
         "name": "period - list - refresh",
         "mode": "link",
         "links": [
-            "0e9c3ca7f24bc8dc"
+            "0e9c3ca7f24bc8dc",
+            "c7dc8df688a74cbe"
         ],
         "x": 6395,
         "y": 320,

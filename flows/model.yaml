@@ -1659,7 +1659,8 @@
 
 
     if (split[2] === 'device') {
-        flow.set('devices["' + split[0] + '|' + split[1] + '"]["' + split[3] + '"]',msg.payload,'memoryOnly');
+        flow.set('devices["' + split[0] + '|' + split[1] + '"]["' + split[3] + '"]', msg.payload, 'memoryOnly');
+        flow.set('devices["' + split[0] + '|' + split[1] + '"]["date"]', Date.now(), 'memoryOnly');
     } else if (split[2] === 'watchdog') {
         if (split[1] !== 'distant') {
             newMsg.kernel = {
@@ -2192,13 +2193,15 @@
     msg.topic = '';
     let device = flow.get('devices["' + msg.payload.entity + '"]','memoryOnly');
     if (typeof device === 'object') {
+        let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]','default')||0;
         msg.payload =
             "<strong>Model: </strong>" + msg.payload.model_name + " <br />\n" +
-            "<strong>ID: </strong>" + msg.payload.device + " <br />\n" +
             "<strong>Type: </strong>" + device.type + " <br />\n" +
+            "<strong>ID: </strong>" + msg.payload.device + " <br />\n" +
             "<strong>IP: </strong><a href=\"http://" + device.ip + "\">" + device.ip + "</a> <br />\n" +
             "<strong>Revision: </strong>" + device.revision + " <br />\n" +
-            "<strong>Ota state: </strong>" + states[device.ota] + " <br />\n"
+            "<strong>Ota: </strong>" + states[device.ota] + " <br />\n" +
+            "<strong>Ping: </strong>" + (new Date(dt*1000).toISOString()) + " <br />\n"
             ;
     } else {
         msg.payload = "Aucune information disponible";

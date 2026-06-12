@@ -54,10 +54,10 @@
     color: '#a4a4a4'
   nodes:
     - d555605b8833d020
-    - a49a01470fb908e8
     - ac235be34fa874cd
     - 7d481df1a0362e5a
     - cd36ac26e65bd7c0
+    - a49a01470fb908e8
   x: 68
   'y': 3793
   w: 1404
@@ -615,9 +615,12 @@
     - eb384e257ce24740
     - aa33c973e7084ab0
     - bf59724bfb1762b4
+    - 0a6f746a33c66866
+    - 8023109f6e0ad2c8
+    - 96de13c626c2784e
   x: 104
   'y': 3819
-  w: 522
+  w: 862
   h: 142
 - id: cd36ac26e65bd7c0
   type: group
@@ -2225,10 +2228,12 @@
   name: kernel - period
   links:
     - f8fd7e92f9a55a9c
+    - a292cf30fb647936
   x: 145
   'y': 3920
   wires:
-    - - bf59724bfb1762b4
+    - - 0a6f746a33c66866
+      - 96de13c626c2784e
 - id: d0bf81ce512ab961
   type: link out
   z: f6f2187d.f17ca8
@@ -3169,7 +3174,7 @@
   once: false
   onceDelay: 0.1
   topic: ''
-  x: 270
+  x: 450
   'y': 3860
   wires:
     - - bf59724bfb1762b4
@@ -4069,7 +4074,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 490
+  x: 830
   'y': 3860
   wires: []
 - id: bf59724bfb1762b4
@@ -4100,7 +4105,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 280
+  x: 620
   'y': 3920
   wires:
     - - aa33c973e7084ab0
@@ -4878,3 +4883,61 @@
   'y': 2180
   wires:
     - - 45fec39ce210f1d4
+- id: 0a6f746a33c66866
+  type: delay
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 270
+  'y': 3920
+  wires:
+    - - 8023109f6e0ad2c8
+- id: 8023109f6e0ad2c8
+  type: trigger
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: wait 5s
+  op1: ''
+  op2: ''
+  op1type: nul
+  op2type: str
+  duration: '5'
+  extend: true
+  overrideDelay: false
+  units: s
+  reset: ''
+  bytopic: all
+  topic: topic
+  outputs: 1
+  x: 440
+  'y': 3920
+  wires:
+    - - bf59724bfb1762b4
+- id: 96de13c626c2784e
+  type: debug
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: debug 2
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 260
+  'y': 3860
+  wires: []
