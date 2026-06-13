@@ -1495,7 +1495,7 @@
 
     if (typeof models === 'object') {
         for (const model in models) {
-            if (typeof msg.limit_component === 'undefined' || global.get('describe.support["' + model + '"]["' + msg.limit_component + '"]', 'memoryOnly') === true) {
+            if (typeof msg.limit_component === 'undefined' || typeof global.get('describe.convert["' + model + '"]["' + msg.limit_component + '"]', 'memoryOnly') === 'string') {
                 msg.options[i++] = {
                     'label':models[model] + ' (' + model + ')',
                     'value':model,

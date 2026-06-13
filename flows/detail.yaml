@@ -271,7 +271,6 @@
     - 71ab4779af230c83
     - 34e8872d43511e29
     - 211513ab259e58c9
-    - bb91fea59c03a712
     - 0ddcdaa6a85f6860
     - cbd65acf2d2944d3
     - bd7c74e40976d045
@@ -312,7 +311,7 @@
     - 5947bcc47b4d10db
   x: 104
   'y': 279
-  w: 3992
+  w: 3852
   h: 502
 - id: fe21b6421a9020d4
   type: group
@@ -580,7 +579,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 3950
+  x: 3830
   'y': 740
   wires: []
 - id: 9cef467dfab6ffd0
@@ -591,7 +590,7 @@
   mode: link
   links:
     - 9fc3dfcadb19726e
-  x: 4055
+  x: 3915
   'y': 680
   wires: []
 - id: 9fc3dfcadb19726e
@@ -724,7 +723,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3930
+  x: 3790
   'y': 680
   wires:
     - - 9cef467dfab6ffd0
@@ -989,9 +988,9 @@
       to: payload
       tot: msg
     - t: set
-      p: payload
+      p: endpoint
       pt: msg
-      to: kernel.endpoint
+      to: 'kernel.endpoint[msg.kernel.entity]'
       tot: global
   action: ''
   property: ''
@@ -1001,38 +1000,22 @@
   x: 3120
   'y': 680
   wires:
-    - - bb91fea59c03a712
-- id: bb91fea59c03a712
-  type: split
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: endpoint
-  property: payload
-  x: 3290
-  'y': 680
-  wires:
     - - 0ddcdaa6a85f6860
 - id: 0ddcdaa6a85f6860
   type: switch
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: entity
-  property: payload
+  name: endpoint
+  property: endpoint
   propertyType: msg
   rules:
-    - t: eq
-      v: kernel.entity
-      vt: msg
+    - t: istype
+      v: string
+      vt: string
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3450
+  x: 3300
   'y': 680
   wires:
     - - cbd65acf2d2944d3
@@ -1065,7 +1048,7 @@
     - t: set
       p: split
       pt: msg
-      to: '$split(msg.payload,''|'')'
+      to: '$split(msg.kernel.entity,''|'')'
       tot: jsonata
     - t: set
       p: kernel.equipment
@@ -1098,7 +1081,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3610
+  x: 3470
   'y': 680
   wires:
     - - 8431f20f8655751c
@@ -4091,7 +4074,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 3770
+  x: 3630
   'y': 680
   wires:
     - - 342d09ce7abd6d86

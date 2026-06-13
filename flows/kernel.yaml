@@ -313,9 +313,10 @@
     - 7a10113d5c45b7de
     - eb42ee484f23555b
     - 8415b61e8bd93936
+    - 2c20535ec8423158
   x: 104
   'y': 1059
-  w: 512
+  w: 672
   h: 82
 - id: f84a47fbf723594b
   type: group
@@ -2283,7 +2284,7 @@
   x: 145
   'y': 1100
   wires:
-    - - 8415b61e8bd93936
+    - - 2c20535ec8423158
 - id: 7a10113d5c45b7de
   type: link out
   z: f6f2187d.f17ca8
@@ -2291,7 +2292,7 @@
   name: kernel - reverse endpoint
   mode: return
   links: []
-  x: 575
+  x: 735
   'y': 1100
   wires: []
 - id: 7ba0dadd40d50379
@@ -2338,7 +2339,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 450
+  x: 610
   'y': 1100
   wires:
     - - 7a10113d5c45b7de
@@ -3339,7 +3340,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 280
+  x: 440
   'y': 1100
   wires:
     - - eb42ee484f23555b
@@ -4745,7 +4746,7 @@
             delete msg.kernel.model;
             if (msg.kernel.type === 'state') {
                 // For kernel state, retrieve component definition
-                let endpoint = flow.get('reverse_endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
+                let endpoint = global.get('kernel.endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
                 if (typeof endpoint === 'string') {
                     let esplit = endpoint.split("|");
                     msg.kernel.model = esplit[0];
@@ -4923,3 +4924,24 @@
   'y': 3920
   wires:
     - - bf59724bfb1762b4
+- id: 2c20535ec8423158
+  type: delay
+  z: f6f2187d.f17ca8
+  g: b0a29d62b8e00f94
+  name: 20ms
+  pauseType: delay
+  timeout: '20'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 270
+  'y': 1100
+  wires:
+    - - 8415b61e8bd93936

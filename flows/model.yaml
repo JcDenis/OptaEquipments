@@ -32,6 +32,7 @@
     - 31f72f6c4d5ded3b
     - f84a1943480e45cb
     - 2219b610eb1a3cc0
+    - c969743f371aa87f
   x: 94
   'y': 39
   w: 992
@@ -176,9 +177,9 @@
       to: Arduino Findernet Opta Series
       tot: str
     - t: set
-      p: '#:(memoryOnly)::describe.support.opta'
+      p: '#:(memoryOnly)::describe.convert.opta'
       pt: global
-      to: "{\t    'run':true,\t\t'runmeter':true,\t    'runmetertotal':true,\t    'runreset':true,\t    'cycle':true,\t    'cyclemeter':true,\t    'cyclemetertotal':true,\t    'cyclereset':true,\t    'heat':true,\t    'heatswitch':true,\t    'heattoggle':true,\t    'heatlink':true,\t    'heatpulse':true,\t    'voltage':true\t}"
+      to: "{\t    'run':'i|state',\t    'runmeter':'i|partialHigh',\t    'runmetertotal':'i|high',\t    'runreset':'i|reset',\t    'cycle':'i|state',\t    'cyclemeter':'i|partialPulse',\t    'cyclemetertotal':'i|pulse',\t    'cyclereset':'i|reset',\t    'heat':'i|state',\t    'voltage':'i|voltage',\t    'heatswitch':'o|state',\t    'heattoggle':'o|state',\t    'heatlink':'o|state',\t    'heatpulse':'o|state'\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -244,6 +245,7 @@
   'y': 200
   wires:
     - - eac42932b3a0198e
+      - c969743f371aa87f
 - id: 7c5f93321a4b2009
   type: mqtt out
   z: 135b7308617dad08
@@ -1674,10 +1676,8 @@
         }
     } else if ((split[2] === 'input' || split[2] === 'output') && split[3] !==
     'set') {
-
-    //} else if (split[2] === 'input') {
-        let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];
-        let entity = global.get('kernel.endpoint["' + endpoint + '"]', 'default');
+        let endpoint = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];
+        let entity = global.get('io["' + endpoint + '"]', 'memoryOnly');
         if (typeof entity === 'string') {
             if (split[3] === 'partialHigh' || split[3] === 'high') {
                 /* convert timers fron seconds to hours, round to one decimal */
@@ -1690,7 +1690,6 @@
                 'value': msg.payload,
                 /* Do not loop output */
                 'loop': split[2] === 'output' ? true : false
-                //'loop': false 
             };
 
             return newMsg;
@@ -2228,4 +2227,20 @@
     - 4e94023e8ba12f50
   x: 435
   'y': 320
+  wires: []
+- id: c969743f371aa87f
+  type: debug
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: debug 2
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 820
+  'y': 100
   wires: []

@@ -5947,8 +5947,13 @@
     - t: set
       p: device
       pt: msg
+      to: '#:(memoryOnly)::describe.convert[msg.form.model][msg.form.component]'
+      tot: global
+    - t: set
+      p: device
+      pt: msg
       to: >-
-        $join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.form.component],'|')
+        $join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.device],'|')
       tot: jsonata
     - t: set
       p: endpoint

@@ -912,7 +912,8 @@
             "cfd036160380a8a6",
             "31f72f6c4d5ded3b",
             "f84a1943480e45cb",
-            "2219b610eb1a3cc0"
+            "2219b610eb1a3cc0",
+            "c969743f371aa87f"
         ],
         "x": 94,
         "y": 39,
@@ -1729,7 +1730,6 @@
             "71ab4779af230c83",
             "34e8872d43511e29",
             "211513ab259e58c9",
-            "bb91fea59c03a712",
             "0ddcdaa6a85f6860",
             "cbd65acf2d2944d3",
             "bd7c74e40976d045",
@@ -1771,7 +1771,7 @@
         ],
         "x": 104,
         "y": 279,
-        "w": 3992,
+        "w": 3852,
         "h": 502
     },
     {
@@ -3576,11 +3576,12 @@
             "6901e471ce0a074d",
             "7a10113d5c45b7de",
             "eb42ee484f23555b",
-            "8415b61e8bd93936"
+            "8415b61e8bd93936",
+            "2c20535ec8423158"
         ],
         "x": 104,
         "y": 1059,
-        "w": 512,
+        "w": 672,
         "h": 82
     },
     {
@@ -6639,7 +6640,7 @@
         "y": 1100,
         "wires": [
             [
-                "8415b61e8bd93936"
+                "2c20535ec8423158"
             ]
         ]
     },
@@ -6651,7 +6652,7 @@
         "name": "kernel - reverse endpoint",
         "mode": "return",
         "links": [],
-        "x": 575,
+        "x": 735,
         "y": 1100,
         "wires": []
     },
@@ -6712,7 +6713,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 450,
+        "x": 610,
         "y": 1100,
         "wires": [
             [
@@ -8066,7 +8067,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
+        "x": 440,
         "y": 1100,
         "wires": [
             [
@@ -9254,7 +9255,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "loop",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet loopCount = flow.get('loopCount','memoryOnly')||0;\nflow.set('loopCount', loopCount +1, 'memoryOnly');\nnode.status({text:loopCount});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let endpoint = flow.get('reverse_endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof endpoint === 'string') {\n                let esplit = endpoint.split(\"|\");\n                msg.kernel.model = esplit[0];\n                msg.kernel.device = esplit[1];\n                msg.kernel.endpoint = esplit[2];\n\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet loopCount = flow.get('loopCount','memoryOnly')||0;\nflow.set('loopCount', loopCount +1, 'memoryOnly');\nnode.status({text:loopCount});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let endpoint = global.get('kernel.endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof endpoint === 'string') {\n                let esplit = endpoint.split(\"|\");\n                msg.kernel.model = esplit[0];\n                msg.kernel.device = esplit[1];\n                msg.kernel.endpoint = esplit[2];\n\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -9389,6 +9390,32 @@
         "wires": [
             [
                 "bf59724bfb1762b4"
+            ]
+        ]
+    },
+    {
+        "id": "2c20535ec8423158",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "b0a29d62b8e00f94",
+        "name": "20ms",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 1100,
+        "wires": [
+            [
+                "8415b61e8bd93936"
             ]
         ]
     },
@@ -10781,7 +10808,7 @@
         "z": "adb9fbf379118d77",
         "g": "de5e425a71b62e85",
         "name": "models",
-        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'model'\n}];\n\nlet models = global.get('describe.model', 'memoryOnly');\nlet i = 1;\n\nif (typeof models === 'object') {\n    for (const model in models) {\n        if (typeof msg.limit_component === 'undefined' || global.get('describe.support[\"' + model + '\"][\"' + msg.limit_component + '\"]', 'memoryOnly') === true) {\n            msg.options[i++] = {\n                'label':models[model] + ' (' + model + ')',\n                'value':model,\n                'dropdown':'model'\n            }\n        }\n    }\n}\n\nreturn msg;",
+        "func": "msg.options = [{\n    'label':'',\n    'value':'',\n    'dropdown':'model'\n}];\n\nlet models = global.get('describe.model', 'memoryOnly');\nlet i = 1;\n\nif (typeof models === 'object') {\n    for (const model in models) {\n        if (typeof msg.limit_component === 'undefined' || typeof global.get('describe.convert[\"' + model + '\"][\"' + msg.limit_component + '\"]', 'memoryOnly') === 'string') {\n            msg.options[i++] = {\n                'label':models[model] + ' (' + model + ')',\n                'value':model,\n                'dropdown':'model'\n            }\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15738,9 +15765,9 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.support.opta",
+                "p": "#:(memoryOnly)::describe.convert.opta",
                 "pt": "global",
-                "to": "{\t    'run':true,\t\t'runmeter':true,\t    'runmetertotal':true,\t    'runreset':true,\t    'cycle':true,\t    'cyclemeter':true,\t    'cyclemetertotal':true,\t    'cyclereset':true,\t    'heat':true,\t    'heatswitch':true,\t    'heattoggle':true,\t    'heatlink':true,\t    'heatpulse':true,\t    'voltage':true\t}",
+                "to": "{\t    'run':'i|state',\t    'runmeter':'i|partialHigh',\t    'runmetertotal':'i|high',\t    'runreset':'i|reset',\t    'cycle':'i|state',\t    'cyclemeter':'i|partialPulse',\t    'cyclemetertotal':'i|pulse',\t    'cyclereset':'i|reset',\t    'heat':'i|state',\t    'voltage':'i|voltage',\t    'heatswitch':'o|state',\t    'heattoggle':'o|state',\t    'heatlink':'o|state',\t    'heatpulse':'o|state'\t}",
                 "tot": "jsonata"
             }
         ],
@@ -15822,7 +15849,8 @@
         "y": 200,
         "wires": [
             [
-                "eac42932b3a0198e"
+                "eac42932b3a0198e",
+                "c969743f371aa87f"
             ]
         ]
     },
@@ -17770,7 +17798,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "kernel",
-        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'device') {\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"' + split[3] + '\"]', msg.payload, 'memoryOnly');\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"date\"]', Date.now(), 'memoryOnly');\n} else if (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n//} else if (split[2] === 'input') {\n    let endpoint = 'opta|' + split[1] + '|' + (split[2] === 'input' ? 'i' : 'o') + split[4] + split[3];\n    let entity = global.get('kernel.endpoint[\"' + endpoint + '\"]', 'default');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n            //'loop': false \n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'device') {\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"' + split[3] + '\"]', msg.payload, 'memoryOnly');\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"date\"]', Date.now(), 'memoryOnly');\n} else if (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n    let endpoint = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];\n    let entity = global.get('io[\"' + endpoint + '\"]', 'memoryOnly');\n    if (typeof entity === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': entity,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18115,6 +18143,24 @@
         ],
         "x": 435,
         "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c969743f371aa87f",
+        "type": "debug",
+        "z": "135b7308617dad08",
+        "g": "44d39e7547289d97",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 100,
         "wires": []
     },
     {
@@ -22705,7 +22751,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 3950,
+        "x": 3830,
         "y": 740,
         "wires": []
     },
@@ -22719,7 +22765,7 @@
         "links": [
             "9fc3dfcadb19726e"
         ],
-        "x": 4055,
+        "x": 3915,
         "y": 680,
         "wires": []
     },
@@ -22953,7 +22999,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3930,
+        "x": 3790,
         "y": 680,
         "wires": [
             [
@@ -23292,9 +23338,9 @@
             },
             {
                 "t": "set",
-                "p": "payload",
+                "p": "endpoint",
                 "pt": "msg",
-                "to": "kernel.endpoint",
+                "to": "kernel.endpoint[msg.kernel.entity]",
                 "tot": "global"
             }
         ],
@@ -23307,27 +23353,6 @@
         "y": 680,
         "wires": [
             [
-                "bb91fea59c03a712"
-            ]
-        ]
-    },
-    {
-        "id": "bb91fea59c03a712",
-        "type": "split",
-        "z": "852390cb9559e176",
-        "g": "20a2e240c83c48c2",
-        "name": "split",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "endpoint",
-        "property": "payload",
-        "x": 3290,
-        "y": 680,
-        "wires": [
-            [
                 "0ddcdaa6a85f6860"
             ]
         ]
@@ -23337,20 +23362,20 @@
         "type": "switch",
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
-        "name": "entity",
-        "property": "payload",
+        "name": "endpoint",
+        "property": "endpoint",
         "propertyType": "msg",
         "rules": [
             {
-                "t": "eq",
-                "v": "kernel.entity",
-                "vt": "msg"
+                "t": "istype",
+                "v": "string",
+                "vt": "string"
             }
         ],
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 3450,
+        "x": 3300,
         "y": 680,
         "wires": [
             [
@@ -23397,7 +23422,7 @@
                 "t": "set",
                 "p": "split",
                 "pt": "msg",
-                "to": "$split(msg.payload,'|')",
+                "to": "$split(msg.kernel.entity,'|')",
                 "tot": "jsonata"
             },
             {
@@ -23444,7 +23469,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 3610,
+        "x": 3470,
         "y": 680,
         "wires": [
             [
@@ -27402,7 +27427,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 3770,
+        "x": 3630,
         "y": 680,
         "wires": [
             [
@@ -45365,7 +45390,14 @@
                 "t": "set",
                 "p": "device",
                 "pt": "msg",
-                "to": "$join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.form.component],'|')",
+                "to": "#:(memoryOnly)::describe.convert[msg.form.model][msg.form.component]",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "device",
+                "pt": "msg",
+                "to": "$join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.device],'|')",
                 "tot": "jsonata"
             },
             {
