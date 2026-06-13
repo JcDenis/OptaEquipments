@@ -912,8 +912,7 @@
             "cfd036160380a8a6",
             "31f72f6c4d5ded3b",
             "f84a1943480e45cb",
-            "2219b610eb1a3cc0",
-            "c969743f371aa87f"
+            "2219b610eb1a3cc0"
         ],
         "x": 94,
         "y": 39,
@@ -9255,7 +9254,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "loop",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet loopCount = flow.get('loopCount','memoryOnly')||0;\nflow.set('loopCount', loopCount +1, 'memoryOnly');\nnode.status({text:loopCount});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let endpoint = global.get('kernel.endpoint[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof endpoint === 'string') {\n                let esplit = endpoint.split(\"|\");\n                msg.kernel.model = esplit[0];\n                msg.kernel.device = esplit[1];\n                msg.kernel.endpoint = esplit[2];\n\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet loopCount = flow.get('loopCount','memoryOnly')||0;\nflow.set('loopCount', loopCount +1, 'memoryOnly');\nnode.status({text:loopCount});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'default');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'default');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'default');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let endpoint = global.get('kernel.endpoint[\"' + msg.kernel.entity + '\"]', 'default');\n            if (typeof endpoint === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let esplit = endpoint.split(\"|\");\n                msg.kernel.model = esplit[0];\n                msg.kernel.device = esplit[1];\n                msg.kernel.endpoint = esplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -15849,8 +15848,7 @@
         "y": 200,
         "wires": [
             [
-                "eac42932b3a0198e",
-                "c969743f371aa87f"
+                "eac42932b3a0198e"
             ]
         ]
     },
@@ -17820,7 +17818,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "command",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\nif (msg.kernel.model === 'opta') {\n\n    if (msg.kernel.endpoint.match((new RegExp('(reset)$'))) !== null) {\n        for (let rio = 0; rio < 8; rio++) {\n            /* reset an input */\n            if (msg.kernel.endpoint === ('i' + rio + 'reset')) {\n                msg.topic = 'opta/' + msg.kernel.device + '/input/reset';\n                msg.payload = rio;\n\n                delete msg.kernel;\n\n                return msg;\n                /* reset an output */\n            } else if (msg.kernel.endpoint === ('o' + rio + 'reset')) {\n                msg.topic = 'opta/' + msg.kernel.device + '/output/reset';\n                msg.payload = rio;\n\n                delete msg.kernel;\n\n                return msg;\n            }\n        }\n    }\n\n    /* command an output */\n    if (msg.kernel.endpoint.match((new RegExp('^(o)'))) !== null) {\n        for (let eio = 0; eio < 8; eio++) {\n            if (msg.kernel.endpoint === ('o' + eio + 'state')) {\n                msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + eio;\n                msg.payload = msg.kernel.value;\n\n                delete msg.kernel;\n\n                return msg;\n            }\n        }\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\nif (msg.kernel.model === 'opta') {\n\n    if (msg.kernel.convert.match((new RegExp('(reset)$'))) !== null) {\n        /* reset an input */\n        if (msg.kernel.convert === 'i|reset') {\n            msg.topic = 'opta/' + msg.kernel.device + '/input/reset';\n            msg.payload = msg.kernel.endpoint;\n\n            delete msg.kernel;\n\n            return msg;\n            /* reset an output */\n        } else if (msg.kernel.convert === ('o|reset')) {\n            msg.topic = 'opta/' + msg.kernel.device + '/output/reset';\n            msg.payload = msg.kernel.endpoint;\n\n            delete msg.kernel;\n\n            return msg;\n        }\n    }\n\n    /* command an output */\n    if (msg.kernel.convert.match((new RegExp('^(o)'))) !== null) {\n        if (msg.kernel.convert === 'o|state') {\n            msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + msg.kernel.endpoint;\n            msg.payload = msg.kernel.value;\n\n            delete msg.kernel;\n\n            return msg;\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18143,24 +18141,6 @@
         ],
         "x": 435,
         "y": 320,
-        "wires": []
-    },
-    {
-        "id": "c969743f371aa87f",
-        "type": "debug",
-        "z": "135b7308617dad08",
-        "g": "44d39e7547289d97",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 100,
         "wires": []
     },
     {

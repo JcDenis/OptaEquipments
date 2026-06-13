@@ -32,7 +32,6 @@
     - 31f72f6c4d5ded3b
     - f84a1943480e45cb
     - 2219b610eb1a3cc0
-    - c969743f371aa87f
   x: 94
   'y': 39
   w: 992
@@ -245,7 +244,6 @@
   'y': 200
   wires:
     - - eac42932b3a0198e
-      - c969743f371aa87f
 - id: 7c5f93321a4b2009
   type: mqtt out
   z: 135b7308617dad08
@@ -1720,39 +1718,35 @@
 
     if (msg.kernel.model === 'opta') {
 
-        if (msg.kernel.endpoint.match((new RegExp('(reset)$'))) !== null) {
-            for (let rio = 0; rio < 8; rio++) {
-                /* reset an input */
-                if (msg.kernel.endpoint === ('i' + rio + 'reset')) {
-                    msg.topic = 'opta/' + msg.kernel.device + '/input/reset';
-                    msg.payload = rio;
+        if (msg.kernel.convert.match((new RegExp('(reset)$'))) !== null) {
+            /* reset an input */
+            if (msg.kernel.convert === 'i|reset') {
+                msg.topic = 'opta/' + msg.kernel.device + '/input/reset';
+                msg.payload = msg.kernel.endpoint;
 
-                    delete msg.kernel;
+                delete msg.kernel;
 
-                    return msg;
-                    /* reset an output */
-                } else if (msg.kernel.endpoint === ('o' + rio + 'reset')) {
-                    msg.topic = 'opta/' + msg.kernel.device + '/output/reset';
-                    msg.payload = rio;
+                return msg;
+                /* reset an output */
+            } else if (msg.kernel.convert === ('o|reset')) {
+                msg.topic = 'opta/' + msg.kernel.device + '/output/reset';
+                msg.payload = msg.kernel.endpoint;
 
-                    delete msg.kernel;
+                delete msg.kernel;
 
-                    return msg;
-                }
+                return msg;
             }
         }
 
         /* command an output */
-        if (msg.kernel.endpoint.match((new RegExp('^(o)'))) !== null) {
-            for (let eio = 0; eio < 8; eio++) {
-                if (msg.kernel.endpoint === ('o' + eio + 'state')) {
-                    msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + eio;
-                    msg.payload = msg.kernel.value;
+        if (msg.kernel.convert.match((new RegExp('^(o)'))) !== null) {
+            if (msg.kernel.convert === 'o|state') {
+                msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + msg.kernel.endpoint;
+                msg.payload = msg.kernel.value;
 
-                    delete msg.kernel;
+                delete msg.kernel;
 
-                    return msg;
-                }
+                return msg;
             }
         }
     }
@@ -2227,20 +2221,4 @@
     - 4e94023e8ba12f50
   x: 435
   'y': 320
-  wires: []
-- id: c969743f371aa87f
-  type: debug
-  z: 135b7308617dad08
-  g: 44d39e7547289d97
-  name: debug 2
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 820
-  'y': 100
   wires: []

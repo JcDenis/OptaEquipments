@@ -4746,16 +4746,17 @@
             delete msg.kernel.model;
             if (msg.kernel.type === 'state') {
                 // For kernel state, retrieve component definition
-                let endpoint = global.get('kernel.endpoint["' + msg.kernel.entity + '"]', 'memoryOnly');
+                let endpoint = global.get('kernel.endpoint["' + msg.kernel.entity + '"]', 'default');
                 if (typeof endpoint === 'string') {
+                    let csplit = msg.kernel.entity.split("|");
+                    msg.kernel.equipment = csplit[0];
+                    msg.kernel.component = csplit[1];
+
                     let esplit = endpoint.split("|");
                     msg.kernel.model = esplit[0];
                     msg.kernel.device = esplit[1];
                     msg.kernel.endpoint = esplit[2];
-
-                    let csplit = msg.kernel.entity.split("|");
-                    msg.kernel.equipment = csplit[0];
-                    msg.kernel.component = csplit[1];
+                    msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]','memoryOnly')||'';
                 }
             }
 
