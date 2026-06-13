@@ -5055,10 +5055,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: endpoint
+  name: terminal
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]endpoint'
+      p: '#:(memoryOnly)::form[msg.hmi.id]terminal'
       pt: flow
       to: payload
       tot: msg
@@ -5840,7 +5840,7 @@
       p: class
       pt: msg
     - t: delete
-      p: endpoint
+      p: enitty
       pt: msg
     - t: delete
       p: device
@@ -5901,7 +5901,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.endpoint,\t    'value':0,\t    'loop':false\t}"
+      to: "{\t    'type':'state',\t    'entity':msg.enitty,\t    'value':0,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -5921,7 +5921,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'link',\t    'entity':msg.endpoint,\t    'value':msg.device,\t    'loop':false\t}"
+      to: "{\t    'type':'link',\t    'entity':msg.enitty,\t    'value':msg.device,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -5953,10 +5953,10 @@
       p: device
       pt: msg
       to: >-
-        $join([msg.form.model,msg.form.device,$formatBase(msg.form.endpoint),msg.device],'|')
+        $join([msg.form.model,msg.form.device,$formatBase(msg.form.terminal),msg.device],'|')
       tot: jsonata
     - t: set
-      p: endpoint
+      p: enitty
       pt: msg
       to: '$join([msg.form.equipment,msg.form.component],''|'')'
       tot: jsonata
@@ -5983,9 +5983,9 @@
       to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
     - t: set
-      p: endpoint
+      p: entity
       pt: msg
-      to: form.endpoint
+      to: form.link
       tot: msg
   action: ''
   property: ''
@@ -6007,7 +6007,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.endpoint,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'state',\t    'entity':msg.entity,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6028,7 +6028,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'endpoint',\t    'entity':msg.endpoint,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'link',\t    'entity':msg.entity,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6043,10 +6043,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: endpoint
+  name: link
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]endpoint'
+      p: '#:(memoryOnly)::form[msg.hmi.id]link'
       pt: flow
       to: payload
       tot: msg
@@ -6055,7 +6055,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1480
+  x: 1470
   'y': 4820
   wires:
     - - 4f39d6babedbf220
@@ -6180,7 +6180,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'reverse',\t    'entity':msg.endpoint,\t    'value':msg.form.reverse,\t    'loop':false\t}"
+      to: "{\t    'type':'reverse',\t    'entity':msg.enitty,\t    'value':msg.form.reverse,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -6200,7 +6200,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'reverse',\t    'entity':msg.endpoint,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
+      to: "{\t    'type':'reverse',\t    'entity':msg.entity,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -7326,7 +7326,7 @@
   z: 64ce08af468b8197
   g: 85b6019ecabb42eb
   group: 9d9e19b688919599
-  name: tree - alert - add - component
+  name: tree - alert - add - link
   label: ''
   tooltip: ''
   order: 76
@@ -7343,7 +7343,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 840
+  x: 820
   'y': 5660
   wires:
     - - 78a058707a79ea78
@@ -7374,7 +7374,7 @@
     - t: set
       p: payload
       pt: msg
-      to: 'kernel.endpoint[msg.payload]'
+      to: '#:(memoryOnly)::rlink[msg.payload]'
       tot: global
     - t: set
       p: split
@@ -7759,7 +7759,7 @@
       to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
     - t: set
-      p: form.endpoint
+      p: form.link
       pt: msg
       to: '$join([msg.form.equipment,msg.form.component],''|'')'
       tot: jsonata
@@ -7781,7 +7781,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'alert',\t    'entity':msg.form.endpoint,\t    'value':$number(msg.form.limit),\t    'loop':false\t}"
+      to: "{\t    'type':'alert',\t    'entity':msg.form.link,\t    'value':$number(msg.form.limit),\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -12814,13 +12814,8 @@
     - t: set
       p: entity
       pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]endpoint'
+      to: '#:(memoryOnly)::form[msg.hmi.id]link'
       tot: flow
-    - t: set
-      p: entity
-      pt: msg
-      to: 'kernel.endpoint[msg.entity]'
-      tot: global
     - t: set
       p: payload
       pt: msg
@@ -12891,10 +12886,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: endpoint
+  name: link
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]endpoint'
+      p: '#:(memoryOnly)::form[msg.hmi.id]link'
       pt: flow
       to: payload
       tot: msg
@@ -12903,7 +12898,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1480
+  x: 1470
   'y': 5060
   wires:
     - - 21cdc278e39e851a
@@ -13103,11 +13098,6 @@
       pt: msg
       to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
-    - t: set
-      p: endpoint
-      pt: msg
-      to: form.endpoint
-      tot: msg
   action: ''
   property: ''
   from: ''
@@ -13162,7 +13152,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'reverse',\t    'entity':msg.form.endpoint,\t    'value':msg.form.reverse,\t    'loop':false\t}"
+      to: "{\t    'type':'reverse',\t    'entity':msg.form.link,\t    'value':msg.form.reverse,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -15049,6 +15039,11 @@
       pt: msg
       to: dictionary.common_select_endpoint
       tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
   action: ''
   property: ''
   from: ''
@@ -16233,11 +16228,11 @@
   name: empty
   func: |-
     let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-    let endpoints = global.get('kernel.endpoints', 'default');
+    let links = global.get('rlink', 'memoryOnly');
     let needle = new RegExp('^(' + form.model + '\\|' + form.id + '\\|)');
-    if (typeof endpoints === 'object') {
-        for (const endpoint in endpoints) {
-            if (endpoint.match(needle) !== null) {
+    if (typeof links === 'object') {
+        for (const target in links) {
+            if (target.match(needle) !== null) {
                 return [null, msg];
             }
         }
@@ -17469,7 +17464,7 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   group: 9d9e19b688919599
-  name: tree - component - add - endpoint
+  name: tree - component - add - terminal
   label: ''
   order: 59
   width: 0

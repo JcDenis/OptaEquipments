@@ -4587,11 +4587,10 @@
     let pilot = flow.get('pilots["' + msg.row.line + '"]', 'memoryOnly');
 
     if (typeof pilot === 'boolean'
-        && typeof flow.get('reverse_endpoint["' + msg.row.entity + '"]', 'memoryOnly') === 'string'
+        && typeof global.get('kernel.link["' + msg.row.entity + '"]', 'default') === 'string'
         && msg.row.component.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null
     ) {
-        let entity = msg.row.equipment + '|run';
-        let state = global.get('kernel.state["' + entity + '"]', 'default');
+        let state = global.get('kernel.state["' + msg.row.equipment + '|run"]', 'default');
         if (typeof state === 'number' && state === 1) {
             /* do not pilot heat if euipement is running */
         } else {
@@ -4745,16 +4744,16 @@
             delete msg.kernel.model;
             if (msg.kernel.type === 'state') {
                 // For kernel state, retrieve component definition
-                let link = global.get('kernel.link["' + msg.kernel.entity + '"]', 'default');
-                if (typeof link === 'string') {
+                let target = global.get('kernel.link["' + msg.kernel.entity + '"]', 'default');
+                if (typeof target === 'string') {
                     let csplit = msg.kernel.entity.split("|");
                     msg.kernel.equipment = csplit[0];
                     msg.kernel.component = csplit[1];
 
-                    let esplit = link.split("|");
-                    msg.kernel.model = esplit[0];
-                    msg.kernel.device = esplit[1];
-                    msg.kernel.endpoint = esplit[2];
+                    let tsplit = target.split("|");
+                    msg.kernel.model = tsplit[0];
+                    msg.kernel.device = tsplit[1];
+                    msg.kernel.terminal = tsplit[2];
                     msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]','memoryOnly')||'';
                 }
             }
@@ -4945,3 +4944,11 @@
   'y': 1100
   wires:
     - - 8415b61e8bd93936
+- id: 0ce512a3b3c0598c
+  type: comment
+  z: f6f2187d.f17ca8
+  name: 'kernel.link[endpoint]=target, rlink[target]=endpoint'
+  info: ''
+  x: 1260
+  'y': 580
+  wires: []

@@ -1481,9 +1481,9 @@
       to: Local server
       tot: str
     - t: set
-      p: '#:(memoryOnly)::describe.endpoint.local'
+      p: '#:(memoryOnly)::describe.convert.local'
       pt: global
-      to: "{\t    'load1meter':'Charge à 1 minute',\t    'load5meter':'Charge à 5 minutes',\t    'load15meter':'Charge à 15 minutes',\t    'memorymeter':'Utilisation mémoire',\t    'diskmeter':'Utilisation disque',\t    'uptimemeter':'Durée de fonctionnement'\t}"
+      to: "{\t    'load1meter':'load1meter',\t    'load5meter':'load5meter',\t    'load15meter':'load15meter',\t    'memorymeter':'memorymeter',\t    'diskmeter':'diskmeter',\t    'uptimemeter':'uptimemeter'\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -1675,8 +1675,8 @@
     } else if ((split[2] === 'input' || split[2] === 'output') && split[3] !==
     'set') {
         let link = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];
-        let entity = global.get('rlink["' + link + '"]', 'memoryOnly');
-        if (typeof entity === 'string') {
+        let endpoint = global.get('rlink["' + link + '"]', 'memoryOnly');
+        if (typeof endpoint === 'string') {
             if (split[3] === 'partialHigh' || split[3] === 'high') {
                 /* convert timers fron seconds to hours, round to one decimal */
                 msg.payload = Math.round(msg.payload / 360) / 10;
@@ -1684,7 +1684,7 @@
 
             newMsg.kernel = {
                 'type': 'state',
-                'entity': entity,
+                'entity': endpoint,
                 'value': msg.payload,
                 /* Do not loop output */
                 'loop': split[2] === 'output' ? true : false
@@ -1722,7 +1722,7 @@
             /* reset an input */
             if (msg.kernel.convert === 'i|reset') {
                 msg.topic = 'opta/' + msg.kernel.device + '/input/reset';
-                msg.payload = msg.kernel.endpoint;
+                msg.payload = msg.kernel.terminal;
 
                 delete msg.kernel;
 
@@ -1730,7 +1730,7 @@
                 /* reset an output */
             } else if (msg.kernel.convert === ('o|reset')) {
                 msg.topic = 'opta/' + msg.kernel.device + '/output/reset';
-                msg.payload = msg.kernel.endpoint;
+                msg.payload = msg.kernel.terminal;
 
                 delete msg.kernel;
 
@@ -1741,7 +1741,7 @@
         /* command an output */
         if (msg.kernel.convert.match((new RegExp('^(o)'))) !== null) {
             if (msg.kernel.convert === 'o|state') {
-                msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + msg.kernel.endpoint;
+                msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + msg.kernel.terminal;
                 msg.payload = msg.kernel.value;
 
                 delete msg.kernel;
@@ -1801,16 +1801,16 @@
   g: dbcc4077524c4e42
   name: uptime
   func: >-
-    let endpoint = global.get('kernel.endpoint["' + msg.device +
-    '|uptimemeter"]', 'default');
+    let entity = global.get('rlink["' + msg.device + '|0|uptimemeter"]',
+    'memoryOnly');
 
-    if (typeof endpoint === 'string') {
+    if (typeof entity === 'string') {
         return {
             'topic':'',
             'payload':'',
             'kernel':{
                 'type':'state',
-                'entity':endpoint,
+                'entity':entity,
                 'value':Math.round(msg.payload.uptime),
                 'loop':false
             }
@@ -1836,8 +1836,8 @@
   g: dbcc4077524c4e42
   name: load
   func: >-
-    let load1meter = global.get('kernel.endpoint["' + msg.device +
-    '|load1meter"]', 'default');
+    let load1meter = global.get('rlink["' + msg.device + '|0|load1meter"]',
+    'memoryOnly');
 
     if (typeof load1meter === 'string') {
         node.send({
@@ -1853,8 +1853,8 @@
     }
 
 
-    let load5meter = global.get('kernel.endpoint["' + msg.device +
-    '|load5meter"]', 'default');
+    let load5meter = global.get('rlink["' + msg.device + '|0|load5meter"]',
+    'memoryOnly');
 
     if (typeof load5meter === 'string') {
         node.send({
@@ -1870,8 +1870,8 @@
     }
 
 
-    let load15meter = global.get('kernel.endpoint["' + msg.device +
-    '|load15meter"]', 'default');
+    let load15meter = global.get('rlink["' + msg.device + '|0|load15meter"]',
+    'memoryOnly');
 
     if (typeof load15meter === 'string') {
         node.send({
@@ -1904,17 +1904,25 @@
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: memory
-  func: |-
-    return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'state',
-            'entity':msg.device + '|memorymeter',
-            'value':(Math.round(msg.payload.memusage*10) / 10),
-            'loop':false
-        }
-    };
+  func: >-
+    let memorymeter = global.get('rlink["' + msg.device + '|0|memorymeter"]',
+    'memoryOnly');
+
+    if (typeof memorymeter === 'string') {
+        return {
+            'topic':'',
+            'payload':'',
+            'kernel':{
+                'type':'state',
+                'entity':memorymeter,
+                'value':(Math.round(msg.payload.memusage*10) / 10),
+                'loop':false
+            }
+        };
+    }
+
+
+    return;
   outputs: 1
   timeout: 0
   noerr: 0
@@ -1934,16 +1942,19 @@
   func: |-
     for (const key in msg.payload) {
         if (msg.payload[key]['mount'] === '/data') {
-            return {
-                'topic':'',
-                'payload':'',
-                'kernel':{
-                    'type':'state',
-                    'entity':msg.device + '|diskmeter',
-                    'value':(Math.round(msg.payload[key]['capacity'] * 1000) / 10),
-                    'loop':false
-                }
-            };
+            let diskmeter = global.get('rlink["' + msg.device + '|0|diskmeter"]', 'memoryOnly');
+            if (typeof diskmeter === 'string') {
+                return {
+                    'topic':'',
+                    'payload':'',
+                    'kernel':{
+                        'type':'state',
+                        'entity':diskmeter,
+                        'value':(Math.round(msg.payload[key]['capacity'] * 1000) / 10),
+                        'loop':false
+                    }
+                };
+            }
         }
     }
 

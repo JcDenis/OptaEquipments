@@ -1241,7 +1241,7 @@
   arraySplt: 1
   arraySpltType: len
   stream: false
-  addname: entity
+  addname: endpoint
   property: payload
   x: 610
   'y': 2060
@@ -1256,7 +1256,7 @@
     - t: set
       p: row.value
       pt: msg
-      to: 'kernel.state[msg.entity]'
+      to: 'kernel.state[msg.endpoint]'
       tot: global
     - t: set
       p: split
@@ -1291,7 +1291,7 @@
     - t: set
       p: split
       pt: msg
-      to: '$split(msg.entity,''|'')'
+      to: '$split(msg.endpoint,''|'')'
       tot: jsonata
     - t: set
       p: row.equipment
@@ -1349,7 +1349,7 @@
     - t: set
       p: row.reverse
       pt: msg
-      to: 'kernel.reverse[msg.entity]'
+      to: 'kernel.reverse[msg.endpoint]'
       tot: global
     - t: set
       p: row.reverse
@@ -2246,7 +2246,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.endpoint
+      to: '#:(memoryOnly)::rlink'
       tot: global
     - t: set
       p: '#:(memoryOnly)::device'
@@ -2272,7 +2272,7 @@
   arraySplt: 1
   arraySpltType: len
   stream: false
-  addname: endpoint
+  addname: target
   property: payload
   x: 2850
   'y': 1760
@@ -2308,7 +2308,7 @@
   z: e97c6f12735a13c1
   g: e86385b18b9154e7
   name: exists
-  property: endpoint
+  property: target
   propertyType: msg
   rules:
     - t: regex
@@ -2479,7 +2479,7 @@
       p: regexp
       pt: msg
     - t: delete
-      p: endpoint
+      p: target
       pt: msg
   action: ''
   property: ''
@@ -2577,7 +2577,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.endpoint
+      to: kernel.link
       tot: global
     - t: set
       p: '#:(memoryOnly)::equipment'
@@ -2603,7 +2603,7 @@
   arraySplt: 1
   arraySpltType: len
   stream: false
-  addname: ''
+  addname: link
   property: payload
   x: 3070
   'y': 1460
@@ -2614,7 +2614,7 @@
   z: e97c6f12735a13c1
   g: 1dd6bd6835107ce6
   name: exists
-  property: payload
+  property: link
   propertyType: msg
   rules:
     - t: regex
@@ -2878,7 +2878,7 @@
       p: regexp
       pt: msg
     - t: delete
-      p: endpoint
+      p: link
       pt: msg
   action: ''
   property: ''
@@ -3332,12 +3332,6 @@
     - t: delete
       p: settings
       pt: msg
-    - t: delete
-      p: regexp
-      pt: msg
-    - t: delete
-      p: endpoint
-      pt: msg
   action: ''
   property: ''
   from: ''
@@ -3376,12 +3370,6 @@
       pt: msg
     - t: delete
       p: settings
-      pt: msg
-    - t: delete
-      p: regexp
-      pt: msg
-    - t: delete
-      p: endpoint
       pt: msg
   action: ''
   property: ''
@@ -5110,15 +5098,15 @@
     }
 
 
-    let components = global.get('kernel.endpoint');
+    let rlinks = global.get('rlink','memoryOnly');
 
-    let entity = new RegExp('^(' + msg.row.model + '\\|' + msg.row.device +
+    let needle = new RegExp('^(' + msg.row.model + '\\|' + msg.row.device +
     '\\|)');
 
 
-    if (typeof components === 'object') {
-        for (const component in components) {
-            if (component.match(entity) !== null) {
+    if (typeof rlinks === 'object') {
+        for (const target in rlinks) {
+            if (target.match(needle) !== null) {
                 msg.row.component_count += 1;
             }
         }
@@ -5150,14 +5138,14 @@
     }
 
 
-    let components = global.get('kernel.endpoint');
+    let links = global.get('kernel.link','default');
 
-    let entity = new RegExp('^(' + msg.row.equipment + '\\|)');
+    let needle = new RegExp('^(' + msg.row.equipment + '\\|)');
 
 
-    if (typeof components === 'object') {
-        for (const component in components) {
-            if (components[component].match(entity) !== null) {
+    if (typeof links === 'object') {
+        for (const endpoint in links) {
+            if (endpoint.match(needle) !== null) {
                 msg.row.component_count += 1;
             }
         }
