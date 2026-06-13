@@ -347,6 +347,25 @@
   'y': 2679
   w: 532
   h: 142
+- id: 111bcae539ab0233
+  type: group
+  z: adb9fbf379118d77
+  name: option - group
+  style:
+    label: true
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    stroke: '#92d04f'
+  nodes:
+    - a085884db0334fe2
+    - d239092e6f135864
+    - 108863cf9d87e186
+    - 64f721de1fa75026
+    - de1be2783eb343b9
+  x: 764
+  'y': 1419
+  w: 532
+  h: 142
 - id: 2ee1493983ba4b61
   type: link out
   z: adb9fbf379118d77
@@ -1944,3 +1963,91 @@
   x: 460
   'y': 3080
   wires: []
+- id: a085884db0334fe2
+  type: link in
+  z: adb9fbf379118d77
+  g: 111bcae539ab0233
+  name: option - group
+  links: []
+  x: 805
+  'y': 1460
+  wires:
+    - - de1be2783eb343b9
+- id: d239092e6f135864
+  type: link out
+  z: adb9fbf379118d77
+  g: 111bcae539ab0233
+  name: option - group
+  mode: return
+  links: []
+  x: 1255
+  'y': 1460
+  wires: []
+- id: 108863cf9d87e186
+  type: debug
+  z: adb9fbf379118d77
+  g: 111bcae539ab0233
+  name: option - group
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1120
+  'y': 1520
+  wires: []
+- id: 64f721de1fa75026
+  type: link call
+  z: adb9fbf379118d77
+  g: 111bcae539ab0233
+  name: ''
+  links:
+    - cd21bdc2e85b8b8e
+  linkType: static
+  timeout: '30'
+  x: 1110
+  'y': 1460
+  wires:
+    - - d239092e6f135864
+- id: de1be2783eb343b9
+  type: function
+  z: adb9fbf379118d77
+  g: 111bcae539ab0233
+  name: groups
+  func: |-
+    msg.options = [{
+        'label':'',
+        'value':'',
+        'dropdown':'group'
+    }];
+
+    let groups = msg.dictionary?.option_group;
+    let i = 1;
+
+    if (typeof groups === 'object') {
+        for (const group in groups) {
+            if (typeof msg.limit_group === 'undefined' || group.match((new RegExp('^(' + msg.limit_group + ')$'))) !== null) {
+                msg.options[i++] = {
+                    'label': groups[group] + ' (' + group + ')',
+                    'value': group,
+                    'dropdown':'group'
+                }
+            }
+        }
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 930
+  'y': 1460
+  wires:
+    - - 64f721de1fa75026
+      - 108863cf9d87e186
