@@ -980,7 +980,7 @@
   type: change
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
-  name: endpoints
+  name: link
   rules:
     - t: set
       p: kernel.value
@@ -988,16 +988,16 @@
       to: payload
       tot: msg
     - t: set
-      p: endpoint
+      p: link
       pt: msg
-      to: 'kernel.endpoint[msg.kernel.entity]'
+      to: 'kernel.link[msg.kernel.entity]'
       tot: global
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 3120
+  x: 3110
   'y': 680
   wires:
     - - 0ddcdaa6a85f6860
@@ -1006,7 +1006,7 @@
   z: 852390cb9559e176
   g: 20a2e240c83c48c2
   name: endpoint
-  property: endpoint
+  property: link
   propertyType: msg
   rules:
     - t: istype
@@ -1028,7 +1028,7 @@
     - t: set
       p: split
       pt: msg
-      to: '$split(msg.endpoint,''|'')'
+      to: '$split(msg.link,''|'')'
       tot: jsonata
     - t: set
       p: kernel.model

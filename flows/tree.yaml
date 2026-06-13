@@ -5055,10 +5055,10 @@
   type: change
   z: 64ce08af468b8197
   g: 20722623c07d09d8
-  name: io
+  name: endpoint
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]io'
+      p: '#:(memoryOnly)::form[msg.hmi.id]endpoint'
       pt: flow
       to: payload
       tot: msg
@@ -5067,7 +5067,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1470
+  x: 1480
   'y': 4520
   wires:
     - - 79642165f3c70da6
@@ -5921,7 +5921,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'endpoint',\t    'entity':msg.endpoint,\t    'value':msg.device,\t    'loop':false\t}"
+      to: "{\t    'type':'link',\t    'entity':msg.endpoint,\t    'value':msg.device,\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -5953,7 +5953,7 @@
       p: device
       pt: msg
       to: >-
-        $join([msg.form.model,msg.form.device,$formatBase(msg.form.io),msg.device],'|')
+        $join([msg.form.model,msg.form.device,$formatBase(msg.form.endpoint),msg.device],'|')
       tot: jsonata
     - t: set
       p: endpoint
@@ -17469,7 +17469,7 @@
   z: 64ce08af468b8197
   g: 20722623c07d09d8
   group: 9d9e19b688919599
-  name: tree - component - add - io
+  name: tree - component - add - endpoint
   label: ''
   order: 59
   width: 0
@@ -17491,7 +17491,7 @@
   iconPosition: left
   iconInnerPosition: inside
   spinner: default
-  x: 840
+  x: 860
   'y': 4520
   wires:
     - - a35eda7dde757c91

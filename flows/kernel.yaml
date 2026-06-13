@@ -200,7 +200,7 @@
     - 0782cf84e02ba5e3
   x: 94
   'y': 39
-  w: 1052
+  w: 972
   h: 142
 - id: 32da9b1ae024e8bb
   type: group
@@ -302,7 +302,7 @@
   type: group
   z: f6f2187d.f17ca8
   g: 6d20a2d8c94f66d9
-  name: kernel - reverse endpoint
+  name: kernel - rlink
   style:
     fill: '#ff0000'
     fill-opacity: '0.05'
@@ -804,7 +804,7 @@
     - 6304fe8d08f0cf47
     - fbeb08a94e71e7bf
     - 00818f8c0686b556
-  x: 975
+  x: 895
   'y': 80
   wires: []
 - id: 90fee914285e6f59
@@ -2279,7 +2279,7 @@
   type: link in
   z: f6f2187d.f17ca8
   g: b0a29d62b8e00f94
-  name: kernel - reverse endpoint
+  name: kernel - rlink
   links: []
   x: 145
   'y': 1100
@@ -2289,7 +2289,7 @@
   type: link out
   z: f6f2187d.f17ca8
   g: b0a29d62b8e00f94
-  name: kernel - reverse endpoint
+  name: kernel - rlink
   mode: return
   links: []
   x: 735
@@ -2304,7 +2304,7 @@
     - 6901e471ce0a074d
   linkType: static
   timeout: '30'
-  x: 790
+  x: 750
   'y': 80
   wires:
     - - 575b91a30deac00d
@@ -2318,7 +2318,7 @@
     - 6901e471ce0a074d
   linkType: static
   timeout: '30'
-  x: 430
+  x: 390
   'y': 380
   wires:
     - - 9d694324cf6b8842
@@ -2513,7 +2513,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1030
+  x: 950
   'y': 140
   wires: []
 - id: 9b9c102ae72a95d5
@@ -3326,9 +3326,9 @@
     }
 
 
-    global.set('io',{},'memoryOnly');
+    global.set('rlink',{},'memoryOnly');
 
-    global.set('io',inverse(global.get('kernel.endpoint','default')),'memoryOnly');
+    global.set('rlink',inverse(global.get('kernel.link','default')),'memoryOnly');
 
 
     msg.payload = '';
@@ -3669,7 +3669,6 @@
         msg.measurement = msg.kernel.equipment;
         msg.payload = [{[msg.kernel.component]: msg.kernel.value }];
 
-        delete msg.endpoint;
         delete msg.kernel;
 
         return msg;
@@ -4746,13 +4745,13 @@
             delete msg.kernel.model;
             if (msg.kernel.type === 'state') {
                 // For kernel state, retrieve component definition
-                let endpoint = global.get('kernel.endpoint["' + msg.kernel.entity + '"]', 'default');
-                if (typeof endpoint === 'string') {
+                let link = global.get('kernel.link["' + msg.kernel.entity + '"]', 'default');
+                if (typeof link === 'string') {
                     let csplit = msg.kernel.entity.split("|");
                     msg.kernel.equipment = csplit[0];
                     msg.kernel.component = csplit[1];
 
-                    let esplit = endpoint.split("|");
+                    let esplit = link.split("|");
                     msg.kernel.model = esplit[0];
                     msg.kernel.device = esplit[1];
                     msg.kernel.endpoint = esplit[2];
