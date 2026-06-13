@@ -64,7 +64,7 @@
     - 4ac5879e40df9f2b
     - cae4fb60a956e73b
   x: 94
-  'y': 459
+  'y': 879
   w: 1272
   h: 262
 - id: 0bd0a0e550d3bcc1
@@ -120,7 +120,7 @@
     - ee5b70483bf7f91c
     - 3680c4078ba7fbc1
   x: 94
-  'y': 759
+  'y': 1179
   w: 1972
   h: 562
 - id: dbcc4077524c4e42
@@ -150,7 +150,7 @@
     - 3fe36612a53ef445
     - f0ac8f741cf8ed8b
   x: 94
-  'y': 1359
+  'y': 459
   w: 872
   h: 382
 - id: 10af438fbe88a4a2
@@ -303,7 +303,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 500
+  'y': 920
   wires:
     - - 8f0b635916cdcf8e
 - id: 8f0b635916cdcf8e
@@ -322,13 +322,18 @@
       pt: global
       to: "{\t    'DigitalInput1':'Etat entrée digitale 1',\t    'DigitalInput2':'Etat entrée digitale 2',\t    'AnalogInput1':'Etat entrée analogique 1',\t    'AnalogInput2':'Etat entrée analogique 2',\t    'r1':'Commande de sortie 1',\t    'r2':'Commande de sortie 2'\t}"
       tot: jsonata
+    - t: set
+      p: dsescribe.convert.tcw122bcm
+      pt: global
+      to: "{\t    'run':'DigitalInput',\t    'cycle':'DigitalInput',\t    'heat':'DigitalInput',\t    'voltage':'AnalogInput',\t    'heatswitch':'r',\t    'heattoggle':'r',\t    'heatlink':'r',\t    'heatpulse':'r'\t}"
+      tot: jsonata
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 280
-  'y': 500
+  'y': 920
   wires:
     - []
 - id: 6f0b1eb0278764e4
@@ -339,7 +344,7 @@
   links:
     - 050a29c043a85584
   x: 145
-  'y': 620
+  'y': 1040
   wires:
     - - cae4fb60a956e73b
 - id: 88c665fa97189006
@@ -359,7 +364,7 @@
   senderr: false
   headers: []
   x: 470
-  'y': 620
+  'y': 1040
   wires:
     - - f53e9cf22eb4309b
 - id: 1f369f9dec67f5b5
@@ -370,7 +375,7 @@
   links:
     - 9d694324cf6b8842
   x: 145
-  'y': 560
+  'y': 980
   wires:
     - - 646cb6874a24fd76
 - id: d1b70d199774160f
@@ -382,7 +387,7 @@
     https://www.teracomsystems.com/ethernet/remote-io-module-tcw122b-cm/
   info: ''
   x: 490
-  'y': 680
+  'y': 1100
   wires: []
 - id: f19f34db8160a728
   type: http request
@@ -401,7 +406,7 @@
   senderr: false
   headers: []
   x: 470
-  'y': 560
+  'y': 980
   wires:
     - - 17ce1315ae099462
 - id: 17ce1315ae099462
@@ -419,7 +424,7 @@
   repair: false
   outputs: 1
   x: 650
-  'y': 560
+  'y': 980
   wires:
     - - c4ab97e109e46f9a
 - id: c4ab97e109e46f9a
@@ -431,7 +436,7 @@
   attr: ''
   chr: ''
   x: 810
-  'y': 560
+  'y': 980
   wires:
     - - 4ac5879e40df9f2b
 - id: ac509dada2597e3c
@@ -443,7 +448,7 @@
   links:
     - e60e4ab7617738c3
   x: 1115
-  'y': 560
+  'y': 980
   wires: []
 - id: a3107171fba35cd1
   type: debug
@@ -459,7 +464,7 @@
   statusVal: ''
   statusType: auto
   x: 1210
-  'y': 620
+  'y': 1040
   wires: []
 - id: 07702716cbe00862
   type: catch
@@ -471,7 +476,7 @@
     - 88c665fa97189006
   uncaught: false
   x: 510
-  'y': 500
+  'y': 920
   wires:
     - - 0e29e8c70d282a5f
 - id: 0e29e8c70d282a5f
@@ -488,11 +493,12 @@
   statusVal: ''
   statusType: auto
   x: 810
-  'y': 500
+  'y': 920
   wires: []
 - id: 74be18b1282eabf2
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: describe
   rules:
@@ -512,34 +518,37 @@
   to: ''
   reg: false
   x: 280
-  'y': 920
+  'y': 1340
   wires:
     - []
 - id: 0867279186d4420d
   type: link in
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model - ep32s3eth8di8ro - describe
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 920
+  'y': 1340
   wires:
     - - 74be18b1282eabf2
 - id: 774226969c84134d
   type: comment
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: >-
     Waveshare ESP32-S3-ETH-8DI-8RO -
     https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO
   info: ''
   x: 450
-  'y': 1280
+  'y': 1700
   wires: []
 - id: c001811311778442
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: parse topic
   rules:
@@ -554,12 +563,13 @@
   to: ''
   reg: false
   x: 390
-  'y': 980
+  'y': 1400
   wires:
     - - ecd439977e7961df
 - id: 7a824134c270f925
   type: mqtt in
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: ''
   topic: /waveshare/#
@@ -571,12 +581,13 @@
   rh: 0
   inputs: 0
   x: 190
-  'y': 980
+  'y': 1400
   wires:
     - - c001811311778442
 - id: adf884f302c2073e
   type: debug
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model - ep32s3eth8di8ro - in
   active: false
@@ -588,11 +599,12 @@
   statusVal: ''
   statusType: auto
   x: 1900
-  'y': 920
+  'y': 1340
   wires: []
 - id: 4d3f4a7ba233fe67
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: endpoint
   property: kernel.endpoint
@@ -605,12 +617,13 @@
   repair: false
   outputs: 1
   x: 1160
-  'y': 920
+  'y': 1340
   wires:
     - - 3ebd2719b1d522df
 - id: 0d22665f8ff032a1
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: kernel
   rules:
@@ -652,13 +665,14 @@
   to: ''
   reg: false
   x: 1650
-  'y': 920
+  'y': 1340
   wires:
     - - adf884f302c2073e
       - 3635210474545f29
 - id: ecd439977e7961df
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: path
   property: 'split[3]'
@@ -674,13 +688,14 @@
   repair: false
   outputs: 2
   x: 570
-  'y': 980
+  'y': 1400
   wires:
     - - ce558a1c98b4df20
     - - 3680c4078ba7fbc1
 - id: 7424c6064adde611
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: value
   rules:
@@ -695,34 +710,37 @@
   to: ''
   reg: false
   x: 1490
-  'y': 860
+  'y': 1280
   wires:
     - - 0d22665f8ff032a1
 - id: 3635210474545f29
   type: link out
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model - ep32s3eth8di8ro - in
   mode: link
   links:
     - e60e4ab7617738c3
   x: 1795
-  'y': 980
+  'y': 1400
   wires: []
 - id: e47fa68c1a570f10
   type: link in
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model - ep32s3eth8di8ro - out
   links:
     - 050a29c043a85584
   x: 145
-  'y': 1100
+  'y': 1520
   wires:
     - - 2359c98c14ccbed1
 - id: 2359c98c14ccbed1
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model
   property: kernel.model
@@ -735,12 +753,13 @@
   repair: false
   outputs: 1
   x: 270
-  'y': 1100
+  'y': 1520
   wires:
     - - f93ba285c4133982
 - id: f93ba285c4133982
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: cmd
   property: kernel.endpoint
@@ -758,13 +777,14 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 1100
+  'y': 1520
   wires:
     - - dec0483961c4e8a8
     - - 432d553d09e31c8a
 - id: dec0483961c4e8a8
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: topic
   rules:
@@ -789,12 +809,13 @@
   to: ''
   reg: false
   x: 590
-  'y': 1100
+  'y': 1520
   wires:
     - - ce49dce4c6876098
 - id: ce49dce4c6876098
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: clean
   rules:
@@ -822,13 +843,14 @@
   to: ''
   reg: false
   x: 750
-  'y': 1100
+  'y': 1520
   wires:
     - - db81b60b48f97b07
       - fca43f70cc3e5520
 - id: db81b60b48f97b07
   type: mqtt out
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: ''
   topic: ''
@@ -841,11 +863,12 @@
   expiry: ''
   broker: f516c1341f0f634c
   x: 910
-  'y': 1100
+  'y': 1520
   wires: []
 - id: fca43f70cc3e5520
   type: debug
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model - ep32s3eth8di8ro - out
   active: true
@@ -857,11 +880,12 @@
   statusVal: ''
   statusType: auto
   x: 990
-  'y': 1160
+  'y': 1580
   wires: []
 - id: ce558a1c98b4df20
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: endpoint
   rules:
@@ -878,7 +902,7 @@
   to: ''
   reg: false
   x: 740
-  'y': 920
+  'y': 1340
   wires:
     - - 4d3f4a7ba233fe67
       - e95780a6a9cae1c2
@@ -886,6 +910,7 @@
 - id: e95780a6a9cae1c2
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: virtual pulse
   rules:
@@ -900,12 +925,13 @@
   to: ''
   reg: false
   x: 930
-  'y': 860
+  'y': 1280
   wires:
     - - e3fe502e00951085
 - id: e3fe502e00951085
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: endpoint
   property: kernel.endpoint
@@ -918,12 +944,13 @@
   repair: false
   outputs: 1
   x: 1160
-  'y': 860
+  'y': 1280
   wires:
     - - da66b6e52e88aae9
 - id: da66b6e52e88aae9
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: 'on'
   property: payload
@@ -936,12 +963,13 @@
   repair: false
   outputs: 1
   x: 1330
-  'y': 800
+  'y': 1220
   wires:
     - - eb1240874ff593d7
 - id: eb1240874ff593d7
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: value
   rules:
@@ -966,12 +994,13 @@
   to: ''
   reg: false
   x: 1490
-  'y': 800
+  'y': 1220
   wires:
     - - 0d22665f8ff032a1
 - id: 96832f9f9c15e6c8
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: virtual partialPulse
   rules:
@@ -986,12 +1015,13 @@
   to: ''
   reg: false
   x: 950
-  'y': 800
+  'y': 1220
   wires:
     - - 4621a63c15468fc5
 - id: 4621a63c15468fc5
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: endpoint
   property: kernel.endpoint
@@ -1004,12 +1034,13 @@
   repair: false
   outputs: 1
   x: 1160
-  'y': 800
+  'y': 1220
   wires:
     - - da66b6e52e88aae9
 - id: 432d553d09e31c8a
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: virtual reset
   property: kernel.endpoint
@@ -1023,12 +1054,13 @@
   repair: false
   outputs: 1
   x: 610
-  'y': 1220
+  'y': 1640
   wires:
     - - 657382c78169115b
 - id: 3ef81c0ad00ed950
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: kernel
   rules:
@@ -1073,12 +1105,13 @@
   to: ''
   reg: false
   x: 1650
-  'y': 1220
+  'y': 1640
   wires:
     - - 3635210474545f29
 - id: 657382c78169115b
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: component
   property: kernel.component
@@ -1096,13 +1129,14 @@
   repair: false
   outputs: 2
   x: 810
-  'y': 1220
+  'y': 1640
   wires:
     - - bb4d950858ec0833
     - - cb0d604b626b1e97
 - id: bb4d950858ec0833
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: component
   rules:
@@ -1117,12 +1151,13 @@
   to: ''
   reg: false
   x: 1010
-  'y': 1220
+  'y': 1640
   wires:
     - - 3ef81c0ad00ed950
 - id: cb0d604b626b1e97
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: component
   rules:
@@ -1137,23 +1172,25 @@
   to: ''
   reg: false
   x: 1010
-  'y': 1280
+  'y': 1700
   wires:
     - - 3ef81c0ad00ed950
 - id: 18765a45c26360d8
   type: link in
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model - ep32s3eth8di8ro - virtual
   links:
     - 9d694324cf6b8842
   x: 145
-  'y': 1040
+  'y': 1460
   wires:
     - - 0b13e66fc97af381
 - id: 0b13e66fc97af381
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: endpoint
   rules:
@@ -1168,12 +1205,13 @@
   to: ''
   reg: false
   x: 280
-  'y': 1040
+  'y': 1460
   wires:
     - - 5f548db916944ddf
 - id: ec887ae828f757c5
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: model
   property: endpoint
@@ -1187,12 +1225,13 @@
   repair: false
   outputs: 1
   x: 610
-  'y': 1040
+  'y': 1460
   wires:
     - - 9dd086de93067548
 - id: 5f548db916944ddf
   type: split
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: split
   splt: \n
@@ -1203,12 +1242,13 @@
   addname: endpoint
   property: payload
   x: 450
-  'y': 1040
+  'y': 1460
   wires:
     - - ec887ae828f757c5
 - id: 9dd086de93067548
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: component
   property: payload
@@ -1226,13 +1266,14 @@
   repair: false
   outputs: 2
   x: 790
-  'y': 1040
+  'y': 1460
   wires:
     - - 7e15bfbdfddaf8eb
     - - 7735296519b3f1a3
 - id: 7e15bfbdfddaf8eb
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: component
   rules:
@@ -1247,12 +1288,13 @@
   to: ''
   reg: false
   x: 990
-  'y': 1020
+  'y': 1440
   wires:
     - - 1788b11b4dc67404
 - id: 7735296519b3f1a3
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: component
   rules:
@@ -1267,12 +1309,13 @@
   to: ''
   reg: false
   x: 990
-  'y': 1060
+  'y': 1480
   wires:
     - - 1788b11b4dc67404
 - id: f2c969d385c32235
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: kernel
   rules:
@@ -1328,12 +1371,13 @@
   to: ''
   reg: false
   x: 1650
-  'y': 1040
+  'y': 1460
   wires:
     - - 3635210474545f29
 - id: 5294ddb8f6df06b0
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: state
   property: state
@@ -1346,12 +1390,13 @@
   repair: false
   outputs: 1
   x: 1330
-  'y': 1040
+  'y': 1460
   wires:
     - - f2c969d385c32235
 - id: 1788b11b4dc67404
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: state
   rules:
@@ -1386,12 +1431,13 @@
   to: ''
   reg: false
   x: 1170
-  'y': 1040
+  'y': 1460
   wires:
     - - 5294ddb8f6df06b0
 - id: 3ebd2719b1d522df
   type: switch
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: 'on'
   property: payload
@@ -1408,7 +1454,7 @@
   repair: false
   outputs: 3
   x: 1330
-  'y': 920
+  'y': 1340
   wires:
     - - 7424c6064adde611
     - - 7424c6064adde611
@@ -1416,6 +1462,7 @@
 - id: ee5b70483bf7f91c
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: value
   rules:
@@ -1430,7 +1477,7 @@
   to: ''
   reg: false
   x: 1490
-  'y': 920
+  'y': 1340
   wires:
     - - 0d22665f8ff032a1
 - id: f53e9cf22eb4309b
@@ -1447,7 +1494,7 @@
   statusVal: ''
   statusType: auto
   x: 710
-  'y': 620
+  'y': 1040
   wires: []
 - id: 22c14be2e7946e80
   type: comment
@@ -1456,7 +1503,7 @@
   name: 'Settings after a reset: 192.168.1.2 admin/admin'
   info: ''
   x: 1100
-  'y': 680
+  'y': 1100
   wires: []
 - id: b3ffc6b86fdc514c
   type: link in
@@ -1466,7 +1513,7 @@
   links:
     - 575b91a30deac00d
   x: 145
-  'y': 1460
+  'y': 560
   wires:
     - - f9aa75323c9840bd
 - id: f9aa75323c9840bd
@@ -1483,7 +1530,7 @@
     - t: set
       p: '#:(memoryOnly)::describe.convert.local'
       pt: global
-      to: "{\t    'load1meter':'load1meter',\t    'load5meter':'load5meter',\t    'load15meter':'load15meter',\t    'memorymeter':'memorymeter',\t    'diskmeter':'diskmeter',\t    'uptimemeter':'uptimemeter'\t}"
+      to: "{\t    'load1meter':'load1meter',\t    'load5meter':'load5meter',\t    'load15meter':'load15meter',\t    'memorymeter':'memorymeter',\t    'diskmeter':'diskmeter',\t    'uptime':'uptime'\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -1491,7 +1538,7 @@
   to: ''
   reg: false
   x: 280
-  'y': 1460
+  'y': 560
   wires:
     - []
 - id: e2fa90f82ccf222d
@@ -1502,7 +1549,7 @@
   links:
     - 9d694324cf6b8842
   x: 145
-  'y': 1400
+  'y': 500
   wires:
     - - 0b1c1ba728d3208a
 - id: 61f915b81e717609
@@ -1511,7 +1558,7 @@
   g: dbcc4077524c4e42
   name: ''
   x: 450
-  'y': 1640
+  'y': 740
   wires:
     - - 3fe36612a53ef445
 - id: 28ddb9a136461f72
@@ -1520,7 +1567,7 @@
   g: dbcc4077524c4e42
   name: ''
   x: 460
-  'y': 1520
+  'y': 620
   wires:
     - - 077f662324cf44a6
 - id: 9bcc6405ebe2c5aa
@@ -1530,7 +1577,7 @@
   name: ''
   scale: Byte
   x: 460
-  'y': 1580
+  'y': 680
   wires:
     - - 35bba3915e3ab86b
 - id: e5d1a8af91104af6
@@ -1542,7 +1589,7 @@
   links:
     - e60e4ab7617738c3
   x: 775
-  'y': 1400
+  'y': 500
   wires: []
 - id: cfddc070a8a410f6
   type: debug
@@ -1558,7 +1605,7 @@
   statusVal: ''
   statusType: auto
   x: 840
-  'y': 1460
+  'y': 560
   wires: []
 - id: 38b20ef4f881e747
   type: Uptime
@@ -1566,7 +1613,7 @@
   g: dbcc4077524c4e42
   name: ''
   x: 460
-  'y': 1460
+  'y': 560
   wires:
     - - 8cb2cb755f550ff7
 - id: f51de6b35c533aec
@@ -1576,7 +1623,7 @@
   name: 'Node-red-contrib-os - https://flows.nodered.org/node/node-red-contrib-os'
   info: ''
   x: 380
-  'y': 1700
+  'y': 800
   wires: []
 - id: d1be07f97bcb18f0
   type: comment
@@ -1585,7 +1632,7 @@
   name: Used to grab local server stats
   info: ''
   x: 820
-  'y': 1700
+  'y': 800
   wires: []
 - id: 030a2f2eac3f5f35
   type: link in
@@ -1601,6 +1648,7 @@
 - id: 3680c4078ba7fbc1
   type: change
   z: 135b7308617dad08
+  d: true
   g: 0bd0a0e550d3bcc1
   name: kernel
   rules:
@@ -1637,7 +1685,7 @@
   to: ''
   reg: false
   x: 1650
-  'y': 980
+  'y': 1400
   wires:
     - - 3635210474545f29
 - id: 524019ddb3bbdcaa
@@ -1680,6 +1728,9 @@
             if (split[3] === 'partialHigh' || split[3] === 'high') {
                 /* convert timers fron seconds to hours, round to one decimal */
                 msg.payload = Math.round(msg.payload / 360) / 10;
+            } else if (split[3] === 'voltage') {
+                /* convert mV to V, round to one decimal */
+                msg.payload = Math.round(msg.payload / 100) / 10;
             }
 
             newMsg.kernel = {
@@ -1788,7 +1839,7 @@
   finalize: ''
   libs: []
   x: 280
-  'y': 1400
+  'y': 500
   wires:
     - - 38b20ef4f881e747
       - 28ddb9a136461f72
@@ -1801,7 +1852,7 @@
   g: dbcc4077524c4e42
   name: uptime
   func: >-
-    let entity = global.get('rlink["' + msg.device + '|0|uptimemeter"]',
+    let entity = global.get('rlink["' + msg.device + '|0|uptime"]',
     'memoryOnly');
 
     if (typeof entity === 'string') {
@@ -1826,7 +1877,7 @@
   finalize: ''
   libs: []
   x: 650
-  'y': 1460
+  'y': 560
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
@@ -1895,7 +1946,7 @@
   finalize: ''
   libs: []
   x: 650
-  'y': 1520
+  'y': 620
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
@@ -1930,7 +1981,7 @@
   finalize: ''
   libs: []
   x: 640
-  'y': 1580
+  'y': 680
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
@@ -1966,7 +2017,7 @@
   finalize: ''
   libs: []
   x: 650
-  'y': 1640
+  'y': 740
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
@@ -1993,7 +2044,7 @@
   finalize: ''
   libs: []
   x: 640
-  'y': 1400
+  'y': 500
   wires:
     - - e5d1a8af91104af6
       - cfddc070a8a410f6
@@ -2044,7 +2095,7 @@
   finalize: ''
   libs: []
   x: 280
-  'y': 560
+  'y': 980
   wires:
     - - f19f34db8160a728
 - id: 4ac5879e40df9f2b
@@ -2112,7 +2163,7 @@
   finalize: ''
   libs: []
   x: 980
-  'y': 560
+  'y': 980
   wires:
     - - ac509dada2597e3c
       - a3107171fba35cd1
@@ -2142,7 +2193,7 @@
   finalize: ''
   libs: []
   x: 280
-  'y': 620
+  'y': 1040
   wires:
     - - 88c665fa97189006
 - id: 268afb141777587b
