@@ -939,7 +939,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.state
+      to: '#:(memoryOnly)::kernel.state'
       tot: global
     - t: set
       p: kernel
@@ -990,7 +990,7 @@
     - t: set
       p: link
       pt: msg
-      to: 'kernel.link[msg.kernel.entity]'
+      to: '#:(memoryOnly)::kernel.link[msg.kernel.entity]'
       tot: global
   action: ''
   property: ''
@@ -2583,7 +2583,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.state
+      to: '#:(memoryOnly)::kernel.state'
       tot: global
     - t: set
       p: '#:(memoryOnly)::form[msg.hmi.id]resolution'
@@ -2914,7 +2914,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.alert
+      to: '#:(memoryOnly)::kernel.alert'
       tot: global
     - t: set
       p: '#:(memoryOnly)::alerts[msg.hmi.id]'
@@ -2976,7 +2976,7 @@
     - t: set
       p: row.equipment_name
       pt: msg
-      to: 'kernel.equipment[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipment[msg.row.equipment]'
       tot: global
     - t: set
       p: row.equipment_full
@@ -3001,7 +3001,7 @@
     - t: set
       p: row.state
       pt: msg
-      to: 'kernel.state[msg.row.entity]'
+      to: '#:(memoryOnly)::kernel.state[msg.row.entity]'
       tot: global
     - t: set
       p: row.state_limit
@@ -3592,7 +3592,7 @@
     - t: set
       p: tmp
       pt: msg
-      to: 'kernel.state[msg.tmp]'
+      to: '#:(memoryOnly)::kernel.state[msg.tmp]'
       tot: global
     - t: set
       p: ui_update
@@ -4005,7 +4005,7 @@
     - t: set
       p: tmp
       pt: msg
-      to: 'kernel.state[msg.tmp]'
+      to: '#:(memoryOnly)::kernel.state[msg.tmp]'
       tot: global
     - t: set
       p: ui_update
@@ -4088,7 +4088,7 @@
     - t: set
       p: kernel.value
       pt: msg
-      to: 'kernel.state[msg.kernel.entity]'
+      to: '#:(memoryOnly)::kernel.state[msg.kernel.entity]'
       tot: global
     - t: set
       p: form_equipment
@@ -5063,7 +5063,7 @@
     - t: set
       p: dec
       pt: msg
-      to: 'kernel.day[msg.form.plant]'
+      to: '#:(memoryOnly)::kernel.day[msg.form.plant]'
       tot: global
     - t: set
       p: form.ts
@@ -5146,7 +5146,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.period
+      to: '#:(memoryOnly)::kernel.period'
       tot: global
     - t: set
       p: line
@@ -5362,7 +5362,7 @@
     - t: set
       p: disabled
       pt: msg
-      to: 'kernel.disabled[msg.line]'
+      to: '#:(memoryOnly)::kernel.disabled[msg.line]'
       tot: global
     - t: set
       p: 'payload[''disabled'']'
@@ -5500,7 +5500,7 @@
     - t: set
       p: dec
       pt: msg
-      to: 'kernel.day[msg.form.plant]'
+      to: '#:(memoryOnly)::kernel.day[msg.form.plant]'
       tot: global
     - t: set
       p: form.ts
@@ -7128,7 +7128,7 @@
   name: running
   func: |-
     let entity = msg.kernel.equipment + '|run';
-    let state = global.get('kernel.state["' + entity + '"]', 'default');
+    let state = global.get('kernel.state["' + entity + '"]', 'memoryOnly');
 
     if (typeof state === 'number' && state === 1) {
         msg.enabled = false;

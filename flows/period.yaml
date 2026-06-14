@@ -327,7 +327,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.lines
+      to: '#:(memoryOnly)::kernel.lines'
       tot: global
     - t: set
       p: class
@@ -478,7 +478,7 @@
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
   name: period
-  property: 'kernel.period[msg.row.line]'
+  property: '#:(memoryOnly)::kernel.period[msg.row.line]'
   propertyType: global
   rules:
     - t: regex
@@ -736,7 +736,7 @@
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
   name: exist
-  property: kernel.period
+  property: '#:(memoryOnly)::kernel.period'
   propertyType: global
   rules:
     - t: hask
@@ -760,12 +760,12 @@
     - t: set
       p: row.plant_name
       pt: msg
-      to: 'kernel.plant[msg.row.plant]'
+      to: '#:(memoryOnly)::kernel.plant[msg.row.plant]'
       tot: global
     - t: set
       p: row.line_name
       pt: msg
-      to: 'kernel.line[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.line[msg.row.line]'
       tot: global
     - t: set
       p: row.line_full
@@ -800,7 +800,7 @@
     - t: set
       p: row.todisable
       pt: msg
-      to: 'kernel.disabled[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.disabled[msg.row.line]'
       tot: global
     - t: set
       p: row.todisable
@@ -1052,7 +1052,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.state
+      to: '#:(memoryOnly)::kernel.state'
       tot: global
     - t: set
       p: '#:(memoryOnly)::components[msg.row.line]'
@@ -1131,7 +1131,7 @@
   propertyType: msg
   rules:
     - t: eq
-      v: 'kernel.equipments[msg.tmp.equipment]'
+      v: '#:(memoryOnly)::kernel.equipments[msg.tmp.equipment]'
       vt: global
     - t: else
   checkall: 'false'

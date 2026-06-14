@@ -546,7 +546,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.equipment
+      to: '#:(memoryOnly)::kernel.equipment'
       tot: global
     - t: set
       p: '#:(memoryOnly)::rows[msg.hmi.id]'
@@ -603,7 +603,7 @@
     - t: set
       p: row.equipment_name
       pt: msg
-      to: 'kernel.equipment[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipment[msg.row.equipment]'
       tot: global
     - t: set
       p: row.equipment_full
@@ -613,12 +613,12 @@
     - t: set
       p: row.line
       pt: msg
-      to: 'kernel.equipments[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipments[msg.row.equipment]'
       tot: global
     - t: set
       p: row.line_name
       pt: msg
-      to: 'kernel.line[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.line[msg.row.line]'
       tot: global
     - t: set
       p: row.line_full
@@ -628,12 +628,12 @@
     - t: set
       p: row.plant
       pt: msg
-      to: 'kernel.lines[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.lines[msg.row.line]'
       tot: global
     - t: set
       p: row.plant_name
       pt: msg
-      to: 'kernel.plant[msg.row.plant]'
+      to: '#:(memoryOnly)::kernel.plant[msg.row.plant]'
       tot: global
     - t: set
       p: row.plant_full
@@ -836,7 +836,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.device
+      to: '#:(memoryOnly)::kernel.device'
       tot: global
     - t: set
       p: '#:(memoryOnly)::rows[msg.hmi.id]'
@@ -1116,7 +1116,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.link
+      to: '#:(memoryOnly)::kernel.link'
       tot: global
     - t: set
       p: '#:(memoryOnly)::rows[msg.hmi.id]'
@@ -1256,7 +1256,7 @@
     - t: set
       p: row.value
       pt: msg
-      to: 'kernel.state[msg.endpoint]'
+      to: '#:(memoryOnly)::kernel.state[msg.endpoint]'
       tot: global
     - t: set
       p: split
@@ -1301,7 +1301,7 @@
     - t: set
       p: row.equipment_name
       pt: msg
-      to: 'kernel.equipment[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipment[msg.row.equipment]'
       tot: global
     - t: set
       p: row.equipment_full
@@ -1329,27 +1329,27 @@
     - t: set
       p: row.line
       pt: msg
-      to: 'kernel.equipments[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipments[msg.row.equipment]'
       tot: global
     - t: set
       p: row.line_name
       pt: msg
-      to: 'kernel.line[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.line[msg.row.line]'
       tot: global
     - t: set
       p: row.plant
       pt: msg
-      to: 'kernel.lines[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.lines[msg.row.line]'
       tot: global
     - t: set
       p: row.plant_name
       pt: msg
-      to: 'kernel.plant[msg.row.plant]'
+      to: '#:(memoryOnly)::kernel.plant[msg.row.plant]'
       tot: global
     - t: set
       p: row.reverse
       pt: msg
-      to: 'kernel.reverse[msg.endpoint]'
+      to: '#:(memoryOnly)::kernel.reverse[msg.endpoint]'
       tot: global
     - t: set
       p: row.reverse
@@ -1521,7 +1521,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.alert
+      to: '#:(memoryOnly)::kernel.alert'
       tot: global
     - t: set
       p: '#:(memoryOnly)::rows[msg.hmi.id]'
@@ -1593,7 +1593,7 @@
     - t: set
       p: row.equipment_name
       pt: msg
-      to: 'kernel.equipment[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipment[msg.row.equipment]'
       tot: global
     - t: set
       p: row.equipment_full
@@ -1618,7 +1618,7 @@
     - t: set
       p: row.state
       pt: msg
-      to: 'kernel.state[msg.row.entity]'
+      to: '#:(memoryOnly)::kernel.state[msg.row.entity]'
       tot: global
     - t: set
       p: row.state_limit
@@ -1643,12 +1643,12 @@
     - t: set
       p: row.line
       pt: msg
-      to: 'kernel.equipments[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipments[msg.row.equipment]'
       tot: global
     - t: set
       p: row.plant
       pt: msg
-      to: 'kernel.lines[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.lines[msg.row.line]'
       tot: global
     - t: set
       p: row.delete
@@ -2577,7 +2577,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.link
+      to: '#:(memoryOnly)::kernel.link'
       tot: global
     - t: set
       p: '#:(memoryOnly)::equipment'
@@ -2939,7 +2939,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.line
+      to: '#:(memoryOnly)::kernel.line'
       tot: global
     - t: set
       p: '#:(memoryOnly)::rows[msg.hmi.id]'
@@ -3030,7 +3030,7 @@
     - t: set
       p: row.line_name
       pt: msg
-      to: 'kernel.line[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.line[msg.row.line]'
       tot: global
     - t: set
       p: row.line_full
@@ -3040,12 +3040,12 @@
     - t: set
       p: row.plant
       pt: msg
-      to: 'kernel.lines[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.lines[msg.row.line]'
       tot: global
     - t: set
       p: row.plant_name
       pt: msg
-      to: 'kernel.plant[msg.row.plant]'
+      to: '#:(memoryOnly)::kernel.plant[msg.row.plant]'
       tot: global
     - t: set
       p: row.plant_full
@@ -5091,7 +5091,7 @@
   name: more
   func: >-
     let watchdog = global.get('kernel.watchdog["' + msg.row.entity + '"]',
-    'default');
+    'memoryOnly');
 
     if (typeof watchdog === 'number') {
         msg.row.watchdog_color = msg.payload === 1 ? '#008000' : '#FF0000';
@@ -5131,14 +5131,14 @@
   name: more
   func: >-
     let state = global.get('kernel.state["' + msg.row.equipment + '|run"]',
-    'default');
+    'memoryOnly');
 
     if (typeof state === 'number') {
         msg.row.state_color = (state === 0 ? '#FF0000' : '#008000');
     }
 
 
-    let links = global.get('kernel.link','default');
+    let links = global.get('kernel.link','memoryOnly');
 
     let needle = new RegExp('^(' + msg.row.equipment + '\\|)');
 
@@ -5169,7 +5169,7 @@
   g: 6f784a48183c4937
   name: more
   func: |-
-    let equipments = global.get('kernel.equipments');
+    let equipments = global.get('kernel.equipments','memoryOnly');
     if (typeof equipments === 'object') {
         for (const equipment in equipments) {
             if (equipments[equipment] === msg.row.line) {

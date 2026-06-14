@@ -181,7 +181,7 @@
     - t: set
       p: payload
       pt: msg
-      to: kernel.equipments
+      to: '#:(memoryOnly)::kernel.equipments'
       tot: global
     - t: set
       p: row
@@ -232,7 +232,7 @@
     - t: set
       p: row.plant
       pt: msg
-      to: 'kernel.lines[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.lines[msg.row.line]'
       tot: global
     - t: set
       p: alert
@@ -276,7 +276,7 @@
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
   name: run
-  property: kernel.state
+  property: '#:(memoryOnly)::kernel.state'
   propertyType: global
   rules:
     - t: hask
@@ -294,7 +294,7 @@
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
   name: alert
-  property: kernel.alert
+  property: '#:(memoryOnly)::kernel.alert'
   propertyType: global
   rules:
     - t: hask
@@ -332,22 +332,22 @@
     - t: set
       p: row.plant_name
       pt: msg
-      to: 'kernel.plant[msg.row.plant]'
+      to: '#:(memoryOnly)::kernel.plant[msg.row.plant]'
       tot: global
     - t: set
       p: row.line_name
       pt: msg
-      to: 'kernel.line[msg.row.line]'
+      to: '#:(memoryOnly)::kernel.line[msg.row.line]'
       tot: global
     - t: set
       p: row.equipment_name
       pt: msg
-      to: 'kernel.equipment[msg.row.equipment]'
+      to: '#:(memoryOnly)::kernel.equipment[msg.row.equipment]'
       tot: global
     - t: set
       p: row.state
       pt: msg
-      to: 'kernel.state[msg.state]'
+      to: '#:(memoryOnly)::kernel.state[msg.state]'
       tot: global
     - t: set
       p: row.state_color
@@ -357,12 +357,12 @@
     - t: set
       p: row.limit
       pt: msg
-      to: 'kernel.alert[msg.alert]'
+      to: '#:(memoryOnly)::kernel.alert[msg.alert]'
       tot: global
     - t: set
       p: row.alert
       pt: msg
-      to: 'kernel.state[msg.alert]'
+      to: '#:(memoryOnly)::kernel.state[msg.alert]'
       tot: global
     - t: set
       p: row.diff

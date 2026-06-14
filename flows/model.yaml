@@ -318,12 +318,7 @@
       to: Teracom Systems TCW122B-CM
       tot: str
     - t: set
-      p: '#:(memoryOnly)::describe.endpoint.tcw122bcm'
-      pt: global
-      to: "{\t    'DigitalInput1':'Etat entrée digitale 1',\t    'DigitalInput2':'Etat entrée digitale 2',\t    'AnalogInput1':'Etat entrée analogique 1',\t    'AnalogInput2':'Etat entrée analogique 2',\t    'r1':'Commande de sortie 1',\t    'r2':'Commande de sortie 2'\t}"
-      tot: jsonata
-    - t: set
-      p: dsescribe.convert.tcw122bcm
+      p: '#:(memoryOnly)::describe.convert.tcw122bcm'
       pt: global
       to: "{\t    'run':'DigitalInput',\t    'cycle':'DigitalInput',\t    'heat':'DigitalInput',\t    'voltage':'AnalogInput',\t    'heatswitch':'r',\t    'heattoggle':'r',\t    'heatlink':'r',\t    'heatpulse':'r'\t}"
       tot: jsonata
@@ -1819,7 +1814,7 @@
   g: dbcc4077524c4e42
   name: devices
   func: |-
-    let devices = global.get('kernel.device','default');
+    let devices = global.get('kernel.device','memoryOnly');
     if (typeof devices === 'object') {
         for (const device in devices) {
             if (device.match((new RegExp('^(local)'))) !== null) {
@@ -2074,7 +2069,7 @@
   g: c0b72044a49a3f76
   name: devices
   func: |-
-    let devices = global.get('kernel.device','default');
+    let devices = global.get('kernel.device','memoryOnly');
     if (typeof devices === 'object') {
         for (const device in devices) {
             if (device.match((new RegExp('^(tcw122bcm)'))) !== null) {
@@ -2132,7 +2127,7 @@
         node.send(newMsg);
 
         for (const input in inputs) {
-            if (typeof global.get('kernel.endpoint["' + msg.device + '|' + input + '"]') === 'string') {
+            if (typeof global.get('kernel.endpoint["' + msg.device + '|' + input + '"]','memoryOnly') === 'string') {
                 if (input.match((new RegExp('^(Digital)'))) !== null) {
                     /* Digital */
                     newMsg.kernel = {
@@ -2248,7 +2243,7 @@
     msg.topic = '';
     let device = flow.get('devices["' + msg.payload.entity + '"]','memoryOnly');
     if (typeof device === 'object') {
-        let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]','default')||0;
+        let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]','memoryOnly')||0;
         msg.payload =
             "<strong>Model: </strong>" + msg.payload.model_name + " <br />\n" +
             "<strong>Type: </strong>" + device.type + " <br />\n" +
