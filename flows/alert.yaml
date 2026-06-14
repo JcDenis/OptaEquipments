@@ -642,27 +642,32 @@
     msg.payload = [];
     let i = 0;
 
-    let equipments = global.get('kernel.equipments','memoryOnly')||{};
-    for (const equipment in equipments) {
-        let alert = equipment + '|runmeter';
-        let state = equipment + '|run';
+    let alerts = global.get('kernel.alert','memoryOnly')||{};
+    for (const alert in alerts) {
+        let asplit = alert.split('|');
         let row = {};
-
-        row.equipment = equipment;
-        row.line = equipments[equipment];
+        row.entity = alert;
+        row.equipment = asplit[0];
+        row.component = asplit[1];
+        row.limit = alerts[alert];
+        row.line = global.get('kernel.equipments["' + row.equipment + '"]','memoryOnly')||'';
         row.plant = global.get('kernel.lines["' + row.line + '"]','memoryOnly')||'';
-        
+
+        let state = row.equipment + '|' + 'run';
+        if (row.component === 'cyclemeter') {
+            state = row.equipment + '|' + 'cycle';
+        }
+
         if ((flow.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'') === row.plant 
             && typeof global.get('kernel.link["' + state + '"]','memoryOnly') === 'string' 
-            && typeof global.get('kernel.alert["' + alert + '"]','memoryOnly') === 'number' 
+            && typeof global.get('kernel.link["' + row.entity + '"]','memoryOnly') === 'string' 
         ) {
             row.plant_name = global.get('kernel.plant["' + row.plant + '"]','memoryOnly')||'';
             row.line_name = global.get('kernel.line["' + row.line + '"]','memoryOnly')||'';
             row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]','memoryOnly')||'';
             row.state = global.get('kernel.state["' + state + '"]','memoryOnly')||0;
             row.state_color = row.state>0?'#008000':'#FF0000';
-            row.limit = global.get('kernel.alert["' + alert + '"]','memoryOnly')||0;
-            row.alert = global.get('kernel.state["' + alert + '"]','memoryOnly')||0;
+            row.alert = global.get('kernel.state["' + row.entity + '"]','memoryOnly')||0;
             row.alert_full = row.alert + ' / ' + row.limit
             row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));
             row.percent_full = row.percent.toString() + '%';

@@ -313,11 +313,10 @@
     - f42bd58edc8c3b68
     - 579b7304f4b11a0f
     - d90814f6a6612373
-    - dcff637adac201c1
     - 89bd63c1cca31299
   x: 104
   'y': 2499
-  w: 1342
+  w: 1182
   h: 142
 - id: fc6029b7d49d1e93
   type: group
@@ -2671,7 +2670,7 @@
   name: kernel - hmi
   mode: return
   links: []
-  x: 1275
+  x: 1115
   'y': 2600
   wires: []
 - id: 07be198711177f06
@@ -2704,14 +2703,14 @@
   type: change
   z: f6f2187d.f17ca8
   g: 8cc9a474d6cd27ec
-  name: clean
+  name: '-'
   rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1150
+  x: 990
   'y': 2600
   wires:
     - - 7214e26c1a5974bd
@@ -2729,7 +2728,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1330
+  x: 1170
   'y': 2540
   wires: []
 - id: f42bd58edc8c3b68
@@ -2747,7 +2746,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 790
+  x: 630
   'y': 2560
   wires:
     - - 579b7304f4b11a0f
@@ -2768,7 +2767,7 @@
   from: ''
   to: ''
   reg: false
-  x: 970
+  x: 810
   'y': 2540
   wires:
     - - bc7921fbe0a00154
@@ -2788,30 +2787,10 @@
   from: ''
   to: ''
   reg: false
-  x: 610
+  x: 450
   'y': 2560
   wires:
     - - f42bd58edc8c3b68
-- id: dcff637adac201c1
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: lang
-  property: dictionary.lang
-  propertyType: msg
-  rules:
-    - t: neq
-      v: hmi.lang
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 2600
-  wires:
-    - - d90814f6a6612373
-    - - bc7921fbe0a00154
 - id: 0782cf84e02ba5e3
   type: comment
   z: f6f2187d.f17ca8
@@ -3075,8 +3054,13 @@
 
     msg.hmi.time = Date.now();
 
+    if (msg.dictionary?.lang !== msg.hmi.lang) {
+        return [msg,null];
+    } else {
+        return [null,msg];
+    }
     return msg;
-  outputs: 1
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -3085,7 +3069,8 @@
   x: 270
   'y': 2600
   wires:
-    - - dcff637adac201c1
+    - - d90814f6a6612373
+    - - bc7921fbe0a00154
 - id: f088a09b48bcfb71
   type: http in
   z: f6f2187d.f17ca8

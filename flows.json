@@ -3570,12 +3570,11 @@
             "f42bd58edc8c3b68",
             "579b7304f4b11a0f",
             "d90814f6a6612373",
-            "dcff637adac201c1",
             "89bd63c1cca31299"
         ],
         "x": 104,
         "y": 2499,
-        "w": 1342,
+        "w": 1182,
         "h": 142
     },
     {
@@ -7220,7 +7219,7 @@
         "name": "kernel - hmi",
         "mode": "return",
         "links": [],
-        "x": 1275,
+        "x": 1115,
         "y": 2600,
         "wires": []
     },
@@ -7267,14 +7266,14 @@
         "type": "change",
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
-        "name": "clean",
+        "name": "-",
         "rules": [],
         "action": "",
         "property": "",
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1150,
+        "x": 990,
         "y": 2600,
         "wires": [
             [
@@ -7297,7 +7296,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1330,
+        "x": 1170,
         "y": 2540,
         "wires": []
     },
@@ -7322,7 +7321,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 790,
+        "x": 630,
         "y": 2560,
         "wires": [
             [
@@ -7353,7 +7352,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 970,
+        "x": 810,
         "y": 2540,
         "wires": [
             [
@@ -7381,43 +7380,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
+        "x": 450,
         "y": 2560,
         "wires": [
             [
                 "f42bd58edc8c3b68"
-            ]
-        ]
-    },
-    {
-        "id": "dcff637adac201c1",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "8cc9a474d6cd27ec",
-        "name": "lang",
-        "property": "dictionary.lang",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "hmi.lang",
-                "vt": "msg"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 430,
-        "y": 2600,
-        "wires": [
-            [
-                "d90814f6a6612373"
-            ],
-            [
-                "bc7921fbe0a00154"
             ]
         ]
     },
@@ -7702,8 +7669,8 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "hmi",
-        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':''\n    };\n}\n\nif (typeof msg.hmi.lang !== 'string') {\n    msg.hmi.lang = 'en';\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nmsg.hmi.time = Date.now();\n\nreturn msg;",
-        "outputs": 1,
+        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':''\n    };\n}\n\nif (typeof msg.hmi.lang !== 'string') {\n    msg.hmi.lang = 'en';\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nmsg.hmi.time = Date.now();\n\nif (msg.dictionary?.lang !== msg.hmi.lang) {\n    return [msg,null];\n} else {\n    return [null,msg];\n}\nreturn msg;",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -7713,7 +7680,10 @@
         "y": 2600,
         "wires": [
             [
-                "dcff637adac201c1"
+                "d90814f6a6612373"
+            ],
+            [
+                "bc7921fbe0a00154"
             ]
         ]
     },
@@ -18904,7 +18874,7 @@
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
         "name": "row",
-        "func": "msg.payload = [];\nlet i = 0;\n\nlet equipments = global.get('kernel.equipments','memoryOnly')||{};\nfor (const equipment in equipments) {\n    let alert = equipment + '|runmeter';\n    let state = equipment + '|run';\n    let row = {};\n\n    row.equipment = equipment;\n    row.line = equipments[equipment];\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]','memoryOnly')||'';\n    \n    if ((flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'') === row.plant \n        && typeof global.get('kernel.link[\"' + state + '\"]','memoryOnly') === 'string' \n        && typeof global.get('kernel.alert[\"' + alert + '\"]','memoryOnly') === 'number' \n    ) {\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]','memoryOnly')||'';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]','memoryOnly')||'';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.state = global.get('kernel.state[\"' + state + '\"]','memoryOnly')||0;\n        row.state_color = row.state>0?'#008000':'#FF0000';\n        row.limit = global.get('kernel.alert[\"' + alert + '\"]','memoryOnly')||0;\n        row.alert = global.get('kernel.state[\"' + alert + '\"]','memoryOnly')||0;\n        row.alert_full = row.alert + ' / ' + row.limit\n        row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));\n        row.percent_full = row.percent.toString() + '%';\n        row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;\n        row.diff_color = row.diff<0?'#008000':'#FF0000'\n\n        msg.payload[i++] = row;\n    }\n}\n\nreturn msg;",
+        "func": "msg.payload = [];\nlet i = 0;\n\nlet alerts = global.get('kernel.alert','memoryOnly')||{};\nfor (const alert in alerts) {\n    let asplit = alert.split('|');\n    let row = {};\n    row.entity = alert;\n    row.equipment = asplit[0];\n    row.component = asplit[1];\n    row.limit = alerts[alert];\n    row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]','memoryOnly')||'';\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]','memoryOnly')||'';\n\n    let state = row.equipment + '|' + 'run';\n    if (row.component === 'cyclemeter') {\n        state = row.equipment + '|' + 'cycle';\n    }\n\n    if ((flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'') === row.plant \n        && typeof global.get('kernel.link[\"' + state + '\"]','memoryOnly') === 'string' \n        && typeof global.get('kernel.link[\"' + row.entity + '\"]','memoryOnly') === 'string' \n    ) {\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]','memoryOnly')||'';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]','memoryOnly')||'';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.state = global.get('kernel.state[\"' + state + '\"]','memoryOnly')||0;\n        row.state_color = row.state>0?'#008000':'#FF0000';\n        row.alert = global.get('kernel.state[\"' + row.entity + '\"]','memoryOnly')||0;\n        row.alert_full = row.alert + ' / ' + row.limit\n        row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));\n        row.percent_full = row.percent.toString() + '%';\n        row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;\n        row.diff_color = row.diff<0?'#008000':'#FF0000'\n\n        msg.payload[i++] = row;\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
