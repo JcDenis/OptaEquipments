@@ -18375,16 +18375,16 @@
                 "align": "center"
             },
             {
-                "title": "Diff.",
-                "key": "diff",
+                "title": "Usure",
+                "key": "percent_full",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
                 "align": "center"
             },
             {
-                "title": "Freq.",
-                "key": "limit",
+                "title": "Seuil",
+                "key": "alert_full",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
@@ -18683,16 +18683,16 @@
                 "align": "center"
             },
             {
-                "title": "Diff.",
-                "key": "diff",
+                "title": "Wear",
+                "key": "percent_full",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
                 "align": "center"
             },
             {
-                "title": "Freq.",
-                "key": "limit",
+                "title": "Threshold",
+                "key": "alert_full",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
@@ -18904,7 +18904,7 @@
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
         "name": "row",
-        "func": "msg.payload = [];\nlet i = 0;\n\nlet equipments = global.get('kernel.equipments','memoryOnly')||{};\nfor (const equipment in equipments) {\n    let alert = equipment + '|runmeter';\n    let state = equipment + '|run';\n    let row = {};\n\n    row.equipment = equipment;\n    row.line = equipments[equipment];\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]','memoryOnly')||'';\n    \n    if ((flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'') === row.plant \n        && typeof global.get('kernel.link[\"' + state + '\"]','memoryOnly') === 'string' \n        && typeof global.get('kernel.alert[\"' + alert + '\"]','memoryOnly') === 'number' \n    ) {\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]','memoryOnly')||'';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]','memoryOnly')||'';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.state = global.get('kernel.state[\"' + state + '\"]','memoryOnly')||0;\n        row.state_color = row.state>0?'#008000':'#FF0000';\n        row.limit = global.get('kernel.alert[\"' + alert + '\"]','memoryOnly')||0;\n        row.alert = global.get('kernel.state[\"' + alert + '\"]','memoryOnly')||0;\n        row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;\n        row.diff_color = row.diff<0?'#008000':'#FF0000'\n\n        msg.payload[i++] = row;\n    }\n}\n\nreturn msg;",
+        "func": "msg.payload = [];\nlet i = 0;\n\nlet equipments = global.get('kernel.equipments','memoryOnly')||{};\nfor (const equipment in equipments) {\n    let alert = equipment + '|runmeter';\n    let state = equipment + '|run';\n    let row = {};\n\n    row.equipment = equipment;\n    row.line = equipments[equipment];\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]','memoryOnly')||'';\n    \n    if ((flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'') === row.plant \n        && typeof global.get('kernel.link[\"' + state + '\"]','memoryOnly') === 'string' \n        && typeof global.get('kernel.alert[\"' + alert + '\"]','memoryOnly') === 'number' \n    ) {\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]','memoryOnly')||'';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]','memoryOnly')||'';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.state = global.get('kernel.state[\"' + state + '\"]','memoryOnly')||0;\n        row.state_color = row.state>0?'#008000':'#FF0000';\n        row.limit = global.get('kernel.alert[\"' + alert + '\"]','memoryOnly')||0;\n        row.alert = global.get('kernel.state[\"' + alert + '\"]','memoryOnly')||0;\n        row.alert_full = row.alert + ' / ' + row.limit\n        row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));\n        row.percent_full = row.percent.toString() + '%';\n        row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;\n        row.diff_color = row.diff<0?'#008000':'#FF0000'\n\n        msg.payload[i++] = row;\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18949,7 +18949,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$sort(msg.payload, function($l, $r) {\t  $l.diff < $r.diff\t})",
+                "to": "$sort(msg.payload, function($l, $r) {\t  $l.percent > $r.percent\t})",
                 "tot": "jsonata"
             }
         ],
@@ -25011,14 +25011,6 @@
                 "type": "text",
                 "width": "",
                 "align": "center"
-            },
-            {
-                "title": "Diff",
-                "key": "state_diff",
-                "keyType": "key",
-                "type": "text",
-                "width": "",
-                "align": "center"
             }
         ],
         "mobileBreakpoint": "sm",
@@ -30028,14 +30020,6 @@
             {
                 "title": "Limit",
                 "key": "state_limit",
-                "keyType": "key",
-                "type": "text",
-                "width": "",
-                "align": "center"
-            },
-            {
-                "title": "Diff",
-                "key": "state_diff",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
