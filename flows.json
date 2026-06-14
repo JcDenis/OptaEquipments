@@ -7873,7 +7873,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "bd007f48192aa2f3",
         "name": "hash",
-        "func": "if (typeof msg.login === 'string' && msg.login !== \"\" && typeof msg.pass === 'string' && msg.pass !== \"\") {\n    let hash = global.get('auth[\"' + msg.login + '\"][\"pass\"]', 'memoryOnly');\n    if (typeof hash === 'string') {\n        msg.hash = hash;\n\n        return msg;\n    }\n}\n\nreturn msg;",
+        "func": "if (typeof msg.login === 'string' && msg.login !== \"\" && typeof msg.pass === 'string' && msg.pass !== \"\") {\n    msg.login = msg.login.toLowerCase();\n    let hash = global.get('auth[\"' + msg.login + '\"][\"pass\"]', 'memoryOnly');\n    if (typeof hash === 'string') {\n        msg.hash = hash;\n\n        return msg;\n    }\n}\n\nreturn msg;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -17881,8 +17881,8 @@
                 "t": "set",
                 "p": "login",
                 "pt": "msg",
-                "to": "$lowercase(msg.payload.login)",
-                "tot": "jsonata"
+                "to": "payload.login",
+                "tot": "msg"
             },
             {
                 "t": "set",
@@ -61911,6 +61911,13 @@
         "g": "bb8597f031aabc08",
         "name": "add",
         "rules": [
+            {
+                "t": "set",
+                "p": "payload.login",
+                "pt": "msg",
+                "to": "$lowercase(msg.payload.login)",
+                "tot": "jsonata"
+            },
             {
                 "t": "set",
                 "p": "#:(memoryOnly)::auth[msg.payload.login]",

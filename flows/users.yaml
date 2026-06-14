@@ -1590,6 +1590,11 @@
   name: add
   rules:
     - t: set
+      p: payload.login
+      pt: msg
+      to: $lowercase(msg.payload.login)
+      tot: jsonata
+    - t: set
       p: '#:(memoryOnly)::auth[msg.payload.login]'
       pt: global
       to: "{\t    'pass':msg.payload.pass,\t    'level':msg.payload.level,\t    'plant':msg.payload.plant,\t    'lang':msg.payload.lang,\t    'telegram':msg.payload.telegram\t}"

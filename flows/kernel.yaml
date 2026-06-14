@@ -3251,6 +3251,7 @@
   func: >-
     if (typeof msg.login === 'string' && msg.login !== "" && typeof msg.pass ===
     'string' && msg.pass !== "") {
+        msg.login = msg.login.toLowerCase();
         let hash = global.get('auth["' + msg.login + '"]["pass"]', 'memoryOnly');
         if (typeof hash === 'string') {
             msg.hash = hash;
