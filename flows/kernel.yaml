@@ -423,23 +423,20 @@
     - bf59724bfb1762b4
     - 0a6f746a33c66866
     - 8023109f6e0ad2c8
-    - bc579e3b36edb8be
     - 817afd07dd5f3b19
     - 8686efc820f0e65f
     - b9fac0d63f3ff120
     - abca3aaf7cde8edb
     - 23327f086285c000
     - 2b027f15e857dc2d
-    - c55387642ab3eba0
     - 78e60df6e7d55f08
     - d0bf81ce512ab961
     - 936bf4cb754685d1
-    - ffd5478901273f0d
     - 43e31718ad9c51ca
     - 3dabe49bdd93c8d8
   x: 104
-  'y': 3439
-  w: 2722
+  'y': 3459
+  w: 2222
   h: 142
 - id: 023034158f7c14f0
   type: group
@@ -1953,7 +1950,7 @@
     - f8fd7e92f9a55a9c
     - a292cf30fb647936
   x: 145
-  'y': 3540
+  'y': 3560
   wires:
     - - 0a6f746a33c66866
 - id: d0bf81ce512ab961
@@ -1964,8 +1961,8 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2445
-  'y': 3480
+  x: 2125
+  'y': 3500
   wires: []
 - id: 2c4e7cd9d987d51e
   type: inject
@@ -2813,48 +2810,9 @@
   onceDelay: 0.1
   topic: ''
   x: 450
-  'y': 3480
+  'y': 3500
   wires:
     - - bf59724bfb1762b4
-- id: ffd5478901273f0d
-  type: change
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: summary
-  rules:
-    - t: set
-      p: teams
-      pt: msg
-      to: '#:(memoryOnly)::teams'
-      tot: flow
-    - t: set
-      p: periods
-      pt: msg
-      to: '#:(memoryOnly)::periods'
-      tot: flow
-    - t: set
-      p: pilots
-      pt: msg
-      to: '#:(memoryOnly)::pilots'
-      tot: flow
-    - t: delete
-      p: '#:(memoryOnly)::teams'
-      pt: flow
-    - t: delete
-      p: '#:(memoryOnly)::periods'
-      pt: flow
-    - t: delete
-      p: '#:(memoryOnly)::pilots'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2500
-  'y': 3540
-  wires:
-    - - 43e31718ad9c51ca
 - id: 43e31718ad9c51ca
   type: debug
   z: f6f2187d.f17ca8
@@ -2868,8 +2826,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2700
-  'y': 3540
+  x: 2200
+  'y': 3560
   wires: []
 - id: 44c2ade6151d3fbd
   type: change
@@ -3553,8 +3511,10 @@
 
         return {
             'topic':'',
-            'payload':'',
-            'row':{}
+            'payload':(global.get('kernel.team','memoryOnly')||{}),
+            'row':{
+                'ts':Date.now()
+            }
         };
     }
 
@@ -3566,9 +3526,9 @@
   finalize: ''
   libs: []
   x: 620
-  'y': 3540
+  'y': 3560
   wires:
-    - - bc579e3b36edb8be
+    - - 23327f086285c000
 - id: 817afd07dd5f3b19
   type: function
   z: f6f2187d.f17ca8
@@ -3622,8 +3582,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1110
-  'y': 3540
+  x: 950
+  'y': 3560
   wires:
     - - 8686efc820f0e65f
 - id: 8686efc820f0e65f
@@ -3643,8 +3603,8 @@
   output: row.curtime
   outputType: msg
   outTz: Europe/Paris
-  x: 1290
-  'y': 3540
+  x: 1130
+  'y': 3560
   wires:
     - - b9fac0d63f3ff120
 - id: b9fac0d63f3ff120
@@ -3664,8 +3624,8 @@
   output: row.curday
   outputType: msg
   outTz: Europe/Paris
-  x: 1490
-  'y': 3540
+  x: 1330
+  'y': 3560
   wires:
     - - abca3aaf7cde8edb
 - id: abca3aaf7cde8edb
@@ -3719,8 +3679,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1670
-  'y': 3540
+  x: 1510
+  'y': 3560
   wires:
     - - 2b027f15e857dc2d
 - id: 23327f086285c000
@@ -3735,8 +3695,8 @@
   stream: false
   addname: team
   property: payload
-  x: 950
-  'y': 3540
+  x: 790
+  'y': 3560
   wires:
     - - 817afd07dd5f3b19
 - id: 2b027f15e857dc2d
@@ -3760,65 +3720,8 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 1830
-  'y': 3540
-  wires:
-    - - c55387642ab3eba0
-- id: bc579e3b36edb8be
-  type: change
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: teams
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::kernel.team'
-      tot: global
-    - t: set
-      p: row
-      pt: msg
-      to: "{\t    'ts':$millis()\t}"
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 3540
-  wires:
-    - - 23327f086285c000
-- id: c55387642ab3eba0
-  type: change
-  z: f6f2187d.f17ca8
-  g: d555605b8833d020
-  name: clean
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: row
-      pt: msg
-    - t: delete
-      p: team
-      pt: msg
-    - t: delete
-      p: outTz
-      pt: msg
-    - t: delete
-      p: settings
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1990
-  'y': 3540
+  x: 1670
+  'y': 3560
   wires:
     - - 78e60df6e7d55f08
 - id: 78e60df6e7d55f08
@@ -3827,6 +3730,12 @@
   g: d555605b8833d020
   name: periods
   func: |-
+    delete msg.row;
+    delete msg.settings;
+    delete msg.outTz;
+    delete msg.team;
+    msg.payload = '';
+
     let periods = global.get('kernel.period','memoryOnly')||{};
     for (const line in periods) {
         flow.set('periods["' + line + '"]', false, 'memoryOnly');
@@ -3861,8 +3770,6 @@
         }
     }
 
-    msg.payload = '';
-
     return msg;
   outputs: 1
   timeout: 0
@@ -3870,8 +3777,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2160
-  'y': 3540
+  x: 1840
+  'y': 3560
   wires:
     - - 936bf4cb754685d1
 - id: 936bf4cb754685d1
@@ -3923,8 +3830,15 @@
         }
     }
 
-    delete msg.kernel;
     msg.payload = '';
+    msg.teams = flow.get('teams','memoryOnly')||{};
+    msg.periods = flow.get('periods','memoryOnly')||{};
+    msg.pilots = flow.get('pilots','memoryOnly')||{};
+
+    delete msg.kernel;
+    flow.set('teams',undefined,'memoryOnly');
+    flow.set('periods',undefined,'memoryOnly');
+    flow.set('pilots',undefined,'memoryOnly');
 
     return [null,msg];
   outputs: 2
@@ -3933,12 +3847,12 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2330
-  'y': 3540
+  x: 2010
+  'y': 3560
   wires:
     - - d0bf81ce512ab961
       - 3dabe49bdd93c8d8
-    - - ffd5478901273f0d
+    - - 43e31718ad9c51ca
 - id: d45e4f001b17cb32
   type: function
   z: f6f2187d.f17ca8
@@ -4113,7 +4027,7 @@
   allowrate: false
   outputs: 1
   x: 270
-  'y': 3540
+  'y': 3560
   wires:
     - - 8023109f6e0ad2c8
 - id: 8023109f6e0ad2c8
@@ -4134,7 +4048,7 @@
   topic: topic
   outputs: 1
   x: 440
-  'y': 3540
+  'y': 3560
   wires:
     - - bf59724bfb1762b4
 - id: 2c20535ec8423158
@@ -4419,6 +4333,6 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2200
-  'y': 3480
+  x: 1880
+  'y': 3500
   wires: []
