@@ -4389,7 +4389,7 @@
   name: default <=> memory
   func: |-
     if (msg.boot === true) {
-        global.set('kernel', global.get('kernel_bk', 'default'), 'memoryOnly');
+        global.set('kernel', (global.get('kernel_bk', 'default')||{}), 'memoryOnly');
     } else {
         global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');
     }

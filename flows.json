@@ -8588,7 +8588,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "default <=> memory",
-        "func": "if (msg.boot === true) {\n    global.set('kernel', global.get('kernel_bk', 'default'), 'memoryOnly');\n} else {\n    global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');\n}\n\ndelete msg.boot;\n\nreturn msg;",
+        "func": "if (msg.boot === true) {\n    global.set('kernel', (global.get('kernel_bk', 'default')||{}), 'memoryOnly');\n} else {\n    global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');\n}\n\ndelete msg.boot;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
