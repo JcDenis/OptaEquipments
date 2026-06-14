@@ -434,10 +434,12 @@
     - 936bf4cb754685d1
     - 43e31718ad9c51ca
     - 3dabe49bdd93c8d8
+    - 70fc79b8b7c7ce42
+    - cfe39e337f1e624a
   x: 104
   'y': 3459
-  w: 2222
-  h: 142
+  w: 2252
+  h: 202
 - id: 023034158f7c14f0
   type: group
   z: f6f2187d.f17ca8
@@ -2827,7 +2829,7 @@
   statusVal: ''
   statusType: auto
   x: 2200
-  'y': 3560
+  'y': 3620
   wires: []
 - id: 44c2ade6151d3fbd
   type: change
@@ -3813,9 +3815,15 @@
                     'loop':false
                 };
 
+                msg.telegram = {
+                    'pilot':pilot,
+                    'equipment':equipment,
+                    'change':msg.kernel.value !== states[entity]
+                };
+
                 if (component === 'heatpulse') {
                     /* pulse only if current state is not the one we want */
-                    if (msg.row.value !== global.get('kernel.state["' + equipment + '|heat"]', 'memoryOnly')) {
+                    if (msg.kernel.value !== global.get('kernel.state["' + equipment + '|heat"]', 'memoryOnly')) {
                         /* pulse */
                         msg.kernel.value = 1;
                         node.send(msg);
@@ -3852,6 +3860,7 @@
   wires:
     - - d0bf81ce512ab961
       - 3dabe49bdd93c8d8
+      - 70fc79b8b7c7ce42
     - - 43e31718ad9c51ca
 - id: d45e4f001b17cb32
   type: function
@@ -4335,4 +4344,48 @@
   statusType: auto
   x: 1880
   'y': 3500
+  wires: []
+- id: 70fc79b8b7c7ce42
+  type: function
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: telegram
+  func: |-
+    if (msg.telegram.change === true) {
+        //node.status({'fill':(msg.telegram.pilot?'green':'red'),'text':msg.telegram.equipment});
+
+        let line = global.get('kernel.equipments["' + msg.telegram.equipment + '"]', 'memoryOnly')||'-';
+        let plant = global.get('kernel.lines["' + line + '"]','memoryOnly')||'-';
+        let name = global.get('kernel.plant["' + plant + '"]', 'memoryOnly')||'???';
+
+        return {
+            'topic':'',
+            'payload':{
+                'type':'message',
+                'content': (global.get('kernel.equipment["' + msg.telegram.equipment + '"]', 'memoryOnly') || '???') + (msg.telegram.pilot ? ' mis en chauffe' : ' mis en veille') + ' (' + name + ')'
+            }
+        }
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2180
+  'y': 3560
+  wires:
+    - - cfe39e337f1e624a
+- id: cfe39e337f1e624a
+  type: link out
+  z: f6f2187d.f17ca8
+  g: d555605b8833d020
+  name: kernel - period - telegram
+  mode: link
+  links:
+    - b62a3b02d3d8dabc
+  x: 2315
+  'y': 3560
   wires: []
