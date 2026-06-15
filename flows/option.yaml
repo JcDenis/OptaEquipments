@@ -366,6 +366,69 @@
   'y': 519
   w: 532
   h: 142
+- id: f16b36b49ec5a9c3
+  type: group
+  z: adb9fbf379118d77
+  name: delete - plant
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 734dfd5f42acb225
+    - 694d0770f102a4d3
+    - 020a59597777f88f
+    - 8b730186d3f46e4f
+    - 113890195e0d86bd
+    - adc624e7d8fbb050
+    - a9ba6f4bc1c00e3f
+  x: 2564
+  'y': 159
+  w: 532
+  h: 142
+- id: 92e5947ba67b9ae8
+  type: group
+  z: adb9fbf379118d77
+  name: delete - line
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - f7885f1e711d4087
+    - d7b6fb7d62f6782b
+    - 308fefce05fc3869
+    - eb64c8d98a58fe92
+    - 367bb61e40380826
+    - 641a2054db5d1dd5
+    - 8ad7d6c225b88396
+  x: 2564
+  'y': 339
+  w: 532
+  h: 142
+- id: 1e4bc11a0feefeab
+  type: group
+  z: adb9fbf379118d77
+  name: delete - equipment
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - c50fb469d6c9decd
+    - ed689db0be340ab7
+    - cb5ac3fe0e70584d
+    - 46dfc21c83f66b59
+    - f23f1c7cc5f34519
+    - 327fe50845f66490
+    - ac6c177a603a07fd
+  x: 2564
+  'y': 519
+  w: 572
+  h: 142
 - id: 2ee1493983ba4b61
   type: link out
   z: adb9fbf379118d77
@@ -2033,3 +2096,546 @@
   wires:
     - - 64f721de1fa75026
       - 108863cf9d87e186
+- id: 734dfd5f42acb225
+  type: link in
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: delete - plant
+  links: []
+  x: 2605
+  'y': 260
+  wires:
+    - - 694d0770f102a4d3
+- id: 694d0770f102a4d3
+  type: function
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: delete - plant
+  func: >-
+    msg.payload = (msg.dictionary?.common_notice_plant_noempty)||'Failed to
+    delete plant';
+
+
+    if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {
+        let is_empty = true;
+        // kernel.lines
+        let lines = global.get('kernel.lines','memoryOnly')||{};
+        for (const line in lines) {
+            if (lines[line] === msg.kernel.entity) {
+                is_empty = false;
+            }
+        }
+
+        if (is_empty === true) {
+            // kernel.plant
+            node.send({
+                'topic':'',
+                'payload':'',
+                'kernel':{
+                    'type':'plant',
+                    'entity':msg.kernel.entity,
+                    'value':'',
+                    'loop':false,
+                    'delete':true
+                }
+            });
+
+            // kernel.tz
+            node.send({
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'tz',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            });
+
+            // kernel.day
+            node.send({
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'day',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            });
+
+            // kernel.team
+            let teams = global.get('kernel.team','memoryOnly')||{};
+            for (const team in teams) {
+                let tsplit = team.split('|');
+                if (tsplit[0] === msg.kernel.entity) {
+                    node.send({
+                        'topic': '',
+                        'payload': '',
+                        'kernel': {
+                            'type': 'team',
+                            'entity': team,
+                            'value': '',
+                            'loop': false,
+                            'delete': true
+                        }
+                    });
+                }
+            }
+
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Plant successfully deleted';
+        }
+    }
+
+
+    delete msg.kernel;
+
+
+    return [null,msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2750
+  'y': 260
+  wires:
+    - - 113890195e0d86bd
+    - - a9ba6f4bc1c00e3f
+- id: 020a59597777f88f
+  type: link out
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: delete - plant
+  mode: return
+  links: []
+  x: 3055
+  'y': 260
+  wires: []
+- id: 8b730186d3f46e4f
+  type: link out
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: delete - plant - kernel
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 3055
+  'y': 200
+  wires: []
+- id: 113890195e0d86bd
+  type: delay
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: 5ms
+  pauseType: delay
+  timeout: '5'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2930
+  'y': 200
+  wires:
+    - - 8b730186d3f46e4f
+      - adc624e7d8fbb050
+- id: adc624e7d8fbb050
+  type: debug
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: delete - plant
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2750
+  'y': 200
+  wires: []
+- id: f7885f1e711d4087
+  type: link in
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: delete - line
+  links: []
+  x: 2605
+  'y': 440
+  wires:
+    - - d7b6fb7d62f6782b
+- id: d7b6fb7d62f6782b
+  type: function
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: delete - line
+  func: >-
+    msg.payload = (msg.dictionary?.common_notice_line_noempty)||'Failed to
+    delete line';
+
+
+    if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {
+        let is_empty = true;
+        // kernel.lines
+        let equipments = global.get('kernel.equipments','memoryOnly')||{};
+        for (const equipment in equipments) {
+            if (equipments[equipment] === msg.kernel.entity) {
+                is_empty = false;
+            }
+        }
+
+        if (is_empty === true) {
+            // kernel.lines
+            node.send({
+                'topic':'',
+                'payload':'',
+                'kernel':{
+                    'type':'lines',
+                    'entity':msg.kernel.entity,
+                    'value':'',
+                    'loop':false,
+                    'delete':true
+                }
+            });
+
+            // kernel.line
+            node.send({
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'line',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            });
+
+            // kernel.period
+            let periods = global.get('kernel.period', 'memoryOnly') || {};
+            for (const period in periods) {
+                if (period === msg.kernel.entity) {
+                    node.send({
+                        'topic': '',
+                        'payload': '',
+                        'kernel': {
+                            'type': 'period',
+                            'entity': msg.kernel.entity,
+                            'value': '',
+                            'loop': false,
+                            'delete': true
+                        }
+                    });
+                }
+            }
+
+            // kernel.disabled
+            let disableds = global.get('kernel.disabled', 'memoryOnly') || {};
+            for (const disabled in disableds) {
+                if (disabled === msg.kernel.entity) {
+                    node.send({
+                        'topic': '',
+                        'payload': '',
+                        'kernel': {
+                            'type': 'disabled',
+                            'entity': msg.kernel.entity,
+                            'value': '',
+                            'loop': false,
+                            'delete': true
+                        }
+                    });
+                }
+            }
+
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Line successfully deleted';
+        }
+    }
+
+
+    delete msg.kernel;
+
+
+    return [null,msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2750
+  'y': 440
+  wires:
+    - - 367bb61e40380826
+    - - 8ad7d6c225b88396
+- id: 308fefce05fc3869
+  type: link out
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: delete - line
+  mode: return
+  links: []
+  x: 3055
+  'y': 440
+  wires: []
+- id: eb64c8d98a58fe92
+  type: link out
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: delete - line - kernel
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 3055
+  'y': 380
+  wires: []
+- id: 367bb61e40380826
+  type: delay
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: 5ms
+  pauseType: delay
+  timeout: '5'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2930
+  'y': 380
+  wires:
+    - - eb64c8d98a58fe92
+      - 641a2054db5d1dd5
+- id: 641a2054db5d1dd5
+  type: debug
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: delete - line
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2750
+  'y': 380
+  wires: []
+- id: 8ad7d6c225b88396
+  type: delay
+  z: adb9fbf379118d77
+  g: 92e5947ba67b9ae8
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2930
+  'y': 440
+  wires:
+    - - 308fefce05fc3869
+- id: a9ba6f4bc1c00e3f
+  type: delay
+  z: adb9fbf379118d77
+  g: f16b36b49ec5a9c3
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2930
+  'y': 260
+  wires:
+    - - 020a59597777f88f
+- id: c50fb469d6c9decd
+  type: link in
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: delete - equipment
+  links: []
+  x: 2605
+  'y': 620
+  wires:
+    - - ed689db0be340ab7
+- id: ed689db0be340ab7
+  type: function
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: delete - equipment
+  func: >-
+    msg.payload = (msg.dictionary?.common_notice_equipment_noempty)||'Failed to
+    delete equipment';
+
+
+    if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
+    'equipment') {
+        let is_empty = true;
+        // kernel.link
+        let links = global.get('kernel.link','memoryOnly')||{};
+        for (const link in links) {
+            let lsplit = link.split('|');
+            if (lsplit[0] === msg.kernel.entity) {
+                is_empty = false;
+            }
+        }
+
+        if (is_empty === true) {
+            // kernel.equipments
+            node.send({
+                'topic':'',
+                'payload':'',
+                'kernel':{
+                    'type':'equipments',
+                    'entity':msg.kernel.entity,
+                    'value':'',
+                    'loop':false,
+                    'delete':true
+                }
+            });
+
+            // kernel.equipment
+            node.send({
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'equipment',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            });
+
+            // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component
+
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Equipment successfully deleted';
+        }
+    }
+
+
+    delete msg.kernel;
+
+
+    return [null,msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2770
+  'y': 620
+  wires:
+    - - f23f1c7cc5f34519
+    - - ac6c177a603a07fd
+- id: cb5ac3fe0e70584d
+  type: link out
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: delete - equipment
+  mode: return
+  links: []
+  x: 3095
+  'y': 620
+  wires: []
+- id: 46dfc21c83f66b59
+  type: link out
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: delete - equipment - kernel
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 3095
+  'y': 560
+  wires: []
+- id: f23f1c7cc5f34519
+  type: delay
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: 5ms
+  pauseType: delay
+  timeout: '5'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2970
+  'y': 560
+  wires:
+    - - 46dfc21c83f66b59
+      - 327fe50845f66490
+- id: 327fe50845f66490
+  type: debug
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: delete - equipment
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2770
+  'y': 560
+  wires: []
+- id: ac6c177a603a07fd
+  type: delay
+  z: adb9fbf379118d77
+  g: 1e4bc11a0feefeab
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 2970
+  'y': 620
+  wires:
+    - - cb5ac3fe0e70584d

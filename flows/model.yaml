@@ -1768,7 +1768,7 @@
             /* reset an input */
             if (msg.kernel.convert === 'i|reset') {
                 msg.topic = 'opta/' + msg.kernel.device + '/input/reset';
-                msg.payload = msg.kernel.terminal;
+                msg.payload = Number(msg.kernel.terminal);
 
                 delete msg.kernel;
 

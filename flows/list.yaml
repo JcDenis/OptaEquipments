@@ -241,15 +241,7 @@
     - ba4b2b2cefb7f98c
     - cd6dec73fe223470
     - ca12c3e9835ca06d
-    - affb55afb21afdd3
-    - de4eda720d74910a
     - 8fdbc68cf0ee65f4
-    - fca0e5309e6a4f90
-    - 28f6b9b93935b373
-    - 1902673180d567d7
-    - d54c0cef6e716093
-    - 0ec06aaf1a321681
-    - 3b216df2f7859362
     - bb81645613d3ebce
     - bd4e09be3ceeafcf
     - 033bdb2c1e76e680
@@ -261,10 +253,12 @@
     - 907986dd946c13a0
     - a8353c91019d5999
     - 85eb60f582d6b7ae
+    - 66b17128b5299e13
+    - a5c985e8844c71c5
   x: 104
-  'y': 939
-  w: 3342
-  h: 322
+  'y': 959
+  w: 3072
+  h: 262
 - id: 2c0f9b39f8c7dd73
   type: group
   z: e97c6f12735a13c1
@@ -3241,56 +3235,9 @@
   repair: false
   outputs: 1
   x: 2640
-  'y': 1100
+  'y': 1000
   wires:
-    - - affb55afb21afdd3
-- id: affb55afb21afdd3
-  type: switch
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: empty
-  property: payload.equipment_count
-  propertyType: msg
-  rules:
-    - t: gt
-      v: '0'
-      vt: num
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 2810
-  'y': 1100
-  wires:
-    - - de4eda720d74910a
-    - - fca0e5309e6a4f90
-      - 28f6b9b93935b373
-      - 1902673180d567d7
-- id: de4eda720d74910a
-  type: change
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.common_notice_line_noempty
-      tot: msg
-    - t: set
-      p: list
-      pt: msg
-      to: line
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2970
-  'y': 1040
-  wires:
-    - - 8fdbc68cf0ee65f4
+    - - 66b17128b5299e13
 - id: 8fdbc68cf0ee65f4
   type: link out
   z: e97c6f12735a13c1
@@ -3299,165 +3246,8 @@
   mode: link
   links:
     - 468277bb16c8903c
-  x: 3095
-  'y': 1040
-  wires: []
-- id: fca0e5309e6a4f90
-  type: change
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'line',\t    'entity':msg.payload.line,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
-      tot: jsonata
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: action
-      pt: msg
-    - t: delete
-      p: column
-      pt: msg
-    - t: delete
-      p: settings
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2970
-  'y': 1160
-  wires:
-    - - d54c0cef6e716093
-- id: 28f6b9b93935b373
-  type: change
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: kernel
-  rules:
-    - t: set
-      p: kernel
-      pt: msg
-      to: "{\t    'type':'lines',\t    'entity':msg.payload.line,\t    'value':'',\t    'loop':false,\t    'delete':true\t}"
-      tot: jsonata
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: delete
-      p: action
-      pt: msg
-    - t: delete
-      p: column
-      pt: msg
-    - t: delete
-      p: settings
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2970
-  'y': 1220
-  wires:
-    - - d54c0cef6e716093
-- id: 1902673180d567d7
-  type: change
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.common_notice_tree_update_success
-      tot: msg
-    - t: set
-      p: list
-      pt: msg
-      to: line
-      tot: str
-    - t: set
-      p: success
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 2970
-  'y': 1100
-  wires:
-    - - 8fdbc68cf0ee65f4
-- id: d54c0cef6e716093
-  type: delay
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: 10ms
-  pauseType: delay
-  timeout: '10'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 3130
-  'y': 1160
-  wires:
-    - - 0ec06aaf1a321681
-      - 3b216df2f7859362
-- id: 0ec06aaf1a321681
-  type: debug
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: list - line - action
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 3320
-  'y': 1100
-  wires: []
-- id: 3b216df2f7859362
-  type: link out
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: list - line - action
-  mode: link
-  links:
-    - e60e4ab7617738c3
-  x: 3255
-  'y': 1160
+  x: 3135
+  'y': 1000
   wires: []
 - id: ce7e7c3d3ba1ca4e
   type: switch
@@ -3600,8 +3390,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2970
-  'y': 980
+  x: 3010
+  'y': 1060
   wires:
     - - 8fdbc68cf0ee65f4
 - id: d0acf527c52398ff
@@ -5382,3 +5172,45 @@
   x: 2315
   'y': 1640
   wires: []
+- id: 66b17128b5299e13
+  type: function
+  z: e97c6f12735a13c1
+  g: 6f784a48183c4937
+  name: kernel
+  func: |-
+    if (msg.hmi.level === 'admin' ||msg.hmi.level === 'rt') {
+        msg.kernel = {
+            'type':'line',
+            'entity':msg.payload.line,
+            'value':'',
+            'loop':false,
+            'delete':true
+        };
+
+        return msg;
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2810
+  'y': 1000
+  wires:
+    - - a5c985e8844c71c5
+- id: a5c985e8844c71c5
+  type: link call
+  z: e97c6f12735a13c1
+  g: 6f784a48183c4937
+  name: ''
+  links:
+    - f7885f1e711d4087
+  linkType: static
+  timeout: '30'
+  x: 2990
+  'y': 1000
+  wires:
+    - - 8fdbc68cf0ee65f4

@@ -46,7 +46,6 @@
     - beafd2a4d6e6e01a
     - ce99fb90d41439af
     - ca4e151d7418cc02
-    - 32bd3cca2402b7b9
     - fa90b710f3509e75
     - 64a4f6586a2e78b7
     - 445630b2d825ed6f
@@ -97,14 +96,12 @@
     - efb8404e9d7d6583
     - 1e4ab253e69deb45
     - 56766b596b2fd66a
-    - f564320d1d6843e1
-    - 3f9021d86577af31
     - 7e3087b85c5c5e2a
     - 8b5a802720942ef9
     - eba762788d6cb401
     - 775ac63dfa9faf13
-    - 988fa634c4bafcb6
-    - e060e3943257af51
+    - c532943b2c42aa8f
+    - f3970906841a189d
   x: 104
   'y': 459
   w: 2112
@@ -157,7 +154,6 @@
     - 81ca9d8959a0b0d7
     - 33fa51b16be94540
     - 10bdc46c6ded5b32
-    - 0ed280d04f5f050c
     - 4fc3c8451747df9d
     - af0dae2884aedc3a
     - 2e64f2facfaad9b2
@@ -204,18 +200,16 @@
     - e0a62029119423cd
     - 3cd827ba7ec5c1ec
     - 5fcbc11e8ee34e6f
-    - cb4bcbf30b5243a4
     - e3227213794086ca
-    - 50ee9e21ab38068b
     - 5a75b1243dc97ffe
     - 3ea40f7f106404c2
     - aa2744329779c75c
     - 0908d2d6aa609a72
     - a9ddd073114d9df5
-    - 72b79db256278408
-    - 46db6d08f9871fab
     - f41c70138b77b7ed
     - bbd712140ff80822
+    - bcdf86cb3bd9f652
+    - 3ad589451ab23b77
   x: 104
   'y': 1359
   w: 2742
@@ -5641,7 +5635,7 @@
     - 4e94023e8ba12f50
     - be594973267232f5
   x: 2175
-  'y': 1100
+  'y': 1040
   wires: []
 - id: beafd2a4d6e6e01a
   type: change
@@ -5709,7 +5703,7 @@
     - 4e94023e8ba12f50
     - d0be34a90b4e69b0
   x: 2145
-  'y': 1940
+  'y': 1880
   wires: []
 - id: cb24ec5243dad6aa
   type: debug
@@ -6651,26 +6645,6 @@
   wires:
     - - 902fe68ecf2dae15
       - ce99fb90d41439af
-- id: 32bd3cca2402b7b9
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionray.common_notice_plant_noempty
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1730
-  'y': 1160
-  wires:
-    - - eba762788d6cb401
 - id: 10bdc46c6ded5b32
   type: change
   z: 64ce08af468b8197
@@ -6696,26 +6670,6 @@
   'y': 1880
   wires:
     - - 77acbc3342c154c5
-- id: 0ed280d04f5f050c
-  type: change
-  z: 64ce08af468b8197
-  g: d8d8a361ac715076
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.common_notice_line_noempty
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1710
-  'y': 2000
-  wires:
-    - - aa2744329779c75c
 - id: 860bbfc2c0ce21f8
   type: change
   z: 64ce08af468b8197
@@ -13226,7 +13180,7 @@
   'y': 1040
   wires:
     - - 359c236edd3eb910
-      - e060e3943257af51
+      - f3970906841a189d
 - id: 88e371fb66a691d1
   type: link call
   z: 64ce08af468b8197
@@ -13684,7 +13638,7 @@
   'y': 1880
   wires:
     - - 81ca9d8959a0b0d7
-      - 50ee9e21ab38068b
+      - bcdf86cb3bd9f652
 - id: a152f9c27b063524
   type: link call
   z: 64ce08af468b8197
@@ -16218,64 +16172,6 @@
   'y': 920
   wires:
     - - ca4e151d7418cc02
-- id: f564320d1d6843e1
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: plant
-  func: |-
-    let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-
-    return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'plant',
-            'entity':form.id,
-            'value':'',
-            'loop':false,
-            'delete':true
-        }
-    };
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1730
-  'y': 980
-  wires:
-    - - ca4e151d7418cc02
-- id: 3f9021d86577af31
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: tz
-  func: |-
-    let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-
-    return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'tz',
-            'entity':form.id,
-            'value':'',
-            'loop':false,
-            'delete':true
-        }
-    };
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1730
-  'y': 1040
-  wires:
-    - - ca4e151d7418cc02
 - id: 8b5a802720942ef9
   type: function
   z: 64ce08af468b8197
@@ -16350,7 +16246,7 @@
   allowrate: false
   outputs: 1
   x: 1890
-  'y': 1100
+  'y': 1040
   wires:
     - - 775ac63dfa9faf13
 - id: 775ac63dfa9faf13
@@ -16384,89 +16280,9 @@
   to: ''
   reg: false
   x: 2050
-  'y': 1100
+  'y': 1040
   wires:
     - - 38b3a4ebd1fca09e
-- id: cb4bcbf30b5243a4
-  type: function
-  z: 64ce08af468b8197
-  g: d8d8a361ac715076
-  name: empty
-  func: |-
-    let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-    let equipments = global.get('kernel.equipments', 'memoryOnly');
-    if (typeof equipments === 'object') {
-        for (const equipment in equipments) {
-            if (equipments[equipment] === form.id) {
-                return [null, msg];
-            }
-        }
-    }
-
-    return [msg, null];
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1550
-  'y': 1880
-  wires:
-    - - d241fad6f4128215
-      - 72b79db256278408
-      - 46db6d08f9871fab
-    - - 0ed280d04f5f050c
-      - 72b79db256278408
-      - 46db6d08f9871fab
-- id: 988fa634c4bafcb6
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: empty
-  func: |-
-    let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-    let lines = global.get('kernel.lines', 'memoryOnly');
-    if (typeof lines === 'object') {
-        for (const line in lines) {
-            if (lines[line] === form.id) {
-                return [null, msg];
-            }
-        }
-    }
-
-    return [msg, null];
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1570
-  'y': 1040
-  wires:
-    - - beafd2a4d6e6e01a
-      - f564320d1d6843e1
-      - 3f9021d86577af31
-    - - 32bd3cca2402b7b9
-- id: e060e3943257af51
-  type: switch
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1410
-  'y': 1040
-  wires:
-    - - 988fa634c4bafcb6
 - id: e3227213794086ca
   type: switch
   z: 64ce08af468b8197
@@ -16493,28 +16309,6 @@
     - - d241fad6f4128215
       - 0908d2d6aa609a72
       - a9ddd073114d9df5
-- id: 50ee9e21ab38068b
-  type: switch
-  z: 64ce08af468b8197
-  g: d8d8a361ac715076
-  name: level
-  property: '#:(memoryOnly)::user[msg.hmi.id][''level'']'
-  propertyType: global
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: eq
-      v: rt
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1390
-  'y': 1880
-  wires:
-    - - cb4bcbf30b5243a4
-    - - cb4bcbf30b5243a4
 - id: 5a75b1243dc97ffe
   type: switch
   z: 64ce08af468b8197
@@ -16572,7 +16366,7 @@
   to: ''
   reg: false
   x: 2030
-  'y': 1940
+  'y': 1880
   wires:
     - - a4152fb852afd64c
 - id: aa2744329779c75c
@@ -16593,7 +16387,7 @@
   allowrate: false
   outputs: 1
   x: 1870
-  'y': 1940
+  'y': 1880
   wires:
     - - 3ea40f7f106404c2
 - id: 0908d2d6aa609a72
@@ -16650,65 +16444,6 @@
   libs: []
   x: 1710
   'y': 1760
-  wires:
-    - - 33fa51b16be94540
-- id: 72b79db256278408
-  type: function
-  z: 64ce08af468b8197
-  g: d8d8a361ac715076
-  name: line
-  func: |-
-    let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-
-    return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':
-            'line',
-            'entity':form.id,
-            'value':'',
-            'loop':false,
-            'delete':true
-        }
-    };
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1710
-  'y': 1880
-  wires:
-    - - 33fa51b16be94540
-- id: 46db6d08f9871fab
-  type: function
-  z: 64ce08af468b8197
-  g: d8d8a361ac715076
-  name: lines
-  func: |-
-    let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly');
-
-    return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'lines',
-            'entity':form.id,
-            'value':'',
-            'loop':false,
-            'delete':true
-        }
-    };
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1710
-  'y': 1820
   wires:
     - - 33fa51b16be94540
 - id: f41c70138b77b7ed
@@ -17945,3 +17680,87 @@
   'y': 4580
   wires:
     - - 4bd87f84cc4ecf69
+- id: c532943b2c42aa8f
+  type: link call
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: ''
+  links:
+    - 734dfd5f42acb225
+  linkType: static
+  timeout: '30'
+  x: 1590
+  'y': 1040
+  wires:
+    - - eba762788d6cb401
+- id: f3970906841a189d
+  type: function
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: kernel
+  func: |-
+    if (msg.hmi.level === 'admin') {
+        msg.kernel = {
+            'type':'plant',
+            'entity':flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly')||'-',
+            'value':'',
+            'loop':false,
+            'delete':true
+        };
+
+        return msg;
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1410
+  'y': 1040
+  wires:
+    - - c532943b2c42aa8f
+- id: bcdf86cb3bd9f652
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: kernel
+  func: |-
+    if (msg.hmi.level === 'admin') {
+        msg.kernel = {
+            'type':'line',
+            'entity':flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly')||'-',
+            'value':'',
+            'loop':false,
+            'delete':true
+        };
+
+        return msg;
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1390
+  'y': 1880
+  wires:
+    - - 3ad589451ab23b77
+- id: 3ad589451ab23b77
+  type: link call
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: ''
+  links:
+    - f7885f1e711d4087
+  linkType: static
+  timeout: '30'
+  x: 1570
+  'y': 1880
+  wires:
+    - - aa2744329779c75c
