@@ -1881,8 +1881,6 @@
         "nodes": [
             "f66528f67c8d7cfd",
             "ba4b2b2cefb7f98c",
-            "cd6dec73fe223470",
-            "ca12c3e9835ca06d",
             "8fdbc68cf0ee65f4",
             "033bdb2c1e76e680",
             "be0998554f3f58e7",
@@ -1897,7 +1895,7 @@
         ],
         "x": 104,
         "y": 939,
-        "w": 1492,
+        "w": 1252,
         "h": 262
     },
     {
@@ -7921,7 +7919,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "day",
-        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* If current time is before dec time and team starts before dec time, this is the day after */\nif (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime /* && msg.row.startime < msg.row.stoptime */) {\n    if (msg.row.curday === 6) {\n        msg.row.curday = 0;\n    } else {\n        msg.row.curday = msg.row.curday + 1;\n    }\n}\n/* if current time is after dec time and team stop after dec time and team start time is after team stop time */\n/* To test for saturday morning \nelse if (msg.row.curtime > msg.row.dectime && msg.row.stoptime > msg.row.dectime && msg.row.starttime > msg.row.stoptime) {\n    if (msg.row.curday === 0) {\n        msg.row.curday = 6;\n    } else {\n        msg.row.curday = msg.row.curday - 1;\n    }\n}\n*/\n\n/* sunday, sartuday and not s, week and not mand */\nif (msg.row.curday === 0 || (msg.row.curday === 6 && msg.row.team !== 's') || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) === null)) {\n    msg.row.value = false;\n} else {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
+        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* If current time is before dec time and team starts before dec time, this is the day after */\nif (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime /* && msg.row.startime < msg.row.stoptime */) {\n    if (msg.row.curday === 6) {\n        msg.row.curday = 0;\n    } else {\n        msg.row.curday = msg.row.curday + 1;\n    }\n}\n/* if current time is after dec time and team stop after dec time and team start time is after team stop time */\n//* To test for saturday morning \nelse if (msg.row.curtime > msg.row.dectime && msg.row.stoptime > msg.row.dectime && msg.row.starttime > msg.row.stoptime) {\n    if (msg.row.curday === 0) {\n        msg.row.curday = 6;\n    } else {\n        msg.row.curday = msg.row.curday - 1;\n    }\n}\n//*/\n\n/* sunday, sartuday and not s, week and not mand */\nif (msg.row.curday === 0 || (msg.row.curday === 6 && msg.row.team !== 's') || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) === null)) {\n    msg.row.value = false;\n} else {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -32710,71 +32708,11 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 470,
+        "x": 510,
         "y": 1040,
         "wires": [
             [
                 "86bd28f7680213aa"
-            ]
-        ]
-    },
-    {
-        "id": "cd6dec73fe223470",
-        "type": "switch",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "action",
-        "property": "action",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "row_click",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "button_click",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 870,
-        "y": 1040,
-        "wires": [
-            [
-                "85eb60f582d6b7ae"
-            ],
-            [
-                "ca12c3e9835ca06d"
-            ]
-        ]
-    },
-    {
-        "id": "ca12c3e9835ca06d",
-        "type": "switch",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "column",
-        "property": "column",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "delete",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 1040,
-        "y": 1040,
-        "wires": [
-            [
-                "66b17128b5299e13"
             ]
         ]
     },
@@ -32788,7 +32726,7 @@
         "links": [
             "468277bb16c8903c"
         ],
-        "x": 1555,
+        "x": 1315,
         "y": 1040,
         "wires": []
     },
@@ -33074,7 +33012,7 @@
         "className": "",
         "value": "total",
         "valueType": "msg",
-        "x": 620,
+        "x": 660,
         "y": 980,
         "wires": []
     },
@@ -33300,8 +33238,7 @@
             "1f4c79010e5cc5f6",
             "39d736a26d26be10",
             "85b6d076d725c2cf",
-            "b21493fd496a2724",
-            "b90643337a4dc51b"
+            "b21493fd496a2724"
         ],
         "x": 145,
         "y": 320,
@@ -33381,7 +33318,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 270,
+        "x": 310,
         "y": 980,
         "wires": [
             [
@@ -33402,11 +33339,11 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 690,
+        "x": 730,
         "y": 1040,
         "wires": [
             [
-                "cd6dec73fe223470"
+                "66b17128b5299e13"
             ]
         ]
     },
@@ -33457,7 +33394,7 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 470,
+        "x": 510,
         "y": 1100,
         "wires": [
             [
@@ -33631,7 +33568,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 430,
+        "x": 470,
         "y": 980,
         "wires": [
             [
@@ -34555,7 +34492,7 @@
         "links": [
             "576ca6cfd2aca638"
         ],
-        "x": 995,
+        "x": 1095,
         "y": 980,
         "wires": []
     },
@@ -34632,17 +34569,20 @@
         "type": "function",
         "z": "e97c6f12735a13c1",
         "g": "6f784a48183c4937",
-        "name": "kernel",
-        "func": "msg.kernel = {\n    'type':'line',\n    'entity':msg.payload.line,\n    'value':'',\n    'loop':false,\n    'delete':true\n};\n\nreturn msg;",
-        "outputs": 1,
+        "name": "action & kernel",
+        "func": "if (msg.action === 'row_click') {\n    return [msg,null];\n} else if (msg.action === 'button_click' && msg.column === 'delete') {\n    msg.kernel = {\n        'type':'line',\n        'entity':msg.payload.line,\n        'value':'',\n        'loop':false,\n        'delete':true\n    };\n\n    return [null,msg];\n}",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1210,
+        "x": 940,
         "y": 1040,
         "wires": [
+            [
+                "85eb60f582d6b7ae"
+            ],
             [
                 "a5c985e8844c71c5"
             ]
@@ -34659,7 +34599,7 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1400,
+        "x": 1160,
         "y": 1040,
         "wires": [
             [
@@ -34832,7 +34772,7 @@
         "type": "function",
         "z": "e97c6f12735a13c1",
         "g": "6f784a48183c4937",
-        "name": "lines",
+        "name": "parse lines",
         "func": "if (msg.list === 'line') {\n    let lines = global.get('kernel.lines','memoryOnly')||{};\n    let i = 0;\n    msg.payload = [];\n\n    for (const line in lines) {\n        let row  = {};\n\n        row.line = line;\n        row.line_name = global.get('kernel.line[\"' + line + '\"]','memoryOnly')||'';\n        row.line_full = row.line_name + ' (' + line + ')';\n        row.plant = lines[line];\n        row.plant_name = global.get('kernel.plant[\"'  + row.plant + '\"]','memoryOnly')||'';\n        row.plant_full = row.plant_name + ' (' + row.plant + ')'||'';\n        row.delete = (msg.dictionary?.common_action_delete)||'Delete';\n        row.equipment_count = 0;\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')) {\n            let equipments = global.get('kernel.equipments','memoryOnly');\n            if (typeof equipments === 'object') {\n                for (const equipment in equipments) {\n                    if (equipments[equipment] === line) {\n                        row.equipment_count += 1;\n                    }\n                }\n            }\n\n            msg.payload[i++] = row;\n        }\n    }\n\n    if (i > 0) {\n        msg.class = '';\n        msg.enabled = true;\n        msg.total = i;\n    } else {\n        msg.paylaod = msg.dictionary.common_notice_nodata;\n        return [null,null,msg];\n    }\n\n    if (msg.hmi.lang === 'fr') {\n        return [msg,null,null];\n    } else {\n        return [null,msg,null];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
@@ -34840,7 +34780,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 270,
+        "x": 290,
         "y": 1040,
         "wires": [
             [
@@ -34866,7 +34806,7 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 395,
+        "x": 435,
         "y": 1160,
         "wires": []
     },

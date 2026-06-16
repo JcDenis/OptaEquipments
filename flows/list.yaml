@@ -194,8 +194,6 @@
   nodes:
     - f66528f67c8d7cfd
     - ba4b2b2cefb7f98c
-    - cd6dec73fe223470
-    - ca12c3e9835ca06d
     - 8fdbc68cf0ee65f4
     - 033bdb2c1e76e680
     - be0998554f3f58e7
@@ -209,7 +207,7 @@
     - 204da7adbd217f28
   x: 104
   'y': 939
-  w: 1492
+  w: 1252
   h: 262
 - id: 2c0f9b39f8c7dd73
   type: group
@@ -2229,50 +2227,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 470
+  x: 510
   'y': 1040
   wires:
     - - 86bd28f7680213aa
-- id: cd6dec73fe223470
-  type: switch
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: action
-  property: action
-  propertyType: msg
-  rules:
-    - t: eq
-      v: row_click
-      vt: str
-    - t: eq
-      v: button_click
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 870
-  'y': 1040
-  wires:
-    - - 85eb60f582d6b7ae
-    - - ca12c3e9835ca06d
-- id: ca12c3e9835ca06d
-  type: switch
-  z: e97c6f12735a13c1
-  g: 6f784a48183c4937
-  name: column
-  property: column
-  propertyType: msg
-  rules:
-    - t: eq
-      v: delete
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1040
-  'y': 1040
-  wires:
-    - - 66b17128b5299e13
 - id: 8fdbc68cf0ee65f4
   type: link out
   z: e97c6f12735a13c1
@@ -2281,7 +2239,7 @@
   mode: link
   links:
     - 468277bb16c8903c
-  x: 1555
+  x: 1315
   'y': 1040
   wires: []
 - id: ce7e7c3d3ba1ca4e
@@ -2484,7 +2442,7 @@
   className: ''
   value: total
   valueType: msg
-  x: 620
+  x: 660
   'y': 980
   wires: []
 - id: f92083edcc0a8f36
@@ -2671,7 +2629,6 @@
     - 39d736a26d26be10
     - 85b6d076d725c2cf
     - b21493fd496a2724
-    - b90643337a4dc51b
   x: 145
   'y': 320
   wires:
@@ -2734,7 +2691,7 @@
   from: ''
   to: ''
   reg: false
-  x: 270
+  x: 310
   'y': 980
   wires:
     - - ba4b2b2cefb7f98c
@@ -2749,10 +2706,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 690
+  x: 730
   'y': 1040
   wires:
-    - - cd6dec73fe223470
+    - - 66b17128b5299e13
 - id: adc8289fbb27facb
   type: ui-table
   z: e97c6f12735a13c1
@@ -2792,7 +2749,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 470
+  x: 510
   'y': 1100
   wires:
     - - 86bd28f7680213aa
@@ -2919,7 +2876,7 @@
   from: ''
   to: ''
   reg: false
-  x: 430
+  x: 470
   'y': 980
   wires:
     - - 033bdb2c1e76e680
@@ -3637,7 +3594,7 @@
   mode: link
   links:
     - 576ca6cfd2aca638
-  x: 995
+  x: 1095
   'y': 980
   wires: []
 - id: 16a8aa9d41637b79
@@ -3728,26 +3685,31 @@
   type: function
   z: e97c6f12735a13c1
   g: 6f784a48183c4937
-  name: kernel
+  name: action & kernel
   func: |-
-    msg.kernel = {
-        'type':'line',
-        'entity':msg.payload.line,
-        'value':'',
-        'loop':false,
-        'delete':true
-    };
+    if (msg.action === 'row_click') {
+        return [msg,null];
+    } else if (msg.action === 'button_click' && msg.column === 'delete') {
+        msg.kernel = {
+            'type':'line',
+            'entity':msg.payload.line,
+            'value':'',
+            'loop':false,
+            'delete':true
+        };
 
-    return msg;
-  outputs: 1
+        return [null,msg];
+    }
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1210
+  x: 940
   'y': 1040
   wires:
+    - - 85eb60f582d6b7ae
     - - a5c985e8844c71c5
 - id: a5c985e8844c71c5
   type: link call
@@ -3758,7 +3720,7 @@
     - 714f68a693410801
   linkType: static
   timeout: '30'
-  x: 1400
+  x: 1160
   'y': 1040
   wires:
     - - 8fdbc68cf0ee65f4
@@ -3918,7 +3880,7 @@
   type: function
   z: e97c6f12735a13c1
   g: 6f784a48183c4937
-  name: lines
+  name: parse lines
   func: |-
     if (msg.list === 'line') {
         let lines = global.get('kernel.lines','memoryOnly')||{};
@@ -3974,7 +3936,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
+  x: 290
   'y': 1040
   wires:
     - - 907986dd946c13a0
@@ -3990,6 +3952,6 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 395
+  x: 435
   'y': 1160
   wires: []
