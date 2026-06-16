@@ -510,20 +510,13 @@
     - a9568851b155c486
     - ac509dada2597e3c
     - 3635210474545f29
-    - 689e8c8f85f8601b
-    - bdca3fe751a74b61
-    - 081328881d4c3965
     - 575b09f0fb9e021c
     - 28e25528291dd3e4
     - 7866a0ada50fe22f
-    - d0bf81ce512ab961
     - 301bb73805b7e405
     - e5d1a8af91104af6
-    - 23de37c45b16e5e1
     - e7c92a87345bf679
     - 8b730186d3f46e4f
-    - eb64c8d98a58fe92
-    - 46dfc21c83f66b59
   x: 145
   'y': 620
   wires:
@@ -3620,16 +3613,32 @@
 
 
     /* If current time is before dec time and team starts before dec time, this
-    is the day before */
+    is the day after */
 
-    if (msg.row.curtime < msg.row.dectime && msg.row.starttime <
-    msg.row.dectime) {
+    if (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime
+    /* && msg.row.startime < msg.row.stoptime */) {
         if (msg.row.curday === 6) {
             msg.row.curday = 0;
         } else {
             msg.row.curday = msg.row.curday + 1;
         }
     }
+
+    /* if current time is after dec time and team stop after dec time and team
+    start time is after team stop time */
+
+    /* To test for saturday morning 
+
+    else if (msg.row.curtime > msg.row.dectime && msg.row.stoptime >
+    msg.row.dectime && msg.row.starttime > msg.row.stoptime) {
+        if (msg.row.curday === 0) {
+            msg.row.curday = 6;
+        } else {
+            msg.row.curday = msg.row.curday - 1;
+        }
+    }
+
+    */
 
 
     /* sunday, sartuday and not s, week and not mand */
@@ -3638,7 +3647,6 @@
     || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new
     RegExp('^(m|a|n|d)$'))) === null)) {
         msg.row.value = false;
-        // TODO: fix sunday morning with night team
     } else {
         if (msg.row.starttime < msg.row.stoptime) {
             msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;
