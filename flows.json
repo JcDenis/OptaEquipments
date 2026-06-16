@@ -1880,34 +1880,24 @@
         },
         "nodes": [
             "f66528f67c8d7cfd",
-            "7e1706acf9212c17",
-            "f46572655e65929d",
-            "1316381975de2e44",
-            "368c566b16e7b9cf",
-            "f75afbfaf748cf90",
-            "07821e379d041785",
-            "40b2703358658c80",
-            "1e30e586678e32a6",
-            "7a4fe35c856c8831",
             "ba4b2b2cefb7f98c",
             "cd6dec73fe223470",
             "ca12c3e9835ca06d",
             "8fdbc68cf0ee65f4",
             "033bdb2c1e76e680",
-            "b90643337a4dc51b",
             "be0998554f3f58e7",
             "86bd28f7680213aa",
-            "5c5ce9cd5daaf007",
             "adc8289fbb27facb",
             "907986dd946c13a0",
-            "a8353c91019d5999",
             "85eb60f582d6b7ae",
             "66b17128b5299e13",
-            "a5c985e8844c71c5"
+            "a5c985e8844c71c5",
+            "206c82b3fa97b1c2",
+            "204da7adbd217f28"
         ],
         "x": 104,
-        "y": 959,
-        "w": 2932,
+        "y": 939,
+        "w": 1492,
         "h": 262
     },
     {
@@ -4657,7 +4647,8 @@
             "9f779446d59dedd9",
             "688c8cd091260c94",
             "4c1093802ef038cc",
-            "2219b610eb1a3cc0"
+            "2219b610eb1a3cc0",
+            "204da7adbd217f28"
         ],
         "x": 145,
         "y": 3300,
@@ -32664,352 +32655,11 @@
             "1b3e234bed8047a0"
         ],
         "x": 145,
-        "y": 1000,
+        "y": 980,
         "wires": [
             [
-                "7e1706acf9212c17",
-                "be0998554f3f58e7"
-            ]
-        ]
-    },
-    {
-        "id": "7e1706acf9212c17",
-        "type": "switch",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "list",
-        "property": "list",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "line",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 270,
-        "y": 1120,
-        "wires": [
-            [
-                "f46572655e65929d"
-            ]
-        ]
-    },
-    {
-        "id": "f46572655e65929d",
-        "type": "change",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "lines",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.line",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::rows[msg.hmi.id]",
-                "pt": "flow",
-                "to": "{}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "row",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 430,
-        "y": 1120,
-        "wires": [
-            [
-                "b90643337a4dc51b",
-                "1316381975de2e44"
-            ]
-        ]
-    },
-    {
-        "id": "1316381975de2e44",
-        "type": "split",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "split",
-        "splt": "\\n",
-        "spltType": "str",
-        "arraySplt": 1,
-        "arraySpltType": "len",
-        "stream": false,
-        "addname": "row.line",
-        "property": "payload",
-        "x": 590,
-        "y": 1180,
-        "wires": [
-            [
-                "07821e379d041785"
-            ]
-        ]
-    },
-    {
-        "id": "368c566b16e7b9cf",
-        "type": "debug",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "list - line",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1700,
-        "y": 1060,
-        "wires": []
-    },
-    {
-        "id": "f75afbfaf748cf90",
-        "type": "switch",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "plant",
-        "property": "row.plant",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "#:(memoryOnly)::form[msg.hmi.id]plant",
-                "vt": "flow"
-            }
-        ],
-        "checkall": "false",
-        "repair": true,
-        "outputs": 1,
-        "x": 910,
-        "y": 1180,
-        "wires": [
-            [
-                "a8353c91019d5999"
-            ]
-        ]
-    },
-    {
-        "id": "07821e379d041785",
-        "type": "change",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "row",
-        "rules": [
-            {
-                "t": "set",
-                "p": "row.line_name",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.line[msg.row.line]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "row.line_full",
-                "pt": "msg",
-                "to": "msg.row.line_name & ' (' & msg.row.line & ')'",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "row.plant",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.lines[msg.row.line]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "row.plant_name",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.plant[msg.row.plant]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "row.plant_full",
-                "pt": "msg",
-                "to": "msg.row.plant_name & ' (' & msg.row.plant & ')'",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "row.delete",
-                "pt": "msg",
-                "to": "dictionary.common_action_delete",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "row.equipment_count",
-                "pt": "msg",
-                "to": "0",
-                "tot": "num"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 750,
-        "y": 1180,
-        "wires": [
-            [
-                "f75afbfaf748cf90"
-            ]
-        ]
-    },
-    {
-        "id": "40b2703358658c80",
-        "type": "change",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "add",
-        "rules": [
-            {
-                "t": "set",
-                "p": "rows",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::rows[msg.hmi.id]",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::rows[msg.hmi.id]",
-                "pt": "flow",
-                "to": "$append(msg.rows,msg.row)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1230,
-        "y": 1180,
-        "wires": [
-            [
-                "1e30e586678e32a6"
-            ]
-        ]
-    },
-    {
-        "id": "1e30e586678e32a6",
-        "type": "join",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "join",
-        "mode": "auto",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "useparts": false,
-        "accumulate": true,
-        "timeout": "",
-        "count": "",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 1390,
-        "y": 1180,
-        "wires": [
-            [
-                "7a4fe35c856c8831"
-            ]
-        ]
-    },
-    {
-        "id": "7a4fe35c856c8831",
-        "type": "change",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "rows",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::rows[msg.hmi.id]",
-                "tot": "flow"
-            },
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::rows[msg.hmi.id]",
-                "pt": "flow"
-            },
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::count[msg.hmi.id]",
-                "pt": "flow"
-            },
-            {
-                "t": "delete",
-                "p": "payload[0]",
-                "pt": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$sort(msg.payload, function($l, $r) {\t  $l.line_full < $r.line_full\t})",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "total",
-                "pt": "msg",
-                "to": "$count(msg.payload)",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1180,
-        "wires": [
-            [
-                "368c566b16e7b9cf",
-                "5c5ce9cd5daaf007"
+                "be0998554f3f58e7",
+                "206c82b3fa97b1c2"
             ]
         ]
     },
@@ -33060,8 +32710,8 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1910,
-        "y": 1060,
+        "x": 470,
+        "y": 1040,
         "wires": [
             [
                 "86bd28f7680213aa"
@@ -33091,8 +32741,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 2310,
-        "y": 1060,
+        "x": 870,
+        "y": 1040,
         "wires": [
             [
                 "85eb60f582d6b7ae"
@@ -33120,8 +32770,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 1,
-        "x": 2480,
-        "y": 1060,
+        "x": 1040,
+        "y": 1040,
         "wires": [
             [
                 "66b17128b5299e13"
@@ -33138,8 +32788,8 @@
         "links": [
             "468277bb16c8903c"
         ],
-        "x": 2995,
-        "y": 1060,
+        "x": 1555,
+        "y": 1040,
         "wires": []
     },
     {
@@ -33424,8 +33074,8 @@
         "className": "",
         "value": "total",
         "valueType": "msg",
-        "x": 2060,
-        "y": 1000,
+        "x": 620,
+        "y": 980,
         "wires": []
     },
     {
@@ -33526,20 +33176,6 @@
         "valueType": "msg",
         "x": 1900,
         "y": 2180,
-        "wires": []
-    },
-    {
-        "id": "b90643337a4dc51b",
-        "type": "link out",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "list - line - empty",
-        "mode": "link",
-        "links": [
-            "cd1ed87f4d5f844d"
-        ],
-        "x": 555,
-        "y": 1120,
         "wires": []
     },
     {
@@ -33745,8 +33381,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1710,
-        "y": 1000,
+        "x": 270,
+        "y": 980,
         "wires": [
             [
                 "ba4b2b2cefb7f98c",
@@ -33766,45 +33402,11 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 2130,
-        "y": 1060,
+        "x": 690,
+        "y": 1040,
         "wires": [
             [
                 "cd6dec73fe223470"
-            ]
-        ]
-    },
-    {
-        "id": "5c5ce9cd5daaf007",
-        "type": "switch",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "lang",
-        "property": "dictionary.lang",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "fr",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1710,
-        "y": 1120,
-        "wires": [
-            [
-                "ba4b2b2cefb7f98c",
-                "907986dd946c13a0"
-            ],
-            [
-                "adc8289fbb27facb",
-                "907986dd946c13a0"
             ]
         ]
     },
@@ -33855,8 +33457,8 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1910,
-        "y": 1120,
+        "x": 470,
+        "y": 1100,
         "wires": [
             [
                 "86bd28f7680213aa"
@@ -34029,8 +33631,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1870,
-        "y": 1000,
+        "x": 430,
+        "y": 980,
         "wires": [
             [
                 "033bdb2c1e76e680"
@@ -34944,27 +34546,6 @@
         ]
     },
     {
-        "id": "a8353c91019d5999",
-        "type": "function",
-        "z": "e97c6f12735a13c1",
-        "g": "6f784a48183c4937",
-        "name": "more",
-        "func": "let equipments = global.get('kernel.equipments','memoryOnly');\nif (typeof equipments === 'object') {\n    for (const equipment in equipments) {\n        if (equipments[equipment] === msg.row.line) {\n            msg.row.equipment_count += 1;\n        }\n    }\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1070,
-        "y": 1180,
-        "wires": [
-            [
-                "40b2703358658c80"
-            ]
-        ]
-    },
-    {
         "id": "85eb60f582d6b7ae",
         "type": "link out",
         "z": "e97c6f12735a13c1",
@@ -34974,8 +34555,8 @@
         "links": [
             "576ca6cfd2aca638"
         ],
-        "x": 2435,
-        "y": 1000,
+        "x": 995,
+        "y": 980,
         "wires": []
     },
     {
@@ -35059,8 +34640,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2650,
-        "y": 1060,
+        "x": 1210,
+        "y": 1040,
         "wires": [
             [
                 "a5c985e8844c71c5"
@@ -35078,8 +34659,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 2840,
-        "y": 1060,
+        "x": 1400,
+        "y": 1040,
         "wires": [
             [
                 "8fdbc68cf0ee65f4"
@@ -35245,6 +34826,49 @@
                 "a4166a35f4e31509"
             ]
         ]
+    },
+    {
+        "id": "206c82b3fa97b1c2",
+        "type": "function",
+        "z": "e97c6f12735a13c1",
+        "g": "6f784a48183c4937",
+        "name": "lines",
+        "func": "if (msg.list === 'line') {\n    let lines = global.get('kernel.lines','memoryOnly')||{};\n    let i = 0;\n    msg.payload = [];\n\n    for (const line in lines) {\n        let row  = {};\n\n        row.line = line;\n        row.line_name = global.get('kernel.line[\"' + line + '\"]','memoryOnly')||'';\n        row.line_full = row.line_name + ' (' + line + ')';\n        row.plant = lines[line];\n        row.plant_name = global.get('kernel.plant[\"'  + row.plant + '\"]','memoryOnly')||'';\n        row.plant_full = row.plant_name + ' (' + row.plant + ')'||'';\n        row.delete = (msg.dictionary?.common_action_delete)||'Delete';\n        row.equipment_count = 0;\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')) {\n            let equipments = global.get('kernel.equipments','memoryOnly');\n            if (typeof equipments === 'object') {\n                for (const equipment in equipments) {\n                    if (equipments[equipment] === line) {\n                        row.equipment_count += 1;\n                    }\n                }\n            }\n\n            msg.payload[i++] = row;\n        }\n    }\n\n    if (i > 0) {\n        msg.class = '';\n        msg.enabled = true;\n        msg.total = i;\n    } else {\n        msg.paylaod = msg.dictionary.common_notice_nodata;\n        return [null,null,msg];\n    }\n\n    if (msg.hmi.lang === 'fr') {\n        return [msg,null,null];\n    } else {\n        return [null,msg,null];\n    }\n}\n\nreturn;",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 1040,
+        "wires": [
+            [
+                "907986dd946c13a0",
+                "ba4b2b2cefb7f98c"
+            ],
+            [
+                "907986dd946c13a0",
+                "adc8289fbb27facb"
+            ],
+            [
+                "204da7adbd217f28"
+            ]
+        ]
+    },
+    {
+        "id": "204da7adbd217f28",
+        "type": "link out",
+        "z": "e97c6f12735a13c1",
+        "g": "6f784a48183c4937",
+        "name": "list - line - empty",
+        "mode": "link",
+        "links": [
+            "4e94023e8ba12f50"
+        ],
+        "x": 395,
+        "y": 1160,
+        "wires": []
     },
     {
         "id": "be594973267232f5",
