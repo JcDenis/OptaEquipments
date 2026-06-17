@@ -811,6 +811,7 @@
     - b21493fd496a2724
     - 85b6d076d725c2cf
     - 1f4c79010e5cc5f6
+    - 97915c89aa97d9b9
   x: 145
   'y': 3300
   wires:
@@ -4303,6 +4304,8 @@
     msg.payload = (msg.dictionary?.common_notice_plant_noempty)||'Failed to
     delete plant';
 
+    msg.success = false;
+
 
     if (msg.hmi.level !== 'admin') {
         msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
@@ -4377,6 +4380,7 @@
             }
 
             msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Plant successfully deleted';
+            msg.success = true;
         }
     }
 
@@ -4464,6 +4468,8 @@
     msg.payload = (msg.dictionary?.common_notice_line_noempty)||'Failed to
     delete line';
 
+    msg.success = false;
+
 
     if (msg.hmi.level !== 'admin' && msg.hmi.id !== 'rt') {
         msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
@@ -4542,6 +4548,7 @@
             }
 
             msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Line successfully deleted';
+            msg.success = true;
         }
     }
 
@@ -4591,6 +4598,8 @@
     msg.payload = (msg.dictionary?.common_notice_equipment_noempty)||'Failed to
     delete equipment';
 
+    msg.success = false;
+
 
     if (msg.hmi.level !== 'admin' && msg.hmi.id !== 'rt') {
         msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
@@ -4636,6 +4645,7 @@
             // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component
 
             msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Equipment successfully deleted';
+            msg.success = true;
         }
     }
 
@@ -4716,6 +4726,11 @@
       pt: msg
       to: dictionary.common_notice_level_fail
       tot: msg
+    - t: set
+      p: success
+      pt: msg
+      to: 'false'
+      tot: bool
   action: ''
   property: ''
   from: ''
@@ -4733,6 +4748,8 @@
   func: >-
     msg.payload = (msg.dictionary?.common_notice_device_noempty)||'Failed to
     delete device';
+
+    msg.success = false;
 
 
     if (msg.hmi.level !== 'admin') {
@@ -4779,6 +4796,7 @@
             // kernel.link and kernel.rlink must be deleted from component
 
             msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Device successfully deleted';
+            msg.success = true;
         }
     }
 
@@ -4805,6 +4823,8 @@
   name: delete - link
   func: >-
     msg.payload = 'Nothing to do';
+
+    msg.success = false;
 
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
@@ -4865,6 +4885,7 @@
         });
 
         msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Component successfully deleted';
+        msg.success = true;
     }
 
 
@@ -4891,6 +4912,8 @@
   func: >-
     msg.payload = 'Nothing to do';
 
+    msg.success = false;
+
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
@@ -4911,6 +4934,7 @@
         });
 
         msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Alert successfully deleted';
+        msg.success = true;
     }
 
 
