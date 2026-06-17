@@ -30426,7 +30426,7 @@
             },
             {
                 "title": "Matériel",
-                "key": "device_name",
+                "key": "device_full",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
@@ -30434,7 +30434,7 @@
             },
             {
                 "title": "IO",
-                "key": "endpoint",
+                "key": "terminal",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
@@ -31677,7 +31677,7 @@
             },
             {
                 "title": "Device",
-                "key": "device_name",
+                "key": "device_full",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
@@ -31685,7 +31685,7 @@
             },
             {
                 "title": "IO",
-                "key": "endpoint",
+                "key": "terminal",
                 "keyType": "key",
                 "type": "text",
                 "width": "",
@@ -32239,7 +32239,7 @@
         "z": "e97c6f12735a13c1",
         "g": "baadcf077dabb0e1",
         "name": "parse components",
-        "func": "if (msg.list === 'component') {\n    let links = global.get('kernel.link','memoryOnly')||{};\n    let i = 0;\n    msg.payload = [];\n\n    for (const endpoint in links) {\n        let row  = {};\n        let lsplit = links[endpoint].split('|');\n        let esplit = endpoint.split('|');\n\n        row.value = global.get('kerne.state[\"' + endpoint + '\"]','memoryOnly')||'';\n        row.model = lsplit[0];\n        row.model_name = global.get('describe.model[\"' + row.model + '\"]','memoryOnly')||''\n        row.model_full = row.model_name + ' (' + row.model + ')';\n        row.device = lsplit[1];\n        row.equipment = esplit[0];\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';\n        row.component = esplit[1];\n        row.component_name = (msg.dictionary?.option_component[row.component])||'';\n        row.component_full = row.component_name + ' ('+ row.component + ')';\n        row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.line_name = global.get('kernel.line[\"'  + row.line + '\"]','memoryOnly')||'';\n        row.line_full = row.line_name + ' (' + row.line + ')';\n        row.plant = global.get('kernel.lines[\"' + row.line + '\"]','memoryOnly')||'';\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]','memoryOnly')||'';\n        row.plant_full = row.plant_name + ' (' + row.plant + ')';\n        row.reverse = (global.get('kernel.reverse[\"' + endpoint + '\"]','memoryOnly')||false) === true ? 'NC' : 'NO';\n        row.delete = (msg.dictionary?.common_action_delete)||'Delete';\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')) {\n            msg.payload[i++] = row;\n        }\n    }\n\n    if (i > 0) {\n        msg.class = '';\n        msg.enabled = true;\n        msg.total = i;\n    } else {\n        return [null,null,msg];\n    }\n\n    if (msg.hmi.lang === 'fr') {\n        return [msg,null,null];\n    } else {\n        return [null,msg,null];\n    }\n}\n\nreturn;",
+        "func": "if (msg.list === 'component') {\n    let links = global.get('kernel.link','memoryOnly')||{};\n    let i = 0;\n    msg.payload = [];\n\n    for (const endpoint in links) {\n        let row  = {};\n        let lsplit = links[endpoint].split('|');\n        let esplit = endpoint.split('|');\n\n        row.value = global.get('kerne.state[\"' + endpoint + '\"]','memoryOnly')||'';\n        row.model = lsplit[0];\n        row.model_name = global.get('describe.model[\"' + row.model + '\"]','memoryOnly')||'';\n        row.device = lsplit[1];\n        row.device_full = row.model_name + ' (' + row.device + ')';\n        row.terminal = lsplit[2];\n        row.equipment = esplit[0];\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';\n        row.component = esplit[1];\n        row.component_name = (msg.dictionary?.option_component[row.component])||'';\n        row.component_full = row.component_name + ' ('+ row.component + ')';\n        row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]','memoryOnly')||'';\n        row.line_name = global.get('kernel.line[\"'  + row.line + '\"]','memoryOnly')||'';\n        row.line_full = row.line_name + ' (' + row.line + ')';\n        row.plant = global.get('kernel.lines[\"' + row.line + '\"]','memoryOnly')||'';\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]','memoryOnly')||'';\n        row.plant_full = row.plant_name + ' (' + row.plant + ')';\n        row.reverse = (global.get('kernel.reverse[\"' + endpoint + '\"]','memoryOnly')||false) === true ? 'NC' : 'NO';\n        row.delete = (msg.dictionary?.common_action_delete)||'Delete';\n\n        if (row.plant === flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')) {\n            msg.payload[i++] = row;\n        }\n    }\n\n    if (i > 0) {\n        msg.class = '';\n        msg.enabled = true;\n        msg.total = i;\n    } else {\n        return [null,null,msg];\n    }\n\n    if (msg.hmi.lang === 'fr') {\n        return [msg,null,null];\n    } else {\n        return [null,msg,null];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,

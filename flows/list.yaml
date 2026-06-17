@@ -533,13 +533,13 @@
       width: ''
       align: start
     - title: Matériel
-      key: device_name
+      key: device_full
       keyType: key
       type: text
       width: ''
       align: start
     - title: IO
-      key: endpoint
+      key: terminal
       keyType: key
       type: text
       width: ''
@@ -1495,13 +1495,13 @@
       width: ''
       align: start
     - title: Device
-      key: device_name
+      key: device_full
       keyType: key
       type: text
       width: ''
       align: start
     - title: IO
-      key: endpoint
+      key: terminal
       keyType: key
       type: text
       width: ''
@@ -2168,9 +2168,10 @@
 
             row.value = global.get('kerne.state["' + endpoint + '"]','memoryOnly')||'';
             row.model = lsplit[0];
-            row.model_name = global.get('describe.model["' + row.model + '"]','memoryOnly')||''
-            row.model_full = row.model_name + ' (' + row.model + ')';
+            row.model_name = global.get('describe.model["' + row.model + '"]','memoryOnly')||'';
             row.device = lsplit[1];
+            row.device_full = row.model_name + ' (' + row.device + ')';
+            row.terminal = lsplit[2];
             row.equipment = esplit[0];
             row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]','memoryOnly')||'';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
