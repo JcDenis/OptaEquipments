@@ -7087,28 +7087,10 @@
   name: component
   rules:
     - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::rlink[msg.payload]'
-      tot: global
-    - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.payload,''|'')'
-      tot: jsonata
-    - t: set
-      p: payload
-      pt: msg
-      to: 'split[1]'
-      tot: msg
-    - t: set
       p: '#:(memoryOnly)::form[msg.hmi.id]component'
       pt: flow
       to: payload
       tot: msg
-    - t: delete
-      p: split
-      pt: msg
   action: ''
   property: ''
   from: ''
@@ -7473,11 +7455,6 @@
       pt: msg
       to: '#:(memoryOnly)::form[msg.hmi.id]'
       tot: flow
-    - t: set
-      p: form.link
-      pt: msg
-      to: '$join([msg.form.equipment,msg.form.component],''|'')'
-      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -7496,7 +7473,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'alert',\t    'entity':msg.form.link,\t    'value':$number(msg.form.limit),\t    'loop':false\t}"
+      to: "{\t    'type':'alert',\t    'entity':msg.form.component,\t    'value':$number(msg.form.limit),\t    'loop':false\t}"
       tot: jsonata
   action: ''
   property: ''

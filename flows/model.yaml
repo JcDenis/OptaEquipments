@@ -2229,6 +2229,7 @@
   name: model - opta - notice
   links:
     - 8e69ca3076d6dd0a
+    - dafa461a59bb8265
   x: 145
   'y': 320
   wires:
@@ -2245,7 +2246,7 @@
     if (typeof device === 'object') {
         let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]','memoryOnly')||0;
         msg.payload =
-            "<strong>Model: </strong>" + msg.payload.model_name + " <br />\n" +
+            "<strong>Model: </strong>" + global.get('describe.model["' + msg.payload.entity.split('|')[0] + '"]','memoryOnly') + " <br />\n" +
             "<strong>Type: </strong>" + device.type + " <br />\n" +
             "<strong>ID: </strong>" + msg.payload.device + " <br />\n" +
             "<strong>IP: </strong><a href=\"http://" + device.ip + "\">" + device.ip + "</a> <br />\n" +

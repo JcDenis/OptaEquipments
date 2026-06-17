@@ -1005,7 +1005,8 @@
             "aaa2305fbe03acaa",
             "fe18cb76e28e410c",
             "4eb4c52c88acf41e",
-            "feef47038a87f3d3"
+            "feef47038a87f3d3",
+            "dafa461a59bb8265"
         ],
         "x": 104,
         "y": 1359,
@@ -17308,7 +17309,8 @@
         "g": "44d39e7547289d97",
         "name": "model - opta - notice",
         "links": [
-            "8e69ca3076d6dd0a"
+            "8e69ca3076d6dd0a",
+            "dafa461a59bb8265"
         ],
         "x": 145,
         "y": 320,
@@ -17324,7 +17326,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "info",
-        "func": "let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]','memoryOnly');\nif (typeof device === 'object') {\n    let dt = global.get('kernel.watchdog[\"' + msg.payload.entity  + '\"]','memoryOnly')||0;\n    msg.payload =\n        \"<strong>Model: </strong>\" + msg.payload.model_name + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota: </strong>\" + states[device.ota] + \" <br />\\n\" +\n        \"<strong>Ping: </strong>\" + (new Date(dt*1000).toISOString()) + \" <br />\\n\"\n        ;\n} else {\n    msg.payload = \"Aucune information disponible\";\n}\n\nreturn msg;",
+        "func": "let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]','memoryOnly');\nif (typeof device === 'object') {\n    let dt = global.get('kernel.watchdog[\"' + msg.payload.entity  + '\"]','memoryOnly')||0;\n    msg.payload =\n        \"<strong>Model: </strong>\" + global.get('describe.model[\"' + msg.payload.entity.split('|')[0] + '\"]','memoryOnly') + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota: </strong>\" + states[device.ota] + \" <br />\\n\" +\n        \"<strong>Ping: </strong>\" + (new Date(dt*1000).toISOString()) + \" <br />\\n\"\n        ;\n} else {\n    msg.payload = \"Aucune information disponible\";\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -32093,8 +32095,8 @@
         "z": "e97c6f12735a13c1",
         "g": "e86385b18b9154e7",
         "name": "actions & kernel",
-        "func": "if (msg.action === 'button_click' && msg.column === 'delete') {\n    msg.kernel = {\n        'type':'device',\n        'entity':msg.payload.model + '|' + msg.payload.id,\n        'value':'',\n        'loop':false,\n        'delete':true\n    };\n}\n\nreturn msg;",
-        "outputs": 1,
+        "func": "if (msg.action === 'row_click' || msg.action === 'button_click' && msg.column === 'delete') {\n    msg.kernel = {\n        'type':'device',\n        'entity':msg.payload.model + '|' + msg.payload.id,\n        'value':'',\n        'loop':false,\n        'delete':true\n    };\n}\n\nif (msg.action === 'row_click') {\n    return [null,msg];\n} else {\n    return [msg,null];\n}",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -32105,6 +32107,9 @@
         "wires": [
             [
                 "07f04015f0eb92c6"
+            ],
+            [
+                "dafa461a59bb8265"
             ]
         ]
     },
@@ -32318,7 +32323,7 @@
         "z": "e97c6f12735a13c1",
         "g": "1c2d5f046ccecc9d",
         "name": "pant",
-        "func": "if (msg.enabled === true) {\n    flow.set('form[\"' + msg.hmi.id + '\"][\"list\"]','','memoryOnly');\n    if (msg.hmi.plant !== '') {\n        flow.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.hmi.plant, 'memoryOnly');\n        return [null, msg];\n    } else {\n        return [msg,null];\n    }\n}\n\nreturn;",
+        "func": "if (msg.enabled === true) {\n    if (msg.hmi.plant !== '') {\n        flow.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.hmi.plant, 'memoryOnly');\n        return [null, msg];\n    } else {\n        return [msg,null];\n    }\n}\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -32342,7 +32347,7 @@
         "z": "e97c6f12735a13c1",
         "g": "ac0595b45d9786aa",
         "name": "action",
-        "func": "if (msg.action === 'row_click') {\n    msg.form = msg.payload;\n    msg.hmi.tab = global.get('describe.pages.detail.tab','memoryOnly')||0;\n    msg.hmi.page = global.get('describe.pages.detal.name','memoryOnly')||'';\n    msg.payload = msg.hmi.page;\n\n    delete msg.action;\n    delete msg.column;\n\n    return [null,null,msg];\n} else if (msg.action === 'button_click') {\n    return [null,msg,null];\n} else {\n    msg.payload = msg.dictionary.common_notice_nodata;\n    return [null,msg,null];\n}",
+        "func": "if (msg.action === 'row_click') {\n    msg.form = msg.payload;\n    msg.hmi.tab = global.get('describe.pages.detail.tab','memoryOnly')||0;\n    msg.hmi.page = global.get('describe.pages.detal.name','memoryOnly')||'';\n    msg.payload = msg.hmi.page;\n\n    delete msg.action;\n    delete msg.column;\n\n    return [null,null,msg];\n} else if (msg.action === 'button_click' && msg.column === 'delete') {\n    return [null,msg,null];\n} else {\n    msg.payload = msg.dictionary.common_notice_nodata;\n    return [null,msg,null];\n}",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -32381,6 +32386,20 @@
                 "a5f3c8ee7632fbc3"
             ]
         ]
+    },
+    {
+        "id": "dafa461a59bb8265",
+        "type": "link out",
+        "z": "e97c6f12735a13c1",
+        "g": "e86385b18b9154e7",
+        "name": "list - device",
+        "mode": "link",
+        "links": [
+            "31f72f6c4d5ded3b"
+        ],
+        "x": 1135,
+        "y": 1520,
+        "wires": []
     },
     {
         "id": "be594973267232f5",
@@ -40784,36 +40803,10 @@
         "rules": [
             {
                 "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::rlink[msg.payload]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "split",
-                "pt": "msg",
-                "to": "$split(msg.payload,'|')",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "split[1]",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
                 "p": "#:(memoryOnly)::form[msg.hmi.id]component",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "split",
-                "pt": "msg"
             }
         ],
         "action": "",
@@ -41303,13 +41296,6 @@
                 "pt": "msg",
                 "to": "#:(memoryOnly)::form[msg.hmi.id]",
                 "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "form.link",
-                "pt": "msg",
-                "to": "$join([msg.form.equipment,msg.form.component],'|')",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -41336,7 +41322,7 @@
                 "t": "set",
                 "p": "kernel",
                 "pt": "msg",
-                "to": "{\t    'type':'alert',\t    'entity':msg.form.link,\t    'value':$number(msg.form.limit),\t    'loop':false\t}",
+                "to": "{\t    'type':'alert',\t    'entity':msg.form.component,\t    'value':$number(msg.form.limit),\t    'loop':false\t}",
                 "tot": "jsonata"
             }
         ],
