@@ -50,13 +50,11 @@
     - 054bd47295999ad7
     - e3c7b3428b7ae9d9
     - 6cf8cb9e6b8ecf5c
-    - 403342275b16fb1e
-    - 6a17d6825228f752
     - 0488a1e2769d0911
   x: 104
   'y': 39
-  w: 662
-  h: 202
+  w: 622
+  h: 142
 - id: 7f208cf2ab66dd88
   type: link call
   z: 476eb6fc04c55cec
@@ -340,7 +338,7 @@
   mode: link
   links:
     - c8c91a8a8cb864f2
-  x: 635
+  x: 595
   'y': 140
   wires: []
 - id: e3c7b3428b7ae9d9
@@ -363,7 +361,7 @@
   className: ui-title
   value: dictionary.option_page.alert
   valueType: msg
-  x: 680
+  x: 640
   'y': 80
   wires: []
 - id: 2de64536905c42d8
@@ -542,28 +540,27 @@
     msg.payload = '';
 
 
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly')) {
-        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-        ) {
-            msg.class = '';
-            msg.enabled = true;
+    if (msg.hmi.tab === global.get('describe.pages["' + check + '"]["tab"]',
+    'memoryOnly')
+        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
+        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
+    ) {
+        msg.class = '';
+        msg.enabled = true;
 
-            return [null,msg,null];
-        } else {
-            return [null, null, msg];
-        }
+        return [msg, null];
     }
 
 
     if (msg.hmi.tab === 99) {
-        return [msg,null,null];
+        flow.set('form', undefined, 'memoryOnly');
+    } else {
+        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
     }
 
 
-    return [null,null,msg];
-  outputs: 3
+    return [null, msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -572,44 +569,7 @@
   x: 290
   'y': 140
   wires:
-    - - 6a17d6825228f752
     - - 0488a1e2769d0911
-    - - 403342275b16fb1e
-- id: 403342275b16fb1e
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: clean user
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 200
-  wires:
-    - - 054bd47295999ad7
-- id: 6a17d6825228f752
-  type: change
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 80
-  wires:
     - - 054bd47295999ad7
 - id: 0488a1e2769d0911
   type: delay
@@ -628,8 +588,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 490
-  'y': 140
+  x: 470
+  'y': 80
   wires:
     - - 054bd47295999ad7
       - e3c7b3428b7ae9d9

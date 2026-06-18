@@ -13,17 +13,15 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 598922d88f856d89
     - d55041fdf28a3f36
-    - 2f4cc22df5d1af36
     - 11a3e525f770e3aa
     - 3a19e0ec83e6803a
     - 7d1cbc3cd4edd0f3
     - 5af5ace6c51eee1a
   x: 104
   'y': 39
-  w: 682
-  h: 202
+  w: 642
+  h: 142
 - id: 744a665a3304c311
   type: group
   z: 51c4b2897d2c318c
@@ -98,24 +96,6 @@
   'y': 279
   w: 6642
   h: 382
-- id: 598922d88f856d89
-  type: change
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 80
-  wires:
-    - - 11a3e525f770e3aa
 - id: d55041fdf28a3f36
   type: link in
   z: 51c4b2897d2c318c
@@ -128,24 +108,6 @@
   'y': 140
   wires:
     - - 7d1cbc3cd4edd0f3
-- id: 2f4cc22df5d1af36
-  type: change
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: clean user
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 200
-  wires:
-    - - 11a3e525f770e3aa
 - id: 11a3e525f770e3aa
   type: link out
   z: 51c4b2897d2c318c
@@ -154,8 +116,7 @@
   mode: link
   links:
     - 875dda3836ede644
-    - b24713f215fa93c7
-  x: 635
+  x: 595
   'y': 140
   wires: []
 - id: c4b06dfab80353d9
@@ -1319,7 +1280,7 @@
   className: ui-title
   value: dictionary.option_page.period
   valueType: msg
-  x: 690
+  x: 650
   'y': 80
   wires: []
 - id: 2ca60dbfa550c1f5
@@ -1781,27 +1742,26 @@
 
 
     if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly')) {
-        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-        ) {
-            msg.class = '';
-            msg.enabled = true;
+    '"]["tab"]','memoryOnly') 
+        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+    ) {
+        msg.class = '';
+        msg.enabled = true;
 
-            return [null,msg,null];
-        } else {
-            return [null, null, msg];
-        }
+        return [msg,null];
     }
 
 
     if (msg.hmi.tab === 99) {
-        return [msg,null,null];
+        flow.set('form',undefined,'memoryOnly');
+    } else {
+        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
     }
 
 
-    return [null,null,msg];
-  outputs: 3
+    return [null,msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1810,9 +1770,8 @@
   x: 290
   'y': 140
   wires:
-    - - 598922d88f856d89
     - - 5af5ace6c51eee1a
-    - - 2f4cc22df5d1af36
+    - - 11a3e525f770e3aa
 - id: 5af5ace6c51eee1a
   type: delay
   z: 51c4b2897d2c318c
@@ -1830,8 +1789,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 490
-  'y': 140
+  x: 470
+  'y': 80
   wires:
     - - 11a3e525f770e3aa
       - 3a19e0ec83e6803a

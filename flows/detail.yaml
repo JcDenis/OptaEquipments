@@ -316,17 +316,15 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 7f236a1111335459
     - 2045a5696769c038
-    - 587535c8d0c4c954
     - 3aad74b4936add5c
     - b3954fad993602e1
     - 0d8f27717a354010
     - 603b85e29ee5d025
   x: 104
   'y': 39
-  w: 682
-  h: 202
+  w: 642
+  h: 142
 - id: 6d125a0d231d55d4
   type: group
   z: 852390cb9559e176
@@ -1294,7 +1292,6 @@
   g: 20a2e240c83c48c2
   name: detail - select
   links:
-    - 11a3e525f770e3aa
     - 3aad74b4936add5c
   x: 145
   'y': 320
@@ -4244,30 +4241,6 @@
     - - 15195c5b4fd0c363
     - - 15195c5b4fd0c363
     - - 1e242d16cf9d3a58
-- id: 7f236a1111335459
-  type: change
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::alerts'
-      pt: flow
-    - t: delete
-      p: '#:(memoryOnly)::hours'
-      pt: flow
-    - t: delete
-      p: '#:(memoryOnly)::form'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 80
-  wires:
-    - - 3aad74b4936add5c
 - id: e34e804ee07e7ff5
   type: switch
   z: 852390cb9559e176
@@ -4369,24 +4342,6 @@
   'y': 140
   wires:
     - - 0d8f27717a354010
-- id: 587535c8d0c4c954
-  type: change
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: clean user
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 200
-  wires:
-    - - 3aad74b4936add5c
 - id: f4e542b1d73d54f9
   type: switch
   z: 852390cb9559e176
@@ -4643,7 +4598,7 @@
   mode: link
   links:
     - b24713f215fa93c7
-  x: 635
+  x: 595
   'y': 140
   wires: []
 - id: 18e77c99c8f24b09
@@ -6255,7 +6210,7 @@
   className: ui-title
   value: dictionary.option_page.detail
   valueType: msg
-  x: 690
+  x: 650
   'y': 80
   wires: []
 - id: a54c84532f2c44a3
@@ -6759,28 +6714,31 @@
     msg.payload = '';
 
 
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly')) {
-        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-        ) {
-            msg.class = '';
-            msg.enabled = true;
+    if (msg.hmi.tab === global.get('describe.pages["' + check + '"]["tab"]',
+    'memoryOnly')
+        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
+        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
+    ) {
+        msg.class = '';
+        msg.enabled = true;
 
-            return [null,msg,null];
-        } else {
-            return [null, null, msg];
-        }
+        return [msg, null];
     }
 
 
     if (msg.hmi.tab === 99) {
-        return [msg,null,null];
+        flow.set('form', undefined, 'memoryOnly');
+        flow.set('alerts', undefined, 'memoryOnly');
+        flow.set('hours', undefined, 'memoryOnly');
+    } else {
+        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+        flow.set('alerts["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+        flow.set('hours["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
     }
 
 
-    return [null,null,msg];
-  outputs: 3
+    return [null, msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -6789,9 +6747,8 @@
   x: 290
   'y': 140
   wires:
-    - - 7f236a1111335459
     - - 603b85e29ee5d025
-    - - 587535c8d0c4c954
+    - - 3aad74b4936add5c
 - id: 847f3850106ae6a0
   type: delay
   z: 852390cb9559e176
@@ -6851,8 +6808,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 490
-  'y': 140
+  x: 470
+  'y': 80
   wires:
     - - 3aad74b4936add5c
       - b3954fad993602e1

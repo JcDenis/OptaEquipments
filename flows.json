@@ -1926,14 +1926,12 @@
             "054bd47295999ad7",
             "e3c7b3428b7ae9d9",
             "6cf8cb9e6b8ecf5c",
-            "403342275b16fb1e",
-            "6a17d6825228f752",
             "0488a1e2769d0911"
         ],
         "x": 104,
         "y": 39,
-        "w": 662,
-        "h": 202
+        "w": 622,
+        "h": 142
     },
     {
         "id": "fe21b6421a9020d4",
@@ -1946,9 +1944,7 @@
             "label": true
         },
         "nodes": [
-            "7f236a1111335459",
             "2045a5696769c038",
-            "587535c8d0c4c954",
             "3aad74b4936add5c",
             "b3954fad993602e1",
             "0d8f27717a354010",
@@ -1956,8 +1952,8 @@
         ],
         "x": 104,
         "y": 39,
-        "w": 682,
-        "h": 202
+        "w": 642,
+        "h": 142
     },
     {
         "id": "836acd0bd60737d1",
@@ -1970,9 +1966,7 @@
             "label": true
         },
         "nodes": [
-            "63f86678c491ee38",
             "53845d5ac3a352d5",
-            "696117cbea1d662a",
             "dd627ae296fcf568",
             "5ffe3a59f8715e17",
             "18599644b9f5e31c",
@@ -1980,8 +1974,8 @@
         ],
         "x": 104,
         "y": 39,
-        "w": 662,
-        "h": 202
+        "w": 622,
+        "h": 142
     },
     {
         "id": "8dcbc02d7cca2b6e",
@@ -2042,15 +2036,13 @@
         "nodes": [
             "fbeb08a94e71e7bf",
             "0c83fe1f9690e061",
-            "1aad4693dd3e7170",
-            "0d7c72be0d6bd539",
             "a94368f2bf7b4951",
             "205a74e94c93fc98"
         ],
         "x": 104,
         "y": 39,
-        "w": 572,
-        "h": 202
+        "w": 532,
+        "h": 142
     },
     {
         "id": "4ef1cd4a19db42bf",
@@ -2065,15 +2057,13 @@
         "nodes": [
             "bf3da41c4b5bd219",
             "ad1a02bca9e6e97e",
-            "055d756d699325e7",
             "7f21a38bf715a6f8",
-            "2a6b5b192fbe63e0",
             "168ff84d4dc2e0a4"
         ],
         "x": 104,
         "y": 39,
-        "w": 572,
-        "h": 202
+        "w": 532,
+        "h": 142
     },
     {
         "id": "6cb8cb87cdf72081",
@@ -2086,9 +2076,7 @@
             "label": true
         },
         "nodes": [
-            "598922d88f856d89",
             "d55041fdf28a3f36",
-            "2f4cc22df5d1af36",
             "11a3e525f770e3aa",
             "3a19e0ec83e6803a",
             "7d1cbc3cd4edd0f3",
@@ -2096,8 +2084,8 @@
         ],
         "x": 104,
         "y": 39,
-        "w": 682,
-        "h": 202
+        "w": 642,
+        "h": 142
     },
     {
         "id": "744a665a3304c311",
@@ -2354,15 +2342,13 @@
         "nodes": [
             "6304fe8d08f0cf47",
             "6b2108622867d8a4",
-            "67d842f3b7ccfa6f",
-            "3b79f6a078128a33",
             "a183a01927caf5ae",
             "cb6a6d8cabc89315"
         ],
         "x": 104,
         "y": 39,
-        "w": 572,
-        "h": 202
+        "w": 532,
+        "h": 142
     },
     {
         "id": "7a7d35c0913aed9f",
@@ -17693,7 +17679,7 @@
         "links": [
             "9979f236b1c3baac"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
     },
@@ -17992,32 +17978,6 @@
         ]
     },
     {
-        "id": "055d756d699325e7",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "g": "4ef1cd4a19db42bf",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "ad1a02bca9e6e97e"
-            ]
-        ]
-    },
-    {
         "id": "f3b837acb99f6326",
         "type": "comment",
         "z": "27841aa886edd1cd",
@@ -18053,8 +18013,8 @@
         "z": "27841aa886edd1cd",
         "g": "4ef1cd4a19db42bf",
         "name": "tab &  level",
-        "func": "let check = 'period';\n\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    return [null,msg,null];\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'period';\n\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    return [msg,null];\n}\n\nreturn [null,msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -18064,37 +18024,8 @@
         "y": 140,
         "wires": [
             [
-                "2a6b5b192fbe63e0"
-            ],
-            [
                 "168ff84d4dc2e0a4"
             ],
-            [
-                "055d756d699325e7"
-            ]
-        ]
-    },
-    {
-        "id": "2a6b5b192fbe63e0",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "g": "4ef1cd4a19db42bf",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::user",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
             [
                 "ad1a02bca9e6e97e"
             ]
@@ -18118,8 +18049,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "ad1a02bca9e6e97e"
@@ -18506,7 +18437,7 @@
         "links": [
             "c8c91a8a8cb864f2"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
     },
@@ -18531,7 +18462,7 @@
         "className": "ui-title",
         "value": "dictionary.option_page.alert",
         "valueType": "msg",
-        "x": 680,
+        "x": 640,
         "y": 80,
         "wires": []
     },
@@ -18761,8 +18692,8 @@
         "z": "476eb6fc04c55cec",
         "g": "d509ef3b5101effa",
         "name": "tab &  level",
-        "func": "let check = 'alert';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    if (typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n        && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n    ) {\n        msg.class = '';\n        msg.enabled = true;\n\n        return [null,msg,null];\n    } else {\n        return [null, null, msg];\n    }\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'alert';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]', 'memoryOnly')\n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg, null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form', undefined, 'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null, msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -18772,63 +18703,8 @@
         "y": 140,
         "wires": [
             [
-                "6a17d6825228f752"
-            ],
-            [
                 "0488a1e2769d0911"
             ],
-            [
-                "403342275b16fb1e"
-            ]
-        ]
-    },
-    {
-        "id": "403342275b16fb1e",
-        "type": "change",
-        "z": "476eb6fc04c55cec",
-        "g": "d509ef3b5101effa",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "054bd47295999ad7"
-            ]
-        ]
-    },
-    {
-        "id": "6a17d6825228f752",
-        "type": "change",
-        "z": "476eb6fc04c55cec",
-        "g": "d509ef3b5101effa",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
             [
                 "054bd47295999ad7"
             ]
@@ -18852,8 +18728,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "054bd47295999ad7",
@@ -18956,32 +18832,6 @@
         ]
     },
     {
-        "id": "598922d88f856d89",
-        "type": "change",
-        "z": "51c4b2897d2c318c",
-        "g": "6cb8cb87cdf72081",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
-            [
-                "11a3e525f770e3aa"
-            ]
-        ]
-    },
-    {
         "id": "d55041fdf28a3f36",
         "type": "link in",
         "z": "51c4b2897d2c318c",
@@ -19000,32 +18850,6 @@
         ]
     },
     {
-        "id": "2f4cc22df5d1af36",
-        "type": "change",
-        "z": "51c4b2897d2c318c",
-        "g": "6cb8cb87cdf72081",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "11a3e525f770e3aa"
-            ]
-        ]
-    },
-    {
         "id": "11a3e525f770e3aa",
         "type": "link out",
         "z": "51c4b2897d2c318c",
@@ -19033,10 +18857,9 @@
         "name": "period - page",
         "mode": "link",
         "links": [
-            "875dda3836ede644",
-            "b24713f215fa93c7"
+            "875dda3836ede644"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
     },
@@ -20665,7 +20488,7 @@
         "className": "ui-title",
         "value": "dictionary.option_page.period",
         "valueType": "msg",
-        "x": 690,
+        "x": 650,
         "y": 80,
         "wires": []
     },
@@ -21185,8 +21008,8 @@
         "z": "51c4b2897d2c318c",
         "g": "6cb8cb87cdf72081",
         "name": "tab &  level",
-        "func": "let check = 'period';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    if (typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n        && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n    ) {\n        msg.class = '';\n        msg.enabled = true;\n\n        return [null,msg,null];\n    } else {\n        return [null, null, msg];\n    }\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'period';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly') \n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg,null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form',undefined,'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null,msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -21196,13 +21019,10 @@
         "y": 140,
         "wires": [
             [
-                "598922d88f856d89"
-            ],
-            [
                 "5af5ace6c51eee1a"
             ],
             [
-                "2f4cc22df5d1af36"
+                "11a3e525f770e3aa"
             ]
         ]
     },
@@ -21224,8 +21044,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "11a3e525f770e3aa",
@@ -22497,7 +22317,6 @@
         "g": "20a2e240c83c48c2",
         "name": "detail - select",
         "links": [
-            "11a3e525f770e3aa",
             "3aad74b4936add5c"
         ],
         "x": 145,
@@ -26450,42 +26269,6 @@
         ]
     },
     {
-        "id": "7f236a1111335459",
-        "type": "change",
-        "z": "852390cb9559e176",
-        "g": "fe21b6421a9020d4",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::alerts",
-                "pt": "flow"
-            },
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::hours",
-                "pt": "flow"
-            },
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
-            [
-                "3aad74b4936add5c"
-            ]
-        ]
-    },
-    {
         "id": "e34e804ee07e7ff5",
         "type": "switch",
         "z": "852390cb9559e176",
@@ -26629,32 +26412,6 @@
         "wires": [
             [
                 "0d8f27717a354010"
-            ]
-        ]
-    },
-    {
-        "id": "587535c8d0c4c954",
-        "type": "change",
-        "z": "852390cb9559e176",
-        "g": "fe21b6421a9020d4",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "3aad74b4936add5c"
             ]
         ]
     },
@@ -27008,7 +26765,7 @@
         "links": [
             "b24713f215fa93c7"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
     },
@@ -29165,7 +28922,7 @@
         "className": "ui-title",
         "value": "dictionary.option_page.detail",
         "valueType": "msg",
-        "x": 690,
+        "x": 650,
         "y": 80,
         "wires": []
     },
@@ -29792,8 +29549,8 @@
         "z": "852390cb9559e176",
         "g": "fe21b6421a9020d4",
         "name": "tab &  level",
-        "func": "let check = 'detail';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    if (typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n        && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n    ) {\n        msg.class = '';\n        msg.enabled = true;\n\n        return [null,msg,null];\n    } else {\n        return [null, null, msg];\n    }\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'detail';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]', 'memoryOnly')\n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg, null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form', undefined, 'memoryOnly');\n    flow.set('alerts', undefined, 'memoryOnly');\n    flow.set('hours', undefined, 'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    flow.set('alerts[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    flow.set('hours[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null, msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -29803,13 +29560,10 @@
         "y": 140,
         "wires": [
             [
-                "7f236a1111335459"
-            ],
-            [
                 "603b85e29ee5d025"
             ],
             [
-                "587535c8d0c4c954"
+                "3aad74b4936add5c"
             ]
         ]
     },
@@ -29883,8 +29637,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "3aad74b4936add5c",
@@ -31565,7 +31319,7 @@
         "z": "e97c6f12735a13c1",
         "g": "2c0f9b39f8c7dd73",
         "name": "tab &  level",
-        "func": "let check = 'list';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')\n    &&typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg,null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form',undefined,'memoryOnly');\n}\n\nflow.set('form[\"' + msg.hmi.id + '\"]',undefined,'memoryOnly');\n\nreturn [null,msg];",
+        "func": "let check = 'list';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]', 'memoryOnly')\n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg, null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form', undefined, 'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -45052,32 +44806,6 @@
         ]
     },
     {
-        "id": "63f86678c491ee38",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "836acd0bd60737d1",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
-            [
-                "dd627ae296fcf568"
-            ]
-        ]
-    },
-    {
         "id": "53845d5ac3a352d5",
         "type": "link in",
         "z": "64ce08af468b8197",
@@ -45096,32 +44824,6 @@
         ]
     },
     {
-        "id": "696117cbea1d662a",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "836acd0bd60737d1",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "dd627ae296fcf568"
-            ]
-        ]
-    },
-    {
         "id": "dd627ae296fcf568",
         "type": "link out",
         "z": "64ce08af468b8197",
@@ -45131,7 +44833,7 @@
         "links": [
             "3c74c1e48218b536"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
     },
@@ -48216,7 +47918,7 @@
         "className": "ui-title",
         "value": "dictionary.option_page.tree",
         "valueType": "msg",
-        "x": 680,
+        "x": 640,
         "y": 80,
         "wires": []
     },
@@ -53268,8 +52970,8 @@
         "z": "64ce08af468b8197",
         "g": "836acd0bd60737d1",
         "name": "tab &  level",
-        "func": "let check = 'tree';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    if (typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n        && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n    ) {\n        msg.class = '';\n        msg.enabled = true;\n\n        return [null,msg,null];\n    } else {\n        return [null, null, msg];\n    }\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'tree';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly') \n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg,null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form',undefined,'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null,msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -53279,13 +52981,10 @@
         "y": 140,
         "wires": [
             [
-                "63f86678c491ee38"
-            ],
-            [
                 "06feba34860038f2"
             ],
             [
-                "696117cbea1d662a"
+                "dd627ae296fcf568"
             ]
         ]
     },
@@ -53307,8 +53006,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "dd627ae296fcf568",
@@ -54436,35 +54135,9 @@
             "ef2a2e8f65ff707e",
             "feb590d38372e404"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
-    },
-    {
-        "id": "67d842f3b7ccfa6f",
-        "type": "change",
-        "z": "adb48ef35d9453c0",
-        "g": "6e3f77a2a72d0fa8",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "6b2108622867d8a4"
-            ]
-        ]
     },
     {
         "id": "922d6d1c4163d169",
@@ -56916,32 +56589,6 @@
         ]
     },
     {
-        "id": "3b79f6a078128a33",
-        "type": "change",
-        "z": "adb48ef35d9453c0",
-        "g": "6e3f77a2a72d0fa8",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
-            [
-                "6b2108622867d8a4"
-            ]
-        ]
-    },
-    {
         "id": "85371bc10c4ae5b2",
         "type": "switch",
         "z": "adb48ef35d9453c0",
@@ -57169,8 +56816,8 @@
         "z": "adb48ef35d9453c0",
         "g": "6e3f77a2a72d0fa8",
         "name": "tab &  level",
-        "func": "let check = 'users';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    if (typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n        && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n    ) {\n        msg.class = '';\n        msg.enabled = true;\n\n        return [null,msg,null];\n    } else {\n        return [null, null, msg];\n    }\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'users';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly') \n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg,null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form',undefined,'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null,msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -57180,13 +56827,10 @@
         "y": 140,
         "wires": [
             [
-                "3b79f6a078128a33"
-            ],
-            [
                 "cb6a6d8cabc89315"
             ],
             [
-                "67d842f3b7ccfa6f"
+                "6b2108622867d8a4"
             ]
         ]
     },
@@ -57208,8 +56852,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "6b2108622867d8a4"
@@ -58177,7 +57821,7 @@
             "dd8ce7e8d8c17c91",
             "eba6e18370fbfe76"
         ],
-        "x": 635,
+        "x": 595,
         "y": 140,
         "wires": []
     },
@@ -58415,32 +58059,6 @@
         "x": 1175,
         "y": 560,
         "wires": []
-    },
-    {
-        "id": "1aad4693dd3e7170",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "c5aa438b6dcec795",
-        "name": "clean user",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 200,
-        "wires": [
-            [
-                "0c83fe1f9690e061"
-            ]
-        ]
     },
     {
         "id": "f6e2c94e6b3f6452",
@@ -58964,32 +58582,6 @@
         ]
     },
     {
-        "id": "0d7c72be0d6bd539",
-        "type": "change",
-        "z": "44465f18e06bb58d",
-        "g": "c5aa438b6dcec795",
-        "name": "clean users",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::form",
-                "pt": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 80,
-        "wires": [
-            [
-                "0c83fe1f9690e061"
-            ]
-        ]
-    },
-    {
         "id": "2a12eb6ca897762e",
         "type": "change",
         "z": "44465f18e06bb58d",
@@ -59176,8 +58768,8 @@
         "z": "44465f18e06bb58d",
         "g": "c5aa438b6dcec795",
         "name": "tab &  level",
-        "func": "let check = 'system';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly')) {\n    if (typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n        && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n    ) {\n        msg.class = '';\n        msg.enabled = true;\n\n        return [null,msg,null];\n    } else {\n        return [null, null, msg];\n    }\n}\n\nif (msg.hmi.tab === 99) {\n    return [msg,null,null];\n}\n\nreturn [null,null,msg];",
-        "outputs": 3,
+        "func": "let check = 'system';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]','memoryOnly') \n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]','memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg,null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form',undefined,'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null,msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -59187,13 +58779,10 @@
         "y": 140,
         "wires": [
             [
-                "0d7c72be0d6bd539"
-            ],
-            [
                 "205a74e94c93fc98"
             ],
             [
-                "1aad4693dd3e7170"
+                "0c83fe1f9690e061"
             ]
         ]
     },
@@ -59215,8 +58804,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 490,
-        "y": 140,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "0c83fe1f9690e061"

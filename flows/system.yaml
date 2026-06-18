@@ -88,14 +88,12 @@
   nodes:
     - fbeb08a94e71e7bf
     - 0c83fe1f9690e061
-    - 1aad4693dd3e7170
-    - 0d7c72be0d6bd539
     - a94368f2bf7b4951
     - 205a74e94c93fc98
   x: 104
   'y': 39
-  w: 572
-  h: 202
+  w: 532
+  h: 142
 - id: 6ed9fb5c0b268c66
   type: group
   z: 44465f18e06bb58d
@@ -836,7 +834,7 @@
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
     - eba6e18370fbfe76
-  x: 635
+  x: 595
   'y': 140
   wires: []
 - id: 2d0be523be6aa3e3
@@ -1015,24 +1013,6 @@
   x: 1175
   'y': 560
   wires: []
-- id: 1aad4693dd3e7170
-  type: change
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: clean user
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 200
-  wires:
-    - - 0c83fe1f9690e061
 - id: f6e2c94e6b3f6452
   type: change
   z: 44465f18e06bb58d
@@ -1423,24 +1403,6 @@
   'y': 1460
   wires:
     - - ded160847ba79c1d
-- id: 0d7c72be0d6bd539
-  type: change
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 80
-  wires:
-    - - 0c83fe1f9690e061
 - id: 2a12eb6ca897762e
   type: change
   z: 44465f18e06bb58d
@@ -1659,27 +1621,26 @@
 
 
     if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly')) {
-        if (typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-            && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-        ) {
-            msg.class = '';
-            msg.enabled = true;
+    '"]["tab"]','memoryOnly') 
+        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
+        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+    ) {
+        msg.class = '';
+        msg.enabled = true;
 
-            return [null,msg,null];
-        } else {
-            return [null, null, msg];
-        }
+        return [msg,null];
     }
 
 
     if (msg.hmi.tab === 99) {
-        return [msg,null,null];
+        flow.set('form',undefined,'memoryOnly');
+    } else {
+        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
     }
 
 
-    return [null,null,msg];
-  outputs: 3
+    return [null,msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1688,9 +1649,8 @@
   x: 290
   'y': 140
   wires:
-    - - 0d7c72be0d6bd539
     - - 205a74e94c93fc98
-    - - 1aad4693dd3e7170
+    - - 0c83fe1f9690e061
 - id: 205a74e94c93fc98
   type: delay
   z: 44465f18e06bb58d
@@ -1708,8 +1668,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 490
-  'y': 140
+  x: 470
+  'y': 80
   wires:
     - - 0c83fe1f9690e061
 - id: 59caf901906e515a

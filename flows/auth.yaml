@@ -51,14 +51,12 @@
   nodes:
     - bf3da41c4b5bd219
     - ad1a02bca9e6e97e
-    - 055d756d699325e7
     - 7f21a38bf715a6f8
-    - 2a6b5b192fbe63e0
     - 168ff84d4dc2e0a4
   x: 104
   'y': 39
-  w: 572
-  h: 202
+  w: 532
+  h: 142
 - id: 9833ea0e831ff8c7
   type: ui-button
   z: 27841aa886edd1cd
@@ -329,7 +327,7 @@
   mode: link
   links:
     - 9979f236b1c3baac
-  x: 635
+  x: 595
   'y': 140
   wires: []
 - id: be3b97df6b45470f
@@ -550,24 +548,6 @@
   'y': 500
   wires:
     - - 3361a6a4765bfb11
-- id: 055d756d699325e7
-  type: change
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: clean user
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 200
-  wires:
-    - - ad1a02bca9e6e97e
 - id: f3b837acb99f6326
   type: comment
   z: 27841aa886edd1cd
@@ -606,17 +586,12 @@
 
     if (msg.hmi.tab === global.get('describe.pages["' + check +
     '"]["tab"]','memoryOnly')) {
-        return [null,msg,null];
+        return [msg,null];
     }
 
 
-    if (msg.hmi.tab === 99) {
-        return [msg,null,null];
-    }
-
-
-    return [null,null,msg];
-  outputs: 3
+    return [null,msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -625,26 +600,7 @@
   x: 290
   'y': 140
   wires:
-    - - 2a6b5b192fbe63e0
     - - 168ff84d4dc2e0a4
-    - - 055d756d699325e7
-- id: 2a6b5b192fbe63e0
-  type: change
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: clean users
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::user'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 80
-  wires:
     - - ad1a02bca9e6e97e
 - id: 168ff84d4dc2e0a4
   type: delay
@@ -663,7 +619,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 490
-  'y': 140
+  x: 470
+  'y': 80
   wires:
     - - ad1a02bca9e6e97e

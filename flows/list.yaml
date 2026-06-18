@@ -1409,27 +1409,26 @@
     msg.payload = '';
 
 
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly')
-        &&typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
+    if (msg.hmi.tab === global.get('describe.pages["' + check + '"]["tab"]',
+    'memoryOnly')
+        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
+        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
     ) {
         msg.class = '';
         msg.enabled = true;
 
-        return [msg,null];
+        return [msg, null];
     }
 
 
     if (msg.hmi.tab === 99) {
-        flow.set('form',undefined,'memoryOnly');
+        flow.set('form', undefined, 'memoryOnly');
+    } else {
+        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
     }
 
 
-    flow.set('form["' + msg.hmi.id + '"]',undefined,'memoryOnly');
-
-
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
