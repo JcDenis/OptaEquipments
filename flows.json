@@ -895,11 +895,12 @@
             "cfd036160380a8a6",
             "31f72f6c4d5ded3b",
             "f84a1943480e45cb",
-            "2219b610eb1a3cc0"
+            "2219b610eb1a3cc0",
+            "9051b334f33e9c0b"
         ],
         "x": 94,
         "y": 39,
-        "w": 992,
+        "w": 1052,
         "h": 382
     },
     {
@@ -2789,7 +2790,10 @@
             "4be0becb29998d3a",
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
-            "11d028449aaa105b"
+            "11d028449aaa105b",
+            "3f0ca1ed34082a39",
+            "3f2a62a5b55ed060",
+            "4454c8408a7c43de"
         ],
         "x": 68,
         "y": 13,
@@ -3580,6 +3584,54 @@
         "y": 1059,
         "w": 902,
         "h": 442
+    },
+    {
+        "id": "de8127dbf035df93",
+        "type": "group",
+        "z": "852390cb9559e176",
+        "name": "detail - historic",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "92b92f1477eea803",
+            "701815a2a83983df",
+            "1519c14ed534e9c5",
+            "d0a6734c4eea4f65",
+            "a0d0a2572cc36906",
+            "8076a4baf7ecf373",
+            "974faf1c714423c3",
+            "e159559235411f98",
+            "4524d8730088d77f",
+            "6785c151971670d7",
+            "7eb713a682ac2d81"
+        ],
+        "x": 104,
+        "y": 4479,
+        "w": 1282,
+        "h": 202
+    },
+    {
+        "id": "4454c8408a7c43de",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "kernel - historic",
+        "style": {
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "ba44af0dc17085de",
+            "2d6c7781e95f7c7c"
+        ],
+        "x": 524,
+        "y": 279,
+        "w": 322,
+        "h": 82
     },
     {
         "id": "f516c1341f0f634c",
@@ -4779,7 +4831,8 @@
         "name": "kernel - cron daily",
         "mode": "link",
         "links": [
-            "c67cdb9d96401010"
+            "c67cdb9d96401010",
+            "ba44af0dc17085de"
         ],
         "x": 335,
         "y": 140,
@@ -7889,7 +7942,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "parse loop",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet ctx = (context.get('count','memoryOnly')||0)+1;\ncontext.set('count',ctx,'memoryOnly');\nnode.status({'text':ctx});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'memoryOnly');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'memoryOnly');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet ctx = (context.get('count','memoryOnly')||0)+1;\ncontext.set('count',ctx,'memoryOnly');\nnode.status({'text':ctx});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'memoryOnly');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'memoryOnly');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n\n                /* historic */\n/*\n                if (current !== msg.kernel.value) {\n                    let hcomponent = msg.kernel.component;\n                    if (hcomponent.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null) {\n                        hcomponent = 'heatswitch';\n                    }\n                    if (hcomponent.match((new RegExp('^(run|heat|heatswicth)$'))) !== null) {\n                        global.set('historic[\"' + Date.now() + '\"]', msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value, 'memoryOnly');\n                        node.status({'text':msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});\n                    }\n                }\n//*/\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -8574,6 +8627,64 @@
         "x": 2195,
         "y": 740,
         "wires": []
+    },
+    {
+        "id": "3f0ca1ed34082a39",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "todo: historic d'evenement sur heat,run",
+        "info": "",
+        "x": 690,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3f2a62a5b55ed060",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "todo: move flow form to a global variable",
+        "info": "",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ba44af0dc17085de",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "4454c8408a7c43de",
+        "name": "kernel - historic",
+        "links": [
+            "527bd0d2254942cb"
+        ],
+        "x": 565,
+        "y": 320,
+        "wires": [
+            [
+                "2d6c7781e95f7c7c"
+            ]
+        ]
+    },
+    {
+        "id": "2d6c7781e95f7c7c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "4454c8408a7c43de",
+        "name": "Clean old historics",
+        "func": "let i = 0;\nlet historics = global.get('historic','memoryOnly')||{};\nlet limit = Date.now() - (24 * 60 * 60 * 1000); // 24h\nfor (const historic in historics) {\n    if (Number(historic) < limit) {\n        global.set('historic[\"' + historic + '\"]',undefined,'memoryOnly');\n        i++\n    }\n}\n\nnode.status({'text':i});\n\nreturn;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 320,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "2ee1493983ba4b61",
@@ -14971,7 +15082,7 @@
         "links": [
             "e60e4ab7617738c3"
         ],
-        "x": 455,
+        "x": 695,
         "y": 140,
         "wires": []
     },
@@ -15007,7 +15118,7 @@
         "correl": "",
         "expiry": "",
         "broker": "f516c1341f0f634c",
-        "x": 670,
+        "x": 730,
         "y": 200,
         "wires": []
     },
@@ -15025,7 +15136,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 680,
+        "x": 740,
         "y": 260,
         "wires": []
     },
@@ -16979,7 +17090,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "kernel",
-        "func": "let newMsg = {\n    'topic':'',\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'device') {\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"' + split[3] + '\"]', msg.payload, 'memoryOnly');\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"date\"]', Date.now(), 'memoryOnly');\n} else if (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n    let link = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];\n    let endpoint = global.get('rlink[\"' + link + '\"]', 'memoryOnly');\n    if (typeof endpoint === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        } else if (split[3] === 'voltage') {\n            /* convert mV to V, round to one decimal */\n            msg.payload = Math.round(msg.payload / 100) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': endpoint,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'topic':msg.topic,\n    'payload':'',\n    'kernel':{}\n};\n\n/* 0 = model, 1 = device, 2 = path, 3 = type, 4 = io : opta/2/input/high */\nlet split = msg.topic.split('/');\n\nif (split[2] === 'device') {\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"' + split[3] + '\"]', msg.payload, 'memoryOnly');\n    flow.set('devices[\"' + split[0] + '|' + split[1] + '\"][\"date\"]', Date.now(), 'memoryOnly');\n} else if (split[2] === 'watchdog') {\n    if (split[1] !== 'distant') {\n        newMsg.kernel = {\n            'type': 'watchdog',\n            'entity': 'opta|' + split[1],\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        };\n\n        return newMsg;\n    }\n} else if ((split[2] === 'input' || split[2] === 'output') && split[3] !== 'set') {\n    let link = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];\n    let endpoint = global.get('rlink[\"' + link + '\"]', 'memoryOnly');\n    if (typeof endpoint === 'string') {\n        if (split[3] === 'partialHigh' || split[3] === 'high') {\n            /* convert timers fron seconds to hours, round to one decimal */\n            msg.payload = Math.round(msg.payload / 360) / 10;\n        } else if (split[3] === 'voltage') {\n            /* convert mV to V, round to one decimal */\n            msg.payload = Math.round(msg.payload / 100) / 10;\n        }\n\n        newMsg.kernel = {\n            'type': 'state',\n            'entity': endpoint,\n            'value': msg.payload,\n            /* Do not loop output */\n            'loop': split[2] === 'output' ? true : false\n        };\n\n        return newMsg;\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -16990,8 +17101,8 @@
         "y": 140,
         "wires": [
             [
-                "83e2c0eb499a9ef4",
-                "5286ca49788e7a4f"
+                "5286ca49788e7a4f",
+                "9051b334f33e9c0b"
             ]
         ]
     },
@@ -17241,7 +17352,7 @@
         "type": "delay",
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
-        "name": "2msg/s/t",
+        "name": "2msg / sec / topic",
         "pauseType": "rate",
         "timeout": "50",
         "timeoutUnits": "milliseconds",
@@ -17254,7 +17365,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 500,
+        "x": 530,
         "y": 200,
         "wires": [
             [
@@ -17270,8 +17381,8 @@
         "g": "44d39e7547289d97",
         "name": "opta bugs if more than 2 mgs / sec !?",
         "info": "",
-        "x": 640,
-        "y": 160,
+        "x": 980,
+        "y": 200,
         "wires": []
     },
     {
@@ -17325,6 +17436,32 @@
         "x": 435,
         "y": 320,
         "wires": []
+    },
+    {
+        "id": "9051b334f33e9c0b",
+        "type": "trigger",
+        "z": "135b7308617dad08",
+        "g": "44d39e7547289d97",
+        "name": "wait 200ms / topic",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "200",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "topic",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 530,
+        "y": 140,
+        "wires": [
+            [
+                "83e2c0eb499a9ef4"
+            ]
+        ]
     },
     {
         "id": "9833ea0e831ff8c7",
@@ -22315,7 +22452,8 @@
             "6822e56a80bdb67e",
             "8fdfd037d4e5b985",
             "96e8abf144b980e2",
-            "b5082fd6f739991d"
+            "b5082fd6f739991d",
+            "92b92f1477eea803"
         ],
         "x": 2755,
         "y": 680,
@@ -22569,7 +22707,8 @@
         "wires": [
             [
                 "dbe2dc99f3174070",
-                "47a6c2e7767362bb"
+                "47a6c2e7767362bb",
+                "49d82cbcbd884e4d"
             ]
         ]
     },
@@ -24687,7 +24826,8 @@
             "8104e13e7b473d2f",
             "8fdfd037d4e5b985",
             "96e8abf144b980e2",
-            "b5082fd6f739991d"
+            "b5082fd6f739991d",
+            "92b92f1477eea803"
         ],
         "x": 2435,
         "y": 260,
@@ -24977,7 +25117,7 @@
         "g": "20a2e240c83c48c2",
         "name": "20ms",
         "pauseType": "delay",
-        "timeout": "20",
+        "timeout": "50",
         "timeoutUnits": "milliseconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -25289,7 +25429,7 @@
         "g": "20a2e240c83c48c2",
         "name": "5ms",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "20",
         "timeoutUnits": "milliseconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -29689,16 +29829,6 @@
         ]
     },
     {
-        "id": "3f0ca1ed34082a39",
-        "type": "comment",
-        "z": "852390cb9559e176",
-        "name": "todo: historic d'evenement sur heat,run",
-        "info": "",
-        "x": 1030,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "02d81268f850abff",
         "type": "change",
         "z": "852390cb9559e176",
@@ -29726,7 +29856,7 @@
         "to": "",
         "reg": false,
         "x": 1190,
-        "y": 740,
+        "y": 800,
         "wires": [
             [
                 "36773a3eafb57b0b"
@@ -30027,7 +30157,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 2490,
+        "x": 1190,
         "y": 740,
         "wires": [
             [
@@ -30053,13 +30183,382 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2330,
+        "x": 950,
         "y": 740,
         "wires": [
             [
                 "5df0b5068e080478"
             ]
         ]
+    },
+    {
+        "id": "ace5c2ca01b14cc2",
+        "type": "comment",
+        "z": "852390cb9559e176",
+        "name": "Todo: refresh lost current selected date in chart",
+        "info": "",
+        "x": 1060,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "92b92f1477eea803",
+        "type": "link in",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "detail - historic",
+        "links": [
+            "bd7c74e40976d045",
+            "ee4c8653f8b07e2e"
+        ],
+        "x": 145,
+        "y": 4520,
+        "wires": [
+            [
+                "701815a2a83983df"
+            ]
+        ]
+    },
+    {
+        "id": "701815a2a83983df",
+        "type": "function",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "hitorics",
+        "func": "if (msg.enabled === false) {\n    return [msg,null];\n} else {\n    msg.payload = [];\n\n    let equipment = flow.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]', 'memoryOnly');\n    let plant = flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly');\n\n    let i = 0;\n    let historics = global.get('historic','memoryOnly')||{};\n    for (const historic in historics) {\n        let hsplit = historics[historic].split('|');\n\n        if (hsplit[0] === equipment) {\n            let row = {};\n            row.date = historic;\n            row.equipment = hsplit[0];\n            row.component = hsplit[1];\n            row.component_name = msg.dictionary['option_component'][row.component];\n            row.value = hsplit[2];\n            row.value_name = Number(row.value) > 0 ? 'on' : 'off';\n            row.value_color = Number(row.value) > 0 ? 'green' : 'red';\n\n            msg.payload[i++] = row;\n        }\n    }\n\n    if (i > 0) {\n        node.status({'text':i});\n        msg.outTz = global.get('kernel.tz[\"' + plant + '\"]', 'memoryOnly')||'Europe/Paris';\n\n        return [null,msg];\n    }\n}\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 4520,
+        "wires": [
+            [
+                "7eb713a682ac2d81"
+            ],
+            [
+                "1519c14ed534e9c5",
+                "974faf1c714423c3"
+            ]
+        ]
+    },
+    {
+        "id": "1519c14ed534e9c5",
+        "type": "split",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "split",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 450,
+        "y": 4580,
+        "wires": [
+            [
+                "a0d0a2572cc36906"
+            ]
+        ]
+    },
+    {
+        "id": "d0a6734c4eea4f65",
+        "type": "join",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "join",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": false,
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 870,
+        "y": 4580,
+        "wires": [
+            [
+                "4524d8730088d77f"
+            ]
+        ]
+    },
+    {
+        "id": "a0d0a2572cc36906",
+        "type": "moment",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "",
+        "topic": "",
+        "input": "payload.date",
+        "inputType": "msg",
+        "inTz": "Europe/Paris",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "LLL",
+        "locale": "en-US",
+        "output": "payload.date",
+        "outputType": "msg",
+        "outTz": "Europe/Paris",
+        "x": 660,
+        "y": 4580,
+        "wires": [
+            [
+                "d0a6734c4eea4f65"
+            ]
+        ]
+    },
+    {
+        "id": "8076a4baf7ecf373",
+        "type": "ui-table",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "group": "1669fa4fe2f204a0",
+        "name": "detail - historic - table - fr",
+        "label": "",
+        "order": 43,
+        "width": 0,
+        "height": 0,
+        "maxrows": "40",
+        "passthru": false,
+        "autocols": false,
+        "showSearch": false,
+        "deselect": true,
+        "selectionType": "click",
+        "columns": [
+            {
+                "title": "Etat",
+                "key": "value_color",
+                "keyType": "key",
+                "type": "color",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Date",
+                "key": "date",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Composant",
+                "key": "component_name",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Valeur",
+                "key": "value_name",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 1250,
+        "y": 4580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "974faf1c714423c3",
+        "type": "debug",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 4640,
+        "wires": []
+    },
+    {
+        "id": "e159559235411f98",
+        "type": "ui-text",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "group": "1669fa4fe2f204a0",
+        "order": 42,
+        "width": 0,
+        "height": 0,
+        "name": "detail - historic - title",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "ui-title",
+        "value": "Historique",
+        "valueType": "str",
+        "x": 1240,
+        "y": 4520,
+        "wires": []
+    },
+    {
+        "id": "4524d8730088d77f",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "lang",
+        "property": "hmi.lang",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "fr",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1030,
+        "y": 4580,
+        "wires": [
+            [
+                "8076a4baf7ecf373",
+                "e159559235411f98"
+            ],
+            [
+                "6785c151971670d7",
+                "e159559235411f98"
+            ]
+        ]
+    },
+    {
+        "id": "6785c151971670d7",
+        "type": "ui-table",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "group": "1669fa4fe2f204a0",
+        "name": "detail - historic - table - en",
+        "label": "",
+        "order": 44,
+        "width": 0,
+        "height": 0,
+        "maxrows": "40",
+        "passthru": false,
+        "autocols": false,
+        "showSearch": false,
+        "deselect": true,
+        "selectionType": "click",
+        "columns": [
+            {
+                "title": "State",
+                "key": "value_color",
+                "keyType": "key",
+                "type": "color",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Date",
+                "key": "date",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Component",
+                "key": "component_name",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Value",
+                "key": "value_name",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 1250,
+        "y": 4640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7eb713a682ac2d81",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "-",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 4520,
+        "wires": [
+            [
+                "e159559235411f98",
+                "8076a4baf7ecf373",
+                "6785c151971670d7"
+            ]
+        ]
+    },
+    {
+        "id": "e3222ff3cf04b493",
+        "type": "comment",
+        "z": "852390cb9559e176",
+        "name": "todo: review cycle color (does not reflect state of pulse)",
+        "info": "",
+        "x": 1080,
+        "y": 140,
+        "wires": []
     },
     {
         "id": "28b85f45e33eef42",

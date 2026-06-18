@@ -32,9 +32,10 @@
     - 31f72f6c4d5ded3b
     - f84a1943480e45cb
     - 2219b610eb1a3cc0
+    - 9051b334f33e9c0b
   x: 94
   'y': 39
-  w: 992
+  w: 1052
   h: 382
 - id: c0b72044a49a3f76
   type: group
@@ -230,7 +231,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 455
+  x: 695
   'y': 140
   wires: []
 - id: 1472ee8de6253740
@@ -258,7 +259,7 @@
   correl: ''
   expiry: ''
   broker: f516c1341f0f634c
-  x: 670
+  x: 730
   'y': 200
   wires: []
 - id: d6d4db548fefad53
@@ -274,7 +275,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 680
+  x: 740
   'y': 260
   wires: []
 - id: 57773a77659dbe20
@@ -1690,7 +1691,7 @@
   name: kernel
   func: >-
     let newMsg = {
-        'topic':'',
+        'topic':msg.topic,
         'payload':'',
         'kernel':{}
     };
@@ -1751,8 +1752,8 @@
   x: 330
   'y': 140
   wires:
-    - - 83e2c0eb499a9ef4
-      - 5286ca49788e7a4f
+    - - 5286ca49788e7a4f
+      - 9051b334f33e9c0b
 - id: eac42932b3a0198e
   type: function
   z: 135b7308617dad08
@@ -2195,7 +2196,7 @@
   type: delay
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: 2msg/s/t
+  name: 2msg / sec / topic
   pauseType: rate
   timeout: '50'
   timeoutUnits: milliseconds
@@ -2208,7 +2209,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 500
+  x: 530
   'y': 200
   wires:
     - - 7c5f93321a4b2009
@@ -2219,8 +2220,8 @@
   g: 44d39e7547289d97
   name: opta bugs if more than 2 mgs / sec !?
   info: ''
-  x: 640
-  'y': 160
+  x: 980
+  'y': 200
   wires: []
 - id: 31f72f6c4d5ded3b
   type: link in
@@ -2279,3 +2280,24 @@
   x: 435
   'y': 320
   wires: []
+- id: 9051b334f33e9c0b
+  type: trigger
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: wait 200ms / topic
+  op1: ''
+  op2: ''
+  op1type: nul
+  op2type: payl
+  duration: '200'
+  extend: true
+  overrideDelay: false
+  units: ms
+  reset: ''
+  bytopic: topic
+  topic: topic
+  outputs: 1
+  x: 530
+  'y': 140
+  wires:
+    - - 83e2c0eb499a9ef4

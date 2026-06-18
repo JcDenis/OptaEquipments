@@ -80,6 +80,9 @@
     - 216f821485a9eb19
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
+    - 3f0ca1ed34082a39
+    - 3f2a62a5b55ed060
+    - 4454c8408a7c43de
   x: 68
   'y': 13
   w: 2664
@@ -493,6 +496,22 @@
   'y': 1059
   w: 902
   h: 442
+- id: 4454c8408a7c43de
+  type: group
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: kernel - historic
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - ba44af0dc17085de
+    - 2d6c7781e95f7c7c
+  x: 524
+  'y': 279
+  w: 322
+  h: 82
 - id: e60e4ab7617738c3
   type: link in
   z: f6f2187d.f17ca8
@@ -988,6 +1007,7 @@
   mode: link
   links:
     - c67cdb9d96401010
+    - ba44af0dc17085de
   x: 335
   'y': 140
   wires: []
@@ -3870,6 +3890,20 @@
                     msg.kernel.device = tsplit[1];
                     msg.kernel.terminal = tsplit[2];
                     msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]','memoryOnly')||'';
+
+                    /* historic */
+    /*
+                    if (current !== msg.kernel.value) {
+                        let hcomponent = msg.kernel.component;
+                        if (hcomponent.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null) {
+                            hcomponent = 'heatswitch';
+                        }
+                        if (hcomponent.match((new RegExp('^(run|heat|heatswicth)$'))) !== null) {
+                            global.set('historic["' + Date.now() + '"]', msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value, 'memoryOnly');
+                            node.status({'text':msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});
+                        }
+                    }
+    //*/
                 }
             }
 
@@ -5002,3 +5036,61 @@
   x: 2195
   'y': 740
   wires: []
+- id: 3f0ca1ed34082a39
+  type: comment
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: 'todo: historic d''evenement sur heat,run'
+  info: ''
+  x: 690
+  'y': 140
+  wires: []
+- id: 3f2a62a5b55ed060
+  type: comment
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: 'todo: move flow form to a global variable'
+  info: ''
+  x: 700
+  'y': 200
+  wires: []
+- id: ba44af0dc17085de
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 4454c8408a7c43de
+  name: kernel - historic
+  links:
+    - 527bd0d2254942cb
+  x: 565
+  'y': 320
+  wires:
+    - - 2d6c7781e95f7c7c
+- id: 2d6c7781e95f7c7c
+  type: function
+  z: f6f2187d.f17ca8
+  g: 4454c8408a7c43de
+  name: Clean old historics
+  func: |-
+    let i = 0;
+    let historics = global.get('historic','memoryOnly')||{};
+    let limit = Date.now() - (24 * 60 * 60 * 1000); // 24h
+    for (const historic in historics) {
+        if (Number(historic) < limit) {
+            global.set('historic["' + historic + '"]',undefined,'memoryOnly');
+            i++
+        }
+    }
+
+    node.status({'text':i});
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 730
+  'y': 320
+  wires:
+    - []
