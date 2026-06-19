@@ -76,10 +76,9 @@
   links:
     - 054bd47295999ad7
   x: 145
-  'y': 320
+  'y': 380
   wires:
-    - - 639c9d2813f61707
-      - fca30e25f5087f5a
+    - - fca30e25f5087f5a
 - id: eef8f90bc9ebb816
   type: ui-dropdown
   z: 476eb6fc04c55cec
@@ -131,8 +130,8 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
+      pt: global
       to: payload
       tot: msg
   action: ''
@@ -244,9 +243,19 @@
   name: tab
   rules:
     - t: set
-      p: form
-      pt: msg
-      to: payload
+      p: '#:(memoryOnly)::form.plant'
+      pt: global
+      to: payload.plant
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form.line'
+      pt: global
+      to: payload.line
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form.equipment'
+      pt: global
+      to: payload.equipment
       tot: msg
     - t: delete
       p: action
@@ -283,7 +292,6 @@
   mode: link
   links:
     - 00818f8c0686b556
-    - 2045a5696769c038
   x: 2555
   'y': 380
   wires: []
@@ -552,10 +560,8 @@
     }
 
 
-    if (msg.hmi.tab === 99) {
-        flow.set('form', undefined, 'memoryOnly');
-    } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+    if (msg.hmi.tab !== 99) {
+        return;
     }
 
 
@@ -618,7 +624,7 @@
             state = row.equipment + '|' + 'cycle';
         }
 
-        if ((flow.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'') === row.plant 
+        if ((global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'') === row.plant 
             && typeof global.get('kernel.link["' + state + '"]','memoryOnly') === 'string' 
             && typeof global.get('kernel.link["' + row.entity + '"]','memoryOnly') === 'string' 
         ) {
@@ -653,11 +659,13 @@
   type: change
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: clean
+  name: sort
   rules:
-    - t: delete
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
+    - t: set
+      p: payload
+      pt: msg
+      to: "$sort(msg.payload, function($l, $r) {\t  $l.percent < $r.percent\t})"
+      tot: jsonata
     - t: set
       p: class
       pt: msg
@@ -668,11 +676,6 @@
       pt: msg
       to: 'true'
       tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: "$sort(msg.payload, function($l, $r) {\t  $l.percent < $r.percent\t})"
-      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -689,18 +692,26 @@
   g: a2c5edf7acc56d7a
   name: user plant
   func: |-
-    if (msg.enabled === true) {
-        if (msg.hmi.plant !== '') {
-            flow.set('form["' + msg.hmi.id + '"]["plant"]',msg.hmi.plant,'memoryOnly');
+    if (msg.enabled !== true) {
 
-            return [msg,null];
+        return [msg,null,null];
+    } else {
+        let plant = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+        if (plant.length > 0) {
+            msg.payload = plant;
+
+            return [null,msg,msg];
+        }
+        if (msg.hmi.plant !== '') {
+            global.set('form["' + msg.hmi.id + '"]["plant"]',msg.hmi.plant,'memoryOnly');
+
+            return [msg,msg,null];
         } else {
-            return [null, msg];
+
+            return [null,null, msg];
         }
     }
-
-    return;
-  outputs: 2
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
@@ -710,5 +721,5 @@
   'y': 380
   wires:
     - - 639c9d2813f61707
-      - 953414d1b751a30d
+    - - 953414d1b751a30d
     - - 7f208cf2ab66dd88

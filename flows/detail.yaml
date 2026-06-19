@@ -163,7 +163,6 @@
     - 8dc42518cd8b8b74
     - f647395af025317d
     - ac566d146cb42b27
-    - 876dfdf9ba6020e6
     - 090ceaa798caf353
     - 57c986150b85f319
     - cf0e7cd7a6642bbd
@@ -200,15 +199,13 @@
     - aa716f8c228ac777
     - 1cefdfd5e167de3c
     - '81192355e8288238'
-    - 861c14ad61f973b4
     - df7b9b28adb41618
     - 36b06554537f7f0f
     - 7ab3e9531f451298
-    - f4e542b1d73d54f9
-    - 330917bae33c4347
+    - c8a6f4719f76187e
   x: 104
   'y': 3279
-  w: 4822
+  w: 4462
   h: 562
 - id: af7c52c4b0905961
   type: group
@@ -231,15 +228,14 @@
     - 72ba5fc75ecd528a
     - 15615470dbdee64b
     - 67d66a8b80535ef8
-    - d11e6378e21bdb19
     - 559b3d85382337b4
     - a725430845c0b181
-    - 81466cf131969e29
     - 8fb53ee8d65f4165
     - 42174b06a9dc03a4
     - 297dbbed636a64a6
     - d67c501a49d7e138
     - f02a30318019f86b
+    - af884ff486bd27d4
   x: 104
   'y': 3879
   w: 1982
@@ -267,13 +263,6 @@
     - e50b6b57af2e2315
     - 9cef467dfab6ffd0
     - bd7c74e40976d045
-    - 07e5db127f9067f8
-    - 82dd93ed3a33555c
-    - 870986ab06919295
-    - cf2abc1fc9be5717
-    - 2195c9ef31619a1f
-    - e7f0d477cc7254e6
-    - 1eb9b333c5decbcb
     - 429f3b5b4cb9ae42
     - ee4c8653f8b07e2e
     - 2d12083a2c3b60a1
@@ -284,17 +273,11 @@
     - 18d9e8154bc6b5dc
     - d4dbb3c62db423dc
     - 47a6c2e7767362bb
-    - dd017aec28af9106
-    - 53c6584522e785fb
     - 882a274532d44076
     - f9d8802bc1c7f1f8
     - 18ba1681a951cf6c
     - ad2ffbba34fa5ffa
-    - d69b9bc9c1062980
-    - c7e483c28161d72c
-    - 34d5c3e9bb840749
     - 18e77c99c8f24b09
-    - 941f893b5111021a
     - 43a8d042c3dda537
     - 6fe6c488f103f4b4
     - 9730aa79787c7894
@@ -311,10 +294,11 @@
     - e1c356d7d8dd8d53
     - 5df0b5068e080478
     - 49d82cbcbd884e4d
+    - 60d3b3826824680e
   x: 104
   'y': 219
   w: 2822
-  h: 622
+  h: 629.5
 - id: fe21b6421a9020d4
   type: group
   z: 852390cb9559e176
@@ -1315,8 +1299,8 @@
     - 6822e56a80bdb67e
     - 8fdfd037d4e5b985
     - 96e8abf144b980e2
-    - b5082fd6f739991d
     - 92b92f1477eea803
+    - b5082fd6f739991d
   x: 2755
   'y': 680
   wires: []
@@ -1330,202 +1314,16 @@
   x: 145
   'y': 260
   wires:
-    - - f9d8802bc1c7f1f8
-      - 6b53ef650b83222f
-- id: 07e5db127f9067f8
-  type: switch
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: plant
-  property: form
-  propertyType: msg
-  rules:
-    - t: hask
-      v: plant
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 590
-  'y': 500
-  wires:
-    - - 82dd93ed3a33555c
-      - cf2abc1fc9be5717
-- id: 82dd93ed3a33555c
-  type: switch
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: line
-  property: form
-  propertyType: msg
-  rules:
-    - t: hask
-      v: line
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 590
-  'y': 560
-  wires:
-    - - 870986ab06919295
-      - 2195c9ef31619a1f
-- id: 870986ab06919295
-  type: switch
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: equipment
-  property: form
-  propertyType: msg
-  rules:
-    - t: hask
-      v: equipment
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 570
-  'y': 680
-  wires:
-    - - e7f0d477cc7254e6
-    - - 941f893b5111021a
-- id: cf2abc1fc9be5717
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: plant
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: form.plant
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
-      to: form.plant
-      tot: msg
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 500
-  wires:
-    - - 6829c2450480a8f8
-- id: 2195c9ef31619a1f
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: line
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: form.line
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]line'
-      pt: flow
-      to: form.line
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      pt: flow
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_plant
-      pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      tot: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 790
-  'y': 560
-  wires:
-    - - 0548edb6952cacb8
-- id: e7f0d477cc7254e6
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: equipment
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: form.equipment
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      pt: flow
-      to: form.equipment
-      tot: msg
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_line
-      pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]line'
-      tot: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 770
-  'y': 680
-  wires:
-    - - dbe2dc99f3174070
-      - 47a6c2e7767362bb
-      - 49d82cbcbd884e4d
-- id: 1eb9b333c5decbcb
-  type: delay
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: 250ms
-  pauseType: delay
-  timeout: '250'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 430
-  'y': 440
-  wires:
-    - - c7e483c28161d72c
+    - - 6b53ef650b83222f
+      - f9d8802bc1c7f1f8
 - id: b5082fd6f739991d
   type: link in
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   name: detail - chart
   links:
-    - bd7c74e40976d045
     - ee4c8653f8b07e2e
+    - bd7c74e40976d045
   x: 145
   'y': 3320
   wires:
@@ -1609,8 +1407,8 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]date'
-      tot: flow
+      to: '#:(memoryOnly)::form[msg.hmi.id][''date'']'
+      tot: global
     - t: set
       p: class
       pt: msg
@@ -1685,15 +1483,15 @@
   name: prepare
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]date'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''date'']'
+      pt: global
       to: payload
       tot: msg
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]resolution'
-      tot: flow
+      to: '#:(memoryOnly)::form[msg.hmi.id][''resolution'']'
+      tot: global
     - t: set
       p: class
       pt: msg
@@ -1777,8 +1575,8 @@
   name: prepare
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]resolution'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''resolution'']'
+      pt: global
       to: payload
       tot: msg
     - t: set
@@ -1789,13 +1587,13 @@
     - t: set
       p: payload
       pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]date'
-      tot: flow
+      to: '#:(memoryOnly)::form[msg.hmi.id][''date'']'
+      tot: global
     - t: set
       p: form
       pt: msg
       to: '#:(memoryOnly)::form[msg.hmi.id]'
-      tot: flow
+      tot: global
     - t: set
       p: class
       pt: msg
@@ -1815,7 +1613,9 @@
   'y': 3500
   wires:
     - - 38d76fb8bec3c348
-      - 861c14ad61f973b4
+      - 8dc42518cd8b8b74
+      - f647395af025317d
+      - 703498c96c520656
 - id: ad5bda6bab168115
   type: moment
   z: 852390cb9559e176
@@ -1833,7 +1633,7 @@
   output: form.ts
   outputType: msg
   outTz: Europe/Paris
-  x: 3220
+  x: 2860
   'y': 3500
   wires:
     - - ab3fb414a59117e1
@@ -1854,7 +1654,7 @@
   output: start
   outputType: msg
   outTz: Europe/Paris
-  x: 3570
+  x: 3210
   'y': 3380
   wires:
     - - aed57b87eed6c474
@@ -1875,7 +1675,7 @@
   output: stop
   outputType: msg
   outTz: Europe/Paris
-  x: 3770
+  x: 3410
   'y': 3380
   wires:
     - - df0990a013b7915d
@@ -1896,7 +1696,7 @@
   output: start
   outputType: msg
   outTz: Europe/Paris
-  x: 3570
+  x: 3210
   'y': 3500
   wires:
     - - f4d82c7df7ca7056
@@ -1917,7 +1717,7 @@
   output: stop
   outputType: msg
   outTz: Europe/Paris
-  x: 3770
+  x: 3410
   'y': 3500
   wires:
     - - 6cc43fd6ece38fce
@@ -1947,7 +1747,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3960
+  x: 3600
   'y': 3380
   wires:
     - - 171d150b4d48853f
@@ -1962,7 +1762,7 @@
   precision: ''
   retentionPolicy: ''
   org: optaequipments
-  x: 4170
+  x: 3810
   'y': 3380
   wires:
     - - 3497303f62c5ab51
@@ -2008,7 +1808,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3960
+  x: 3600
   'y': 3500
   wires:
     - - 912bed5d36f6064a
@@ -2023,7 +1823,7 @@
   precision: ''
   retentionPolicy: ''
   org: optaequipments
-  x: 4170
+  x: 3810
   'y': 3500
   wires:
     - - e914fa1767daf0cb
@@ -2040,7 +1840,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4380
+  x: 4020
   'y': 3380
   wires:
     - - 9d9e8ab41e604d40
@@ -2058,7 +1858,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4380
+  x: 4020
   'y': 3500
   wires:
     - - 494a578bfb7396a0
@@ -2075,7 +1875,7 @@
   stream: false
   addname: ''
   property: payload
-  x: 4230
+  x: 3870
   'y': 3440
   wires:
     - - db771c38740515ac
@@ -2095,7 +1895,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4390
+  x: 4030
   'y': 3440
   wires:
     - - 7962737de74929a4
@@ -2120,7 +1920,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 4550
+  x: 4190
   'y': 3440
   wires:
     - - 08c818da1f189192
@@ -2146,7 +1946,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4550
+  x: 4190
   'y': 3380
   wires:
     - - d8dbd2db52e7c87f
@@ -2172,7 +1972,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4550
+  x: 4190
   'y': 3500
   wires:
     - - f3a4fbd1914b8411
@@ -2230,7 +2030,7 @@
   height: '4'
   className: ''
   interpolation: step
-  x: 4770
+  x: 4410
   'y': 3380
   wires:
     - []
@@ -2287,7 +2087,7 @@
   height: '4'
   className: ''
   interpolation: step
-  x: 4770
+  x: 4410
   'y': 3500
   wires:
     - []
@@ -2303,7 +2103,7 @@
   stream: false
   addname: ''
   property: payload
-  x: 3910
+  x: 3550
   'y': 3560
   wires:
     - - 42df60fa4de47b17
@@ -2324,7 +2124,7 @@
   output: payload._start
   outputType: msg
   outTz: Europe/Paris
-  x: 4070
+  x: 3710
   'y': 3560
   wires:
     - - 16f4712aa2f4a3b9
@@ -2362,7 +2162,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4230
+  x: 3870
   'y': 3560
   wires:
     - - bb491e75635c775c
@@ -2387,7 +2187,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 4390
+  x: 4030
   'y': 3560
   wires:
     - - b4bb323cb47c0ce8
@@ -2411,7 +2211,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4550
+  x: 4190
   'y': 3560
   wires:
     - - 4a1bfe977cdf0685
@@ -2428,10 +2228,15 @@
       to: '#:(memoryOnly)::kernel.state'
       tot: global
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]resolution'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''resolution'']'
+      pt: global
       to: '5'
       tot: str
+    - t: set
+      p: equipment
+      pt: msg
+      to: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -2470,7 +2275,7 @@
       to: '$split(msg.entity,''|'')'
       tot: jsonata
     - t: set
-      p: form.component
+      p: component
       pt: msg
       to: 'split[1]'
       tot: msg
@@ -2500,8 +2305,8 @@
   propertyType: msg
   rules:
     - t: eq
-      v: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      vt: flow
+      v: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      vt: global
   checkall: 'false'
   repair: false
   outputs: 1
@@ -2514,7 +2319,7 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   name: component
-  property: form.component
+  property: component
   propertyType: msg
   rules:
     - t: regex
@@ -2582,7 +2387,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3050
+  x: 2690
   'y': 3500
   wires:
     - - ad5bda6bab168115
@@ -2603,7 +2408,7 @@
   bytopic: all
   topic: topic
   outputs: 1
-  x: 3060
+  x: 2700
   'y': 3560
   wires:
     - - 090ceaa798caf353
@@ -2618,7 +2423,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4550
+  x: 4190
   'y': 3320
   wires:
     - - d8dbd2db52e7c87f
@@ -2627,26 +2432,6 @@
       - 08c818da1f189192
       - 4a1bfe977cdf0685
       - c36afeafb62be502
-- id: 876dfdf9ba6020e6
-  type: switch
-  z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: client
-  property: '#:(memoryOnly)::form[msg.hmi.id]'
-  propertyType: flow
-  rules:
-    - t: hask
-      v: equipment
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 2890
-  'y': 3500
-  wires:
-    - - 8dc42518cd8b8b74
-      - f647395af025317d
-      - 703498c96c520656
 - id: 090ceaa798caf353
   type: change
   z: 852390cb9559e176
@@ -2661,7 +2446,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3230
+  x: 2870
   'y': 3560
   wires:
     - - 3e42541f14d8d3d2
@@ -2676,7 +2461,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2730
+  x: 2370
   'y': 3320
   wires:
     - - ac566d146cb42b27
@@ -2697,7 +2482,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2890
+  x: 2530
   'y': 3560
   wires:
     - - f647395af025317d
@@ -2773,6 +2558,11 @@
       pt: msg
       to: '{}'
       tot: jsonata
+    - t: set
+      p: equipment
+      pt: msg
+      to: '#:(memoryOnly)::from[msg.hmi.id][''equipment'']'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -2932,8 +2722,8 @@
   propertyType: msg
   rules:
     - t: eq
-      v: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      vt: flow
+      v: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      vt: global
   checkall: 'false'
   repair: true
   outputs: 1
@@ -3102,6 +2892,16 @@
   name: enable
   rules:
     - t: set
+      p: limit_line
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
       p: class
       pt: msg
       to: ''
@@ -3111,16 +2911,6 @@
       pt: msg
       to: 'true'
       tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_line
-      pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]line'
-      tot: flow
   action: ''
   property: ''
   from: ''
@@ -3138,13 +2928,13 @@
   name: line
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]line'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''line'']'
+      pt: global
       to: payload
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      pt: global
       to: ''
       tot: str
   action: ''
@@ -3163,6 +2953,11 @@
   name: enable
   rules:
     - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
       p: class
       pt: msg
       to: ''
@@ -3172,11 +2967,6 @@
       pt: msg
       to: 'true'
       tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
   action: ''
   property: ''
   from: ''
@@ -3186,7 +2976,7 @@
   'y': 620
   wires:
     - - d4dbb3c62db423dc
-      - 53c6584522e785fb
+      - 47a6c2e7767362bb
 - id: 8471107ba76a876b
   type: change
   z: 852390cb9559e176
@@ -3194,8 +2984,8 @@
   name: equipment
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      pt: global
       to: payload
       tot: msg
   action: ''
@@ -3214,8 +3004,8 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
+      pt: global
       to: payload
       tot: msg
   action: ''
@@ -3234,6 +3024,16 @@
   name: enable
   rules:
     - t: set
+      p: limit_plant
+      pt: msg
+      to: payload
+      tot: msg
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
       p: class
       pt: msg
       to: ''
@@ -3243,16 +3043,6 @@
       pt: msg
       to: 'true'
       tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_plant
-      pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      tot: flow
   action: ''
   property: ''
   from: ''
@@ -3300,7 +3090,7 @@
   g: 20a2e240c83c48c2
   name: 20ms
   pauseType: delay
-  timeout: '50'
+  timeout: '250'
   timeoutUnits: milliseconds
   rate: '1'
   nbRateUnits: '1'
@@ -3385,22 +3175,6 @@
   x: 2090
   'y': 3380
   wires: []
-- id: dd017aec28af9106
-  type: switch
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: form
-  property: form
-  propertyType: msg
-  rules:
-    - t: nempty
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 270
-  'y': 440
-  wires:
-    - - 1eb9b333c5decbcb
 - id: 86ab86902cd27664
   type: change
   z: 852390cb9559e176
@@ -3531,27 +3305,6 @@
   x: 2600
   'y': 2340
   wires: []
-- id: 53c6584522e785fb
-  type: delay
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: 5ms
-  pauseType: delay
-  timeout: '20'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 2310
-  'y': 620
-  wires:
-    - - 47a6c2e7767362bb
 - id: a2c74fb09768552b
   type: change
   z: 852390cb9559e176
@@ -3899,7 +3652,7 @@
   from: ''
   to: ''
   reg: false
-  x: 790
+  x: 990
   'y': 440
   wires:
     - - 6829c2450480a8f8
@@ -4126,10 +3879,9 @@
   repair: false
   outputs: 1
   x: 280
-  'y': 380
+  'y': 320
   wires:
-    - - dd017aec28af9106
-      - 18ba1681a951cf6c
+    - - 60d3b3826824680e
 - id: 18ba1681a951cf6c
   type: switch
   z: 852390cb9559e176
@@ -4143,7 +3895,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 630
+  x: 990
   'y': 380
   wires:
     - - ad2ffbba34fa5ffa
@@ -4155,10 +3907,15 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
+      p: payload
+      pt: msg
       to: '#:(memoryOnly)::user[msg.hmi.id]plant'
       tot: global
+    - t: set
+      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
+      pt: global
+      to: payload
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -4263,74 +4020,6 @@
     - - 15195c5b4fd0c363
     - - 15195c5b4fd0c363
     - - 1e242d16cf9d3a58
-- id: d69b9bc9c1062980
-  type: switch
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: plant
-  property: payload
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 270
-  'y': 500
-  wires:
-    - - 34d5c3e9bb840749
-    - - 07e5db127f9067f8
-- id: c7e483c28161d72c
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: user
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: hmi.plant
-      tot: msg
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 440
-  wires:
-    - - d69b9bc9c1062980
-- id: 34d5c3e9bb840749
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: plant
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      tot: flow
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 430
-  'y': 560
-  wires:
-    - - 82dd93ed3a33555c
 - id: 2045a5696769c038
   type: link in
   z: 852390cb9559e176
@@ -4341,30 +4030,10 @@
     - 575b91a30deac00d
     - 716fd198bbd63dcb
     - 7bba6594f41302c2
-    - ed53bb28b7006772
-    - 120cdc84afeff6ea
   x: 145
   'y': 140
   wires:
     - - 0d8f27717a354010
-- id: d11e6378e21bdb19
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: id
-  property: '#:(memoryOnly)::form'
-  propertyType: flow
-  rules:
-    - t: hask
-      v: hmi.id
-      vt: msg
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 810
-  'y': 3980
-  wires:
-    - - 81466cf131969e29
 - id: 559b3d85382337b4
   type: trigger
   z: 852390cb9559e176
@@ -4385,7 +4054,7 @@
   x: 630
   'y': 3980
   wires:
-    - - d11e6378e21bdb19
+    - - af884ff486bd27d4
 - id: a725430845c0b181
   type: change
   z: 852390cb9559e176
@@ -4406,24 +4075,6 @@
   'y': 3980
   wires:
     - - 559b3d85382337b4
-- id: 81466cf131969e29
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: equipment
-  property: kernel.equipment
-  propertyType: msg
-  rules:
-    - t: eq
-      v: form_equipment
-      vt: msg
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 990
-  'y': 3980
-  wires:
-    - - e735a826b5dcfd5b
 - id: b390bbd952b85b9d
   type: switch
   z: 852390cb9559e176
@@ -4559,41 +4210,6 @@
   'y': 3980
   wires:
     - - a725430845c0b181
-- id: 941f893b5111021a
-  type: change
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: equipment
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      pt: flow
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_line
-      pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]line'
-      tot: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 770
-  'y': 620
-  wires:
-    - - dbe2dc99f3174070
 - id: eb739ce60a549f6f
   type: change
   z: 852390cb9559e176
@@ -4631,7 +4247,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4070
+  x: 3710
   'y': 3440
   wires:
     - - a8b8861415bce2d2
@@ -4652,7 +4268,7 @@
   output: last_date
   outputType: msg
   outTz: Europe/Paris
-  x: 3900
+  x: 3540
   'y': 3440
   wires:
     - - eb739ce60a549f6f
@@ -4677,7 +4293,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3730
+  x: 3370
   'y': 3440
   wires:
     - - b4d41c97cb54b26d
@@ -4705,7 +4321,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3390
+  x: 3030
   'y': 3500
   wires:
     - - e782ae90ecd18377
@@ -4717,8 +4333,8 @@
   name: date
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]date'
-      pt: flow
+      p: '#:(memoryOnly)::form[msg.hmi.id][''date'']'
+      pt: global
       to: curday
       tot: msg
     - t: delete
@@ -4892,7 +4508,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3050
+  x: 2690
   'y': 3620
   wires:
     - - 8c8b18f7d203ece6
@@ -4913,7 +4529,7 @@
   output: form.ts
   outputType: msg
   outTz: Europe/Paris
-  x: 3220
+  x: 2860
   'y': 3620
   wires:
     - - 117f2aa4295fc51a
@@ -4941,7 +4557,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3390
+  x: 3030
   'y': 3620
   wires:
     - - deb8c495e1a92a3e
@@ -4962,7 +4578,7 @@
   output: start
   outputType: msg
   outTz: Europe/Paris
-  x: 3570
+  x: 3210
   'y': 3620
   wires:
     - - 3ddded88b2f03980
@@ -4983,7 +4599,7 @@
   output: stop
   outputType: msg
   outTz: Europe/Paris
-  x: 3770
+  x: 3410
   'y': 3620
   wires:
     - - ada4707f53f9c774
@@ -5013,7 +4629,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3960
+  x: 3600
   'y': 3620
   wires:
     - - 43185a17776b78b4
@@ -5028,7 +4644,7 @@
   precision: ''
   retentionPolicy: ''
   org: optaequipments
-  x: 4170
+  x: 3810
   'y': 3620
   wires:
     - - 718d4b01ccb96c20
@@ -5045,7 +4661,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4380
+  x: 4020
   'y': 3620
   wires:
     - - 4a00cf7eba68238e
@@ -5071,7 +4687,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4550
+  x: 4190
   'y': 3620
   wires:
     - - b60617892007ab1a
@@ -5093,7 +4709,7 @@
   output: key_time
   outputType: msg
   outTz: Europe/Paris
-  x: 3870
+  x: 3510
   'y': 3800
   wires:
     - - e4513cbf318e2e6a
@@ -5119,7 +4735,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4050
+  x: 3690
   'y': 3800
   wires:
     - - 3ce2a4cccdc391fb
@@ -5176,7 +4792,7 @@
   height: '4'
   className: ''
   interpolation: step
-  x: 4760
+  x: 4400
   'y': 3620
   wires:
     - []
@@ -5201,7 +4817,7 @@
   from: ''
   to: ''
   reg: false
-  x: 3710
+  x: 3350
   'y': 3740
   wires:
     - - fd5fb08fd3660a12
@@ -5222,7 +4838,7 @@
   output: key_time
   outputType: msg
   outTz: Europe/Paris
-  x: 3880
+  x: 3520
   'y': 3740
   wires:
     - - 8e8e85be70dd9932
@@ -5248,7 +4864,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4050
+  x: 3690
   'y': 3740
   wires:
     - - a4b2c872d2b0364c
@@ -5264,7 +4880,7 @@
   stream: false
   addname: key
   property: payload
-  x: 4210
+  x: 3850
   'y': 3800
   wires:
     - - 17579536381ca9a3
@@ -5299,7 +4915,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4380
+  x: 4020
   'y': 3800
   wires:
     - - eb56c24e48ed4e90
@@ -5324,7 +4940,7 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 4550
+  x: 4190
   'y': 3800
   wires:
     - - c36afeafb62be502
@@ -5346,7 +4962,7 @@
   from: ''
   to: ''
   reg: false
-  x: 4050
+  x: 3690
   'y': 3680
   wires:
     - - 2ac2fc27b20716d2
@@ -5367,7 +4983,7 @@
   output: key_time
   outputType: msg
   outTz: Europe/Paris
-  x: 3880
+  x: 3520
   'y': 3680
   wires:
     - - b2f087bc0523250a
@@ -5866,8 +5482,8 @@
     - t: set
       p: equipment
       pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]equipment'
-      tot: flow
+      to: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      tot: global
   action: ''
   property: ''
   from: ''
@@ -6181,7 +5797,7 @@
   className: ''
   value: dictionary.group_detail_chart_cycledate
   valueType: msg
-  x: 4780
+  x: 4420
   'y': 3440
   wires: []
 - id: 4a1bfe977cdf0685
@@ -6204,7 +5820,7 @@
   className: ''
   value: dictionary.group_detail_chart_cyclehour
   valueType: msg
-  x: 4780
+  x: 4420
   'y': 3560
   wires: []
 - id: c36afeafb62be502
@@ -6227,7 +5843,7 @@
   className: ''
   value: dictionary.group_detail_chart_rundate
   valueType: msg
-  x: 4780
+  x: 4420
   'y': 3680
   wires: []
 - id: d67c501a49d7e138
@@ -6600,21 +6216,18 @@
     ) {
         msg.class = '';
         msg.enabled = true;
-        
-        flow.set('form["' + msg.hmi.id + '"]["ts"]', Date.now(), 'memoryOnly');
 
         return [msg, null];
     }
 
 
     if (msg.hmi.tab === 99) {
-        flow.set('form', undefined, 'memoryOnly');
         flow.set('alerts', undefined, 'memoryOnly');
         flow.set('hours', undefined, 'memoryOnly');
     } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
         flow.set('alerts["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
         flow.set('hours["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+        return;
     }
 
 
@@ -6713,7 +6326,7 @@
             let esplit = msg.kernel.entity.split('|');
             msg.kernel.equipment = esplit[0];
 
-            if ((flow.get('form["' + msg.hmi.id + '"]["equipment"]','memoryOnly')||'') === msg.kernel.equipment) {
+            if ((global.get('form["' + msg.hmi.id + '"]["equipment"]','memoryOnly')||'') === msg.kernel.equipment) {
                 let lsplit = link.split('|');
                 msg.kernel.device = lsplit[0];
                 msg.kernel.model = lsplit[1];
@@ -6749,7 +6362,7 @@
   name: periods
   func: |-
     if (msg.enabled === true) {
-        let line = flow.get('form["' + msg.hmi.id + '"]["line"]','memoryOnly')||'-';
+        let line = global.get('form["' + msg.hmi.id + '"]["line"]','memoryOnly')||'-';
         let period = global.get('kernel.period["' + line + '"]','memoryOnly');
         if (typeof period === 'string') {
             msg.payload = {
@@ -6812,7 +6425,7 @@
   to: ''
   reg: false
   x: 1190
-  'y': 800
+  'y': 740
   wires:
     - - 36773a3eafb57b0b
 - id: 36773a3eafb57b0b
@@ -6830,7 +6443,7 @@
         msg.payload = [];
 
         let i = 0;
-        let form_line = flow.get('form["' + msg.hmi.id + '"]["line"]','memoryOnly')||'-';
+        let form_line = global.get('form["' + msg.hmi.id + '"]["line"]','memoryOnly')||'-';
         if (form_line !== '-') {
             let equipments = global.get('kernel.equipments','memoryOnly')||{};
             for (const equipment in equipments) {
@@ -6872,7 +6485,7 @@
   finalize: ''
   libs: []
   x: 1350
-  'y': 740
+  'y': 800
   wires:
     - - 3cf37cc1acd839fd
       - e1c356d7d8dd8d53
@@ -6959,10 +6572,10 @@
   name: equipment
   rules:
     - t: set
-      p: form
-      pt: msg
-      to: '{''equipment'':msg.payload.equipment}'
-      tot: jsonata
+      p: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      pt: global
+      to: payload.equipment
+      tot: msg
     - t: delete
       p: action
       pt: msg
@@ -6979,9 +6592,9 @@
   x: 2150
   'y': 740
   wires:
-    - - 870986ab06919295
-      - d4dbb3c62db423dc
+    - - d4dbb3c62db423dc
       - 49d82cbcbd884e4d
+      - 60d3b3826824680e
 - id: e1c356d7d8dd8d53
   type: ui-table
   z: 852390cb9559e176
@@ -7052,7 +6665,7 @@
   to: ''
   reg: false
   x: 1190
-  'y': 740
+  'y': 800
   wires:
     - - 36773a3eafb57b0b
 - id: 49d82cbcbd884e4d
@@ -7073,7 +6686,7 @@
   allowrate: false
   outputs: 1
   x: 950
-  'y': 740
+  'y': 800
   wires:
     - - 5df0b5068e080478
 - id: ace5c2ca01b14cc2
@@ -7107,8 +6720,8 @@
     } else {
         msg.payload = [];
 
-        let equipment = flow.get('form["' + msg.hmi.id + '"]["equipment"]', 'memoryOnly');
-        let plant = flow.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly');
+        let equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]', 'memoryOnly');
+        let plant = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly');
 
         let i = 0;
         let historics = global.get('historic','memoryOnly')||{};
@@ -7430,10 +7043,10 @@
   z: 852390cb9559e176
   name: online
   func: >-
-    let form = flow.get('form','memoryOnly')||{};
+    let form = global.get('form["' + msg.hmi.id + '"]','memoryOnly')||{};
 
-    if (typeof form[msg.hmi.id]['equipment'] === 'string' &&
-    form[msg.hmi.id]['equipment'] === msg.kernel.equipment) {
+    if (typeof form['equipment'] === 'string' && typeof msg.kernel.equipment ===
+    'string' && form['equipment'] === msg.kernel.equipment) {
         
     } else {
         msg.kernel = {};
@@ -7484,19 +7097,6 @@
   'y': 1160
   wires:
     - - 14123420775a7b64
-- id: 861c14ad61f973b4
-  type: link call
-  z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 2710
-  'y': 3500
-  wires:
-    - - 876dfdf9ba6020e6
 - id: df7b9b28adb41618
   type: trigger
   z: 852390cb9559e176
@@ -7517,7 +7117,7 @@
   x: 630
   'y': 3500
   wires:
-    - - f4e542b1d73d54f9
+    - - c8a6f4719f76187e
 - id: 36b06554537f7f0f
   type: change
   z: 852390cb9559e176
@@ -7556,39 +7156,101 @@
   'y': 3500
   wires:
     - - 36b06554537f7f0f
-- id: f4e542b1d73d54f9
-  type: switch
+- id: 60d3b3826824680e
+  type: function
   z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: id
-  property: '#:(memoryOnly)::form'
-  propertyType: flow
-  rules:
-    - t: hask
-      v: hmi.id
-      vt: msg
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 810
-  'y': 3500
+  g: 20a2e240c83c48c2
+  name: form
+  func: |
+    let form = global.get('form','memoryOnly')||{};
+    if (typeof form.plant === 'string') {
+        msg.class = '';
+        msg.payload = form.plant;
+        //tmp
+        flow.set('form["' + msg.hmi.id + '"]["plant"]',form.plant,'memoryOnly');
+
+        node.send([null,msg,null,null]);
+
+        if (typeof form.line === 'string') {
+            msg.class = '';
+            msg.payload = form.line;
+            msg.limit_plant = form.plant;
+            //tmp
+            flow.set('form["' + msg.hmi.id + '"]["line"]',form.line,'memoryOnly');
+
+            node.send([null, null, msg, null]);
+
+            if (typeof form.equipment === 'string') {
+                msg.class = '';
+                msg.payload = form.equipment;
+                msg.limit_line = form.line
+                //tmp
+                flow.set('form["' + msg.hmi.id + '"]["equipment"]', form.equipment, 'memoryOnly');
+
+                node.send([null, null, null, msg]);
+            }
+        }
+    } else {
+        return [msg,null,null,null];
+    }
+  outputs: 4
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 680
   wires:
-    - - 330917bae33c4347
-- id: 330917bae33c4347
-  type: switch
+    - - 18ba1681a951cf6c
+    - - 6829c2450480a8f8
+    - - 0548edb6952cacb8
+    - - dbe2dc99f3174070
+      - 47a6c2e7767362bb
+      - 49d82cbcbd884e4d
+- id: af884ff486bd27d4
+  type: function
+  z: 852390cb9559e176
+  g: af7c52c4b0905961
+  name: form
+  func: >-
+    if (global.get('form["' + msg.hmi.id + '"]','memoryOnly') === msg.equipment)
+    {
+        return msg;
+    }
+
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 810
+  'y': 3980
+  wires:
+    - - e735a826b5dcfd5b
+- id: c8a6f4719f76187e
+  type: function
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
-  name: equipment
-  property: kernel.equipment
-  propertyType: msg
-  rules:
-    - t: eq
-      v: form_equipment
-      vt: msg
-  checkall: 'false'
-  repair: false
+  name: form
+  func: >-
+    if (global.get('form["' + msg.hmi.id + '"]','memoryOnly') === msg.equipment)
+    {
+        return msg;
+    }
+
+
+    return;
   outputs: 1
-  x: 990
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 810
   'y': 3500
   wires:
     - - 7d95ec8466c90bee

@@ -40,7 +40,7 @@
     - 64e28c88b4c7b710
   x: 68
   'y': 3053
-  w: 1644
+  w: 1574
   h: 914
 - id: 23adbb4a30523ae7
   type: group
@@ -180,7 +180,7 @@
     - 886e458678ddf131
   x: 104
   'y': 3259
-  w: 1582
+  w: 1512
   h: 202
 - id: ede1bcd992279676
   type: group
@@ -326,13 +326,12 @@
     - 7214e26c1a5974bd
     - bc7921fbe0a00154
     - 01242cef4de43778
-    - f42bd58edc8c3b68
     - 579b7304f4b11a0f
     - d90814f6a6612373
     - 89bd63c1cca31299
   x: 104
   'y': 3079
-  w: 1182
+  w: 1022
   h: 142
 - id: fc6029b7d49d1e93
   type: group
@@ -399,14 +398,14 @@
   nodes:
     - fdb028158b218535
     - e0302181e220fb24
-    - 7b7124a46b1a0dcb
-    - 58ebf510744db0ee
     - 4b4db5a5c5bcb3c6
     - 2dbd34bfcf7eed32
     - 20f654f00ef52950
+    - 8cdcab5e1a00fa52
+    - 02fe29cae83d1e2a
   x: 104
   'y': 2839
-  w: 802
+  w: 842
   h: 142
 - id: ec05c59aee9e7dba
   type: group
@@ -681,7 +680,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1570
+  x: 1030
   'y': 3420
   wires: []
 - id: ba6ef07c6e523872
@@ -1243,7 +1242,7 @@
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
     - 6304fe8d08f0cf47
-  x: 1515
+  x: 1575
   'y': 3360
   wires: []
 - id: 00818f8c0686b556
@@ -1253,14 +1252,13 @@
   name: ui - control
   links:
     - 716fd198bbd63dcb
-    - ed53bb28b7006772
     - bb71762ba2269b75
     - 69341ab189affbbd
     - 4a798d15562c1309
     - 9436213abf2c9241
     - 68593265cb4e2507
     - 575b91a30deac00d
-    - 120cdc84afeff6ea
+    - ed53bb28b7006772
   x: 145
   'y': 3360
   wires:
@@ -1289,7 +1287,7 @@
   group: ''
   page: ''
   ui: 68fb8d742e5053db
-  name: ui - head
+  name: ui - menu
   order: 0
   width: 0
   height: 0
@@ -1790,90 +1788,6 @@
   'y': 2940
   wires:
     - - 20f654f00ef52950
-- id: 7b7124a46b1a0dcb
-  type: change
-  z: f6f2187d.f17ca8
-  g: bd007f48192aa2f3
-  name: user
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: user.login
-      pt: msg
-      to: login
-      tot: msg
-    - t: set
-      p: user.level
-      pt: msg
-      to: '#:(memoryOnly)::auth[msg.login][''level'']'
-      tot: global
-    - t: set
-      p: user.plant
-      pt: msg
-      to: '#:(memoryOnly)::auth[msg.login][''plant'']'
-      tot: global
-    - t: set
-      p: user.lang
-      pt: msg
-      to: '#:(memoryOnly)::auth[msg.login][''lang'']'
-      tot: global
-    - t: set
-      p: user.time
-      pt: msg
-      to: ''
-      tot: date
-    - t: delete
-      p: login
-      pt: msg
-    - t: delete
-      p: pass
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 2880
-  wires:
-    - - 4b4db5a5c5bcb3c6
-      - 2dbd34bfcf7eed32
-- id: 58ebf510744db0ee
-  type: change
-  z: f6f2187d.f17ca8
-  g: bd007f48192aa2f3
-  name: user
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: user
-      pt: msg
-      to: '{}'
-      tot: jsonata
-    - t: delete
-      p: login
-      pt: msg
-    - t: delete
-      p: pass
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 610
-  'y': 2940
-  wires:
-    - - 4b4db5a5c5bcb3c6
-      - 2dbd34bfcf7eed32
 - id: 4b4db5a5c5bcb3c6
   type: link out
   z: f6f2187d.f17ca8
@@ -1881,7 +1795,7 @@
   name: user - check
   mode: return
   links: []
-  x: 735
+  x: 775
   'y': 2880
   wires: []
 - id: 2dbd34bfcf7eed32
@@ -1897,7 +1811,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 790
+  x: 830
   'y': 2940
   wires: []
 - id: 0502ea2e9ef0f780
@@ -1963,8 +1877,8 @@
   x: 440
   'y': 2880
   wires:
-    - - 7b7124a46b1a0dcb
-    - - 58ebf510744db0ee
+    - - 8cdcab5e1a00fa52
+    - - 02fe29cae83d1e2a
 - id: c7dc8df688a74cbe
   type: link in
   z: f6f2187d.f17ca8
@@ -2673,7 +2587,7 @@
   x: 145
   'y': 3180
   wires:
-    - - 89bd63c1cca31299
+    - - d90814f6a6612373
 - id: 7214e26c1a5974bd
   type: link out
   z: f6f2187d.f17ca8
@@ -2681,7 +2595,7 @@
   name: kernel - hmi
   mode: return
   links: []
-  x: 1115
+  x: 955
   'y': 3180
   wires: []
 - id: 07be198711177f06
@@ -2721,7 +2635,7 @@
   from: ''
   to: ''
   reg: false
-  x: 990
+  x: 830
   'y': 3180
   wires:
     - - 7214e26c1a5974bd
@@ -2739,29 +2653,9 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1170
+  x: 1010
   'y': 3120
   wires: []
-- id: f42bd58edc8c3b68
-  type: switch
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: lang
-  property: hmi.lang
-  propertyType: msg
-  rules:
-    - t: eq
-      v: fr
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 630
-  'y': 3140
-  wires:
-    - - 579b7304f4b11a0f
-    - - bc7921fbe0a00154
 - id: 579b7304f4b11a0f
   type: change
   z: f6f2187d.f17ca8
@@ -2778,7 +2672,7 @@
   from: ''
   to: ''
   reg: false
-  x: 810
+  x: 650
   'y': 3120
   wires:
     - - bc7921fbe0a00154
@@ -2798,10 +2692,10 @@
   from: ''
   to: ''
   reg: false
-  x: 450
-  'y': 3140
+  x: 290
+  'y': 3180
   wires:
-    - - f42bd58edc8c3b68
+    - - 89bd63c1cca31299
 - id: 0782cf84e02ba5e3
   type: comment
   z: f6f2187d.f17ca8
@@ -2838,7 +2732,8 @@
   x: 840
   'y': 3360
   wires:
-    - - 886e458678ddf131
+    - - 7bba6594f41302c2
+      - 23dd24021e2cecf1
 - id: 8415b61e8bd93936
   type: function
   z: f6f2187d.f17ca8
@@ -2908,7 +2803,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1370
+  x: 1430
   'y': 3300
   wires:
     - - 68593265cb4e2507
@@ -2920,7 +2815,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1515
+  x: 1575
   'y': 3300
   wires: []
 - id: 62fd5d97d37862c8
@@ -2965,12 +2860,10 @@
             'id':'',
             'login':'',
             'level':'',
-            'plant':''
+            'plant':'',
+            'lang':'en',
+            'time':Date.now()
         };
-    }
-
-    if (typeof msg.hmi.lang !== 'string') {
-        msg.hmi.lang = 'en';
     }
 
     if (typeof msg.tab === 'number' && typeof msg.name === 'string') {
@@ -2980,7 +2873,7 @@
         delete msg.name;
     }
 
-    if (typeof msg._client?.socketId === 'string') {
+    if (typeof msg._client.socketId === 'string') {
         let browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]', 'memoryOnly');
         if (typeof browser_lang === 'string') {
             msg.hmi.lang = browser_lang;
@@ -2989,28 +2882,30 @@
 
         let user = global.get('user["' + msg.hmi.id + '"]', 'memoryOnly');
         if (typeof user === 'object') {
+            global.set('user["' + msg.hmi.id + '"]["time"]',Date.now(),'memoryOnly');
             msg.hmi = Object.assign({}, msg.hmi, user);
         }
     }
 
-    msg.hmi.time = Date.now();
+    if (msg.tab === 99) {
+        global.set('form',{},'memoryOnly');
+    }
 
-    if (msg.dictionary?.lang !== msg.hmi.lang) {
+    if (msg.hmi.lang == 'fr') {
         return [msg,null];
     } else {
         return [null,msg];
     }
-    return msg;
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
+  x: 470
   'y': 3180
   wires:
-    - - d90814f6a6612373
+    - - 579b7304f4b11a0f
     - - bc7921fbe0a00154
 - id: f088a09b48bcfb71
   type: http in
@@ -3209,7 +3104,7 @@
   'y': 2940
   wires:
     - - e0302181e220fb24
-    - - 58ebf510744db0ee
+    - - 02fe29cae83d1e2a
 - id: 670bb85f2c2aeaf5
   type: function
   z: f6f2187d.f17ca8
@@ -3228,6 +3123,7 @@
             || (typeof msg.login === 'string' && msg.login === users[user]["login"])
             ) {
                 global.set('user["' + user + '"]', undefined, 'memoryOnly');
+                global.set('form["' + user + '"]', undefined, 'memoryOnly');
                 msg.payload = user;
                 node.send(msg);
             }
@@ -3420,7 +3316,7 @@
   type: function
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
-  name: clean
+  name: tab & browser
   func: >-
     if (msg.payload !== '' && typeof global.get('describe.pages["' + msg.payload
     + '"]["name"]', 'memoryOnly') === 'string') {
@@ -3461,7 +3357,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1190
+  x: 1220
   'y': 3300
   wires:
     - - 802c09c733863247
@@ -3482,12 +3378,10 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1390
-  'y': 3360
+  x: 1450
+  'y': 3340
   wires:
-    - - 7bba6594f41302c2
-      - 68593265cb4e2507
-      - 23dd24021e2cecf1
+    - []
 - id: bf59724bfb1762b4
   type: function
   z: f6f2187d.f17ca8
@@ -4258,7 +4152,6 @@
     return {
         'topic':'',
         'payload':'',
-        'dictionary':{'lang':''},
         'options':[[{'label':'','value':''}]]
     };
   outputs: 1
@@ -5091,3 +4984,58 @@
   'y': 320
   wires:
     - []
+- id: 8cdcab5e1a00fa52
+  type: function
+  z: f6f2187d.f17ca8
+  g: bd007f48192aa2f3
+  name: set user
+  func: |-
+    global.set('user["' + msg._client.socketId + '"]',{
+        'login':msg.login,
+        'level':global.get('auth["' + msg.login + '"]["level"]','memoryOnly')||'',
+        'plant':global.get('auth["' + msg.login + '"]["plant"]','memoryOnly')||'',
+        'lang':global.get('auth["' + msg.login + '"]["lang"]','memoryOnly')||'',
+        'time':Date.now()
+    },'memoryOnly');
+
+    delete msg.login;
+    delete msg.pass;
+
+    msg.payload = true;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 620
+  'y': 2880
+  wires:
+    - - 4b4db5a5c5bcb3c6
+- id: 02fe29cae83d1e2a
+  type: function
+  z: f6f2187d.f17ca8
+  g: bd007f48192aa2f3
+  name: unset user
+  func: |-
+    global.set('user["' + msg._client.socketId + '"]',undefined,'memoryOnly');
+
+    delete msg.login;
+    delete msg.pass;
+
+    msg.payload = false;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 630
+  'y': 2940
+  wires:
+    - - 4b4db5a5c5bcb3c6
+      - 2dbd34bfcf7eed32

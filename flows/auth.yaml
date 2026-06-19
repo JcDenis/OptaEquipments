@@ -20,9 +20,6 @@
     - f4eee7dbe5621ecf
     - bb71762ba2269b75
     - 8aca2e86c077d885
-    - f9dc1f7a8155ebef
-    - 09bd0767b56167b6
-    - f68e1a2d7f3e0c3d
     - 6ab34b3b3d64905e
     - c82457de0864e28c
     - be3b97df6b45470f
@@ -36,6 +33,9 @@
     - 775c8e4364eee51a
     - f3b837acb99f6326
     - 9093d61ed9142cff
+    - f9dc1f7a8155ebef
+    - 09bd0767b56167b6
+    - f68e1a2d7f3e0c3d
   x: 104
   'y': 279
   w: 2042
@@ -200,78 +200,6 @@
   x: 2030
   'y': 440
   wires: []
-- id: f9dc1f7a8155ebef
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: global
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::user[msg._client.socketId]'
-      pt: global
-      to: user
-      tot: msg
-    - t: delete
-      p: user
-      pt: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::describe.pages.alert.tab'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1690
-  'y': 440
-  wires:
-    - - 6ab34b3b3d64905e
-- id: 09bd0767b56167b6
-  type: switch
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: ok
-  property: payload
-  propertyType: msg
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1530
-  'y': 500
-  wires:
-    - - f9dc1f7a8155ebef
-    - - f68e1a2d7f3e0c3d
-- id: f68e1a2d7f3e0c3d
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: notice
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::user[msg._client.socketId]'
-      pt: global
-    - t: delete
-      p: user
-      pt: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.common_notice_login_fail
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1690
-  'y': 500
-  wires:
-    - - 0cf63361a578f787
 - id: 6ab34b3b3d64905e
   type: delay
   z: 27841aa886edd1cd
@@ -623,3 +551,61 @@
   'y': 80
   wires:
     - - ad1a02bca9e6e97e
+- id: f9dc1f7a8155ebef
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: tab
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '#:(memoryOnly)::describe.pages.alert.tab'
+      tot: global
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 440
+  wires:
+    - - 6ab34b3b3d64905e
+- id: 09bd0767b56167b6
+  type: switch
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: ok
+  property: payload
+  propertyType: msg
+  rules:
+    - t: 'true'
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1530
+  'y': 500
+  wires:
+    - - f9dc1f7a8155ebef
+    - - f68e1a2d7f3e0c3d
+- id: f68e1a2d7f3e0c3d
+  type: change
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: notice
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: dictionary.common_notice_login_fail
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 500
+  wires:
+    - - 0cf63361a578f787
