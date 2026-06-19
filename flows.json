@@ -7246,7 +7246,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "hmi",
-        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':'',\n        'lang':'en',\n        'time':Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]',Date.now(),'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form',{},'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n    return [msg,null];\n} else {\n    return [null,msg];\n}",
+        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':'',\n        'lang':'en',\n        'time':Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]',Date.now(),'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form',{},'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n    return [msg,null];\n} else {\n    return [null,msg];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -29831,7 +29831,7 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "form",
-        "func": "let form = global.get('form','memoryOnly')||{};\nif (typeof form.plant === 'string') {\n    msg.class = '';\n    msg.payload = form.plant;\n    //tmp\n    flow.set('form[\"' + msg.hmi.id + '\"][\"plant\"]',form.plant,'memoryOnly');\n\n    node.send([null,msg,null,null]);\n\n    if (typeof form.line === 'string') {\n        msg.class = '';\n        msg.payload = form.line;\n        msg.limit_plant = form.plant;\n        //tmp\n        flow.set('form[\"' + msg.hmi.id + '\"][\"line\"]',form.line,'memoryOnly');\n\n        node.send([null, null, msg, null]);\n\n        if (typeof form.equipment === 'string') {\n            msg.class = '';\n            msg.payload = form.equipment;\n            msg.limit_line = form.line\n            //tmp\n            flow.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', form.equipment, 'memoryOnly');\n\n            node.send([null, null, null, msg]);\n        }\n    }\n} else {\n    return [msg,null,null,null];\n}\n",
+        "func": "let form = global.get('form','memoryOnly')||{};\nif (typeof form.plant === 'string') {\n    msg.class = '';\n    msg.payload = form.plant;\n\n    node.send([null,msg,null,null]);\n\n    if (typeof form.line === 'string') {\n        msg.class = '';\n        msg.payload = form.line;\n        msg.limit_plant = form.plant;\n\n        node.send([null, null, msg, null]);\n\n        if (typeof form.equipment === 'string') {\n            msg.class = '';\n            msg.payload = form.equipment;\n            msg.limit_line = form.line\n\n            node.send([null, null, null, msg]);\n        }\n    }\n} else {\n    return [msg,null,null,null];\n}\n",
         "outputs": 4,
         "timeout": 0,
         "noerr": 0,
@@ -29853,6 +29853,7 @@
             [
                 "dbe2dc99f3174070",
                 "47a6c2e7767362bb",
+                "d4dbb3c62db423dc",
                 "49d82cbcbd884e4d"
             ]
         ]

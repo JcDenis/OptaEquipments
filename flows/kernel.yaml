@@ -2873,7 +2873,7 @@
         delete msg.name;
     }
 
-    if (typeof msg._client.socketId === 'string') {
+    if (typeof msg._client?.socketId === 'string') {
         let browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]', 'memoryOnly');
         if (typeof browser_lang === 'string') {
             msg.hmi.lang = browser_lang;

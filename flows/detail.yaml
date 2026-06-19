@@ -7166,8 +7166,6 @@
     if (typeof form.plant === 'string') {
         msg.class = '';
         msg.payload = form.plant;
-        //tmp
-        flow.set('form["' + msg.hmi.id + '"]["plant"]',form.plant,'memoryOnly');
 
         node.send([null,msg,null,null]);
 
@@ -7175,8 +7173,6 @@
             msg.class = '';
             msg.payload = form.line;
             msg.limit_plant = form.plant;
-            //tmp
-            flow.set('form["' + msg.hmi.id + '"]["line"]',form.line,'memoryOnly');
 
             node.send([null, null, msg, null]);
 
@@ -7184,8 +7180,6 @@
                 msg.class = '';
                 msg.payload = form.equipment;
                 msg.limit_line = form.line
-                //tmp
-                flow.set('form["' + msg.hmi.id + '"]["equipment"]', form.equipment, 'memoryOnly');
 
                 node.send([null, null, null, msg]);
             }
@@ -7207,6 +7201,7 @@
     - - 0548edb6952cacb8
     - - dbe2dc99f3174070
       - 47a6c2e7767362bb
+      - d4dbb3c62db423dc
       - 49d82cbcbd884e4d
 - id: af884ff486bd27d4
   type: function
