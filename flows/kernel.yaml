@@ -80,7 +80,6 @@
     - 216f821485a9eb19
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
-    - 3f0ca1ed34082a39
     - 3f2a62a5b55ed060
     - 4454c8408a7c43de
   x: 68
@@ -3892,18 +3891,17 @@
                     msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]','memoryOnly')||'';
 
                     /* historic */
-    /*
                     if (current !== msg.kernel.value) {
+                        let sec = Math.round(Date.now() / 1000); // limit to one message per entity per second
                         let hcomponent = msg.kernel.component;
                         if (hcomponent.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null) {
                             hcomponent = 'heatswitch';
                         }
                         if (hcomponent.match((new RegExp('^(run|heat|heatswicth)$'))) !== null) {
-                            global.set('historic["' + Date.now() + '"]', msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value, 'memoryOnly');
-                            node.status({'text':msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});
+                            global.set('historic["' + msg.kernel.equipment + '|' + hcomponent + '"]["' + sec + '"]', msg.kernel.value, 'memoryOnly');
+                            node.status({ 'text':sec.toString() + ' : ' + msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});
                         }
                     }
-    //*/
                 }
             }
 
@@ -5036,15 +5034,6 @@
   x: 2195
   'y': 740
   wires: []
-- id: 3f0ca1ed34082a39
-  type: comment
-  z: f6f2187d.f17ca8
-  g: f9da6ea6fa5cc954
-  name: 'todo: historic d''evenement sur heat,run'
-  info: ''
-  x: 690
-  'y': 140
-  wires: []
 - id: 3f2a62a5b55ed060
   type: comment
   z: f6f2187d.f17ca8
@@ -5072,12 +5061,20 @@
   name: Clean old historics
   func: |-
     let i = 0;
+    let limit = Math.round((Date.now() / 1000) - (24 * 60 * 60)); // 24h
     let historics = global.get('historic','memoryOnly')||{};
-    let limit = Date.now() - (24 * 60 * 60 * 1000); // 24h
-    for (const historic in historics) {
-        if (Number(historic) < limit) {
-            global.set('historic["' + historic + '"]',undefined,'memoryOnly');
-            i++
+    for (const entity in historics) {
+        let tsplit = historics[entity];
+        for (const ts in tsplit) {
+            if (Number(ts) < limit) {
+                // Delete old timestamp
+                global.set('historic["' + entity + '"]["ts"]',undefined,'memoryOnly');
+                i++
+            }
+        }
+        if (global.get('historic["' + entity + '"]','memoryOnly').length === 0) {
+            // Delete entity
+            global.set('historic["' + entity + '"]',undefined,'memoryOnly');
         }
     }
 

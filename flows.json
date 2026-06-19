@@ -1101,8 +1101,6 @@
             "1e242d16cf9d3a58",
             "b42047a933d30eb6",
             "0bb2abc8ca199d89",
-            "e34e804ee07e7ff5",
-            "efc49fb24f8380c7",
             "b390bbd952b85b9d",
             "d912c9e1e3e6fa15",
             "5a16afcbf5a4a9b2",
@@ -1136,7 +1134,8 @@
             "020683f769d75bef",
             "847f3850106ae6a0",
             "94fe6a75da9bf8db",
-            "0c454a1464b359ae"
+            "0059a67bfaa04737",
+            "83973e4568ca8edb"
         ],
         "x": 104,
         "y": 879,
@@ -1226,11 +1225,6 @@
             "57c986150b85f319",
             "cf0e7cd7a6642bbd",
             "436a9466d70f31e6",
-            "f4e542b1d73d54f9",
-            "df7b9b28adb41618",
-            "36b06554537f7f0f",
-            "330917bae33c4347",
-            "7ab3e9531f451298",
             "eb739ce60a549f6f",
             "b4d41c97cb54b26d",
             "1b6212ab5913cfaf",
@@ -1257,13 +1251,18 @@
             "b2f087bc0523250a",
             "b9709921d9a7079d",
             "1be3ecd73d535185",
-            "861c14ad61f973b4",
             "08c818da1f189192",
             "4a1bfe977cdf0685",
             "c36afeafb62be502",
             "aa716f8c228ac777",
             "1cefdfd5e167de3c",
-            "81192355e8288238"
+            "81192355e8288238",
+            "861c14ad61f973b4",
+            "df7b9b28adb41618",
+            "36b06554537f7f0f",
+            "7ab3e9531f451298",
+            "f4e542b1d73d54f9",
+            "330917bae33c4347"
         ],
         "x": 104,
         "y": 3279,
@@ -2791,7 +2790,6 @@
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
             "11d028449aaa105b",
-            "3f0ca1ed34082a39",
             "3f2a62a5b55ed060",
             "4454c8408a7c43de"
         ],
@@ -3602,15 +3600,15 @@
             "d0a6734c4eea4f65",
             "a0d0a2572cc36906",
             "8076a4baf7ecf373",
-            "974faf1c714423c3",
             "e159559235411f98",
             "4524d8730088d77f",
             "6785c151971670d7",
-            "7eb713a682ac2d81"
+            "7eb713a682ac2d81",
+            "f1991994de0eb2e9"
         ],
         "x": 104,
         "y": 4479,
-        "w": 1282,
+        "w": 1342,
         "h": 202
     },
     {
@@ -7942,7 +7940,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "parse loop",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet ctx = (context.get('count','memoryOnly')||0)+1;\ncontext.set('count',ctx,'memoryOnly');\nnode.status({'text':ctx});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'memoryOnly');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'memoryOnly');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n\n                /* historic */\n/*\n                if (current !== msg.kernel.value) {\n                    let hcomponent = msg.kernel.component;\n                    if (hcomponent.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null) {\n                        hcomponent = 'heatswitch';\n                    }\n                    if (hcomponent.match((new RegExp('^(run|heat|heatswicth)$'))) !== null) {\n                        global.set('historic[\"' + Date.now() + '\"]', msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value, 'memoryOnly');\n                        node.status({'text':msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});\n                    }\n                }\n//*/\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet ctx = (context.get('count','memoryOnly')||0)+1;\ncontext.set('count',ctx,'memoryOnly');\nnode.status({'text':ctx});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'memoryOnly');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'memoryOnly');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n\n                /* historic */\n                if (current !== msg.kernel.value) {\n                    let sec = Math.round(Date.now() / 1000); // limit to one message per entity per second\n                    let hcomponent = msg.kernel.component;\n                    if (hcomponent.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null) {\n                        hcomponent = 'heatswitch';\n                    }\n                    if (hcomponent.match((new RegExp('^(run|heat|heatswicth)$'))) !== null) {\n                        global.set('historic[\"' + msg.kernel.equipment + '|' + hcomponent + '\"][\"' + sec + '\"]', msg.kernel.value, 'memoryOnly');\n                        node.status({ 'text':sec.toString() + ' : ' + msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});\n                    }\n                }\n            }\n        }\n\n        let newMsg = {\n            'topic':'',\n            'payload':'',\n            'kernel':msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -8629,17 +8627,6 @@
         "wires": []
     },
     {
-        "id": "3f0ca1ed34082a39",
-        "type": "comment",
-        "z": "f6f2187d.f17ca8",
-        "g": "f9da6ea6fa5cc954",
-        "name": "todo: historic d'evenement sur heat,run",
-        "info": "",
-        "x": 690,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "3f2a62a5b55ed060",
         "type": "comment",
         "z": "f6f2187d.f17ca8",
@@ -8673,7 +8660,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4454c8408a7c43de",
         "name": "Clean old historics",
-        "func": "let i = 0;\nlet historics = global.get('historic','memoryOnly')||{};\nlet limit = Date.now() - (24 * 60 * 60 * 1000); // 24h\nfor (const historic in historics) {\n    if (Number(historic) < limit) {\n        global.set('historic[\"' + historic + '\"]',undefined,'memoryOnly');\n        i++\n    }\n}\n\nnode.status({'text':i});\n\nreturn;",
+        "func": "let i = 0;\nlet limit = Math.round((Date.now() / 1000) - (24 * 60 * 60)); // 24h\nlet historics = global.get('historic','memoryOnly')||{};\nfor (const entity in historics) {\n    let tsplit = historics[entity];\n    for (const ts in tsplit) {\n        if (Number(ts) < limit) {\n            // Delete old timestamp\n            global.set('historic[\"' + entity + '\"][\"ts\"]',undefined,'memoryOnly');\n            i++\n        }\n    }\n    if (global.get('historic[\"' + entity + '\"]','memoryOnly').length === 0) {\n        // Delete entity\n        global.set('historic[\"' + entity + '\"]',undefined,'memoryOnly');\n    }\n}\n\nnode.status({'text':i});\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17102,7 +17089,7 @@
         "wires": [
             [
                 "5286ca49788e7a4f",
-                "9051b334f33e9c0b"
+                "83e2c0eb499a9ef4"
             ]
         ]
     },
@@ -17455,12 +17442,10 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 530,
+        "x": 850,
         "y": 140,
         "wires": [
-            [
-                "83e2c0eb499a9ef4"
-            ]
+            []
         ]
     },
     {
@@ -25924,7 +25909,7 @@
         "y": 1580,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -25950,7 +25935,7 @@
         "y": 1160,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -25976,7 +25961,7 @@
         "y": 1280,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26002,7 +25987,7 @@
         "y": 1400,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26028,7 +26013,7 @@
         "y": 1700,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26054,7 +26039,7 @@
         "y": 2000,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26080,7 +26065,7 @@
         "y": 2360,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26106,7 +26091,7 @@
         "y": 2120,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26132,7 +26117,7 @@
         "y": 2240,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26158,7 +26143,7 @@
         "y": 1820,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -26400,32 +26385,6 @@
         ]
     },
     {
-        "id": "e34e804ee07e7ff5",
-        "type": "switch",
-        "z": "852390cb9559e176",
-        "g": "d04f02d6e1c02839",
-        "name": "client",
-        "property": "#:(memoryOnly)::form",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "hmi.id",
-                "vt": "msg"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 1250,
-        "y": 1220,
-        "wires": [
-            [
-                "0c454a1464b359ae"
-            ]
-        ]
-    },
-    {
         "id": "d69b9bc9c1062980",
         "type": "switch",
         "z": "852390cb9559e176",
@@ -26544,138 +26503,6 @@
         "wires": [
             [
                 "0d8f27717a354010"
-            ]
-        ]
-    },
-    {
-        "id": "f4e542b1d73d54f9",
-        "type": "switch",
-        "z": "852390cb9559e176",
-        "g": "1c87eaf6a557f02d",
-        "name": "id",
-        "property": "#:(memoryOnly)::form",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "hask",
-                "v": "hmi.id",
-                "vt": "msg"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 810,
-        "y": 3500,
-        "wires": [
-            [
-                "330917bae33c4347"
-            ]
-        ]
-    },
-    {
-        "id": "df7b9b28adb41618",
-        "type": "trigger",
-        "z": "852390cb9559e176",
-        "g": "1c87eaf6a557f02d",
-        "name": "refresh 1m",
-        "op1": "",
-        "op2": "0",
-        "op1type": "nul",
-        "op2type": "str",
-        "duration": "1",
-        "extend": false,
-        "overrideDelay": false,
-        "units": "min",
-        "reset": "",
-        "bytopic": "topic",
-        "topic": "hmi.id",
-        "outputs": 1,
-        "x": 630,
-        "y": 3500,
-        "wires": [
-            [
-                "f4e542b1d73d54f9"
-            ]
-        ]
-    },
-    {
-        "id": "36b06554537f7f0f",
-        "type": "change",
-        "z": "852390cb9559e176",
-        "g": "1c87eaf6a557f02d",
-        "name": "reset",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 450,
-        "y": 3500,
-        "wires": [
-            [
-                "df7b9b28adb41618"
-            ]
-        ]
-    },
-    {
-        "id": "efc49fb24f8380c7",
-        "type": "switch",
-        "z": "852390cb9559e176",
-        "g": "d04f02d6e1c02839",
-        "name": "equipment",
-        "property": "kernel.equipment",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "form_equipment",
-                "vt": "msg"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 1590,
-        "y": 1220,
-        "wires": [
-            [
-                "14123420775a7b64"
-            ]
-        ]
-    },
-    {
-        "id": "330917bae33c4347",
-        "type": "switch",
-        "z": "852390cb9559e176",
-        "g": "1c87eaf6a557f02d",
-        "name": "equipment",
-        "property": "kernel.equipment",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "form_equipment",
-                "vt": "msg"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 990,
-        "y": 3500,
-        "wires": [
-            [
-                "7d95ec8466c90bee"
             ]
         ]
     },
@@ -26940,32 +26767,6 @@
         "wires": [
             [
                 "5d8b8edef6560b3a"
-            ]
-        ]
-    },
-    {
-        "id": "7ab3e9531f451298",
-        "type": "switch",
-        "z": "852390cb9559e176",
-        "g": "1c87eaf6a557f02d",
-        "name": "id",
-        "property": "hmi.id",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 290,
-        "y": 3500,
-        "wires": [
-            [
-                "36b06554537f7f0f"
             ]
         ]
     },
@@ -28171,7 +27972,7 @@
         "y": 2600,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -28272,7 +28073,7 @@
         "y": 2720,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -28373,7 +28174,7 @@
         "y": 2840,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -28474,7 +28275,7 @@
         "y": 2960,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -28575,7 +28376,7 @@
         "y": 3080,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -28633,7 +28434,7 @@
         "y": 3200,
         "wires": [
             [
-                "e34e804ee07e7ff5"
+                "0059a67bfaa04737"
             ]
         ]
     },
@@ -29133,25 +28934,6 @@
         "wires": [
             [
                 "0bb2abc8ca199d89"
-            ]
-        ]
-    },
-    {
-        "id": "861c14ad61f973b4",
-        "type": "link call",
-        "z": "852390cb9559e176",
-        "g": "1c87eaf6a557f02d",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 2710,
-        "y": 3500,
-        "wires": [
-            [
-                "876dfdf9ba6020e6"
             ]
         ]
     },
@@ -29681,7 +29463,7 @@
         "z": "852390cb9559e176",
         "g": "fe21b6421a9020d4",
         "name": "tab &  level",
-        "func": "let check = 'detail';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]', 'memoryOnly')\n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    return [msg, null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form', undefined, 'memoryOnly');\n    flow.set('alerts', undefined, 'memoryOnly');\n    flow.set('hours', undefined, 'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    flow.set('alerts[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    flow.set('hours[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null, msg];",
+        "func": "let check = 'detail';\n\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.topic = '';\nmsg.payload = '';\n\nif (msg.hmi.tab === global.get('describe.pages[\"' + check + '\"][\"tab\"]', 'memoryOnly')\n    && typeof global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    \n    flow.set('form[\"' + msg.hmi.id + '\"][\"ts\"]', Date.now(), 'memoryOnly');\n\n    return [msg, null];\n}\n\nif (msg.hmi.tab === 99) {\n    flow.set('form', undefined, 'memoryOnly');\n    flow.set('alerts', undefined, 'memoryOnly');\n    flow.set('hours', undefined, 'memoryOnly');\n} else {\n    flow.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    flow.set('alerts[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    flow.set('hours[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n}\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -30089,41 +29871,6 @@
         ]
     },
     {
-        "id": "0c454a1464b359ae",
-        "type": "change",
-        "z": "852390cb9559e176",
-        "g": "d04f02d6e1c02839",
-        "name": "value",
-        "rules": [
-            {
-                "t": "set",
-                "p": "kernel.value",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.state[msg.kernel.entity]",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "form_equipment",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]['equipment']",
-                "tot": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1410,
-        "y": 1220,
-        "wires": [
-            [
-                "efc49fb24f8380c7"
-            ]
-        ]
-    },
-    {
         "id": "5df0b5068e080478",
         "type": "change",
         "z": "852390cb9559e176",
@@ -30225,7 +29972,7 @@
         "z": "852390cb9559e176",
         "g": "de8127dbf035df93",
         "name": "hitorics",
-        "func": "if (msg.enabled === false) {\n    return [msg,null];\n} else {\n    msg.payload = [];\n\n    let equipment = flow.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]', 'memoryOnly');\n    let plant = flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly');\n\n    let i = 0;\n    let historics = global.get('historic','memoryOnly')||{};\n    for (const historic in historics) {\n        let hsplit = historics[historic].split('|');\n\n        if (hsplit[0] === equipment) {\n            let row = {};\n            row.date = historic;\n            row.equipment = hsplit[0];\n            row.component = hsplit[1];\n            row.component_name = msg.dictionary['option_component'][row.component];\n            row.value = hsplit[2];\n            row.value_name = Number(row.value) > 0 ? 'on' : 'off';\n            row.value_color = Number(row.value) > 0 ? 'green' : 'red';\n\n            msg.payload[i++] = row;\n        }\n    }\n\n    if (i > 0) {\n        node.status({'text':i});\n        msg.outTz = global.get('kernel.tz[\"' + plant + '\"]', 'memoryOnly')||'Europe/Paris';\n\n        return [null,msg];\n    }\n}\n\nreturn;",
+        "func": "if (msg.enabled === false) {\n    return [msg,null];\n} else {\n    msg.payload = [];\n\n    let equipment = flow.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]', 'memoryOnly');\n    let plant = flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly');\n\n    let i = 0;\n    let historics = global.get('historic','memoryOnly')||{};\n    for (const entity in historics) {\n        let esplit = entity.split('|');\n        if (esplit[0] === equipment) {\n            let tsplit = historics[entity];\n            for (const ts in tsplit) {\n                let row = {};\n                row.ts = ts;\n                row.date = ts;\n                row.equipment = esplit[0];\n                row.component = esplit[1];\n                row.component_name = msg.dictionary['option_component'][row.component];\n                row.value = tsplit[ts];\n                row.value_name = Number(row.value) > 0 ? 'on' : 'off';\n                row.value_color = Number(row.value) > 0 ? 'green' : 'red';\n\n                msg.payload[i++] = row;\n            }\n        }\n    }\n\n    if (i > 0) {\n        node.status({'text':i});\n        msg.outTz = global.get('kernel.tz[\"' + plant + '\"]', 'memoryOnly')||'Europe/Paris';\n\n        return [null,msg];\n    }\n}\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -30239,8 +29986,7 @@
                 "7eb713a682ac2d81"
             ],
             [
-                "1519c14ed534e9c5",
-                "974faf1c714423c3"
+                "1519c14ed534e9c5"
             ]
         ]
     },
@@ -30287,11 +30033,11 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 870,
+        "x": 770,
         "y": 4580,
         "wires": [
             [
-                "4524d8730088d77f"
+                "f1991994de0eb2e9"
             ]
         ]
     },
@@ -30300,7 +30046,7 @@
         "type": "moment",
         "z": "852390cb9559e176",
         "g": "de8127dbf035df93",
-        "name": "",
+        "name": "date",
         "topic": "",
         "input": "payload.date",
         "inputType": "msg",
@@ -30308,12 +30054,12 @@
         "adjAmount": 0,
         "adjType": "days",
         "adjDir": "add",
-        "format": "LLL",
+        "format": "DD - HH:mm:ss",
         "locale": "en-US",
         "output": "payload.date",
         "outputType": "msg",
         "outTz": "Europe/Paris",
-        "x": 660,
+        "x": 610,
         "y": 4580,
         "wires": [
             [
@@ -30340,27 +30086,27 @@
         "selectionType": "click",
         "columns": [
             {
-                "title": "Etat",
-                "key": "value_color",
-                "keyType": "key",
-                "type": "color",
-                "width": "",
-                "align": "start"
-            },
-            {
                 "title": "Date",
                 "key": "date",
                 "keyType": "key",
                 "type": "text",
-                "width": "",
+                "width": "15%",
                 "align": "start"
+            },
+            {
+                "title": "Etat",
+                "key": "value_color",
+                "keyType": "key",
+                "type": "color",
+                "width": "5%",
+                "align": "center"
             },
             {
                 "title": "Composant",
                 "key": "component_name",
                 "keyType": "key",
                 "type": "text",
-                "width": "",
+                "width": "70%",
                 "align": "start"
             },
             {
@@ -30368,7 +30114,7 @@
                 "key": "value_name",
                 "keyType": "key",
                 "type": "text",
-                "width": "",
+                "width": "10%",
                 "align": "start"
             }
         ],
@@ -30376,29 +30122,11 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1250,
+        "x": 1310,
         "y": 4580,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "974faf1c714423c3",
-        "type": "debug",
-        "z": "852390cb9559e176",
-        "g": "de8127dbf035df93",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 460,
-        "y": 4640,
-        "wires": []
     },
     {
         "id": "e159559235411f98",
@@ -30421,7 +30149,7 @@
         "className": "ui-title",
         "value": "Historique",
         "valueType": "str",
-        "x": 1240,
+        "x": 1300,
         "y": 4520,
         "wires": []
     },
@@ -30446,7 +30174,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1030,
+        "x": 1090,
         "y": 4580,
         "wires": [
             [
@@ -30514,7 +30242,7 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1250,
+        "x": 1310,
         "y": 4640,
         "wires": [
             []
@@ -30540,7 +30268,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1030,
+        "x": 1090,
         "y": 4520,
         "wires": [
             [
@@ -30559,6 +30287,277 @@
         "x": 1080,
         "y": 140,
         "wires": []
+    },
+    {
+        "id": "f1991994de0eb2e9",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "de8127dbf035df93",
+        "name": "sort",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$sort(msg.payload, function($l, $r) {\t  $l.ts < $r.ts\t})",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 4580,
+        "wires": [
+            [
+                "4524d8730088d77f"
+            ]
+        ]
+    },
+    {
+        "id": "cf89cff675d9f3b8",
+        "type": "link in",
+        "z": "852390cb9559e176",
+        "name": "detail - online",
+        "links": [],
+        "x": 1385,
+        "y": 100,
+        "wires": [
+            [
+                "e7058d169c474169"
+            ]
+        ]
+    },
+    {
+        "id": "f237fd645ea72f9e",
+        "type": "link out",
+        "z": "852390cb9559e176",
+        "name": "detail - online",
+        "mode": "return",
+        "links": [],
+        "x": 1635,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e7058d169c474169",
+        "type": "function",
+        "z": "852390cb9559e176",
+        "name": "online",
+        "func": "let form = flow.get('form','memoryOnly')||{};\nif (typeof form[msg.hmi.id]['equipment'] === 'string' && form[msg.hmi.id]['equipment'] === msg.kernel.equipment) {\n    \n} else {\n    msg.kernel = {};\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 100,
+        "wires": [
+            [
+                "f237fd645ea72f9e"
+            ]
+        ]
+    },
+    {
+        "id": "0059a67bfaa04737",
+        "type": "link call",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "",
+        "links": [
+            "cf89cff675d9f3b8"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1270,
+        "y": 1160,
+        "wires": [
+            [
+                "83973e4568ca8edb"
+            ]
+        ]
+    },
+    {
+        "id": "83973e4568ca8edb",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "d04f02d6e1c02839",
+        "name": "value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kernel.value",
+                "pt": "msg",
+                "to": "#:(memoryOnly)::kernel.state[msg.kernel.entity]",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1450,
+        "y": 1160,
+        "wires": [
+            [
+                "14123420775a7b64"
+            ]
+        ]
+    },
+    {
+        "id": "861c14ad61f973b4",
+        "type": "link call",
+        "z": "852390cb9559e176",
+        "g": "1c87eaf6a557f02d",
+        "name": "",
+        "links": [
+            "56e6a7b9b0e66451"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 2710,
+        "y": 3500,
+        "wires": [
+            [
+                "876dfdf9ba6020e6"
+            ]
+        ]
+    },
+    {
+        "id": "df7b9b28adb41618",
+        "type": "trigger",
+        "z": "852390cb9559e176",
+        "g": "1c87eaf6a557f02d",
+        "name": "refresh 1m",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "1",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "topic",
+        "topic": "hmi.id",
+        "outputs": 1,
+        "x": 630,
+        "y": 3500,
+        "wires": [
+            [
+                "f4e542b1d73d54f9"
+            ]
+        ]
+    },
+    {
+        "id": "36b06554537f7f0f",
+        "type": "change",
+        "z": "852390cb9559e176",
+        "g": "1c87eaf6a557f02d",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 3500,
+        "wires": [
+            [
+                "df7b9b28adb41618"
+            ]
+        ]
+    },
+    {
+        "id": "7ab3e9531f451298",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "1c87eaf6a557f02d",
+        "name": "id",
+        "property": "hmi.id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 290,
+        "y": 3500,
+        "wires": [
+            [
+                "36b06554537f7f0f"
+            ]
+        ]
+    },
+    {
+        "id": "f4e542b1d73d54f9",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "1c87eaf6a557f02d",
+        "name": "id",
+        "property": "#:(memoryOnly)::form",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "hmi.id",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 810,
+        "y": 3500,
+        "wires": [
+            [
+                "330917bae33c4347"
+            ]
+        ]
+    },
+    {
+        "id": "330917bae33c4347",
+        "type": "switch",
+        "z": "852390cb9559e176",
+        "g": "1c87eaf6a557f02d",
+        "name": "equipment",
+        "property": "kernel.equipment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "form_equipment",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 990,
+        "y": 3500,
+        "wires": [
+            [
+                "7d95ec8466c90bee"
+            ]
+        ]
     },
     {
         "id": "28b85f45e33eef42",
@@ -30993,7 +30992,7 @@
         "order": 12,
         "width": 0,
         "height": 0,
-        "maxrows": "",
+        "maxrows": "50",
         "passthru": false,
         "autocols": false,
         "showSearch": true,
@@ -31866,7 +31865,7 @@
         "order": 13,
         "width": 0,
         "height": 0,
-        "maxrows": "",
+        "maxrows": "50",
         "passthru": false,
         "autocols": false,
         "showSearch": true,
