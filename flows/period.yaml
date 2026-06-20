@@ -17,10 +17,9 @@
     - 11a3e525f770e3aa
     - 3a19e0ec83e6803a
     - 7d1cbc3cd4edd0f3
-    - 5af5ace6c51eee1a
   x: 104
   'y': 39
-  w: 642
+  w: 482
   h: 142
 - id: 744a665a3304c311
   type: group
@@ -32,13 +31,9 @@
     label: true
   nodes:
     - b53331a4b55c76c9
-    - c4b06dfab80353d9
     - 1a89c3efb2d6e620
     - df38ede5c62b33f7
-    - 81297d1316931a40
     - aa38cd965e866cc2
-    - c63b884766e5aa12
-    - 521ce922774ffc87
     - a79527edfa815621
     - ee588a552ba9d8c0
     - 875dda3836ede644
@@ -77,7 +72,6 @@
     - 59e29cb1f9b1e974
     - 7e23c5af091ec09a
     - 4a798d15562c1309
-    - 2ca60dbfa550c1f5
     - 94b88ea9c404a001
     - 0cbca936c25fa514
     - a56fb1258f090a3e
@@ -92,9 +86,12 @@
     - 00645952425ccbc5
     - 1b15c8f4cfa6885a
     - a292cf30fb647936
+    - 2bae655127ea8edc
+    - 4c4bb5da4693075d
+    - bd492fc337963491
   x: 104
-  'y': 279
-  w: 6642
+  'y': 219
+  w: 6362
   h: 382
 - id: d55041fdf28a3f36
   type: link in
@@ -116,57 +113,21 @@
   mode: link
   links:
     - 875dda3836ede644
-  x: 595
+  x: 435
   'y': 140
   wires: []
-- id: c4b06dfab80353d9
-  type: switch
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: enabled
-  property: enabled
-  propertyType: msg
-  rules:
-    - t: 'true'
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 280
-  'y': 440
-  wires:
-    - - 81297d1316931a40
 - id: 1a89c3efb2d6e620
   type: change
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: list
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 810
+  x: 490
   'y': 320
   wires:
     - - ee588a552ba9d8c0
@@ -180,28 +141,10 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 630
-  'y': 380
-  wires:
-    - - 2ca60dbfa550c1f5
-- id: 81297d1316931a40
-  type: switch
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: plant
-  property: hmi.plant
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 450
+  x: 470
   'y': 440
   wires:
-    - - 521ce922774ffc87
-    - - df38ede5c62b33f7
+    - - b845b219f76071e5
 - id: aa38cd965e866cc2
   type: switch
   z: 51c4b2897d2c318c
@@ -216,64 +159,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1170
-  'y': 380
-  wires:
-    - - a56fb1258f090a3e
-- id: c63b884766e5aa12
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]list'
-      pt: flow
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1530
-  'y': 380
-  wires:
-    - - ee588a552ba9d8c0
-      - a79527edfa815621
-      - 39cf9bc6de140b04
-- id: 521ce922774ffc87
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
-      to: hmi.plant
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]list'
-      pt: flow
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1530
+  x: 850
   'y': 440
   wires:
-    - - ee588a552ba9d8c0
-      - a79527edfa815621
-      - 39cf9bc6de140b04
+    - - a56fb1258f090a3e
 - id: a79527edfa815621
   type: change
   z: 51c4b2897d2c318c
@@ -313,8 +202,8 @@
     - t: set
       p: row.plant
       pt: msg
-      to: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      tot: flow
+      to: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
+      tot: global
     - t: set
       p: periods
       pt: msg
@@ -325,23 +214,23 @@
   from: ''
   to: ''
   reg: false
-  x: 1690
-  'y': 560
+  x: 1410
+  'y': 500
   wires:
     - - 6b9154da8c335b4b
 - id: ee588a552ba9d8c0
   type: change
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
-  name: hide
+  name: '-'
   rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1690
-  'y': 320
+  x: 1410
+  'y': 260
   wires:
     - - d9fa5487f4e11c69
 - id: 875dda3836ede644
@@ -352,10 +241,9 @@
   links:
     - 11a3e525f770e3aa
   x: 145
-  'y': 320
+  'y': 380
   wires:
-    - - c4b06dfab80353d9
-      - 1a89c3efb2d6e620
+    - - 2bae655127ea8edc
 - id: b845b219f76071e5
   type: ui-dropdown
   z: 51c4b2897d2c318c
@@ -378,8 +266,8 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 990
-  'y': 380
+  x: 670
+  'y': 440
   wires:
     - - aa38cd965e866cc2
 - id: 6b9154da8c335b4b
@@ -394,8 +282,8 @@
   stream: false
   addname: row.line
   property: payload
-  x: 1850
-  'y': 560
+  x: 1570
+  'y': 500
   wires:
     - - 399f9494071610aa
 - id: 399f9494071610aa
@@ -407,14 +295,14 @@
   propertyType: msg
   rules:
     - t: eq
-      v: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      vt: flow
+      v: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
+      vt: global
     - t: else
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2010
-  'y': 560
+  x: 1730
+  'y': 500
   wires:
     - - 8c82a163c29df399
     - - 6f99117a24c9ad10
@@ -430,8 +318,8 @@
   stream: false
   addname: period
   property: periods
-  x: 4050
-  'y': 440
+  x: 3770
+  'y': 380
   wires:
     - - 5d4fd9980dcfe73e
 - id: 5d4fd9980dcfe73e
@@ -450,8 +338,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 4210
-  'y': 440
+  x: 3930
+  'y': 380
   wires:
     - - ac80bdde6b0b7a37
     - - 53933d9adea4a49c
@@ -471,8 +359,8 @@
   from: ''
   to: ''
   reg: false
-  x: 4370
-  'y': 380
+  x: 4090
+  'y': 320
   wires:
     - - 16e6693ad749df9c
 - id: 53933d9adea4a49c
@@ -491,8 +379,8 @@
   from: ''
   to: ''
   reg: false
-  x: 4370
-  'y': 440
+  x: 4090
+  'y': 380
   wires:
     - - 16e6693ad749df9c
 - id: d278130b9aff440e
@@ -556,8 +444,8 @@
   from: ''
   to: ''
   reg: false
-  x: 4690
-  'y': 440
+  x: 4410
+  'y': 380
   wires:
     - - 9a9eb0301d521ea3
 - id: 16e6693ad749df9c
@@ -581,8 +469,8 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 4530
-  'y': 440
+  x: 4250
+  'y': 380
   wires:
     - - d278130b9aff440e
 - id: 6f99117a24c9ad10
@@ -606,8 +494,8 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 5010
-  'y': 560
+  x: 4730
+  'y': 500
   wires:
     - - dd3f3bcc268e9c9d
 - id: 9a9eb0301d521ea3
@@ -631,8 +519,8 @@
   from: ''
   to: ''
   reg: false
-  x: 4850
-  'y': 500
+  x: 4570
+  'y': 440
   wires:
     - - 6f99117a24c9ad10
 - id: dd3f3bcc268e9c9d
@@ -672,8 +560,8 @@
   from: ''
   to: ''
   reg: false
-  x: 5170
-  'y': 560
+  x: 4890
+  'y': 500
   wires:
     - - 94b88ea9c404a001
 - id: 4c2159ea37aa1ec2
@@ -689,8 +577,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 6630
-  'y': 380
+  x: 6350
+  'y': 320
   wires: []
 - id: 1707b1c91272347d
   type: switch
@@ -707,8 +595,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3890
-  'y': 460
+  x: 3610
+  'y': 400
   wires:
     - - 72a03b4248d07a3e
     - - 9a9eb0301d521ea3
@@ -779,8 +667,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3730
-  'y': 460
+  x: 3450
+  'y': 400
   wires:
     - - 1707b1c91272347d
 - id: d0bfea36099bd97c
@@ -846,8 +734,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 5520
-  'y': 380
+  x: 5240
+  'y': 320
   wires:
     - - 482622d47dd8f977
 - id: b53331a4b55c76c9
@@ -867,8 +755,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 5930
-  'y': 380
+  x: 5650
+  'y': 320
   wires:
     - - d8aae885b384c2cd
     - - 7e23c5af091ec09a
@@ -885,8 +773,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 6270
-  'y': 440
+  x: 5990
+  'y': 380
   wires:
     - - 1b15c8f4cfa6885a
       - a292cf30fb647936
@@ -899,8 +787,8 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 6575
-  'y': 440
+  x: 6295
+  'y': 380
   wires: []
 - id: 21c5bb46d1224264
   type: delay
@@ -919,8 +807,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1530
-  'y': 560
+  x: 1250
+  'y': 320
   wires:
     - - a79527edfa815621
 - id: 6177c4a63b07bc25
@@ -939,8 +827,8 @@
   from: ''
   to: ''
   reg: false
-  x: 6430
-  'y': 500
+  x: 6150
+  'y': 440
   wires:
     - - 3af957dd224c384a
 - id: 3af957dd224c384a
@@ -951,8 +839,8 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 6555
-  'y': 500
+  x: 6275
+  'y': 440
   wires: []
 - id: d8aae885b384c2cd
   type: switch
@@ -969,8 +857,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 6100
-  'y': 380
+  x: 5820
+  'y': 320
   wires:
     - - a4878f43cf89edf9
     - - ab05b935776a1406
@@ -987,8 +875,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 6270
-  'y': 380
+  x: 5990
+  'y': 320
   wires:
     - - 00645952425ccbc5
       - a292cf30fb647936
@@ -1000,8 +888,8 @@
   name: ui - period - list - internal
   links:
     - a292cf30fb647936
-  x: 1405
-  'y': 560
+  x: 1125
+  'y': 320
   wires:
     - - 21c5bb46d1224264
 - id: 8c82a163c29df399
@@ -1030,8 +918,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2170
-  'y': 500
+  x: 1890
+  'y': 440
   wires:
     - - d456c83c98b51692
 - id: d456c83c98b51692
@@ -1046,8 +934,8 @@
   stream: false
   addname: tmp.entity
   property: payload
-  x: 2330
-  'y': 500
+  x: 2050
+  'y': 440
   wires:
     - - 0e6084d247f0c406
 - id: 0e6084d247f0c406
@@ -1079,8 +967,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2490
-  'y': 500
+  x: 2210
+  'y': 440
   wires:
     - - 512608c5453df937
 - id: 512608c5453df937
@@ -1098,8 +986,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2670
-  'y': 500
+  x: 2390
+  'y': 440
   wires:
     - - d0ed938f0fb3299b
     - - a3e39a49f1de0312
@@ -1119,8 +1007,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 2870
-  'y': 460
+  x: 2590
+  'y': 400
   wires:
     - - 4d2e72818a63a158
     - - a3e39a49f1de0312
@@ -1140,8 +1028,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3050
-  'y': 440
+  x: 2770
+  'y': 380
   wires:
     - - a3e39a49f1de0312
 - id: a3e39a49f1de0312
@@ -1165,8 +1053,8 @@
   reduceInit: ''
   reduceInitType: ''
   reduceFixup: ''
-  x: 3210
-  'y': 500
+  x: 2930
+  'y': 440
   wires:
     - - 59e29cb1f9b1e974
 - id: 50731c6b0d0284ae
@@ -1182,8 +1070,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 3550
-  'y': 500
+  x: 3270
+  'y': 440
   wires:
     - - 437619b73a4d45e6
     - - 6f99117a24c9ad10
@@ -1206,8 +1094,8 @@
   from: ''
   to: ''
   reg: false
-  x: 3370
-  'y': 500
+  x: 3090
+  'y': 440
   wires:
     - - 50731c6b0d0284ae
 - id: 7e23c5af091ec09a
@@ -1217,10 +1105,20 @@
   name: tab
   rules:
     - t: set
-      p: form
-      pt: msg
-      to: payload
+      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
+      pt: global
+      to: payload.plant
       tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg.hmi.id][''line'']'
+      pt: global
+      to: payload.line
+      tot: msg
+    - t: set
+      p: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
+      pt: global
+      to: ''
+      tot: str
     - t: delete
       p: action
       pt: msg
@@ -1244,8 +1142,8 @@
   from: ''
   to: ''
   reg: false
-  x: 6110
-  'y': 540
+  x: 5830
+  'y': 480
   wires:
     - - 4a798d15562c1309
 - id: 4a798d15562c1309
@@ -1256,9 +1154,8 @@
   mode: link
   links:
     - 00818f8c0686b556
-    - 2045a5696769c038
-  x: 6235
-  'y': 540
+  x: 5955
+  'y': 480
   wires: []
 - id: 3a19e0ec83e6803a
   type: ui-text
@@ -1280,29 +1177,9 @@
   className: ui-title
   value: dictionary.option_page.period
   valueType: msg
-  x: 650
+  x: 490
   'y': 80
   wires: []
-- id: 2ca60dbfa550c1f5
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: label
-  rules:
-    - t: set
-      p: ui_update.label
-      pt: msg
-      to: dictionary.common_select_plant
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 810
-  'y': 380
-  wires:
-    - - b845b219f76071e5
 - id: 94b88ea9c404a001
   type: switch
   z: 51c4b2897d2c318c
@@ -1318,8 +1195,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 5330
-  'y': 440
+  x: 5050
+  'y': 380
   wires:
     - - d0bfea36099bd97c
       - bd720f4ed1f034f8
@@ -1388,8 +1265,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 5530
-  'y': 440
+  x: 5250
+  'y': 380
   wires:
     - - 482622d47dd8f977
 - id: a56fb1258f090a3e
@@ -1401,10 +1278,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1350
-  'y': 380
+  x: 1030
+  'y': 440
   wires:
-    - - c63b884766e5aa12
+    - - 4c4bb5da4693075d
 - id: d9fa5487f4e11c69
   type: change
   z: 51c4b2897d2c318c
@@ -1436,8 +1313,8 @@
   from: ''
   to: ''
   reg: false
-  x: 5330
-  'y': 320
+  x: 5050
+  'y': 260
   wires:
     - - d0bfea36099bd97c
       - 0cbca936c25fa514
@@ -1453,8 +1330,8 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 5750
-  'y': 380
+  x: 5470
+  'y': 320
   wires:
     - - b53331a4b55c76c9
 - id: f4f846fcf380110e
@@ -1477,8 +1354,8 @@
   className: ''
   value: dictionary.group_period_state_help
   valueType: msg
-  x: 5690
-  'y': 320
+  x: 5410
+  'y': 260
   wires: []
 - id: bd720f4ed1f034f8
   type: change
@@ -1496,8 +1373,8 @@
   from: ''
   to: ''
   reg: false
-  x: 5490
-  'y': 320
+  x: 5210
+  'y': 260
   wires:
     - - f4f846fcf380110e
 - id: beac0cb54e4ebf07
@@ -1539,8 +1416,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 5520
-  'y': 560
+  x: 5240
+  'y': 500
   wires:
     - []
 - id: 81b2f7d38fd25d09
@@ -1558,8 +1435,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 5330
-  'y': 620
+  x: 5050
+  'y': 560
   wires:
     - - beac0cb54e4ebf07
     - - bade08026654ecc9
@@ -1602,8 +1479,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 5530
-  'y': 620
+  x: 5250
+  'y': 560
   wires:
     - []
 - id: 39cf9bc6de140b04
@@ -1654,8 +1531,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1690
-  'y': 620
+  x: 1410
+  'y': 560
   wires:
     - - 81b2f7d38fd25d09
 - id: 00645952425ccbc5
@@ -1680,8 +1557,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 6440
-  'y': 380
+  x: 6160
+  'y': 320
   wires:
     - - 4c2159ea37aa1ec2
       - 575b09f0fb9e021c
@@ -1707,8 +1584,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 6430
-  'y': 440
+  x: 6150
+  'y': 380
   wires:
     - - 575b09f0fb9e021c
 - id: a292cf30fb647936
@@ -1720,8 +1597,8 @@
   links:
     - 0e9c3ca7f24bc8dc
     - c7dc8df688a74cbe
-  x: 6395
-  'y': 320
+  x: 6115
+  'y': 260
   wires: []
 - id: 7d1cbc3cd4edd0f3
   type: function
@@ -1749,19 +1626,17 @@
         msg.class = '';
         msg.enabled = true;
 
-        return [msg,null];
-    }
+        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
 
+        return msg;
+    } else if (msg.hmi.tab === 99) {
 
-    if (msg.hmi.tab === 99) {
-        flow.set('form',undefined,'memoryOnly');
+        return msg;
     } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+
+        return;
     }
-
-
-    return [null,msg];
-  outputs: 2
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1770,27 +1645,77 @@
   x: 290
   'y': 140
   wires:
-    - - 5af5ace6c51eee1a
-    - - 11a3e525f770e3aa
-- id: 5af5ace6c51eee1a
-  type: delay
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 470
-  'y': 80
-  wires:
     - - 11a3e525f770e3aa
       - 3a19e0ec83e6803a
+- id: 2bae655127ea8edc
+  type: function
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: user plant
+  func: |-
+    if (msg.enabled !== true) {
+        msg.class = "remove";
+        msg.enabled = false;
+        msg.payload = '';
+        msg.list = '';
+
+        return [msg,null,null];
+    } else {
+        let plant = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+        if (plant.length > 0) {
+            msg.payload = plant;
+
+            return [null,msg,msg];
+        }
+        if (msg.hmi.plant !== '') {
+            global.set('form["' + msg.hmi.id + '"]["plant"]',msg.hmi.plant,'memoryOnly');
+
+            return [msg,msg,null];
+        } else {
+
+            return [null,null, msg];
+        }
+    }
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 280
+  'y': 380
+  wires:
+    - - 1a89c3efb2d6e620
+    - - bd492fc337963491
+    - - df38ede5c62b33f7
+- id: 4c4bb5da4693075d
+  type: link call
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: ''
+  links:
+    - 0e8a1d6969a7188b
+  linkType: static
+  timeout: '30'
+  x: 1230
+  'y': 440
+  wires:
+    - - ee588a552ba9d8c0
+      - a79527edfa815621
+      - 39cf9bc6de140b04
+- id: bd492fc337963491
+  type: change
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1250
+  'y': 380
+  wires:
+    - - a79527edfa815621
+      - 39cf9bc6de140b04

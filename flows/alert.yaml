@@ -17,14 +17,12 @@
     - c8c91a8a8cb864f2
     - eef8f90bc9ebb816
     - 30bd97f3094ce24d
-    - 278b948fe3397d6d
     - 59395394cfbb7859
     - 2328d5396e61d3e1
     - 2f959ccef56b1836
     - 09a816282f3bc371
     - ed53bb28b7006772
     - 639c9d2813f61707
-    - 2de64536905c42d8
     - 4bf0ff84ef62faf4
     - 186467962929c0f8
     - 049aaf716a9eb767
@@ -33,9 +31,10 @@
     - 953414d1b751a30d
     - 3d4c6c3a4489e50f
     - fca30e25f5087f5a
+    - dbee74cb0876ae72
   x: 104
-  'y': 279
-  w: 2492
+  'y': 219
+  w: 2372
   h: 202
 - id: d509ef3b5101effa
   type: group
@@ -50,10 +49,9 @@
     - 054bd47295999ad7
     - e3c7b3428b7ae9d9
     - 6cf8cb9e6b8ecf5c
-    - 0488a1e2769d0911
   x: 104
   'y': 39
-  w: 622
+  w: 462
   h: 142
 - id: 7f208cf2ab66dd88
   type: link call
@@ -65,9 +63,9 @@
   linkType: static
   timeout: '30'
   x: 470
-  'y': 440
+  'y': 380
   wires:
-    - - 2de64536905c42d8
+    - - eef8f90bc9ebb816
 - id: c8c91a8a8cb864f2
   type: link in
   z: 476eb6fc04c55cec
@@ -76,7 +74,7 @@
   links:
     - 054bd47295999ad7
   x: 145
-  'y': 380
+  'y': 320
   wires:
     - - fca30e25f5087f5a
 - id: eef8f90bc9ebb816
@@ -101,8 +99,8 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 830
-  'y': 440
+  x: 670
+  'y': 380
   wires:
     - - 30bd97f3094ce24d
 - id: 30bd97f3094ce24d
@@ -119,31 +117,10 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1010
-  'y': 440
+  x: 850
+  'y': 380
   wires:
     - - 049aaf716a9eb767
-- id: 278b948fe3397d6d
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
-      pt: global
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 440
-  wires:
-    - - 59395394cfbb7859
-      - 953414d1b751a30d
 - id: 59395394cfbb7859
   type: change
   z: 476eb6fc04c55cec
@@ -155,8 +132,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1530
-  'y': 320
+  x: 1410
+  'y': 260
   wires:
     - - 6332d3cf45ae4386
 - id: 2328d5396e61d3e1
@@ -172,8 +149,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1860
-  'y': 440
+  x: 1740
+  'y': 380
   wires: []
 - id: 2f959ccef56b1836
   type: ui-table
@@ -232,8 +209,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2040
-  'y': 320
+  x: 1920
+  'y': 260
   wires:
     - - c1fe38bf4a62979c
 - id: 09a816282f3bc371
@@ -243,17 +220,17 @@
   name: tab
   rules:
     - t: set
-      p: '#:(memoryOnly)::form.plant'
+      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
       pt: global
       to: payload.plant
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::form.line'
+      p: '#:(memoryOnly)::form[msg.hmi.id][''line'']'
       pt: global
       to: payload.line
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::form.equipment'
+      p: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
       pt: global
       to: payload.equipment
       tot: msg
@@ -280,8 +257,8 @@
   from: ''
   to: ''
   reg: false
-  x: 2430
-  'y': 380
+  x: 2310
+  'y': 320
   wires:
     - - ed53bb28b7006772
 - id: ed53bb28b7006772
@@ -292,37 +269,22 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 2555
-  'y': 380
+  x: 2435
+  'y': 320
   wires: []
 - id: 639c9d2813f61707
   type: change
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 650
-  'y': 320
+  x: 490
+  'y': 260
   wires:
     - - 59395394cfbb7859
       - eef8f90bc9ebb816
@@ -346,7 +308,7 @@
   mode: link
   links:
     - c8c91a8a8cb864f2
-  x: 595
+  x: 435
   'y': 140
   wires: []
 - id: e3c7b3428b7ae9d9
@@ -369,29 +331,9 @@
   className: ui-title
   value: dictionary.option_page.alert
   valueType: msg
-  x: 640
+  x: 480
   'y': 80
   wires: []
-- id: 2de64536905c42d8
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: label
-  rules:
-    - t: set
-      p: ui_update.label
-      pt: msg
-      to: dictionary.common_select_plant
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 650
-  'y': 440
-  wires:
-    - - eef8f90bc9ebb816
 - id: 4bf0ff84ef62faf4
   type: switch
   z: 476eb6fc04c55cec
@@ -407,8 +349,8 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1850
-  'y': 380
+  x: 1730
+  'y': 320
   wires:
     - - 2f959ccef56b1836
     - - 186467962929c0f8
@@ -469,8 +411,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2040
-  'y': 380
+  x: 1920
+  'y': 320
   wires:
     - - c1fe38bf4a62979c
 - id: 049aaf716a9eb767
@@ -482,10 +424,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1190
-  'y': 440
+  x: 1030
+  'y': 380
   wires:
-    - - 278b948fe3397d6d
+    - - dbee74cb0876ae72
 - id: 6332d3cf45ae4386
   type: change
   z: 476eb6fc04c55cec
@@ -512,8 +454,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1850
-  'y': 320
+  x: 1730
+  'y': 260
   wires:
     - - 2f959ccef56b1836
       - 186467962929c0f8
@@ -526,8 +468,8 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 2250
-  'y': 380
+  x: 2130
+  'y': 320
   wires:
     - - 09a816282f3bc371
 - id: 6cf8cb9e6b8ecf5c
@@ -556,17 +498,17 @@
         msg.class = '';
         msg.enabled = true;
 
-        return [msg, null];
-    }
+        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
 
+        return msg;
+    } else if (msg.hmi.tab === 99) {
 
-    if (msg.hmi.tab !== 99) {
+        return msg;
+    } else {
+
         return;
     }
-
-
-    return [null, msg];
-  outputs: 2
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -574,28 +516,6 @@
   libs: []
   x: 290
   'y': 140
-  wires:
-    - - 0488a1e2769d0911
-    - - 054bd47295999ad7
-- id: 0488a1e2769d0911
-  type: delay
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 470
-  'y': 80
   wires:
     - - 054bd47295999ad7
       - e3c7b3428b7ae9d9
@@ -651,8 +571,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1530
-  'y': 380
+  x: 1410
+  'y': 320
   wires:
     - - 3d4c6c3a4489e50f
 - id: 3d4c6c3a4489e50f
@@ -681,8 +601,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1690
-  'y': 380
+  x: 1570
+  'y': 320
   wires:
     - - 4bf0ff84ef62faf4
       - 2328d5396e61d3e1
@@ -693,6 +613,9 @@
   name: user plant
   func: |-
     if (msg.enabled !== true) {
+        msg.class = 'remove';
+        msg.enabled = false;
+        msg.payload = '';
 
         return [msg,null,null];
     } else {
@@ -718,8 +641,22 @@
   finalize: ''
   libs: []
   x: 280
-  'y': 380
+  'y': 320
   wires:
     - - 639c9d2813f61707
     - - 953414d1b751a30d
     - - 7f208cf2ab66dd88
+- id: dbee74cb0876ae72
+  type: link call
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: ''
+  links:
+    - 0e8a1d6969a7188b
+  linkType: static
+  timeout: '30'
+  x: 1230
+  'y': 380
+  wires:
+    - - 953414d1b751a30d
+      - 59395394cfbb7859

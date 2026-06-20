@@ -1142,6 +1142,11 @@
       pt: msg
       to: "[\t    {\t        'label':'NO',\t        'value':false\t    },\t    {\t        'label':'NC',\t        'value':true\t    }\t]"
       tot: jsonata
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.common_select_contact
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -1241,6 +1246,11 @@
       pt: msg
       to: "[\t    {\t        'label':'Europe/London',\t        'value':'Europe/London',\t        'dropdown':'tz'\t    },\t    {\t        'label':'Europe/Paris',\t        'value':'Europe/Paris',\t        'dropdown':'tz'\t    }\t]"
       tot: jsonata
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: dictionary.common_select_timezone
+      tot: msg
   action: ''
   property: ''
   from: ''
@@ -1295,15 +1305,18 @@
   z: adb9fbf379118d77
   g: fa94e5dda0432e95
   name: plants
-  func: |-
+  func: >-
     msg.options = [{
         'label':'',
         'value':'',
         'dropdown':'plant'
     }];
 
+
     let plants = global.get('kernel.plant', 'memoryOnly');
+
     let i = 1;
+
 
     if (typeof plants === 'object') {
         for (const plant in plants) {
@@ -1314,6 +1327,15 @@
             }
         }
     }
+
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+
+    msg.ui_update.label = (msg.dictionary?.common_select_plant)||'Select a
+    plant';
+
 
     return msg;
   outputs: 1
@@ -1355,6 +1377,11 @@
         }
     }
 
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+    msg.ui_update.label = (msg.dictionary?.common_select_line)||'Select a line';
+
     delete msg.limit_plant;
 
     return msg;
@@ -1374,15 +1401,18 @@
   z: adb9fbf379118d77
   g: 0ca8991c60d8e2f2
   name: equipments
-  func: |-
+  func: >-
     msg.options = [{
         'label':'',
         'value':'',
         'dropdown':'equipment'
     }];
 
+
     let equipments = global.get('kernel.equipment', 'memoryOnly');
+
     let i = 1;
+
 
     if (typeof equipments === 'object') {
         for (const equipment in equipments) {
@@ -1397,7 +1427,17 @@
         }
     }
 
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+
+    msg.ui_update.label = (msg.dictionary?.common_select_equipment)||'Select an
+    equipment';
+
+
     delete msg.limit_line;
+
 
     return msg;
   outputs: 1
@@ -1416,15 +1456,18 @@
   z: adb9fbf379118d77
   g: de5e425a71b62e85
   name: models
-  func: |-
+  func: >-
     msg.options = [{
         'label':'',
         'value':'',
         'dropdown':'model'
     }];
 
+
     let models = global.get('describe.model', 'memoryOnly');
+
     let i = 1;
+
 
     if (typeof models === 'object') {
         for (const model in models) {
@@ -1437,6 +1480,15 @@
             }
         }
     }
+
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+
+    msg.ui_update.label = (msg.dictionary?.common_select_model)||'Select a
+    model';
+
 
     return msg;
   outputs: 1
@@ -1474,6 +1526,11 @@
             }
         }
     }
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+    msg.ui_update.label = (msg.dictionary?.common_select_team)||'Select a team';
 
     msg.nosort = true;
 
@@ -1683,15 +1740,18 @@
   z: adb9fbf379118d77
   g: c0aabb40d929c1de
   name: alerts
-  func: |-
+  func: >-
     msg.options = [{
         'label':'',
         'value':'',
         'dropdown':'alert'
     }];
 
+
     let alerts = global.get('kernel.alert', 'memoryOnly');
+
     let i = 1;
+
 
     if (typeof alerts === 'object') {
         for (const alert in alerts) {
@@ -1707,7 +1767,17 @@
         }
     }
 
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+
+    msg.ui_update.label = (msg.dictionary?.common_select_component)||'Select a
+    component';
+
+
     delete msg.limit_equipment;
+
 
     return msg;
   outputs: 1
@@ -1748,6 +1818,11 @@
         }
     }
 
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+    msg.ui_update.label = (msg.dictionary?.common_select_link)||'Select a link';
+
     return msg;
   outputs: 1
   timeout: 0
@@ -1765,14 +1840,16 @@
   z: adb9fbf379118d77
   g: 8429a00ec08b9d76
   name: devices
-  func: |-
+  func: >-
     msg.options = [{
         'label':'',
         'value':'',
         'dropdown':'device'
     }];
 
+
     let i = 1;
+
 
     if (typeof msg.limit_model !== 'undefined') {
         let devices = global.get('kernel.device', 'memoryOnly');
@@ -1790,6 +1867,15 @@
             }
         }
     }
+
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+
+    msg.ui_update.label = (msg.dictionary?.common_select_device)||'Select a
+    device';
+
 
     return msg;
   outputs: 1
@@ -1834,6 +1920,12 @@
             }
         }
     }
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+    msg.ui_update.label = (msg.dictionary?.common_select_link)||'Select a link';
+
     return msg;
   outputs: 1
   timeout: 0
@@ -1999,15 +2091,18 @@
   z: adb9fbf379118d77
   g: 111bcae539ab0233
   name: groups
-  func: |-
+  func: >-
     msg.options = [{
         'label':'',
         'value':'',
         'dropdown':'group'
     }];
 
+
     let groups = msg.dictionary?.option_group;
+
     let i = 1;
+
 
     if (typeof groups === 'object') {
         for (const group in groups) {
@@ -2021,6 +2116,15 @@
         }
     }
 
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+
+    msg.ui_update.label = (msg.dictionary?.common_select_group)||'Select a
+    group';
+
+
     return msg;
   outputs: 1
   timeout: 0
@@ -2033,3 +2137,123 @@
   wires:
     - - 64f721de1fa75026
       - 108863cf9d87e186
+- id: 0e8a1d6969a7188b
+  type: link in
+  z: adb9fbf379118d77
+  name: form - plant
+  links: []
+  x: 2545
+  'y': 360
+  wires:
+    - - e3d22e15f9bb276f
+- id: e3d22e15f9bb276f
+  type: function
+  z: adb9fbf379118d77
+  name: form.plant
+  func: |-
+    if (typeof msg.payload === 'string' && typeof msg.hmi?.id === 'string') {
+        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload, 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["line"]', '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', '', 'memoryOnly');
+        msg.enabled = true;
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2680
+  'y': 360
+  wires:
+    - - 64c6e25546b54f48
+- id: 64c6e25546b54f48
+  type: link out
+  z: adb9fbf379118d77
+  name: form - plant
+  mode: return
+  links: []
+  x: 2875
+  'y': 360
+  wires: []
+- id: 7b8bbc8a043a84c6
+  type: link in
+  z: adb9fbf379118d77
+  name: form - line
+  links: []
+  x: 2545
+  'y': 420
+  wires:
+    - - 44693ec352a4dfa6
+- id: 44693ec352a4dfa6
+  type: function
+  z: adb9fbf379118d77
+  name: set form line
+  func: |-
+    if (typeof msg.payload === 'string' && typeof msg.hmi?.id === 'string') {
+        global.set('form["' + msg.hmi.id + '"]["line"]', msg.payload, 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', '', 'memoryOnly');
+        msg.enabled = true;
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2690
+  'y': 420
+  wires:
+    - - 7c9b2fd745d94be5
+- id: 7c9b2fd745d94be5
+  type: link out
+  z: adb9fbf379118d77
+  name: form - line
+  mode: return
+  links: []
+  x: 2875
+  'y': 420
+  wires: []
+- id: 4b1f814954d89f4e
+  type: link in
+  z: adb9fbf379118d77
+  name: form - equipment
+  links: []
+  x: 2545
+  'y': 480
+  wires:
+    - - 765c6c2ac7cf2855
+- id: 765c6c2ac7cf2855
+  type: function
+  z: adb9fbf379118d77
+  name: set form equipment
+  func: |-
+    if (typeof msg.payload === 'string' && typeof msg.hmi?.id === 'string') {
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', msg.payload, 'memoryOnly');
+        msg.enabled = true;
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2710
+  'y': 480
+  wires:
+    - - 5271b982f24f85bc
+- id: 5271b982f24f85bc
+  type: link out
+  z: adb9fbf379118d77
+  name: form - equipment
+  mode: return
+  links: []
+  x: 2875
+  'y': 480
+  wires: []
