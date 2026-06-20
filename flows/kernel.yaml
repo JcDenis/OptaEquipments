@@ -38,6 +38,9 @@
     - 8cc9a474d6cd27ec
     - 32da9b1ae024e8bb
     - 64e28c88b4c7b710
+    - 8c540395a0e469f7
+    - 88c5aeadbe80be20
+    - c026a3bb27b7e4d4
   x: 68
   'y': 3053
   w: 1574
@@ -3234,23 +3237,31 @@
   z: f6f2187d.f17ca8
   g: 32da9b1ae024e8bb
   name: action
-  func: |-
+  func: >-
     if (msg.payload === 'disconnect') {
         global.set('user["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+
         return;
     }
 
+
     if (msg.payload !== 'change' && msg.payload !== 'connect') {
+
         return;
     }
+
 
     if (msg.payload === 'connect') {
         msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');
         msg.name = global.get('describe.pages.auth.name', 'memoryOnly');
     }
 
+
     msg.menus = {};
+
     msg.titles = {};
+
     msg.payload = {
         'pages':{
             'show':[],
@@ -3258,14 +3269,20 @@
         }
     };
 
+
     let pages = global.get('describe.pages', 'memoryOnly');
+
     if (typeof pages !== 'object') {
         return;
     }
 
+
     let allowed = false;
+
     let s = 0;
+
     let h = 0;
+
     for (const page in pages) {
         if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {
             if (pages[page]['level'][msg.hmi.level] === true) {
@@ -3296,10 +3313,22 @@
         }
     }
 
+
     if (allowed === false) {
         msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');
         msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');
     }
+
+
+    let form_plant = global.get('form["' + msg.hmi.id +
+    '"]["plant"]','memoryOnly')||'';
+
+    if (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {
+        global.set('form["' + msg.hmi.id + '"]["plant"]',msg.form_plant,'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["line"]','','memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]','','memoryOnly');
+    }
+
 
     return msg;
   outputs: 1
@@ -3379,7 +3408,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1450
+  x: 1230
   'y': 3360
   wires:
     - - 7bba6594f41302c2
@@ -5040,3 +5069,59 @@
   wires:
     - - 4b4db5a5c5bcb3c6
       - 2dbd34bfcf7eed32
+- id: 8c540395a0e469f7
+  type: function
+  z: f6f2187d.f17ca8
+  g: 41bba9b342eebdae
+  name: tab &  level
+  func: |-
+    msg.topic = '';
+    msg.payload = '';
+
+    if (typeof msg.check === 'string'
+        && msg.hmi.tab === global.get('describe.pages["' + msg.check + '"]["tab"]', 'memoryOnly')
+        && typeof global.get('describe.pages["' + msg.check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
+        && global.get('describe.pages["' + msg.check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
+    ) {
+        msg.class = '';
+        msg.enabled = true;
+
+        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
+
+        return msg;
+    }
+
+    msg.class = 'remove';
+    msg.enabled = false;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1430
+  'y': 3580
+  wires:
+    - - c026a3bb27b7e4d4
+- id: 88c5aeadbe80be20
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 41bba9b342eebdae
+  name: ui - tab
+  links: []
+  x: 1285
+  'y': 3580
+  wires:
+    - - 8c540395a0e469f7
+- id: c026a3bb27b7e4d4
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 41bba9b342eebdae
+  name: ui - tab
+  mode: return
+  links: []
+  x: 1575
+  'y': 3580
+  wires: []

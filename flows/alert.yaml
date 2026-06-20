@@ -22,7 +22,6 @@
     - 2f959ccef56b1836
     - 09a816282f3bc371
     - ed53bb28b7006772
-    - 639c9d2813f61707
     - 4bf0ff84ef62faf4
     - 186467962929c0f8
     - 049aaf716a9eb767
@@ -49,9 +48,11 @@
     - 054bd47295999ad7
     - e3c7b3428b7ae9d9
     - 6cf8cb9e6b8ecf5c
+    - 725fb11b65553f46
+    - f401e3b627aace38
   x: 104
   'y': 39
-  w: 462
+  w: 582
   h: 142
 - id: 7f208cf2ab66dd88
   type: link call
@@ -272,22 +273,6 @@
   x: 2435
   'y': 320
   wires: []
-- id: 639c9d2813f61707
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 260
-  wires:
-    - - 59395394cfbb7859
-      - eef8f90bc9ebb816
 - id: d7bc8fc74bfc07cb
   type: link in
   z: 476eb6fc04c55cec
@@ -299,7 +284,7 @@
   x: 145
   'y': 140
   wires:
-    - - 6cf8cb9e6b8ecf5c
+    - - 725fb11b65553f46
 - id: 054bd47295999ad7
   type: link out
   z: 476eb6fc04c55cec
@@ -308,7 +293,7 @@
   mode: link
   links:
     - c8c91a8a8cb864f2
-  x: 435
+  x: 555
   'y': 140
   wires: []
 - id: e3c7b3428b7ae9d9
@@ -331,7 +316,7 @@
   className: ui-title
   value: dictionary.option_page.alert
   valueType: msg
-  x: 480
+  x: 600
   'y': 80
   wires: []
 - id: 4bf0ff84ef62faf4
@@ -514,11 +499,10 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 290
-  'y': 140
+  x: 270
+  'y': 80
   wires:
-    - - 054bd47295999ad7
-      - e3c7b3428b7ae9d9
+    - []
 - id: 953414d1b751a30d
   type: function
   z: 476eb6fc04c55cec
@@ -617,22 +601,23 @@
         msg.enabled = false;
         msg.payload = '';
 
-        return [msg,null,null];
-    } else {
-        let plant = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
-        if (plant.length > 0) {
-            msg.payload = plant;
+        return [msg, null, msg];
+    }
 
-            return [null,msg,msg];
-        }
-        if (msg.hmi.plant !== '') {
-            global.set('form["' + msg.hmi.id + '"]["plant"]',msg.hmi.plant,'memoryOnly');
+    if (msg.hmi.plant === '') {
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
 
-            return [msg,msg,null];
+        if (msg.payload === '') {
+
+            return [null, null, msg];
         } else {
 
-            return [null,null, msg];
+            return [null, msg, msg];
         }
+    } else {
+        msg.payload = msg.hmi.plant;
+
+        return [null, msg, null];
     }
   outputs: 3
   timeout: 0
@@ -643,7 +628,7 @@
   x: 280
   'y': 320
   wires:
-    - - 639c9d2813f61707
+    - - 59395394cfbb7859
     - - 953414d1b751a30d
     - - 7f208cf2ab66dd88
 - id: dbee74cb0876ae72
@@ -660,3 +645,37 @@
   wires:
     - - 953414d1b751a30d
       - 59395394cfbb7859
+- id: 725fb11b65553f46
+  type: change
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: alert
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - f401e3b627aace38
+- id: f401e3b627aace38
+  type: link call
+  z: 476eb6fc04c55cec
+  g: d509ef3b5101effa
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - e3c7b3428b7ae9d9
+      - 054bd47295999ad7

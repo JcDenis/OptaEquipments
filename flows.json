@@ -1717,7 +1717,6 @@
             "2f959ccef56b1836",
             "09a816282f3bc371",
             "ed53bb28b7006772",
-            "639c9d2813f61707",
             "4bf0ff84ef62faf4",
             "186467962929c0f8",
             "049aaf716a9eb767",
@@ -1859,11 +1858,13 @@
             "d7bc8fc74bfc07cb",
             "054bd47295999ad7",
             "e3c7b3428b7ae9d9",
-            "6cf8cb9e6b8ecf5c"
+            "6cf8cb9e6b8ecf5c",
+            "725fb11b65553f46",
+            "f401e3b627aace38"
         ],
         "x": 104,
         "y": 39,
-        "w": 462,
+        "w": 582,
         "h": 142
     },
     {
@@ -2655,7 +2656,10 @@
         "nodes": [
             "8cc9a474d6cd27ec",
             "32da9b1ae024e8bb",
-            "64e28c88b4c7b710"
+            "64e28c88b4c7b710",
+            "8c540395a0e469f7",
+            "88c5aeadbe80be20",
+            "c026a3bb27b7e4d4"
         ],
         "x": 68,
         "y": 3053,
@@ -7445,7 +7449,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "action",
-        "func": "if (msg.payload === 'disconnect') {\n    global.set('user[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    return;\n}\n\nif (msg.payload !== 'change' && msg.payload !== 'connect') {\n    return;\n}\n\nif (msg.payload === 'connect') {\n    msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.name = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages':{\n        'show':[],\n        'hide':[]\n    }\n};\n\nlet pages = global.get('describe.pages', 'memoryOnly');\nif (typeof pages !== 'object') {\n    return;\n}\n\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_title = msg.dictionary.option_page[page];\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\nreturn msg;",
+        "func": "if (msg.payload === 'disconnect') {\n    global.set('user[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n\n    return;\n}\n\nif (msg.payload !== 'change' && msg.payload !== 'connect') {\n\n    return;\n}\n\nif (msg.payload === 'connect') {\n    msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.name = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages':{\n        'show':[],\n        'hide':[]\n    }\n};\n\nlet pages = global.get('describe.pages', 'memoryOnly');\nif (typeof pages !== 'object') {\n    return;\n}\n\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_title = msg.dictionary.option_page[page];\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]',msg.form_plant,'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]','','memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]','','memoryOnly');\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7500,7 +7504,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1450,
+        "x": 1230,
         "y": 3360,
         "wires": [
             [
@@ -8477,6 +8481,54 @@
                 "2dbd34bfcf7eed32"
             ]
         ]
+    },
+    {
+        "id": "8c540395a0e469f7",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "41bba9b342eebdae",
+        "name": "tab &  level",
+        "func": "msg.topic = '';\nmsg.payload = '';\n\nif (typeof msg.check === 'string'\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && typeof global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === 'boolean'\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n}\n\nmsg.class = 'remove';\nmsg.enabled = false;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1430,
+        "y": 3580,
+        "wires": [
+            [
+                "c026a3bb27b7e4d4"
+            ]
+        ]
+    },
+    {
+        "id": "88c5aeadbe80be20",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "41bba9b342eebdae",
+        "name": "ui - tab",
+        "links": [],
+        "x": 1285,
+        "y": 3580,
+        "wires": [
+            [
+                "8c540395a0e469f7"
+            ]
+        ]
+    },
+    {
+        "id": "c026a3bb27b7e4d4",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "41bba9b342eebdae",
+        "name": "ui - tab",
+        "mode": "return",
+        "links": [],
+        "x": 1575,
+        "y": 3580,
+        "wires": []
     },
     {
         "id": "2ee1493983ba4b61",
@@ -18385,27 +18437,6 @@
         "wires": []
     },
     {
-        "id": "639c9d2813f61707",
-        "type": "change",
-        "z": "476eb6fc04c55cec",
-        "g": "a2c5edf7acc56d7a",
-        "name": "-",
-        "rules": [],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 260,
-        "wires": [
-            [
-                "59395394cfbb7859",
-                "eef8f90bc9ebb816"
-            ]
-        ]
-    },
-    {
         "id": "d7bc8fc74bfc07cb",
         "type": "link in",
         "z": "476eb6fc04c55cec",
@@ -18419,7 +18450,7 @@
         "y": 140,
         "wires": [
             [
-                "6cf8cb9e6b8ecf5c"
+                "725fb11b65553f46"
             ]
         ]
     },
@@ -18433,7 +18464,7 @@
         "links": [
             "c8c91a8a8cb864f2"
         ],
-        "x": 435,
+        "x": 555,
         "y": 140,
         "wires": []
     },
@@ -18458,7 +18489,7 @@
         "className": "ui-title",
         "value": "dictionary.option_page.alert",
         "valueType": "msg",
-        "x": 480,
+        "x": 600,
         "y": 80,
         "wires": []
     },
@@ -18667,13 +18698,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 140,
+        "x": 270,
+        "y": 80,
         "wires": [
-            [
-                "054bd47295999ad7",
-                "e3c7b3428b7ae9d9"
-            ]
+            []
         ]
     },
     {
@@ -18746,7 +18774,7 @@
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
         "name": "user plant",
-        "func": "if (msg.enabled !== true) {\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [msg,null,null];\n} else {\n    let plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'';\n    if (plant.length > 0) {\n        msg.payload = plant;\n\n        return [null,msg,msg];\n    }\n    if (msg.hmi.plant !== '') {\n        global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]',msg.hmi.plant,'memoryOnly');\n\n        return [msg,msg,null];\n    } else {\n\n        return [null,null, msg];\n    }\n}",
+        "func": "if (msg.enabled !== true) {\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [msg, null, msg];\n}\n\nif (msg.hmi.plant === '') {\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]','memoryOnly')||'';\n\n    if (msg.payload === '') {\n\n        return [null, null, msg];\n    } else {\n\n        return [null, msg, msg];\n    }\n} else {\n    msg.payload = msg.hmi.plant;\n\n    return [null, msg, null];\n}",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -18757,7 +18785,7 @@
         "y": 320,
         "wires": [
             [
-                "639c9d2813f61707"
+                "59395394cfbb7859"
             ],
             [
                 "953414d1b751a30d"
@@ -18784,6 +18812,54 @@
             [
                 "953414d1b751a30d",
                 "59395394cfbb7859"
+            ]
+        ]
+    },
+    {
+        "id": "725fb11b65553f46",
+        "type": "change",
+        "z": "476eb6fc04c55cec",
+        "g": "d509ef3b5101effa",
+        "name": "tab",
+        "rules": [
+            {
+                "t": "set",
+                "p": "check",
+                "pt": "msg",
+                "to": "alert",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "f401e3b627aace38"
+            ]
+        ]
+    },
+    {
+        "id": "f401e3b627aace38",
+        "type": "link call",
+        "z": "476eb6fc04c55cec",
+        "g": "d509ef3b5101effa",
+        "name": "",
+        "links": [
+            "88c5aeadbe80be20"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 430,
+        "y": 140,
+        "wires": [
+            [
+                "e3c7b3428b7ae9d9",
+                "054bd47295999ad7"
             ]
         ]
     },
