@@ -88,12 +88,12 @@
   nodes:
     - fbeb08a94e71e7bf
     - 0c83fe1f9690e061
-    - a94368f2bf7b4951
-    - 205a74e94c93fc98
+    - 349a17937b2daecc
+    - 572537760e87b129
   x: 104
-  'y': 39
-  w: 532
-  h: 142
+  'y': 99
+  w: 492
+  h: 82
 - id: 6ed9fb5c0b268c66
   type: group
   z: 44465f18e06bb58d
@@ -823,7 +823,7 @@
   x: 145
   'y': 140
   wires:
-    - - a94368f2bf7b4951
+    - - 572537760e87b129
 - id: 0c83fe1f9690e061
   type: link out
   z: 44465f18e06bb58d
@@ -834,7 +834,7 @@
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
     - eba6e18370fbfe76
-  x: 595
+  x: 555
   'y': 140
   wires: []
 - id: 2d0be523be6aa3e3
@@ -1602,76 +1602,6 @@
   'y': 1400
   wires:
     - - 301bb73805b7e405
-- id: a94368f2bf7b4951
-  type: function
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: tab &  level
-  func: >-
-    let check = 'system';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly') 
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        return [msg,null];
-    }
-
-
-    if (msg.hmi.tab === 99) {
-        flow.set('form',undefined,'memoryOnly');
-    } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-    }
-
-
-    return [null,msg];
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - 205a74e94c93fc98
-    - - 0c83fe1f9690e061
-- id: 205a74e94c93fc98
-  type: delay
-  z: 44465f18e06bb58d
-  g: c5aa438b6dcec795
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 470
-  'y': 80
-  wires:
-    - - 0c83fe1f9690e061
 - id: 59caf901906e515a
   type: ui-button
   z: 44465f18e06bb58d
@@ -2057,3 +1987,36 @@
   x: 1235
   'y': 860
   wires: []
+- id: 349a17937b2daecc
+  type: link call
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - 0c83fe1f9690e061
+- id: 572537760e87b129
+  type: change
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: system
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - 349a17937b2daecc

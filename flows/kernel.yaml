@@ -43,7 +43,7 @@
     - c026a3bb27b7e4d4
   x: 68
   'y': 3053
-  w: 1574
+  w: 1548
   h: 914
 - id: 23adbb4a30523ae7
   type: group
@@ -173,9 +173,7 @@
     - 7bba6594f41302c2
     - 00818f8c0686b556
     - 3450fffd4f368319
-    - 3a4b0a3f566334ac
     - dc6a70342d1f4be8
-    - 44c2ade6151d3fbd
     - 802c09c733863247
     - 68593265cb4e2507
     - fd39d13ae9c195f3
@@ -183,7 +181,7 @@
     - 886e458678ddf131
   x: 104
   'y': 3259
-  w: 1512
+  w: 1332
   h: 202
 - id: ede1bcd992279676
   type: group
@@ -683,7 +681,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1030
+  x: 850
   'y': 3420
   wires: []
 - id: ba6ef07c6e523872
@@ -1245,7 +1243,7 @@
     - bf3da41c4b5bd219
     - d55041fdf28a3f36
     - 6304fe8d08f0cf47
-  x: 1575
+  x: 1395
   'y': 3360
   wires: []
 - id: 00818f8c0686b556
@@ -1353,7 +1351,7 @@
   resendOnRefresh: true
   templateScope: 'widget:ui'
   className: ''
-  x: 1020
+  x: 840
   'y': 3300
   wires:
     - - 8f1a54f299198096
@@ -1373,67 +1371,6 @@
   x: 260
   'y': 1920
   wires: []
-- id: 3a4b0a3f566334ac
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: prepare
-  rules:
-    - t: set
-      p: version
-      pt: msg
-      to: '#:(memoryOnly)::describe.app.version'
-      tot: global
-    - t: set
-      p: app_vendor
-      pt: msg
-      to: '#:(memoryOnly)::describe.app.vendor'
-      tot: global
-    - t: set
-      p: vendor
-      pt: msg
-      to: '#:(memoryOnly)::kernel.app.vendor'
-      tot: global
-    - t: set
-      p: vendor
-      pt: msg
-      to: 'msg.vendor?msg.vendor:msg.app_vendor'
-      tot: jsonata
-    - t: set
-      p: app_title
-      pt: msg
-      to: '#:(memoryOnly)::describe.app.title'
-      tot: global
-    - t: set
-      p: title
-      pt: msg
-      to: '#:(memoryOnly)::kernel.app.title'
-      tot: global
-    - t: set
-      p: title
-      pt: msg
-      to: 'msg.title?msg.title:msg.app_title'
-      tot: jsonata
-    - t: set
-      p: full
-      pt: msg
-      to: '''OptaEquipments v'' & msg.version & '' for '' & msg.vendor'
-      tot: jsonata
-    - t: delete
-      p: dictionary
-      pt: msg
-    - t: delete
-      p: pages
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 840
-  'y': 3300
-  wires:
-    - - 3450fffd4f368319
 - id: 6e04acdf428261ac
   type: inject
   z: f6f2187d.f17ca8
@@ -2708,35 +2645,6 @@
   x: 620
   'y': 80
   wires: []
-- id: 44c2ade6151d3fbd
-  type: change
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: prepare
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: hmi.page
-      tot: msg
-    - t: set
-      p: options
-      pt: msg
-      to: '[{''label'':'''',''value'':''''}]'
-      tot: jsonata
-    - t: delete
-      p: pages
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 840
-  'y': 3360
-  wires:
-    - - 23dd24021e2cecf1
-      - 886e458678ddf131
 - id: 8415b61e8bd93936
   type: function
   z: f6f2187d.f17ca8
@@ -2806,7 +2714,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1430
+  x: 1250
   'y': 3300
   wires:
     - - 68593265cb4e2507
@@ -2818,7 +2726,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1575
+  x: 1395
   'y': 3300
   wires: []
 - id: 62fd5d97d37862c8
@@ -3237,6 +3145,7 @@
   g: 32da9b1ae024e8bb
   name: action
   func: >-
+
     if (msg.payload === 'disconnect') {
         global.set('user["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
         global.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
@@ -3319,18 +3228,47 @@
     }
 
 
-    let form_plant = global.get('form["' + msg.hmi.id +
-    '"]["plant"]','memoryOnly')||'-';
+    let form_plant = global.get('form["' + msg.hmi.id + '"]["plant"]',
+    'memoryOnly')||'-';
 
     if (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {
-        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.hmi.plant,'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["line"]','','memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["equipment"]','','memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.hmi.plant, 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["line"]', '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', '', 'memoryOnly');
     }
 
+    global.set('form["' + msg.hmi.id + '"]["ts"]', Date.now(), 'memoryOnly');
 
-    return msg;
-  outputs: 1
+
+    // page process
+
+    let newMsg = {
+        'topic': '',
+        'payload': msg.hmi.page,
+        'options': [{ 'label': '', 'value': '' }],
+        'hmi': msg.hmi,
+        'dictionary': msg.dictionary
+    };
+
+
+    // ui menu
+
+    msg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';
+
+    msg.vendor = global.get('kernel.app.vendor', 'memoryOnly') ||
+    global.get('describe.app.vendor', 'memoryOnly');
+
+    msg.title = global.get('kernel.app.title', 'memoryOnly') ||
+    global.get('describe.app.title', 'memoryOnly');
+
+    msg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;
+
+
+    delete msg.dictionary;
+
+
+    return [msg, newMsg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -3339,8 +3277,9 @@
   x: 670
   'y': 3360
   wires:
-    - - 3a4b0a3f566334ac
-      - 44c2ade6151d3fbd
+    - - 3450fffd4f368319
+    - - 886e458678ddf131
+      - 23dd24021e2cecf1
 - id: 8f1a54f299198096
   type: function
   z: f6f2187d.f17ca8
@@ -3386,7 +3325,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1220
+  x: 1040
   'y': 3300
   wires:
     - - 802c09c733863247
@@ -3407,7 +3346,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1450
+  x: 1270
   'y': 3360
   wires:
     - - 7bba6594f41302c2
