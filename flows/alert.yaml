@@ -17,23 +17,20 @@
     - c8c91a8a8cb864f2
     - eef8f90bc9ebb816
     - 30bd97f3094ce24d
-    - 59395394cfbb7859
     - 2328d5396e61d3e1
     - 2f959ccef56b1836
     - 09a816282f3bc371
     - ed53bb28b7006772
-    - 4bf0ff84ef62faf4
     - 186467962929c0f8
     - 049aaf716a9eb767
     - 6332d3cf45ae4386
     - c1fe38bf4a62979c
     - 953414d1b751a30d
-    - 3d4c6c3a4489e50f
     - fca30e25f5087f5a
     - dbee74cb0876ae72
   x: 104
   'y': 219
-  w: 2372
+  w: 2052
   h: 202
 - id: d509ef3b5101effa
   type: group
@@ -121,21 +118,6 @@
   'y': 380
   wires:
     - - 049aaf716a9eb767
-- id: 59395394cfbb7859
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1410
-  'y': 260
-  wires:
-    - - 6332d3cf45ae4386
 - id: 2328d5396e61d3e1
   type: debug
   z: 476eb6fc04c55cec
@@ -149,7 +131,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1740
+  x: 1580
   'y': 380
   wires: []
 - id: 2f959ccef56b1836
@@ -209,7 +191,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1920
+  x: 1600
   'y': 260
   wires:
     - - c1fe38bf4a62979c
@@ -257,7 +239,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2310
+  x: 1990
   'y': 320
   wires:
     - - ed53bb28b7006772
@@ -269,7 +251,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 2435
+  x: 2115
   'y': 320
   wires: []
 - id: d7bc8fc74bfc07cb
@@ -318,26 +300,6 @@
   x: 600
   'y': 80
   wires: []
-- id: 4bf0ff84ef62faf4
-  type: switch
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: lang
-  property: dictionary.lang
-  propertyType: msg
-  rules:
-    - t: eq
-      v: fr
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1730
-  'y': 320
-  wires:
-    - - 2f959ccef56b1836
-    - - 186467962929c0f8
 - id: 186467962929c0f8
   type: ui-table
   z: 476eb6fc04c55cec
@@ -395,7 +357,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1920
+  x: 1600
   'y': 320
   wires:
     - - c1fe38bf4a62979c
@@ -438,7 +400,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1730
+  x: 1410
   'y': 260
   wires:
     - - 2f959ccef56b1836
@@ -452,7 +414,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 2130
+  x: 1810
   'y': 320
   wires:
     - - 09a816282f3bc371
@@ -460,11 +422,12 @@
   type: function
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: row
+  name: alerts
   func: |-
     msg.payload = [];
     let i = 0;
 
+    // rows
     let alerts = global.get('kernel.alert','memoryOnly')||{};
     for (const alert in alerts) {
         let asplit = alert.split('|');
@@ -501,8 +464,20 @@
         }
     }
 
-    return msg;
-  outputs: 1
+    // sort
+    if (i > 0) {
+        msg.payload.sort(function($l, $r) {
+            return $l.percent < $r.percent ? 1 : -1;
+        });
+    }
+
+    // lang
+    if (msg.hmi.lang === 'fr') {
+        return [msg, null];
+    } else {
+        return [null, msg];
+    }
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -511,37 +486,9 @@
   x: 1410
   'y': 320
   wires:
-    - - 3d4c6c3a4489e50f
-- id: 3d4c6c3a4489e50f
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: sort
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: "$sort(msg.payload, function($l, $r) {\t  $l.percent < $r.percent\t})"
-      tot: jsonata
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1570
-  'y': 320
-  wires:
-    - - 4bf0ff84ef62faf4
+    - - 2f959ccef56b1836
+      - 2328d5396e61d3e1
+    - - 186467962929c0f8
       - 2328d5396e61d3e1
 - id: fca30e25f5087f5a
   type: function
@@ -587,7 +534,7 @@
   x: 280
   'y': 320
   wires:
-    - - 59395394cfbb7859
+    - - 6332d3cf45ae4386
     - - 953414d1b751a30d
     - - 7f208cf2ab66dd88
 - id: dbee74cb0876ae72
@@ -603,7 +550,6 @@
   'y': 380
   wires:
     - - 953414d1b751a30d
-      - 59395394cfbb7859
 - id: 725fb11b65553f46
   type: change
   z: 476eb6fc04c55cec

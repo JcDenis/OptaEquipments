@@ -557,7 +557,6 @@
   mode: link
   links:
     - 00818f8c0686b556
-    - 2045a5696769c038
   x: 395
   'y': 380
   wires: []
@@ -1842,10 +1841,13 @@
   name: action
   func: |-
     if (msg.action === 'row_click') {
-        msg.form = msg.payload;
+        global.set('form["' + msg.hmi.id + '"]["plant"]', typeof msg.payload.plant === 'string' ? msg.payload.plant : '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["line"]', typeof msg.payload.line === 'string' ? msg.payload.line : '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', typeof msg.payload.equipment === 'string' ? msg.payload.equipment : '', 'memoryOnly');
+
         msg.hmi.tab = global.get('describe.pages.detail.tab','memoryOnly')||0;
         msg.hmi.page = global.get('describe.pages.detal.name','memoryOnly')||'';
-        msg.payload = msg.hmi.page;
+        msg.payload = msg.hmi.tab;
 
         delete msg.action;
         delete msg.column;

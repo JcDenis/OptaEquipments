@@ -1653,7 +1653,7 @@
     msg.enabled = true;
 
     // get kernel types
-    let types = global.get('kernel', 'default');
+    let types = global.get('kernel', 'memoryOnly');
     let i = 0;
     for (const type in types) {
         msg.options[i++] = {
@@ -1743,7 +1743,7 @@
         flow.set('kernel["' + msg.hmi.id + '"]["entity"]', '', 'memoryOnly');
 
         // get kernel entitites
-        let entities = global.get('kernel["' + msg.payload + '"]', 'default');
+        let entities = global.get('kernel["' + msg.payload + '"]', 'memoryOnly');
         msg.options = [];
         let i = 0;
         for (const entity in entities) {
