@@ -41,16 +41,15 @@
     - 1b3e234bed8047a0
     - 400b36abc42f9eb4
     - bbc9788e628f814f
-    - 607e3e4e380d8497
     - d6b390ca9da4bedf
-    - 2d7153020c8374c5
     - 601ec973d08a23a0
     - dc496ef3eea5ccb5
     - 47f48c881c76c867
-    - 06b605e1e9b92c12
+    - cd2737f508858dca
+    - 0b9e7232d0a2493a
   x: 104
   'y': 459
-  w: 2052
+  w: 2112
   h: 202
 - id: e86385b18b9154e7
   type: group
@@ -145,11 +144,11 @@
     - 05107d400a502297
     - d929753382156fa2
     - 726908f7902e2771
-    - 16a8aa9d41637b79
-    - 6f32938f5b6a33c5
+    - 17d333ed58f454d1
+    - d4bdf624cc8fec1b
   x: 104
   'y': 39
-  w: 622
+  w: 582
   h: 142
 - id: ac0595b45d9786aa
   type: group
@@ -180,10 +179,9 @@
   links:
     - d929753382156fa2
   x: 145
-  'y': 500
+  'y': 560
   wires:
-    - - 2d7153020c8374c5
-      - 06b605e1e9b92c12
+    - - cd2737f508858dca
 - id: 7779c61e2d5af956
   type: change
   z: e97c6f12735a13c1
@@ -225,7 +223,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1390
+  x: 1450
   'y': 560
   wires:
     - - 408a810a7266e6fe
@@ -251,7 +249,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 1590
+  x: 1650
   'y': 560
   wires:
     - - 968b8e399f39f1a5
@@ -286,7 +284,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1790
+  x: 1850
   'y': 560
   wires:
     - - dc496ef3eea5ccb5
@@ -321,7 +319,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1390
+  x: 1450
   'y': 500
   wires:
     - - 408a810a7266e6fe
@@ -338,7 +336,7 @@
     - baa9eb973e71311f
     - c0261e8841790dd0
     - f66528f67c8d7cfd
-  x: 2115
+  x: 2175
   'y': 500
   wires: []
 - id: c0261e8841790dd0
@@ -661,36 +659,10 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 450
-  'y': 560
+  x: 470
+  'y': 620
   wires:
     - - d6b390ca9da4bedf
-- id: 607e3e4e380d8497
-  type: change
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]plant'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]list'
-      pt: flow
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 560
-  wires:
-    - - 1b9a457d31b5df20
-      - 7779c61e2d5af956
 - id: bbc9788e628f814f
   type: switch
   z: e97c6f12735a13c1
@@ -705,8 +677,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 870
-  'y': 560
+  x: 890
+  'y': 620
   wires:
     - - 47f48c881c76c867
 - id: d6b390ca9da4bedf
@@ -731,8 +703,8 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 670
-  'y': 560
+  x: 690
+  'y': 620
   wires:
     - - bbc9788e628f814f
 - id: 07f04015f0eb92c6
@@ -822,42 +794,6 @@
   x: 1095
   'y': 740
   wires: []
-- id: 2d7153020c8374c5
-  type: change
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: list
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 470
-  'y': 500
-  wires:
-    - - 1b9a457d31b5df20
-      - d6b390ca9da4bedf
 - id: 601ec973d08a23a0
   type: change
   z: e97c6f12735a13c1
@@ -869,8 +805,8 @@
   from: ''
   to: ''
   reg: false
-  x: 1230
-  'y': 620
+  x: 1290
+  'y': 560
   wires:
     - - 1b9a457d31b5df20
       - 7779c61e2d5af956
@@ -886,7 +822,7 @@
   x: 145
   'y': 140
   wires:
-    - - 16a8aa9d41637b79
+    - - d4bdf624cc8fec1b
 - id: d929753382156fa2
   type: link out
   z: e97c6f12735a13c1
@@ -895,7 +831,7 @@
   mode: link
   links:
     - 28b85f45e33eef42
-  x: 595
+  x: 555
   'y': 140
   wires: []
 - id: 033bdb2c1e76e680
@@ -941,7 +877,7 @@
   className: ui-title
   value: dictionary.option_page.list
   valueType: msg
-  x: 640
+  x: 600
   'y': 80
   wires: []
 - id: dc496ef3eea5ccb5
@@ -953,7 +889,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1970
+  x: 2030
   'y': 560
   wires:
     - - 1b3e234bed8047a0
@@ -1305,10 +1241,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1050
-  'y': 560
+  x: 1070
+  'y': 620
   wires:
-    - - 607e3e4e380d8497
+    - - 0b9e7232d0a2493a
 - id: 3ac3ebaf6b3fe555
   type: link call
   z: e97c6f12735a13c1
@@ -1370,77 +1306,6 @@
   x: 775
   'y': 260
   wires: []
-- id: 16a8aa9d41637b79
-  type: function
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: tab &  level
-  func: >-
-    let check = 'list';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check + '"]["tab"]',
-    'memoryOnly')
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        return [msg, null];
-    }
-
-
-    if (msg.hmi.tab === 99) {
-        flow.set('form', undefined, 'memoryOnly');
-    } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-    }
-
-
-    return [null, msg];
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - 6f32938f5b6a33c5
-    - - d929753382156fa2
-- id: 6f32938f5b6a33c5
-  type: delay
-  z: e97c6f12735a13c1
-  g: 2c0f9b39f8c7dd73
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 470
-  'y': 80
-  wires:
-    - - d929753382156fa2
-      - 726908f7902e2771
 - id: 66b17128b5299e13
   type: function
   z: e97c6f12735a13c1
@@ -1610,7 +1475,7 @@
             row.delete = (msg.dictionary?.common_action_delete)||'Delete';
             row.equipment_count = 0;
 
-            if (row.plant === flow.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
                 let equipments = global.get('kernel.equipments','memoryOnly');
                 if (typeof equipments === 'object') {
                     for (const equipment in equipments) {
@@ -1681,7 +1546,7 @@
             row.component_count = 0;
             row.state_color = '#CCCCCC';
 
-            if (row.plant === flow.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
                 let state = global.get('kernel.state["' + row.equipment + '|run"]', 'memoryOnly');
                 if (typeof state === 'number') {
                     row.state_color = (state === 0 ? '#FF0000' : '#008000');
@@ -1842,7 +1707,7 @@
             row.reverse = (global.get('kernel.reverse["' + endpoint + '"]','memoryOnly')||false) === true ? 'NC' : 'NO';
             row.delete = (msg.dictionary?.common_action_delete)||'Delete';
 
-            if (row.plant === flow.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
                 msg.payload[i++] = row;
             }
         }
@@ -1911,7 +1776,7 @@
             row.state_diff = Math.round((row.state - row.state_limit) *10) / 10;
             row.delete = (msg.dictionary?.common_action_delete)||'Delete';
 
-            if (row.plant === flow.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
                 msg.payload[i++] = row;
             }
         }
@@ -1970,33 +1835,6 @@
     - - 4c1093802ef038cc
       - b8fd1cbbd582e7cb
     - - 4c1093802ef038cc
-- id: 06b605e1e9b92c12
-  type: function
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: pant
-  func: |-
-    if (msg.enabled === true) {
-        if (msg.hmi.plant !== '') {
-            flow.set('form["' + msg.hmi.id + '"]["plant"]', msg.hmi.plant, 'memoryOnly');
-            return [null, msg];
-        } else {
-            return [msg,null];
-        }
-    }
-
-    return;
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 270
-  'y': 620
-  wires:
-    - - 400b36abc42f9eb4
-    - - 601ec973d08a23a0
 - id: e4807fa3e9836f6e
   type: function
   z: e97c6f12735a13c1
@@ -2012,17 +1850,17 @@
         delete msg.action;
         delete msg.column;
 
-        return [null,null,msg];
+        return [null, null, msg];
     } else if (msg.action === 'button_click' && msg.column === 'delete') {
         
-        return [msg,null,null];
+        return [msg, null, null];
     } else {
         msg.ui_update = {'label':(msg.dictionary?.group_list_records)||'Records: '};
         msg.payload = Number(msg.total||0);
         msg.class = '';
         msg.enabled = true;
 
-        return [null,msg,null];
+        return [null, msg, null];
     }
   outputs: 3
   timeout: 0
@@ -2060,3 +1898,98 @@
   x: 1135
   'y': 1280
   wires: []
+- id: 17d333ed58f454d1
+  type: link call
+  z: e97c6f12735a13c1
+  g: 2c0f9b39f8c7dd73
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - d929753382156fa2
+      - 726908f7902e2771
+- id: d4bdf624cc8fec1b
+  type: change
+  z: e97c6f12735a13c1
+  g: 2c0f9b39f8c7dd73
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: list
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - 17d333ed58f454d1
+- id: cd2737f508858dca
+  type: function
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: user plant
+  func: |-
+    if (msg.enabled !== true) {
+        // page is disabled
+        msg.class = 'remove';
+        msg.enabled = false;
+        msg.payload = '';
+
+        return [msg, null, msg];
+    }
+
+
+    if (msg.hmi.plant === '') {
+        // admin can select a plant
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+
+        if (msg.payload === '') {
+            // user must selected a plant
+
+            return [null, null, msg];
+        } else {
+            // show selected plant
+
+            return [null, msg, msg];
+        }
+    } else {
+        // user is linked to a plant
+        msg.payload = msg.hmi.plant;
+
+        return [null, msg, null];
+    }
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 280
+  'y': 560
+  wires:
+    - - 1b9a457d31b5df20
+    - - 601ec973d08a23a0
+    - - 400b36abc42f9eb4
+- id: 0b9e7232d0a2493a
+  type: link call
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: ''
+  links:
+    - 0e8a1d6969a7188b
+  linkType: static
+  timeout: '30'
+  x: 1270
+  'y': 620
+  wires:
+    - - 1b9a457d31b5df20
+      - 7779c61e2d5af956

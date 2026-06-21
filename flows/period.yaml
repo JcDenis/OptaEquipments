@@ -16,10 +16,11 @@
     - d55041fdf28a3f36
     - 11a3e525f770e3aa
     - 3a19e0ec83e6803a
-    - 7d1cbc3cd4edd0f3
+    - 88e6d6eec4fb8bf5
+    - f33c3568a857c4a6
   x: 104
   'y': 39
-  w: 482
+  w: 602
   h: 142
 - id: 744a665a3304c311
   type: group
@@ -31,7 +32,6 @@
     label: true
   nodes:
     - b53331a4b55c76c9
-    - 1a89c3efb2d6e620
     - df38ede5c62b33f7
     - aa38cd965e866cc2
     - a79527edfa815621
@@ -104,7 +104,7 @@
   x: 145
   'y': 140
   wires:
-    - - 7d1cbc3cd4edd0f3
+    - - 88e6d6eec4fb8bf5
 - id: 11a3e525f770e3aa
   type: link out
   z: 51c4b2897d2c318c
@@ -113,25 +113,9 @@
   mode: link
   links:
     - 875dda3836ede644
-  x: 435
+  x: 555
   'y': 140
   wires: []
-- id: 1a89c3efb2d6e620
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 490
-  'y': 320
-  wires:
-    - - ee588a552ba9d8c0
-      - b845b219f76071e5
 - id: df38ede5c62b33f7
   type: link call
   z: 51c4b2897d2c318c
@@ -1177,7 +1161,7 @@
   className: ui-title
   value: dictionary.option_page.period
   valueType: msg
-  x: 490
+  x: 610
   'y': 80
   wires: []
 - id: 94b88ea9c404a001
@@ -1600,53 +1584,6 @@
   x: 6115
   'y': 260
   wires: []
-- id: 7d1cbc3cd4edd0f3
-  type: function
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: tab &  level
-  func: >-
-    let check = 'period';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly') 
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
-
-        return msg;
-    } else if (msg.hmi.tab === 99) {
-
-        return msg;
-    } else {
-
-        return;
-    }
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - 11a3e525f770e3aa
-      - 3a19e0ec83e6803a
 - id: 2bae655127ea8edc
   type: function
   z: 51c4b2897d2c318c
@@ -1654,27 +1591,33 @@
   name: user plant
   func: |-
     if (msg.enabled !== true) {
-        msg.class = "remove";
+        // page is disabled
+        msg.class = 'remove';
         msg.enabled = false;
         msg.payload = '';
-        msg.list = '';
 
-        return [msg,null,null];
-    } else {
-        let plant = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
-        if (plant.length > 0) {
-            msg.payload = plant;
+        return [msg, null, msg];
+    }
 
-            return [null,msg,msg];
-        }
-        if (msg.hmi.plant !== '') {
-            global.set('form["' + msg.hmi.id + '"]["plant"]',msg.hmi.plant,'memoryOnly');
 
-            return [msg,msg,null];
+    if (msg.hmi.plant === '') {
+        // admin can select a plant
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+
+        if (msg.payload === '') {
+            // user must selected a plant
+
+            return [null, null, msg];
         } else {
+            // show selected plant
 
-            return [null,null, msg];
+            return [null, msg, msg];
         }
+    } else {
+        // user is linked to a plant
+        msg.payload = msg.hmi.plant;
+
+        return [null, msg, null];
     }
   outputs: 3
   timeout: 0
@@ -1685,7 +1628,7 @@
   x: 280
   'y': 380
   wires:
-    - - 1a89c3efb2d6e620
+    - - ee588a552ba9d8c0
     - - bd492fc337963491
     - - df38ede5c62b33f7
 - id: 4c4bb5da4693075d
@@ -1719,3 +1662,37 @@
   wires:
     - - a79527edfa815621
       - 39cf9bc6de140b04
+- id: 88e6d6eec4fb8bf5
+  type: change
+  z: 51c4b2897d2c318c
+  g: 6cb8cb87cdf72081
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: period
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - f33c3568a857c4a6
+- id: f33c3568a857c4a6
+  type: link call
+  z: 51c4b2897d2c318c
+  g: 6cb8cb87cdf72081
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - 11a3e525f770e3aa
+      - 3a19e0ec83e6803a

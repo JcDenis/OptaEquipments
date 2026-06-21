@@ -106,6 +106,7 @@
     - 94fe6a75da9bf8db
     - 0059a67bfaa04737
     - 83973e4568ca8edb
+    - 1669e26b4db844ba
   x: 104
   'y': 879
   w: 3022
@@ -153,7 +154,6 @@
     - 42df60fa4de47b17
     - 16f4712aa2f4a3b9
     - bb491e75635c775c
-    - b4bb323cb47c0ce8
     - 7d95ec8466c90bee
     - 6f7f4d9d6972c32a
     - ae421424c4817a45
@@ -203,6 +203,7 @@
     - 36b06554537f7f0f
     - 7ab3e9531f451298
     - c8a6f4719f76187e
+    - 1390aca55332ea44
   x: 104
   'y': 3279
   w: 4462
@@ -217,28 +218,18 @@
     label: true
   nodes:
     - 96e8abf144b980e2
-    - e735a826b5dcfd5b
-    - 730a4a779e25e37d
-    - abcdce389af63d37
-    - e9847ab98ea59d0c
-    - 9170fd9faa6addb9
-    - 237a55abbdf2e13f
     - 83bea62615fdc467
     - 5c746d6457cd29ed
-    - 72ba5fc75ecd528a
-    - 15615470dbdee64b
     - 67d66a8b80535ef8
     - 559b3d85382337b4
     - a725430845c0b181
-    - 8fb53ee8d65f4165
-    - 42174b06a9dc03a4
     - 297dbbed636a64a6
-    - d67c501a49d7e138
     - f02a30318019f86b
     - af884ff486bd27d4
+    - acf39d5114fc22cb
   x: 104
   'y': 3879
-  w: 1982
+  w: 1042
   h: 262
 - id: 20a2e240c83c48c2
   type: group
@@ -294,10 +285,11 @@
     - 2045a5696769c038
     - 3aad74b4936add5c
     - b3954fad993602e1
-    - 0d8f27717a354010
+    - 5d328a83019c85c7
+    - cc8bf2b344b330c3
   x: 104
   'y': 39
-  w: 482
+  w: 602
   h: 142
 - id: 6d125a0d231d55d4
   type: group
@@ -310,7 +302,6 @@
   nodes:
     - 8fdfd037d4e5b985
     - 0e841715e2ebce0f
-    - 56b4acc92d2c14f7
     - 36ca816106cb746f
     - 41f6c771c0995e45
     - 28c54b4779392879
@@ -1739,17 +1730,6 @@
       pt: msg
       to: ''
       tot: str
-    - t: set
-      p: '#:(memoryOnly)::hours[msg.hmi.id]'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: >-
-        #:(memoryOnly)::hours[msg.hmi.id][msg.form.equipment][msg.form.component]
-      pt: flow
-      to: "[\t    {'_start':'6h+','_value':0},\t    {'_start':'7h+','_value':0},\t    {'_start':'8h+','_value':0},\t    {'_start':'9h+','_value':0},\t    {'_start':'10h+','_value':0},\t    {'_start':'11h+','_value':0},\t    {'_start':'12h+','_value':0},\t    {'_start':'13h+','_value':0},\t    {'_start':'14h+','_value':0},\t    {'_start':'15h+','_value':0},\t    {'_start':'16h+','_value':0},\t    {'_start':'17h+','_value':0},\t    {'_start':'18h+','_value':0},\t    {'_start':'19h+','_value':0},\t    {'_start':'20h+','_value':0},\t    {'_start':'21h+','_value':0},\t    {'_start':'22h+','_value':0},\t    {'_start':'23h+','_value':0},\t    {'_start':'0h+','_value':0},\t    {'_start':'1h+','_value':0},\t    {'_start':'2h+','_value':0},\t    {'_start':'3h+','_value':0},\t    {'_start':'4h+','_value':0},\t    {'_start':'5h+','_value':0}\t]"
-      tot: jsonata
   action: ''
   property: ''
   from: ''
@@ -2079,7 +2059,7 @@
   type: change
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
-  name: flow
+  name: row
   rules:
     - t: set
       p: payload._start
@@ -2098,11 +2078,9 @@
       to: 'msg.payload._hour>23?msg.payload._hour-24:msg.payload._hour'
       tot: jsonata
     - t: set
-      p: >-
-        #:(memoryOnly)::hours[msg.hmi.id][msg.form.equipment][msg.form.component][msg.payload._start]
-      pt: flow
-      to: >-
-        {'_start':msg.payload._hour&'h+','_value':$round(msg.payload._value/60,0)}
+      p: payload
+      pt: msg
+      to: "{\t    'start':msg.payload._start,\t    'data':{'_start':msg.payload._hour&'h+','_value':$round(msg.payload._value/60,0)}\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -2137,32 +2115,7 @@
   x: 4030
   'y': 3560
   wires:
-    - - b4bb323cb47c0ce8
-- id: b4bb323cb47c0ce8
-  type: change
-  z: 852390cb9559e176
-  g: 1c87eaf6a557f02d
-  name: flow
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: >-
-        #:(memoryOnly)::hours[msg.hmi.id][msg.form.equipment][msg.form.component]
-      tot: flow
-    - t: delete
-      p: '#:(memoryOnly)::hours[msg.hmi.id]'
-      pt: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 4190
-  'y': 3560
-  wires:
-    - - 4a1bfe977cdf0685
-      - f3a4fbd1914b8411
+    - - 1390aca55332ea44
 - id: 7d95ec8466c90bee
   type: change
   z: 852390cb9559e176
@@ -2474,210 +2427,10 @@
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
   x: 145
-  'y': 3920
+  'y': 3980
   wires:
-    - - 8fb53ee8d65f4165
-      - 42174b06a9dc03a4
-      - 297dbbed636a64a6
-- id: e735a826b5dcfd5b
-  type: change
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: alerts
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::kernel.alert'
-      tot: global
-    - t: set
-      p: '#:(memoryOnly)::alerts[msg.hmi.id]'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: row
-      pt: msg
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: compare
-      pt: msg
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: equipment
-      pt: msg
-      to: '#:(memoryOnly)::from[msg.hmi.id][''equipment'']'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 450
-  'y': 4040
-  wires:
-    - - 730a4a779e25e37d
-      - 559b3d85382337b4
-- id: 730a4a779e25e37d
-  type: split
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: row.entity
-  property: payload
-  x: 610
-  'y': 4040
-  wires:
-    - - abcdce389af63d37
-- id: abcdce389af63d37
-  type: change
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: row
-  rules:
-    - t: set
-      p: split
-      pt: msg
-      to: '$split(msg.row.entity,''|'')'
-      tot: jsonata
-    - t: set
-      p: row.equipment
-      pt: msg
-      to: 'split[0]'
-      tot: msg
-    - t: set
-      p: row.equipment_name
-      pt: msg
-      to: '#:(memoryOnly)::kernel.equipment[msg.row.equipment]'
-      tot: global
-    - t: set
-      p: row.equipment_full
-      pt: msg
-      to: msg.row.equipment_name & ' (' & msg.row.equipment & ')'
-      tot: jsonata
-    - t: set
-      p: row.component
-      pt: msg
-      to: 'split[1]'
-      tot: msg
-    - t: set
-      p: row.component_name
-      pt: msg
-      to: 'dictionary.option_component[msg.row.component]'
-      tot: msg
-    - t: set
-      p: row.component_full
-      pt: msg
-      to: msg.row.component_name & ' (' & msg.row.component & ')'
-      tot: jsonata
-    - t: set
-      p: row.state
-      pt: msg
-      to: '#:(memoryOnly)::kernel.state[msg.row.entity]'
-      tot: global
-    - t: set
-      p: row.state_limit
-      pt: msg
-      to: $number(msg.payload)
-      tot: jsonata
-    - t: set
-      p: row.state_color
-      pt: msg
-      to: 'msg.row.state<msg.row.state_limit?''#008000'':''#FF0000'''
-      tot: jsonata
-    - t: set
-      p: row.state_diff
-      pt: msg
-      to: '$round(msg.row.state-msg.row.state_limit,1)'
-      tot: jsonata
-    - t: delete
-      p: split
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 770
-  'y': 4040
-  wires:
-    - - 237a55abbdf2e13f
-- id: e9847ab98ea59d0c
-  type: join
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 1250
-  'y': 4040
-  wires:
-    - - 9170fd9faa6addb9
-- id: 9170fd9faa6addb9
-  type: change
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: rows
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::alerts[msg.hmi.id]'
-      tot: flow
-    - t: delete
-      p: '#:(memoryOnly)::alerts[msg.hmi.id]'
-      pt: flow
-    - t: delete
-      p: 'payload[0]'
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1410
-  'y': 4040
-  wires:
-    - - 15615470dbdee64b
-- id: 237a55abbdf2e13f
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: same
-  property: row.equipment
-  propertyType: msg
-  rules:
-    - t: eq
-      v: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
-      vt: global
-  checkall: 'false'
-  repair: true
-  outputs: 1
-  x: 930
-  'y': 4040
-  wires:
-    - - 72ba5fc75ecd528a
+    - - 297dbbed636a64a6
+      - acf39d5114fc22cb
 - id: 83bea62615fdc467
   type: debug
   z: 852390cb9559e176
@@ -2691,7 +2444,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1910
+  x: 970
   'y': 4100
   wires: []
 - id: 5c746d6457cd29ed
@@ -2739,54 +2492,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1940
+  x: 1000
   'y': 3980
   wires:
     - []
-- id: 72ba5fc75ecd528a
-  type: change
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: add
-  rules:
-    - t: set
-      p: rows
-      pt: msg
-      to: '#:(memoryOnly)::alerts[msg.hmi.id]'
-      tot: flow
-    - t: set
-      p: '#:(memoryOnly)::alerts[msg.hmi.id]'
-      pt: flow
-      to: '$append(msg.rows,msg.row)'
-      tot: jsonata
-    - t: delete
-      p: split
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1090
-  'y': 4040
-  wires:
-    - - e9847ab98ea59d0c
-- id: 15615470dbdee64b
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: nempty
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1570
-  'y': 4040
-  wires:
-    - - d67c501a49d7e138
 - id: ee4c8653f8b07e2e
   type: link out
   z: 852390cb9559e176
@@ -2867,7 +2576,7 @@
   className: ui-title
   value: dictionary.option_page.alert
   valueType: msg
-  x: 1930
+  x: 990
   'y': 3920
   wires: []
 - id: 436a9466d70f31e6
@@ -3661,7 +3370,7 @@
   x: 145
   'y': 140
   wires:
-    - - 0d8f27717a354010
+    - - 5d328a83019c85c7
 - id: 559b3d85382337b4
   type: trigger
   z: 852390cb9559e176
@@ -3679,8 +3388,8 @@
   bytopic: topic
   topic: hmi.id
   outputs: 1
-  x: 630
-  'y': 3980
+  x: 610
+  'y': 3920
   wires:
     - - af884ff486bd27d4
 - id: a725430845c0b181
@@ -3699,8 +3408,8 @@
   from: ''
   to: ''
   reg: false
-  x: 450
-  'y': 3980
+  x: 430
+  'y': 3920
   wires:
     - - 559b3d85382337b4
 - id: b390bbd952b85b9d
@@ -3734,51 +3443,6 @@
       - d3429e734dbce4fe
       - 95ace84584b7e415
       - 22a49c79934247fc
-- id: 8fb53ee8d65f4165
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: enabled
-  property: class
-  propertyType: msg
-  rules:
-    - t: neq
-      v: remove
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 280
-  'y': 4040
-  wires:
-    - - e735a826b5dcfd5b
-- id: 42174b06a9dc03a4
-  type: change
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1730
-  'y': 3920
-  wires:
-    - - 5c746d6457cd29ed
-      - f02a30318019f86b
-      - 67d66a8b80535ef8
 - id: 3aad74b4936add5c
   type: link out
   z: 852390cb9559e176
@@ -3787,7 +3451,7 @@
   mode: link
   links:
     - b24713f215fa93c7
-  x: 435
+  x: 555
   'y': 140
   wires: []
 - id: 297dbbed636a64a6
@@ -3804,8 +3468,8 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 290
-  'y': 3980
+  x: 270
+  'y': 3920
   wires:
     - - a725430845c0b181
 - id: eb739ce60a549f6f
@@ -3956,10 +3620,9 @@
     - bd7c74e40976d045
     - ee4c8653f8b07e2e
   x: 145
-  'y': 4220
+  'y': 4280
   wires:
-    - - 56b4acc92d2c14f7
-      - f43bb802ac70a922
+    - - f43bb802ac70a922
 - id: 0e841715e2ebce0f
   type: ui-table
   z: 852390cb9559e176
@@ -4021,33 +3684,6 @@
   'y': 4280
   wires:
     - []
-- id: 56b4acc92d2c14f7
-  type: change
-  z: 852390cb9559e176
-  g: 6d125a0d231d55d4
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 300
-  'y': 4220
-  wires:
-    - - 0e841715e2ebce0f
-      - 36ca816106cb746f
-      - 28c54b4779392879
 - id: 36ca816106cb746f
   type: ui-text
   z: 852390cb9559e176
@@ -5262,6 +4898,7 @@
 - id: 1669e26b4db844ba
   type: change
   z: 852390cb9559e176
+  g: d04f02d6e1c02839
   name: cycle
   rules: []
   action: ''
@@ -5269,8 +4906,8 @@
   from: ''
   to: ''
   reg: false
-  x: 828
-  'y': 1519
+  x: 830
+  'y': 1580
   wires:
     - - bf0283565cf53483
       - c9cff0eb6beb8580
@@ -5316,7 +4953,7 @@
   className: ui-title
   value: dictionary.option_page.detail
   valueType: msg
-  x: 490
+  x: 610
   'y': 80
   wires: []
 - id: a54c84532f2c44a3
@@ -5444,30 +5081,6 @@
   x: 4420
   'y': 3680
   wires: []
-- id: d67c501a49d7e138
-  type: switch
-  z: 852390cb9559e176
-  g: af7c52c4b0905961
-  name: lang
-  property: dictionary.lang
-  propertyType: msg
-  rules:
-    - t: eq
-      v: fr
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1730
-  'y': 4040
-  wires:
-    - - 5c746d6457cd29ed
-      - 67d66a8b80535ef8
-      - 83bea62615fdc467
-    - - f02a30318019f86b
-      - 67d66a8b80535ef8
-      - 83bea62615fdc467
 - id: f02a30318019f86b
   type: ui-table
   z: 852390cb9559e176
@@ -5513,7 +5126,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1950
+  x: 1010
   'y': 4040
   wires:
     - []
@@ -5727,57 +5340,6 @@
   wires:
     - - cd9312927e6f5747
       - 3c49b3039dfe7b95
-- id: 0d8f27717a354010
-  type: function
-  z: 852390cb9559e176
-  g: fe21b6421a9020d4
-  name: tab &  level
-  func: >-
-    let check = 'detail';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check + '"]["tab"]',
-    'memoryOnly')
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
-
-        return msg;
-    } else if (msg.hmi.tab === 99) {
-        flow.set('alerts', undefined, 'memoryOnly');
-        flow.set('hours', undefined, 'memoryOnly');
-
-        return msg;
-    } else {
-        flow.set('alerts["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-        flow.set('hours["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-
-        return;
-    }
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - 3aad74b4936add5c
-      - b3954fad993602e1
 - id: 847f3850106ae6a0
   type: delay
   z: 852390cb9559e176
@@ -5874,7 +5436,18 @@
   g: 6d125a0d231d55d4
   name: periods
   func: |-
-    if (msg.enabled === true) {
+    let hideMsg = {
+        'topic':'',
+        'payload':'',
+        'class':'remove',
+        'enabled':false,
+        'hmi':msg.hmi,
+        'dictionary':msg.dictionary
+    };
+
+    node.send([hideMsg, hideMsg]);
+
+    if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
         let line = global.get('form["' + msg.hmi.id + '"]["line"]','memoryOnly')||'-';
         let period = global.get('kernel.period["' + line + '"]','memoryOnly');
         if (typeof period === 'string') {
@@ -5893,9 +5466,9 @@
             msg.payload.disabled = (global.get('kernel.disabled["' + line + '"]','memoryOnly')||false) === true?'#FF0000':'#008000';
 
             if (msg.hmi.lang === 'fr') {
-                return [msg,null];
+                return [msg, null];
             } else {
-                return [null,msg];
+                return [null, msg];
             }
         }
     }
@@ -5907,14 +5480,14 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 290
+  x: 280
   'y': 4280
   wires:
     - - 36ca816106cb746f
       - 0e841715e2ebce0f
       - 41f6c771c0995e45
-    - - 36ca816106cb746f
-      - 28c54b4779392879
+    - - 28c54b4779392879
+      - 36ca816106cb746f
       - 41f6c771c0995e45
 - id: 36773a3eafb57b0b
   type: function
@@ -6116,9 +5689,18 @@
   g: de8127dbf035df93
   name: hitorics
   func: |-
-    if (msg.enabled === false) {
-        return [msg,null];
-    } else {
+    let hideMsg = {
+        'topic': '',
+        'payload': '',
+        'class': 'remove',
+        'enabled': false,
+        'hmi': msg.hmi,
+        'dictionary': msg.dictionary
+    };
+
+    node.send([hideMsg, null]);
+
+    if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
         msg.payload = [];
 
         let equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]', 'memoryOnly');
@@ -6150,7 +5732,7 @@
             node.status({'text':i});
             msg.outTz = global.get('kernel.tz["' + plant + '"]', 'memoryOnly')||'Europe/Paris';
 
-            return [null,msg];
+            return [null, msg];
         }
     }
 
@@ -6376,12 +5958,7 @@
   z: 852390cb9559e176
   g: de8127dbf035df93
   name: '-'
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
+  rules: []
   action: ''
   property: ''
   from: ''
@@ -6615,6 +6192,9 @@
         }
         
         if (form.plant !== '' && form.line !== '' && form.equipment !== '') {
+            delete msg.limit_plant;
+            delete msg.limit_line;
+            msg.payload = '';
 
             node.send([null, null, null, null, msg]);
         }
@@ -6643,8 +6223,9 @@
   g: af7c52c4b0905961
   name: form
   func: >-
-    if (global.get('form["' + msg.hmi.id + '"]','memoryOnly') === msg.equipment)
-    {
+    if (global.get('form["' + msg.hmi.id + '"]["equipment"]','memoryOnly') ===
+    msg.equipment
+        && global.get('form["' + msg.hmi.id + '"]["tab"]','memoryOnly') === 'detail') {
         return msg;
     }
 
@@ -6656,18 +6237,19 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 810
-  'y': 3980
+  x: 790
+  'y': 3920
   wires:
-    - - e735a826b5dcfd5b
+    - - acf39d5114fc22cb
 - id: c8a6f4719f76187e
   type: function
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   name: form
   func: >-
-    if (global.get('form["' + msg.hmi.id + '"]','memoryOnly') === msg.equipment)
-    {
+    if (global.get('form["' + msg.hmi.id + '"]["equipment"]','memoryOnly') ===
+    msg.equipment
+        && global.get('form["' + msg.hmi.id + '"]["tab"]','memoryOnly') === 'detail') {
         return msg;
     }
 
@@ -6767,3 +6349,158 @@
   'y': 500
   wires:
     - - 727e684b36d44266
+- id: acf39d5114fc22cb
+  type: function
+  z: 852390cb9559e176
+  g: af7c52c4b0905961
+  name: alters
+  func: |-
+    let hideMsg = {
+        'topic':'',
+        'payload':'',
+        'class':'remove',
+        'enabled':false,
+        'hmi':msg.hmi,
+        'dictionary':msg.dictionary
+    };
+
+    node.send([hideMsg, hideMsg, hideMsg]);
+
+    if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
+        msg.equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]','memoryOnly')||'';
+        msg.payload = [];
+
+        let i = 0;
+        let alerts = global.get('kernel.alert','memoryOnly')||{};
+        for (const alert in alerts) {
+            let row = {};
+            let esplit = alert.split('|');
+
+            if (esplit[0] === msg.equipment) {
+            
+                row.entity = alert;
+                row.equipment = esplit[0];
+                row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]')||'';
+                row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
+                row.component = esplit[1];
+                row.component_name = (msg.dictionary?.option_component[row.component])||'';
+                row.component_full = row.component_name + ' (' + row.component + ')';
+                row.state = Number(global.get('kernel.state["' + row.entity + '"]','memoryOnly')||0);
+                row.state_limit = Number(alerts[alert]);
+                row.state_color = row.state < row.state_limit ? 'green':'red';
+                row.state_diff = Math.round((row.state - row.state_limit)*10) / 10;
+            
+                msg.payload[i++] = row;
+            }
+        }
+
+        if (i > 0) {
+            if (msg.hmi.lang === 'fr') {
+
+                return [msg, msg, null];
+            } else {
+
+                return [msg, null, msg];
+            }
+        }
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 3980
+  wires:
+    - - 559b3d85382337b4
+      - 67d66a8b80535ef8
+    - - 5c746d6457cd29ed
+      - 83bea62615fdc467
+    - - f02a30318019f86b
+      - 83bea62615fdc467
+- id: 5d328a83019c85c7
+  type: change
+  z: 852390cb9559e176
+  g: fe21b6421a9020d4
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: detail
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - cc8bf2b344b330c3
+- id: cc8bf2b344b330c3
+  type: link call
+  z: 852390cb9559e176
+  g: fe21b6421a9020d4
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - 3aad74b4936add5c
+      - b3954fad993602e1
+- id: 1390aca55332ea44
+  type: function
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: array
+  func: |-
+    let rows = [
+        {'_start':'6h+','_value':0},
+        {'_start':'7h+','_value':0},
+        {'_start':'8h+','_value':0},
+        {'_start':'9h+','_value':0},
+        {'_start':'10h+','_value':0},
+        {'_start':'11h+','_value':0},
+        {'_start':'12h+','_value':0},
+        {'_start':'13h+','_value':0},
+        {'_start':'14h+','_value':0},
+        {'_start':'15h+','_value':0},
+        {'_start':'16h+','_value':0},
+        {'_start':'17h+','_value':0},
+        {'_start':'18h+','_value':0},
+        {'_start':'19h+','_value':0},
+        {'_start':'20h+','_value':0},
+        {'_start':'21h+','_value':0},
+        {'_start':'22h+','_value':0},
+        {'_start':'23h+','_value':0},
+        {'_start':'0h+','_value':0},
+        {'_start':'1h+','_value':0},
+        {'_start':'2h+','_value':0},
+        {'_start':'3h+','_value':0},
+        {'_start':'4h+','_value':0},
+        {'_start':'5h+','_value':0}
+    ];
+    for (const i in msg.payload) {
+        rows[msg.payload[i]['start']] = msg.payload[i]['data'];
+    }
+    msg.payload = rows;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 4190
+  'y': 3560
+  wires:
+    - - 4a1bfe977cdf0685
+      - f3a4fbd1914b8411

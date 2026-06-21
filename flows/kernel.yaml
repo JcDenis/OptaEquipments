@@ -2736,7 +2736,6 @@
   'y': 3360
   wires:
     - - 23dd24021e2cecf1
-      - 68593265cb4e2507
       - 886e458678ddf131
 - id: 8415b61e8bd93936
   type: function
@@ -3321,10 +3320,10 @@
 
 
     let form_plant = global.get('form["' + msg.hmi.id +
-    '"]["plant"]','memoryOnly')||'';
+    '"]["plant"]','memoryOnly')||'-';
 
     if (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {
-        global.set('form["' + msg.hmi.id + '"]["plant"]',msg.form_plant,'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.hmi.plant,'memoryOnly');
         global.set('form["' + msg.hmi.id + '"]["line"]','','memoryOnly');
         global.set('form["' + msg.hmi.id + '"]["equipment"]','','memoryOnly');
     }
@@ -3408,10 +3407,11 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1230
+  x: 1450
   'y': 3360
   wires:
     - - 7bba6594f41302c2
+      - 68593265cb4e2507
 - id: bf59724bfb1762b4
   type: function
   z: f6f2187d.f17ca8
@@ -5085,6 +5085,7 @@
     ) {
         msg.class = '';
         msg.enabled = true;
+        global.set('form["' + msg.hmi.id + '"]["tab"]', msg.check,'memoryOnly');
 
         await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
 
@@ -5093,6 +5094,8 @@
 
     msg.class = 'remove';
     msg.enabled = false;
+
+    global.set('form["' + msg.hmi.id + '"]["tab"]', '','memoryOnly');
 
     return msg;
   outputs: 1

@@ -47,7 +47,6 @@
     - d7bc8fc74bfc07cb
     - 054bd47295999ad7
     - e3c7b3428b7ae9d9
-    - 6cf8cb9e6b8ecf5c
     - 725fb11b65553f46
     - f401e3b627aace38
   x: 104
@@ -457,52 +456,6 @@
   'y': 320
   wires:
     - - 09a816282f3bc371
-- id: 6cf8cb9e6b8ecf5c
-  type: function
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: tab &  level
-  func: >-
-    let check = 'alert';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check + '"]["tab"]',
-    'memoryOnly')
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
-
-        return msg;
-    } else if (msg.hmi.tab === 99) {
-
-        return msg;
-    } else {
-
-        return;
-    }
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 270
-  'y': 80
-  wires:
-    - []
 - id: 953414d1b751a30d
   type: function
   z: 476eb6fc04c55cec
@@ -597,6 +550,7 @@
   name: user plant
   func: |-
     if (msg.enabled !== true) {
+        // page is disabled
         msg.class = 'remove';
         msg.enabled = false;
         msg.payload = '';
@@ -604,17 +558,22 @@
         return [msg, null, msg];
     }
 
+
     if (msg.hmi.plant === '') {
+        // admin can select a plant
         msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
 
         if (msg.payload === '') {
+            // user must selected a plant
 
             return [null, null, msg];
         } else {
+            // show selected plant
 
             return [null, msg, msg];
         }
     } else {
+        // user is linked to a plant
         msg.payload = msg.hmi.plant;
 
         return [null, msg, null];

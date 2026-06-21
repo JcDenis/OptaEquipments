@@ -15,7 +15,6 @@
   nodes:
     - 9833ea0e831ff8c7
     - aa0e1484ee75066f
-    - 9979f236b1c3baac
     - 34e005364036decc
     - f4eee7dbe5621ecf
     - bb71762ba2269b75
@@ -36,26 +35,11 @@
     - f9dc1f7a8155ebef
     - 09bd0767b56167b6
     - f68e1a2d7f3e0c3d
+    - bf3da41c4b5bd219
   x: 104
-  'y': 279
+  'y': 39
   w: 2042
   h: 262
-- id: 4ef1cd4a19db42bf
-  type: group
-  z: 27841aa886edd1cd
-  name: auth - page
-  style:
-    fill: '#ff0000'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - bf3da41c4b5bd219
-    - ad1a02bca9e6e97e
-    - 7f21a38bf715a6f8
-  x: 104
-  'y': 99
-  w: 372
-  h: 82
 - id: 9833ea0e831ff8c7
   type: ui-button
   z: 27841aa886edd1cd
@@ -88,7 +72,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 790
-  'y': 380
+  'y': 140
   wires:
     - - f4eee7dbe5621ecf
 - id: aa0e1484ee75066f
@@ -112,20 +96,8 @@
   value: payload
   valueType: msg
   x: 770
-  'y': 440
+  'y': 200
   wires: []
-- id: 9979f236b1c3baac
-  type: link in
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: auth - form
-  links:
-    - ad1a02bca9e6e97e
-  x: 145
-  'y': 380
-  wires:
-    - - 88a80f7ce9615035
-      - 34e005364036decc
 - id: 34e005364036decc
   type: change
   z: 27841aa886edd1cd
@@ -142,13 +114,18 @@
       pt: msg
       to: 'true'
       tot: bool
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 270
-  'y': 500
+  'y': 260
   wires:
     - - be3b97df6b45470f
 - id: f4eee7dbe5621ecf
@@ -169,7 +146,7 @@
   to: ''
   reg: false
   x: 1010
-  'y': 380
+  'y': 140
   wires:
     - - 6ab34b3b3d64905e
 - id: bb71762ba2269b75
@@ -181,7 +158,7 @@
   links:
     - 00818f8c0686b556
   x: 1975
-  'y': 380
+  'y': 140
   wires: []
 - id: 8aca2e86c077d885
   type: debug
@@ -197,7 +174,7 @@
   statusVal: ''
   statusType: auto
   x: 2030
-  'y': 440
+  'y': 200
   wires: []
 - id: 6ab34b3b3d64905e
   type: delay
@@ -217,7 +194,7 @@
   allowrate: false
   outputs: 1
   x: 1850
-  'y': 380
+  'y': 140
   wires:
     - - 8aca2e86c077d885
       - bb71762ba2269b75
@@ -231,13 +208,13 @@
   linkType: static
   timeout: '30'
   x: 1350
-  'y': 500
+  'y': 260
   wires:
     - - 09bd0767b56167b6
 - id: bf3da41c4b5bd219
   type: link in
   z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
+  g: 90f47fc795048184
   name: auth - page
   links:
     - 575b91a30deac00d
@@ -245,18 +222,8 @@
   x: 145
   'y': 140
   wires:
-    - - 7f21a38bf715a6f8
-- id: ad1a02bca9e6e97e
-  type: link out
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: auth - page
-  mode: link
-  links:
-    - 9979f236b1c3baac
-  x: 435
-  'y': 140
-  wires: []
+    - - 88a80f7ce9615035
+      - 34e005364036decc
 - id: be3b97df6b45470f
   type: switch
   z: 27841aa886edd1cd
@@ -273,7 +240,7 @@
   repair: false
   outputs: 2
   x: 430
-  'y': 500
+  'y': 260
   wires:
     - - 600f8158ee5fa6b3
       - bb28138bb34a0fa9
@@ -296,13 +263,18 @@
       pt: msg
       to: 'false'
       tot: bool
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
   x: 430
-  'y': 380
+  'y': 140
   wires:
     - - 600f8158ee5fa6b3
       - bb28138bb34a0fa9
@@ -317,7 +289,7 @@
   links:
     - 4e94023e8ba12f50
   x: 1815
-  'y': 500
+  'y': 260
   wires: []
 - id: 3361a6a4765bfb11
   type: ui-form
@@ -354,7 +326,7 @@
   passthru: false
   dropdownOptions: []
   x: 770
-  'y': 500
+  'y': 260
   wires:
     - - 9093d61ed9142cff
 - id: 3da3f0a5ca052b2e
@@ -384,7 +356,7 @@
   to: ''
   reg: false
   x: 1160
-  'y': 500
+  'y': 260
   wires:
     - - c82457de0864e28c
 - id: 775c8e4364eee51a
@@ -408,7 +380,7 @@
   value: dictionary.option_page.auth
   valueType: msg
   x: 600
-  'y': 320
+  'y': 80
   wires: []
 - id: 600f8158ee5fa6b3
   type: change
@@ -427,7 +399,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 380
+  'y': 140
   wires:
     - - 9833ea0e831ff8c7
 - id: bb28138bb34a0fa9
@@ -452,7 +424,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 440
+  'y': 200
   wires:
     - - aa0e1484ee75066f
 - id: fe905230c6d73c11
@@ -472,7 +444,7 @@
   to: ''
   reg: false
   x: 590
-  'y': 500
+  'y': 260
   wires:
     - - 3361a6a4765bfb11
 - id: f3b837acb99f6326
@@ -482,7 +454,7 @@
   name: non authenticated users get language from browser. see ui-template
   info: ''
   x: 940
-  'y': 320
+  'y': 80
   wires: []
 - id: 9093d61ed9142cff
   type: link call
@@ -494,31 +466,9 @@
   linkType: static
   timeout: '30'
   x: 970
-  'y': 500
+  'y': 260
   wires:
     - - 3da3f0a5ca052b2e
-- id: 7f21a38bf715a6f8
-  type: function
-  z: 27841aa886edd1cd
-  g: 4ef1cd4a19db42bf
-  name: tab &  level
-  func: |-
-    let check = 'period';
-
-    msg.topic = '';
-    msg.payload = '';
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - ad1a02bca9e6e97e
 - id: f9dc1f7a8155ebef
   type: change
   z: 27841aa886edd1cd
@@ -536,7 +486,7 @@
   to: ''
   reg: false
   x: 1690
-  'y': 440
+  'y': 200
   wires:
     - - 6ab34b3b3d64905e
 - id: 09bd0767b56167b6
@@ -553,7 +503,7 @@
   repair: false
   outputs: 2
   x: 1530
-  'y': 500
+  'y': 260
   wires:
     - - f9dc1f7a8155ebef
     - - f68e1a2d7f3e0c3d
@@ -574,6 +524,6 @@
   to: ''
   reg: false
   x: 1690
-  'y': 500
+  'y': 260
   wires:
     - - 0cf63361a578f787

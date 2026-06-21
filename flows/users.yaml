@@ -15,12 +15,12 @@
   nodes:
     - 6304fe8d08f0cf47
     - 6b2108622867d8a4
-    - a183a01927caf5ae
-    - cb6a6d8cabc89315
+    - 435508bf294a3fbf
+    - 435f3eb4a7773b87
   x: 104
-  'y': 39
-  w: 532
-  h: 142
+  'y': 99
+  w: 492
+  h: 82
 - id: 7a7d35c0913aed9f
   type: group
   z: adb48ef35d9453c0
@@ -178,7 +178,7 @@
   x: 145
   'y': 140
   wires:
-    - - a183a01927caf5ae
+    - - 435508bf294a3fbf
 - id: 6b2108622867d8a4
   type: link out
   z: adb48ef35d9453c0
@@ -190,7 +190,7 @@
     - 30571b6d70631747
     - ef2a2e8f65ff707e
     - feb590d38372e404
-  x: 595
+  x: 555
   'y': 140
   wires: []
 - id: 922d6d1c4163d169
@@ -1685,7 +1685,7 @@
   g: bb8597f031aabc08
   name: user - add - form
   group: e9c7dc11bf2e5dfb
-  label: ''
+  label: plop
   order: 2
   width: 0
   height: 0
@@ -1916,6 +1916,11 @@
       pt: msg
       to: "[\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.group_user_pass2,\t        'key':'pass2',\t        'required':true\t    }\t]"
       tot: jsonata
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -1936,6 +1941,11 @@
       pt: msg
       to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_level,\t        'key':'level',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_lang,\t        'key':'lang',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_plant,\t        'key':'plant',\t        'required':false\t    },\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_telegram,\t        'key':'telegram',\t        'required':false\t    }\t]"
       tot: jsonata
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -2164,76 +2174,6 @@
   x: 2195
   'y': 500
   wires: []
-- id: a183a01927caf5ae
-  type: function
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: tab &  level
-  func: >-
-    let check = 'users';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly') 
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        return [msg,null];
-    }
-
-
-    if (msg.hmi.tab === 99) {
-        flow.set('form',undefined,'memoryOnly');
-    } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-    }
-
-
-    return [null,msg];
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - cb6a6d8cabc89315
-    - - 6b2108622867d8a4
-- id: cb6a6d8cabc89315
-  type: delay
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 470
-  'y': 80
-  wires:
-    - - 6b2108622867d8a4
 - id: 30d032935f880160
   type: function
   z: adb48ef35d9453c0
@@ -2286,3 +2226,39 @@
   'y': 1340
   wires:
     - - 0a619717ada5bdb5
+- id: 435508bf294a3fbf
+  type: change
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: users
+      tot: str
+    - t: delete
+      p: ui_update
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - 435f3eb4a7773b87
+- id: 435f3eb4a7773b87
+  type: link call
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - 6b2108622867d8a4
