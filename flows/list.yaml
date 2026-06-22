@@ -1453,12 +1453,12 @@
   g: 6f784a48183c4937
   name: parse lines
   func: |-
-    node.send([null,msg,msg]);
+    node.send([null, msg, msg]);
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'line') {
-        let lines = global.get('kernel.lines','memoryOnly')||{};
+        let lines = global.get('kernel.lines', 'memoryOnly') || {};
         let i = 0;
         msg.payload = [];
 
@@ -1466,16 +1466,16 @@
             let row  = {};
 
             row.line = line;
-            row.line_name = global.get('kernel.line["' + line + '"]','memoryOnly')||'';
+            row.line_name = global.get('kernel.line["' + line + '"]', 'memoryOnly') || '';
             row.line_full = row.line_name + ' (' + line + ')';
             row.plant = lines[line];
-            row.plant_name = global.get('kernel.plant["'  + row.plant + '"]','memoryOnly')||'';
-            row.plant_full = row.plant_name + ' (' + row.plant + ')'||'';
-            row.delete = (msg.dictionary?.common_action_delete)||'Delete';
+            row.plant_name = global.get('kernel.plant["'  + row.plant + '"]', 'memoryOnly') || '';
+            row.plant_full = row.plant_name + ' (' + row.plant + ')';
+            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
             row.equipment_count = 0;
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
-                let equipments = global.get('kernel.equipments','memoryOnly');
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
+                let equipments = global.get('kernel.equipments', 'memoryOnly');
                 if (typeof equipments === 'object') {
                     for (const equipment in equipments) {
                         if (equipments[equipment] === line) {
@@ -1490,13 +1490,20 @@
 
         // Records title
         msg.total = i;
-        node.send([msg,null,null]);
+        node.send([msg, null, null]);
 
         if (i > 0) {
+            msg.payload.sort(function($l, $r) {
+
+                return $l.line_name > $r.line_name ? 1 : -1;
+            });
+
             if (msg.hmi.lang === 'fr') {
-                return [null,msg,null];
+
+                return [null, msg, null];
             } else {
-                return [null,null,msg];
+
+                return [null, null, msg];
             }
         }
     }
@@ -1520,12 +1527,12 @@
   g: 1dd6bd6835107ce6
   name: parse equipments
   func: |-
-    node.send([null,msg,msg]);
+    node.send([null, msg, msg]);
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'equipment') {
-        let equipments = global.get('kernel.equipments','memoryOnly')||{};
+        let equipments = global.get('kernel.equipments', 'memoryOnly') || {};
         let i = 0;
         msg.payload = [];
 
@@ -1533,25 +1540,25 @@
             let row  = {};
 
             row.equipment = equipment;
-            row.equipment_name = global.get('kernel.equipment["' + equipment + '"]','memoryOnly')||'';
+            row.equipment_name = global.get('kernel.equipment["' + equipment + '"]', 'memoryOnly') || '';
             row.equipment_full = row.equipment_name + ' (' + equipment + ')';
             row.line = equipments[equipment];
-            row.line_name = global.get('kernel.line["'  + row.line + '"]','memoryOnly')||'';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
             row.line_full = row.line_name + ' (' + row.line + ')';
-            row.plant = global.get('kernel.lines["' + row.line + '"]','memoryOnly')||'-';
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]','memoryOnly')||'';
+            row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '-';
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.delete = (msg.dictionary?.common_action_delete)||'Delete';
+            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
             row.component_count = 0;
             row.state_color = '#CCCCCC';
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 let state = global.get('kernel.state["' + row.equipment + '|run"]', 'memoryOnly');
                 if (typeof state === 'number') {
-                    row.state_color = (state === 0 ? '#FF0000' : '#008000');
+                    row.state_color = state === 0 ? 'red' : 'green';
                 }
 
-                let links = global.get('kernel.link','memoryOnly');
+                let links = global.get('kernel.link', 'memoryOnly');
                 let needle = new RegExp('^(' + row.equipment + '\\|)');
 
                 if (typeof links === 'object') {
@@ -1568,13 +1575,24 @@
 
         // Records title
         msg.total = i;
-        node.send([msg,null,null]);
+        node.send([msg, null, null]);
 
         if (i > 0) {
+            msg.payload.sort(function($l, $r) {
+                if ($l.line_name === $r.line_name) {
+
+                    return $l.equipment_name > $r.equipment_name ? 1 : -1;
+                }
+
+                return $l.line_name > $r.line_name ? 1 : -1;
+            });
+
             if (msg.hmi.lang === 'fr') {
-                return [null,msg,null];
+
+                return [null, msg, null];
             } else {
-                return [null,null,msg];
+
+                return [null, null, msg];
             }
         }
     }
@@ -1598,12 +1616,12 @@
   g: e86385b18b9154e7
   name: parse devices
   func: |-
-    node.send([null,msg,msg]);
+    node.send([null, msg, msg]);
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'device') {
-        let devices = global.get('kernel.device','memoryOnly')||{};
+        let devices = global.get('kernel.device', 'memoryOnly') || {};
         let i = 0;
         msg.payload = [];
 
@@ -1613,16 +1631,16 @@
 
             row.entity = entity;
             row.model = esplit[0];
-            row.model_name = global.get('describe.model["' + row.model + '"]','memoryOnly')||''
+            row.model_name = global.get('describe.model["' + row.model + '"]', 'memoryOnly') || ''
             row.model_full = row.model_name + ' (' + row.model + ')';
             row.device = esplit[1];
-            row.delete = (msg.dictionary?.common_action_delete)||'Delete';
+            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
             row.component_count = 0;
             row.watchdog_color = '#CCCCCC';
 
             let watchdog = global.get('kernel.watchdog["' + row.entity + '"]', 'memoryOnly');
             if (typeof watchdog === 'number') {
-                row.watchdog_color = devices[entity] === 1 ? '#008000' : '#FF0000';
+                row.watchdog_color = devices[entity] === 1 ? 'green' : 'red';
             }
 
             let rlinks = global.get('rlink', 'memoryOnly');
@@ -1644,9 +1662,20 @@
         node.send([msg, null, null]);
 
         if (i > 0) {
+            msg.payload.sort(function($l, $r) {
+                if ($l.model_name === $r.model_name) {
+
+                    return $l.device > $r.device ? 1 : -1;
+                }
+
+                return $l.model_name > $r.model_name ? 1 : -1;
+            });
+
             if (msg.hmi.lang === 'fr') {
+
                 return [null, msg, null];
             } else {
+
                 return [null, null, msg];
             }
         }
@@ -1671,12 +1700,12 @@
   g: baadcf077dabb0e1
   name: parse components
   func: |-
-    node.send([null,msg,msg]);
+    node.send([null, msg, msg]);
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'component') {
-        let links = global.get('kernel.link','memoryOnly')||{};
+        let links = global.get('kernel.link','memoryOnly') || {};
         let i = 0;
         msg.payload = [];
 
@@ -1685,41 +1714,52 @@
             let lsplit = links[endpoint].split('|');
             let esplit = endpoint.split('|');
 
-            row.value = global.get('kerne.state["' + endpoint + '"]','memoryOnly')||'';
+            row.value = global.get('kerne.state["' + endpoint + '"]', 'memoryOnly') || '';
             row.model = lsplit[0];
-            row.model_name = global.get('describe.model["' + row.model + '"]','memoryOnly')||'';
+            row.model_name = global.get('describe.model["' + row.model + '"]', 'memoryOnly') || '';
             row.device = lsplit[1];
             row.device_full = row.model_name + ' (' + row.device + ')';
             row.terminal = lsplit[2];
             row.equipment = esplit[0];
-            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]','memoryOnly')||'';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
             row.component = esplit[1];
-            row.component_name = (msg.dictionary?.option_component[row.component])||'';
+            row.component_name = (msg.dictionary?.option_component[row.component]) || '';
             row.component_full = row.component_name + ' ('+ row.component + ')';
-            row.line = global.get('kernel.equipments["' + row.equipment + '"]','memoryOnly')||'';
-            row.line_name = global.get('kernel.line["'  + row.line + '"]','memoryOnly')||'';
+            row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
             row.line_full = row.line_name + ' (' + row.line + ')';
-            row.plant = global.get('kernel.lines["' + row.line + '"]','memoryOnly')||'';
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]','memoryOnly')||'';
+            row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '';
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.reverse = (global.get('kernel.reverse["' + endpoint + '"]','memoryOnly')||false) === true ? 'NC' : 'NO';
-            row.delete = (msg.dictionary?.common_action_delete)||'Delete';
+            row.reverse = (global.get('kernel.reverse["' + endpoint + '"]', 'memoryOnly') || false) === true ? 'NC' : 'NO';
+            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 msg.payload[i++] = row;
             }
         }
 
         // Records title
         msg.total = i;
-        node.send([msg,null,null]);
+        node.send([msg, null, null]);
 
         if (i > 0) {
+            msg.payload.sort(function($l, $r) {
+                if ($l.equipment_name === $r.equipment_name) {
+
+                    return $l.component_name > $r.component_name ? 1 : -1;
+                }
+
+                return $l.equipment_name < $r.equipment_name ? 1 : -1;
+            });
+
             if (msg.hmi.lang === 'fr') {
-                return [null,msg,null];
+
+                return [null, msg, null];
             } else {
-                return [null,null,msg];
+
+                return [null, null, msg];
             }
         }
     }
@@ -1743,12 +1783,12 @@
   g: 3e16528dec4157ee
   name: parse alerts
   func: |-
-    node.send([null,msg,msg]);
+    node.send([null, msg, msg]);
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'alert') {
-        let alerts = global.get('kernel.alert','memoryOnly')||{};
+        let alerts = global.get('kernel.alert', 'memoryOnly') || {};
         let i = 0;
         msg.payload = [];
 
@@ -1758,24 +1798,24 @@
 
             row.entity = entity;
             row.equipment = esplit[0];
-            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]','memoryOnly')||'';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
             row.component = esplit[1];
-            row.component_name = (msg.dictionary?.option_component[row.component])||'';
+            row.component_name = (msg.dictionary?.option_component[row.component]) || '';
             row.component_full = row.component_name + ' ('+ row.component + ')';
-            row.line = global.get('kernel.equipments["' + row.equipment + '"]','memoryOnly')||'';
-            row.line_name = global.get('kernel.line["'  + row.line + '"]','memoryOnly')||'';
+            row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
             row.line_full = row.line_name + ' (' + row.line + ')';
-            row.plant = global.get('kernel.lines["' + row.line + '"]','memoryOnly')||'';
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]','memoryOnly')||'';
+            row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '';
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.state = global.get('kernel.state["' + entity + '"]','memoryOnly')||0;
+            row.state = global.get('kernel.state["' + entity + '"]', 'memoryOnly') || 0;
             row.state_limit = Number(alerts[entity]);
-            row.state_color = row.state < row.state_limit ? '#008000':'#FF0000';
+            row.state_color = row.state < row.state_limit ? 'green' : 'red';
             row.state_diff = Math.round((row.state - row.state_limit) *10) / 10;
-            row.delete = (msg.dictionary?.common_action_delete)||'Delete';
+            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 msg.payload[i++] = row;
             }
         }
@@ -1785,9 +1825,20 @@
         node.send([msg, null, null]);
 
         if (i > 0) {
+            msg.payload.sort(function($l, $r) {
+                if ($l.equipment_name === $r.equipment_name) {
+
+                    return $l.component_name > $r.component_name ? 1 : -1;
+                }
+
+                return $l.equipment_name < $r.equipment_name ? 1 : -1;
+            });
+
             if (msg.hmi.lang === 'fr') {
+
                 return [null, msg, null];
             } else {
+
                 return [null, null, msg];
             }
         }
