@@ -2095,15 +2095,13 @@
   name: session
   func: |-
     msg.row.session = '-';
-    msg.row.session_color = '#FF0000';
+    msg.row.session_color = 'red';
 
-    let users = global.get('user', 'memoryOnly');
-    if (typeof users === 'object') {
-        for (const user in users) {
-            if (users[user]["login"] === msg.row.login) {
-                msg.row.session = user;
-                msg.row.session_color = '#008000';
-            }
+    let users = global.get('user', 'memoryOnly') || {};
+    for (const user in users) {
+        if (users[user]["login"] === msg.row.login) {
+            msg.row.session = user;
+            msg.row.session_color = 'green';
         }
     }
 

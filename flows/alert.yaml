@@ -428,7 +428,7 @@
     let i = 0;
 
     // rows
-    let alerts = global.get('kernel.alert','memoryOnly')||{};
+    let alerts = global.get('kernel.alert', 'memoryOnly') || {};
     for (const alert in alerts) {
         let asplit = alert.split('|');
         let row = {};
@@ -436,29 +436,29 @@
         row.equipment = asplit[0];
         row.component = asplit[1];
         row.limit = alerts[alert];
-        row.line = global.get('kernel.equipments["' + row.equipment + '"]','memoryOnly')||'';
-        row.plant = global.get('kernel.lines["' + row.line + '"]','memoryOnly')||'';
+        row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
+        row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '';
 
         let state = row.equipment + '|' + 'run';
         if (row.component === 'cyclemeter') {
             state = row.equipment + '|' + 'cycle';
         }
 
-        if ((global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'') === row.plant 
-            && typeof global.get('kernel.link["' + state + '"]','memoryOnly') === 'string' 
-            && typeof global.get('kernel.link["' + row.entity + '"]','memoryOnly') === 'string' 
+        if ((global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '') === row.plant 
+            && typeof global.get('kernel.link["' + state + '"]', 'memoryOnly') === 'string' 
+            && typeof global.get('kernel.link["' + row.entity + '"]', 'memoryOnly') === 'string' 
         ) {
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]','memoryOnly')||'';
-            row.line_name = global.get('kernel.line["' + row.line + '"]','memoryOnly')||'';
-            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]','memoryOnly')||'';
-            row.state = global.get('kernel.state["' + state + '"]','memoryOnly')||0;
-            row.state_color = row.state>0?'#008000':'#FF0000';
-            row.alert = global.get('kernel.state["' + row.entity + '"]','memoryOnly')||0;
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
+            row.line_name = global.get('kernel.line["' + row.line + '"]', 'memoryOnly') || '';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
+            row.state = global.get('kernel.state["' + state + '"]', 'memoryOnly') || 0;
+            row.state_color = row.state > 0 ? 'green' : 'red';
+            row.alert = global.get('kernel.state["' + row.entity + '"]', 'memoryOnly') || 0;
             row.alert_full = row.alert + ' / ' + row.limit
             row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));
             row.percent_full = row.percent.toString() + '%';
             row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;
-            row.diff_color = row.diff<0?'#008000':'#FF0000'
+            row.diff_color = row.diff < 0 ? 'green' : 'red'
 
             msg.payload[i++] = row;
         }
@@ -467,14 +467,17 @@
     // sort
     if (i > 0) {
         msg.payload.sort(function($l, $r) {
+
             return $l.percent < $r.percent ? 1 : -1;
         });
     }
 
     // lang
     if (msg.hmi.lang === 'fr') {
+
         return [msg, null];
     } else {
+
         return [null, msg];
     }
   outputs: 2
@@ -508,7 +511,7 @@
 
     if (msg.hmi.plant === '') {
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
 
         if (msg.payload === '') {
             // user must selected a plant

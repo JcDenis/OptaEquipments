@@ -5392,37 +5392,39 @@
   name: periods
   func: |-
     let hideMsg = {
-        'topic':'',
-        'payload':'',
-        'class':'remove',
-        'enabled':false,
-        'hmi':msg.hmi,
-        'dictionary':msg.dictionary
+        'topic': '',
+        'payload': '',
+        'class': 'remove',
+        'enabled': false,
+        'hmi': msg.hmi,
+        'dictionary': msg.dictionary
     };
 
     node.send([hideMsg, hideMsg]);
 
     if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
-        let line = global.get('form["' + msg.hmi.id + '"]["line"]','memoryOnly')||'-';
-        let period = global.get('kernel.period["' + line + '"]','memoryOnly');
+        let line = global.get('form["' + msg.hmi.id + '"]["line"]', 'memoryOnly') || '-';
+        let period = global.get('kernel.period["' + line + '"]', 'memoryOnly');
         if (typeof period === 'string') {
             msg.payload = {
-                'm':'#FF0000',
-                'a':'#FF0000',
-                'n':'#FF0000',
-                'd':'#FF0000',
-                's':'#FF0000'
+                'm': 'red',
+                'a': 'red',
+                'n': 'red',
+                'd': 'red',
+                's': 'red'
             };
             for (const team in msg.payload) {
                 if (period.match((new RegExp('(' + team + ')'))) !== null) {
-                    msg.payload[team] = '#008800';
+                    msg.payload[team] = 'green';
                 }
             }
-            msg.payload.disabled = (global.get('kernel.disabled["' + line + '"]','memoryOnly')||false) === true?'#FF0000':'#008000';
+            msg.payload.disabled = (global.get('kernel.disabled["' + line + '"]', 'memoryOnly') || false) === true ? 'red' : 'green';
 
             if (msg.hmi.lang === 'fr') {
+
                 return [msg, null];
             } else {
+
                 return [null, msg];
             }
         }
@@ -5684,8 +5686,8 @@
         }
 
         if (i > 0) {
-            node.status({'text':i});
-            msg.outTz = global.get('kernel.tz["' + plant + '"]', 'memoryOnly')||'Europe/Paris';
+            node.status({'text': i});
+            msg.outTz = global.get('kernel.tz["' + plant + '"]', 'memoryOnly') || 'Europe/Paris';
 
             return [null, msg];
         }
@@ -6045,7 +6047,8 @@
         'class':'remove',
         'enabled':false,
         'hmi':msg.hmi,
-        'dictionary':msg.dictionary
+        'dictionary':msg.dictionary,
+        '_client': msg._client
     };
 
     node.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);
@@ -6122,9 +6125,11 @@
   g: af7c52c4b0905961
   name: form
   func: >-
-    if (global.get('form["' + msg.hmi.id + '"]["equipment"]','memoryOnly') ===
+    if (global.get('form["' + msg.hmi.id + '"]["equipment"]', 'memoryOnly') ===
     msg.equipment
-        && global.get('form["' + msg.hmi.id + '"]["tab"]','memoryOnly') === 'detail') {
+        && global.get('form["' + msg.hmi.id + '"]["tab"]', 'memoryOnly') === 'detail'
+    ) {
+
         return msg;
     }
 

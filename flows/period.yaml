@@ -591,7 +591,7 @@
   g: 744a665a3304c311
   name: teams
   func: |-
-    let teams = global.get('kernel.team','memoryOnly');
+    let teams = global.get('kernel.team', 'memoryOnly') || {};
     let i = 0;
 
     msg.payload = [];
@@ -624,8 +624,10 @@
         msg.enabled = true
 
         if (msg.hmi.lang === 'fr') {
+
             return [msg, null];
         } else {
+
             return [null, msg];
         }
     }
@@ -660,7 +662,7 @@
 
     if (msg.hmi.plant === '') {
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
 
         if (msg.payload === '') {
             // user must selected a plant

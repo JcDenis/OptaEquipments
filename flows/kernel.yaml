@@ -3249,7 +3249,8 @@
         'payload': msg.hmi.page,
         'options': [{ 'label': '', 'value': '' }],
         'hmi': msg.hmi,
-        'dictionary': msg.dictionary
+        'dictionary': msg.dictionary,
+        '_client': msg._client
     };
 
 
@@ -3298,24 +3299,22 @@
     }
 
 
-    let browser = {
+    let default_browser = {
         'lang':msg.payload,
         'time':Date.now()
     }
 
-    global.set('browser["' + msg._client.socketId + '"]', browser,
+    global.set('browser["' + msg._client.socketId + '"]', default_browser,
     'memoryOnly');
 
 
     let time = Date.now() - 60000;
 
-    let browsers = global.get('browser', 'memoryOnly');
+    let browsers = global.get('browser', 'memoryOnly') || {};
 
-    if (typeof browsers === 'object') {
-        for (const browser in browsers) {
-            if (browsers[browser]['time'] < time) {
-                global.set('browser["' + browser + '"]', undefined, 'memoryOnly');
-            }
+    for (const browser in browsers) {
+        if (browsers[browser]['time'] < time) {
+            global.set('browser["' + browser + '"]', undefined, 'memoryOnly');
         }
     }
 
@@ -5014,7 +5013,7 @@
     ) {
         msg.class = '';
         msg.enabled = true;
-        global.set('form["' + msg.hmi.id + '"]["tab"]', msg.check,'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["tab"]', msg.check, 'memoryOnly');
 
         await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
 
@@ -5023,7 +5022,7 @@
         msg.class = 'remove';
         msg.enabled = false;
 
-        global.set('form["' + msg.hmi.id + '"]["tab"]', '','memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["tab"]', '', 'memoryOnly');
 
         return msg;
     }
