@@ -812,6 +812,8 @@
     // sort
 
     if (i > 0) {
+        msg.class = '';
+        msg.enabled = true;
         msg.payload.sort(function ($l, $r) {
             return $l.line_full  > $r.line_full  ? 1 : -1;
         });
@@ -821,8 +823,10 @@
     // lang
 
     if (msg.hmi.lang === 'fr') {
+
         return [msg, null];
     } else {
+
         return [null, msg];
     }
   outputs: 2

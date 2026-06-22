@@ -82,6 +82,7 @@
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
     - 4454c8408a7c43de
+    - a8432329079caeb8
   x: 68
   'y': 13
   w: 2664
@@ -3618,12 +3619,12 @@
     delete msg.team;
     flow.set('teams', undefined, 'memoryOnly');
 
-    let periods = global.get('kernel.period','memoryOnly')||{};
+    let periods = global.get('kernel.period', 'memoryOnly') || {};
     for (const line in periods) {
         final_periods[line] = false;
 
         /* line program is enabled */
-        if ((global.get('kernel.disabled["' + line + '"]', 'memoryOnly')||false) !== true) {
+        if (global.get('kernel.disabled["' + line + '"]', 'memoryOnly') === false) {
             /* no periods set for this line */
             if (periods[line] === '') {
                 /* set to off */
@@ -3654,7 +3655,8 @@
         let component = esplit[1];
         let line = global.get('kernel.equipments["' + equipment + '"]', 'memoryOnly');
 
-        let pilot = final_periods[line];
+        //let pilot = final_periods[line];
+        let pilot = final_pilots[line];
         if (typeof pilot === 'boolean'
             && typeof global.get('kernel.link["' + entity + '"]', 'memoryOnly') === 'string'
             && component.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null
@@ -3709,6 +3711,7 @@
   wires:
     - - b087fef5670c809f
       - d3c22873709318bb
+      - a8432329079caeb8
 - id: d45e4f001b17cb32
   type: function
   z: f6f2187d.f17ca8
@@ -5082,3 +5085,19 @@
   wires:
     - - 7214e26c1a5974bd
       - 01242cef4de43778
+- id: a8432329079caeb8
+  type: debug
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: debug 2
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 2060
+  'y': 880
+  wires: []
