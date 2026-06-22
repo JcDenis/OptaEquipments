@@ -7185,7 +7185,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "hmi",
-        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab':99,\n        'page':'',\n        'id':'',\n        'login':'',\n        'level':'',\n        'plant':'',\n        'lang':'en',\n        'time':Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]',Date.now(),'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form',{},'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n    return [msg,null];\n} else {\n    return [null,msg];\n}",
+        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]', Date.now(), 'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form', {}, 'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n\n    return [msg,null];\n} else {\n\n    return [null,msg];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7465,8 +7465,8 @@
                 "3450fffd4f368319"
             ],
             [
-                "886e458678ddf131",
-                "23dd24021e2cecf1"
+                "23dd24021e2cecf1",
+                "7bba6594f41302c2"
             ]
         ]
     },
@@ -7510,7 +7510,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 1270,
-        "y": 3480,
+        "y": 3520,
         "wires": [
             [
                 "7bba6594f41302c2"
@@ -7523,7 +7523,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "prepare",
-        "func": "if (typeof global.get('kernel.team','memoryOnly') === 'object'\n    && typeof global.get('kernel.period','memoryOnly') === 'object'\n    && typeof global.get('kernel.state','memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic':'',\n        'payload':(global.get('kernel.team','memoryOnly')||{}),\n        'row':{\n            'ts':Date.now()\n        }\n    };\n}\n\nreturn;",
+        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic':'',\n        'payload':(global.get('kernel.team', 'memoryOnly') || {}),\n        'row':{\n            'ts': Date.now()\n            //'ts': 1782163186000 // monday 23:19\n        }\n    };\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7544,7 +7544,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "row",
-        "func": "/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* dec */\nlet dec = global.get('kernel.day[\"' + msg.row.plant + '\"]', 'memoryOnly')||0;\nmsg.row.dectime = Number(dec * 100);\nmsg.row.dec = msg.row.ts - (Math.round(Number(dec) * 60 * 60 * 1000));\n\n/* time */\nlet psplit = msg.payload.split('|');\nlet pstart = psplit[0].split(':');\nlet pstop = psplit[1].split(':');\nmsg.row.starttime = Number(pstart[0] + pstart[1]);\nmsg.row.stoptime = Number(pstop[0] + pstop[1]);\n\n/* for datetime formatter */\nmsg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]', 'memoryOnly')||'Europe/Paris';\nmsg.outTz = msg.row.tz\n\nreturn msg;",
+        "func": "/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = global.get('kernel.day[\"' + msg.row.plant + '\"]', 'memoryOnly') || 0;\nmsg.row.dectime = Number(dec * 100);\nmsg.row.dec = msg.row.ts - (Math.round(Number(dec) * 60 * 60 * 1000));\n\n/* time */\nlet psplit = msg.payload.split('|');\nlet pstart = psplit[0].split(':');\nlet pstop = psplit[1].split(':');\nmsg.row.starttime = Number(pstart[0] + pstart[1]);\nmsg.row.stoptime = Number(pstop[0] + pstop[1]);\n\n/* for datetime formatter */\nmsg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]', 'memoryOnly') || 'Europe/Paris';\nmsg.outTz = msg.row.tz\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7617,7 +7617,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "day",
-        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* If current time is before dec time and team starts before dec time, this is the day after (monday morning) */\nif (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime /* && msg.row.startime < msg.row.stoptime */) {\n    if (msg.row.curday === 6) {\n        msg.row.curday = 0;\n    } else {\n        msg.row.curday = msg.row.curday + 1;\n    }\n}\n/* if current time is after dec time and team stop after dec time and team start time is after team stop time (satruday morning) */\nelse if (msg.row.curtime > msg.row.dectime && msg.row.stoptime > msg.row.dectime && msg.row.starttime > msg.row.stoptime) {\n    if (msg.row.curday === 0) {\n        msg.row.curday = 6;\n    } else {\n        msg.row.curday = msg.row.curday - 1;\n    }\n}\n\n/* sunday, sartuday and not s, week and not mand */\nif (msg.row.curday === 0 || (msg.row.curday === 6 && msg.row.team !== 's') || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) === null)) {\n    msg.row.value = false;\n} else {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
+        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* If current time is before dec time and team starts before dec time, this is the day after (monday morning) */\nif (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime /* && msg.row.startime < msg.row.stoptime */) {\n    if (msg.row.curday === 6) {\n        msg.row.curday = 0;\n    } else {\n        msg.row.curday = msg.row.curday + 1;\n    }\n}\n/* if current time is after dec time and team stop after dec time and team start time is after team stop time (satruday morning) */\n/*\n// this does not work, stop heat between 23 and midnight on monday to tuesday night !\nelse if (msg.row.curtime > msg.row.dectime && msg.row.stoptime > msg.row.dectime && msg.row.starttime > msg.row.stoptime) {\n    if (msg.row.curday === 0) {\n        msg.row.curday = 6;\n    } else {\n        msg.row.curday = msg.row.curday - 1;\n    }\n}\n*/\n\n/* sunday, sartuday and not s, week and not mand */\nif (msg.row.curday === 0 || (msg.row.curday === 6 && msg.row.team !== 's') || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) === null)) {\n    msg.row.value = false;\n} else {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8482,7 +8482,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "5621e43ca08d7164",
         "name": "tab &  level",
-        "func": "msg.topic = '';\nmsg.payload = '';\n\nif (typeof msg.check === 'string'\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', msg.check, 'memoryOnly');\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n} else {\n    msg.class = 'remove';\n    msg.enabled = false;\n\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', '', 'memoryOnly');\n\n    return msg;\n}",
+        "func": "msg.topic = '';\nmsg.payload = ''; \nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send(msg);\n\n\nif (typeof msg.check === 'string'\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', msg.check, 'memoryOnly');\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n} else {\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', '', 'memoryOnly');\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18562,30 +18562,8 @@
         "type": "change",
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
-        "name": "hide",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "remove",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
+        "name": "-",
+        "rules": [],
         "action": "",
         "property": "",
         "from": "",

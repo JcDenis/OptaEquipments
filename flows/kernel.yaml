@@ -2766,14 +2766,14 @@
   func: |-
     if (typeof msg.hmi === 'undefined') {
         msg.hmi = {
-            'tab':99,
-            'page':'',
-            'id':'',
-            'login':'',
-            'level':'',
-            'plant':'',
-            'lang':'en',
-            'time':Date.now()
+            'tab': 99,
+            'page': '',
+            'id': '',
+            'login': '',
+            'level': '',
+            'plant': '',
+            'lang': 'en',
+            'time': Date.now()
         };
     }
 
@@ -2793,18 +2793,20 @@
 
         let user = global.get('user["' + msg.hmi.id + '"]', 'memoryOnly');
         if (typeof user === 'object') {
-            global.set('user["' + msg.hmi.id + '"]["time"]',Date.now(),'memoryOnly');
+            global.set('user["' + msg.hmi.id + '"]["time"]', Date.now(), 'memoryOnly');
             msg.hmi = Object.assign({}, msg.hmi, user);
         }
     }
 
     if (msg.tab === 99) {
-        global.set('form',{},'memoryOnly');
+        global.set('form', {}, 'memoryOnly');
     }
 
     if (msg.hmi.lang == 'fr') {
+
         return [msg,null];
     } else {
+
         return [null,msg];
     }
   outputs: 2
@@ -3281,8 +3283,8 @@
   'y': 3480
   wires:
     - - 3450fffd4f368319
-    - - 886e458678ddf131
-      - 23dd24021e2cecf1
+    - - 23dd24021e2cecf1
+      - 7bba6594f41302c2
 - id: 8f1a54f299198096
   type: function
   z: f6f2187d.f17ca8
@@ -3348,7 +3350,7 @@
   allowrate: false
   outputs: 1
   x: 1270
-  'y': 3480
+  'y': 3520
   wires:
     - - 7bba6594f41302c2
 - id: bf59724bfb1762b4
@@ -3357,17 +3359,18 @@
   g: 216f821485a9eb19
   name: prepare
   func: |-
-    if (typeof global.get('kernel.team','memoryOnly') === 'object'
-        && typeof global.get('kernel.period','memoryOnly') === 'object'
-        && typeof global.get('kernel.state','memoryOnly') === 'object'
+    if (typeof global.get('kernel.team', 'memoryOnly') === 'object'
+        && typeof global.get('kernel.period', 'memoryOnly') === 'object'
+        && typeof global.get('kernel.state', 'memoryOnly') === 'object'
     ) {
         flow.set('teams', {}, 'memoryOnly');
 
         return {
             'topic':'',
-            'payload':(global.get('kernel.team','memoryOnly')||{}),
+            'payload':(global.get('kernel.team', 'memoryOnly') || {}),
             'row':{
-                'ts':Date.now()
+                'ts': Date.now()
+                //'ts': 1782163186000 // monday 23:19
             }
         };
     }
@@ -3398,10 +3401,10 @@
     msg.row.team = tsplit[1];
 
 
-    /* dec */
+    /* plant offset (dec) */
 
-    let dec = global.get('kernel.day["' + msg.row.plant + '"]',
-    'memoryOnly')||0;
+    let dec = global.get('kernel.day["' + msg.row.plant + '"]', 'memoryOnly') ||
+    0;
 
     msg.row.dectime = Number(dec * 100);
 
@@ -3423,8 +3426,8 @@
 
     /* for datetime formatter */
 
-    msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]',
-    'memoryOnly')||'Europe/Paris';
+    msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]', 'memoryOnly')
+    || 'Europe/Paris';
 
     msg.outTz = msg.row.tz
 
@@ -3508,6 +3511,11 @@
     /* if current time is after dec time and team stop after dec time and team
     start time is after team stop time (satruday morning) */
 
+    /*
+
+    // this does not work, stop heat between 23 and midnight on monday to
+    tuesday night !
+
     else if (msg.row.curtime > msg.row.dectime && msg.row.stoptime >
     msg.row.dectime && msg.row.starttime > msg.row.stoptime) {
         if (msg.row.curday === 0) {
@@ -3516,6 +3524,8 @@
             msg.row.curday = msg.row.curday - 1;
         }
     }
+
+    */
 
 
     /* sunday, sartuday and not s, week and not mand */
@@ -5005,7 +5015,12 @@
   name: tab &  level
   func: |-
     msg.topic = '';
-    msg.payload = '';
+    msg.payload = ''; 
+    msg.class = 'remove';
+    msg.enabled = false;
+
+    node.send(msg);
+
 
     if (typeof msg.check === 'string'
         && msg.hmi.tab === global.get('describe.pages["' + msg.check + '"]["tab"]', 'memoryOnly')
@@ -5019,12 +5034,7 @@
 
         return msg;
     } else {
-        msg.class = 'remove';
-        msg.enabled = false;
-
         global.set('form["' + msg.hmi.id + '"]["tab"]', '', 'memoryOnly');
-
-        return msg;
     }
   outputs: 1
   timeout: 0
