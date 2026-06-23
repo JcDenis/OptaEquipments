@@ -82,6 +82,8 @@
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
     - 4454c8408a7c43de
+    - 3d5e6f0c6682a2ed
+    - 542c18dedc9ba3de
   x: 68
   'y': 13
   w: 2664
@@ -3398,33 +3400,29 @@
 
     /* plant offset (dec) */
 
-    let dec = global.get('kernel.day["' + msg.row.plant + '"]', 'memoryOnly') ||
-    0;
+    let dec = Number(global.get('kernel.day["' + msg.row.plant + '"]',
+    'memoryOnly') || 0);
 
-    msg.row.dectime = Number(dec * 100);
+    msg.row.dectime = dec * 100; // ex: 600, in order to compare to
+    starttime/stoptime 630, 2330...
 
-    msg.row.dec = msg.row.ts - (Math.round(Number(dec) * 60 * 60 * 1000));
+    msg.row.dec = msg.row.ts - (Math.round(dec * 60 * 60 * 1000));
 
 
     /* time */
 
     let psplit = msg.payload.split('|');
 
-    let pstart = psplit[0].split(':');
+    msg.row.starttime = Number(psplit[0].split(':').join('')); //convert
+    calendar time to comparable number
 
-    let pstop = psplit[1].split(':');
-
-    msg.row.starttime = Number(pstart[0] + pstart[1]);
-
-    msg.row.stoptime = Number(pstop[0] + pstop[1]);
+    msg.row.stoptime = Number(psplit[1].split(':').join(''));
 
 
     /* for datetime formatter */
 
-    msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]', 'memoryOnly')
-    || 'Europe/Paris';
-
-    msg.outTz = msg.row.tz
+    msg.outTz = msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]',
+    'memoryOnly') || 'Europe/Paris';
 
 
     return msg;
@@ -3480,6 +3478,7 @@
   'y': 740
   wires:
     - - abca3aaf7cde8edb
+      - 542c18dedc9ba3de
 - id: abca3aaf7cde8edb
   type: function
   z: f6f2187d.f17ca8
@@ -5096,3 +5095,76 @@
   x: 895
   'y': 320
   wires: []
+- id: 3d5e6f0c6682a2ed
+  type: debug
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: debug 2
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1680
+  'y': 840
+  wires: []
+- id: 542c18dedc9ba3de
+  type: function
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: day
+  func: >-
+    msg.row.curday = Number(msg.row.curday);
+
+    msg.row.curtime = Number(msg.row.curtime);
+
+
+    /* adjust day from dec time */
+
+    if (msg.row.curtime < msg.row.dectime) {
+        msg.row.curday = msg.row.curday - 1;
+    }
+
+    /* then adjust day from team (night) */
+
+    if (msg.row.stoptime < msg.row.starttime) {
+        msg.row.curday = msg.row.curday + 1;
+    }
+
+
+    msg.row.value = false;
+
+
+    /* If week day and week team or saturday day and saturday team */
+
+    if ((msg.row.curday > 0 && msg.row.curday < 5 && msg.row.team.match((new
+    RegExp('^(m|a|n|d)$'))) !== null) 
+        || (msg.row.curday === 5 && msg.row.team.match((new RegExp('^(s)$'))) !== null)
+    ) {
+        if (msg.row.starttime < msg.row.stoptime) {
+            msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;
+        } else {
+            /* past midnight */
+            msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;
+        }
+    }
+
+
+    //flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
+    msg.row.value, 'memoryOnly');
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1510
+  'y': 840
+  wires:
+    - - 3d5e6f0c6682a2ed

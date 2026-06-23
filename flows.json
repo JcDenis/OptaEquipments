@@ -2251,7 +2251,9 @@
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
             "11d028449aaa105b",
-            "4454c8408a7c43de"
+            "4454c8408a7c43de",
+            "3d5e6f0c6682a2ed",
+            "542c18dedc9ba3de"
         ],
         "x": 68,
         "y": 13,
@@ -7569,7 +7571,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "row",
-        "func": "/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = global.get('kernel.day[\"' + msg.row.plant + '\"]', 'memoryOnly') || 0;\nmsg.row.dectime = Number(dec * 100);\nmsg.row.dec = msg.row.ts - (Math.round(Number(dec) * 60 * 60 * 1000));\n\n/* time */\nlet psplit = msg.payload.split('|');\nlet pstart = psplit[0].split(':');\nlet pstop = psplit[1].split(':');\nmsg.row.starttime = Number(pstart[0] + pstart[1]);\nmsg.row.stoptime = Number(pstop[0] + pstop[1]);\n\n/* for datetime formatter */\nmsg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]', 'memoryOnly') || 'Europe/Paris';\nmsg.outTz = msg.row.tz\n\nreturn msg;",
+        "func": "/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = Number(global.get('kernel.day[\"' + msg.row.plant + '\"]', 'memoryOnly') || 0);\nmsg.row.dectime = dec * 100; // ex: 600, in order to compare to starttime/stoptime 630, 2330...\nmsg.row.dec = msg.row.ts - (Math.round(dec * 60 * 60 * 1000));\n\n/* time */\nlet psplit = msg.payload.split('|');\nmsg.row.starttime = Number(psplit[0].split(':').join('')); //convert calendar time to comparable number\nmsg.row.stoptime = Number(psplit[1].split(':').join(''));\n\n/* for datetime formatter */\nmsg.outTz = msg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]', 'memoryOnly') || 'Europe/Paris';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7632,7 +7634,8 @@
         "y": 740,
         "wires": [
             [
-                "abca3aaf7cde8edb"
+                "abca3aaf7cde8edb",
+                "542c18dedc9ba3de"
             ]
         ]
     },
@@ -8585,6 +8588,45 @@
         "x": 895,
         "y": 320,
         "wires": []
+    },
+    {
+        "id": "3d5e6f0c6682a2ed",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "542c18dedc9ba3de",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "day",
+        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* adjust day from dec time */\nif (msg.row.curtime < msg.row.dectime) {\n    msg.row.curday = msg.row.curday - 1;\n}\n/* then adjust day from team (night) */\nif (msg.row.stoptime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday + 1;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 5 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 5 && msg.row.team.match((new RegExp('^(s)$'))) !== null)\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\n//flow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 840,
+        "wires": [
+            [
+                "3d5e6f0c6682a2ed"
+            ]
+        ]
     },
     {
         "id": "2ee1493983ba4b61",
