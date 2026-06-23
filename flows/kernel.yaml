@@ -82,7 +82,6 @@
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
     - 4454c8408a7c43de
-    - a8432329079caeb8
   x: 68
   'y': 13
   w: 2664
@@ -2904,40 +2903,38 @@
   name: devices watchdog
   func: >-
     let newMsg = {
-        'kernel':{},
-        'topic':'',
-        'payload':''
+        'kernel': {},
+        'topic': '',
+        'payload': ''
     };
 
 
     let limit = Math.round(Date.now() / 1000) -
-    (global.get('kernel.app.watchdog', 'memoryOnly')||120);
+    (global.get('kernel.app.watchdog', 'memoryOnly') || 120);
 
 
-    let devices = global.get('kernel.device', 'memoryOnly');
+    let devices = global.get('kernel.device', 'memoryOnly') || {};
 
-    if (typeof devices === 'object') {
-        for (const device in devices) {
+    for (const device in devices) {
 
-            newMsg.kernel = {
-                'type':'device',
-                'entity':device,
-                'value':(global.get('kernel.watchdog["' + device + '"]', 'memoryOnly')||0) < limit ? 0:1,
-                'loop':false
-            };
+        newMsg.kernel = {
+            'type': 'device',
+            'entity': device,
+            'value': (global.get('kernel.watchdog["' + device + '"]', 'memoryOnly') || 0) < limit ? 0 : 1,
+            'loop': false
+        };
 
-            newMsg.telegram = {'change':false};
-            if (newMsg.kernel.value !== global.get('kernel.device["' + device + '"]','memoryOnly')) {
-                newMsg.telegram = {
-                    'type':'watchdog',
-                    'change':true,
-                    'entity':device,
-                    'value':newMsg.kernel.value==1?true:false
-                }
+        newMsg.telegram = {'change': false};
+        if (newMsg.kernel.value !== global.get('kernel.device["' + device + '"]', 'memoryOnly')) {
+            newMsg.telegram = {
+                'type': 'watchdog',
+                'change': true,
+                'entity': device,
+                'value': newMsg.kernel.value === 1 ? true : false
             }
-
-            node.send(newMsg);
         }
+
+        node.send(newMsg);
     }
 
 
@@ -3658,23 +3655,23 @@
         ) {
             let state = global.get('kernel.state["' + equipment + '|run"]', 'memoryOnly');
             if (typeof state === 'number' && state === 1) {
-                /* do not pilot heat if euipement is running */
+                /* do not pilot heat if equipment is running */
             } else {
                 let reverse = global.get('kernel.reverse["' + entity + '"]', 'memoryOnly');
                 let value = reverse === true ? (pilot === true ? 0 : 1) : (pilot === true ? 1 : 0);
 
                 msg.kernel = {
-                    'type':'state',
-                    'entity':entity,
-                    'value':value,
-                    'loop':false
+                    'type': 'state',
+                    'entity': entity,
+                    'value': value,
+                    'loop': false
                 };
 
                 msg.telegram = {
-                    'type':'period',
-                    'value':pilot,
-                    'entity':equipment,
-                    'change':msg.kernel.value !== states[entity]
+                    'type': 'period',
+                    'value': pilot,
+                    'entity': equipment,
+                    'change': msg.kernel.value !== states[entity]
                 };
 
                 if (component === 'heatpulse') {
@@ -3706,7 +3703,6 @@
   wires:
     - - b087fef5670c809f
       - d3c22873709318bb
-      - a8432329079caeb8
 - id: d45e4f001b17cb32
   type: function
   z: f6f2187d.f17ca8
@@ -4854,15 +4850,15 @@
         //node.status({'fill':(msg.telegram.value?'green':'red'),'text':msg.telegram.entity});
 
         if (msg.telegram.type === 'period') {
-            let line = global.get('kernel.equipments["' + msg.telegram.entity + '"]', 'memoryOnly')||'-';
-            let plant = global.get('kernel.lines["' + line + '"]','memoryOnly')||'-';
-            let name = global.get('kernel.plant["' + plant + '"]', 'memoryOnly')||'???';
+            let line = global.get('kernel.equipments["' + msg.telegram.entity + '"]', 'memoryOnly') || '-';
+            let plant = global.get('kernel.lines["' + line + '"]','memoryOnly') || '-';
+            let name = global.get('kernel.plant["' + plant + '"]', 'memoryOnly') || '???';
 
             return {
                 'topic':'',
                 'payload':{
                     'type':'message',
-                    'content': (global.get('kernel.equipment["' + msg.telegram.entity + '"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille') + ' (' + name + ')'
+                    'content': '[' + name + '] ' + (global.get('kernel.equipment["' + msg.telegram.entity + '"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')
                 }
             }
         } else if (msg.telegram.type === 'watchdog') {
@@ -4872,7 +4868,7 @@
                 'topic':'',
                 'payload':{
                     'type':'message',
-                    'content': 'Matériel ' + (global.get('describe.model["' + dsplit[0] + '"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
+                    'content': '[Watchdog] ' + (global.get('describe.model["' + dsplit[0] + '"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
                 }
             }
         }
@@ -5080,19 +5076,3 @@
   wires:
     - - 7214e26c1a5974bd
       - 01242cef4de43778
-- id: a8432329079caeb8
-  type: debug
-  z: f6f2187d.f17ca8
-  g: f9da6ea6fa5cc954
-  name: debug 2
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 2060
-  'y': 880
-  wires: []
