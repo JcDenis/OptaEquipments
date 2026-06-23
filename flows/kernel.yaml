@@ -642,7 +642,6 @@
     - 3b80cd5cae7c3642
     - 84299714efdcf62a
     - b3ffc6b86fdc514c
-    - bf3da41c4b5bd219
     - d7bc8fc74bfc07cb
     - d55041fdf28a3f36
     - 2045a5696769c038
@@ -651,6 +650,8 @@
     - 6304fe8d08f0cf47
     - fbeb08a94e71e7bf
     - 00818f8c0686b556
+    - 0eaa0e53940b36ad
+    - bf3da41c4b5bd219
   x: 1035
   'y': 440
   wires: []
@@ -1256,9 +1257,10 @@
     - 53845d5ac3a352d5
     - 05107d400a502297
     - fbeb08a94e71e7bf
-    - bf3da41c4b5bd219
     - d55041fdf28a3f36
     - 6304fe8d08f0cf47
+    - 0eaa0e53940b36ad
+    - bf3da41c4b5bd219
   x: 1395
   'y': 3480
   wires: []
@@ -2805,10 +2807,10 @@
 
     if (msg.hmi.lang == 'fr') {
 
-        return [msg,null];
+        return [msg, null];
     } else {
 
-        return [null,msg];
+        return [null, msg];
     }
   outputs: 2
   timeout: 0
@@ -3299,30 +3301,23 @@
         msg.payload = msg.name;
 
         return msg;
-    }
-
-
-    let default_browser = {
-        'lang':msg.payload,
-        'time':Date.now()
-    }
-
-    global.set('browser["' + msg._client.socketId + '"]', default_browser,
-    'memoryOnly');
-
-
-    let time = Date.now() - 60000;
-
-    let browsers = global.get('browser', 'memoryOnly') || {};
-
-    for (const browser in browsers) {
-        if (browsers[browser]['time'] < time) {
-            global.set('browser["' + browser + '"]', undefined, 'memoryOnly');
+    } else {
+        let default_browser = {
+            'lang': msg.payload,
+            'time': Date.now()
         }
+        global.set('browser["' + msg._client.socketId + '"]', default_browser, 'memoryOnly');
+
+        let time = Date.now() - 60000;
+        let browsers = global.get('browser', 'memoryOnly') || {};
+        for (const browser in browsers) {
+            if (browsers[browser]['time'] < time) {
+                global.set('browser["' + browser + '"]', undefined, 'memoryOnly');
+            }
+        }
+
+        return;
     }
-
-
-    return;
   outputs: 1
   timeout: 0
   noerr: 0
@@ -5024,8 +5019,8 @@
 
     node.send(msg);
 
-
     if (typeof msg.check === 'string'
+        && msg.hmi.level !== ''
         && msg.hmi.tab === global.get('describe.pages["' + msg.check + '"]["tab"]', 'memoryOnly')
         && global.get('describe.pages["' + msg.check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
     ) {

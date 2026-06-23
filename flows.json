@@ -1544,12 +1544,10 @@
             "f9dc1f7a8155ebef",
             "09bd0767b56167b6",
             "f68e1a2d7f3e0c3d",
-            "bf3da41c4b5bd219",
-            "9d39c513cd0fc7e7",
-            "e4c9cdabe5803b6d"
+            "bf3da41c4b5bd219"
         ],
         "x": 84,
-        "y": 39,
+        "y": 179,
         "w": 2062,
         "h": 262
     },
@@ -4451,7 +4449,6 @@
             "3b80cd5cae7c3642",
             "84299714efdcf62a",
             "b3ffc6b86fdc514c",
-            "bf3da41c4b5bd219",
             "d7bc8fc74bfc07cb",
             "d55041fdf28a3f36",
             "2045a5696769c038",
@@ -4459,7 +4456,9 @@
             "53845d5ac3a352d5",
             "6304fe8d08f0cf47",
             "fbeb08a94e71e7bf",
-            "00818f8c0686b556"
+            "00818f8c0686b556",
+            "0eaa0e53940b36ad",
+            "bf3da41c4b5bd219"
         ],
         "x": 1035,
         "y": 440,
@@ -5215,9 +5214,10 @@
             "53845d5ac3a352d5",
             "05107d400a502297",
             "fbeb08a94e71e7bf",
-            "bf3da41c4b5bd219",
             "d55041fdf28a3f36",
-            "6304fe8d08f0cf47"
+            "6304fe8d08f0cf47",
+            "0eaa0e53940b36ad",
+            "bf3da41c4b5bd219"
         ],
         "x": 1395,
         "y": 3480,
@@ -7188,7 +7188,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "hmi",
-        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]', Date.now(), 'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form', {}, 'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n\n    return [msg,null];\n} else {\n\n    return [null,msg];\n}",
+        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]', Date.now(), 'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form', {}, 'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n\n    return [msg, null];\n} else {\n\n    return [null, msg];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7479,7 +7479,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "tab & browser",
-        "func": "if (msg.payload !== '' && typeof global.get('describe.pages[\"' + msg.payload + '\"][\"name\"]', 'memoryOnly') === 'string') {\n    msg.tab = global.get('describe.pages[\"' + msg.payload + '\"][\"tab\"]', 'memoryOnly');\n    msg.name = global.get('describe.pages[\"' + msg.payload + '\"][\"name\"]', 'memoryOnly');\n    msg.payload = msg.name;\n\n    return msg;\n}\n\nlet default_browser = {\n    'lang':msg.payload,\n    'time':Date.now()\n}\nglobal.set('browser[\"' + msg._client.socketId + '\"]', default_browser, 'memoryOnly');\n\nlet time = Date.now() - 60000;\nlet browsers = global.get('browser', 'memoryOnly') || {};\nfor (const browser in browsers) {\n    if (browsers[browser]['time'] < time) {\n        global.set('browser[\"' + browser + '\"]', undefined, 'memoryOnly');\n    }\n}\n\nreturn;",
+        "func": "if (msg.payload !== '' && typeof global.get('describe.pages[\"' + msg.payload + '\"][\"name\"]', 'memoryOnly') === 'string') {\n    msg.tab = global.get('describe.pages[\"' + msg.payload + '\"][\"tab\"]', 'memoryOnly');\n    msg.name = global.get('describe.pages[\"' + msg.payload + '\"][\"name\"]', 'memoryOnly');\n    msg.payload = msg.name;\n\n    return msg;\n} else {\n    let default_browser = {\n        'lang': msg.payload,\n        'time': Date.now()\n    }\n    global.set('browser[\"' + msg._client.socketId + '\"]', default_browser, 'memoryOnly');\n\n    let time = Date.now() - 60000;\n    let browsers = global.get('browser', 'memoryOnly') || {};\n    for (const browser in browsers) {\n        if (browsers[browser]['time'] < time) {\n            global.set('browser[\"' + browser + '\"]', undefined, 'memoryOnly');\n        }\n    }\n\n    return;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8486,7 +8486,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "5621e43ca08d7164",
         "name": "tab &  level",
-        "func": "msg.topic = '';\nmsg.payload = ''; \nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send(msg);\n\n\nif (typeof msg.check === 'string'\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', msg.check, 'memoryOnly');\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n} else {\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', '', 'memoryOnly');\n}",
+        "func": "msg.topic = '';\nmsg.payload = ''; \nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send(msg);\n\nif (typeof msg.check === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', msg.check, 'memoryOnly');\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n} else {\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', '', 'memoryOnly');\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17533,7 +17533,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 790,
-        "y": 140,
+        "y": 280,
         "wires": [
             [
                 "f4eee7dbe5621ecf"
@@ -17562,7 +17562,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 770,
-        "y": 200,
+        "y": 340,
         "wires": []
     },
     {
@@ -17600,7 +17600,7 @@
         "to": "",
         "reg": false,
         "x": 270,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "be3b97df6b45470f"
@@ -17631,7 +17631,7 @@
         "to": "",
         "reg": false,
         "x": 1010,
-        "y": 140,
+        "y": 280,
         "wires": [
             [
                 "6ab34b3b3d64905e"
@@ -17649,7 +17649,7 @@
             "00818f8c0686b556"
         ],
         "x": 1975,
-        "y": 140,
+        "y": 280,
         "wires": []
     },
     {
@@ -17667,7 +17667,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 2030,
-        "y": 200,
+        "y": 340,
         "wires": []
     },
     {
@@ -17689,7 +17689,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 1850,
-        "y": 140,
+        "y": 280,
         "wires": [
             [
                 "8aca2e86c077d885",
@@ -17709,7 +17709,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 1350,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "09bd0767b56167b6"
@@ -17727,10 +17727,11 @@
             "7bba6594f41302c2"
         ],
         "x": 125,
-        "y": 140,
+        "y": 280,
         "wires": [
             [
-                "9d39c513cd0fc7e7"
+                "34e005364036decc",
+                "88a80f7ce9615035"
             ]
         ]
     },
@@ -17756,12 +17757,12 @@
         "repair": false,
         "outputs": 2,
         "x": 430,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
+                "775c8e4364eee51a",
                 "600f8158ee5fa6b3",
-                "bb28138bb34a0fa9",
-                "775c8e4364eee51a"
+                "bb28138bb34a0fa9"
             ],
             [
                 "fe905230c6d73c11",
@@ -17804,7 +17805,7 @@
         "to": "",
         "reg": false,
         "x": 430,
-        "y": 140,
+        "y": 280,
         "wires": [
             [
                 "600f8158ee5fa6b3",
@@ -17825,7 +17826,7 @@
             "4e94023e8ba12f50"
         ],
         "x": 1815,
-        "y": 260,
+        "y": 400,
         "wires": []
     },
     {
@@ -17870,7 +17871,7 @@
         "passthru": false,
         "dropdownOptions": [],
         "x": 770,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "9093d61ed9142cff"
@@ -17912,7 +17913,7 @@
         "to": "",
         "reg": false,
         "x": 1160,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "c82457de0864e28c"
@@ -17941,7 +17942,7 @@
         "value": "dictionary.option_page.auth",
         "valueType": "msg",
         "x": 600,
-        "y": 80,
+        "y": 220,
         "wires": []
     },
     {
@@ -17965,7 +17966,7 @@
         "to": "",
         "reg": false,
         "x": 590,
-        "y": 140,
+        "y": 280,
         "wires": [
             [
                 "9833ea0e831ff8c7"
@@ -18000,7 +18001,7 @@
         "to": "",
         "reg": false,
         "x": 590,
-        "y": 200,
+        "y": 340,
         "wires": [
             [
                 "aa0e1484ee75066f"
@@ -18028,7 +18029,7 @@
         "to": "",
         "reg": false,
         "x": 590,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "3361a6a4765bfb11"
@@ -18043,7 +18044,7 @@
         "name": "non authenticated users get language from browser. see ui-template",
         "info": "",
         "x": 940,
-        "y": 80,
+        "y": 220,
         "wires": []
     },
     {
@@ -18058,7 +18059,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 970,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "3da3f0a5ca052b2e"
@@ -18086,7 +18087,7 @@
         "to": "",
         "reg": false,
         "x": 1690,
-        "y": 200,
+        "y": 340,
         "wires": [
             [
                 "6ab34b3b3d64905e"
@@ -18113,7 +18114,7 @@
         "repair": false,
         "outputs": 2,
         "x": 1530,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "f9dc1f7a8155ebef"
@@ -18144,7 +18145,7 @@
         "to": "",
         "reg": false,
         "x": 1690,
-        "y": 260,
+        "y": 400,
         "wires": [
             [
                 "0cf63361a578f787"
@@ -18152,58 +18153,79 @@
         ]
     },
     {
-        "id": "9d39c513cd0fc7e7",
-        "type": "switch",
+        "id": "0eaa0e53940b36ad",
+        "type": "link in",
         "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "enabled",
-        "property": "enabled",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "false"
-            },
-            {
-                "t": "else"
-            }
+        "d": true,
+        "name": "alert - page",
+        "links": [
+            "575b91a30deac00d",
+            "7bba6594f41302c2"
         ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 260,
-        "y": 140,
+        "x": 125,
+        "y": 120,
         "wires": [
             [
-                "88a80f7ce9615035"
-            ],
-            [
-                "e4c9cdabe5803b6d"
+                "f45123e4061b0631"
             ]
         ]
     },
     {
-        "id": "e4c9cdabe5803b6d",
-        "type": "delay",
+        "id": "ed2758a2b65176a3",
+        "type": "link out",
         "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "250ms",
-        "pauseType": "delay",
-        "timeout": "205",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 270,
-        "y": 200,
+        "d": true,
+        "name": "alert - page",
+        "mode": "link",
+        "links": [],
+        "x": 535,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f45123e4061b0631",
+        "type": "change",
+        "z": "27841aa886edd1cd",
+        "d": true,
+        "name": "tab",
+        "rules": [
+            {
+                "t": "set",
+                "p": "check",
+                "pt": "msg",
+                "to": "auth",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 120,
         "wires": [
             [
-                "34e005364036decc"
+                "6a8544bc1886e8c4"
+            ]
+        ]
+    },
+    {
+        "id": "6a8544bc1886e8c4",
+        "type": "link call",
+        "z": "27841aa886edd1cd",
+        "d": true,
+        "name": "",
+        "links": [
+            "88c5aeadbe80be20"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 410,
+        "y": 120,
+        "wires": [
+            [
+                "ed2758a2b65176a3"
             ]
         ]
     },
@@ -19645,7 +19667,7 @@
         "z": "51c4b2897d2c318c",
         "g": "744a665a3304c311",
         "name": "action",
-        "func": "let newMsg = {\n    'topic': '',\n    'payload': '',\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary\n};\n\nif (msg.action === 'button_click') {\n    if (global.get('describe.pages.period.level[\"' + msg.hmi.level + '\"]', 'memoryOnly') === true) {\n        if (msg.column === 'todisable_name') {\n            // kernel.disabled\n            newMsg['kernel'] = {\n                'type': 'disabled',\n                'entity': msg.payload.line,\n                'value': msg.payload.todisable,\n                'loop': false\n            };\n\n            return [newMsg, null, null];\n        } else {\n            // kernel.period\n            newMsg['kernel'] = {\n                'type': 'period',\n                'entity': msg.payload.line,\n                'value': (msg.column === 'tm' ? (msg.payload.m === 1 ? '' : 'm') : msg.payload.m === 1 ? 'm' : '') + (msg.column === 'ta' ? (msg.payload.a === 1 ? '' : 'a') : msg.payload.a === 1 ? 'a' : '') + (msg.column === 'tn' ? (msg.payload.n === 1 ? '' : 'n') : msg.payload.n === 1 ? 'n' : '') + (msg.column === 'td' ? (msg.payload.d === 1 ? '' : 'd') : msg.payload.d === 1 ? 'd' : '') + (msg.column === 'ts' ? (msg.payload.s === 1 ? '' : 's') : msg.payload.s === 1 ? 's' : ''),\n                'loop': false\n            };\n\n            return [newMsg, null, null];\n        }\n    } else {\n        msg.payload = msg.dictionary.common_notice_level_fail;\n\n        return [null, newMsg, null];\n    }\n\n} else if (msg.action === 'row_click') {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.payload.plant, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]', msg.payload.line, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', '', 'memoryOnly');\n\n    newMsg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || 0;\n    newMsg.hmi.page = global.get('describe.pages.detail.name', 'memoryOnly') || '';\n    newMsg.payload = newMsg.hmi.tab;\n\n    return [null, null, newMsg];\n}\n\nreturn;",
+        "func": "let newMsg = {\n    'topic': '',\n    'payload': '',\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\nif (msg.action === 'button_click') {\n    if (global.get('describe.pages.period.level[\"' + msg.hmi.level + '\"]', 'memoryOnly') === true) {\n        if (msg.column === 'todisable_name') {\n            // kernel.disabled\n            newMsg['kernel'] = {\n                'type': 'disabled',\n                'entity': msg.payload.line,\n                'value': msg.payload.todisable,\n                'loop': false\n            };\n\n            return [newMsg, null, null];\n        } else {\n            // kernel.period\n            newMsg['kernel'] = {\n                'type': 'period',\n                'entity': msg.payload.line,\n                'value': (msg.column === 'tm' ? (msg.payload.m === 1 ? '' : 'm') : msg.payload.m === 1 ? 'm' : '') + (msg.column === 'ta' ? (msg.payload.a === 1 ? '' : 'a') : msg.payload.a === 1 ? 'a' : '') + (msg.column === 'tn' ? (msg.payload.n === 1 ? '' : 'n') : msg.payload.n === 1 ? 'n' : '') + (msg.column === 'td' ? (msg.payload.d === 1 ? '' : 'd') : msg.payload.d === 1 ? 'd' : '') + (msg.column === 'ts' ? (msg.payload.s === 1 ? '' : 's') : msg.payload.s === 1 ? 's' : ''),\n                'loop': false\n            };\n\n            return [newMsg, null, null];\n        }\n    } else {\n        msg.payload = msg.dictionary.common_notice_level_fail;\n\n        return [null, newMsg, null];\n    }\n\n} else if (msg.action === 'row_click') {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.payload.plant, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]', msg.payload.line, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', '', 'memoryOnly');\n\n    newMsg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || 0;\n    newMsg.hmi.page = global.get('describe.pages.detail.name', 'memoryOnly') || '';\n    newMsg.payload = newMsg.hmi.tab;\n\n    return [null, null, newMsg];\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -26196,7 +26218,7 @@
         "z": "852390cb9559e176",
         "g": "d04f02d6e1c02839",
         "name": "kernel",
-        "func": "return {\n    'topic':'',\n    'payload':'',\n    'kernel':{\n        'type':msg.kernel.type,\n        'entity':msg.kernel.equipment + '|' + msg.topic,\n        'value':msg.kernel.value,\n        'loop':false\n    }\n};",
+        "func": "return {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type': msg.kernel.type,\n        'entity': msg.kernel.equipment + '|' + msg.topic,\n        'value': msg.kernel.value,\n        'loop': false\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -27578,6 +27600,14 @@
                 "align": "center"
             },
             {
+                "title": "Equipements",
+                "key": "equipment_name",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
                 "title": "",
                 "key": "delete",
                 "keyType": "key",
@@ -28362,6 +28392,14 @@
                 "align": "center"
             },
             {
+                "title": "Equipments",
+                "key": "equipment_name",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
                 "title": "",
                 "key": "delete",
                 "keyType": "key",
@@ -28863,7 +28901,7 @@
         "z": "e97c6f12735a13c1",
         "g": "e86385b18b9154e7",
         "name": "parse devices",
-        "func": "node.send([null, msg, msg]);\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.list === 'device') {\n    let devices = global.get('kernel.device', 'memoryOnly') || {};\n    let i = 0;\n    msg.payload = [];\n\n    for (const entity in devices) {\n        let row  = {};\n        let esplit = entity.split('|');\n\n        row.entity = entity;\n        row.model = esplit[0];\n        row.model_name = global.get('describe.model[\"' + row.model + '\"]', 'memoryOnly') || ''\n        row.model_full = row.model_name + ' (' + row.model + ')';\n        row.device = esplit[1];\n        row.delete = (msg.dictionary?.common_action_delete) || 'Delete';\n        row.component_count = 0;\n        row.watchdog_color = '#CCCCCC';\n\n        let watchdog = global.get('kernel.watchdog[\"' + row.entity + '\"]', 'memoryOnly');\n        if (typeof watchdog === 'number') {\n            row.watchdog_color = devices[entity] === 1 ? 'green' : 'red';\n        }\n\n        let rlinks = global.get('rlink', 'memoryOnly');\n        let needle = new RegExp('^(' + row.model + '\\\\|' + row.device + '\\\\|)');\n\n        if (typeof rlinks === 'object') {\n            for (const target in rlinks) {\n                if (target.match(needle) !== null) {\n                    row.component_count += 1;\n                }\n            }\n        }\n\n        msg.payload[i++] = row;\n    }\n\n    // Records title\n    msg.total = i;\n    node.send([msg, null, null]);\n\n    if (i > 0) {\n        msg.payload.sort(function($l, $r) {\n            if ($l.model_name === $r.model_name) {\n\n                return $l.device > $r.device ? 1 : -1;\n            }\n\n            return $l.model_name > $r.model_name ? 1 : -1;\n        });\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [null, msg, null];\n        } else {\n\n            return [null, null, msg];\n        }\n    }\n}\n\nreturn;",
+        "func": "node.send([null, msg, msg]);\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.list === 'device') {\n    let devices = global.get('kernel.device', 'memoryOnly') || {};\n    let i = 0;\n    msg.payload = [];\n\n    for (const entity in devices) {\n        let row  = {};\n        let esplit = entity.split('|');\n\n        row.entity = entity;\n        row.model = esplit[0];\n        row.model_name = global.get('describe.model[\"' + row.model + '\"]', 'memoryOnly') || ''\n        row.model_full = row.model_name + ' (' + row.model + ')';\n        row.device = esplit[1];\n        row.delete = (msg.dictionary?.common_action_delete) || 'Delete';\n        row.component_count = 0;\n        row.watchdog_color = '#CCCCCC';\n\n        let watchdog = global.get('kernel.watchdog[\"' + row.entity + '\"]', 'memoryOnly');\n        if (typeof watchdog === 'number') {\n            row.watchdog_color = devices[entity] === 1 ? 'green' : 'red';\n        }\n\n        let rlinks = global.get('rlink', 'memoryOnly');\n        let needle = new RegExp('^(' + row.model + '\\\\|' + row.device + '\\\\|)');\n\n        let names = {};\n        if (typeof rlinks === 'object') {\n            for (const target in rlinks) {\n                if (target.match(needle) !== null) {\n                    let tsplit = rlinks[target].split('|');\n                    // get uniq equipement\n                    names[tsplit[0]]  = global.get('kernel.equipment[\"' + tsplit[0] + '\"]', 'memoryOnly') || '';\n                    row.component_count += 1;\n                }\n            }\n        }\n        row.equipment_name = [];\n        for (const name in names) {\n            row.equipment_name.push(names[name]);\n        }\n        row.equipment_name = row.equipment_name.join(', ');\n\n        msg.payload[i++] = row;\n    }\n\n    // Records title\n    msg.total = i;\n    node.send([msg, null, null]);\n\n    if (i > 0) {\n        msg.payload.sort(function($l, $r) {\n            if ($l.model_name === $r.model_name) {\n\n                return $l.device > $r.device ? 1 : -1;\n            }\n\n            return $l.model_name > $r.model_name ? 1 : -1;\n        });\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [null, msg, null];\n        } else {\n\n            return [null, null, msg];\n        }\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,

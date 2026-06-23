@@ -457,6 +457,12 @@
       type: text
       width: ''
       align: center
+    - title: Equipements
+      key: equipment_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
     - title: ''
       key: delete
       keyType: key
@@ -1057,6 +1063,12 @@
       type: text
       width: ''
       align: center
+    - title: Equipments
+      key: equipment_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
     - title: ''
       key: delete
       keyType: key
@@ -1646,13 +1658,22 @@
             let rlinks = global.get('rlink', 'memoryOnly');
             let needle = new RegExp('^(' + row.model + '\\|' + row.device + '\\|)');
 
+            let names = {};
             if (typeof rlinks === 'object') {
                 for (const target in rlinks) {
                     if (target.match(needle) !== null) {
+                        let tsplit = rlinks[target].split('|');
+                        // get uniq equipement
+                        names[tsplit[0]]  = global.get('kernel.equipment["' + tsplit[0] + '"]', 'memoryOnly') || '';
                         row.component_count += 1;
                     }
                 }
             }
+            row.equipment_name = [];
+            for (const name in names) {
+                row.equipment_name.push(names[name]);
+            }
+            row.equipment_name = row.equipment_name.join(', ');
 
             msg.payload[i++] = row;
         }
