@@ -82,8 +82,6 @@
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
     - 4454c8408a7c43de
-    - 3d5e6f0c6682a2ed
-    - 542c18dedc9ba3de
   x: 68
   'y': 13
   w: 2664
@@ -123,11 +121,11 @@
     - 817afd07dd5f3b19
     - 8686efc820f0e65f
     - b9fac0d63f3ff120
-    - abca3aaf7cde8edb
     - 23327f086285c000
     - 2b027f15e857dc2d
     - 78e60df6e7d55f08
     - 0a6f746a33c66866
+    - 542c18dedc9ba3de
   x: 104
   'y': 519
   w: 2602
@@ -177,7 +175,6 @@
     - 68593265cb4e2507
     - fd39d13ae9c195f3
     - 8f1a54f299198096
-    - 886e458678ddf131
   x: 104
   'y': 3379
   w: 1332
@@ -1264,7 +1261,7 @@
     - 6304fe8d08f0cf47
     - 0eaa0e53940b36ad
     - bf3da41c4b5bd219
-  x: 1395
+  x: 795
   'y': 3480
   wires: []
 - id: 00818f8c0686b556
@@ -1338,7 +1335,7 @@
         export default {
             data() {
                 return {
-                    oe_menus: { auth: false, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },
+                    oe_menus: { auth: true, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },
                     oe_titles: { auth: '', alert: '', period: '', detail: '', list: '', tree: '', users: '', system: '' },
                     mounted: false
                 }
@@ -3151,6 +3148,7 @@
   g: 32da9b1ae024e8bb
   name: action
   func: >-
+    // on diconnect (from button), clear user
 
     if (msg.payload === 'disconnect') {
         global.set('user["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
@@ -3160,26 +3158,32 @@
     }
 
 
-    if (msg.payload !== 'change' && msg.payload !== 'connect') {
+    // on unwanted state, stop here
+
+    if (msg.payload.match((new RegExp('^(connect|change|lost)$'))) === null) {
 
         return;
     }
 
 
-    if (msg.payload === 'connect') {
+    // on connect or lost connection, go to auth page
+
+    if (msg.payload === 'connect' || msg.payload === 'lost') {
         msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');
         msg.name = global.get('describe.pages.auth.name', 'memoryOnly');
     }
 
+
+    // prepare
 
     msg.menus = {};
 
     msg.titles = {};
 
     msg.payload = {
-        'pages':{
-            'show':[],
-            'hide':[]
+        'pages': {
+            'show': [],
+            'hide': []
         }
     };
 
@@ -3190,6 +3194,8 @@
         return;
     }
 
+
+    // check user page right
 
     let allowed = false;
 
@@ -3329,27 +3335,6 @@
   'y': 3420
   wires:
     - - 802c09c733863247
-- id: 886e458678ddf131
-  type: delay
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: 100ms
-  pauseType: delay
-  timeout: '100'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 1270
-  'y': 3520
-  wires:
-    - - 7bba6594f41302c2
 - id: bf59724bfb1762b4
   type: function
   z: f6f2187d.f17ca8
@@ -3367,7 +3352,15 @@
             'payload':(global.get('kernel.team', 'memoryOnly') || {}),
             'row':{
                 'ts': Date.now()
+                // some timestamp tests
+                //'ts': 1781921986000 // saturday 4:19
+                //'ts': 1781929186000 // saturday 6:19
+                //'ts': 1781936386000 // satruday 8:19
+                //'ts': 1782015586000 // sunday 6:19
+                //'ts': 1782076786000 // sunday 23:19
+                //'ts': 1782094786000 // monday 4:19
                 //'ts': 1782163186000 // monday 23:19
+                //'ts': 1782238786000 // tuesday 20:19
             }
         };
     }
@@ -3406,10 +3399,8 @@
     msg.row.dectime = dec * 100; // ex: 600, in order to compare to
     starttime/stoptime 630, 2330...
 
-    msg.row.dec = msg.row.ts - (Math.round(dec * 60 * 60 * 1000));
 
-
-    /* time */
+    /* team time */
 
     let psplit = msg.payload.split('|');
 
@@ -3419,7 +3410,7 @@
     msg.row.stoptime = Number(psplit[1].split(':').join(''));
 
 
-    /* for datetime formatter */
+    /* datetime formatter tz */
 
     msg.outTz = msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]',
     'memoryOnly') || 'Europe/Paris';
@@ -3463,7 +3454,7 @@
   g: 216f821485a9eb19
   name: current day
   topic: ''
-  input: row.dec
+  input: row.ts
   inputType: msg
   inTz: Europe/Paris
   adjAmount: '0'
@@ -3477,82 +3468,7 @@
   x: 1330
   'y': 740
   wires:
-    - - abca3aaf7cde8edb
-      - 542c18dedc9ba3de
-- id: abca3aaf7cde8edb
-  type: function
-  z: f6f2187d.f17ca8
-  g: 216f821485a9eb19
-  name: day
-  func: >-
-    msg.row.curday = Number(msg.row.curday);
-
-    msg.row.curtime = Number(msg.row.curtime);
-
-
-    /* If current time is before dec time and team starts before dec time, this
-    is the day after (monday morning) */
-
-    if (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime
-    /* && msg.row.startime < msg.row.stoptime */) {
-        if (msg.row.curday === 6) {
-            msg.row.curday = 0;
-        } else {
-            msg.row.curday = msg.row.curday + 1;
-        }
-    }
-
-    /* if current time is after dec time and team stop after dec time and team
-    start time is after team stop time (satruday morning) */
-
-    /*
-
-    // this does not work, stop heat between 23 and midnight on monday to
-    tuesday night !
-
-    else if (msg.row.curtime > msg.row.dectime && msg.row.stoptime >
-    msg.row.dectime && msg.row.starttime > msg.row.stoptime) {
-        if (msg.row.curday === 0) {
-            msg.row.curday = 6;
-        } else {
-            msg.row.curday = msg.row.curday - 1;
-        }
-    }
-
-    */
-
-
-    /* sunday, sartuday and not s, week and not mand */
-
-    if (msg.row.curday === 0 || (msg.row.curday === 6 && msg.row.team !== 's')
-    || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new
-    RegExp('^(m|a|n|d)$'))) === null)) {
-        msg.row.value = false;
-    } else {
-        if (msg.row.starttime < msg.row.stoptime) {
-            msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;
-        } else {
-            /* past midnight */
-            msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;
-        }
-    }
-
-
-    flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
-    msg.row.value, 'memoryOnly');
-
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1510
-  'y': 740
-  wires:
-    - - 2b027f15e857dc2d
+    - - 542c18dedc9ba3de
 - id: 23327f086285c000
   type: split
   z: f6f2187d.f17ca8
@@ -3602,7 +3518,7 @@
   func: |-
     msg.payload = '';
 
-    let final_teams = flow.get('teams', 'memoryOnly');
+    let final_teams = flow.get('teams', 'memoryOnly') || {};
     let final_periods = {};
     let final_pilots = {};
 
@@ -3648,7 +3564,6 @@
         let component = esplit[1];
         let line = global.get('kernel.equipments["' + equipment + '"]', 'memoryOnly');
 
-        //let pilot = final_periods[line];
         let pilot = final_pilots[line];
         if (typeof pilot === 'boolean'
             && typeof global.get('kernel.link["' + entity + '"]', 'memoryOnly') === 'string'
@@ -3683,6 +3598,7 @@
                         node.send(msg);
                         await new Promise(resolve => setTimeout(resolve, 500));
                         msg.kernel.value = 0;
+                        delete msg.telegram;
                         node.send(msg);
                     }
                 } else {
@@ -4859,7 +4775,7 @@
                 'topic':'',
                 'payload':{
                     'type':'message',
-                    'content': '[' + name + '] ' + (global.get('kernel.equipment["' + msg.telegram.entity + '"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')
+                    'content': '[Period] ' + name + ": \n" + (global.get('kernel.equipment["' + msg.telegram.entity + '"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')
                 }
             }
         } else if (msg.telegram.type === 'watchdog') {
@@ -4869,7 +4785,7 @@
                 'topic':'',
                 'payload':{
                     'type':'message',
-                    'content': '[Watchdog] ' + (global.get('describe.model["' + dsplit[0] + '"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
+                    'content': '[Watchdog] ' + ": \n" + (global.get('describe.model["' + dsplit[0] + '"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
                 }
             }
         }
@@ -5095,26 +5011,10 @@
   x: 895
   'y': 320
   wires: []
-- id: 3d5e6f0c6682a2ed
-  type: debug
-  z: f6f2187d.f17ca8
-  g: f9da6ea6fa5cc954
-  name: debug 2
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1680
-  'y': 840
-  wires: []
 - id: 542c18dedc9ba3de
   type: function
   z: f6f2187d.f17ca8
-  g: f9da6ea6fa5cc954
+  g: 216f821485a9eb19
   name: day
   func: >-
     msg.row.curday = Number(msg.row.curday);
@@ -5122,16 +5022,21 @@
     msg.row.curtime = Number(msg.row.curtime);
 
 
-    /* adjust day from dec time */
+    /* team start before midnight and end after midnight and current time is
+    before team start time*/
 
-    if (msg.row.curtime < msg.row.dectime) {
+    if (msg.row.stoptime < msg.row.starttime && msg.row.curtime <
+    msg.row.starttime) {
         msg.row.curday = msg.row.curday - 1;
     }
 
-    /* then adjust day from team (night) */
 
-    if (msg.row.stoptime < msg.row.starttime) {
-        msg.row.curday = msg.row.curday + 1;
+    /* then regain week day */
+
+    if (msg.row.curday === 7) {
+        msg.row.curday = 0;
+    } else if (msg.row.curday === -1) {
+        msg.row.curday = 6;
     }
 
 
@@ -5140,9 +5045,9 @@
 
     /* If week day and week team or saturday day and saturday team */
 
-    if ((msg.row.curday > 0 && msg.row.curday < 5 && msg.row.team.match((new
+    if ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new
     RegExp('^(m|a|n|d)$'))) !== null) 
-        || (msg.row.curday === 5 && msg.row.team.match((new RegExp('^(s)$'))) !== null)
+        || (msg.row.curday === 6 && msg.row.team.match((new RegExp('^(s)$'))) !== null)
     ) {
         if (msg.row.starttime < msg.row.stoptime) {
             msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;
@@ -5153,8 +5058,11 @@
     }
 
 
-    //flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
+    flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
     msg.row.value, 'memoryOnly');
+
+    msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team +
+    ':' + msg.row.value;
 
 
     return msg;
@@ -5165,6 +5073,6 @@
   finalize: ''
   libs: []
   x: 1510
-  'y': 840
+  'y': 740
   wires:
-    - - 3d5e6f0c6682a2ed
+    - - 2b027f15e857dc2d

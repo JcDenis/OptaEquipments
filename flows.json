@@ -1353,7 +1353,8 @@
             "bd599dec08c500e1",
             "b5afaeb96669d0b9",
             "4fa259e50d9f796e",
-            "d490b0d4c1f50167"
+            "d490b0d4c1f50167",
+            "f833923166c9329f"
         ],
         "x": 94,
         "y": 219,
@@ -2251,9 +2252,7 @@
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
             "11d028449aaa105b",
-            "4454c8408a7c43de",
-            "3d5e6f0c6682a2ed",
-            "542c18dedc9ba3de"
+            "4454c8408a7c43de"
         ],
         "x": 68,
         "y": 13,
@@ -2697,6 +2696,27 @@
         "y": 373,
         "w": 714,
         "h": 1094
+    },
+    {
+        "id": "c02c15caf5410947",
+        "type": "group",
+        "z": "c886080f59e5c106",
+        "name": "telegram - boot",
+        "style": {
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "61872228c92c7235",
+            "38ff5dbf94c7ebe6",
+            "74cf5c6277e85d98",
+            "65171f857bc8db08"
+        ],
+        "x": 964,
+        "y": 99,
+        "w": 552,
+        "h": 82
     },
     {
         "id": "fa94e5dda0432e95",
@@ -3163,11 +3183,11 @@
             "817afd07dd5f3b19",
             "8686efc820f0e65f",
             "b9fac0d63f3ff120",
-            "abca3aaf7cde8edb",
             "23327f086285c000",
             "2b027f15e857dc2d",
             "78e60df6e7d55f08",
-            "0a6f746a33c66866"
+            "0a6f746a33c66866",
+            "542c18dedc9ba3de"
         ],
         "x": 104,
         "y": 519,
@@ -3224,8 +3244,7 @@
             "802c09c733863247",
             "68593265cb4e2507",
             "fd39d13ae9c195f3",
-            "8f1a54f299198096",
-            "886e458678ddf131"
+            "8f1a54f299198096"
         ],
         "x": 104,
         "y": 3379,
@@ -3703,27 +3722,6 @@
         "x": 2244,
         "y": 639,
         "w": 412,
-        "h": 82
-    },
-    {
-        "id": "c02c15caf5410947",
-        "type": "group",
-        "z": "c886080f59e5c106",
-        "name": "telegram - boot",
-        "style": {
-            "fill": "#ff0000",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "61872228c92c7235",
-            "38ff5dbf94c7ebe6",
-            "74cf5c6277e85d98",
-            "65171f857bc8db08"
-        ],
-        "x": 964,
-        "y": 99,
-        "w": 552,
         "h": 82
     },
     {
@@ -5243,7 +5241,7 @@
             "0eaa0e53940b36ad",
             "bf3da41c4b5bd219"
         ],
-        "x": 1395,
+        "x": 795,
         "y": 3480,
         "wires": []
     },
@@ -5303,7 +5301,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe_nav\"> \n        <v-btn-group variant=\"outlined\" divided>\n            <v-btn v-if=\"oe_menus.alert\" @click=\"oe_nav('alert')\" :title=\"oe_titles.alert\" icon=\"mdi-wrench\"></v-btn> \n            <v-btn v-if=\"oe_menus.period\" @click=\"oe_nav('period')\" :title=\"oe_titles.period\" icon=\"mdi-clock\"></v-btn> \n            <v-btn v-if=\"oe_menus.detail\" @click=\"oe_nav('detail')\" :title=\"oe_titles.detail\" icon=\"mdi-magnify\"></v-btn> \n            <v-btn v-if=\"oe_menus.list\" @click=\"oe_nav('list')\" :title=\"oe_titles.list\" icon=\"mdi-format-list-bulleted-square\"></v-btn> \n            <v-btn v-if=\"oe_menus.tree\" @click=\"oe_nav('tree')\" :title=\"oe_titles.tree\" icon=\"mdi-file-tree\"></i></v-btn> \n            <v-btn v-if=\"oe_menus.users\" @click=\"oe_nav('users')\" :title=\"oe_titles.users\" icon=\"mdi-account\"></v-btn> \n            <v-btn v-if=\"oe_menus.system\" @click=\"oe_nav('system')\" :title=\"oe_titles.system\" icon=\"mdi-cog\"></v-btn> \n            <v-btn v-if=\"oe_menus.auth\" @click=\"oe_nav('auth')\" :title=\"oe_titles.auth\" icon=\"mdi-login\"></v-btn> \n        </v-btn-group>\n        <v-toolbar-title :text=\"msg.title\"></v-toolbar-title>\n        <v-btn href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.full\"></img></v-btn>\n        </v-toolbar>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_menus: { auth: false, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },\n                oe_titles: { auth: '', alert: '', period: '', detail: '', list: '', tree: '', users: '', system: '' },\n                mounted: false\n            }\n        },\n        mounted() {\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n            let div = document.createElement(\"div\");\n            div.id=\"oe_header\";\n            const el = document.body.querySelector(\"#app\").prepend(div);\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (page) {\n                this.send(page)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.page_title;\n                this.oe_menus = msg.menus;\n                this.oe_titles = msg.titles;\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe_nav\"> \n        <v-btn-group variant=\"outlined\" divided>\n            <v-btn v-if=\"oe_menus.alert\" @click=\"oe_nav('alert')\" :title=\"oe_titles.alert\" icon=\"mdi-wrench\"></v-btn> \n            <v-btn v-if=\"oe_menus.period\" @click=\"oe_nav('period')\" :title=\"oe_titles.period\" icon=\"mdi-clock\"></v-btn> \n            <v-btn v-if=\"oe_menus.detail\" @click=\"oe_nav('detail')\" :title=\"oe_titles.detail\" icon=\"mdi-magnify\"></v-btn> \n            <v-btn v-if=\"oe_menus.list\" @click=\"oe_nav('list')\" :title=\"oe_titles.list\" icon=\"mdi-format-list-bulleted-square\"></v-btn> \n            <v-btn v-if=\"oe_menus.tree\" @click=\"oe_nav('tree')\" :title=\"oe_titles.tree\" icon=\"mdi-file-tree\"></i></v-btn> \n            <v-btn v-if=\"oe_menus.users\" @click=\"oe_nav('users')\" :title=\"oe_titles.users\" icon=\"mdi-account\"></v-btn> \n            <v-btn v-if=\"oe_menus.system\" @click=\"oe_nav('system')\" :title=\"oe_titles.system\" icon=\"mdi-cog\"></v-btn> \n            <v-btn v-if=\"oe_menus.auth\" @click=\"oe_nav('auth')\" :title=\"oe_titles.auth\" icon=\"mdi-login\"></v-btn> \n        </v-btn-group>\n        <v-toolbar-title :text=\"msg.title\"></v-toolbar-title>\n        <v-btn href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.full\"></img></v-btn>\n        </v-toolbar>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_menus: { auth: true, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },\n                oe_titles: { auth: '', alert: '', period: '', detail: '', list: '', tree: '', users: '', system: '' },\n                mounted: false\n            }\n        },\n        mounted() {\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n            let div = document.createElement(\"div\");\n            div.id=\"oe_header\";\n            const el = document.body.querySelector(\"#app\").prepend(div);\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (page) {\n                this.send(page)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.page_title;\n                this.oe_menus = msg.menus;\n                this.oe_titles = msg.titles;\n            }\n        }\n    }\n\n</script>",
         "storeOutMessages": true,
         "passthru": false,
         "resendOnRefresh": true,
@@ -7478,7 +7476,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "action",
-        "func": "\nif (msg.payload === 'disconnect') {\n    global.set('user[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n\n    return;\n}\n\nif (msg.payload !== 'change' && msg.payload !== 'connect') {\n\n    return;\n}\n\nif (msg.payload === 'connect') {\n    msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.name = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages':{\n        'show':[],\n        'hide':[]\n    }\n};\n\nlet pages = global.get('describe.pages', 'memoryOnly');\nif (typeof pages !== 'object') {\n    return;\n}\n\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_title = msg.dictionary.option_page[page];\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\n// user plant\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')||'-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.hmi.plant, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]', '', 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', '', 'memoryOnly');\n}\nglobal.set('form[\"' + msg.hmi.id + '\"][\"ts\"]', Date.now(), 'memoryOnly');\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// ui menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg];",
+        "func": "// on diconnect (from button), clear user\nif (msg.payload === 'disconnect') {\n    global.set('user[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n\n    return;\n}\n\n// on unwanted state, stop here\nif (msg.payload.match((new RegExp('^(connect|change|lost)$'))) === null) {\n\n    return;\n}\n\n// on connect or lost connection, go to auth page\nif (msg.payload === 'connect' || msg.payload === 'lost') {\n    msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.name = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\n// prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\nlet pages = global.get('describe.pages', 'memoryOnly');\nif (typeof pages !== 'object') {\n    return;\n}\n\n// check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_title = msg.dictionary.option_page[page];\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\n// user plant\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')||'-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.hmi.plant, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]', '', 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', '', 'memoryOnly');\n}\nglobal.set('form[\"' + msg.hmi.id + '\"][\"ts\"]', Date.now(), 'memoryOnly');\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// ui menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7519,38 +7517,12 @@
         ]
     },
     {
-        "id": "886e458678ddf131",
-        "type": "delay",
-        "z": "f6f2187d.f17ca8",
-        "g": "32da9b1ae024e8bb",
-        "name": "100ms",
-        "pauseType": "delay",
-        "timeout": "100",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1270,
-        "y": 3520,
-        "wires": [
-            [
-                "7bba6594f41302c2"
-            ]
-        ]
-    },
-    {
         "id": "bf59724bfb1762b4",
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "prepare",
-        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic':'',\n        'payload':(global.get('kernel.team', 'memoryOnly') || {}),\n        'row':{\n            'ts': Date.now()\n            //'ts': 1782163186000 // monday 23:19\n        }\n    };\n}\n\nreturn;",
+        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic':'',\n        'payload':(global.get('kernel.team', 'memoryOnly') || {}),\n        'row':{\n            'ts': Date.now()\n            // some timestamp tests\n            //'ts': 1781921986000 // saturday 4:19\n            //'ts': 1781929186000 // saturday 6:19\n            //'ts': 1781936386000 // satruday 8:19\n            //'ts': 1782015586000 // sunday 6:19\n            //'ts': 1782076786000 // sunday 23:19\n            //'ts': 1782094786000 // monday 4:19\n            //'ts': 1782163186000 // monday 23:19\n            //'ts': 1782238786000 // tuesday 20:19\n        }\n    };\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7571,7 +7543,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "row",
-        "func": "/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = Number(global.get('kernel.day[\"' + msg.row.plant + '\"]', 'memoryOnly') || 0);\nmsg.row.dectime = dec * 100; // ex: 600, in order to compare to starttime/stoptime 630, 2330...\nmsg.row.dec = msg.row.ts - (Math.round(dec * 60 * 60 * 1000));\n\n/* time */\nlet psplit = msg.payload.split('|');\nmsg.row.starttime = Number(psplit[0].split(':').join('')); //convert calendar time to comparable number\nmsg.row.stoptime = Number(psplit[1].split(':').join(''));\n\n/* for datetime formatter */\nmsg.outTz = msg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]', 'memoryOnly') || 'Europe/Paris';\n\nreturn msg;",
+        "func": "/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = Number(global.get('kernel.day[\"' + msg.row.plant + '\"]', 'memoryOnly') || 0);\nmsg.row.dectime = dec * 100; // ex: 600, in order to compare to starttime/stoptime 630, 2330...\n\n/* team time */\nlet psplit = msg.payload.split('|');\nmsg.row.starttime = Number(psplit[0].split(':').join('')); //convert calendar time to comparable number\nmsg.row.stoptime = Number(psplit[1].split(':').join(''));\n\n/* datetime formatter tz */\nmsg.outTz = msg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]', 'memoryOnly') || 'Europe/Paris';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7619,7 +7591,7 @@
         "g": "216f821485a9eb19",
         "name": "current day",
         "topic": "",
-        "input": "row.dec",
+        "input": "row.ts",
         "inputType": "msg",
         "inTz": "Europe/Paris",
         "adjAmount": "0",
@@ -7634,29 +7606,7 @@
         "y": 740,
         "wires": [
             [
-                "abca3aaf7cde8edb",
                 "542c18dedc9ba3de"
-            ]
-        ]
-    },
-    {
-        "id": "abca3aaf7cde8edb",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
-        "name": "day",
-        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* If current time is before dec time and team starts before dec time, this is the day after (monday morning) */\nif (msg.row.curtime < msg.row.dectime && msg.row.starttime < msg.row.dectime /* && msg.row.startime < msg.row.stoptime */) {\n    if (msg.row.curday === 6) {\n        msg.row.curday = 0;\n    } else {\n        msg.row.curday = msg.row.curday + 1;\n    }\n}\n/* if current time is after dec time and team stop after dec time and team start time is after team stop time (satruday morning) */\n/*\n// this does not work, stop heat between 23 and midnight on monday to tuesday night !\nelse if (msg.row.curtime > msg.row.dectime && msg.row.stoptime > msg.row.dectime && msg.row.starttime > msg.row.stoptime) {\n    if (msg.row.curday === 0) {\n        msg.row.curday = 6;\n    } else {\n        msg.row.curday = msg.row.curday - 1;\n    }\n}\n*/\n\n/* sunday, sartuday and not s, week and not mand */\nif (msg.row.curday === 0 || (msg.row.curday === 6 && msg.row.team !== 's') || (msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) === null)) {\n    msg.row.value = false;\n} else {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1510,
-        "y": 740,
-        "wires": [
-            [
-                "2b027f15e857dc2d"
             ]
         ]
     },
@@ -7717,7 +7667,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "periods states",
-        "func": "msg.payload = '';\n\nlet final_teams = flow.get('teams', 'memoryOnly');\nlet final_periods = {};\nlet final_pilots = {};\n\ndelete msg.row;\ndelete msg.settings;\ndelete msg.outTz;\ndelete msg.team;\nflow.set('teams', undefined, 'memoryOnly');\n\nlet periods = global.get('kernel.period', 'memoryOnly') || {};\nfor (const line in periods) {\n    final_periods[line] = false;\n\n    /* line program is enabled */\n    if (global.get('kernel.disabled[\"' + line + '\"]', 'memoryOnly') === false) {\n        /* no periods set for this line */\n        if (periods[line] === '') {\n            /* set to off */\n            final_pilots[line] = false;\n        } else {\n            let plant = global.get('kernel.lines[\"' + line + '\"]', 'memoryOnly');\n            let exists = false;\n            let teams = periods[line].split(\"\");\n            for (const i in teams) {\n                if (typeof final_teams[plant][teams[i]] === 'boolean') {\n                    exists = true;\n                    if (final_teams[plant][teams[i]] === true) {\n                        final_periods[line] = true;\n                    }\n                }\n            }\n            if (exists) {\n                final_pilots[line] = final_periods[line];\n            }\n        }\n    }\n}\n\nlet states = global.get('kernel.state','memoryOnly')||{};\nfor (const entity in states) {\n    let esplit = entity.split('|');\n    let equipment = esplit[0];\n    let component = esplit[1];\n    let line = global.get('kernel.equipments[\"' + equipment + '\"]', 'memoryOnly');\n\n    //let pilot = final_periods[line];\n    let pilot = final_pilots[line];\n    if (typeof pilot === 'boolean'\n        && typeof global.get('kernel.link[\"' + entity + '\"]', 'memoryOnly') === 'string'\n        && component.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null\n    ) {\n        let state = global.get('kernel.state[\"' + equipment + '|run\"]', 'memoryOnly');\n        if (typeof state === 'number' && state === 1) {\n            /* do not pilot heat if equipment is running */\n        } else {\n            let reverse = global.get('kernel.reverse[\"' + entity + '\"]', 'memoryOnly');\n            let value = reverse === true ? (pilot === true ? 0 : 1) : (pilot === true ? 1 : 0);\n\n            msg.kernel = {\n                'type': 'state',\n                'entity': entity,\n                'value': value,\n                'loop': false\n            };\n\n            msg.telegram = {\n                'type': 'period',\n                'value': pilot,\n                'entity': equipment,\n                'change': msg.kernel.value !== states[entity]\n            };\n\n            if (component === 'heatpulse') {\n                /* pulse only if current state is not the one we want */\n                if (msg.kernel.value !== global.get('kernel.state[\"' + equipment + '|heat\"]', 'memoryOnly')) {\n                    /* pulse */\n                    msg.kernel.value = 1;\n                    node.send(msg);\n                    await new Promise(resolve => setTimeout(resolve, 500));\n                    msg.kernel.value = 0;\n                    node.send(msg);\n                }\n            } else {\n                node.send(msg);\n            }\n        }\n    }\n}\n\nreturn;",
+        "func": "msg.payload = '';\n\nlet final_teams = flow.get('teams', 'memoryOnly') || {};\nlet final_periods = {};\nlet final_pilots = {};\n\ndelete msg.row;\ndelete msg.settings;\ndelete msg.outTz;\ndelete msg.team;\nflow.set('teams', undefined, 'memoryOnly');\n\nlet periods = global.get('kernel.period', 'memoryOnly') || {};\nfor (const line in periods) {\n    final_periods[line] = false;\n\n    /* line program is enabled */\n    if (global.get('kernel.disabled[\"' + line + '\"]', 'memoryOnly') === false) {\n        /* no periods set for this line */\n        if (periods[line] === '') {\n            /* set to off */\n            final_pilots[line] = false;\n        } else {\n            let plant = global.get('kernel.lines[\"' + line + '\"]', 'memoryOnly');\n            let exists = false;\n            let teams = periods[line].split(\"\");\n            for (const i in teams) {\n                if (typeof final_teams[plant][teams[i]] === 'boolean') {\n                    exists = true;\n                    if (final_teams[plant][teams[i]] === true) {\n                        final_periods[line] = true;\n                    }\n                }\n            }\n            if (exists) {\n                final_pilots[line] = final_periods[line];\n            }\n        }\n    }\n}\n\nlet states = global.get('kernel.state','memoryOnly')||{};\nfor (const entity in states) {\n    let esplit = entity.split('|');\n    let equipment = esplit[0];\n    let component = esplit[1];\n    let line = global.get('kernel.equipments[\"' + equipment + '\"]', 'memoryOnly');\n\n    let pilot = final_pilots[line];\n    if (typeof pilot === 'boolean'\n        && typeof global.get('kernel.link[\"' + entity + '\"]', 'memoryOnly') === 'string'\n        && component.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null\n    ) {\n        let state = global.get('kernel.state[\"' + equipment + '|run\"]', 'memoryOnly');\n        if (typeof state === 'number' && state === 1) {\n            /* do not pilot heat if equipment is running */\n        } else {\n            let reverse = global.get('kernel.reverse[\"' + entity + '\"]', 'memoryOnly');\n            let value = reverse === true ? (pilot === true ? 0 : 1) : (pilot === true ? 1 : 0);\n\n            msg.kernel = {\n                'type': 'state',\n                'entity': entity,\n                'value': value,\n                'loop': false\n            };\n\n            msg.telegram = {\n                'type': 'period',\n                'value': pilot,\n                'entity': equipment,\n                'change': msg.kernel.value !== states[entity]\n            };\n\n            if (component === 'heatpulse') {\n                /* pulse only if current state is not the one we want */\n                if (msg.kernel.value !== global.get('kernel.state[\"' + equipment + '|heat\"]', 'memoryOnly')) {\n                    /* pulse */\n                    msg.kernel.value = 1;\n                    node.send(msg);\n                    await new Promise(resolve => setTimeout(resolve, 500));\n                    msg.kernel.value = 0;\n                    delete msg.telegram;\n                    node.send(msg);\n                }\n            } else {\n                node.send(msg);\n            }\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8396,7 +8346,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "telegram",
-        "func": "if (msg.telegram.change === true) {\n    //node.status({'fill':(msg.telegram.value?'green':'red'),'text':msg.telegram.entity});\n\n    if (msg.telegram.type === 'period') {\n        let line = global.get('kernel.equipments[\"' + msg.telegram.entity + '\"]', 'memoryOnly') || '-';\n        let plant = global.get('kernel.lines[\"' + line + '\"]','memoryOnly') || '-';\n        let name = global.get('kernel.plant[\"' + plant + '\"]', 'memoryOnly') || '???';\n\n        return {\n            'topic':'',\n            'payload':{\n                'type':'message',\n                'content': '[' + name + '] ' + (global.get('kernel.equipment[\"' + msg.telegram.entity + '\"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')\n            }\n        }\n    } else if (msg.telegram.type === 'watchdog') {\n        let dsplit = msg.telegram.entity.split('|');\n\n        return {\n            'topic':'',\n            'payload':{\n                'type':'message',\n                'content': '[Watchdog] ' + (global.get('describe.model[\"' + dsplit[0] + '\"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')\n            }\n        }\n    }\n}\n\nreturn;",
+        "func": "if (msg.telegram.change === true) {\n    //node.status({'fill':(msg.telegram.value?'green':'red'),'text':msg.telegram.entity});\n\n    if (msg.telegram.type === 'period') {\n        let line = global.get('kernel.equipments[\"' + msg.telegram.entity + '\"]', 'memoryOnly') || '-';\n        let plant = global.get('kernel.lines[\"' + line + '\"]','memoryOnly') || '-';\n        let name = global.get('kernel.plant[\"' + plant + '\"]', 'memoryOnly') || '???';\n\n        return {\n            'topic':'',\n            'payload':{\n                'type':'message',\n                'content': '[Period] ' + name + \": \\n\" + (global.get('kernel.equipment[\"' + msg.telegram.entity + '\"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')\n            }\n        }\n    } else if (msg.telegram.type === 'watchdog') {\n        let dsplit = msg.telegram.entity.split('|');\n\n        return {\n            'topic':'',\n            'payload':{\n                'type':'message',\n                'content': '[Watchdog] ' + \": \\n\" + (global.get('describe.model[\"' + dsplit[0] + '\"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')\n            }\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8590,30 +8540,12 @@
         "wires": []
     },
     {
-        "id": "3d5e6f0c6682a2ed",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "g": "f9da6ea6fa5cc954",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1680,
-        "y": 840,
-        "wires": []
-    },
-    {
         "id": "542c18dedc9ba3de",
         "type": "function",
         "z": "f6f2187d.f17ca8",
-        "g": "f9da6ea6fa5cc954",
+        "g": "216f821485a9eb19",
         "name": "day",
-        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* adjust day from dec time */\nif (msg.row.curtime < msg.row.dectime) {\n    msg.row.curday = msg.row.curday - 1;\n}\n/* then adjust day from team (night) */\nif (msg.row.stoptime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday + 1;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 5 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 5 && msg.row.team.match((new RegExp('^(s)$'))) !== null)\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\n//flow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n\nreturn msg;",
+        "func": "msg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\n\n/* team start before midnight and end after midnight and current time is before team start time*/\nif (msg.row.stoptime < msg.row.starttime && msg.row.curtime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday - 1;\n}\n\n/* then regain week day */\nif (msg.row.curday === 7) {\n    msg.row.curday = 0;\n} else if (msg.row.curday === -1) {\n    msg.row.curday = 6;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 6 && msg.row.team.match((new RegExp('^(s)$'))) !== null)\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\nmsg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team + ':' + msg.row.value;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8621,10 +8553,10 @@
         "finalize": "",
         "libs": [],
         "x": 1510,
-        "y": 840,
+        "y": 740,
         "wires": [
             [
-                "3d5e6f0c6682a2ed"
+                "2b027f15e857dc2d"
             ]
         ]
     },
@@ -26490,14 +26422,16 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 500,
+        "x": 380,
+        "y": 560,
         "wires": [
             [
-                "3cf37cc1acd839fd"
+                "3cf37cc1acd839fd",
+                "f833923166c9329f"
             ],
             [
-                "e1c356d7d8dd8d53"
+                "e1c356d7d8dd8d53",
+                "f833923166c9329f"
             ]
         ]
     },
@@ -27101,7 +27035,7 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "form",
-        "func": "let hideMsg = {\n    'topic':'',\n    'payload':'',\n    'class':'remove',\n    'enabled':false,\n    'hmi':msg.hmi,\n    'dictionary':msg.dictionary,\n    '_client': msg._client\n};\n\nnode.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);\n\nif (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {\n    \n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    let form = global.get('form[\"' + msg.hmi.id + '\"]', 'memoryOnly') || {};\n\n    if (typeof form.plant !== 'string') {\n        form.plant = '';\n    }\n    if (form.plant === '' || typeof form.line !== 'string') {\n        form.line = '';\n    }\n    if (form.line === '' || typeof form.equipment !== 'string') {\n        form.equipment = '';\n    }\n\n    if (msg.hmi.plant !== '') {\n        form.plant = msg.hmi.plant;\n    } else {\n        msg.payload = form.plant;\n\n        node.send([null, msg, null, null, null]);\n    }\n\n    if (form.plant !== '') {\n        msg.limit_plant = form.plant;\n        msg.payload = form.line;\n\n        node.send([null, null, msg, null, null]);\n    }\n\n    if (form.plant !== '' && form.line !== '') {\n        msg.limit_line = form.line;\n        msg.payload = form.equipment;\n\n        node.send([null, null, null, msg, null]);\n    }\n    \n    if (form.plant !== '' && form.line !== '' && form.equipment !== '') {\n        delete msg.limit_plant;\n        delete msg.limit_line;\n        msg.payload = '';\n\n        node.send([null, null, null, null, msg]);\n    }\n}\n\nreturn;",
+        "func": "let hideMsg = {\n    'topic':'',\n    'payload':'',\n    'class':'remove',\n    'enabled':false,\n    'hmi':msg.hmi,\n    'dictionary':msg.dictionary,\n    '_client': msg._client,\n    'reset': true\n};\n\nnode.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);\n\nif (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {\n    \n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    let form = global.get('form[\"' + msg.hmi.id + '\"]', 'memoryOnly') || {};\n\n    if (typeof form.plant !== 'string') {\n        form.plant = '';\n    }\n    if (form.plant === '' || typeof form.line !== 'string') {\n        form.line = '';\n    }\n    if (form.line === '' || typeof form.equipment !== 'string') {\n        form.equipment = '';\n    }\n\n    if (msg.hmi.plant !== '') {\n        form.plant = msg.hmi.plant;\n    } else {\n        msg.payload = form.plant;\n\n        node.send([null, msg, null, null, null]);\n    }\n\n    if (form.plant !== '') {\n        msg.limit_plant = form.plant;\n        msg.payload = form.line;\n\n        node.send([null, null, msg, null, null]);\n    }\n\n    if (form.plant !== '' && form.line !== '') {\n        msg.limit_line = form.line;\n        msg.payload = form.equipment;\n\n        node.send([null, null, null, msg, null]);\n    }\n    \n    if (form.plant !== '' && form.line !== '' && form.equipment !== '') {\n        delete msg.limit_plant;\n        delete msg.limit_line;\n        msg.payload = '';\n\n        node.send([null, null, null, null, msg]);\n    }\n}\n\nreturn;",
         "outputs": 5,
         "timeout": 0,
         "noerr": 0,
@@ -27113,10 +27047,11 @@
         "wires": [
             [
                 "ee4c8653f8b07e2e",
-                "36773a3eafb57b0b"
+                "f833923166c9329f"
             ],
             [
-                "6829c2450480a8f8"
+                "6829c2450480a8f8",
+                "36773a3eafb57b0b"
             ],
             [
                 "0548edb6952cacb8",
@@ -27354,6 +27289,32 @@
             [
                 "4a1bfe977cdf0685",
                 "f3a4fbd1914b8411"
+            ]
+        ]
+    },
+    {
+        "id": "f833923166c9329f",
+        "type": "trigger",
+        "z": "852390cb9559e176",
+        "g": "20a2e240c83c48c2",
+        "name": "refresh",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "topic",
+        "topic": "hmi.id",
+        "outputs": 1,
+        "x": 360,
+        "y": 500,
+        "wires": [
+            [
+                "36773a3eafb57b0b"
             ]
         ]
     },

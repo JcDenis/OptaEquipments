@@ -266,6 +266,7 @@
     - b5afaeb96669d0b9
     - 4fa259e50d9f796e
     - d490b0d4c1f50167
+    - f833923166c9329f
   x: 94
   'y': 219
   w: 1412
@@ -5516,11 +5517,13 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 360
-  'y': 500
+  x: 380
+  'y': 560
   wires:
     - - 3cf37cc1acd839fd
+      - f833923166c9329f
     - - e1c356d7d8dd8d53
+      - f833923166c9329f
 - id: 3cf37cc1acd839fd
   type: ui-table
   z: 852390cb9559e176
@@ -6048,7 +6051,8 @@
         'enabled':false,
         'hmi':msg.hmi,
         'dictionary':msg.dictionary,
-        '_client': msg._client
+        '_client': msg._client,
+        'reset': true
     };
 
     node.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);
@@ -6113,8 +6117,9 @@
   'y': 620
   wires:
     - - ee4c8653f8b07e2e
-      - 36773a3eafb57b0b
+      - f833923166c9329f
     - - 6829c2450480a8f8
+      - 36773a3eafb57b0b
     - - 0548edb6952cacb8
       - 36773a3eafb57b0b
     - - dbe2dc99f3174070
@@ -6387,3 +6392,24 @@
   wires:
     - - 4a1bfe977cdf0685
       - f3a4fbd1914b8411
+- id: f833923166c9329f
+  type: trigger
+  z: 852390cb9559e176
+  g: 20a2e240c83c48c2
+  name: refresh
+  op1: ''
+  op2: ''
+  op1type: nul
+  op2type: payl
+  duration: '5'
+  extend: false
+  overrideDelay: false
+  units: s
+  reset: ''
+  bytopic: topic
+  topic: hmi.id
+  outputs: 1
+  x: 360
+  'y': 500
+  wires:
+    - - 36773a3eafb57b0b
