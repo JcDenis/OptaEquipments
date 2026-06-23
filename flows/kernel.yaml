@@ -504,9 +504,10 @@
   nodes:
     - ba44af0dc17085de
     - 2d6c7781e95f7c7c
+    - ac9b1b5f865ad562
   x: 524
   'y': 279
-  w: 322
+  w: 412
   h: 82
 - id: 5621e43ca08d7164
   type: group
@@ -651,6 +652,7 @@
     - 00818f8c0686b556
     - 0eaa0e53940b36ad
     - bf3da41c4b5bd219
+    - 61872228c92c7235
   x: 1035
   'y': 440
   wires: []
@@ -4917,7 +4919,7 @@
     let j = 0;
     let limit = Math.round((Date.now() / 1000) - (24 * 60 * 60)); // 24h
 
-    let historics = global.get('historic','memoryOnly') || {};
+    let historics = global.get('historic', 'memoryOnly') || {};
     for (const entity in historics) {
         let tsplit = historics[entity];
         for (const ts in tsplit) {
@@ -4936,7 +4938,14 @@
 
     node.status({'text':'Size: ' + j + ', Deletion: ' + i });
 
-    return;
+    // telegram
+    return {
+        'topic': '',
+        'payload': {
+            'type': 'message',
+            'content': '[Historic] ' + i + ' deletions on ' + j + ' records'
+        }
+    }
   outputs: 1
   timeout: 0
   noerr: 0
@@ -4946,7 +4955,7 @@
   x: 730
   'y': 320
   wires:
-    - []
+    - - ac9b1b5f865ad562
 - id: 8cdcab5e1a00fa52
   type: function
   z: f6f2187d.f17ca8
@@ -5076,3 +5085,14 @@
   wires:
     - - 7214e26c1a5974bd
       - 01242cef4de43778
+- id: ac9b1b5f865ad562
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 4454c8408a7c43de
+  name: kernel - historic
+  mode: link
+  links:
+    - b62a3b02d3d8dabc
+  x: 895
+  'y': 320
+  wires: []

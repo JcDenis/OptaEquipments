@@ -244,6 +244,23 @@
   'y': 819
   w: 4492
   h: 722
+- id: c02c15caf5410947
+  type: group
+  z: c886080f59e5c106
+  name: telegram - boot
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 61872228c92c7235
+    - 38ff5dbf94c7ebe6
+    - 74cf5c6277e85d98
+    - 65171f857bc8db08
+  x: 964
+  'y': 99
+  w: 552
+  h: 82
 - id: 48c679cabeacfa79
   type: telegram command
   z: c886080f59e5c106
@@ -1227,6 +1244,8 @@
     - 23a78f8d1af58a4d
     - 17be5f58b0068d4b
     - 671ddb3e2181d567
+    - ac9b1b5f865ad562
+    - 74cf5c6277e85d98
   x: 145
   'y': 260
   wires:
@@ -3749,3 +3768,69 @@
   wires:
     - - 6918e7a555bc8e79
       - 179c6e6ee987fce1
+- id: 61872228c92c7235
+  type: link in
+  z: c886080f59e5c106
+  g: c02c15caf5410947
+  name: telegram - boot
+  links:
+    - 575b91a30deac00d
+  x: 1005
+  'y': 140
+  wires:
+    - - 65171f857bc8db08
+- id: 38ff5dbf94c7ebe6
+  type: function
+  z: c886080f59e5c106
+  g: c02c15caf5410947
+  name: boot message
+  func: |-
+    return {
+        'topic': '',
+        'payload': {
+            'type': 'message',
+            'content': '[Boot] Application process starts'
+        }
+    }
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1320
+  'y': 140
+  wires:
+    - - 74cf5c6277e85d98
+- id: 74cf5c6277e85d98
+  type: link out
+  z: c886080f59e5c106
+  g: c02c15caf5410947
+  name: telegram - boot
+  mode: link
+  links:
+    - b62a3b02d3d8dabc
+  x: 1475
+  'y': 140
+  wires: []
+- id: 65171f857bc8db08
+  type: delay
+  z: c886080f59e5c106
+  g: c02c15caf5410947
+  name: 1s
+  pauseType: delay
+  timeout: '1'
+  timeoutUnits: seconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1130
+  'y': 140
+  wires:
+    - - 38ff5dbf94c7ebe6

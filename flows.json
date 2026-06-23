@@ -3607,11 +3607,12 @@
         },
         "nodes": [
             "ba44af0dc17085de",
-            "2d6c7781e95f7c7c"
+            "2d6c7781e95f7c7c",
+            "ac9b1b5f865ad562"
         ],
         "x": 524,
         "y": 279,
-        "w": 322,
+        "w": 412,
         "h": 82
     },
     {
@@ -3700,6 +3701,27 @@
         "x": 2244,
         "y": 639,
         "w": 412,
+        "h": 82
+    },
+    {
+        "id": "c02c15caf5410947",
+        "type": "group",
+        "z": "c886080f59e5c106",
+        "name": "telegram - boot",
+        "style": {
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "61872228c92c7235",
+            "38ff5dbf94c7ebe6",
+            "74cf5c6277e85d98",
+            "65171f857bc8db08"
+        ],
+        "x": 964,
+        "y": 99,
+        "w": 552,
         "h": 82
     },
     {
@@ -4457,7 +4479,8 @@
             "fbeb08a94e71e7bf",
             "00818f8c0686b556",
             "0eaa0e53940b36ad",
-            "bf3da41c4b5bd219"
+            "bf3da41c4b5bd219",
+            "61872228c92c7235"
         ],
         "x": 1035,
         "y": 440,
@@ -8422,7 +8445,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4454c8408a7c43de",
         "name": "Clean old historics",
-        "func": "let i = 0;\nlet j = 0;\nlet limit = Math.round((Date.now() / 1000) - (24 * 60 * 60)); // 24h\n\nlet historics = global.get('historic','memoryOnly') || {};\nfor (const entity in historics) {\n    let tsplit = historics[entity];\n    for (const ts in tsplit) {\n        j++;\n        if (Number(ts) < limit) {\n            // Delete old timestamp\n            global.set('historic[\"' + entity + '\"][\"' + ts + '\"]', undefined, 'memoryOnly');\n            i++\n        }\n    }\n    if (global.get('historic[\"' + entity + '\"]', 'memoryOnly').length === 0) {\n        // Delete entity\n        global.set('historic[\"' + entity + '\"]', undefined, 'memoryOnly');\n    }\n}\n\nnode.status({'text':'Size: ' + j + ', Deletion: ' + i });\n\nreturn;",
+        "func": "let i = 0;\nlet j = 0;\nlet limit = Math.round((Date.now() / 1000) - (24 * 60 * 60)); // 24h\n\nlet historics = global.get('historic', 'memoryOnly') || {};\nfor (const entity in historics) {\n    let tsplit = historics[entity];\n    for (const ts in tsplit) {\n        j++;\n        if (Number(ts) < limit) {\n            // Delete old timestamp\n            global.set('historic[\"' + entity + '\"][\"' + ts + '\"]', undefined, 'memoryOnly');\n            i++\n        }\n    }\n    if (global.get('historic[\"' + entity + '\"]', 'memoryOnly').length === 0) {\n        // Delete entity\n        global.set('historic[\"' + entity + '\"]', undefined, 'memoryOnly');\n    }\n}\n\nnode.status({'text':'Size: ' + j + ', Deletion: ' + i });\n\n// telegram\nreturn {\n    'topic': '',\n    'payload': {\n        'type': 'message',\n        'content': '[Historic] ' + i + ' deletions on ' + j + ' records'\n    }\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8432,7 +8455,9 @@
         "x": 730,
         "y": 320,
         "wires": [
-            []
+            [
+                "ac9b1b5f865ad562"
+            ]
         ]
     },
     {
@@ -8546,6 +8571,20 @@
                 "01242cef4de43778"
             ]
         ]
+    },
+    {
+        "id": "ac9b1b5f865ad562",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "4454c8408a7c43de",
+        "name": "kernel - historic",
+        "mode": "link",
+        "links": [
+            "b62a3b02d3d8dabc"
+        ],
+        "x": 895,
+        "y": 320,
+        "wires": []
     },
     {
         "id": "2ee1493983ba4b61",
@@ -11613,7 +11652,9 @@
             "e2aa80428d893745",
             "23a78f8d1af58a4d",
             "17be5f58b0068d4b",
-            "671ddb3e2181d567"
+            "671ddb3e2181d567",
+            "ac9b1b5f865ad562",
+            "74cf5c6277e85d98"
         ],
         "x": 145,
         "y": 260,
@@ -14998,6 +15039,84 @@
             [
                 "6918e7a555bc8e79",
                 "179c6e6ee987fce1"
+            ]
+        ]
+    },
+    {
+        "id": "61872228c92c7235",
+        "type": "link in",
+        "z": "c886080f59e5c106",
+        "g": "c02c15caf5410947",
+        "name": "telegram - boot",
+        "links": [
+            "575b91a30deac00d"
+        ],
+        "x": 1005,
+        "y": 140,
+        "wires": [
+            [
+                "65171f857bc8db08"
+            ]
+        ]
+    },
+    {
+        "id": "38ff5dbf94c7ebe6",
+        "type": "function",
+        "z": "c886080f59e5c106",
+        "g": "c02c15caf5410947",
+        "name": "boot message",
+        "func": "return {\n    'topic': '',\n    'payload': {\n        'type': 'message',\n        'content': '[Boot] Application process starts'\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 140,
+        "wires": [
+            [
+                "74cf5c6277e85d98"
+            ]
+        ]
+    },
+    {
+        "id": "74cf5c6277e85d98",
+        "type": "link out",
+        "z": "c886080f59e5c106",
+        "g": "c02c15caf5410947",
+        "name": "telegram - boot",
+        "mode": "link",
+        "links": [
+            "b62a3b02d3d8dabc"
+        ],
+        "x": 1475,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "65171f857bc8db08",
+        "type": "delay",
+        "z": "c886080f59e5c106",
+        "g": "c02c15caf5410947",
+        "name": "1s",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1130,
+        "y": 140,
+        "wires": [
+            [
+                "38ff5dbf94c7ebe6"
             ]
         ]
     },
