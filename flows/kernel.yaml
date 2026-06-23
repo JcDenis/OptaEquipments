@@ -175,6 +175,7 @@
     - 68593265cb4e2507
     - fd39d13ae9c195f3
     - 8f1a54f299198096
+    - b490f62e4ba2632e
   x: 104
   'y': 3379
   w: 1332
@@ -772,7 +773,7 @@
   x: 280
   'y': 3540
   wires:
-    - []
+    - - b490f62e4ba2632e
 - id: 6640363c796f547b
   type: link in
   z: f6f2187d.f17ca8
@@ -5076,3 +5077,33 @@
   'y': 740
   wires:
     - - 2b027f15e857dc2d
+- id: b490f62e4ba2632e
+  type: ui-template
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  group: ''
+  page: ''
+  ui: 68fb8d742e5053db
+  name: ''
+  order: 0
+  width: 0
+  height: 0
+  head: ''
+  format: |
+    <script>
+    document.addEventListener('keydown', (e) => {
+        e = e || window.event;
+        if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){
+            e.preventDefault();
+        }
+    });
+    </script>
+  storeOutMessages: true
+  passthru: true
+  resendOnRefresh: true
+  templateScope: 'widget:ui'
+  className: ''
+  x: 480
+  'y': 3540
+  wires:
+    - []
