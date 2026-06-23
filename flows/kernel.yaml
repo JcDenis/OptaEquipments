@@ -1586,7 +1586,7 @@
   z: f6f2187d.f17ca8
   g: fc6029b7d49d1e93
   name: user - read
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -2806,6 +2806,8 @@
         global.set('form', {}, 'memoryOnly');
     }
 
+    delete msg.reset; //???
+
     if (msg.hmi.lang == 'fr') {
 
         return [msg, null];
@@ -3149,19 +3151,13 @@
   g: 32da9b1ae024e8bb
   name: action
   func: >-
-    // on diconnect (from button), clear user
-
-    if (msg.payload === 'disconnect') {
-        global.set('user["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-
-        return;
-    }
-
-
     // on unwanted state, stop here
 
     if (msg.payload.match((new RegExp('^(connect|change|lost)$'))) === null) {
+        if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {
+            global.set('user["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+            global.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+        }
 
         return;
     }
@@ -3170,8 +3166,9 @@
     // on connect or lost connection, go to auth page
 
     if (msg.payload === 'connect' || msg.payload === 'lost') {
-        msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');
-        msg.name = global.get('describe.pages.auth.name', 'memoryOnly');
+        msg.payload = global.get('describe.pages.auth.name', 'memoryOnly');
+
+        return [null, null, msg];
     }
 
 
@@ -3283,8 +3280,8 @@
     delete msg.dictionary;
 
 
-    return [msg, newMsg];
-  outputs: 2
+    return [msg, newMsg, null];
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
@@ -3296,6 +3293,7 @@
     - - 3450fffd4f368319
     - - 23dd24021e2cecf1
       - 7bba6594f41302c2
+    - - ba6ef07c6e523872
 - id: 8f1a54f299198096
   type: function
   z: f6f2187d.f17ca8
@@ -4947,13 +4945,16 @@
     ) {
         msg.class = '';
         msg.enabled = true;
-        global.set('form["' + msg.hmi.id + '"]["tab"]', msg.check, 'memoryOnly');
+
+        //global.set('form["' + msg.hmi.id + '"]["tab"]', msg.check, 'memoryOnly');
+
+        delete msg.check;
 
         await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
 
         return msg;
     } else {
-        global.set('form["' + msg.hmi.id + '"]["tab"]', '', 'memoryOnly');
+        //global.set('form["' + msg.hmi.id + '"]["tab"]', '', 'memoryOnly');
     }
   outputs: 1
   timeout: 0

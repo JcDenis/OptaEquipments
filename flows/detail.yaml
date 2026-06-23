@@ -261,15 +261,15 @@
     - 727e684b36d44266
     - e1c356d7d8dd8d53
     - 60d3b3826824680e
-    - e343fffb7e4fe9ef
     - bd599dec08c500e1
     - b5afaeb96669d0b9
     - 4fa259e50d9f796e
     - d490b0d4c1f50167
     - f833923166c9329f
+    - 9525b9916256420a
   x: 94
   'y': 219
-  w: 1412
+  w: 1392
   h: 522
 - id: fe21b6421a9020d4
   type: group
@@ -1251,7 +1251,7 @@
   x: 1305
   'y': 260
   wires:
-    - - e343fffb7e4fe9ef
+    - - 9525b9916256420a
 - id: b5082fd6f739991d
   type: link in
   z: 852390cb9559e176
@@ -5456,34 +5456,48 @@
     msg.payload = [];
 
 
-    let form_plant = global.get('form["' + msg.hmi.id + '"]["plant"]',
-    'memoryOnly') || '';
-
-    let form_line = global.get('form["' + msg.hmi.id +
-    '"]["line"]','memoryOnly')||'';
-
-    let form_equipment = global.get('form["' + msg.hmi.id +
-    '"]["equipment"]','memoryOnly')||'';
-
-
-    if (msg.enabled !== true || form_plant === '' || form_line === '' ||
-    form_equipment !== '') {
+    if (msg.hmi.id === '' || msg.enabled !== true) {
         msg.class = 'remove';
         msg.enabled = false;
 
-        return [msg,msg];
+        let resetMsg = {
+            'topic': '',
+            'payload' : '',
+            'hmi': msg.hmi, 
+            'reset': true
+        };
+
+        return [resetMsg, msg, msg];
+    }
+
+
+    let form_plant = global.get('form["' + msg.hmi.id + '"]["plant"]',
+    'memoryOnly') || '';
+
+    let form_line = global.get('form["' + msg.hmi.id + '"]["line"]',
+    'memoryOnly') ||'';
+
+    let form_equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]',
+    'memoryOnly') || '';
+
+
+    if (form_plant === '' || form_line === '' || form_equipment !== '') {
+        msg.class = 'remove';
+        msg.enabled = false;
+
+        return [null, msg, msg];
     } else {
         msg.class = '';
         msg.enabled = true;
 
         let i = 0;
         if (form_line !== '') {
-            let equipments = global.get('kernel.equipments','memoryOnly')||{};
+            let equipments = global.get('kernel.equipments','memoryOnly') || {};
             for (const equipment in equipments) {
                 if (form_line === equipments[equipment]) {
                     let row = {};
                     row.equipment = equipment;
-                    row.equipment_name = global.get('kernel.equipment["' + equipment + '"]','memoryOnly')||'-';
+                    row.equipment_name = global.get('kernel.equipment["' + equipment + '"]', 'memoryOnly') || '-';
                     row.equipment_full = row.equipment_name + ' (' + equipment + ')';
                     row.run_color = '#CCCCCC';
                     row.heat_color = '#CCCCCC';
@@ -5504,26 +5518,25 @@
 
             if (msg.hmi.lang === 'fr') {
 
-                return [msg,null];
+                return [msg, msg, null];
             } else {
 
-                return [null,msg];
+                return [msg, null, msg];
             }
         }
     }
-  outputs: 2
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 380
+  x: 360
   'y': 560
   wires:
+    - - f833923166c9329f
     - - 3cf37cc1acd839fd
-      - f833923166c9329f
     - - e1c356d7d8dd8d53
-      - f833923166c9329f
 - id: 3cf37cc1acd839fd
   type: ui-table
   z: 852390cb9559e176
@@ -6045,19 +6058,20 @@
   name: form
   func: |-
     let hideMsg = {
-        'topic':'',
-        'payload':'',
-        'class':'remove',
-        'enabled':false,
-        'hmi':msg.hmi,
-        'dictionary':msg.dictionary,
-        '_client': msg._client,
-        'reset': true
+        'topic': '',
+        'payload': '',
+        'class': 'remove',
+        'enabled': false,
+        'hmi': msg.hmi,
+        'dictionary': msg.dictionary,
+        '_client': msg._client
     };
 
     node.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);
 
     if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
+        
+        await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms
         
         msg.class = '';
         msg.enabled = true;
@@ -6068,12 +6082,6 @@
         if (typeof form.plant !== 'string') {
             form.plant = '';
         }
-        if (form.plant === '' || typeof form.line !== 'string') {
-            form.line = '';
-        }
-        if (form.line === '' || typeof form.equipment !== 'string') {
-            form.equipment = '';
-        }
 
         if (msg.hmi.plant !== '') {
             form.plant = msg.hmi.plant;
@@ -6083,11 +6091,19 @@
             node.send([null, msg, null, null, null]);
         }
 
+        if (form.plant === '' || typeof form.line !== 'string') {
+            form.line = '';
+        }
+
         if (form.plant !== '') {
             msg.limit_plant = form.plant;
             msg.payload = form.line;
 
             node.send([null, null, msg, null, null]);
+        }
+        
+        if (form.line === '' || typeof form.equipment !== 'string') {
+            form.equipment = '';
         }
 
         if (form.plant !== '' && form.line !== '') {
@@ -6117,7 +6133,6 @@
   'y': 620
   wires:
     - - ee4c8653f8b07e2e
-      - f833923166c9329f
     - - 6829c2450480a8f8
       - 36773a3eafb57b0b
     - - 0548edb6952cacb8
@@ -6150,27 +6165,6 @@
   'y': 3880
   wires:
     - - acf39d5114fc22cb
-- id: e343fffb7e4fe9ef
-  type: delay
-  z: 852390cb9559e176
-  g: 20a2e240c83c48c2
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 1430
-  'y': 560
-  wires:
-    - - 60d3b3826824680e
 - id: bd599dec08c500e1
   type: link call
   z: 852390cb9559e176
@@ -6183,7 +6177,7 @@
   x: 1250
   'y': 320
   wires:
-    - - e343fffb7e4fe9ef
+    - - 9525b9916256420a
 - id: b5afaeb96669d0b9
   type: link call
   z: 852390cb9559e176
@@ -6196,7 +6190,7 @@
   x: 1260
   'y': 380
   wires:
-    - - e343fffb7e4fe9ef
+    - - 9525b9916256420a
 - id: 4fa259e50d9f796e
   type: link call
   z: 852390cb9559e176
@@ -6209,7 +6203,7 @@
   x: 1230
   'y': 440
   wires:
-    - - e343fffb7e4fe9ef
+    - - 9525b9916256420a
 - id: d490b0d4c1f50167
   type: function
   z: 852390cb9559e176
@@ -6409,7 +6403,28 @@
   bytopic: topic
   topic: hmi.id
   outputs: 1
-  x: 360
+  x: 340
   'y': 500
   wires:
     - - 36773a3eafb57b0b
+- id: 9525b9916256420a
+  type: delay
+  z: 852390cb9559e176
+  g: 20a2e240c83c48c2
+  name: 50ms
+  pauseType: delay
+  timeout: '50'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1410
+  'y': 560
+  wires:
+    - - 60d3b3826824680e

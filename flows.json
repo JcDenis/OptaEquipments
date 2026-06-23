@@ -1349,16 +1349,16 @@
             "727e684b36d44266",
             "e1c356d7d8dd8d53",
             "60d3b3826824680e",
-            "e343fffb7e4fe9ef",
             "bd599dec08c500e1",
             "b5afaeb96669d0b9",
             "4fa259e50d9f796e",
             "d490b0d4c1f50167",
-            "f833923166c9329f"
+            "f833923166c9329f",
+            "9525b9916256420a"
         ],
         "x": 94,
         "y": 219,
-        "w": 1412,
+        "w": 1392,
         "h": 522
     },
     {
@@ -1547,8 +1547,8 @@
             "f68e1a2d7f3e0c3d",
             "bf3da41c4b5bd219"
         ],
-        "x": 84,
-        "y": 179,
+        "x": 104,
+        "y": 39,
         "w": 2062,
         "h": 262
     },
@@ -5617,7 +5617,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "fc6029b7d49d1e93",
         "name": "user - read",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -7213,7 +7213,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "hmi",
-        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]', Date.now(), 'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form', {}, 'memoryOnly');\n}\n\nif (msg.hmi.lang == 'fr') {\n\n    return [msg, null];\n} else {\n\n    return [null, msg];\n}",
+        "func": "if (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]', 'memoryOnly');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    let user = global.get('user[\"' + msg.hmi.id + '\"]', 'memoryOnly');\n    if (typeof user === 'object') {\n        global.set('user[\"' + msg.hmi.id + '\"][\"time\"]', Date.now(), 'memoryOnly');\n        msg.hmi = Object.assign({}, msg.hmi, user);\n    }\n}\n\nif (msg.tab === 99) {\n    global.set('form', {}, 'memoryOnly');\n}\n\ndelete msg.reset; //???\n\nif (msg.hmi.lang == 'fr') {\n\n    return [msg, null];\n} else {\n\n    return [null, msg];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7479,8 +7479,8 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "action",
-        "func": "// on diconnect (from button), clear user\nif (msg.payload === 'disconnect') {\n    global.set('user[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n\n    return;\n}\n\n// on unwanted state, stop here\nif (msg.payload.match((new RegExp('^(connect|change|lost)$'))) === null) {\n\n    return;\n}\n\n// on connect or lost connection, go to auth page\nif (msg.payload === 'connect' || msg.payload === 'lost') {\n    msg.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.name = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\n// prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\nlet pages = global.get('describe.pages', 'memoryOnly');\nif (typeof pages !== 'object') {\n    return;\n}\n\n// check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_title = msg.dictionary.option_page[page];\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\n// user plant\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')||'-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.hmi.plant, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]', '', 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', '', 'memoryOnly');\n}\nglobal.set('form[\"' + msg.hmi.id + '\"][\"ts\"]', Date.now(), 'memoryOnly');\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// ui menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg];",
-        "outputs": 2,
+        "func": "// on unwanted state, stop here\nif (msg.payload.match((new RegExp('^(connect|change|lost)$'))) === null) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        global.set('user[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n        global.set('form[\"' + msg.hmi.id + '\"]', undefined, 'memoryOnly');\n    }\n\n    return;\n}\n\n// on connect or lost connection, go to auth page\nif (msg.payload === 'connect' || msg.payload === 'lost') {\n    msg.payload = global.get('describe.pages.auth.name', 'memoryOnly');\n\n    return [null, null, msg];\n}\n\n// prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\nlet pages = global.get('describe.pages', 'memoryOnly');\nif (typeof pages !== 'object') {\n    return;\n}\n\n// check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_title = msg.dictionary.option_page[page];\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');\n    msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');\n}\n\n// user plant\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')||'-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    global.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', msg.hmi.plant, 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"line\"]', '', 'memoryOnly');\n    global.set('form[\"' + msg.hmi.id + '\"][\"equipment\"]', '', 'memoryOnly');\n}\nglobal.set('form[\"' + msg.hmi.id + '\"][\"ts\"]', Date.now(), 'memoryOnly');\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// ui menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg, null];",
+        "outputs": 3,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -7495,6 +7495,9 @@
             [
                 "23dd24021e2cecf1",
                 "7bba6594f41302c2"
+            ],
+            [
+                "ba6ef07c6e523872"
             ]
         ]
     },
@@ -8465,7 +8468,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "5621e43ca08d7164",
         "name": "tab &  level",
-        "func": "msg.topic = '';\nmsg.payload = ''; \nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send(msg);\n\nif (typeof msg.check === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', msg.check, 'memoryOnly');\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n} else {\n    global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', '', 'memoryOnly');\n}",
+        "func": "msg.topic = '';\nmsg.payload = ''; \nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send(msg);\n\nif (typeof msg.check === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]', 'memoryOnly')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]', 'memoryOnly') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n\n    //global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', msg.check, 'memoryOnly');\n\n    delete msg.check;\n\n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n\n    return msg;\n} else {\n    //global.set('form[\"' + msg.hmi.id + '\"][\"tab\"]', '', 'memoryOnly');\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17633,8 +17636,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 790,
-        "y": 280,
+        "x": 810,
+        "y": 140,
         "wires": [
             [
                 "f4eee7dbe5621ecf"
@@ -17662,8 +17665,8 @@
         "className": "",
         "value": "payload",
         "valueType": "msg",
-        "x": 770,
-        "y": 340,
+        "x": 790,
+        "y": 200,
         "wires": []
     },
     {
@@ -17700,8 +17703,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 270,
-        "y": 400,
+        "x": 290,
+        "y": 260,
         "wires": [
             [
                 "be3b97df6b45470f"
@@ -17731,8 +17734,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1010,
-        "y": 280,
+        "x": 1030,
+        "y": 140,
         "wires": [
             [
                 "6ab34b3b3d64905e"
@@ -17749,8 +17752,8 @@
         "links": [
             "00818f8c0686b556"
         ],
-        "x": 1975,
-        "y": 280,
+        "x": 1995,
+        "y": 140,
         "wires": []
     },
     {
@@ -17767,8 +17770,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2030,
-        "y": 340,
+        "x": 2050,
+        "y": 200,
         "wires": []
     },
     {
@@ -17789,8 +17792,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 1850,
-        "y": 280,
+        "x": 1870,
+        "y": 140,
         "wires": [
             [
                 "8aca2e86c077d885",
@@ -17809,8 +17812,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1350,
-        "y": 400,
+        "x": 1370,
+        "y": 260,
         "wires": [
             [
                 "09bd0767b56167b6"
@@ -17827,8 +17830,8 @@
             "575b91a30deac00d",
             "7bba6594f41302c2"
         ],
-        "x": 125,
-        "y": 280,
+        "x": 145,
+        "y": 140,
         "wires": [
             [
                 "34e005364036decc",
@@ -17857,8 +17860,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 430,
-        "y": 400,
+        "x": 450,
+        "y": 260,
         "wires": [
             [
                 "775c8e4364eee51a",
@@ -17905,8 +17908,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 430,
-        "y": 280,
+        "x": 450,
+        "y": 140,
         "wires": [
             [
                 "600f8158ee5fa6b3",
@@ -17926,8 +17929,8 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 1815,
-        "y": 400,
+        "x": 1835,
+        "y": 260,
         "wires": []
     },
     {
@@ -17971,8 +17974,8 @@
         "className": "",
         "passthru": false,
         "dropdownOptions": [],
-        "x": 770,
-        "y": 400,
+        "x": 790,
+        "y": 260,
         "wires": [
             [
                 "9093d61ed9142cff"
@@ -18013,8 +18016,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1160,
-        "y": 400,
+        "x": 1180,
+        "y": 260,
         "wires": [
             [
                 "c82457de0864e28c"
@@ -18042,8 +18045,8 @@
         "className": "ui-title",
         "value": "dictionary.option_page.auth",
         "valueType": "msg",
-        "x": 600,
-        "y": 220,
+        "x": 620,
+        "y": 80,
         "wires": []
     },
     {
@@ -18066,8 +18069,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 590,
-        "y": 280,
+        "x": 610,
+        "y": 140,
         "wires": [
             [
                 "9833ea0e831ff8c7"
@@ -18101,8 +18104,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 590,
-        "y": 340,
+        "x": 610,
+        "y": 200,
         "wires": [
             [
                 "aa0e1484ee75066f"
@@ -18129,8 +18132,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 590,
-        "y": 400,
+        "x": 610,
+        "y": 260,
         "wires": [
             [
                 "3361a6a4765bfb11"
@@ -18144,8 +18147,8 @@
         "g": "90f47fc795048184",
         "name": "non authenticated users get language from browser. see ui-template",
         "info": "",
-        "x": 940,
-        "y": 220,
+        "x": 960,
+        "y": 80,
         "wires": []
     },
     {
@@ -18159,8 +18162,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 970,
-        "y": 400,
+        "x": 990,
+        "y": 260,
         "wires": [
             [
                 "3da3f0a5ca052b2e"
@@ -18187,8 +18190,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1690,
-        "y": 340,
+        "x": 1710,
+        "y": 200,
         "wires": [
             [
                 "6ab34b3b3d64905e"
@@ -18214,8 +18217,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1530,
-        "y": 400,
+        "x": 1550,
+        "y": 260,
         "wires": [
             [
                 "f9dc1f7a8155ebef"
@@ -18245,88 +18248,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1690,
-        "y": 400,
+        "x": 1710,
+        "y": 260,
         "wires": [
             [
                 "0cf63361a578f787"
-            ]
-        ]
-    },
-    {
-        "id": "0eaa0e53940b36ad",
-        "type": "link in",
-        "z": "27841aa886edd1cd",
-        "d": true,
-        "name": "alert - page",
-        "links": [
-            "575b91a30deac00d",
-            "7bba6594f41302c2"
-        ],
-        "x": 125,
-        "y": 120,
-        "wires": [
-            [
-                "f45123e4061b0631"
-            ]
-        ]
-    },
-    {
-        "id": "ed2758a2b65176a3",
-        "type": "link out",
-        "z": "27841aa886edd1cd",
-        "d": true,
-        "name": "alert - page",
-        "mode": "link",
-        "links": [],
-        "x": 535,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "f45123e4061b0631",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "d": true,
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "auth",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 250,
-        "y": 120,
-        "wires": [
-            [
-                "6a8544bc1886e8c4"
-            ]
-        ]
-    },
-    {
-        "id": "6a8544bc1886e8c4",
-        "type": "link call",
-        "z": "27841aa886edd1cd",
-        "d": true,
-        "name": "",
-        "links": [
-            "88c5aeadbe80be20"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 410,
-        "y": 120,
-        "wires": [
-            [
-                "ed2758a2b65176a3"
             ]
         ]
     },
@@ -21017,7 +20943,7 @@
         "y": 260,
         "wires": [
             [
-                "e343fffb7e4fe9ef"
+                "9525b9916256420a"
             ]
         ]
     },
@@ -26443,23 +26369,24 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "list equipments",
-        "func": "msg.payload = [];\n\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly') || '';\nlet form_line = global.get('form[\"' + msg.hmi.id + '\"][\"line\"]','memoryOnly')||'';\nlet form_equipment = global.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]','memoryOnly')||'';\n\nif (msg.enabled !== true || form_plant === '' || form_line === '' || form_equipment !== '') {\n    msg.class = 'remove';\n    msg.enabled = false;\n\n    return [msg,msg];\n} else {\n    msg.class = '';\n    msg.enabled = true;\n\n    let i = 0;\n    if (form_line !== '') {\n        let equipments = global.get('kernel.equipments','memoryOnly')||{};\n        for (const equipment in equipments) {\n            if (form_line === equipments[equipment]) {\n                let row = {};\n                row.equipment = equipment;\n                row.equipment_name = global.get('kernel.equipment[\"' + equipment + '\"]','memoryOnly')||'-';\n                row.equipment_full = row.equipment_name + ' (' + equipment + ')';\n                row.run_color = '#CCCCCC';\n                row.heat_color = '#CCCCCC';\n\n                let srun = global.get('kernel.state[\"' + equipment + '|run' + '\"]', 'memoryOnly');\n                if (typeof srun !== 'undefined') {\n                    row.run_color = srun === 0 ? 'red' : 'green';\n                }\n\n                let sheat = global.get('kernel.state[\"' + equipment + '|heat' + '\"]', 'memoryOnly');\n                if (typeof sheat !== 'undefined') {\n                    row.heat_color = sheat === 0 ? 'red' : 'green';\n                }\n\n                msg.payload[i++] = row;\n            }\n        }\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [msg,null];\n        } else {\n\n            return [null,msg];\n        }\n    }\n}",
-        "outputs": 2,
+        "func": "msg.payload = [];\n\nif (msg.hmi.id === '' || msg.enabled !== true) {\n    msg.class = 'remove';\n    msg.enabled = false;\n\n    let resetMsg = {\n        'topic': '',\n        'payload' : '',\n        'hmi': msg.hmi, \n        'reset': true\n    };\n\n    return [resetMsg, msg, msg];\n}\n\nlet form_plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly') || '';\nlet form_line = global.get('form[\"' + msg.hmi.id + '\"][\"line\"]', 'memoryOnly') ||'';\nlet form_equipment = global.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]', 'memoryOnly') || '';\n\nif (form_plant === '' || form_line === '' || form_equipment !== '') {\n    msg.class = 'remove';\n    msg.enabled = false;\n\n    return [null, msg, msg];\n} else {\n    msg.class = '';\n    msg.enabled = true;\n\n    let i = 0;\n    if (form_line !== '') {\n        let equipments = global.get('kernel.equipments','memoryOnly') || {};\n        for (const equipment in equipments) {\n            if (form_line === equipments[equipment]) {\n                let row = {};\n                row.equipment = equipment;\n                row.equipment_name = global.get('kernel.equipment[\"' + equipment + '\"]', 'memoryOnly') || '-';\n                row.equipment_full = row.equipment_name + ' (' + equipment + ')';\n                row.run_color = '#CCCCCC';\n                row.heat_color = '#CCCCCC';\n\n                let srun = global.get('kernel.state[\"' + equipment + '|run' + '\"]', 'memoryOnly');\n                if (typeof srun !== 'undefined') {\n                    row.run_color = srun === 0 ? 'red' : 'green';\n                }\n\n                let sheat = global.get('kernel.state[\"' + equipment + '|heat' + '\"]', 'memoryOnly');\n                if (typeof sheat !== 'undefined') {\n                    row.heat_color = sheat === 0 ? 'red' : 'green';\n                }\n\n                msg.payload[i++] = row;\n            }\n        }\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [msg, msg, null];\n        } else {\n\n            return [msg, null, msg];\n        }\n    }\n}",
+        "outputs": 3,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 360,
         "y": 560,
         "wires": [
             [
-                "3cf37cc1acd839fd",
                 "f833923166c9329f"
             ],
             [
-                "e1c356d7d8dd8d53",
-                "f833923166c9329f"
+                "3cf37cc1acd839fd"
+            ],
+            [
+                "e1c356d7d8dd8d53"
             ]
         ]
     },
@@ -27063,7 +26990,7 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "form",
-        "func": "let hideMsg = {\n    'topic':'',\n    'payload':'',\n    'class':'remove',\n    'enabled':false,\n    'hmi':msg.hmi,\n    'dictionary':msg.dictionary,\n    '_client': msg._client,\n    'reset': true\n};\n\nnode.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);\n\nif (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {\n    \n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    let form = global.get('form[\"' + msg.hmi.id + '\"]', 'memoryOnly') || {};\n\n    if (typeof form.plant !== 'string') {\n        form.plant = '';\n    }\n    if (form.plant === '' || typeof form.line !== 'string') {\n        form.line = '';\n    }\n    if (form.line === '' || typeof form.equipment !== 'string') {\n        form.equipment = '';\n    }\n\n    if (msg.hmi.plant !== '') {\n        form.plant = msg.hmi.plant;\n    } else {\n        msg.payload = form.plant;\n\n        node.send([null, msg, null, null, null]);\n    }\n\n    if (form.plant !== '') {\n        msg.limit_plant = form.plant;\n        msg.payload = form.line;\n\n        node.send([null, null, msg, null, null]);\n    }\n\n    if (form.plant !== '' && form.line !== '') {\n        msg.limit_line = form.line;\n        msg.payload = form.equipment;\n\n        node.send([null, null, null, msg, null]);\n    }\n    \n    if (form.plant !== '' && form.line !== '' && form.equipment !== '') {\n        delete msg.limit_plant;\n        delete msg.limit_line;\n        msg.payload = '';\n\n        node.send([null, null, null, null, msg]);\n    }\n}\n\nreturn;",
+        "func": "let hideMsg = {\n    'topic': '',\n    'payload': '',\n    'class': 'remove',\n    'enabled': false,\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\nnode.send([hideMsg, hideMsg, hideMsg, hideMsg, null]);\n\nif (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {\n    \n    await new Promise(resolve => setTimeout(resolve, 50)); // wait 50ms\n    \n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    let form = global.get('form[\"' + msg.hmi.id + '\"]', 'memoryOnly') || {};\n\n    if (typeof form.plant !== 'string') {\n        form.plant = '';\n    }\n\n    if (msg.hmi.plant !== '') {\n        form.plant = msg.hmi.plant;\n    } else {\n        msg.payload = form.plant;\n\n        node.send([null, msg, null, null, null]);\n    }\n\n    if (form.plant === '' || typeof form.line !== 'string') {\n        form.line = '';\n    }\n\n    if (form.plant !== '') {\n        msg.limit_plant = form.plant;\n        msg.payload = form.line;\n\n        node.send([null, null, msg, null, null]);\n    }\n    \n    if (form.line === '' || typeof form.equipment !== 'string') {\n        form.equipment = '';\n    }\n\n    if (form.plant !== '' && form.line !== '') {\n        msg.limit_line = form.line;\n        msg.payload = form.equipment;\n\n        node.send([null, null, null, msg, null]);\n    }\n    \n    if (form.plant !== '' && form.line !== '' && form.equipment !== '') {\n        delete msg.limit_plant;\n        delete msg.limit_line;\n        msg.payload = '';\n\n        node.send([null, null, null, null, msg]);\n    }\n}\n\nreturn;",
         "outputs": 5,
         "timeout": 0,
         "noerr": 0,
@@ -27074,8 +27001,7 @@
         "y": 620,
         "wires": [
             [
-                "ee4c8653f8b07e2e",
-                "f833923166c9329f"
+                "ee4c8653f8b07e2e"
             ],
             [
                 "6829c2450480a8f8",
@@ -27115,32 +27041,6 @@
         ]
     },
     {
-        "id": "e343fffb7e4fe9ef",
-        "type": "delay",
-        "z": "852390cb9559e176",
-        "g": "20a2e240c83c48c2",
-        "name": "50ms",
-        "pauseType": "delay",
-        "timeout": "50",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1430,
-        "y": 560,
-        "wires": [
-            [
-                "60d3b3826824680e"
-            ]
-        ]
-    },
-    {
         "id": "bd599dec08c500e1",
         "type": "link call",
         "z": "852390cb9559e176",
@@ -27155,7 +27055,7 @@
         "y": 320,
         "wires": [
             [
-                "e343fffb7e4fe9ef"
+                "9525b9916256420a"
             ]
         ]
     },
@@ -27174,7 +27074,7 @@
         "y": 380,
         "wires": [
             [
-                "e343fffb7e4fe9ef"
+                "9525b9916256420a"
             ]
         ]
     },
@@ -27193,7 +27093,7 @@
         "y": 440,
         "wires": [
             [
-                "e343fffb7e4fe9ef"
+                "9525b9916256420a"
             ]
         ]
     },
@@ -27338,11 +27238,37 @@
         "bytopic": "topic",
         "topic": "hmi.id",
         "outputs": 1,
-        "x": 360,
+        "x": 340,
         "y": 500,
         "wires": [
             [
                 "36773a3eafb57b0b"
+            ]
+        ]
+    },
+    {
+        "id": "9525b9916256420a",
+        "type": "delay",
+        "z": "852390cb9559e176",
+        "g": "20a2e240c83c48c2",
+        "name": "50ms",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1410,
+        "y": 560,
+        "wires": [
+            [
+                "60d3b3826824680e"
             ]
         ]
     },
