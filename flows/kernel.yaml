@@ -148,7 +148,7 @@
     - f96af943f0fd1a01
   x: 104
   'y': 399
-  w: 972
+  w: 1012
   h: 82
 - id: 32da9b1ae024e8bb
   type: group
@@ -652,7 +652,7 @@
     - 00818f8c0686b556
     - bf3da41c4b5bd219
     - 61872228c92c7235
-  x: 1035
+  x: 1075
   'y': 440
   wires: []
 - id: 76e32feb14c8c8a9
@@ -1588,8 +1588,8 @@
   tosidebar: true
   console: false
   tostatus: false
-  complete: payload
-  targetType: msg
+  complete: 'true'
+  targetType: full
   statusVal: ''
   statusType: auto
   x: 1850
@@ -1909,7 +1909,7 @@
     - 6901e471ce0a074d
   linkType: static
   timeout: '30'
-  x: 890
+  x: 930
   'y': 440
   wires:
     - - 575b91a30deac00d
@@ -2565,7 +2565,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 690
+  x: 730
   'y': 440
   wires:
     - - 7ba0dadd40d50379
@@ -3119,13 +3119,13 @@
         let tsplit = msg.topic.split('/');
         if (tsplit.length === 3 && typeof global.get('kernel["' + tsplit[1] + '"]["' + tsplit[2] + '"]', 'memoryOnly') !== 'undefined') {
             return {
-                'topic':'',
-                'payload':'',
-                'kernel':{
-                    'type':tsplit[1],
-                    'entity':tsplit[2],
-                    'value':msg.payload,
-                    'loop':true
+                'topic': '',
+                'payload':' ',
+                'kernel': {
+                    'type': tsplit[1],
+                    'entity': tsplit[2],
+                    'value': msg.payload,
+                    'loop': true
                 }
             }
         }
@@ -3345,9 +3345,9 @@
         flow.set('teams', {}, 'memoryOnly');
 
         return {
-            'topic':'',
-            'payload':(global.get('kernel.team', 'memoryOnly') || {}),
-            'row':{
+            'topic': '',
+            'payload': (global.get('kernel.team', 'memoryOnly') || {}),
+            'row': {
                 'ts': Date.now()
                 // some timestamp tests
                 //'ts': 1781921986000 // saturday 4:19
@@ -3685,9 +3685,9 @@
             }
 
             let newMsg = {
-                'topic':'',
-                'payload':'',
-                'kernel':msg.kernel
+                'topic': '',
+                'payload': '',
+                'kernel': msg.kernel
             };
 
             return [
@@ -3723,9 +3723,9 @@
     if (global.get('kernel.app.tomqtt', 'memoryOnly') === true) {
         return  {
             'topic': [(global.get('describe.app.automate', 'default') || 'optaequipments'), msg.kernel.type, msg.kernel.entity].join('/'),
-            'payload':msg.kernel.value,
-            'qos':0,
-            'retain':msg.kernel?.delete === true ? true : false
+            'payload': msg.kernel.value,
+            'qos': 0,
+            'retain': msg.kernel?.delete === true ? true : false
         };
     }
 
@@ -3776,6 +3776,9 @@
             }
         }
     }
+
+    delete msg.automate;
+    delete msg.filename;
 
     return msg;
   outputs: 1
@@ -3909,135 +3912,133 @@
   type: function
   z: f6f2187d.f17ca8
   g: dcb47b97829a1b78
-  name: clear data
+  name: prepare context
   func: |-
-    // On reload, take "default" kernel and put it to "memoryOnly"
-    global.set('kernel',global.get('kernel_bk','default')||{},'memoryOnly');
-
     // Set describe
-    global.set('describe',{
-        'app':{
-            'automate':'optaequipments',
-            'version':'0.6.0',
-            'title':'Live Equipments',
-            'vendor':'Opta Equipments by JcDenis'
+    global.set('describe', {
+        'app': {
+            'automate': 'optaequipments',
+            'version': '0.6.0',
+            'title': 'Live Equipments',
+            'vendor': 'Opta Equipments by JcDenis'
         },
-        'pages':{
-            'auth':{
-                'tab':0,
-                'id':'64fe17ae4a406472',
-                'name':'Authentification',
-                'level':{
-                    'admin':true,
-                    'rt':true,
-                    'tech':true,
-                    'rp':true,
-                    'prod':true
+        'pages': {
+            'auth': {
+                'tab': 0,
+                'id': '64fe17ae4a406472',
+                'name': 'Authentification',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': true,
+                    'rp': true,
+                    'prod': true
                 }
             },
-            'alert':{
-                'tab':1,
-                'id':'a19160517715b70b',
-                'name':'Maintenance',
-                'level':{
-                    'admin':true,
-                    'rt':true,
-                    'tech':true,
-                    'rp':true,
-                    'prod':true
+            'alert': {
+                'tab': 1,
+                'id': 'a19160517715b70b',
+                'name': 'Maintenance',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': true,
+                    'rp': true,
+                    'prod': true
                 }
             },
-            'period':{
-                'tab':2,
-                'id':'4d7d40fad3a281d3',
-                'name':'Programmes',
-                'level':{
-                    'admin':true,
-                    'rt':true,
-                    'tech':true,
-                    'rp':true,
-                    'prod':true
+            'period': {
+                'tab': 2,
+                'id': '4d7d40fad3a281d3',
+                'name': 'Programmes',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': true,
+                    'rp': true,
+                    'prod': true
                 }
             },
-            'detail':{
-                'tab':3,
-                'id':'71ccb6fab20261e2',
-                'name':'Détail',
-                'level':{
-                    'admin':true,
-                    'rt':true,
-                    'tech':true,
-                    'rp':true,
-                    'prod':true
+            'detail': {
+                'tab': 3,
+                'id': '71ccb6fab20261e2',
+                'name': 'Détail',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': true,
+                    'rp': true,
+                    'prod': true
                 }
             },
             'list':{
-                'tab':4,
-                'id':'297c38d08e523a55',
-                'name':'Listes',
-                'level':{
-                    'admin':true,
-                    'rt':true,
-                    'tech':true,
-                    'rp':false,
-                    'prod':false
+                'tab': 4,
+                'id': '297c38d08e523a55',
+                'name': 'Listes',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': true,
+                    'rp': false,
+                    'prod': false
                 }
             },
             'tree':{
-                'tab':5,
-                'id':'5287a3b059e7b4ce',
-                'name':'Arborescence',
-                'level':{
-                    'admin':true,
-                    'rt':true,
-                    'tech':false,
-                    'rp':false,
-                    'prod':false
+                'tab': 5,
+                'id': '5287a3b059e7b4ce',
+                'name': 'Arborescence',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': false,
+                    'rp': false,
+                    'prod': false
                 }
             },
-            'users':{
-                'tab':6,
-                'id':'ed8b7656d516b26d',
-                'name':'Utilisateurs',
-                'level':{
-                    'admin':true,
-                    'rt':false,
-                    'tech':false,
-                    'rp':false,
-                    'prod':false
+            'users': {
+                'tab': 6,
+                'id': 'ed8b7656d516b26d',
+                'name': 'Utilisateurs',
+                'level': {
+                    'admin': true,
+                    'rt': false,
+                    'tech': false,
+                    'rp': false,
+                    'prod': false
                 }
             },
-            'system':{
-                'tab':7,
-                'id':'1ac335c1e0a24a11',
-                'name':'Système',
-                'level':{
-                    'admin':true,
-                    'rt':false,
-                    'tech':false,
-                    'rp':false,
-                    'prod':false
+            'system': {
+                'tab': 7,
+                'id': '1ac335c1e0a24a11',
+                'name': 'Système',
+                'level': {
+                    'admin': true,
+                    'rt': false,
+                    'tech': false,
+                    'rp': false,
+                    'prod': false
                 }
             }
         },
-        'groups':{
-            'run':['run','runmeter','runmetertotal','runreset'],
-            'cycle':['cycle','cyclemeter','cyclemetertotal','cyclereset'],
-            'heat':['heat','heatswitch'],
-            'uptime':['uptime','load1meter','load5meter','load15meter','memorymeter','diskmeter'],
-            'voltage':['voltage','power']
+        'groups': {
+            'run': ['run','runmeter', 'runmetertotal', 'runreset'],
+            'cycle': ['cycle', 'cyclemeter', 'cyclemetertotal', 'cyclereset'],
+            'heat': ['heat', 'heatswitch'],
+            'uptime': ['uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter'],
+            'voltage': ['voltage', 'power']
         }
-    },'memoryOnly');
+    }, 'memoryOnly');
 
-    // Clear user
+    // Clear user and more
     global.set('auth',{},'memoryOnly');
     global.set('user',{},'memoryOnly');
+    global.set('form',{},'memoryOnly');
 
     // Various
     return {
-        'topic':'',
-        'payload':'',
-        'options':[[{'label':'','value':''}]]
+        'topic': '',
+        'payload': '',
+        'options': [{'label':'','value':''}]
     };
   outputs: 1
   timeout: 0
@@ -4045,7 +4046,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 500
+  x: 520
   'y': 440
   wires:
     - - 07be198711177f06
@@ -4069,8 +4070,10 @@
   name: default <=> memory
   func: |-
     if (msg.boot === true) {
-        global.set('kernel', (global.get('kernel_bk', 'default')||{}), 'memoryOnly');
+        // on (re)boot, load kernel backup
+        global.set('kernel', (global.get('kernel_bk', 'default') || {}), 'memoryOnly');
     } else {
+        // on cron, save kernel
         global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');
     }
 
@@ -4104,19 +4107,19 @@
   g: 11d028449aaa105b
   name: delete - plant
   func: >-
-    msg.payload = (msg.dictionary?.common_notice_plant_noempty)||'Failed to
+    msg.payload = (msg.dictionary?.common_notice_plant_noempty) || 'Failed to
     delete plant';
 
     msg.success = false;
 
 
     if (msg.hmi.level !== 'admin') {
-        msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
+        msg.payload = (msg.dictionary?.common_notice_level_fail) || 'Insufficient right';
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
     'plant') {
         let is_empty = true;
         // kernel.lines
-        let lines = global.get('kernel.lines','memoryOnly')||{};
+        let lines = global.get('kernel.lines', 'memoryOnly') || {};
         for (const line in lines) {
             if (lines[line] === msg.kernel.entity) {
                 is_empty = false;
@@ -4125,20 +4128,20 @@
 
         if (is_empty === true) {
             // kernel.plant
-            node.send({
-                'topic':'',
-                'payload':'',
-                'kernel':{
-                    'type':'plant',
-                    'entity':msg.kernel.entity,
-                    'value':'',
-                    'loop':false,
-                    'delete':true
+            node.send([{
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'plant',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.tz
-            node.send({
+            node.send([{
                 'topic': '',
                 'payload': '',
                 'kernel': {
@@ -4148,10 +4151,10 @@
                     'loop': false,
                     'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.day
-            node.send({
+            node.send([{
                 'topic': '',
                 'payload': '',
                 'kernel': {
@@ -4161,14 +4164,14 @@
                     'loop': false,
                     'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.team
-            let teams = global.get('kernel.team','memoryOnly')||{};
+            let teams = global.get('kernel.team', 'memoryOnly') || {};
             for (const team in teams) {
                 let tsplit = team.split('|');
                 if (tsplit[0] === msg.kernel.entity) {
-                    node.send({
+                    node.send([{
                         'topic': '',
                         'payload': '',
                         'kernel': {
@@ -4178,11 +4181,11 @@
                             'loop': false,
                             'delete': true
                         }
-                    });
+                    }, null]);
                 }
             }
 
-            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Plant successfully deleted';
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success) || 'Plant successfully deleted';
             msg.success = true;
         }
     }
@@ -4191,7 +4194,7 @@
     delete msg.kernel;
 
 
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -4268,19 +4271,19 @@
   g: 11d028449aaa105b
   name: delete - line
   func: >-
-    msg.payload = (msg.dictionary?.common_notice_line_noempty)||'Failed to
+    msg.payload = (msg.dictionary?.common_notice_line_noempty) || 'Failed to
     delete line';
 
     msg.success = false;
 
 
     if (msg.hmi.level !== 'admin' && msg.hmi.id !== 'rt') {
-        msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
+        msg.payload = (msg.dictionary?.common_notice_level_fail) || 'Insufficient right';
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
     'line') {
         let is_empty = true;
         // kernel.lines
-        let equipments = global.get('kernel.equipments','memoryOnly')||{};
+        let equipments = global.get('kernel.equipments', 'memoryOnly') || {};
         for (const equipment in equipments) {
             if (equipments[equipment] === msg.kernel.entity) {
                 is_empty = false;
@@ -4289,20 +4292,20 @@
 
         if (is_empty === true) {
             // kernel.lines
-            node.send({
-                'topic':'',
-                'payload':'',
-                'kernel':{
-                    'type':'lines',
-                    'entity':msg.kernel.entity,
-                    'value':'',
-                    'loop':false,
-                    'delete':true
+            node.send([{
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'lines',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.line
-            node.send({
+            node.send([{
                 'topic': '',
                 'payload': '',
                 'kernel': {
@@ -4312,13 +4315,13 @@
                     'loop': false,
                     'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.period
             let periods = global.get('kernel.period', 'memoryOnly') || {};
             for (const period in periods) {
                 if (period === msg.kernel.entity) {
-                    node.send({
+                    node.send([{
                         'topic': '',
                         'payload': '',
                         'kernel': {
@@ -4328,7 +4331,7 @@
                             'loop': false,
                             'delete': true
                         }
-                    });
+                    }, null]);
                 }
             }
 
@@ -4336,7 +4339,7 @@
             let disableds = global.get('kernel.disabled', 'memoryOnly') || {};
             for (const disabled in disableds) {
                 if (disabled === msg.kernel.entity) {
-                    node.send({
+                    node.send([{
                         'topic': '',
                         'payload': '',
                         'kernel': {
@@ -4346,11 +4349,11 @@
                             'loop': false,
                             'delete': true
                         }
-                    });
+                    }, null]);
                 }
             }
 
-            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Line successfully deleted';
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success) || 'Line successfully deleted';
             msg.success = true;
         }
     }
@@ -4359,7 +4362,7 @@
     delete msg.kernel;
 
 
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -4398,19 +4401,19 @@
   g: 11d028449aaa105b
   name: delete - equipment
   func: >-
-    msg.payload = (msg.dictionary?.common_notice_equipment_noempty)||'Failed to
-    delete equipment';
+    msg.payload = (msg.dictionary?.common_notice_equipment_noempty) || 'Failed
+    to delete equipment';
 
     msg.success = false;
 
 
     if (msg.hmi.level !== 'admin' && msg.hmi.id !== 'rt') {
-        msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
+        msg.payload = (msg.dictionary?.common_notice_level_fail) || 'Insufficient right';
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
     'equipment') {
         let is_empty = true;
         // kernel.link
-        let links = global.get('kernel.link','memoryOnly')||{};
+        let links = global.get('kernel.link', 'memoryOnly') || {};
         for (const link in links) {
             let lsplit = link.split('|');
             if (lsplit[0] === msg.kernel.entity) {
@@ -4420,20 +4423,20 @@
 
         if (is_empty === true) {
             // kernel.equipments
-            node.send({
-                'topic':'',
-                'payload':'',
-                'kernel':{
-                    'type':'equipments',
-                    'entity':msg.kernel.entity,
-                    'value':'',
-                    'loop':false,
-                    'delete':true
+            node.send([{
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'equipments',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.equipment
-            node.send({
+            node.send([{
                 'topic': '',
                 'payload': '',
                 'kernel': {
@@ -4443,11 +4446,11 @@
                     'loop': false,
                     'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component
 
-            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Equipment successfully deleted';
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success) || 'Equipment successfully deleted';
             msg.success = true;
         }
     }
@@ -4456,7 +4459,7 @@
     delete msg.kernel;
 
 
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -4549,19 +4552,19 @@
   g: 11d028449aaa105b
   name: delete - device
   func: >-
-    msg.payload = (msg.dictionary?.common_notice_device_noempty)||'Failed to
+    msg.payload = (msg.dictionary?.common_notice_device_noempty) || 'Failed to
     delete device';
 
     msg.success = false;
 
 
     if (msg.hmi.level !== 'admin') {
-        msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
+        msg.payload = (msg.dictionary?.common_notice_level_fail) || 'Insufficient right';
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
     'device') {
         let is_empty = true;
         // rlink (component)
-        let rlinks = global.get('rlink','memoryOnly')||{};
+        let rlinks = global.get('rlink', 'memoryOnly') || {};
         for (const rlink in rlinks) {
             let rsplit = rlink.split('|');
             if ((rsplit[0] + '|' + rsplit[1]) === msg.kernel.entity) {
@@ -4571,20 +4574,20 @@
 
         if (is_empty === true) {
             // kernel.watchdog
-            node.send({
-                'topic':'',
-                'payload':'',
-                'kernel':{
-                    'type':'watchdog',
-                    'entity':msg.kernel.entity,
-                    'value':'',
-                    'loop':false,
-                    'delete':true
+            node.send([{
+                'topic':' ',
+                'payload': '',
+                'kernel': {
+                    'type': 'watchdog',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.device
-            node.send({
+            node.send([{
                 'topic': '',
                 'payload': '',
                 'kernel': {
@@ -4594,11 +4597,11 @@
                     'loop': false,
                     'delete': true
                 }
-            });
+            }, null]);
 
             // kernel.link and kernel.rlink must be deleted from component
 
-            msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Device successfully deleted';
+            msg.payload = (msg.dictionary?.common_notice_tree_update_success) || 'Device successfully deleted';
             msg.success = true;
         }
     }
@@ -4607,7 +4610,7 @@
     delete msg.kernel;
 
 
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -4631,12 +4634,12 @@
 
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
-        msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
+        msg.payload = (msg.dictionary?.common_notice_level_fail) || 'Insufficient right';
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
     'link') {
 
         // kernel.link
-        node.send({
+        node.send([{
             'topic': '',
             'payload': '',
             'kernel': {
@@ -4646,10 +4649,10 @@
                 'loop': false,
                 'delete': true
             }
-        });
+        }, null]);
 
         // kernel.state
-        node.send({
+        node.send([{
             'topic': '',
             'payload': '',
             'kernel': {
@@ -4659,10 +4662,10 @@
                 'loop': false,
                 'delete': true
             }
-        });
+        }, null]);
 
         // kernel.reverse
-        node.send({
+        node.send([{
             'topic': '',
             'payload': '',
             'kernel': {
@@ -4672,22 +4675,22 @@
                 'loop': false,
                 'delete': true
             }
-        });
+        }, null]);
 
         // kernel.alert
-        node.send({
-            'topic':'',
-            'payload':'',
-            'kernel':{
-                'type':'alert',
-                'entity':msg.kernel.entity,
-                'value':'',
-                'loop':false,
-                'delete':true
+        node.send([{
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'alert',
+                'entity': msg.kernel.entity,
+                'value': '',
+                'loop': false,
+                'delete': true
             }
-        });
+        }, null]);
 
-        msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Component successfully deleted';
+        msg.payload = (msg.dictionary?.common_notice_tree_update_success) || 'Component successfully deleted';
         msg.success = true;
     }
 
@@ -4695,7 +4698,7 @@
     delete msg.kernel;
 
 
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -4719,24 +4722,24 @@
 
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
-        msg.payload = (msg.dictionary?.common_notice_level_fail)||'Insufficient right';
+        msg.payload = (msg.dictionary?.common_notice_level_fail) || 'Insufficient right';
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
     'alert') {
 
         // kernel.alert
-        node.send({
-            'topic':'',
-            'payload':'',
-            'kernel':{
-                'type':'alert',
-                'entity':msg.kernel.entity,
-                'value':'',
-                'loop':false,
-                'delete':true
+        node.send([{
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'alert',
+                'entity': msg.kernel.entity,
+                'value': '',
+                'loop': false,
+                'delete': true
             }
-        });
+        }, null]);
 
-        msg.payload = (msg.dictionary?.common_notice_tree_update_success)||'Alert successfully deleted';
+        msg.payload = (msg.dictionary?.common_notice_tree_update_success) || 'Alert successfully deleted';
         msg.success = true;
     }
 
@@ -4744,7 +4747,7 @@
     delete msg.kernel;
 
 
-    return [null,msg];
+    return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -4771,9 +4774,9 @@
             let name = global.get('kernel.plant["' + plant + '"]', 'memoryOnly') || '???';
 
             return {
-                'topic':'',
-                'payload':{
-                    'type':'message',
+                'topic': '',
+                'payload': {
+                    'type': 'message',
                     'content': '[Period] ' + name + ": \n" + (global.get('kernel.equipment["' + msg.telegram.entity + '"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')
                 }
             }
@@ -4781,9 +4784,9 @@
             let dsplit = msg.telegram.entity.split('|');
 
             return {
-                'topic':'',
-                'payload':{
-                    'type':'message',
+                'topic': '',
+                'payload': {
+                    'type': 'message',
                     'content': '[Watchdog] ' + ": \n" + (global.get('describe.model["' + dsplit[0] + '"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
                 }
             }
@@ -5066,7 +5069,7 @@
     flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
     msg.row.value, 'memoryOnly');
 
-    msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team +
+    //msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team +
     ':' + msg.row.value;
 
 
