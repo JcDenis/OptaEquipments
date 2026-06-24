@@ -3668,6 +3668,7 @@
                     msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]','memoryOnly')||'';
 
                     /* historic */
+    /*
                     if (current !== msg.kernel.value) {
                         let sec = Math.round(Date.now() / 1000); // limit to one message per entity per second
                         let hcomponent = msg.kernel.component;
@@ -3679,6 +3680,7 @@
                             //node.status({ 'text':sec.toString() + ' : ' + msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});
                         }
                     }
+    //*/
                 }
             }
 
@@ -4813,6 +4815,7 @@
 - id: ba44af0dc17085de
   type: link in
   z: f6f2187d.f17ca8
+  d: true
   g: 4454c8408a7c43de
   name: kernel - historic
   links:
@@ -4824,6 +4827,7 @@
 - id: 2d6c7781e95f7c7c
   type: function
   z: f6f2187d.f17ca8
+  d: true
   g: 4454c8408a7c43de
   name: Clean old historics
   func: |-
@@ -5003,6 +5007,7 @@
 - id: ac9b1b5f865ad562
   type: link out
   z: f6f2187d.f17ca8
+  d: true
   g: 4454c8408a7c43de
   name: kernel - historic
   mode: link
