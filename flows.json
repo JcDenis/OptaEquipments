@@ -2251,8 +2251,7 @@
             "4be0becb29998d3a",
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
-            "11d028449aaa105b",
-            "4454c8408a7c43de"
+            "11d028449aaa105b"
         ],
         "x": 68,
         "y": 13,
@@ -3621,27 +3620,6 @@
         "y": 1059,
         "w": 902,
         "h": 442
-    },
-    {
-        "id": "4454c8408a7c43de",
-        "type": "group",
-        "z": "f6f2187d.f17ca8",
-        "g": "f9da6ea6fa5cc954",
-        "name": "kernel - historic",
-        "style": {
-            "fill": "#ff0000",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "ba44af0dc17085de",
-            "2d6c7781e95f7c7c",
-            "ac9b1b5f865ad562"
-        ],
-        "x": 524,
-        "y": 279,
-        "w": 412,
-        "h": 82
     },
     {
         "id": "5621e43ca08d7164",
@@ -7078,7 +7056,7 @@
         "g": "f9da6ea6fa5cc954",
         "name": "day 0 = Sunday",
         "info": "",
-        "x": 620,
+        "x": 580,
         "y": 80,
         "wires": []
     },
@@ -7532,7 +7510,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "prepare",
-        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic': '',\n        'payload': (global.get('kernel.team', 'memoryOnly') || {}),\n        'row': {\n            'ts': Date.now()\n            // some timestamp tests\n            //'ts': 1781921986000 // saturday 4:19\n            //'ts': 1781929186000 // saturday 6:19\n            //'ts': 1781936386000 // satruday 8:19\n            //'ts': 1782015586000 // sunday 6:19\n            //'ts': 1782076786000 // sunday 23:19\n            //'ts': 1782094786000 // monday 4:19\n            //'ts': 1782163186000 // monday 23:19\n            //'ts': 1782238786000 // tuesday 20:19\n        }\n    };\n}\n\nreturn;",
+        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic': '',\n        'payload': (global.get('kernel.team', 'memoryOnly') || {}),\n        'row': {\n            'ts': Date.now()\n            // some timestamp tests\n            //'ts': 1781921986000 // saturday 4:19\n            //'ts': 1781929186000 // saturday 6:19\n            //'ts': 1781936386000 // satruday 8:19\n            //'ts': 1782015586000 // sunday 6:19\n            //'ts': 1782076786000 // sunday 23:19\n            //'ts': 1782094786000 // monday 4:19\n            //'ts': 1782163186000 // monday 23:19\n            //'ts': 1782238786000 // tuesday 20:19\n            //'ts': 1782346500000 // wednesday 02:15\n        }\n    };\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7699,7 +7677,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "parse loop",
-        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet ctx = (context.get('count','memoryOnly')||0)+1;\ncontext.set('count',ctx,'memoryOnly');\nnode.status({'text':ctx});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'memoryOnly');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'memoryOnly');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n\n                /* historic */\n/*\n                if (current !== msg.kernel.value) {\n                    let sec = Math.round(Date.now() / 1000); // limit to one message per entity per second\n                    let hcomponent = msg.kernel.component;\n                    if (hcomponent.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null) {\n                        hcomponent = 'heatswitch';\n                    }\n                    if (hcomponent.match((new RegExp('^(run|heat|heatswicth)$'))) !== null) {\n                        global.set('historic[\"' + msg.kernel.equipment + '|' + hcomponent + '\"][\"' + sec + '\"]', msg.kernel.value, 'memoryOnly');\n                        //node.status({ 'text':sec.toString() + ' : ' + msg.kernel.equipment + '|' + hcomponent + '|' + msg.kernel.value});\n                    }\n                }\n//*/\n            }\n        }\n\n        let newMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
+        "func": "delete msg.qos;\ndelete msg.retain;\n\n/* Node counter */\n/*\nlet ctx = (context.get('count','memoryOnly')||0)+1;\ncontext.set('count',ctx,'memoryOnly');\nnode.status({'text':ctx});\n//*/\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined, 'memoryOnly');\n    } else {\n        let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n        /* new value is not the same as existing */\n        if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value, 'memoryOnly');\n        }\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]', 'memoryOnly');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]','memoryOnly')||'';\n            }\n        }\n\n        let newMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': msg.kernel\n        };\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -8386,46 +8364,6 @@
         "wires": []
     },
     {
-        "id": "ba44af0dc17085de",
-        "type": "link in",
-        "z": "f6f2187d.f17ca8",
-        "d": true,
-        "g": "4454c8408a7c43de",
-        "name": "kernel - historic",
-        "links": [
-            "527bd0d2254942cb"
-        ],
-        "x": 565,
-        "y": 320,
-        "wires": [
-            [
-                "2d6c7781e95f7c7c"
-            ]
-        ]
-    },
-    {
-        "id": "2d6c7781e95f7c7c",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "d": true,
-        "g": "4454c8408a7c43de",
-        "name": "Clean old historics",
-        "func": "let i = 0;\nlet j = 0;\nlet limit = Math.round((Date.now() / 1000) - (24 * 60 * 60)); // 24h\n\nlet historics = global.get('historic', 'memoryOnly') || {};\nfor (const entity in historics) {\n    let tsplit = historics[entity];\n    for (const ts in tsplit) {\n        j++;\n        if (Number(ts) < limit) {\n            // Delete old timestamp\n            global.set('historic[\"' + entity + '\"][\"' + ts + '\"]', undefined, 'memoryOnly');\n            i++\n        }\n    }\n    if (global.get('historic[\"' + entity + '\"]', 'memoryOnly').length === 0) {\n        // Delete entity\n        global.set('historic[\"' + entity + '\"]', undefined, 'memoryOnly');\n    }\n}\n\nnode.status({'text':'Size: ' + j + ', Deletion: ' + i });\n\n// telegram\nreturn {\n    'topic': '',\n    'payload': {\n        'type': 'message',\n        'content': '[Historic] ' + i + ' deletions on ' + j + ' records'\n    }\n}",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 730,
-        "y": 320,
-        "wires": [
-            [
-                "ac9b1b5f865ad562"
-            ]
-        ]
-    },
-    {
         "id": "8cdcab5e1a00fa52",
         "type": "function",
         "z": "f6f2187d.f17ca8",
@@ -8536,21 +8474,6 @@
                 "01242cef4de43778"
             ]
         ]
-    },
-    {
-        "id": "ac9b1b5f865ad562",
-        "type": "link out",
-        "z": "f6f2187d.f17ca8",
-        "d": true,
-        "g": "4454c8408a7c43de",
-        "name": "kernel - historic",
-        "mode": "link",
-        "links": [
-            "b62a3b02d3d8dabc"
-        ],
-        "x": 895,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "542c18dedc9ba3de",
