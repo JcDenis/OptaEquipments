@@ -437,13 +437,19 @@
             row.line_name = global.get('kernel.line["' + row.line + '"]', 'memoryOnly') || '';
             row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
             row.state = global.get('kernel.state["' + state + '"]', 'memoryOnly') || 0;
-            row.state_color = row.state > 0 ? 'green' : 'red';
+            row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
             row.alert = global.get('kernel.state["' + row.entity + '"]', 'memoryOnly') || 0;
             row.alert_full = row.alert + ' / ' + row.limit
             row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));
             row.percent_full = row.percent.toString() + '%';
             row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;
-            row.diff_color = row.diff < 0 ? 'green' : 'red'
+            row.diff_color = row.diff < 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off
+
+            // chek if device is offline
+            let ssplit = (global.get('kernel.link["' + row.equipment + '|heat"]', 'memoryOnly') || '').split('|');
+            if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]', 'memoryOnly') !== 1) {
+                row.state_color = msg.dictionary.option_color.none;
+            }
 
             msg.payload[i++] = row;
         }

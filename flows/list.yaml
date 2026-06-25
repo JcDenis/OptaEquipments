@@ -1562,12 +1562,18 @@
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
             row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
             row.component_count = 0;
-            row.state_color = '#CCCCCC';
+            row.state_color = msg.dictionary.option_color.empty;
 
             if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 let state = global.get('kernel.state["' + row.equipment + '|run"]', 'memoryOnly');
                 if (typeof state === 'number') {
-                    row.state_color = state === 0 ? 'red' : 'green';
+                    // chek if device is offline
+                    let ssplit = (global.get('kernel.link["' + equipment + '|heat"]', 'memoryOnly') || '').split('|');
+                    if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]', 'memoryOnly') !== 1) {
+                        row.state_color = msg.dictionary.option_color.none;
+                    } else {
+                        row.state_color = state === 0 ? msg.dictionary.option_color.off : msg.dictionary.option_color.on;
+                    }
                 }
 
                 let links = global.get('kernel.link', 'memoryOnly');
@@ -1648,11 +1654,11 @@
             row.device = esplit[1];
             row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
             row.component_count = 0;
-            row.watchdog_color = '#CCCCCC';
+            row.watchdog_color = msg.dictionary.option_color.empty;
 
             let watchdog = global.get('kernel.watchdog["' + row.entity + '"]', 'memoryOnly');
             if (typeof watchdog === 'number') {
-                row.watchdog_color = devices[entity] === 1 ? 'green' : 'red';
+                row.watchdog_color = devices[entity] === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
             }
 
             let rlinks = global.get('rlink', 'memoryOnly');
@@ -1832,7 +1838,7 @@
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
             row.state = global.get('kernel.state["' + entity + '"]', 'memoryOnly') || 0;
             row.state_limit = Number(alerts[entity]);
-            row.state_color = row.state < row.state_limit ? 'green' : 'red';
+            row.state_color = row.state < row.state_limit ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
             row.state_diff = Math.round((row.state - row.state_limit) *10) / 10;
             row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
 
