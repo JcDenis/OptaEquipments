@@ -6402,7 +6402,7 @@
   adjAmount: '1'
   adjType: days
   adjDir: subtract
-  format: 'YYYY-MM-DDTHH:00:00Z'
+  format: 'YYYY-MM-DDTHH:mm:00Z'
   locale: en-US
   output: row.start
   outputType: msg
@@ -6423,7 +6423,7 @@
   adjAmount: '0'
   adjType: days
   adjDir: add
-  format: 'YYYY-MM-DDTHH:00:00Z'
+  format: 'YYYY-MM-DDTHH:mm:00Z'
   locale: en-US
   output: row.stop
   outputType: msg
@@ -6485,10 +6485,7 @@
         msg.row.equipment =  global.get('form["' + msg.hmi.id + '"]["equipment"]', 'memoryOnly') || '-';
         msg.row.plant = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '-';
         msg.outTz = global.get('kernel.tz["' + msg.row.plant + '"]', 'memoryOnly') || 'Europe/Paris';
-
-        let dec = Number(global.get('kernel.day["' + msg.row.plant + '"]', 'memoryOnly') || 0);
-        msg.row.ts = Math.round((Date.now())  + (dec * 3600000));
-
+        msg.row.ts = Date.now();
 
         return [null, msg];
     }
