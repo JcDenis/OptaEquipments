@@ -33,9 +33,10 @@
     - f84a1943480e45cb
     - 2219b610eb1a3cc0
     - 9051b334f33e9c0b
+    - 06c4a3cc69a25734
   x: 94
   'y': 39
-  w: 1052
+  w: 1332
   h: 382
 - id: c0b72044a49a3f76
   type: group
@@ -259,7 +260,7 @@
   correl: ''
   expiry: ''
   broker: f516c1341f0f634c
-  x: 730
+  x: 890
   'y': 200
   wires: []
 - id: d6d4db548fefad53
@@ -267,7 +268,7 @@
   z: 135b7308617dad08
   g: 44d39e7547289d97
   name: opta - out
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -275,7 +276,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 740
+  x: 900
   'y': 260
   wires: []
 - id: 57773a77659dbe20
@@ -1808,7 +1809,8 @@
   x: 320
   'y': 200
   wires:
-    - - 268afb141777587b
+    - - 06c4a3cc69a25734
+      - 7c5f93321a4b2009
 - id: 0b1c1ba728d3208a
   type: function
   z: 135b7308617dad08
@@ -2063,7 +2065,8 @@
   x: 320
   'y': 260
   wires:
-    - - 268afb141777587b
+    - - 06c4a3cc69a25734
+      - 7c5f93321a4b2009
 - id: 646cb6874a24fd76
   type: function
   z: 135b7308617dad08
@@ -2200,7 +2203,7 @@
   pauseType: rate
   timeout: '50'
   timeoutUnits: milliseconds
-  rate: '1'
+  rate: '2'
   nbRateUnits: '1'
   rateUnits: second
   randomFirst: '1'
@@ -2209,7 +2212,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 530
+  x: 690
   'y': 200
   wires:
     - - 7c5f93321a4b2009
@@ -2218,9 +2221,9 @@
   type: comment
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: opta bugs if more than 2 mgs / sec !?
+  name: opta mqtt listener bugs if more than 2 mgs / sec !?
   info: ''
-  x: 980
+  x: 1220
   'y': 200
   wires: []
 - id: 31f72f6c4d5ded3b
@@ -2299,5 +2302,26 @@
   outputs: 1
   x: 850
   'y': 140
+  wires:
+    - []
+- id: 06c4a3cc69a25734
+  type: delay
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: 150ms
+  pauseType: delay
+  timeout: '150'
+  timeoutUnits: milliseconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 490
+  'y': 200
   wires:
     - []

@@ -5019,7 +5019,7 @@
   name: input
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]input'
+      p: '#:(memoryOnly)::form[msg.hmi.id][''input'']'
       pt: flow
       to: payload
       tot: msg
@@ -5905,12 +5905,12 @@
       to: '#:(memoryOnly)::describe.convert[msg.form.model][msg.payload]'
       tot: global
     - t: set
-      p: teminal
+      p: terminal
       pt: msg
       to: 'mg.payload=''heatswitch'' ? msg.form.output : msg.form.input'
       tot: jsonata
     - t: set
-      p: teminal
+      p: terminal
       pt: msg
       to: 'msg.payload=''mirrorout'' ? msg.form.output : msg.terminal'
       tot: jsonata
@@ -5918,7 +5918,7 @@
       p: device
       pt: msg
       to: >-
-        $join([msg.form.model,msg.form.device,$formatBase(msg.teminal),msg.device],'|')
+        $join([msg.form.model,msg.form.device,$formatBase(msg.terminal),msg.device],'|')
       tot: jsonata
     - t: set
       p: entity
@@ -16214,7 +16214,7 @@
   name: output
   rules:
     - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]output'
+      p: '#:(memoryOnly)::form[msg.hmi.id][''output'']'
       pt: flow
       to: payload
       tot: msg
