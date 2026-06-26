@@ -5907,7 +5907,12 @@
     - t: set
       p: teminal
       pt: msg
-      to: 'msg.payload=''heatswitch''?msg.form.output:msg.form.input'
+      to: 'mg.payload=''heatswitch'' ? msg.form.output : msg.form.input'
+      tot: jsonata
+    - t: set
+      p: teminal
+      pt: msg
+      to: 'msg.payload=''mirrorout'' ? msg.form.output : msg.terminal'
       tot: jsonata
     - t: set
       p: device

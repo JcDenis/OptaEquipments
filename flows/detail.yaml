@@ -110,6 +110,15 @@
     - 43938befac5a3821
     - ba230f262ff2d6c7
     - ec932d577414e536
+    - 815163b0b5ed2342
+    - 45a0f63e325156f3
+    - 0436955be0b65120
+    - 79b7c11275685d45
+    - 3559ca8d1e6d8aec
+    - a1a30974c4578c4a
+    - 59781132e0a31556
+    - 0b7a088e8d5b67e6
+    - 3d91fde15583be6d
   x: 104
   'y': 759
   w: 3042
@@ -628,6 +637,8 @@
     - - 44d4d287c06cafc8
     - - '79169878e9014095'
     - - b4a08982b18461a8
+      - 0436955be0b65120
+      - 815163b0b5ed2342
     - - a639b742dd0b1904
     - - a2c74fb09768552b
     - - b3557432762eda64
@@ -3146,6 +3157,8 @@
       - d3429e734dbce4fe
       - 95ace84584b7e415
       - 22a49c79934247fc
+      - 79b7c11275685d45
+      - 59781132e0a31556
 - id: 3aad74b4936add5c
   type: link out
   z: 852390cb9559e176
@@ -5671,12 +5684,11 @@
   g: d04f02d6e1c02839
   name: online
   func: >-
-    let form = global.get('form["' + msg.hmi.id + '"]','memoryOnly')||{};
+    let equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]',
+    'memoryOnly') || {};
 
-    if (typeof form['equipment'] === 'string' && typeof msg.kernel.equipment ===
-    'string' && form['equipment'] === msg.kernel.equipment) {
-        
-    } else {
+    if (typeof equipment !== 'string' || typeof msg.kernel.equipment !==
+    'string' || equipment !== msg.kernel.equipment) {
         msg.kernel = {};
     }
 
@@ -6569,3 +6581,203 @@
   wires:
     - - e93987aef3574f62
       - b3afc609202c34ed
+- id: 815163b0b5ed2342
+  type: switch
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: value
+  property: kernel.value
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '1'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1470
+  'y': 1680
+  wires:
+    - - 45a0f63e325156f3
+    - - 79b7c11275685d45
+- id: 45a0f63e325156f3
+  type: change
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: flow
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::cycle[msg.hmi.id]'
+      pt: flow
+      to: '1'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1630
+  'y': 1620
+  wires:
+    - - 79b7c11275685d45
+- id: 0436955be0b65120
+  type: trigger
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: ''
+  op1: ''
+  op2: ''
+  op1type: pay
+  op2type: payl
+  duration: '5'
+  extend: false
+  overrideDelay: false
+  units: s
+  reset: ''
+  bytopic: topic
+  topic: hmi.id
+  outputs: 2
+  x: 1500
+  'y': 1740
+  wires:
+    - - 0b7a088e8d5b67e6
+    - - 3559ca8d1e6d8aec
+- id: 79b7c11275685d45
+  type: trigger
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: refresh 250ms
+  op1: ''
+  op2: '0'
+  op1type: nul
+  op2type: str
+  duration: '100'
+  extend: false
+  overrideDelay: false
+  units: ms
+  reset: ''
+  bytopic: topic
+  topic: hmi.id
+  outputs: 1
+  x: 1820
+  'y': 1680
+  wires:
+    - - 0059a67bfaa04737
+- id: 3559ca8d1e6d8aec
+  type: change
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: value
+  rules:
+    - t: set
+      p: kernel.value
+      pt: msg
+      to: '#:(memoryOnly)::cycle[msg.hmi.id]'
+      tot: flow
+    - t: set
+      p: '#:(memoryOnly)::cycle[msg.hmi.id]'
+      pt: flow
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1690
+  'y': 1820
+  wires:
+    - - a1a30974c4578c4a
+- id: a1a30974c4578c4a
+  type: function
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.group_detail_live_cycle,
+        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : (msg.kernel.value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off),
+        'icon': msg.kernel.value === 1 ? 'numeric-1-circle' : 'numeric-0-circle-outline'
+    }
+
+    msg.enabled = false;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1850
+  'y': 1820
+  wires:
+    - - bf0283565cf53483
+- id: 59781132e0a31556
+  type: change
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: reset
+  rules:
+    - t: delete
+      p: '#:(memoryOnly)::cycle[msg.hmi.id]'
+      pt: flow
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1470
+  'y': 1800
+  wires:
+    - - 0436955be0b65120
+- id: 0b7a088e8d5b67e6
+  type: switch
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: flow
+  property: '#:(memoryOnly)::cycle[msg.hmi.id]'
+  propertyType: flow
+  rules:
+    - t: istype
+      v: number
+      vt: number
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1690
+  'y': 1740
+  wires:
+    - []
+    - - 3d91fde15583be6d
+- id: 3d91fde15583be6d
+  type: change
+  z: 852390cb9559e176
+  d: true
+  g: d04f02d6e1c02839
+  name: flow
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::cycle[msg.hmi.id]'
+      pt: flow
+      to: kernel.value
+      tot: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1850
+  'y': 1740
+  wires:
+    - - 3559ca8d1e6d8aec
