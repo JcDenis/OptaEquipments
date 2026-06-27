@@ -346,6 +346,7 @@
   name: list - equipment
   links:
     - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
   x: 145
   'y': 980
   wires:
@@ -412,6 +413,7 @@
   name: list - device
   links:
     - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
   x: 145
   'y': 1220
   wires:
@@ -484,6 +486,7 @@
   name: list - component
   links:
     - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
   x: 145
   'y': 1460
   wires:
@@ -573,6 +576,7 @@
   name: list - alert
   links:
     - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
   x: 145
   'y': 1700
   wires:
@@ -741,6 +745,7 @@
   name: list - line
   links:
     - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
   x: 145
   'y': 740
   wires:
@@ -823,7 +828,6 @@
   links:
     - 575b91a30deac00d
     - 7bba6594f41302c2
-    - b8fd1cbbd582e7cb
   x: 145
   'y': 140
   wires:
@@ -1313,7 +1317,11 @@
   name: list - action - loop
   mode: link
   links:
-    - 05107d400a502297
+    - f66528f67c8d7cfd
+    - c0261e8841790dd0
+    - 2310141e1336bdc7
+    - 30d9b3b967fbbc14
+    - baa9eb973e71311f
   x: 775
   'y': 260
   wires: []
@@ -1325,12 +1333,13 @@
   func: |-
     if (msg.action === 'button_click' && msg.column === 'delete') {
         msg.kernel = {
-            'type':'line',
-            'entity':msg.payload.line,
-            'value':'',
-            'loop':false,
-            'delete':true
+            'type': 'line',
+            'entity': msg.payload.line,
+            'value': '',
+            'loop': false,
+            'delete': true
         };
+        msg.list = 'line';
     }
 
     return msg;
@@ -1352,12 +1361,13 @@
   func: |-
     if (msg.action === 'button_click' && msg.column === 'delete') {
         msg.kernel = {
-            'type':'line',
-            'entity':msg.payload.equipment,
-            'value':'',
-            'loop':false,
-            'delete':true
+            'type': 'line',
+            'entity': msg.payload.equipment,
+            'value': '',
+            'loop': false,
+            'delete': true
         };
+        msg.list = 'equipment';
     }
 
     return msg;
@@ -1380,19 +1390,20 @@
     if (msg.action === 'row_click' || msg.action === 'button_click' &&
     msg.column === 'delete') {
         msg.kernel = {
-            'type':'device',
-            'entity':msg.payload.model + '|' + msg.payload.id,
-            'value':'',
-            'loop':false,
-            'delete':true
+            'type': 'device',
+            'entity': msg.payload.model + '|' + msg.payload.id,
+            'value': '',
+            'loop': false,
+            'delete': true
         };
+        msg.list = 'device';
     }
 
 
     if (msg.action === 'row_click') {
-        return [null,msg];
+        return [null, msg];
     } else {
-        return [msg,null];
+        return [msg, null];
     }
   outputs: 2
   timeout: 0
@@ -1410,15 +1421,16 @@
   z: e97c6f12735a13c1
   g: baadcf077dabb0e1
   name: actions & kernel
-  func: |-
+  func: |
     if (msg.action === 'button_click' && msg.column === 'delete') {
         msg.kernel = {
-            'type':'link',
-            'entity':msg.payload.equipment + '|' + msg.payload.component,
-            'value':'',
-            'loop':false,
-            'delete':true
+            'type': 'link',
+            'entity': msg.payload.equipment + '|' + msg.payload.component,
+            'value': '',
+            'loop': false,
+            'delete': true
         };
+        msg.list = 'component';
     }
 
     return msg;
@@ -1440,12 +1452,13 @@
   func: |-
     if (msg.action === 'button_click' && msg.column === 'delete') {
         msg.kernel = {
-            'type':'alert',
-            'entity':msg.payload.entity,
-            'value':'',
-            'loop':false,
-            'delete':true
+            'type': 'alert',
+            'entity': msg.payload.entity,
+            'value': '',
+            'loop': false,
+            'delete': true
         };
+        msg.list = 'alert';
     }
 
     return msg;
@@ -1465,14 +1478,16 @@
   g: 6f784a48183c4937
   name: parse lines
   func: |-
+    msg.payload = [];
+
     node.send([null, msg, msg]);
+
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'line') {
         let lines = global.get('kernel.lines', 'memoryOnly') || {};
         let i = 0;
-        msg.payload = [];
 
         for (const line in lines) {
             let row  = {};
@@ -1539,14 +1554,16 @@
   g: 1dd6bd6835107ce6
   name: parse equipments
   func: |-
+    msg.payload = [];
+
     node.send([null, msg, msg]);
+
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'equipment') {
         let equipments = global.get('kernel.equipments', 'memoryOnly') || {};
         let i = 0;
-        msg.payload = [];
 
         for (const equipment in equipments) {
             let row  = {};
@@ -1634,14 +1651,16 @@
   g: e86385b18b9154e7
   name: parse devices
   func: |-
+    msg.payload = [];
+
     node.send([null, msg, msg]);
+
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'device') {
         let devices = global.get('kernel.device', 'memoryOnly') || {};
         let i = 0;
-        msg.payload = [];
 
         for (const entity in devices) {
             let row  = {};
@@ -1727,14 +1746,16 @@
   g: baadcf077dabb0e1
   name: parse components
   func: |-
+    msg.payload = [];
+
     node.send([null, msg, msg]);
+
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'component') {
-        let links = global.get('kernel.link','memoryOnly') || {};
+        let links = global.get('kernel.link', 'memoryOnly') || {};
         let i = 0;
-        msg.payload = [];
 
         for (const endpoint in links) {
             let row  = {};
@@ -1810,14 +1831,16 @@
   g: 3e16528dec4157ee
   name: parse alerts
   func: |-
+    msg.payload = [];
+
     node.send([null, msg, msg]);
+
     msg.class = '';
     msg.enabled = true;
 
     if (msg.list === 'alert') {
         let alerts = global.get('kernel.alert', 'memoryOnly') || {};
         let i = 0;
-        msg.payload = [];
 
         for (const entity in alerts) {
             let row  = {};
@@ -1891,15 +1914,26 @@
   name: tab
   func: |-
     if (typeof msg.success === 'boolean' && msg.success === true) {
-        msg.hmi.tab = global.get('describe.pages.list.tab','memoryOnly')||0;
-        msg.hmi.page = global.get('describe.pages.list.name','memoryOnly')||'';
+    /*
+        msg.hmi.tab = global.get('describe.pages.list.tab', 'memoryOnly') || 0;
+        msg.hmi.page = global.get('describe.pages.list.name', 'memoryOnly') || '';
+    */
+        delete msg.action;
+        delete msg.column;
+        delete msg.success;
 
-        return [msg,null];
+        node.send([null, msg]);
+
+        await new Promise(resolve => setTimeout(resolve, 150)); // wait 150ms
+
+        node.send([msg, null]);
     } else {
         delete msg.success;
 
-        return [null,msg];
+        return [null, msg];
     }
+
+    return;
   outputs: 2
   timeout: 0
   noerr: 0
@@ -1909,8 +1943,7 @@
   x: 650
   'y': 260
   wires:
-    - - 4c1093802ef038cc
-      - b8fd1cbbd582e7cb
+    - - b8fd1cbbd582e7cb
     - - 4c1093802ef038cc
 - id: e4807fa3e9836f6e
   type: function
@@ -1923,8 +1956,8 @@
         global.set('form["' + msg.hmi.id + '"]["line"]', typeof msg.payload.line === 'string' ? msg.payload.line : '', 'memoryOnly');
         global.set('form["' + msg.hmi.id + '"]["equipment"]', typeof msg.payload.equipment === 'string' ? msg.payload.equipment : '', 'memoryOnly');
 
-        msg.hmi.tab = global.get('describe.pages.detail.tab','memoryOnly')||0;
-        msg.hmi.page = global.get('describe.pages.detal.name','memoryOnly')||'';
+        msg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || 0;
+        msg.hmi.page = global.get('describe.pages.detal.name', 'memoryOnly') || '';
         msg.payload = msg.hmi.tab;
 
         delete msg.action;
@@ -1935,7 +1968,7 @@
         
         return [msg, null, null];
     } else {
-        msg.ui_update = {'label':(msg.dictionary?.group_list_records)||'Records: '};
+        msg.ui_update = {'label':(msg.dictionary?.group_list_records) || 'Records: '};
         msg.payload = Number(msg.total||0);
         msg.class = '';
         msg.enabled = true;
@@ -1971,7 +2004,7 @@
   type: link out
   z: e97c6f12735a13c1
   g: e86385b18b9154e7
-  name: list - device
+  name: list - device - detail
   mode: link
   links:
     - 31f72f6c4d5ded3b
