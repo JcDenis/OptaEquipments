@@ -36,7 +36,7 @@
     - 06c4a3cc69a25734
   x: 94
   'y': 39
-  w: 1332
+  w: 1472
   h: 382
 - id: c0b72044a49a3f76
   type: group
@@ -268,7 +268,7 @@
   z: 135b7308617dad08
   g: 44d39e7547289d97
   name: opta - out
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -2198,6 +2198,7 @@
 - id: 268afb141777587b
   type: delay
   z: 135b7308617dad08
+  d: true
   g: 44d39e7547289d97
   name: 1msg / sec / topic
   pauseType: rate
@@ -2212,8 +2213,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 690
-  'y': 260
+  x: 710
+  'y': 280
   wires:
     - - 7c5f93321a4b2009
       - d6d4db548fefad53
@@ -2221,9 +2222,9 @@
   type: comment
   z: 135b7308617dad08
   g: 44d39e7547289d97
-  name: opta mqtt listener bugs if more than 2 mgs / sec !?
+  name: opta mqtt (ArduinoMqtt library) listener bugs if more than 2 mgs / sec !?
   info: ''
-  x: 1220
+  x: 1290
   'y': 200
   wires: []
 - id: 31f72f6c4d5ded3b
@@ -2307,6 +2308,7 @@
 - id: 06c4a3cc69a25734
   type: delay
   z: 135b7308617dad08
+  d: true
   g: 44d39e7547289d97
   name: 150ms
   pauseType: delay
@@ -2321,7 +2323,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 490
-  'y': 260
+  x: 530
+  'y': 280
   wires:
-    - []
+    - - 268afb141777587b

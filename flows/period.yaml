@@ -32,7 +32,6 @@
     label: true
   nodes:
     - df38ede5c62b33f7
-    - aa38cd965e866cc2
     - 875dda3836ede644
     - b845b219f76071e5
     - 4c2159ea37aa1ec2
@@ -58,7 +57,7 @@
     - 88105ea3fcd56b54
   x: 104
   'y': 219
-  w: 2222
+  w: 2062
   h: 322
 - id: d55041fdf28a3f36
   type: link in
@@ -96,24 +95,6 @@
   'y': 380
   wires:
     - - b845b219f76071e5
-- id: aa38cd965e866cc2
-  type: switch
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: neq
-      v: ''
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 850
-  'y': 380
-  wires:
-    - - a56fb1258f090a3e
 - id: 875dda3836ede644
   type: link in
   z: 51c4b2897d2c318c
@@ -150,7 +131,7 @@
   x: 670
   'y': 380
   wires:
-    - - aa38cd965e866cc2
+    - - a56fb1258f090a3e
 - id: 4c2159ea37aa1ec2
   type: debug
   z: 51c4b2897d2c318c
@@ -164,7 +145,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2210
+  x: 2050
   'y': 260
   wires: []
 - id: d0bfea36099bd97c
@@ -230,7 +211,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1620
+  x: 1460
   'y': 320
   wires:
     - - 482622d47dd8f977
@@ -244,7 +225,7 @@
     - c7dc8df688a74cbe
     - e60e4ab7617738c3
     - 0e9c3ca7f24bc8dc
-  x: 2155
+  x: 1995
   'y': 320
   wires: []
 - id: 21c5bb46d1224264
@@ -264,7 +245,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1250
+  x: 1090
   'y': 440
   wires:
     - - 0fc506fd101f1d0c
@@ -276,7 +257,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 2155
+  x: 1995
   'y': 380
   wires: []
 - id: 0e9c3ca7f24bc8dc
@@ -286,7 +267,7 @@
   name: ui - period - list - internal
   links:
     - 575b09f0fb9e021c
-  x: 1125
+  x: 965
   'y': 440
   wires:
     - - 21c5bb46d1224264
@@ -298,7 +279,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 2155
+  x: 1995
   'y': 440
   wires: []
 - id: 3a19e0ec83e6803a
@@ -387,7 +368,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1630
+  x: 1470
   'y': 380
   wires:
     - - 482622d47dd8f977
@@ -400,7 +381,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1030
+  x: 870
   'y': 380
   wires:
     - - 4c4bb5da4693075d
@@ -408,34 +389,14 @@
   type: change
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
-  name: hide
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: list
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
+  name: '-'
+  rules: []
   action: ''
   property: ''
   from: ''
   to: ''
   reg: false
-  x: 1410
+  x: 1250
   'y': 260
   wires:
     - - d0bfea36099bd97c
@@ -452,7 +413,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1850
+  x: 1690
   'y': 320
   wires:
     - - 88105ea3fcd56b54
@@ -476,7 +437,7 @@
   className: ''
   value: dictionary.group_period_state_help
   valueType: msg
-  x: 1790
+  x: 1630
   'y': 260
   wires: []
 - id: bd720f4ed1f034f8
@@ -495,7 +456,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1590
+  x: 1430
   'y': 260
   wires:
     - - f4f846fcf380110e
@@ -538,7 +499,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1620
+  x: 1460
   'y': 440
   wires:
     - []
@@ -581,7 +542,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1630
+  x: 1470
   'y': 500
   wires:
     - []
@@ -639,7 +600,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1410
+  x: 1250
   'y': 420
   wires:
     - - beac0cb54e4ebf07
@@ -655,6 +616,7 @@
         msg.class = 'remove';
         msg.enabled = false;
         msg.payload = '';
+        msg.list = '';
 
         return [msg, null, msg];
     }
@@ -700,7 +662,7 @@
     - 0e8a1d6969a7188b
   linkType: static
   timeout: '30'
-  x: 1230
+  x: 1070
   'y': 380
   wires:
     - - 39cf9bc6de140b04
@@ -716,7 +678,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1250
+  x: 1090
   'y': 320
   wires:
     - - 39cf9bc6de140b04
@@ -835,7 +797,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1420
+  x: 1260
   'y': 320
   wires:
     - - d0bfea36099bd97c
@@ -904,7 +866,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2030
+  x: 1870
   'y': 320
   wires:
     - - 575b09f0fb9e021c
