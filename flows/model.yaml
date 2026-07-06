@@ -481,7 +481,7 @@
   z: 135b7308617dad08
   g: c0b72044a49a3f76
   name: model - tcw122bcm - http error
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
@@ -2102,57 +2102,62 @@
   z: 135b7308617dad08
   g: c0b72044a49a3f76
   name: kernels
-  func: >-
+  func: |-
     let newMsg = {
-        'topic':'',
-        'payload':'',
-        'kernel':{}
+        'topic': '',
+        'payload': '',
+        'kernel': {}
     };
-
-    let inputs =
-    {'DigitalInput1':'','DigitalInput2':'','AnalogInput1':'','AnalogInput2':''};
-
+    let inputs = {
+        'DigitalInput1': '|1|DigitalInput',
+        'DigitalInput2': '|2|DigitalInput',
+        'AnalogInput1': '|1|AnalogInput',
+        'AnalogInput2': '|2|AnalogInput'
+    };
 
     function substringBefore(str, chars) {
         const index = str.indexOf(chars);
         return index === -1 ? str : str.substring(0, index);
     }
 
-
     if (typeof msg.payload['Monitor'] !== 'undefined') {
         /* Watchdog */
         newMsg.kernel = {
-            'type':'watchdog',
-            'entity':msg.device,
+            'type': 'watchdog',
+            'entity': msg.device,
             'value': Math.round(Date.now() / 1000),
-            'loop':false
+            'loop': false
         };
 
         node.send(newMsg);
 
         for (const input in inputs) {
-            if (typeof global.get('kernel.endpoint["' + msg.device + '|' + input + '"]','memoryOnly') === 'string') {
+            let component = global.get('rlink["' + msg.device + inputs[input] + '"]', 'memoryOnly');
+            if (typeof component === 'string') {
                 if (input.match((new RegExp('^(Digital)'))) !== null) {
                     /* Digital */
                     newMsg.kernel = {
-                        'type':'state',
-                        'entity':msg.device + '|' + input,
-                        'value':msg.payload.Monitor[input][0] === 'OPEN' ? 1 : 0,
-                        'loop':false
+                        'type': 'state',
+                        'entity': component,
+                        'value': msg.payload.Monitor[input][0] === 'OPEN' ? 0 : 1,
+                        'loop': false
                     }
-                } else {
+
+                    node.send(newMsg);
+                } else if (input.match((new RegExp('^(Analog)'))) !== null) {
                     /* Analog */
                     newMsg.kernel = {
-                        'type':'state',
-                        'entity':msg.device + '|' + input,
+                        'type': 'state',
+                        'entity': component,
                         'value': Number(substringBefore(msg.payload.Monitor[input][0], 'V')),
-                        'loop':false
+                        'loop': false
                     }
+
+                    node.send(newMsg);
                 }
             }
         }
     }
-
 
     return;
   outputs: 1
@@ -2171,18 +2176,16 @@
   z: 135b7308617dad08
   g: c0b72044a49a3f76
   name: command
-  func: >-
-    if (msg.kernel.model === 'tcw122bcm' && msg.kernel.endpoint.match((new
-    RegExp('^(r)')) !== null)) {
+  func: |-
+    if (msg.kernel.model === 'tcw122bcm' && msg.kernel.convert === 'r') {
         let newMsg = {
             'topic':'',
             'payload':'',
-            'url':'http://' + msg.kernel.device + '/status.xml?a=admin:admin&' + msg.kernel.endpoint + '=' + msg.kernel.value
+            'url':'http://' + msg.kernel.device + '/status.xml?a=admin:admin&' + msg.kernel.convert + msg.kernel.terminal + '=' + msg.kernel.value
         }
 
         return newMsg;
     }
-
 
     return;
   outputs: 1

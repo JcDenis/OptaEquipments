@@ -3656,7 +3656,8 @@
 
                     // Mirror components repeat input state to output
                     let mirror = msg.kernel.equipment + '|' + msg.kernel.component + 'mirror';
-                    if (global.get('kernel.link["' + mirror + '"]', 'memoryOnly') !== null) {
+                    let link = global.get('kernel.link["' + mirror + '"]', 'memoryOnly');
+                    if (typeof link === 'string') {
                         let mirrorMsg = {
                             'topic': '',
                             'payload': '',

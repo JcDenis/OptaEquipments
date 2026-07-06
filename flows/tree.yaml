@@ -15054,7 +15054,7 @@
         for (const group in groups) {
             let component = groups[group];
             let device = global.get('describe.convert["' + form.model + '"]["' + component + '"]', 'memoryOnly');
-            if (typeof device !== null) {
+            if (typeof device === 'string') {
                 let terminal = form.input;
                 let reverse = form.input_reverse;
                 if (component.match((new RegExp('^(heatswitch|runmirror|cyclemirror)$'))) !== null) {
@@ -15062,7 +15062,7 @@
                     reverse = form.output_reverse;
                 }
                 if (terminal >= 0) {
-                    device = [form.model, form.device, terminal.toString(), device].join('|');
+                    let rlink = [form.model, form.device, terminal.toString(), device].join('|');
                     let entity = form.equipment + '|' + component;
 
                     // state
@@ -15085,7 +15085,7 @@
                         'kernel': {
                             'type': 'link',
                             'entity': entity,
-                            'value': device,
+                            'value': rlink,
                             'loop': false
                         }
                     };
