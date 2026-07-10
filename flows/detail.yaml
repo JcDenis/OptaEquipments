@@ -5009,6 +5009,10 @@
 
                     let srun = global.get('kernel.state["' + equipment + '|run' + '"]', 'memoryOnly');
                     if (typeof srun !== 'undefined') {
+                        let srev = global.get('kernel.reverse["' + equipment + '|run' + '"]', 'memoryOnly');
+                        if (srev === true) {
+                            srun = srun === 1 ? 0 : 1;
+                        }
                         // chek if device is offline
                         let rsplit = (global.get('kernel.link["' + equipment + '|run"]', 'memoryOnly') || '').split('|');
                         let rdevice = global.get('kernel.device["' + rsplit[0] + '|' + rsplit[1] + '"]', 'memoryOnly') || 0;
@@ -5244,7 +5248,7 @@
   maxrows: '20'
   passthru: false
   autocols: false
-  showSearch: false
+  showSearch: true
   deselect: true
   selectionType: click
   columns:
@@ -5338,7 +5342,7 @@
   maxrows: '20'
   passthru: false
   autocols: false
-  showSearch: false
+  showSearch: true
   deselect: true
   selectionType: click
   columns:

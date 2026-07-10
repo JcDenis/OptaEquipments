@@ -15092,17 +15092,19 @@
                     node.send([linkMsg, null]);
 
                     // reverse
-                    let reverseMsg = {
-                        'topic': '',
-                        'payload': '',
-                        'kernel': {
-                            'type': 'reverse',
-                            'entity': entity,
-                            'value': reverse,
-                            'loop': false
-                        }
-                    };
-                    node.send([reverseMsg, null]);
+                    if (component.match((new RegExp('^(heat|run|cycle|heatswitch|runmirror|cyclemirror)$'))) !== null) {
+                        let reverseMsg = {
+                            'topic': '',
+                            'payload': '',
+                            'kernel': {
+                                'type': 'reverse',
+                                'entity': entity,
+                                'value': reverse,
+                                'loop': false
+                            }
+                        };
+                        node.send([reverseMsg, null]);
+                    }
                 }
             }
         }
