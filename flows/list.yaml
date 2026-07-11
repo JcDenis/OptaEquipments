@@ -166,6 +166,8 @@
     - 7ecae02f244dacb3
     - 716fd198bbd63dcb
     - 033bdb2c1e76e680
+    - 040697c433576aee
+    - 102c30648ba6a277
   x: 104
   'y': 219
   w: 712
@@ -335,6 +337,7 @@
     - baa9eb973e71311f
     - c0261e8841790dd0
     - f66528f67c8d7cfd
+    - 040697c433576aee
   x: 2015
   'y': 500
   wires: []
@@ -821,6 +824,7 @@
   mode: link
   links:
     - 28b85f45e33eef42
+    - 040697c433576aee
   x: 555
   'y': 140
   wires: []
@@ -2085,3 +2089,37 @@
   wires:
     - - 1b9a457d31b5df20
       - 7779c61e2d5af956
+- id: 040697c433576aee
+  type: link in
+  z: e97c6f12735a13c1
+  g: ac0595b45d9786aa
+  name: list - hide
+  links:
+    - d929753382156fa2
+    - 1b3e234bed8047a0
+  x: 145
+  'y': 260
+  wires:
+    - - 102c30648ba6a277
+- id: 102c30648ba6a277
+  type: function
+  z: e97c6f12735a13c1
+  g: ac0595b45d9786aa
+  name: hide
+  func: |-
+    msg.payload = '';
+    msg.total = 0;
+    msg.enabled = false;
+    msg.class = 'remove';
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 260
+  wires:
+    - - 033bdb2c1e76e680

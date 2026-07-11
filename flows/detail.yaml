@@ -33,8 +33,6 @@
     - 02c026f38c097405
     - 6822e56a80bdb67e
     - c6130b371c1a6d14
-    - 14123420775a7b64
-    - 15195c5b4fd0c363
     - e171907702d6e26e
     - ba586dfb98614db0
     - a2c74fb09768552b
@@ -490,7 +488,7 @@
   x: 145
   'y': 1100
   wires:
-    - - 14123420775a7b64
+    - - 588c5377c058c6aa
 - id: 8b955db50b900391
   type: switch
   z: 852390cb9559e176
@@ -2242,32 +2240,6 @@
   x: 1030
   'y': 3260
   wires: []
-- id: 14123420775a7b64
-  type: link call
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: ''
-  links:
-    - 7f2964561cb984f7
-  linkType: static
-  timeout: '30'
-  x: 290
-  'y': 1100
-  wires:
-    - - 588c5377c058c6aa
-- id: 15195c5b4fd0c363
-  type: link call
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: ''
-  links:
-    - 7f2964561cb984f7
-  linkType: static
-  timeout: '30'
-  x: 2170
-  'y': 2180
-  wires:
-    - - e171907702d6e26e
 - id: e171907702d6e26e
   type: switch
   z: 852390cb9559e176
@@ -2878,11 +2850,11 @@
   x: 1990
   'y': 2180
   wires:
-    - - 15195c5b4fd0c363
-    - - 15195c5b4fd0c363
-    - - 15195c5b4fd0c363
-    - - 15195c5b4fd0c363
-    - - 15195c5b4fd0c363
+    - - e171907702d6e26e
+    - - e171907702d6e26e
+    - - e171907702d6e26e
+    - - e171907702d6e26e
+    - - e171907702d6e26e
     - - 1e242d16cf9d3a58
 - id: 2045a5696769c038
   type: link in
@@ -5009,10 +4981,6 @@
 
                     let srun = global.get('kernel.state["' + equipment + '|run' + '"]', 'memoryOnly');
                     if (typeof srun !== 'undefined') {
-                        let srev = global.get('kernel.reverse["' + equipment + '|run' + '"]', 'memoryOnly');
-                        if (srev === true) {
-                            srun = srun === 1 ? 0 : 1;
-                        }
                         // chek if device is offline
                         let rsplit = (global.get('kernel.link["' + equipment + '|run"]', 'memoryOnly') || '').split('|');
                         let rdevice = global.get('kernel.device["' + rsplit[0] + '|' + rsplit[1] + '"]', 'memoryOnly') || 0;
@@ -5501,7 +5469,7 @@
   x: 1470
   'y': 1040
   wires:
-    - - 14123420775a7b64
+    - - 588c5377c058c6aa
 - id: 60d3b3826824680e
   type: function
   z: 852390cb9559e176

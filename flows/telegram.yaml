@@ -873,15 +873,9 @@
 
     var i = 0;
 
-    var state = global.get('kernel.state.' + msg.entity + '|' + msg.component,
-    'default');
 
-    if (global.get('kernel.reverse.' + msg.entity + '|' + msg.component,
-    'default')) {
-      state = !state;
-    }
-
-    if (state) {
+    if (global.get('kernel.state.' + msg.entity + '|' + msg.component,
+    'memoryOnly')) {
       opts[i++] = [{
         "text": "Désactiver la chauffe",
         "callback_data": "heat|0"
@@ -1006,16 +1000,6 @@
   name: kernel
   rules:
     - t: set
-      p: reverse
-      pt: msg
-      to: msg.equipment & '|heatswitch'
-      tot: jsonata
-    - t: set
-      p: reverse
-      pt: msg
-      to: 'kernel.reverse[msg.reverse]'
-      tot: global
-    - t: set
       p: entity
       pt: msg
       to: $number(msg.entity)
@@ -1023,7 +1007,7 @@
     - t: set
       p: kernel
       pt: msg
-      to: "{\t    'type':'state',\t    'entity':msg.equipment & '|heatswitch',\t    'value':msg.reverse=true?(msg.entity=1?0:1):msg.entity,\t    'loop':false\t}"
+      to: "{\t    'type':'state',\t    'entity':msg.equipment & '|heatswitch',\t    'value':msg.entity,\t    'loop':false\t}"
       tot: jsonata
     - t: set
       p: payload
@@ -1105,9 +1089,6 @@
       pt: msg
     - t: delete
       p: telegramBot
-      pt: msg
-    - t: delete
-      p: reverse
       pt: msg
     - t: set
       p: payload
@@ -3306,16 +3287,6 @@
       p: row.entity
       pt: msg
       to: msg.row.equipment&'|'&msg.row.component
-      tot: jsonata
-    - t: set
-      p: row.reverse
-      pt: msg
-      to: 'kernel.reverse[msg.row.entity]'
-      tot: global
-    - t: set
-      p: row.state
-      pt: msg
-      to: 'msg.row.reverse=true?(msg.row.state=1?0:1):msg.row.state'
       tot: jsonata
   action: ''
   property: ''

@@ -2173,11 +2173,26 @@
   g: 2dadce6cd1694d7d
   name: reverse
   func: >-
+    /*
+
     if (typeof msg.kernel?.equipment === 'string' && typeof
     msg.kernel?.component === 'string') {
         let reverse = global.get('kernel.reverse["' + msg.kernel.equipment + '|' + msg.kernel.component + '"]', 'memoryOnly');
         if (typeof reverse === 'boolean' && reverse === true) {
             msg.kernel.value = msg.kernel.value === 0 ? 1 : 0;
+        }
+    }
+
+    */
+
+    if (typeof msg.kernel?.entity === 'string' && msg.kernel.type === 'state') {
+        let reverse = global.get('kernel.reverse["' + msg.kernel.entity + '"]', 'memoryOnly');
+        if (reverse === true) {
+            // only on 1/0 values
+            if (msg.kernel.value === 1 || msg.kernel.value === 0) {
+                msg.kernel.value = msg.kernel.value === 1 ? 0 : 1;
+                msg.kernel.reverse = true;
+            }
         }
     }
 

@@ -232,7 +232,7 @@
   name: model - opta - in
   mode: link
   links:
-    - e60e4ab7617738c3
+    - c9b77de2e18e7767
   x: 695
   'y': 140
   wires: []
@@ -444,7 +444,7 @@
   name: model - tcw122bcm - in
   mode: link
   links:
-    - e60e4ab7617738c3
+    - c9b77de2e18e7767
   x: 1115
   'y': 980
   wires: []
@@ -719,7 +719,7 @@
   name: model - ep32s3eth8di8ro - in
   mode: link
   links:
-    - e60e4ab7617738c3
+    - c9b77de2e18e7767
   x: 1795
   'y': 1400
   wires: []
@@ -1585,7 +1585,7 @@
   name: model - local - in
   mode: link
   links:
-    - e60e4ab7617738c3
+    - c9b77de2e18e7767
   x: 775
   'y': 500
   wires: []
@@ -1720,10 +1720,20 @@
         }
     } else if ((split[2] === 'input' || split[2] === 'output') && split[3] !==
     'set') {
+        // update timer from low level on reversed state
+        let low = false;
+        if (split[3] === 'partialLow' || split[3] === 'low' ) {
+            low = true;
+            split[3] = split[3] === 'low' ? 'high' : 'partialHigh';
+        }
+
         let link = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];
         let endpoint = global.get('rlink["' + link + '"]', 'memoryOnly');
         if (typeof endpoint === 'string') {
-            if (split[3] === 'partialHigh' || split[3] === 'high') {
+            // for now limit to "run" component
+            let reverse = global.get('kernel.reverse["' + endpoint.split('|')[0] + '|run"]', 'memoryOnly') || false;
+
+            if ((low && reverse) || (!low && (split[3] === 'partialHigh' || split[3] === 'high'))) {
                 /* convert timers fron seconds to hours, round to one decimal */
                 msg.payload = Math.round(msg.payload / 360) / 10;
             } else if (split[3] === 'voltage') {
@@ -1793,7 +1803,7 @@
                 msg.topic = 'opta/' + msg.kernel.device + '/output/set/' + msg.kernel.terminal;
                 msg.payload = msg.kernel.value;
 
-                delete msg.kernel;
+                //delete msg.kernel;
 
                 return msg;
             }
@@ -2305,7 +2315,7 @@
   bytopic: topic
   topic: topic
   outputs: 1
-  x: 850
+  x: 950
   'y': 140
   wires:
     - []
