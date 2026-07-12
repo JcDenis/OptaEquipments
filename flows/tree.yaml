@@ -545,6 +545,13 @@
     - c07c7c5c9d1774cc
     - 5742fdabd3bfd6c3
     - e60b25fbee7f7854
+    - fb31d04e3e5f3e71
+    - 67422b1c6069640e
+    - 0b75daa604a1c3f4
+    - a6f542e81794ab04
+    - 03c27a270da4ba19
+    - 762fa47b64a5c3d8
+    - 12659e21a77bde15
   x: 104
   'y': 3939
   w: 2862
@@ -4980,8 +4987,8 @@
   x: 1470
   'y': 4520
   wires:
-    - - 79642165f3c70da6
-      - c2f3dcd585da9474
+    - - c2f3dcd585da9474
+      - 762fa47b64a5c3d8
 - id: 93dadc68baa38a29
   type: ui-button
   z: 64ce08af468b8197
@@ -5942,7 +5949,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1670
+  x: 2210
   'y': 4520
   wires:
     - - d38d302033482da3
@@ -14695,8 +14702,8 @@
   x: 1470
   'y': 4640
   wires:
-    - - d785cb73c61bd69f
-      - b02e557a07e1ffe0
+    - - b02e557a07e1ffe0
+      - 12659e21a77bde15
 - id: d785cb73c61bd69f
   type: change
   z: 64ce08af468b8197
@@ -14723,7 +14730,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1670
+  x: 2210
   'y': 4640
   wires:
     - - 8abe2644f1fc95b2
@@ -15296,8 +15303,8 @@
   x: 1480
   'y': 4580
   wires:
-    - - b2047fb631b98fef
-      - 5742fdabd3bfd6c3
+    - - 5742fdabd3bfd6c3
+      - 03c27a270da4ba19
 - id: 2a3a8860b5edcb80
   type: change
   z: 64ce08af468b8197
@@ -15410,7 +15417,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1670
+  x: 2210
   'y': 4580
   wires:
     - - 6bf558c9b2951d9a
@@ -15614,3 +15621,146 @@
     - - 7866a0ada50fe22f
       - d587c6ae16073069
     - - 5089216d327d1312
+- id: fb31d04e3e5f3e71
+  type: switch
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: no set
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '-1'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1870
+  'y': 4520
+  wires:
+    - - 67422b1c6069640e
+    - - 79642165f3c70da6
+- id: 67422b1c6069640e
+  type: change
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: reverse
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg.hmi.id][''input_reverse'']'
+      pt: flow
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2040
+  'y': 4460
+  wires:
+    - - 03c27a270da4ba19
+- id: 0b75daa604a1c3f4
+  type: switch
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: no set
+  property: payload
+  propertyType: msg
+  rules:
+    - t: eq
+      v: '-1'
+      vt: num
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1870
+  'y': 4640
+  wires:
+    - - a6f542e81794ab04
+    - - d785cb73c61bd69f
+- id: a6f542e81794ab04
+  type: change
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: reverse
+  rules:
+    - t: set
+      p: '#:(memoryOnly)::form[msg.hmi.id][''output_reverse'']'
+      pt: flow
+      to: 'false'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2040
+  'y': 4580
+  wires:
+    - - c07c7c5c9d1774cc
+- id: 03c27a270da4ba19
+  type: switch
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: no output
+  property: '#:(memoryOnly)::form[msg.hmi.id]group'
+  propertyType: flow
+  rules:
+    - t: regex
+      v: ^(run|cycle|heat)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1680
+  'y': 4580
+  wires:
+    - - b2047fb631b98fef
+    - - c07c7c5c9d1774cc
+- id: 762fa47b64a5c3d8
+  type: switch
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: no reverse
+  property: '#:(memoryOnly)::form[msg.hmi.id]group'
+  propertyType: flow
+  rules:
+    - t: regex
+      v: ^(run|cycle|heat)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1690
+  'y': 4520
+  wires:
+    - - fb31d04e3e5f3e71
+    - - 67422b1c6069640e
+- id: 12659e21a77bde15
+  type: switch
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: no reverse
+  property: '#:(memoryOnly)::form[msg.hmi.id]group'
+  propertyType: flow
+  rules:
+    - t: regex
+      v: ^(run|cycle|heat)$
+      vt: str
+      case: false
+    - t: else
+  checkall: 'false'
+  repair: false
+  outputs: 2
+  x: 1690
+  'y': 4640
+  wires:
+    - - 0b75daa604a1c3f4
+    - - a6f542e81794ab04
