@@ -1733,6 +1733,11 @@
             // for now limit to "run" component
             let reverse = global.get('kernel.reverse["' + endpoint.split('|')[0] + '|run"]', 'memoryOnly') || false;
 
+            // skip low value on not reversed state
+            if (low && !reverse) {
+                return;
+            }
+
             if ((low && reverse) || (!low && (split[3] === 'partialHigh' || split[3] === 'high'))) {
                 /* convert timers fron seconds to hours, round to one decimal */
                 msg.payload = Math.round(msg.payload / 360) / 10;
