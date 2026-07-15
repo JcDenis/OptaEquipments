@@ -125,10 +125,11 @@
     - 13e61c4c6242c6c4
     - 111bcae539ab0233
     - f4772c8ec8d416b2
+    - 0d469617a9c645ef
   x: 838
   'y': 373
   w: 714
-  h: 1094
+  h: 1274
 - id: fa94e5dda0432e95
   type: group
   z: adb9fbf379118d77
@@ -539,6 +540,26 @@
   'y': 639
   w: 412
   h: 82
+- id: 0d469617a9c645ef
+  type: group
+  z: adb9fbf379118d77
+  g: d6c1ebf8add349c2
+  name: option - holiday
+  style:
+    label: true
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    stroke: '#92d04f'
+  nodes:
+    - 77c6ca7aba30bff6
+    - 48f4aa09c9e72792
+    - 183b198a2192a3ce
+    - 60178f3cbea8eb5c
+    - 324e90f6c5f6ef86
+  x: 864
+  'y': 1479
+  w: 572
+  h: 142
 - id: 2ee1493983ba4b61
   type: link out
   z: adb9fbf379118d77
@@ -2454,3 +2475,98 @@
   x: 2615
   'y': 680
   wires: []
+- id: 77c6ca7aba30bff6
+  type: link in
+  z: adb9fbf379118d77
+  g: 0d469617a9c645ef
+  name: option - holiday
+  links: []
+  x: 905
+  'y': 1520
+  wires:
+    - - 324e90f6c5f6ef86
+- id: 48f4aa09c9e72792
+  type: link out
+  z: adb9fbf379118d77
+  g: 0d469617a9c645ef
+  name: option - holiday
+  mode: return
+  links: []
+  x: 1395
+  'y': 1520
+  wires: []
+- id: 183b198a2192a3ce
+  type: debug
+  z: adb9fbf379118d77
+  g: 0d469617a9c645ef
+  name: option - holiday
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1260
+  'y': 1580
+  wires: []
+- id: 60178f3cbea8eb5c
+  type: link call
+  z: adb9fbf379118d77
+  g: 0d469617a9c645ef
+  name: ''
+  links:
+    - cd21bdc2e85b8b8e
+  linkType: static
+  timeout: '30'
+  x: 1250
+  'y': 1520
+  wires:
+    - - 48f4aa09c9e72792
+- id: 324e90f6c5f6ef86
+  type: function
+  z: adb9fbf379118d77
+  g: 0d469617a9c645ef
+  name: holidays
+  func: |-
+    msg.options = [{
+        'label': '',
+        'value': '',
+        'dropdown': 'holiday'
+    }];
+
+    let i = 0;
+    let holidays = global.get('kernel.holiday', 'memoryOnly');
+    if (typeof holidays === 'object') {
+        for (const holiday in holidays) {
+            if (typeof msg.limit_plant === 'undefined' || holiday === msg.limit_plant) {
+                let sholidays = holidays[holiday].split('|');
+                for (const sholiday in sholidays) {
+                    msg.options[i++] = {
+                        'label': sholidays[sholiday],
+                        'value': sholidays[sholiday],
+                        'dropdown': 'holiday'
+                    }
+                }
+            }
+        }
+    }
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = {};
+    }
+    msg.ui_update.label = (msg.dictionary?.common_select_day) || 'Select a day';
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1040
+  'y': 1520
+  wires:
+    - - 60178f3cbea8eb5c
+      - 183b198a2192a3ce
