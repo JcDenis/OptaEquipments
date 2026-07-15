@@ -55,10 +55,13 @@
     - bd492fc337963491
     - 0fc506fd101f1d0c
     - 88105ea3fcd56b54
+    - f4d3e88b80009b83
+    - 99c84a564059a3f7
+    - 7553efdc75355132
   x: 104
   'y': 219
   w: 2062
-  h: 322
+  h: 442
 - id: d55041fdf28a3f36
   type: link in
   z: 51c4b2897d2c318c
@@ -396,7 +399,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1250
+  x: 1270
   'y': 260
   wires:
     - - d0bfea36099bd97c
@@ -404,6 +407,8 @@
       - bd720f4ed1f034f8
       - beac0cb54e4ebf07
       - bade08026654ecc9
+      - 99c84a564059a3f7
+      - 7553efdc75355132
 - id: 482622d47dd8f977
   type: link call
   z: 51c4b2897d2c318c
@@ -466,10 +471,10 @@
   g: 744a665a3304c311
   group: 09b574b24dc3ba17
   name: period - team - fr
-  label: ''
+  label: Equipes
   order: 6
-  width: 0
-  height: 0
+  width: '0'
+  height: '0'
   maxrows: 0
   passthru: false
   autocols: false
@@ -509,7 +514,7 @@
   g: 744a665a3304c311
   group: 09b574b24dc3ba17
   name: period - team - en
-  label: ''
+  label: Teams
   order: 7
   width: 0
   height: 0
@@ -667,6 +672,7 @@
   wires:
     - - 39cf9bc6de140b04
       - 0fc506fd101f1d0c
+      - f4d3e88b80009b83
 - id: bd492fc337963491
   type: change
   z: 51c4b2897d2c318c
@@ -683,6 +689,7 @@
   wires:
     - - 39cf9bc6de140b04
       - 0fc506fd101f1d0c
+      - f4d3e88b80009b83
 - id: 88e6d6eec4fb8bf5
   type: change
   z: 51c4b2897d2c318c
@@ -874,3 +881,131 @@
     - - 3af957dd224c384a
       - 4c2159ea37aa1ec2
     - - 4a798d15562c1309
+- id: f4d3e88b80009b83
+  type: function
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: holidays
+  func: |-
+    let holidays = global.get('kernel.holiday', 'memoryOnly') || {};
+    let i = 0;
+
+    msg.payload = [];
+
+    if (typeof holidays === 'object') {
+        for (const plant in holidays) {
+            if (plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
+                let hsplit = holidays[plant].split('|');
+
+                for (const k in hsplit) {
+                    let row  = {};
+                    row.entity = plant;
+                    row.date = hsplit[k];
+                    row.month = hsplit[k].slice(0,2);
+                    row.day = hsplit[k].slice(3);
+
+                    msg.payload[i++] = row;
+                }
+            }
+        }
+    }
+
+    if (i > 0) {
+        msg.class = '';
+        msg.enabled = true
+
+        if (msg.hmi.lang === 'fr') {
+
+            return [msg, null];
+        } else {
+
+            return [null, msg];
+        }
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1260
+  'y': 560
+  wires:
+    - - 99c84a564059a3f7
+    - - 7553efdc75355132
+- id: 99c84a564059a3f7
+  type: ui-table
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  group: 09b574b24dc3ba17
+  name: period - holiday - fr
+  label: Jours fériés
+  order: 8
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Jour
+      key: day
+      keyType: key
+      type: text
+      width: 80%
+      align: end
+    - title: Mois
+      key: month
+      keyType: key
+      type: text
+      width: ''
+      align: end
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 1470
+  'y': 560
+  wires:
+    - []
+- id: 7553efdc75355132
+  type: ui-table
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  group: 09b574b24dc3ba17
+  name: period - holiday - en
+  label: Holidays
+  order: 9
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Jour
+      key: day
+      keyType: key
+      type: text
+      width: 80%
+      align: end
+    - title: Mois
+      key: month
+      keyType: key
+      type: text
+      width: ''
+      align: end
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 1480
+  'y': 620
+  wires:
+    - []

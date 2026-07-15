@@ -1705,12 +1705,15 @@
             "4c4bb5da4693075d",
             "bd492fc337963491",
             "0fc506fd101f1d0c",
-            "88105ea3fcd56b54"
+            "88105ea3fcd56b54",
+            "f4d3e88b80009b83",
+            "99c84a564059a3f7",
+            "7553efdc75355132"
         ],
         "x": 104,
         "y": 219,
         "w": 2062,
-        "h": 322
+        "h": 442
     },
     {
         "id": "1ac161d9a8075225",
@@ -2202,8 +2205,7 @@
             "4be0becb29998d3a",
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
-            "11d028449aaa105b",
-            "2d5f4d293f91f13f"
+            "11d028449aaa105b"
         ],
         "x": 68,
         "y": 13,
@@ -7586,7 +7588,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "prepare",
-        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic': '',\n        'payload': (global.get('kernel.team', 'memoryOnly') || {}),\n        'row': {\n            'ts': Date.now()\n            // some timestamp tests\n            //'ts': 1781921986000 // saturday 4:19\n            //'ts': 1781929186000 // saturday 6:19\n            //'ts': 1781936386000 // satruday 8:19\n            //'ts': 1782015586000 // sunday 6:19\n            //'ts': 1782076786000 // sunday 23:19\n            //'ts': 1782094786000 // monday 4:19\n            //'ts': 1782163186000 // monday 23:19\n            //'ts': 1782238786000 // tuesday 20:19\n            //'ts': 1782346500000 // wednesday 02:15\n        }\n    };\n}\n\nreturn;",
+        "func": "if (typeof global.get('kernel.team', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.period', 'memoryOnly') === 'object'\n    && typeof global.get('kernel.state', 'memoryOnly') === 'object'\n) {\n    flow.set('teams', {}, 'memoryOnly');\n\n    return {\n        'topic': '',\n        'payload': (global.get('kernel.team', 'memoryOnly') || {}),\n        'row': {\n            'ts': Date.now()\n            // some timestamp tests\n            //'ts': 1781921986000 // saturday 4:19\n            //'ts': 1781929186000 // saturday 6:19\n            //'ts': 1781936386000 // satruday 8:19\n            //'ts': 1782015586000 // sunday 6:19\n            //'ts': 1782076786000 // sunday 23:19\n            //'ts': 1782094786000 // monday 4:19\n            //'ts': 1782163186000 // monday 23:19\n            //'ts': 1782238786000 // tuesday 20:19\n            //'ts': 1782346500000 // wednesday 02:15\n            //'ts': 1784016000000 // 14/07/2026 10:00 holiday\n            //'ts': 1783987200000 // 14/07/2026 2:00\n            //'ts': 1783998000000 // 14/07/2026 5:00\n            //'ts': 1784064900000 // 14/07/2026 23:35\n            //'ts': 1784073600000 // 15/07/2026 2:00\n            //'ts': 1784084400000 // 15/07/2026 5:00\n        }\n    };\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8568,7 +8570,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "day",
-        "func": "let one_day = 86400000; // 24h in ms\n\nmsg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\nmsg.row.curts = Number(msg.row.curts);\n\n/* team start before midnight and end after midnight and current time is before team start time*/\nif (msg.row.stoptime < msg.row.starttime && msg.row.curtime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday - 1;\n    msg.row.curts = msg.row.curts - one_day;\n}\n\n/* then regain week day */\nif (msg.row.curday === 7) {\n    msg.row.curday = 0;\n} else if (msg.row.curday === -1) {\n    msg.row.curday = 6;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 6 && msg.row.team.match((new RegExp('^(s)$'))) !== null)\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n        //...\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n        //...\n    }\n}\n\n//test\n/*\nconst curdate = new Date(msg.row.curts); \nmsg.row.curdate = (\"0\" + (curdate.getMonth() +1)).slice(-2) + \"-\" + (\"0\" + curdate.getDate()).slice(-2);\nlet holidays = (global.get('kernel.holidays[\"' + msg.row.plant + '\"]', 'memoryOnly') || '').split('|');\nfor (const holiday in holidays) {\n    if (holidays[holiday] === msg.row.curdate) {\n        msg.row.value = false;\n    }\n}\n*/\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n//msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team + ':' + msg.row.value;\n\nreturn msg;",
+        "func": "let one_day = 86400000; // 24h in ms\n\nmsg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\nmsg.row.curts = Number(msg.row.curts);\n\n/* team start before midnight and end after midnight and current time is before team start time*/\nif (msg.row.stoptime < msg.row.starttime && msg.row.curtime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday - 1;\n    msg.row.curts = msg.row.curts - one_day;\n}\n\n/* then regain week day */\nif (msg.row.curday === 7) {\n    msg.row.curday = 0;\n} else if (msg.row.curday === -1) {\n    msg.row.curday = 6;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 6 && msg.row.team.match((new RegExp('^(s)$'))) !== null)\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n        //...\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n        //...\n    }\n}\n\n//test\n//*\nconst curdate = new Date(msg.row.curts); \nmsg.row.curdate = (\"0\" + (curdate.getMonth() +1)).slice(-2) + \"-\" + (\"0\" + curdate.getDate()).slice(-2);\nlet holidays = (global.get('kernel.holiday[\"' + msg.row.plant + '\"]', 'memoryOnly') || '').split('|');\nfor (const k in holidays) {\n    if (holidays[k] === msg.row.curdate) {\n        msg.row.value = false;\n    }\n}\n//*/\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value, 'memoryOnly');\n//msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team + ':' + msg.row.value;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8579,8 +8581,7 @@
         "y": 800,
         "wires": [
             [
-                "2b027f15e857dc2d",
-                "2d5f4d293f91f13f"
+                "2b027f15e857dc2d"
             ]
         ]
     },
@@ -8692,24 +8693,6 @@
                 "8686efc820f0e65f"
             ]
         ]
-    },
-    {
-        "id": "2d5f4d293f91f13f",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "g": "f9da6ea6fa5cc954",
-        "name": "debug 3",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1860,
-        "y": 900,
-        "wires": []
     },
     {
         "id": "8b0e964d0d63793b",
@@ -19491,7 +19474,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1250,
+        "x": 1270,
         "y": 260,
         "wires": [
             [
@@ -19499,7 +19482,9 @@
                 "0cbca936c25fa514",
                 "bd720f4ed1f034f8",
                 "beac0cb54e4ebf07",
-                "bade08026654ecc9"
+                "bade08026654ecc9",
+                "99c84a564059a3f7",
+                "7553efdc75355132"
             ]
         ]
     },
@@ -19582,10 +19567,10 @@
         "g": "744a665a3304c311",
         "group": "09b574b24dc3ba17",
         "name": "period - team - fr",
-        "label": "",
+        "label": "Equipes",
         "order": 6,
-        "width": 0,
-        "height": 0,
+        "width": "0",
+        "height": "0",
         "maxrows": 0,
         "passthru": false,
         "autocols": false,
@@ -19635,7 +19620,7 @@
         "g": "744a665a3304c311",
         "group": "09b574b24dc3ba17",
         "name": "period - team - en",
-        "label": "",
+        "label": "Teams",
         "order": 7,
         "width": 0,
         "height": 0,
@@ -19748,7 +19733,8 @@
         "wires": [
             [
                 "39cf9bc6de140b04",
-                "0fc506fd101f1d0c"
+                "0fc506fd101f1d0c",
+                "f4d3e88b80009b83"
             ]
         ]
     },
@@ -19769,7 +19755,8 @@
         "wires": [
             [
                 "39cf9bc6de140b04",
-                "0fc506fd101f1d0c"
+                "0fc506fd101f1d0c",
+                "f4d3e88b80009b83"
             ]
         ]
     },
@@ -19874,6 +19861,120 @@
             [
                 "4a798d15562c1309"
             ]
+        ]
+    },
+    {
+        "id": "f4d3e88b80009b83",
+        "type": "function",
+        "z": "51c4b2897d2c318c",
+        "g": "744a665a3304c311",
+        "name": "holidays",
+        "func": "let holidays = global.get('kernel.holiday', 'memoryOnly') || {};\nlet i = 0;\n\nmsg.payload = [];\n\nif (typeof holidays === 'object') {\n    for (const plant in holidays) {\n        if (plant === global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly')) {\n            let hsplit = holidays[plant].split('|');\n\n            for (const k in hsplit) {\n                let row  = {};\n                row.entity = plant;\n                row.date = hsplit[k];\n                row.month = hsplit[k].slice(0,2);\n                row.day = hsplit[k].slice(3);\n\n                msg.payload[i++] = row;\n            }\n        }\n    }\n}\n\nif (i > 0) {\n    msg.class = '';\n    msg.enabled = true\n\n    if (msg.hmi.lang === 'fr') {\n\n        return [msg, null];\n    } else {\n\n        return [null, msg];\n    }\n}\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 560,
+        "wires": [
+            [
+                "99c84a564059a3f7"
+            ],
+            [
+                "7553efdc75355132"
+            ]
+        ]
+    },
+    {
+        "id": "99c84a564059a3f7",
+        "type": "ui-table",
+        "z": "51c4b2897d2c318c",
+        "g": "744a665a3304c311",
+        "group": "09b574b24dc3ba17",
+        "name": "period - holiday - fr",
+        "label": "Jours fériés",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": false,
+        "showSearch": false,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [
+            {
+                "title": "Jour",
+                "key": "day",
+                "keyType": "key",
+                "type": "text",
+                "width": "80%",
+                "align": "end"
+            },
+            {
+                "title": "Mois",
+                "key": "month",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "end"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 1470,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7553efdc75355132",
+        "type": "ui-table",
+        "z": "51c4b2897d2c318c",
+        "g": "744a665a3304c311",
+        "group": "09b574b24dc3ba17",
+        "name": "period - holiday - en",
+        "label": "Holidays",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": false,
+        "showSearch": false,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [
+            {
+                "title": "Jour",
+                "key": "day",
+                "keyType": "key",
+                "type": "text",
+                "width": "80%",
+                "align": "end"
+            },
+            {
+                "title": "Mois",
+                "key": "month",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "end"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 1480,
+        "y": 620,
+        "wires": [
+            []
         ]
     },
     {

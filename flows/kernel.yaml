@@ -81,7 +81,6 @@
     - 216f821485a9eb19
     - 0782cf84e02ba5e3
     - 11d028449aaa105b
-    - 2d5f4d293f91f13f
   x: 68
   'y': 13
   w: 2844
@@ -3350,6 +3349,12 @@
                 //'ts': 1782163186000 // monday 23:19
                 //'ts': 1782238786000 // tuesday 20:19
                 //'ts': 1782346500000 // wednesday 02:15
+                //'ts': 1784016000000 // 14/07/2026 10:00 holiday
+                //'ts': 1783987200000 // 14/07/2026 2:00
+                //'ts': 1783998000000 // 14/07/2026 5:00
+                //'ts': 1784064900000 // 14/07/2026 23:35
+                //'ts': 1784073600000 // 15/07/2026 2:00
+                //'ts': 1784084400000 // 15/07/2026 5:00
             }
         };
     }
@@ -5000,23 +5005,23 @@
 
     //test
 
-    /*
+    //*
 
     const curdate = new Date(msg.row.curts); 
 
     msg.row.curdate = ("0" + (curdate.getMonth() +1)).slice(-2) + "-" + ("0" +
     curdate.getDate()).slice(-2);
 
-    let holidays = (global.get('kernel.holidays["' + msg.row.plant + '"]',
+    let holidays = (global.get('kernel.holiday["' + msg.row.plant + '"]',
     'memoryOnly') || '').split('|');
 
-    for (const holiday in holidays) {
-        if (holidays[holiday] === msg.row.curdate) {
+    for (const k in holidays) {
+        if (holidays[k] === msg.row.curdate) {
             msg.row.value = false;
         }
     }
 
-    */
+    //*/
 
 
     flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
@@ -5037,7 +5042,6 @@
   'y': 800
   wires:
     - - 2b027f15e857dc2d
-      - 2d5f4d293f91f13f
 - id: b490f62e4ba2632e
   type: ui-template
   z: f6f2187d.f17ca8
@@ -5129,22 +5133,6 @@
   'y': 800
   wires:
     - - 8686efc820f0e65f
-- id: 2d5f4d293f91f13f
-  type: debug
-  z: f6f2187d.f17ca8
-  g: f9da6ea6fa5cc954
-  name: debug 3
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1860
-  'y': 900
-  wires: []
 - id: 8b0e964d0d63793b
   type: function
   z: f6f2187d.f17ca8
