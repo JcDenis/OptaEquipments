@@ -854,6 +854,7 @@
     - 50faca8542d1352b
     - 32ad88dfc5b0a353
     - c9bbbcdeb2c66fdf
+    - 86e427fd6f0efb9b
   x: 104
   'y': 7359
   w: 2842
@@ -5730,7 +5731,6 @@
   links:
     - 4e94023e8ba12f50
     - 1bd9c70a5be52bdc
-    - 012b1da9587503b4
   x: 1815
   'y': 4940
   wires: []
@@ -9565,7 +9565,7 @@
     - t: set
       p: options
       pt: msg
-      to: "msg.hmi.level='admin'? [\t    {\t        'value':'plant',\t        'label':msg.dictionary.common_name_plants\t    },\t    {\t        'value':'line',\t        'label':msg.dictionary.common_name_lines\t    },\t    {\t        'value':'equipment',\t        'label':msg.dictionary.common_name_equipments\t    },\t    {\t        'value':'device',\t        'label':msg.dictionary.common_name_devices\t    },\t    {\t        'value':'component',\t        'label':msg.dictionary.common_name_components\t    },\t    {\t        'value':'alert',\t        'label':msg.dictionary.common_name_alerts\t    },\t    {\t        'value':'period',\t        'label':msg.dictionary.common_name_teams\t    },\t    {\t        'value':'day',\t        'label':msg.dictionary.common_name_day\t    },\t    {\t        'value':'holiday',\t        'label':msg.dictionary.common_name_holiday\t    }\t] : [\t    {\t        'value':'line',\t        'label':msg.dictionary.common_name_lines\t    },\t    {\t        'value':'equipment',\t        'label':msg.dictionary.common_name_equipments\t    },\t    {\t        'value':'component',\t        'label':msg.dictionary.common_name_components\t    },\t    {\t        'value':'alert',\t        'label':msg.dictionary.common_name_alerts\t    },\t    {\t        'value':'period',\t        'label':msg.dictionary.common_name_teams\t    },\t    {\t        'value':'day',\t        'label':msg.dictionary.common_name_day\t    }\t]"
+      to: "msg.hmi.level='admin'? [\t    {\t        'value':'plant',\t        'label':msg.dictionary.common_name_plants\t    },\t    {\t        'value':'line',\t        'label':msg.dictionary.common_name_lines\t    },\t    {\t        'value':'equipment',\t        'label':msg.dictionary.common_name_equipments\t    },\t    {\t        'value':'device',\t        'label':msg.dictionary.common_name_devices\t    },\t    {\t        'value':'component',\t        'label':msg.dictionary.common_name_components\t    },\t    {\t        'value':'alert',\t        'label':msg.dictionary.common_name_alerts\t    },\t    {\t        'value':'period',\t        'label':msg.dictionary.common_name_teams\t    },\t    {\t        'value':'day',\t        'label':msg.dictionary.common_name_day\t    },\t    {\t        'value':'holiday',\t        'label':msg.dictionary.common_name_holidays\t    }\t] : [\t    {\t        'value':'line',\t        'label':msg.dictionary.common_name_lines\t    },\t    {\t        'value':'equipment',\t        'label':msg.dictionary.common_name_equipments\t    },\t    {\t        'value':'component',\t        'label':msg.dictionary.common_name_components\t    },\t    {\t        'value':'alert',\t        'label':msg.dictionary.common_name_alerts\t    },\t    {\t        'value':'period',\t        'label':msg.dictionary.common_name_teams\t    },\t    {\t        'value':'day',\t        'label':msg.dictionary.common_name_day\t    }\t]"
       tot: jsonata
   action: ''
   property: ''
@@ -16145,7 +16145,6 @@
   g: 3f9c0107c43536e4
   name: tree - holiday
   links:
-    - 2e0c6e8b3e58b338
     - d5a2492cd9b261b1
     - 2ea2dfd8b060d57a
   x: 145
@@ -16691,7 +16690,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1600
+  x: 1820
   'y': 7720
   wires:
     - - 8c5134a99a1fd8b9
@@ -16702,7 +16701,7 @@
   z: 64ce08af468b8197
   g: 3f9c0107c43536e4
   name: tree - holiday
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -16710,8 +16709,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1790
-  'y': 7660
+  x: 2010
+  'y': 7720
   wires: []
 - id: 2ea2dfd8b060d57a
   type: link out
@@ -16722,8 +16721,8 @@
   links:
     - e60e4ab7617738c3
     - 012b1da9587503b4
-  x: 1735
-  'y': 7720
+  x: 1955
+  'y': 7780
   wires: []
 - id: 32eaed6b550d9ba9
   type: link out
@@ -16733,8 +16732,8 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1735
-  'y': 7780
+  x: 1955
+  'y': 7840
   wires: []
 - id: f13ab7e8c8384256
   type: comment
@@ -16994,42 +16993,16 @@
   g: 3f9c0107c43536e4
   name: holiday
   func: |-
-    if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        // Get form values
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
-        // Get existing plant holidays
-        let tmp = global.get('kernel.holiday["' + form.plant + '"]', 'memoryOnly') || '';
-        // Split existing plant holidays
-        let holidays = tmp.split('|');
-        // Remove day from holidays
-        let i = 0;
-        let res = [];
-        for (const holiday in holidays) {
-            if (holidays[holiday] !== form.holiday) {
-                res[i++] = holidays[holiday];
-            }
-        }
+    msg.kernel = {
+        'type': 'holiday',
+        'entity': flow.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly'),
+        'value': flow.get('form["' + msg.hmi.id + '"]["holiday"]', 'memoryOnly'),
+        'loop': false,
+        'delete': true
+    };
 
-        // holiday
-        let holidayMsg = {
-            'topic': '',
-            'payload': '',
-            'kernel': {
-                'type': 'holiday',
-                'entity': form.plant,
-                'value': res.join('|'),
-                'loop': false
-            }
-        };
-        node.send([holidayMsg, null]);
-
-        // notice
-        msg.payload = msg.dictionary.common_notice_tree_update_success;
-        node.send([null, msg]);
-    }
-
-    return;
-  outputs: 2
+    return msg;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -17038,5 +17011,18 @@
   x: 1600
   'y': 7840
   wires:
+    - - 86e427fd6f0efb9b
+- id: 86e427fd6f0efb9b
+  type: link call
+  z: 64ce08af468b8197
+  g: 3f9c0107c43536e4
+  name: ''
+  links:
+    - 714f68a693410801
+  linkType: static
+  timeout: '30'
+  x: 1800
+  'y': 7840
+  wires:
     - - 2ea2dfd8b060d57a
-    - - 32eaed6b550d9ba9
+      - 32eaed6b550d9ba9

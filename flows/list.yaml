@@ -172,6 +172,26 @@
   'y': 219
   w: 712
   h: 202
+- id: 4e3920250d1c0ff6
+  type: group
+  z: e97c6f12735a13c1
+  name: list - holiday
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 7e9274837d469e1c
+    - 17e7a0d50bf546d9
+    - adb8546f92edd61f
+    - 8bc321b6eb931622
+    - 3f4152c6f79c1916
+    - 603d4e1c96182b78
+    - 69f9c115d9959785
+  x: 104
+  'y': 1891.5
+  w: 1092
+  h: 209.5
 - id: 28b85f45e33eef42
   type: link in
   z: e97c6f12735a13c1
@@ -212,7 +232,7 @@
     - t: set
       p: options
       pt: msg
-      to: "[\t    {\t        'label':msg.dictionary.common_name_lines,\t        'value':'line'\t    },\t    {\t        'label':msg.dictionary.common_name_equipments,\t        'value':'equipment'\t    },\t    {\t        'label':msg.dictionary.common_name_alerts,\t        'value':'alert'\t    },\t    {\t        'label':msg.dictionary.common_name_devices,\t        'value':'device'\t    },\t    {\t        'label':msg.dictionary.common_name_components,\t        'value':'component'\t    }\t]"
+      to: "[\t    {\t        'label':msg.dictionary.common_name_lines,\t        'value':'line'\t    },\t    {\t        'label':msg.dictionary.common_name_equipments,\t        'value':'equipment'\t    },\t    {\t        'label':msg.dictionary.common_name_alerts,\t        'value':'alert'\t    },\t    {\t        'label':msg.dictionary.common_name_devices,\t        'value':'device'\t    },\t    {\t        'label':msg.dictionary.common_name_components,\t        'value':'component'\t    },\t    {\t        'label':msg.dictionary.common_name_holidays,\t        'value':'holiday'\t    }\t]"
       tot: jsonata
     - t: set
       p: ui_update
@@ -338,6 +358,7 @@
     - c0261e8841790dd0
     - f66528f67c8d7cfd
     - 040697c433576aee
+    - 17e7a0d50bf546d9
   x: 2015
   'y': 500
   wires: []
@@ -833,7 +854,7 @@
   z: e97c6f12735a13c1
   g: ac0595b45d9786aa
   group: c605809a8fe63a3b
-  order: 14
+  order: 16
   width: 0
   height: 0
   name: list - total
@@ -1280,6 +1301,7 @@
     - 8fdbc68cf0ee65f4
     - a4166a35f4e31509
     - f1491390ad3bbec6
+    - 69f9c115d9959785
   x: 145
   'y': 320
   wires:
@@ -1307,6 +1329,7 @@
     - 2310141e1336bdc7
     - 30d9b3b967fbbc14
     - baa9eb973e71311f
+    - 17e7a0d50bf546d9
   x: 775
   'y': 260
   wires: []
@@ -2123,3 +2146,233 @@
   'y': 260
   wires:
     - - 033bdb2c1e76e680
+- id: 17e7a0d50bf546d9
+  type: link in
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  name: list - holiday
+  links:
+    - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
+  x: 145
+  'y': 1940
+  wires:
+    - - 7e9274837d469e1c
+- id: 7e9274837d469e1c
+  type: function
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  name: parse holidays
+  func: |-
+    msg.payload = [];
+
+    node.send([null, msg, msg]);
+
+    msg.class = '';
+    msg.enabled = true;
+
+    if (msg.list === 'holiday') {
+        let holidays = global.get('kernel.holiday', 'memoryOnly') || {};
+        let i = 0;
+
+        for (const plant in holidays) {
+            if (plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
+                let hsplit = holidays[plant].split('|');
+
+                for (const k in hsplit) {
+                    let row  = {};
+                    row.entity = plant;
+                    row.date = hsplit[k];
+                    row.month = hsplit[k].slice(0,2);
+                    row.day = hsplit[k].slice(3);
+                    row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+
+                    msg.payload[i++] = row;
+                }
+            }
+        }
+
+        // Records title
+        msg.total = i;
+        node.send([msg, null, null]);
+
+        if (i > 0) {
+            msg.payload.sort(function($l, $r) {
+                if ($l.month === $r.month) {
+
+                    return $l.month > $r.month ? 1 : -1;
+                }
+
+                return $l.month < $r.month ? 1 : -1;
+            });
+
+            msg.payload.sort(function($l, $r) {
+                if ($l.day === $r.day) {
+
+                    return $l.day > $r.day ? 1 : -1;
+                }
+
+                return $l.mondayth < $r.day ? 1 : -1;
+            });
+
+            if (msg.hmi.lang === 'fr') {
+
+                return [null, msg, null];
+            } else {
+
+                return [null, null, msg];
+            }
+        }
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 300
+  'y': 1940
+  wires:
+    - - 69f9c115d9959785
+    - - adb8546f92edd61f
+    - - 8bc321b6eb931622
+- id: adb8546f92edd61f
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  group: c605809a8fe63a3b
+  name: list - holiday - table - fr
+  label: ''
+  order: 14
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Jour
+      key: day
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Mois
+      key: month
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 540
+  'y': 2000
+  wires:
+    - - 3f4152c6f79c1916
+- id: 8bc321b6eb931622
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  group: c605809a8fe63a3b
+  name: list - holiday - table - en
+  label: ''
+  order: 15
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: Mois
+      key: month
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Jour
+      key: day
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 550
+  'y': 2060
+  wires:
+    - - 3f4152c6f79c1916
+- id: 3f4152c6f79c1916
+  type: link call
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  name: ''
+  links:
+    - 56e6a7b9b0e66451
+  linkType: static
+  timeout: '30'
+  x: 790
+  'y': 2000
+  wires:
+    - - 603d4e1c96182b78
+- id: 603d4e1c96182b78
+  type: function
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  name: actions & kernel
+  func: |-
+    if (msg.action === 'button_click' && msg.column === 'delete') {
+        msg.kernel = {
+            'type': 'holiday',
+            'entity': msg.payload.entity,
+            'value': msg.payload.date,
+            'loop': false,
+            'delete': true
+        };
+        msg.list = 'holiday';
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1000
+  'y': 2000
+  wires:
+    - - 69f9c115d9959785
+- id: 69f9c115d9959785
+  type: link out
+  z: e97c6f12735a13c1
+  g: 4e3920250d1c0ff6
+  name: list - holiday
+  mode: link
+  links:
+    - 468277bb16c8903c
+  x: 1155
+  'y': 1940
+  wires: []
