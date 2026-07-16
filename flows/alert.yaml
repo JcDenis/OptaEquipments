@@ -424,7 +424,7 @@
             row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));
             row.percent_full = row.percent.toString() + '%';
             row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;
-            row.diff_color = row.diff < 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off
+            row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off)
 
             // chek if device is offline
             let ssplit = (global.get('kernel.link["' + state + '"]', 'memoryOnly') || '').split('|');
