@@ -427,7 +427,7 @@
             row.diff_color = row.diff < 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off
 
             // chek if device is offline
-            let ssplit = (global.get('kernel.link["' + row.equipment + '|heat"]', 'memoryOnly') || '').split('|');
+            let ssplit = (global.get('kernel.link["' + state + '"]', 'memoryOnly') || '').split('|');
             if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]', 'memoryOnly') !== 1) {
                 row.state_color = msg.dictionary.option_color.none;
             }
