@@ -1593,7 +1593,7 @@
                 let state = global.get('kernel.state["' + row.equipment + '|run"]', 'memoryOnly');
                 if (typeof state === 'number') {
                     // chek if device is offline
-                    let ssplit = (global.get('kernel.link["' + equipment + '|heat"]', 'memoryOnly') || '').split('|');
+                    let ssplit = (global.get('kernel.link["' + equipment + '|run"]', 'memoryOnly') || '').split('|');
                     if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]', 'memoryOnly') !== 1) {
                         row.state_color = msg.dictionary.option_color.none;
                     } else {
