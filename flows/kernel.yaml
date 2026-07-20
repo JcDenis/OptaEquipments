@@ -3564,8 +3564,8 @@
             && component.match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null
         ) {
             let state = global.get('kernel.state["' + equipment + '|run"]', 'memoryOnly');
-            if (typeof state === 'number' && state === 1) {
-                /* do not pilot heat if equipment is running */
+            if (typeof state === 'number' && state === 1 && pilot === false) {
+                /* do not pilot heat to off if equipment is running */
             } else {
                 msg.kernel = {
                     'type': 'state',
