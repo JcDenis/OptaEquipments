@@ -2900,11 +2900,11 @@
     };
 
 
-    let limit = Math.round(Date.now() / 1000) -
+    const limit = Math.round(Date.now() / 1000) -
     (global.get('kernel.app.watchdog', 'memoryOnly') || 120);
 
 
-    let devices = global.get('kernel.device', 'memoryOnly') || {};
+    const devices = { ...(global.get('kernel.device', 'memoryOnly') || {}) };
 
     for (const device in devices) {
         let watchdog = (global.get('kernel.watchdog["' + device + '"]', 'memoryOnly') || 0) < limit ? 0 : 1;
@@ -3336,7 +3336,7 @@
 
         return {
             'topic': '',
-            'payload': (global.get('kernel.team', 'memoryOnly') || {}),
+            'payload': { ...(global.get('kernel.team', 'memoryOnly') || {}) },
             'row': {
                 'ts': Date.now()
                 // some timestamp tests
@@ -3522,7 +3522,7 @@
     delete msg.team;
     flow.set('teams', undefined, 'memoryOnly');
 
-    let periods = global.get('kernel.period', 'memoryOnly') || {};
+    const periods = { ...(global.get('kernel.period', 'memoryOnly') || {}) };
     for (const line in periods) {
         final_periods[line] = false;
 
@@ -3533,9 +3533,9 @@
                 /* set to off */
                 final_pilots[line] = false;
             } else {
-                let plant = global.get('kernel.lines["' + line + '"]', 'memoryOnly');
                 let exists = false;
-                let teams = periods[line].split("");
+                const plant = global.get('kernel.lines["' + line + '"]', 'memoryOnly');
+                const teams = periods[line].split("");
                 for (const i in teams) {
                     if (typeof final_teams[plant][teams[i]] === 'boolean') {
                         exists = true;
@@ -3551,7 +3551,7 @@
         }
     }
 
-    let states = global.get('kernel.state','memoryOnly')||{};
+    const states = { ...(global.get('kernel.state','memoryOnly')||{}) };
     for (const entity in states) {
         let esplit = entity.split('|');
         let equipment = esplit[0];
@@ -4029,15 +4029,15 @@
     }, 'memoryOnly');
 
     // Clear user and more
-    global.set('auth',{},'memoryOnly');
-    global.set('user',{},'memoryOnly');
-    global.set('form',{},'memoryOnly');
+    global.set('auth', {}, 'memoryOnly');
+    global.set('user', {}, 'memoryOnly');
+    global.set('form', {}, 'memoryOnly');
 
     // Various
     return {
         'topic': '',
         'payload': '',
-        'options': [{'label':'','value':''}]
+        'options': [{ 'label':'', 'value':'' }]
     };
   outputs: 1
   timeout: 0
@@ -4954,7 +4954,7 @@
   g: 216f821485a9eb19
   name: day
   func: >-
-    let one_day = 86400000; // 24h in ms
+    const one_day = 86400000; // 24h in ms
 
 
     msg.row.curday = Number(msg.row.curday);
@@ -4990,7 +4990,7 @@
 
     if ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new
     RegExp('^(m|a|n|d)$'))) !== null) 
-        || (msg.row.curday === 6 && msg.row.team.match((new RegExp('^(s)$'))) !== null)
+        || (msg.row.curday === 6 && msg.row.team === 's')
     ) {
         if (msg.row.starttime < msg.row.stoptime) {
             msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;
@@ -5010,7 +5010,7 @@
     msg.row.curdate = ("0" + (curdate.getMonth() +1)).slice(-2) + "-" + ("0" +
     curdate.getDate()).slice(-2);
 
-    let holidays = (global.get('kernel.holiday["' + msg.row.plant + '"]',
+    const holidays = (global.get('kernel.holiday["' + msg.row.plant + '"]',
     'memoryOnly') || '').split('|');
 
     for (const k in holidays) {
