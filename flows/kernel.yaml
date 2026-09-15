@@ -1242,7 +1242,7 @@
                 msg: function (msg) {
                     document.documentElement.setAttribute("lang", msg.page_lang);
                     document.documentElement.setAttribute("translate", "no");
-                    document.title = msg.page_title;
+                    document.title = msg.document;
                     this.oe_menus = msg.menus;
                     this.oe_titles = msg.titles;
                 }
@@ -2945,7 +2945,6 @@
         msg.titles[page] = msg.dictionary.option_page[page];
 
         if (pages[page]['tab'] === msg.hmi.tab) {
-            msg.page_title = msg.dictionary.option_page[page];
             msg.page_lang = msg.dictionary.lang;
         }
 
@@ -2994,7 +2993,9 @@
     msg.vendor = global.get('kernel.app.vendor', 'memoryOnly') ||
     global.get('describe.app.vendor', 'memoryOnly');
 
-    msg.title = global.get('kernel.app.title', 'memoryOnly') ||
+    msg.title = msg.hmi.page; 
+
+    msg.document = global.get('kernel.app.title', 'memoryOnly') ||
     global.get('describe.app.title', 'memoryOnly');
 
     msg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;
@@ -4618,7 +4619,6 @@
     msg.payload = ''; 
     msg.class = 'remove';
     msg.enabled = false;
-    msg.page_title = '';
 
     node.send(msg);
 
@@ -4629,8 +4629,6 @@
     ) {
         msg.class = '';
         msg.enabled = true;
-
-        msg.page_title = msg.dictionary.option_page[msg.check] || msg.check;
 
         delete msg.check;
 

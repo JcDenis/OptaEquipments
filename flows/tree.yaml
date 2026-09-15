@@ -689,13 +689,12 @@
   nodes:
     - 53845d5ac3a352d5
     - dd627ae296fcf568
-    - 5ffe3a59f8715e17
-    - 18599644b9f5e31c
-    - 06feba34860038f2
+    - 41286a68b7e50349
+    - 05d20930d10cd105
   x: 104
-  'y': 39
-  w: 622
-  h: 142
+  'y': 99
+  w: 492
+  h: 82
 - id: 1ac161d9a8075225
   type: group
   z: 64ce08af468b8197
@@ -10004,7 +10003,7 @@
   x: 145
   'y': 140
   wires:
-    - - 18599644b9f5e31c
+    - - 41286a68b7e50349
 - id: dd627ae296fcf568
   type: link out
   z: 64ce08af468b8197
@@ -10013,7 +10012,7 @@
   mode: link
   links:
     - 3c74c1e48218b536
-  x: 595
+  x: 555
   'y': 140
   wires: []
 - id: bb44a5ee9eb79c84
@@ -11924,29 +11923,6 @@
   'y': 5360
   wires:
     - - cd5684797308ff6c
-- id: 5ffe3a59f8715e17
-  type: ui-text
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  group: 9d9e19b688919599
-  order: 1
-  width: 0
-  height: 0
-  name: tree - title
-  label: ''
-  format: '{{msg.payload}}'
-  layout: row-left
-  style: false
-  font: ''
-  fontSize: 16
-  color: '#717171'
-  wrapText: false
-  className: ui-title
-  value: page_title
-  valueType: msg
-  x: 640
-  'y': 80
-  wires: []
 - id: 909b87c39fd369a2
   type: link call
   z: 64ce08af468b8197
@@ -14454,77 +14430,6 @@
     - - f8543a7df7581b14
       - 1f1a201addad74f9
     - - 5f6f52df59cd8e40
-- id: 18599644b9f5e31c
-  type: function
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: tab &  level
-  func: >-
-    let check = 'tree';
-
-
-    msg.class = 'remove';
-
-    msg.enabled = false;
-
-    msg.topic = '';
-
-    msg.payload = '';
-
-
-    if (msg.hmi.tab === global.get('describe.pages["' + check +
-    '"]["tab"]','memoryOnly') 
-        && typeof global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === 'boolean'
-        && global.get('describe.pages["' + check + '"]["level"]["' + msg.hmi.level + '"]','memoryOnly') === true
-    ) {
-        msg.class = '';
-        msg.enabled = true;
-
-        return [msg,null];
-    }
-
-
-    if (msg.hmi.tab === 99) {
-        flow.set('form',undefined,'memoryOnly');
-    } else {
-        flow.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-    }
-
-
-    return [null,msg];
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 290
-  'y': 140
-  wires:
-    - - 06feba34860038f2
-    - - dd627ae296fcf568
-- id: 06feba34860038f2
-  type: delay
-  z: 64ce08af468b8197
-  g: 836acd0bd60737d1
-  name: 50ms
-  pauseType: delay
-  timeout: '50'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 470
-  'y': 80
-  wires:
-    - - dd627ae296fcf568
-      - 5ffe3a59f8715e17
 - id: b47a452c3a323b37
   type: ui-number-input
   z: 64ce08af468b8197
@@ -17026,3 +16931,36 @@
   wires:
     - - 2ea2dfd8b060d57a
       - 32eaed6b550d9ba9
+- id: 41286a68b7e50349
+  type: change
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: tab
+  rules:
+    - t: set
+      p: check
+      pt: msg
+      to: tree
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 270
+  'y': 140
+  wires:
+    - - 05d20930d10cd105
+- id: 05d20930d10cd105
+  type: link call
+  z: 64ce08af468b8197
+  g: 836acd0bd60737d1
+  name: ''
+  links:
+    - 88c5aeadbe80be20
+  linkType: static
+  timeout: '30'
+  x: 430
+  'y': 140
+  wires:
+    - - dd627ae296fcf568
