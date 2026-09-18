@@ -1539,7 +1539,7 @@
             "05107d400a502297",
             "d929753382156fa2",
             "17d333ed58f454d1",
-            "d4bdf624cc8fec1b"
+            "d5d8718a7ca02da3"
         ],
         "x": 104,
         "y": 99,
@@ -1559,8 +1559,8 @@
         "nodes": [
             "d7bc8fc74bfc07cb",
             "054bd47295999ad7",
-            "725fb11b65553f46",
-            "f401e3b627aace38"
+            "f401e3b627aace38",
+            "d79c99d630e80486"
         ],
         "x": 104,
         "y": 99,
@@ -1580,8 +1580,8 @@
         "nodes": [
             "2045a5696769c038",
             "3aad74b4936add5c",
-            "5d328a83019c85c7",
-            "cc8bf2b344b330c3"
+            "cc8bf2b344b330c3",
+            "d2a2b5fb24818b23"
         ],
         "x": 104,
         "y": 99,
@@ -1601,8 +1601,8 @@
         "nodes": [
             "53845d5ac3a352d5",
             "dd627ae296fcf568",
-            "41286a68b7e50349",
-            "05d20930d10cd105"
+            "05d20930d10cd105",
+            "10b551e1b7695a30"
         ],
         "x": 104,
         "y": 99,
@@ -1623,7 +1623,7 @@
             "fbeb08a94e71e7bf",
             "0c83fe1f9690e061",
             "349a17937b2daecc",
-            "572537760e87b129"
+            "570387b36904e75f"
         ],
         "x": 104,
         "y": 99,
@@ -1643,8 +1643,8 @@
         "nodes": [
             "d55041fdf28a3f36",
             "11a3e525f770e3aa",
-            "88e6d6eec4fb8bf5",
-            "f33c3568a857c4a6"
+            "f33c3568a857c4a6",
+            "84e5692a2078e77d"
         ],
         "x": 104,
         "y": 99,
@@ -1836,8 +1836,8 @@
         "nodes": [
             "6304fe8d08f0cf47",
             "6b2108622867d8a4",
-            "435508bf294a3fbf",
-            "435f3eb4a7773b87"
+            "435f3eb4a7773b87",
+            "f73269ad9421c5fa"
         ],
         "x": 104,
         "y": 99,
@@ -17092,7 +17092,7 @@
         "y": 140,
         "wires": [
             [
-                "725fb11b65553f46"
+                "d79c99d630e80486"
             ]
         ]
     },
@@ -17295,34 +17295,6 @@
         ]
     },
     {
-        "id": "725fb11b65553f46",
-        "type": "change",
-        "z": "476eb6fc04c55cec",
-        "g": "d509ef3b5101effa",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "alert",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "f401e3b627aace38"
-            ]
-        ]
-    },
-    {
         "id": "f401e3b627aace38",
         "type": "link call",
         "z": "476eb6fc04c55cec",
@@ -17382,6 +17354,27 @@
         "wires": []
     },
     {
+        "id": "d79c99d630e80486",
+        "type": "function",
+        "z": "476eb6fc04c55cec",
+        "g": "d509ef3b5101effa",
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "f401e3b627aace38"
+            ]
+        ]
+    },
+    {
         "id": "d55041fdf28a3f36",
         "type": "link in",
         "z": "51c4b2897d2c318c",
@@ -17395,7 +17388,7 @@
         "y": 140,
         "wires": [
             [
-                "88e6d6eec4fb8bf5"
+                "84e5692a2078e77d"
             ]
         ]
     },
@@ -18077,34 +18070,6 @@
         ]
     },
     {
-        "id": "88e6d6eec4fb8bf5",
-        "type": "change",
-        "z": "51c4b2897d2c318c",
-        "g": "6cb8cb87cdf72081",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "period",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "f33c3568a857c4a6"
-            ]
-        ]
-    },
-    {
         "id": "f33c3568a857c4a6",
         "type": "link call",
         "z": "51c4b2897d2c318c",
@@ -18290,6 +18255,27 @@
         "y": 620,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "84e5692a2078e77d",
+        "type": "function",
+        "z": "51c4b2897d2c318c",
+        "g": "6cb8cb87cdf72081",
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "f33c3568a857c4a6"
+            ]
         ]
     },
     {
@@ -21603,7 +21589,7 @@
         "y": 140,
         "wires": [
             [
-                "5d328a83019c85c7"
+                "d2a2b5fb24818b23"
             ]
         ]
     },
@@ -24942,34 +24928,6 @@
         ]
     },
     {
-        "id": "5d328a83019c85c7",
-        "type": "change",
-        "z": "852390cb9559e176",
-        "g": "fe21b6421a9020d4",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "detail",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "cc8bf2b344b330c3"
-            ]
-        ]
-    },
-    {
         "id": "cc8bf2b344b330c3",
         "type": "link call",
         "z": "852390cb9559e176",
@@ -25749,6 +25707,27 @@
             ],
             [
                 "23b960bb1561651b"
+            ]
+        ]
+    },
+    {
+        "id": "d2a2b5fb24818b23",
+        "type": "function",
+        "z": "852390cb9559e176",
+        "g": "fe21b6421a9020d4",
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "cc8bf2b344b330c3"
             ]
         ]
     },
@@ -26606,7 +26585,7 @@
         "y": 140,
         "wires": [
             [
-                "d4bdf624cc8fec1b"
+                "d5d8718a7ca02da3"
             ]
         ]
     },
@@ -27578,34 +27557,6 @@
         ]
     },
     {
-        "id": "d4bdf624cc8fec1b",
-        "type": "change",
-        "z": "e97c6f12735a13c1",
-        "g": "2c0f9b39f8c7dd73",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "list",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "17d333ed58f454d1"
-            ]
-        ]
-    },
-    {
         "id": "cd2737f508858dca",
         "type": "function",
         "z": "e97c6f12735a13c1",
@@ -27899,6 +27850,27 @@
         "x": 1155,
         "y": 1940,
         "wires": []
+    },
+    {
+        "id": "d5d8718a7ca02da3",
+        "type": "function",
+        "z": "e97c6f12735a13c1",
+        "g": "2c0f9b39f8c7dd73",
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "17d333ed58f454d1"
+            ]
+        ]
     },
     {
         "id": "be594973267232f5",
@@ -40326,7 +40298,7 @@
         "y": 140,
         "wires": [
             [
-                "41286a68b7e50349"
+                "10b551e1b7695a30"
             ]
         ]
     },
@@ -49152,34 +49124,6 @@
         ]
     },
     {
-        "id": "41286a68b7e50349",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "836acd0bd60737d1",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "tree",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "05d20930d10cd105"
-            ]
-        ]
-    },
-    {
         "id": "05d20930d10cd105",
         "type": "link call",
         "z": "64ce08af468b8197",
@@ -49199,6 +49143,27 @@
         ]
     },
     {
+        "id": "10b551e1b7695a30",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "836acd0bd60737d1",
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "05d20930d10cd105"
+            ]
+        ]
+    },
+    {
         "id": "6304fe8d08f0cf47",
         "type": "link in",
         "z": "adb48ef35d9453c0",
@@ -49212,7 +49177,7 @@
         "y": 140,
         "wires": [
             [
-                "435508bf294a3fbf"
+                "f73269ad9421c5fa"
             ]
         ]
     },
@@ -51940,39 +51905,6 @@
         ]
     },
     {
-        "id": "435508bf294a3fbf",
-        "type": "change",
-        "z": "adb48ef35d9453c0",
-        "g": "6e3f77a2a72d0fa8",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "users",
-                "tot": "str"
-            },
-            {
-                "t": "delete",
-                "p": "ui_update",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "435f3eb4a7773b87"
-            ]
-        ]
-    },
-    {
         "id": "435f3eb4a7773b87",
         "type": "link call",
         "z": "adb48ef35d9453c0",
@@ -51988,6 +51920,27 @@
         "wires": [
             [
                 "6b2108622867d8a4"
+            ]
+        ]
+    },
+    {
+        "id": "f73269ad9421c5fa",
+        "type": "function",
+        "z": "adb48ef35d9453c0",
+        "g": "6e3f77a2a72d0fa8",
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\ndelete msg.ui_update;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "435f3eb4a7773b87"
             ]
         ]
     },
@@ -52915,7 +52868,7 @@
         "y": 140,
         "wires": [
             [
-                "572537760e87b129"
+                "570387b36904e75f"
             ]
         ]
     },
@@ -54306,25 +54259,18 @@
         ]
     },
     {
-        "id": "572537760e87b129",
-        "type": "change",
+        "id": "570387b36904e75f",
+        "type": "function",
         "z": "44465f18e06bb58d",
         "g": "c5aa438b6dcec795",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "check",
-                "pt": "msg",
-                "to": "system",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
+        "name": "data",
+        "func": "msg.check = env.get('NR_FLOW_NAME');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 270,
         "y": 140,
         "wires": [

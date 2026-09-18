@@ -89,7 +89,7 @@
     - fbeb08a94e71e7bf
     - 0c83fe1f9690e061
     - 349a17937b2daecc
-    - 572537760e87b129
+    - 570387b36904e75f
   x: 104
   'y': 99
   w: 492
@@ -823,7 +823,7 @@
   x: 145
   'y': 140
   wires:
-    - - 572537760e87b129
+    - - 570387b36904e75f
 - id: 0c83fe1f9690e061
   type: link out
   z: 44465f18e06bb58d
@@ -2000,22 +2000,21 @@
   'y': 140
   wires:
     - - 0c83fe1f9690e061
-- id: 572537760e87b129
-  type: change
+- id: 570387b36904e75f
+  type: function
   z: 44465f18e06bb58d
   g: c5aa438b6dcec795
-  name: tab
-  rules:
-    - t: set
-      p: check
-      pt: msg
-      to: system
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
+  name: data
+  func: |-
+    msg.check = env.get('NR_FLOW_NAME');
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
   x: 270
   'y': 140
   wires:

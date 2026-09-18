@@ -15,8 +15,8 @@
   nodes:
     - d55041fdf28a3f36
     - 11a3e525f770e3aa
-    - 88e6d6eec4fb8bf5
     - f33c3568a857c4a6
+    - 84e5692a2078e77d
   x: 104
   'y': 99
   w: 492
@@ -72,7 +72,7 @@
   x: 145
   'y': 140
   wires:
-    - - 88e6d6eec4fb8bf5
+    - - 84e5692a2078e77d
 - id: 11a3e525f770e3aa
   type: link out
   z: 51c4b2897d2c318c
@@ -666,26 +666,6 @@
     - - 39cf9bc6de140b04
       - 0fc506fd101f1d0c
       - f4d3e88b80009b83
-- id: 88e6d6eec4fb8bf5
-  type: change
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: tab
-  rules:
-    - t: set
-      p: check
-      pt: msg
-      to: period
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 270
-  'y': 140
-  wires:
-    - - f33c3568a857c4a6
 - id: f33c3568a857c4a6
   type: link call
   z: 51c4b2897d2c318c
@@ -984,3 +964,22 @@
   'y': 620
   wires:
     - []
+- id: 84e5692a2078e77d
+  type: function
+  z: 51c4b2897d2c318c
+  g: 6cb8cb87cdf72081
+  name: data
+  func: |-
+    msg.check = env.get('NR_FLOW_NAME');
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 140
+  wires:
+    - - f33c3568a857c4a6
