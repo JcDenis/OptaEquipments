@@ -1953,7 +1953,7 @@
         ],
         "x": 78,
         "y": 2293,
-        "w": 1854,
+        "w": 1834,
         "h": 674
     },
     {
@@ -3392,35 +3392,29 @@
         "nodes": [
             "e121bb6441bf21e5",
             "025edbd02daf82d0",
-            "8c484fa5249c34f6",
-            "fd610372966f9686",
             "571f58fa9072eafb",
             "d0edfe80cd189ba8",
             "306b2fee3a4b886d",
             "80538c5af3c6a70b",
             "37ef0dacd1f0e952",
-            "fe3a87fa930d465d",
-            "34fa5590f0d6e124",
             "359336bc8ac8947e",
             "d8fa54a0c3f6d9a5",
-            "3ed31290426faddb",
             "d5cec84ece588ffc",
-            "a21747e12e479ca9",
-            "0d2c51b998a3f781",
-            "d7cb5aad49f38b43",
-            "deaace2b52065689",
             "51fd87fb2d0f8249",
             "7e12373daec6b4f7",
-            "991691c2beb81395",
-            "f81759728a05ec6e",
-            "ab83d7d0e321cc6b",
             "f088a09b48bcfb71",
-            "240cc9b1d3f873ac",
-            "79bca96cd57d8bb3"
+            "5a8875d1a8d3c550",
+            "8b016ccb6d72f020",
+            "fa9f56578f777f16",
+            "6eaf225aac0649db",
+            "185e7efaa5a871d0",
+            "c684af5ea5b26d2e",
+            "e5f40d53235d0aed",
+            "c70ea2cf1d1f49a8"
         ],
         "x": 94,
         "y": 3599,
-        "w": 1032,
+        "w": 832,
         "h": 442
     },
     {
@@ -3466,7 +3460,6 @@
             "74dfe619e629d696",
             "3b80cd5cae7c3642",
             "aae1f5d9a3931146",
-            "cca39ee5b2794b76",
             "fa7160372fcfe3b2",
             "44a9a10bea4cbb76",
             "7f71d2575c92f1e5",
@@ -3474,11 +3467,12 @@
             "4cc3ed0d3ee8fb8d",
             "cec4b0e8f27bfcf5",
             "2de656e718f98f85",
-            "fcc6c7e323c9fc50"
+            "fcc6c7e323c9fc50",
+            "0eb8a7b788ea1c7b"
         ],
         "x": 104,
         "y": 2319,
-        "w": 1802,
+        "w": 1782,
         "h": 142
     },
     {
@@ -5214,58 +5208,6 @@
         "wires": []
     },
     {
-        "id": "cca39ee5b2794b76",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "fc6029b7d49d1e93",
-        "name": "reset",
-        "rules": [
-            {
-                "t": "set",
-                "p": "opta_admin_username",
-                "pt": "msg",
-                "to": "${OPTA_ADMIN_USERNAME}",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "opta_admin_password",
-                "pt": "msg",
-                "to": "${OPTA_ADMIN_PASSWORD}",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\t    msg.opta_admin_username:{\t        'pass':msg.opta_admin_password,\t        'level':'admin',\t        'plant':'',\t        'lang':'fr',\t        'telegram':''\t    }\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "delete",
-                "p": "opta_admin_username",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "opta_admin_password",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1270,
-        "y": 2420,
-        "wires": [
-            [
-                "fa7160372fcfe3b2"
-            ]
-        ]
-    },
-    {
         "id": "44a9a10bea4cbb76",
         "type": "link out",
         "z": "f6f2187d.f17ca8",
@@ -5275,7 +5217,7 @@
         "links": [
             "b75938c74c41ca5e"
         ],
-        "x": 1735,
+        "x": 1715,
         "y": 2420,
         "wires": []
     },
@@ -5331,7 +5273,7 @@
         "y": 2420,
         "wires": [
             [
-                "cca39ee5b2794b76"
+                "0eb8a7b788ea1c7b"
             ]
         ]
     },
@@ -5366,7 +5308,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1790,
+        "x": 1770,
         "y": 2360,
         "wires": []
     },
@@ -5549,16 +5491,16 @@
         "type": "bcrypt",
         "z": "f6f2187d.f17ca8",
         "g": "fc6029b7d49d1e93",
-        "name": "Encrypt",
+        "name": "",
         "action": "encrypt",
-        "field": "payload.admin.pass",
+        "field": "payload",
         "hash": "payload",
         "target": "payload",
         "assignment": "replace",
         "match": "match",
         "outputs": 1,
         "rounds": 10,
-        "x": 1440,
+        "x": 1430,
         "y": 2420,
         "wires": [
             [
@@ -5904,87 +5846,6 @@
         ]
     },
     {
-        "id": "8c484fa5249c34f6",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "statusCode",
-                "pt": "msg",
-                "to": "200",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "buffersize",
-                "pt": "msg",
-                "to": "msg.payload.length",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{\t    'Content-Type':'application/json',\t    'Content-Disposition':'attachment; filename=\"kernel.backup.json\"',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 880,
-        "y": 3820,
-        "wires": [
-            [
-                "37ef0dacd1f0e952"
-            ]
-        ]
-    },
-    {
-        "id": "fd610372966f9686",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "random",
-        "property": "payload.rnd",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "#:(memoryOnly)::random",
-                "vt": "global"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 700,
-        "y": 3820,
-        "wires": [
-            [
-                "8c484fa5249c34f6"
-            ],
-            [
-                "34fa5590f0d6e124"
-            ]
-        ]
-    },
-    {
         "id": "571f58fa9072eafb",
         "type": "delay",
         "z": "f6f2187d.f17ca8",
@@ -6006,7 +5867,7 @@
         "y": 3820,
         "wires": [
             [
-                "fd610372966f9686"
+                "c70ea2cf1d1f49a8"
             ]
         ]
     },
@@ -6042,11 +5903,11 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 690,
+        "x": 530,
         "y": 3700,
         "wires": [
             [
-                "fe3a87fa930d465d"
+                "8b016ccb6d72f020"
             ]
         ]
     },
@@ -6065,7 +5926,7 @@
         "y": 3700,
         "wires": [
             [
-                "f81759728a05ec6e"
+                "5a8875d1a8d3c550"
             ]
         ]
     },
@@ -6074,108 +5935,26 @@
         "type": "http response",
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
-        "name": "",
-        "statusCode": "",
+        "name": "200",
+        "statusCode": "200",
         "headers": {},
-        "x": 1050,
-        "y": 3640,
+        "x": 850,
+        "y": 3700,
         "wires": []
-    },
-    {
-        "id": "fe3a87fa930d465d",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "statusCode",
-                "pt": "msg",
-                "to": "200",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "buffersize",
-                "pt": "msg",
-                "to": "msg.payload.length",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{\t    'Content-Type':'image/png',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "delete",
-                "p": "filename",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 880,
-        "y": 3640,
-        "wires": [
-            [
-                "37ef0dacd1f0e952"
-            ]
-        ]
-    },
-    {
-        "id": "34fa5590f0d6e124",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "statusCode",
-                "pt": "msg",
-                "to": "404",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 880,
-        "y": 4000,
-        "wires": [
-            [
-                "37ef0dacd1f0e952"
-            ]
-        ]
     },
     {
         "id": "359336bc8ac8947e",
         "type": "base64",
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
-        "name": "",
+        "name": "icon",
         "action": "",
         "property": "payload",
-        "x": 700,
+        "x": 530,
         "y": 3640,
         "wires": [
             [
-                "fe3a87fa930d465d"
+                "8b016ccb6d72f020"
             ]
         ]
     },
@@ -6193,47 +5972,7 @@
         "y": 4000,
         "wires": [
             [
-                "34fa5590f0d6e124"
-            ]
-        ]
-    },
-    {
-        "id": "3ed31290426faddb",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "file",
-        "rules": [
-            {
-                "t": "set",
-                "p": "automate",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::describe.app.automate",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "filename",
-                "pt": "msg",
-                "to": "'/data/admin.png'",
-                "tot": "jsonata"
-            },
-            {
-                "t": "delete",
-                "p": "automate",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 3700,
-        "wires": [
-            [
-                "306b2fee3a4b886d"
+                "185e7efaa5a871d0"
             ]
         ]
     },
@@ -6252,125 +5991,7 @@
         "y": 3880,
         "wires": [
             [
-                "0d2c51b998a3f781"
-            ]
-        ]
-    },
-    {
-        "id": "a21747e12e479ca9",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "statusCode",
-                "pt": "msg",
-                "to": "200",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "opta.buffer",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "buffersize",
-                "pt": "msg",
-                "to": "msg.payload.length",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "version",
-                "pt": "msg",
-                "to": "opta.version",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{\t    'Accept-Ranges':'bytes',\t    'Content-Type':'application/octet-stream',\t    'Content-Length':msg.buffersize,\t    'Connection':'close',\t    'Content-Disposition':' attachment; filename=\"' & msg.version & '.ota\"'\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 880,
-        "y": 3880,
-        "wires": [
-            [
-                "37ef0dacd1f0e952"
-            ]
-        ]
-    },
-    {
-        "id": "0d2c51b998a3f781",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "version",
-        "property": "opta.version",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "gt",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 540,
-        "y": 3880,
-        "wires": [
-            [
-                "d7cb5aad49f38b43"
-            ],
-            [
-                "34fa5590f0d6e124"
-            ]
-        ]
-    },
-    {
-        "id": "d7cb5aad49f38b43",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "buffer",
-        "property": "opta.buffer",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 710,
-        "y": 3880,
-        "wires": [
-            [
-                "a21747e12e479ca9"
-            ],
-            [
-                "34fa5590f0d6e124"
+                "fa9f56578f777f16"
             ]
         ]
     },
@@ -6396,56 +6017,7 @@
         "y": 3760,
         "wires": [
             [
-                "991691c2beb81395"
-            ]
-        ]
-    },
-    {
-        "id": "deaace2b52065689",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::auth",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "statusCode",
-                "pt": "msg",
-                "to": "200",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "buffersize",
-                "pt": "msg",
-                "to": "msg.payload.length",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{\t    'Content-Type':'application/json',\t    'Content-Disposition':'attachment; filename=\"user.backup.json\"',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 880,
-        "y": 3760,
-        "wires": [
-            [
-                "37ef0dacd1f0e952"
+                "e5f40d53235d0aed"
             ]
         ]
     },
@@ -6465,96 +6037,6 @@
         "wires": [
             [
                 "51fd87fb2d0f8249"
-            ]
-        ]
-    },
-    {
-        "id": "991691c2beb81395",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "random",
-        "property": "payload.rnd",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "#:(memoryOnly)::random",
-                "vt": "global"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 700,
-        "y": 3760,
-        "wires": [
-            [
-                "deaace2b52065689"
-            ],
-            [
-                "34fa5590f0d6e124"
-            ]
-        ]
-    },
-    {
-        "id": "f81759728a05ec6e",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "exists",
-        "property": "#:(memoryOnly)::kernel.app.icon",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 370,
-        "y": 3700,
-        "wires": [
-            [
-                "ab83d7d0e321cc6b"
-            ],
-            [
-                "3ed31290426faddb"
-            ]
-        ]
-    },
-    {
-        "id": "ab83d7d0e321cc6b",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "mem",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.app.icon",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 3640,
-        "wires": [
-            [
-                "359336bc8ac8947e"
             ]
         ]
     },
@@ -6850,95 +6332,7 @@
         "y": 3940,
         "wires": [
             [
-                "240cc9b1d3f873ac"
-            ]
-        ]
-    },
-    {
-        "id": "240cc9b1d3f873ac",
-        "type": "switch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "version",
-        "property": "opta.version",
-        "propertyType": "global",
-        "rules": [
-            {
-                "t": "gt",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 540,
-        "y": 3940,
-        "wires": [
-            [
-                "79bca96cd57d8bb3"
-            ],
-            [
-                "34fa5590f0d6e124"
-            ]
-        ]
-    },
-    {
-        "id": "79bca96cd57d8bb3",
-        "type": "change",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "opta.version",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "'{\"version\":' & msg.payload & ',\"uri\":\"/optafirmware.ota\"}'",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "statusCode",
-                "pt": "msg",
-                "to": "200",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "buffersize",
-                "pt": "msg",
-                "to": "msg.payload.length",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{\t    'Content-Type':'application/json',\t    'Content-Length':msg.buffersize,\t    'Connection':'close'\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 880,
-        "y": 3940,
-        "wires": [
-            [
-                "37ef0dacd1f0e952"
+                "c684af5ea5b26d2e"
             ]
         ]
     },
@@ -8265,7 +7659,7 @@
         "y": 2360,
         "wires": [
             [
-                "cca39ee5b2794b76"
+                "0eb8a7b788ea1c7b"
             ]
         ]
     },
@@ -8383,14 +7777,14 @@
         "z": "f6f2187d.f17ca8",
         "g": "fc6029b7d49d1e93",
         "name": "data",
-        "func": "// Put user to memory\n\nglobal.set('auth', msg.payload, 'memoryOnlye');\nflow.set('has_admin', undefined, 'memoryOnly');\n\nmsg.payload = '';\n\nreturn msg;",
+        "func": "// Set default user to memory\n\nmsg.payload = {\n    [env.get(\"OPTA_ADMIN_USERNAME\")]: {\n        'pass': msg.payload,\n        'level': 'admin',\n        'plant': '',\n        'lang': 'fr',\n        'telegram': ''\n    }\n};\n\nglobal.set('auth', msg.payload, 'memoryOnly');\nflow.set('has_admin', undefined, 'memoryOnly');\n\nmsg.payload = '';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1610,
+        "x": 1590,
         "y": 2420,
         "wires": [
             [
@@ -8440,6 +7834,201 @@
             [
                 "166b868a64df0e9f",
                 "25946e03a69f38c2"
+            ]
+        ]
+    },
+    {
+        "id": "5a8875d1a8d3c550",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "if ((global.get('kernel.app.icon', 'memoryOnly') || '') !== '') {\n    msg.payload = global.get('kernel.app.icon', 'memoryOnly');\n\n    return [msg, null];\n}\nelse {\n    msg.payload = '';\n    msg.filename = '/data/admin.png';\n\n    return [null, msg];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 3700,
+        "wires": [
+            [
+                "359336bc8ac8947e"
+            ],
+            [
+                "306b2fee3a4b886d"
+            ]
+        ]
+    },
+    {
+        "id": "8b016ccb6d72f020",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "// Get http reponse for app icon\n\ndelete msg.filename;\n\nmsg.statusCode = 200;\nmsg.headers = {\n    'Content-Type': 'image/png',\n    'Content-Length': msg.payload.length,\n    'Connection': 'close'\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 3700,
+        "wires": [
+            [
+                "37ef0dacd1f0e952"
+            ]
+        ]
+    },
+    {
+        "id": "fa9f56578f777f16",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "// Get HTTP response for opta ota firmware response\n\nif ((global.get('opta.version', 'default') || 0) > 0\n    && (global.get('opta.buffer', 'default') || '') !== ''\n) {\n    msg.payload = [ ...(global.get('opta.buffer', 'default') || []) ];\n    msg.headers = {\n        'Accept-Ranges':'bytes',\n        'Content-Type':'application/octet-stream',\n        'Content-Length':msg.payload.length,\n        'Connection':'close',\n        'Content-Disposition':' attachment; filename=\"' + global.get('opta.version', 'default') + '.ota\"'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 3880,
+        "wires": [
+            [
+                "37ef0dacd1f0e952"
+            ],
+            [
+                "6eaf225aac0649db"
+            ]
+        ]
+    },
+    {
+        "id": "6eaf225aac0649db",
+        "type": "http response",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "404",
+        "statusCode": "404",
+        "headers": {},
+        "x": 850,
+        "y": 4000,
+        "wires": []
+    },
+    {
+        "id": "185e7efaa5a871d0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "// Bad request\n\nmsg.payload = '';\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 4000,
+        "wires": [
+            [
+                "6eaf225aac0649db"
+            ]
+        ]
+    },
+    {
+        "id": "c684af5ea5b26d2e",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "// Get HTTP response for opta ota version\n\nif ((global.get('opta.version', 'default') || 0) > 0) {\n    msg.payload = JSON.stringify({\n        'version': global.get('opta.version', 'default'),\n        'uri': '/optafirmware.ota'\n    });\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 3940,
+        "wires": [
+            [
+                "37ef0dacd1f0e952"
+            ],
+            [
+                "6eaf225aac0649db"
+            ]
+        ]
+    },
+    {
+        "id": "e5f40d53235d0aed",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "// Get http reponse for users backup\n\nif (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random', 'memoryOnly') || '').toString()) {\n    msg.payload = { ...(global.get('auth', 'memoryOnly') || { }) };\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Disposition': 'attachment; filename=\"user.backup.json\"',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\nelse {\n    msg.payload = '';\n\n    return [null, msg];\n}",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 3760,
+        "wires": [
+            [
+                "37ef0dacd1f0e952"
+            ],
+            [
+                "6eaf225aac0649db"
+            ]
+        ]
+    },
+    {
+        "id": "c70ea2cf1d1f49a8",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "data",
+        "func": "// Get http reponse for kernel backup\n\nif (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random', 'memoryOnly') || '').toString()) {\n    msg.payload = { ...(global.get('kernel', 'memoryOnly') || { }) };\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Disposition': 'attachment; filename=\"kernel.backup.json\"',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\nelse {\n    msg.payload = '';\n\n    return [null, msg];\n}",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 3820,
+        "wires": [
+            [
+                "37ef0dacd1f0e952"
+            ],
+            [
+                "6eaf225aac0649db"
+            ]
+        ]
+    },
+    {
+        "id": "0eb8a7b788ea1c7b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "fc6029b7d49d1e93",
+        "name": "data",
+        "func": "// Set admin user from default app install\n\nmsg.payload = env.get(\"OPTA_ADMIN_PASSWORD\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 2420,
+        "wires": [
+            [
+                "fa7160372fcfe3b2"
             ]
         ]
     },
