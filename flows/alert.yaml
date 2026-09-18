@@ -16,21 +16,20 @@
     - 7f208cf2ab66dd88
     - c8c91a8a8cb864f2
     - eef8f90bc9ebb816
-    - 2328d5396e61d3e1
     - 2f959ccef56b1836
-    - 09a816282f3bc371
     - ed53bb28b7006772
     - 186467962929c0f8
     - 049aaf716a9eb767
-    - 6332d3cf45ae4386
     - c1fe38bf4a62979c
     - 953414d1b751a30d
     - fca30e25f5087f5a
     - dbee74cb0876ae72
+    - 28484d7e89befc41
+    - 2c755e01455b172f
   x: 104
   'y': 219
-  w: 1892
-  h: 202
+  w: 1982
+  h: 142
 - id: d509ef3b5101effa
   type: group
   z: 476eb6fc04c55cec
@@ -57,8 +56,8 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 470
-  'y': 380
+  x: 450
+  'y': 320
   wires:
     - - eef8f90bc9ebb816
 - id: c8c91a8a8cb864f2
@@ -69,7 +68,7 @@
   links:
     - 054bd47295999ad7
   x: 145
-  'y': 320
+  'y': 260
   wires:
     - - fca30e25f5087f5a
 - id: eef8f90bc9ebb816
@@ -94,26 +93,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 670
-  'y': 380
+  x: 650
+  'y': 320
   wires:
     - - 049aaf716a9eb767
-- id: 2328d5396e61d3e1
-  type: debug
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: alert - list
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1420
-  'y': 380
-  wires: []
 - id: 2f959ccef56b1836
   type: ui-table
   z: 476eb6fc04c55cec
@@ -171,58 +154,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1440
+  x: 1420
   'y': 260
   wires:
     - - c1fe38bf4a62979c
-- id: 09a816282f3bc371
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: tab
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id][''plant'']'
-      pt: global
-      to: payload.plant
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id][''line'']'
-      pt: global
-      to: payload.line
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id][''equipment'']'
-      pt: global
-      to: payload.equipment
-      tot: msg
-    - t: delete
-      p: action
-      pt: msg
-    - t: set
-      p: hmi.tab
-      pt: msg
-      to: '#:(memoryOnly)::describe.pages.detail.tab'
-      tot: global
-    - t: set
-      p: hmi.page
-      pt: msg
-      to: '#:(memoryOnly)::describe.pages.detail.name'
-      tot: global
-    - t: set
-      p: payload
-      pt: msg
-      to: hmi.tab
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1830
-  'y': 320
-  wires:
-    - - ed53bb28b7006772
 - id: ed53bb28b7006772
   type: link out
   z: 476eb6fc04c55cec
@@ -231,8 +166,8 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1955
-  'y': 320
+  x: 1935
+  'y': 260
   wires: []
 - id: d7bc8fc74bfc07cb
   type: link in
@@ -314,7 +249,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1440
+  x: 1420
   'y': 320
   wires:
     - - c1fe38bf4a62979c
@@ -327,26 +262,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 870
-  'y': 380
+  x: 850
+  'y': 320
   wires:
     - - dbee74cb0876ae72
-- id: 6332d3cf45ae4386
-  type: change
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1250
-  'y': 260
-  wires:
-    - - 2f959ccef56b1836
-      - 186467962929c0f8
 - id: c1fe38bf4a62979c
   type: link call
   z: 476eb6fc04c55cec
@@ -356,20 +275,28 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1650
-  'y': 320
+  x: 1630
+  'y': 260
   wires:
-    - - 09a816282f3bc371
+    - - 28484d7e89befc41
 - id: 953414d1b751a30d
   type: function
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: alerts
+  name: data
   func: |-
+    // Get plant alerts
+
+    // Reset UI
+    if (msg.enabled !== true) {
+
+        return [msg, msg];
+    }
+
     msg.payload = [];
     let i = 0;
 
-    // rows
+    // Rows
     let alerts = global.get('kernel.alert', 'memoryOnly') || {};
     for (const alert in alerts) {
         let asplit = alert.split('|');
@@ -436,29 +363,31 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1250
-  'y': 320
+  x: 1230
+  'y': 260
   wires:
     - - 2f959ccef56b1836
-      - 2328d5396e61d3e1
     - - 186467962929c0f8
-      - 2328d5396e61d3e1
 - id: fca30e25f5087f5a
   type: function
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
-  name: user plant
+  name: data
   func: |-
+    // Get user plants
+
+    // Reset UI
     if (msg.enabled !== true) {
         // page is disabled
         msg.class = 'remove';
         msg.enabled = false;
         msg.payload = '';
 
-        return [msg, null, msg];
+        return [msg, msg];
     }
 
 
+    // Plant was not defined for the user
     if (msg.hmi.plant === '') {
         // admin can select a plant
         msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
@@ -466,28 +395,28 @@
         if (msg.payload === '') {
             // user must selected a plant
 
-            return [null, null, msg];
+            return [null, msg];
         } else {
             // show selected plant
 
-            return [null, msg, msg];
+            return [msg, msg];
         }
+    // Plant is defined for the user
     } else {
         // user is linked to a plant
         msg.payload = msg.hmi.plant;
 
-        return [null, msg, null];
+        return [msg, null];
     }
-  outputs: 3
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 280
-  'y': 320
+  x: 270
+  'y': 260
   wires:
-    - - 6332d3cf45ae4386
     - - 953414d1b751a30d
     - - 7f208cf2ab66dd88
 - id: dbee74cb0876ae72
@@ -499,8 +428,8 @@
     - 0e8a1d6969a7188b
   linkType: static
   timeout: '30'
-  x: 1070
-  'y': 380
+  x: 1050
+  'y': 320
   wires:
     - - 953414d1b751a30d
 - id: 725fb11b65553f46
@@ -536,3 +465,61 @@
   'y': 140
   wires:
     - - 054bd47295999ad7
+- id: 28484d7e89befc41
+  type: function
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: data
+  func: |-
+    // Compute user form
+
+    const form = { ...(global.get('form', 'memoryOnly') || { }) };
+
+    // Should not happened
+    if (typeof form[msg.hmi.id] !== 'object') {
+        form[msg.hmi.id] = {};
+    }
+
+    // Update form
+    form[msg.hmi.id]['plant'] = msg.payload.plant;
+    form[msg.hmi.id]['line'] = msg.payload.line;
+    form[msg.hmi.id]['equipment'] = msg.payload.equipment;
+
+    // Save form
+    global.set('form', form, 'memoryOnly');
+
+    delete msg.action;
+
+    // UI redirect
+    msg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || '';
+    msg.hmi.name = global.get('describe.pages.detail.page', 'memoryOnly') || '';
+    msg.payload = msg.hmi.tab;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1810
+  'y': 260
+  wires:
+    - - ed53bb28b7006772
+      - 2c755e01455b172f
+- id: 2c755e01455b172f
+  type: debug
+  z: 476eb6fc04c55cec
+  g: a2c5edf7acc56d7a
+  name: alert - list
+  active: true
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1980
+  'y': 320
+  wires: []

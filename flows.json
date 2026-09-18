@@ -1428,22 +1428,21 @@
             "7f208cf2ab66dd88",
             "c8c91a8a8cb864f2",
             "eef8f90bc9ebb816",
-            "2328d5396e61d3e1",
             "2f959ccef56b1836",
-            "09a816282f3bc371",
             "ed53bb28b7006772",
             "186467962929c0f8",
             "049aaf716a9eb767",
-            "6332d3cf45ae4386",
             "c1fe38bf4a62979c",
             "953414d1b751a30d",
             "fca30e25f5087f5a",
-            "dbee74cb0876ae72"
+            "dbee74cb0876ae72",
+            "28484d7e89befc41",
+            "2c755e01455b172f"
         ],
         "x": 104,
         "y": 219,
-        "w": 1892,
-        "h": 202
+        "w": 1982,
+        "h": 142
     },
     {
         "id": "6f784a48183c4937",
@@ -1482,26 +1481,23 @@
         "nodes": [
             "9833ea0e831ff8c7",
             "aa0e1484ee75066f",
-            "f4eee7dbe5621ecf",
             "bb71762ba2269b75",
             "8aca2e86c077d885",
-            "6ab34b3b3d64905e",
             "c82457de0864e28c",
             "0cf63361a578f787",
             "3361a6a4765bfb11",
-            "3da3f0a5ca052b2e",
             "f3b837acb99f6326",
             "9093d61ed9142cff",
-            "f9dc1f7a8155ebef",
-            "09bd0767b56167b6",
-            "f68e1a2d7f3e0c3d",
             "bf3da41c4b5bd219",
-            "5a825d48de813e3e"
+            "5a825d48de813e3e",
+            "96a01e41c97e3672",
+            "b159cf2d88aaf422",
+            "87f5723e3123e133"
         ],
         "x": 104,
-        "y": 39,
-        "w": 1722,
-        "h": 262
+        "y": 99,
+        "w": 1382,
+        "h": 202
     },
     {
         "id": "1b6332baa80f468b",
@@ -17045,10 +17041,10 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 470,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
-                "f4eee7dbe5621ecf"
+                "87f5723e3123e133"
             ]
         ]
     },
@@ -17074,39 +17070,8 @@
         "value": "payload",
         "valueType": "msg",
         "x": 450,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "f4eee7dbe5621ecf",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "disconnect",
-        "rules": [
-            {
-                "t": "delete",
-                "p": "#:(memoryOnly)::user[msg._client.socketId]",
-                "pt": "global"
-            },
-            {
-                "t": "delete",
-                "p": "ui_update",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 690,
         "y": 140,
-        "wires": [
-            [
-                "6ab34b3b3d64905e"
-            ]
-        ]
+        "wires": []
     },
     {
         "id": "bb71762ba2269b75",
@@ -17118,8 +17083,8 @@
         "links": [
             "00818f8c0686b556"
         ],
-        "x": 1655,
-        "y": 140,
+        "x": 1315,
+        "y": 200,
         "wires": []
     },
     {
@@ -17136,36 +17101,9 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1710,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "6ab34b3b3d64905e",
-        "type": "delay",
-        "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "20ms",
-        "pauseType": "delay",
-        "timeout": "20",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1530,
+        "x": 1370,
         "y": 140,
-        "wires": [
-            [
-                "8aca2e86c077d885",
-                "bb71762ba2269b75"
-            ]
-        ]
+        "wires": []
     },
     {
         "id": "c82457de0864e28c",
@@ -17178,11 +17116,11 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1030,
+        "x": 1010,
         "y": 260,
         "wires": [
             [
-                "09bd0767b56167b6"
+                "b159cf2d88aaf422"
             ]
         ]
     },
@@ -17214,7 +17152,7 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 1495,
+        "x": 1315,
         "y": 260,
         "wires": []
     },
@@ -17268,56 +17206,14 @@
         ]
     },
     {
-        "id": "3da3f0a5ca052b2e",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "prepare",
-        "rules": [
-            {
-                "t": "set",
-                "p": "login",
-                "pt": "msg",
-                "to": "payload.login",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "pass",
-                "pt": "msg",
-                "to": "payload.pass",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 840,
-        "y": 260,
-        "wires": [
-            [
-                "c82457de0864e28c"
-            ]
-        ]
-    },
-    {
         "id": "f3b837acb99f6326",
         "type": "comment",
         "z": "27841aa886edd1cd",
         "g": "90f47fc795048184",
         "name": "non authenticated users get language from browser. see ui-template",
         "info": "",
-        "x": 620,
-        "y": 80,
+        "x": 820,
+        "y": 140,
         "wires": []
     },
     {
@@ -17335,93 +17231,7 @@
         "y": 260,
         "wires": [
             [
-                "3da3f0a5ca052b2e"
-            ]
-        ]
-    },
-    {
-        "id": "f9dc1f7a8155ebef",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::describe.pages.alert.tab",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1370,
-        "y": 200,
-        "wires": [
-            [
-                "6ab34b3b3d64905e"
-            ]
-        ]
-    },
-    {
-        "id": "09bd0767b56167b6",
-        "type": "switch",
-        "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "ok",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1210,
-        "y": 260,
-        "wires": [
-            [
-                "f9dc1f7a8155ebef"
-            ],
-            [
-                "f68e1a2d7f3e0c3d"
-            ]
-        ]
-    },
-    {
-        "id": "f68e1a2d7f3e0c3d",
-        "type": "change",
-        "z": "27841aa886edd1cd",
-        "g": "90f47fc795048184",
-        "name": "notice",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "dictionary.common_notice_login_fail",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1370,
-        "y": 260,
-        "wires": [
-            [
-                "0cf63361a578f787"
+                "96a01e41c97e3672"
             ]
         ]
     },
@@ -17431,7 +17241,7 @@
         "z": "27841aa886edd1cd",
         "g": "90f47fc795048184",
         "name": "data",
-        "func": "msg.payload = '';\nmsg.ui_update = {\n    'label': '',\n    'options': []\n}\n\nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send([msg, msg, msg]);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.hmi.login !== '') {\n\n    node.send([msg, null, null]);\n    \n    msg.ui_update.label = (msg.dictionary.group_auth_user || 'User') + ': ';\n    msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';\n\n    node.status({ 'fill': 'green' });\n    node.send([null, msg, null]);\n}\nelse {\n    msg.ui_update.options = [\n        {\n            'type': 'text',\n            'label': msg.dictionary.group_auth_login || 'Login',\n            'key': 'login',\n            'required': true\n        },\n        {\n            'type': 'password',\n            'label': msg.dictionary.group_auth_pass || 'Pass',\n            'key': 'pass',\n            'required': true\n        }\n    ];\n\n    node.status({ 'fill': 'red' });\n    node.send([null, null, msg]);\n}\n\nreturn;",
+        "func": "msg.payload = '';\nmsg.ui_update = {\n    'label': '',\n    'options': []\n}\n\nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send([msg, msg, msg]);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.hmi.login !== '') {\n\n    node.send([null, msg, null]);\n    \n    msg.ui_update.label = (msg.dictionary.group_auth_user || 'User') + ': ';\n    msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';\n\n    node.status({ 'fill': 'green' });\n    node.send([msg, null, null]);\n}\nelse {\n    msg.ui_update.options = [\n        {\n            'type': 'text',\n            'label': msg.dictionary.group_auth_login || 'Login',\n            'key': 'login',\n            'required': true\n        },\n        {\n            'type': 'password',\n            'label': msg.dictionary.group_auth_pass || 'Pass',\n            'key': 'pass',\n            'required': true\n        }\n    ];\n\n    node.status({ 'fill': 'red' });\n    node.send([null, null, msg]);\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -17442,13 +17252,80 @@
         "y": 200,
         "wires": [
             [
-                "9833ea0e831ff8c7"
-            ],
-            [
                 "aa0e1484ee75066f"
             ],
             [
+                "9833ea0e831ff8c7"
+            ],
+            [
                 "3361a6a4765bfb11"
+            ]
+        ]
+    },
+    {
+        "id": "96a01e41c97e3672",
+        "type": "function",
+        "z": "27841aa886edd1cd",
+        "g": "90f47fc795048184",
+        "name": "data",
+        "func": "// Parse UI form to prepare hash test\n\nmsg.login = msg.payload.login;\nmsg.pass = msg.payload.pass;\nmsg.payload = '';\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "c82457de0864e28c"
+            ]
+        ]
+    },
+    {
+        "id": "b159cf2d88aaf422",
+        "type": "function",
+        "z": "27841aa886edd1cd",
+        "g": "90f47fc795048184",
+        "name": "data",
+        "func": "// Check ash response\n\n// UI redirect to alert page\nif (msg.payload === true) {\n    msg.payload = global.get('describe.pages.alert.tab', 'memoryOnly') || '';\n\n    node.send([msg, null]);\n}\n// UI notice\nelse {\n    msg.payload = msg.dictionary.common_notice_login_fail\n\n    node.send([null, msg]);\n}\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 260,
+        "wires": [
+            [
+                "bb71762ba2269b75"
+            ],
+            [
+                "0cf63361a578f787"
+            ]
+        ]
+    },
+    {
+        "id": "87f5723e3123e133",
+        "type": "function",
+        "z": "27841aa886edd1cd",
+        "g": "90f47fc795048184",
+        "name": "data",
+        "func": "const user = { ...(global.get('user', 'memoryOnly') || { }) };\ndelete user[msg._client.socketId];\nglobal.set('user', 'memoryonly');\n\ndelete msg.ui_update;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 200,
+        "wires": [
+            [
+                "bb71762ba2269b75",
+                "8aca2e86c077d885"
             ]
         ]
     },
@@ -17463,8 +17340,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 470,
-        "y": 380,
+        "x": 450,
+        "y": 320,
         "wires": [
             [
                 "eef8f90bc9ebb816"
@@ -17481,7 +17358,7 @@
             "054bd47295999ad7"
         ],
         "x": 145,
-        "y": 320,
+        "y": 260,
         "wires": [
             [
                 "fca30e25f5087f5a"
@@ -17511,31 +17388,13 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 670,
-        "y": 380,
+        "x": 650,
+        "y": 320,
         "wires": [
             [
                 "049aaf716a9eb767"
             ]
         ]
-    },
-    {
-        "id": "2328d5396e61d3e1",
-        "type": "debug",
-        "z": "476eb6fc04c55cec",
-        "g": "a2c5edf7acc56d7a",
-        "name": "alert - list",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1420,
-        "y": 380,
-        "wires": []
     },
     {
         "id": "2f959ccef56b1836",
@@ -17608,79 +17467,11 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1440,
+        "x": 1420,
         "y": 260,
         "wires": [
             [
                 "c1fe38bf4a62979c"
-            ]
-        ]
-    },
-    {
-        "id": "09a816282f3bc371",
-        "type": "change",
-        "z": "476eb6fc04c55cec",
-        "g": "a2c5edf7acc56d7a",
-        "name": "tab",
-        "rules": [
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['plant']",
-                "pt": "global",
-                "to": "payload.plant",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['line']",
-                "pt": "global",
-                "to": "payload.line",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['equipment']",
-                "pt": "global",
-                "to": "payload.equipment",
-                "tot": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "action",
-                "pt": "msg"
-            },
-            {
-                "t": "set",
-                "p": "hmi.tab",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::describe.pages.detail.tab",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "hmi.page",
-                "pt": "msg",
-                "to": "#:(memoryOnly)::describe.pages.detail.name",
-                "tot": "global"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "hmi.tab",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1830,
-        "y": 320,
-        "wires": [
-            [
-                "ed53bb28b7006772"
             ]
         ]
     },
@@ -17694,8 +17485,8 @@
         "links": [
             "00818f8c0686b556"
         ],
-        "x": 1955,
-        "y": 320,
+        "x": 1935,
+        "y": 260,
         "wires": []
     },
     {
@@ -17801,7 +17592,7 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1440,
+        "x": 1420,
         "y": 320,
         "wires": [
             [
@@ -17820,32 +17611,11 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 870,
-        "y": 380,
+        "x": 850,
+        "y": 320,
         "wires": [
             [
                 "dbee74cb0876ae72"
-            ]
-        ]
-    },
-    {
-        "id": "6332d3cf45ae4386",
-        "type": "change",
-        "z": "476eb6fc04c55cec",
-        "g": "a2c5edf7acc56d7a",
-        "name": "-",
-        "rules": [],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1250,
-        "y": 260,
-        "wires": [
-            [
-                "2f959ccef56b1836",
-                "186467962929c0f8"
             ]
         ]
     },
@@ -17860,11 +17630,11 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1650,
-        "y": 320,
+        "x": 1630,
+        "y": 260,
         "wires": [
             [
-                "09a816282f3bc371"
+                "28484d7e89befc41"
             ]
         ]
     },
@@ -17873,24 +17643,22 @@
         "type": "function",
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
-        "name": "alerts",
-        "func": "msg.payload = [];\nlet i = 0;\n\n// rows\nlet alerts = global.get('kernel.alert', 'memoryOnly') || {};\nfor (const alert in alerts) {\n    let asplit = alert.split('|');\n    let row = {};\n    row.entity = alert;\n    row.equipment = asplit[0];\n    row.component = asplit[1];\n    row.limit = alerts[alert];\n    row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]', 'memoryOnly') || '';\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]', 'memoryOnly') || '';\n\n    let state = row.equipment + '|' + 'run';\n    if (row.component === 'cyclemeter') {\n        state = row.equipment + '|' + 'cycle';\n    }\n\n    if ((global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly') || '') === row.plant \n        && typeof global.get('kernel.link[\"' + state + '\"]', 'memoryOnly') === 'string' \n        && typeof global.get('kernel.link[\"' + row.entity + '\"]', 'memoryOnly') === 'string' \n    ) {\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]', 'memoryOnly') || '';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]', 'memoryOnly') || '';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]', 'memoryOnly') || '';\n        row.state = global.get('kernel.state[\"' + state + '\"]', 'memoryOnly') || 0;\n        row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;\n        row.alert = global.get('kernel.state[\"' + row.entity + '\"]', 'memoryOnly') || 0;\n        row.alert_full = row.alert + ' / ' + row.limit\n        row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));\n        row.percent_full = row.percent.toString() + '%';\n        row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;\n        row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off)\n\n        // chek if device is offline\n        let ssplit = (global.get('kernel.link[\"' + state + '\"]', 'memoryOnly') || '').split('|');\n        if (global.get('kernel.device[\"' + ssplit[0] + '|' + ssplit[1] + '\"]', 'memoryOnly') !== 1) {\n            row.state_color = msg.dictionary.option_color.none;\n        }\n\n        msg.payload[i++] = row;\n    }\n}\n\n// sort\nif (i > 0) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload.sort(function($l, $r) {\n\n        return $l.percent < $r.percent ? 1 : -1;\n    });\n}\n\n// lang\nif (msg.hmi.lang === 'fr') {\n\n    return [msg, null];\n} else {\n\n    return [null, msg];\n}",
+        "name": "data",
+        "func": "// Get plant alerts\n\n// Reset UI\nif (msg.enabled !== true) {\n\n    return [msg, msg];\n}\n\nmsg.payload = [];\nlet i = 0;\n\n// Rows\nlet alerts = global.get('kernel.alert', 'memoryOnly') || {};\nfor (const alert in alerts) {\n    let asplit = alert.split('|');\n    let row = {};\n    row.entity = alert;\n    row.equipment = asplit[0];\n    row.component = asplit[1];\n    row.limit = alerts[alert];\n    row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]', 'memoryOnly') || '';\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]', 'memoryOnly') || '';\n\n    let state = row.equipment + '|' + 'run';\n    if (row.component === 'cyclemeter') {\n        state = row.equipment + '|' + 'cycle';\n    }\n\n    if ((global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly') || '') === row.plant \n        && typeof global.get('kernel.link[\"' + state + '\"]', 'memoryOnly') === 'string' \n        && typeof global.get('kernel.link[\"' + row.entity + '\"]', 'memoryOnly') === 'string' \n    ) {\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]', 'memoryOnly') || '';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]', 'memoryOnly') || '';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]', 'memoryOnly') || '';\n        row.state = global.get('kernel.state[\"' + state + '\"]', 'memoryOnly') || 0;\n        row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;\n        row.alert = global.get('kernel.state[\"' + row.entity + '\"]', 'memoryOnly') || 0;\n        row.alert_full = row.alert + ' / ' + row.limit\n        row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));\n        row.percent_full = row.percent.toString() + '%';\n        row.diff = Math.round((Number(row.alert) - Number(row.limit))*10) / 10;\n        row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off)\n\n        // chek if device is offline\n        let ssplit = (global.get('kernel.link[\"' + state + '\"]', 'memoryOnly') || '').split('|');\n        if (global.get('kernel.device[\"' + ssplit[0] + '|' + ssplit[1] + '\"]', 'memoryOnly') !== 1) {\n            row.state_color = msg.dictionary.option_color.none;\n        }\n\n        msg.payload[i++] = row;\n    }\n}\n\n// sort\nif (i > 0) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload.sort(function($l, $r) {\n\n        return $l.percent < $r.percent ? 1 : -1;\n    });\n}\n\n// lang\nif (msg.hmi.lang === 'fr') {\n\n    return [msg, null];\n} else {\n\n    return [null, msg];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1250,
-        "y": 320,
+        "x": 1230,
+        "y": 260,
         "wires": [
             [
-                "2f959ccef56b1836",
-                "2328d5396e61d3e1"
+                "2f959ccef56b1836"
             ],
             [
-                "186467962929c0f8",
-                "2328d5396e61d3e1"
+                "186467962929c0f8"
             ]
         ]
     },
@@ -17899,20 +17667,17 @@
         "type": "function",
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
-        "name": "user plant",
-        "func": "if (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [msg, null, msg];\n}\n\n\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly') || '';\n\n    if (msg.payload === '') {\n        // user must selected a plant\n\n        return [null, null, msg];\n    } else {\n        // show selected plant\n\n        return [null, msg, msg];\n    }\n} else {\n    // user is linked to a plant\n    msg.payload = msg.hmi.plant;\n\n    return [null, msg, null];\n}",
-        "outputs": 3,
+        "name": "data",
+        "func": "// Get user plants\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [msg, msg];\n}\n\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]', 'memoryOnly') || '';\n\n    if (msg.payload === '') {\n        // user must selected a plant\n\n        return [null, msg];\n    } else {\n        // show selected plant\n\n        return [msg, msg];\n    }\n// Plant is defined for the user\n} else {\n    // user is linked to a plant\n    msg.payload = msg.hmi.plant;\n\n    return [msg, null];\n}",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
-        "y": 320,
+        "x": 270,
+        "y": 260,
         "wires": [
-            [
-                "6332d3cf45ae4386"
-            ],
             [
                 "953414d1b751a30d"
             ],
@@ -17932,8 +17697,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1070,
-        "y": 380,
+        "x": 1050,
+        "y": 320,
         "wires": [
             [
                 "953414d1b751a30d"
@@ -17986,6 +17751,46 @@
                 "054bd47295999ad7"
             ]
         ]
+    },
+    {
+        "id": "28484d7e89befc41",
+        "type": "function",
+        "z": "476eb6fc04c55cec",
+        "g": "a2c5edf7acc56d7a",
+        "name": "data",
+        "func": "// Compute user form\n\nconst form = { ...(global.get('form', 'memoryOnly') || { }) };\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = {};\n}\n\n// Update form\nform[msg.hmi.id]['plant'] = msg.payload.plant;\nform[msg.hmi.id]['line'] = msg.payload.line;\nform[msg.hmi.id]['equipment'] = msg.payload.equipment;\n\n// Save form\nglobal.set('form', form, 'memoryOnly');\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page', 'memoryOnly') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1810,
+        "y": 260,
+        "wires": [
+            [
+                "ed53bb28b7006772",
+                "2c755e01455b172f"
+            ]
+        ]
+    },
+    {
+        "id": "2c755e01455b172f",
+        "type": "debug",
+        "z": "476eb6fc04c55cec",
+        "g": "a2c5edf7acc56d7a",
+        "name": "alert - list",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1980,
+        "y": 320,
+        "wires": []
     },
     {
         "id": "d55041fdf28a3f36",

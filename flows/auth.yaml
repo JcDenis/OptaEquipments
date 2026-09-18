@@ -15,25 +15,22 @@
   nodes:
     - 9833ea0e831ff8c7
     - aa0e1484ee75066f
-    - f4eee7dbe5621ecf
     - bb71762ba2269b75
     - 8aca2e86c077d885
-    - 6ab34b3b3d64905e
     - c82457de0864e28c
     - 0cf63361a578f787
     - 3361a6a4765bfb11
-    - 3da3f0a5ca052b2e
     - f3b837acb99f6326
     - 9093d61ed9142cff
-    - f9dc1f7a8155ebef
-    - 09bd0767b56167b6
-    - f68e1a2d7f3e0c3d
     - bf3da41c4b5bd219
     - 5a825d48de813e3e
+    - 96a01e41c97e3672
+    - b159cf2d88aaf422
+    - 87f5723e3123e133
   x: 104
-  'y': 39
-  w: 1722
-  h: 262
+  'y': 99
+  w: 1382
+  h: 202
 - id: 9833ea0e831ff8c7
   type: ui-button
   z: 27841aa886edd1cd
@@ -66,9 +63,9 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 470
-  'y': 140
+  'y': 200
   wires:
-    - - f4eee7dbe5621ecf
+    - - 87f5723e3123e133
 - id: aa0e1484ee75066f
   type: ui-text
   z: 27841aa886edd1cd
@@ -90,29 +87,8 @@
   value: payload
   valueType: msg
   x: 450
-  'y': 200
-  wires: []
-- id: f4eee7dbe5621ecf
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: disconnect
-  rules:
-    - t: delete
-      p: '#:(memoryOnly)::user[msg._client.socketId]'
-      pt: global
-    - t: delete
-      p: ui_update
-      pt: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 690
   'y': 140
-  wires:
-    - - 6ab34b3b3d64905e
+  wires: []
 - id: bb71762ba2269b75
   type: link out
   z: 27841aa886edd1cd
@@ -121,8 +97,8 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1655
-  'y': 140
+  x: 1315
+  'y': 200
   wires: []
 - id: 8aca2e86c077d885
   type: debug
@@ -137,31 +113,9 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1710
-  'y': 200
-  wires: []
-- id: 6ab34b3b3d64905e
-  type: delay
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: 20ms
-  pauseType: delay
-  timeout: '20'
-  timeoutUnits: milliseconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: false
-  allowrate: false
-  outputs: 1
-  x: 1530
+  x: 1370
   'y': 140
-  wires:
-    - - 8aca2e86c077d885
-      - bb71762ba2269b75
+  wires: []
 - id: c82457de0864e28c
   type: link call
   z: 27841aa886edd1cd
@@ -171,10 +125,10 @@
     - fdb028158b218535
   linkType: static
   timeout: '30'
-  x: 1030
+  x: 1010
   'y': 260
   wires:
-    - - 09bd0767b56167b6
+    - - b159cf2d88aaf422
 - id: bf3da41c4b5bd219
   type: link in
   z: 27841aa886edd1cd
@@ -195,7 +149,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1495
+  x: 1315
   'y': 260
   wires: []
 - id: 3361a6a4765bfb11
@@ -236,44 +190,14 @@
   'y': 260
   wires:
     - - 9093d61ed9142cff
-- id: 3da3f0a5ca052b2e
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: prepare
-  rules:
-    - t: set
-      p: login
-      pt: msg
-      to: payload.login
-      tot: msg
-    - t: set
-      p: pass
-      pt: msg
-      to: payload.pass
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 840
-  'y': 260
-  wires:
-    - - c82457de0864e28c
 - id: f3b837acb99f6326
   type: comment
   z: 27841aa886edd1cd
   g: 90f47fc795048184
   name: non authenticated users get language from browser. see ui-template
   info: ''
-  x: 620
-  'y': 80
+  x: 820
+  'y': 140
   wires: []
 - id: 9093d61ed9142cff
   type: link call
@@ -287,65 +211,7 @@
   x: 650
   'y': 260
   wires:
-    - - 3da3f0a5ca052b2e
-- id: f9dc1f7a8155ebef
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: tab
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::describe.pages.alert.tab'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 200
-  wires:
-    - - 6ab34b3b3d64905e
-- id: 09bd0767b56167b6
-  type: switch
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: ok
-  property: payload
-  propertyType: msg
-  rules:
-    - t: 'true'
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1210
-  'y': 260
-  wires:
-    - - f9dc1f7a8155ebef
-    - - f68e1a2d7f3e0c3d
-- id: f68e1a2d7f3e0c3d
-  type: change
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.common_notice_login_fail
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 260
-  wires:
-    - - 0cf63361a578f787
+    - - 96a01e41c97e3672
 - id: 5a825d48de813e3e
   type: function
   z: 27841aa886edd1cd
@@ -370,13 +236,13 @@
 
     if (msg.hmi.login !== '') {
 
-        node.send([msg, null, null]);
+        node.send([null, msg, null]);
         
         msg.ui_update.label = (msg.dictionary.group_auth_user || 'User') + ': ';
         msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';
 
         node.status({ 'fill': 'green' });
-        node.send([null, msg, null]);
+        node.send([msg, null, null]);
     }
     else {
         msg.ui_update.options = [
@@ -408,6 +274,86 @@
   x: 270
   'y': 200
   wires:
-    - - 9833ea0e831ff8c7
     - - aa0e1484ee75066f
+    - - 9833ea0e831ff8c7
     - - 3361a6a4765bfb11
+- id: 96a01e41c97e3672
+  type: function
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: data
+  func: |-
+    // Parse UI form to prepare hash test
+
+    msg.login = msg.payload.login;
+    msg.pass = msg.payload.pass;
+    msg.payload = '';
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 260
+  wires:
+    - - c82457de0864e28c
+- id: b159cf2d88aaf422
+  type: function
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: data
+  func: |-
+    // Check ash response
+
+    // UI redirect to alert page
+    if (msg.payload === true) {
+        msg.payload = global.get('describe.pages.alert.tab', 'memoryOnly') || '';
+
+        node.send([msg, null]);
+    }
+    // UI notice
+    else {
+        msg.payload = msg.dictionary.common_notice_login_fail
+
+        node.send([null, msg]);
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1190
+  'y': 260
+  wires:
+    - - bb71762ba2269b75
+    - - 0cf63361a578f787
+- id: 87f5723e3123e133
+  type: function
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: data
+  func: |-
+    const user = { ...(global.get('user', 'memoryOnly') || { }) };
+    delete user[msg._client.socketId];
+    global.set('user', 'memoryonly');
+
+    delete msg.ui_update;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1190
+  'y': 200
+  wires:
+    - - bb71762ba2269b75
+      - 8aca2e86c077d885
