@@ -1082,7 +1082,7 @@
         msg.ui_update = {};
     }
 
-    msg.ui_update.label = msg.dictionary?.common_select_plant || 'Select a
+    msg.ui_update.label = msg.dictionary.option_select.plant || 'Select a
     plant';
 
 
@@ -1126,7 +1126,7 @@
     if (typeof msg.ui_update === 'undefined') {
         msg.ui_update = {};
     }
-    msg.ui_update.label = msg.dictionary?.common_select_line || 'Select a line';
+    msg.ui_update.label = msg.dictionary.option_select.line || 'Select a line';
 
     delete msg.limit_plant;
 
@@ -1176,7 +1176,7 @@
         msg.ui_update = {};
     }
 
-    msg.ui_update.label = msg.dictionary?.common_select_equipment || 'Select an
+    msg.ui_update.label = msg.dictionary.option_select.equipment || 'Select an
     equipment';
 
 
@@ -1227,7 +1227,7 @@
         msg.ui_update = {};
     }
 
-    msg.ui_update.label = msg.dictionary?.common_select_model || 'Select a
+    msg.ui_update.label = msg.dictionary.option_select.model || 'Select a
     model';
 
 
@@ -1255,7 +1255,7 @@
     }];
 
     let i = 1;
-    const teams = { ...(msg.dictionary?.option_team || {})};
+    const teams = { ...(msg.dictionary.option_team || {})};
 
     for (const team in teams) {
         msg.options[i++] = {
@@ -1268,7 +1268,7 @@
     if (typeof msg.ui_update === 'undefined') {
         msg.ui_update = {};
     }
-    msg.ui_update.label = msg.dictionary?.common_select_team ||'Select a team';
+    msg.ui_update.label = msg.dictionary.option_select.team || 'Select a team';
 
     msg.nosort = true;
 
@@ -1296,7 +1296,7 @@
     }];
 
     let i = 1;
-    const resolutions = { ...(msg.dictionary?.option_resolution || {}) };
+    const resolutions = { ...(msg.dictionary.option_resolution || {}) };
 
     for (const resolution in resolutions) {
         msg.options[i++] = {
@@ -1332,7 +1332,7 @@
     }];
 
     let i = 1;
-    const levels = { ...(msg.dictionary?.option_level || {}) };
+    const levels = { ...(msg.dictionary.option_level || {}) };
 
     for (const level in levels) {
         msg.options[i++] = {
@@ -1379,7 +1379,7 @@
     }];
 
     let i = 1;
-    const langs = { ...(msg.dictionary?.option_lang || {}) };
+    const langs = { ...(msg.dictionary.option_lang || {}) };
 
     for (const lang in langs) {
         msg.options[i++] = {
@@ -1495,7 +1495,7 @@
         msg.ui_update = {};
     }
 
-    msg.ui_update.label = msg.dictionary?.common_select_component ||'Select a
+    msg.ui_update.label = msg.dictionary.option_select.component ||'Select a
     component';
 
 
@@ -1541,7 +1541,7 @@
     if (typeof msg.ui_update === 'undefined') {
         msg.ui_update = {};
     }
-    msg.ui_update.label = msg.dictionary?.common_select_link ||'Select a link';
+    msg.ui_update.label = msg.dictionary.option_select.link ||'Select a link';
 
     return msg;
   outputs: 1
@@ -1588,7 +1588,7 @@
         msg.ui_update = {};
     }
 
-    msg.ui_update.label = msg.dictionary?.common_select_device || 'Select a
+    msg.ui_update.label = msg.dictionary.option_select.device || 'Select a
     device';
 
 
@@ -1622,7 +1622,7 @@
         let split = link.split("|");
         if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {
             if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {
-                let name = msg.dictionary?.option_component[split[1]];
+                let name = msg.dictionary.option_component[split[1]];
                 msg.options[i++] = {
                     'label': name + ' (' + link + ')',
                     'value': link,
@@ -1635,7 +1635,7 @@
     if (typeof msg.ui_update === 'undefined') {
         msg.ui_update = {};
     }
-    msg.ui_update.label = msg.dictionary?.common_select_link ||'Select a link';
+    msg.ui_update.label = msg.dictionary.option_select.link ||'Select a link';
 
     return msg;
   outputs: 1
@@ -1766,18 +1766,15 @@
   z: adb9fbf379118d77
   g: 111bcae539ab0233
   name: data
-  func: >-
+  func: |-
     msg.options = [{
         'label': '',
         'value': '',
         'dropdown': 'group'
     }];
 
-
     let i = 1;
-
     const groups = { ...(msg.dictionary?.option_group || {}) };
-
 
     for (const group in groups) {
         if (typeof msg.limit_group === 'undefined' || group.match((new RegExp('^(' + msg.limit_group + ')$'))) !== null) {
@@ -1789,14 +1786,10 @@
         }
     }
 
-
     if (typeof msg.ui_update === 'undefined') {
         msg.ui_update = {};
     }
-
-    msg.ui_update.label = msg.dictionary?.common_select_group ||'Select a
-    group';
-
+    msg.ui_update.label = msg.dictionary.option_select.group ||'Select a group';
 
     return msg;
   outputs: 1
@@ -2002,7 +1995,7 @@
     if (typeof msg.ui_update === 'undefined') {
         msg.ui_update = {};
     }
-    msg.ui_update.label = msg.dictionary?.common_select_day || 'Select a day';
+    msg.ui_update.label = msg.dictionary.option_select.day || 'Select a day';
 
     return msg;
   outputs: 1
@@ -2105,7 +2098,7 @@
     }
 
 
-    msg.ui_update.label = msg.dictionary.common_select_timezone || 'Select
+    msg.ui_update.label = msg.dictionary.option_select.timezone || 'Select a
     timezone';
 
 
@@ -2125,7 +2118,7 @@
   z: adb9fbf379118d77
   g: c5d0cafa68f99f1b
   name: data
-  func: "msg.options = [\n    {\n        'label':'NO',\n        'value':false\n    },\n    {\n        'label':'NC',\n        'value':true\n    }\n];\t\n\nif (typeof msg.ui_update !== 'object') {\n    msg.ui_update = {};\n}\n\nmsg.ui_update.label = msg.dictionary.common_select_contact || 'Select contact type';\n\nreturn msg;"
+  func: "msg.options = [\n    {\n        'label':'NO',\n        'value':false\n    },\n    {\n        'label':'NC',\n        'value':true\n    }\n];\t\n\nif (typeof msg.ui_update !== 'object') {\n    msg.ui_update = {};\n}\n\nmsg.ui_update.label = msg.dictionary.option_select.contact || 'Select contact type';\n\nreturn msg;"
   outputs: 1
   timeout: 0
   noerr: 0

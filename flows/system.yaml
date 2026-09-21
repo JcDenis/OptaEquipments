@@ -56,7 +56,6 @@
     - d65327c4fbf1872c
     - 5a85864d1b0b96a3
     - bee6a866a78902c8
-    - f6e2c94e6b3f6452
     - dd8ce7e8d8c17c91
     - 07c662efc5f8b8d7
     - 9ab5170ec61ff830
@@ -73,6 +72,7 @@
     - e63131037fb16dd4
     - c58b883c9be07c8f
     - af97c0473e39e9c9
+    - 15767da82438cd31
   x: 104
   'y': 999
   w: 1452
@@ -184,7 +184,7 @@
   height: '1'
   topic: topic
   topicType: msg
-  label: Téléverser un firmware
+  label: Upload a firmware
   icon: ''
   allowMultiple: false
   accept: .ota
@@ -545,7 +545,7 @@
   g: 6ed9fb5c0b268c66
   group: a8d6d74266e4b8d2
   name: system - tree - read
-  label: Restaurer
+  label: Restore
   order: 4
   width: '2'
   height: '1'
@@ -580,7 +580,7 @@
   g: 6ed9fb5c0b268c66
   group: a8d6d74266e4b8d2
   name: system - tree - write
-  label: Enregistrer
+  label: Save
   order: 3
   width: '2'
   height: '1'
@@ -671,7 +671,7 @@
   height: '0'
   topic: topic
   topicType: msg
-  label: Importer un logo
+  label: Import icon
   icon: ''
   allowMultiple: false
   accept: image/png
@@ -690,8 +690,8 @@
   x: 1060
   'y': 1100
   wires:
-    - - f6e2c94e6b3f6452
-      - 1c423cb24f5a5aed
+    - - 1c423cb24f5a5aed
+      - 15767da82438cd31
 - id: 64a95942a5179c42
   type: switch
   z: 44465f18e06bb58d
@@ -843,7 +843,7 @@
   g: 6ed9fb5c0b268c66
   group: a8d6d74266e4b8d2
   name: system - tree - download
-  label: Exporter
+  label: Export
   order: 5
   width: '2'
   height: '1'
@@ -945,7 +945,7 @@
   height: 0
   topic: topic
   topicType: msg
-  label: Importer une sauvegarde
+  label: Import
   icon: ''
   allowMultiple: false
   accept: .json
@@ -1013,31 +1013,6 @@
   x: 1175
   'y': 560
   wires: []
-- id: f6e2c94e6b3f6452
-  type: change
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: notice
-  rules:
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: Application mis à jour avec succès
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1230
-  'y': 1040
-  wires:
-    - - bee6a866a78902c8
 - id: dd8ce7e8d8c17c91
   type: link in
   z: 44465f18e06bb58d
@@ -1062,12 +1037,12 @@
   width: 0
   height: 0
   options:
-    - label: Propriétaire de l'application
+    - label: Application owner
       key: vendor
       type: text
       required: true
       rows: null
-    - label: Nom de l'application
+    - label: Application name
       key: title
       type: text
       required: true
@@ -1077,17 +1052,17 @@
       type: number
       required: true
       rows: null
-    - label: Relancer l'application
+    - label: Reload application
       key: reload
       type: checkbox
       required: false
       rows: null
-    - label: Activer la mise à jour depuis MQTT
+    - label: Enable update from MQTT
       key: frommqtt
       type: checkbox
       required: false
       rows: null
-    - label: Activer la mise à jour vers MQTT
+    - label: Enabled update to MQTT
       key: tomqtt
       type: checkbox
       required: false
@@ -1100,7 +1075,7 @@
     frommqtt: false
     tomqtt: false
   payload: ''
-  submit: Enregistrer
+  submit: Save
   cancel: ''
   resetOnSubmit: false
   topic: topic
@@ -1176,12 +1151,12 @@
   'y': 1160
   wires:
     - - ff46693ca235b0d0
-      - f6e2c94e6b3f6452
       - 1c87f841143f4612
       - cf4a12c7d7a329eb
       - e63131037fb16dd4
       - c58b883c9be07c8f
       - af97c0473e39e9c9
+      - 15767da82438cd31
 - id: ff46693ca235b0d0
   type: switch
   z: 44465f18e06bb58d
@@ -1227,8 +1202,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_system_app_title
-  valueType: msg
+  value: Application
+  valueType: str
   x: 310
   'y': 1040
   wires: []
@@ -1250,8 +1225,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_system_ota_title
-  valueType: msg
+  value: Opta firmware
+  valueType: str
   x: 310
   'y': 1640
   wires: []
@@ -1273,8 +1248,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_system_tree_title
-  valueType: msg
+  value: Tree structure
+  valueType: str
   x: 310
   'y': 320
   wires: []
@@ -2019,3 +1994,23 @@
   'y': 140
   wires:
     - - 349a17937b2daecc
+- id: 15767da82438cd31
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: notice
+  func: |-
+    msg.topic = '';
+    msg.payload = msg.dictionary.option_notice.update_success;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1230
+  'y': 1040
+  wires:
+    - - bee6a866a78902c8

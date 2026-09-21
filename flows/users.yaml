@@ -44,12 +44,10 @@
     - 960524ae838673ed
     - 804a79a88a862567
     - 6b45402461798a78
-    - dc1ce6f61f7a41ac
-    - 9d8037e6153c0303
     - 30d032935f880160
   x: 104
   'y': 1179
-  w: 1632
+  w: 1452
   h: 202
 - id: a69df92e27bcc577
   type: group
@@ -60,7 +58,6 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 919f4eb75613e7ab
     - 4b6e2b530da33965
     - c55e9d43b998c86e
     - 9c499323508a759d
@@ -85,7 +82,6 @@
     - 85434b774007dc4d
     - ae02a3d5cbedb090
     - 0e5010c69d730e92
-    - 85371bc10c4ae5b2
     - 421bd90f81361dfe
     - 7e3eaa285d5a39cb
     - b994e33934e8b492
@@ -124,7 +120,6 @@
     - cc9e5c04bf64876b
     - 60c8b0f6a7a98ca3
     - ef14c5282b0aa8ba
-    - 4cd0474c6a108ae8
   x: 104
   'y': 579
   w: 1732
@@ -162,7 +157,6 @@
     - ac7df20434c69118
     - b9f317153008cccc
     - 4b08c78836a1eecc
-    - c4ca134a75a08e77
   x: 104
   'y': 879
   w: 2452
@@ -205,79 +199,6 @@
   'y': 1220
   wires:
     - - 1cf562462b7e9090
-- id: 919f4eb75613e7ab
-  type: ui-table
-  z: adb48ef35d9453c0
-  g: a69df92e27bcc577
-  group: 71bafeee3e662114
-  name: user - list - table - fr
-  label: ''
-  order: 2
-  width: 0
-  height: 0
-  maxrows: 0
-  passthru: false
-  autocols: false
-  showSearch: true
-  deselect: true
-  selectionType: none
-  columns:
-    - title: Etat
-      key: session_color
-      keyType: key
-      type: color
-      width: ''
-      align: center
-    - title: Identifiant
-      key: login
-      keyType: key
-      type: text
-      width: ''
-      align: start
-    - title: Niveau
-      key: level_full
-      keyType: key
-      type: text
-      width: ''
-      align: start
-    - title: Usine
-      key: plant_full
-      keyType: key
-      type: text
-      width: ''
-      align: start
-    - title: Langue
-      key: lang
-      keyType: key
-      type: text
-      width: ''
-      align: start
-    - title: Telegram
-      key: telegram
-      keyType: key
-      type: text
-      width: ''
-      align: start
-    - title: ''
-      key: delete
-      keyType: key
-      type: button
-      width: ''
-      align: start
-    - title: ''
-      key: disconnect
-      keyType: key
-      type: button
-      width: ''
-      align: start
-  mobileBreakpoint: sm
-  mobileBreakpointType: defaults
-  action: replace
-  className: ''
-  x: 490
-  'y': 440
-  wires:
-    - - 6409d1cc419c1f86
 - id: 4b6e2b530da33965
   type: change
   z: adb48ef35d9453c0
@@ -358,7 +279,7 @@
     - t: set
       p: row.delete
       pt: msg
-      to: dictionary.common_action_delete
+      to: dictionary.option_action.delete
       tot: msg
     - t: set
       p: payload
@@ -368,7 +289,7 @@
     - t: set
       p: row.disconnect
       pt: msg
-      to: dictionary.common_action_disconnect
+      to: dictionary.option_action.disconnect
       tot: msg
   action: ''
   property: ''
@@ -438,7 +359,7 @@
   x: 1270
   'y': 380
   wires:
-    - - 85371bc10c4ae5b2
+    - - 421bd90f81361dfe
 - id: 6409d1cc419c1f86
   type: switch
   z: adb48ef35d9453c0
@@ -527,8 +448,8 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_admin_nodelete
-      tot: msg
+      to: Admin is not deletable
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -566,8 +487,8 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_tree_update_success
-      tot: msg
+      to: Successfully updated
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -620,8 +541,8 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_pass_mismatch
-      tot: msg
+      to: Password missmatch
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -679,8 +600,8 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_tree_update_success
-      tot: msg
+      to: Successfully updated
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -707,18 +628,18 @@
   'y': 1220
   wires:
     - - 960524ae838673ed
-      - dc1ce6f61f7a41ac
-      - 9d8037e6153c0303
+      - eaf6fbb998a28d10
+      - ba2c0a6c4e22a220
     - - 960524ae838673ed
-      - dc1ce6f61f7a41ac
-      - 9d8037e6153c0303
+      - eaf6fbb998a28d10
+      - ba2c0a6c4e22a220
 - id: eaf6fbb998a28d10
   type: ui-button
   z: adb48ef35d9453c0
   g: 7a7d35c0913aed9f
   group: 0e1f5538e0c5b139
   name: user - backup - export
-  label: ''
+  label: Export
   order: 3
   width: '1'
   height: '1'
@@ -743,7 +664,7 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 680
+  x: 500
   'y': 1280
   wires:
     - - 6b45402461798a78
@@ -763,7 +684,7 @@
   allowMultiple: false
   accept: .json
   className: ''
-  x: 680
+  x: 500
   'y': 1340
   wires:
     - - 804a79a88a862567
@@ -781,7 +702,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1090
+  x: 910
   'y': 1280
   wires:
     - - df896a766913d71d
@@ -811,7 +732,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1250
+  x: 1070
   'y': 1280
   wires:
     - - 9436213abf2c9241
@@ -823,7 +744,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1375
+  x: 1195
   'y': 1280
   wires: []
 - id: 4c08c3e633d35558
@@ -834,7 +755,7 @@
   property: payload
   action: ''
   pretty: false
-  x: 1410
+  x: 1230
   'y': 1340
   wires:
     - - 30d032935f880160
@@ -852,7 +773,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1090
+  x: 910
   'y': 1340
   wires:
     - - c402534d90951626
@@ -870,7 +791,7 @@
   checkall: 'false'
   repair: false
   outputs: 1
-  x: 1250
+  x: 1070
   'y': 1340
   wires:
     - - 4c08c3e633d35558
@@ -884,7 +805,7 @@
     - 30571b6d70631747
     - 922d6d1c4163d169
     - b75938c74c41ca5e
-  x: 1695
+  x: 1515
   'y': 1340
   wires: []
 - id: 5090288d785383e7
@@ -898,17 +819,17 @@
   width: 0
   height: 0
   options:
-    - label: Identifiant
+    - label: Login
       key: login
       type: dropdown
       required: true
       rows: null
-    - label: Nouveau mot de passe
+    - label: New password
       key: pass
       type: password
       required: true
       rows: null
-    - label: Vérification du mot de passe
+    - label: Retype new password
       key: pass2
       type: password
       required: true
@@ -918,7 +839,7 @@
     pass: ''
     pass2: ''
   payload: ''
-  submit: Enregistrer
+  submit: Save
   cancel: ''
   resetOnSubmit: true
   topic: topic
@@ -947,6 +868,11 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -955,7 +881,7 @@
   x: 660
   'y': 680
   wires:
-    - - 4cd0474c6a108ae8
+    - - 5090288d785383e7
 - id: 1a2be7c9f0b87d3e
   type: switch
   z: adb48ef35d9453c0
@@ -992,8 +918,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_user_add_title
-  valueType: msg
+  value: Add a user
+  valueType: str
   x: 480
   'y': 920
   wires: []
@@ -1015,8 +941,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_user_edit_title
-  valueType: msg
+  value: Edit a user
+  valueType: str
   x: 480
   'y': 620
   wires: []
@@ -1038,8 +964,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_user_list_title
-  valueType: msg
+  value: Users
+  valueType: str
   x: 480
   'y': 320
   wires: []
@@ -1061,8 +987,8 @@
   color: '#717171'
   wrapText: false
   className: ui-title
-  value: dictionary.group_user_backup_title
-  valueType: msg
+  value: Backup users
+  valueType: str
   x: 490
   'y': 1220
   wires: []
@@ -1115,7 +1041,6 @@
   'y': 320
   wires:
     - - bca8c8857b4f9717
-      - 919f4eb75613e7ab
       - 421bd90f81361dfe
     - - bca8c8857b4f9717
       - 4b6e2b530da33965
@@ -1521,8 +1446,8 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_user_noempty
-      tot: msg
+      to: User is not empty
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -1599,8 +1524,8 @@
     - t: set
       p: payload
       pt: msg
-      to: dictionary.common_notice_tree_update_success
-      tot: msg
+      to: Successfully updated
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -1687,30 +1612,30 @@
   group: e9c7dc11bf2e5dfb
   label: plop
   order: 2
-  width: 0
-  height: 0
+  width: '6'
+  height: '8'
   options:
-    - label: Identifiant
+    - label: Login
       key: login
       type: text
       required: true
       rows: null
-    - label: Mot de passe
+    - label: Password
       key: pass
       type: password
       required: true
       rows: null
-    - label: Langue
+    - label: Lang
       key: lang
       type: dropdown
       required: true
       rows: null
-    - label: Niveau
+    - label: Level
       key: level
       type: dropdown
       required: true
       rows: null
-    - label: Usine
+    - label: Plant
       key: plant
       type: dropdown
       required: false
@@ -1728,7 +1653,7 @@
     plant: ''
     telegram: ''
   payload: ''
-  submit: Enregistrer
+  submit: Save
   cancel: ''
   resetOnSubmit: true
   topic: topic
@@ -1757,6 +1682,11 @@
       pt: msg
       to: ''
       tot: str
+    - t: set
+      p: ui_update.label
+      pt: msg
+      to: ''
+      tot: str
   action: ''
   property: ''
   from: ''
@@ -1765,7 +1695,7 @@
   x: 1420
   'y': 980
   wires:
-    - - c4ca134a75a08e77
+    - - 7b0c5efa0173470c
 - id: 30781025f020b84a
   type: switch
   z: adb48ef35d9453c0
@@ -1888,7 +1818,7 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 910
+  x: 730
   'y': 1340
   wires:
     - - de03d6063f93c65d
@@ -1901,120 +1831,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 910
+  x: 730
   'y': 1280
   wires:
     - - 5de49f01b62221a3
-- id: 4cd0474c6a108ae8
-  type: change
-  z: adb48ef35d9453c0
-  g: 4c2194718c72648c
-  name: option
-  rules:
-    - t: set
-      p: ui_update.options
-      pt: msg
-      to: "[\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.group_user_pass2,\t        'key':'pass2',\t        'required':true\t    }\t]"
-      tot: jsonata
-    - t: set
-      p: ui_update.label
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 830
-  'y': 680
-  wires:
-    - - 5090288d785383e7
-- id: c4ca134a75a08e77
-  type: change
-  z: adb48ef35d9453c0
-  g: bb8597f031aabc08
-  name: option
-  rules:
-    - t: set
-      p: ui_update.options
-      pt: msg
-      to: "[\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_login,\t        'key':'login',\t        'required':true\t    },\t    {\t        'type':'password',\t        'label':msg.dictionary.common_name_pass,\t        'key':'pass',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_level,\t        'key':'level',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_lang,\t        'key':'lang',\t        'required':true\t    },\t    {\t        'type':'dropdown',\t        'label':msg.dictionary.common_name_plant,\t        'key':'plant',\t        'required':false\t    },\t    {\t        'type':'text',\t        'label':msg.dictionary.common_name_telegram,\t        'key':'telegram',\t        'required':false\t    }\t]"
-      tot: jsonata
-    - t: set
-      p: ui_update.label
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1590
-  'y': 980
-  wires:
-    - - 7b0c5efa0173470c
-- id: dc1ce6f61f7a41ac
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: label
-  rules:
-    - t: set
-      p: ui_update.label
-      pt: msg
-      to: dictionary.common_action_export
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 470
-  'y': 1280
-  wires:
-    - - eaf6fbb998a28d10
-- id: 9d8037e6153c0303
-  type: change
-  z: adb48ef35d9453c0
-  g: 7a7d35c0913aed9f
-  name: label
-  rules:
-    - t: set
-      p: ui_update.label
-      pt: msg
-      to: dictionary.common_action_import
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 470
-  'y': 1340
-  wires:
-    - - ba2c0a6c4e22a220
-- id: 85371bc10c4ae5b2
-  type: switch
-  z: adb48ef35d9453c0
-  g: a69df92e27bcc577
-  name: lang
-  property: hmi.lang
-  propertyType: msg
-  rules:
-    - t: eq
-      v: fr
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 270
-  'y': 440
-  wires:
-    - - 919f4eb75613e7ab
-    - - 421bd90f81361dfe
 - id: 421bd90f81361dfe
   type: ui-table
   z: adb48ef35d9453c0
@@ -2085,7 +1905,7 @@
   action: replace
   className: ''
   x: 500
-  'y': 500
+  'y': 440
   wires:
     - - 6409d1cc419c1f86
 - id: 7e3eaa285d5a39cb
@@ -2220,7 +2040,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1570
+  x: 1390
   'y': 1340
   wires:
     - - 0a619717ada5bdb5

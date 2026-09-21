@@ -34,7 +34,6 @@
     label: true
   nodes:
     - 28b85f45e33eef42
-    - 7779c61e2d5af956
     - 408a810a7266e6fe
     - 968b8e399f39f1a5
     - 1b9a457d31b5df20
@@ -46,6 +45,7 @@
     - 47f48c881c76c867
     - cd2737f508858dca
     - 0b9e7232d0a2493a
+    - 710944fdb5c12852
   x: 104
   'y': 459
   w: 1952
@@ -202,51 +202,6 @@
   'y': 560
   wires:
     - - cd2737f508858dca
-- id: 7779c61e2d5af956
-  type: change
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  name: option
-  rules:
-    - t: set
-      p: topic
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: options
-      pt: msg
-      to: "[\t    {\t        'label':msg.dictionary.common_name_lines,\t        'value':'line'\t    },\t    {\t        'label':msg.dictionary.common_name_equipments,\t        'value':'equipment'\t    },\t    {\t        'label':msg.dictionary.common_name_alerts,\t        'value':'alert'\t    },\t    {\t        'label':msg.dictionary.common_name_devices,\t        'value':'device'\t    },\t    {\t        'label':msg.dictionary.common_name_components,\t        'value':'component'\t    },\t    {\t        'label':msg.dictionary.common_name_holidays,\t        'value':'holiday'\t    }\t]"
-      tot: jsonata
-    - t: set
-      p: ui_update
-      pt: msg
-      to: '{''label'':msg.dictionary.common_select_list}'
-      tot: jsonata
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1290
-  'y': 560
-  wires:
-    - - 408a810a7266e6fe
 - id: 408a810a7266e6fe
   type: ui-dropdown
   z: e97c6f12735a13c1
@@ -255,7 +210,7 @@
   name: list - select - type
   label: ''
   tooltip: ''
-  order: 3
+  order: 2
   width: 0
   height: 0
   passthru: false
@@ -380,7 +335,7 @@
   group: c605809a8fe63a3b
   name: list - equipment - table - fr
   label: ''
-  order: 6
+  order: 5
   width: 0
   height: 0
   maxrows: 0
@@ -447,7 +402,7 @@
   group: c605809a8fe63a3b
   name: list - device - table - fr
   label: ''
-  order: 10
+  order: 9
   width: 0
   height: 0
   maxrows: 0
@@ -520,7 +475,7 @@
   group: c605809a8fe63a3b
   name: list - component - table - fr
   label: ''
-  order: 12
+  order: 11
   width: 0
   height: 0
   maxrows: '50'
@@ -610,7 +565,7 @@
   group: c605809a8fe63a3b
   name: list - alert - table - fr
   label: ''
-  order: 8
+  order: 7
   width: 0
   height: 0
   maxrows: 0
@@ -702,7 +657,7 @@
   name: list - select - plant
   label: ''
   tooltip: ''
-  order: 2
+  order: 1
   width: 0
   height: 0
   passthru: false
@@ -761,7 +716,7 @@
   group: c605809a8fe63a3b
   name: list - line - table - fr
   label: ''
-  order: 4
+  order: 3
   width: 0
   height: 0
   maxrows: 0
@@ -823,7 +778,7 @@
   'y': 560
   wires:
     - - 1b9a457d31b5df20
-      - 7779c61e2d5af956
+      - 710944fdb5c12852
 - id: 05107d400a502297
   type: link in
   z: e97c6f12735a13c1
@@ -853,7 +808,7 @@
   z: e97c6f12735a13c1
   g: ac0595b45d9786aa
   group: c605809a8fe63a3b
-  order: 16
+  order: 15
   width: 0
   height: 0
   name: list - total
@@ -904,7 +859,7 @@
   group: c605809a8fe63a3b
   name: list - line - table - en
   label: ''
-  order: 5
+  order: 4
   width: 0
   height: 0
   maxrows: 0
@@ -947,7 +902,7 @@
   group: c605809a8fe63a3b
   name: list - equipment - table - en
   label: ''
-  order: 7
+  order: 6
   width: 0
   height: 0
   maxrows: 0
@@ -1015,7 +970,7 @@
   group: c605809a8fe63a3b
   name: list - device - table - en
   label: ''
-  order: 11
+  order: 10
   width: 0
   height: 0
   maxrows: 0
@@ -1089,7 +1044,7 @@
   group: c605809a8fe63a3b
   name: list - component - table - en
   label: ''
-  order: 13
+  order: 12
   width: 0
   height: 0
   maxrows: '50'
@@ -1156,7 +1111,7 @@
   group: c605809a8fe63a3b
   name: list - alert - table - en
   label: ''
-  order: 9
+  order: 8
   width: 0
   height: 0
   maxrows: 0
@@ -1482,7 +1437,7 @@
             row.plant = lines[line];
             row.plant_name = global.get('kernel.plant["'  + row.plant + '"]', 'memoryOnly') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+            row.delete = (msg.dictionary.option_action.delete) || 'Delete';
             row.equipment_count = 0;
 
             if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
@@ -1561,7 +1516,7 @@
             row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '-';
             row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+            row.delete = (msg.dictionary.option_action.delete) || 'Delete';
             row.component_count = 0;
             row.state_color = msg.dictionary.option_color.empty;
 
@@ -1655,7 +1610,7 @@
             row.model_name = global.get('describe.model["' + row.model + '"]', 'memoryOnly') || ''
             row.model_full = row.model_name + ' (' + row.model + ')';
             row.device = esplit[1];
-            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+            row.delete = (msg.dictionary.option_action.delete) || 'Delete';
             row.component_count = 0;
             row.watchdog_color = msg.dictionary.option_color.empty;
 
@@ -1756,7 +1711,7 @@
             row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
             row.component = esplit[1];
-            row.component_name = (msg.dictionary?.option_component[row.component]) || '';
+            row.component_name = (msg.dictionary.option_component[row.component]) || '';
             row.component_full = row.component_name + ' ('+ row.component + ')';
             row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
             row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
@@ -1765,7 +1720,7 @@
             row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
             row.reverse = (global.get('kernel.reverse["' + endpoint + '"]', 'memoryOnly') || false) === true ? 'NC' : 'NO';
-            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+            row.delete = (msg.dictionary.option_action.delete) || 'Delete';
 
             if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 msg.payload[i++] = row;
@@ -1835,7 +1790,7 @@
             row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
             row.component = esplit[1];
-            row.component_name = (msg.dictionary?.option_component[row.component]) || '';
+            row.component_name = (msg.dictionary.option_component[row.component]) || '';
             row.component_full = row.component_name + ' ('+ row.component + ')';
             row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
             row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
@@ -1847,7 +1802,7 @@
             row.state_limit = Number(alerts[entity]);
             row.state_color = row.state < row.state_limit ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
             row.state_diff = Math.round((row.state - row.state_limit) *10) / 10;
-            row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+            row.delete = (msg.dictionary.option_action.delete) || 'Delete';
 
             if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
                 msg.payload[i++] = row;
@@ -1950,7 +1905,7 @@
         
         return [msg, null, null];
     } else {
-        msg.ui_update = {'label':(msg.dictionary?.group_list_records) || 'Records: '};
+        msg.ui_update = {'label': (msg.dictionary.list.records) || 'Records: '};
         msg.payload = Number(msg.total||0);
         msg.class = '';
         msg.enabled = true;
@@ -2066,7 +2021,7 @@
   'y': 620
   wires:
     - - 1b9a457d31b5df20
-      - 7779c61e2d5af956
+      - 710944fdb5c12852
 - id: 040697c433576aee
   type: link in
   z: e97c6f12735a13c1
@@ -2140,7 +2095,7 @@
                     row.date = hsplit[k];
                     row.month = hsplit[k].slice(0,2);
                     row.day = hsplit[k].slice(3);
-                    row.delete = (msg.dictionary?.common_action_delete) || 'Delete';
+                    row.delete = (msg.dictionary.option_action.delete) || 'Delete';
 
                     msg.payload[i++] = row;
                 }
@@ -2200,7 +2155,7 @@
   group: c605809a8fe63a3b
   name: list - holiday - table - fr
   label: ''
-  order: 14
+  order: 13
   width: 0
   height: 0
   maxrows: 0
@@ -2243,7 +2198,7 @@
   group: c605809a8fe63a3b
   name: list - holiday - table - en
   label: ''
-  order: 15
+  order: 14
   width: 0
   height: 0
   maxrows: 0
@@ -2350,3 +2305,55 @@
   'y': 140
   wires:
     - - 17d333ed58f454d1
+- id: 710944fdb5c12852
+  type: function
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: data
+  func: |-
+    msg.topic = '';
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+
+    msg.options = [
+        {
+            'label': msg.dictionary.option_name.lines,
+            'value': 'line'
+        },
+        {
+            'label': msg.dictionary.option_name.equipments,
+            'value': 'equipment'
+        },
+        {
+            'label': msg.dictionary.option_name.alerts,
+            'value': 'alert'
+        },
+        {
+            'label': msg.dictionary.option_name.devices,
+            'value': 'device'
+        },
+        {
+            'label': msg.dictionary.option_name.components,
+            'value': 'component'
+        },
+        {
+            'label': msg.dictionary.option_name.holidays,
+            'value': 'holiday'
+        }
+    ]
+
+    msg.ui_update = {
+        'label':  msg.dictionary.option_select.list
+    }
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1290
+  'y': 560
+  wires:
+    - - 408a810a7266e6fe
