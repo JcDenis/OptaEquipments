@@ -4,23 +4,6 @@
   disabled: false
   info: ''
   env: []
-- id: 6cb8cb87cdf72081
-  type: group
-  z: 51c4b2897d2c318c
-  name: period - page
-  style:
-    fill: '#ff0000'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - d55041fdf28a3f36
-    - 11a3e525f770e3aa
-    - f33c3568a857c4a6
-    - 84e5692a2078e77d
-  x: 104
-  'y': 99
-  w: 492
-  h: 82
 - id: 744a665a3304c311
   type: group
   z: 51c4b2897d2c318c
@@ -31,7 +14,6 @@
     label: true
   nodes:
     - df38ede5c62b33f7
-    - 875dda3836ede644
     - b845b219f76071e5
     - 4c2159ea37aa1ec2
     - d0bfea36099bd97c
@@ -42,7 +24,6 @@
     - 4a798d15562c1309
     - 0cbca936c25fa514
     - a56fb1258f090a3e
-    - d9fa5487f4e11c69
     - 482622d47dd8f977
     - f4f846fcf380110e
     - beac0cb54e4ebf07
@@ -57,33 +38,25 @@
     - 99c84a564059a3f7
     - 7553efdc75355132
     - 7eba63c1887abbfc
+    - f33c3568a857c4a6
+    - d55041fdf28a3f36
+    - 84e5692a2078e77d
   x: 104
-  'y': 219
-  w: 2062
+  'y': 99
+  w: 2382
   h: 442
 - id: d55041fdf28a3f36
   type: link in
   z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
+  g: 744a665a3304c311
   name: period - page
   links:
     - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
-  'y': 140
+  'y': 200
   wires:
     - - 84e5692a2078e77d
-- id: 11a3e525f770e3aa
-  type: link out
-  z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
-  name: period - page
-  mode: link
-  links:
-    - 875dda3836ede644
-  x: 555
-  'y': 140
-  wires: []
 - id: df38ede5c62b33f7
   type: link call
   z: 51c4b2897d2c318c
@@ -93,21 +66,10 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 470
-  'y': 380
+  x: 790
+  'y': 260
   wires:
     - - b845b219f76071e5
-- id: 875dda3836ede644
-  type: link in
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: period - list
-  links:
-    - 11a3e525f770e3aa
-  x: 145
-  'y': 320
-  wires:
-    - - 2bae655127ea8edc
 - id: b845b219f76071e5
   type: ui-dropdown
   z: 51c4b2897d2c318c
@@ -123,15 +85,18 @@
   multiple: false
   chips: false
   clearable: false
-  options: []
+  options:
+    - label: plant
+      value: ''
+      type: str
   payload: ''
   topic: topic
   topicType: msg
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 670
-  'y': 380
+  x: 990
+  'y': 260
   wires:
     - - a56fb1258f090a3e
 - id: 4c2159ea37aa1ec2
@@ -147,8 +112,8 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2050
-  'y': 260
+  x: 2370
+  'y': 140
   wires: []
 - id: d0bfea36099bd97c
   type: ui-table
@@ -163,7 +128,7 @@
   maxrows: 0
   passthru: false
   autocols: false
-  showSearch: true
+  showSearch: false
   deselect: true
   selectionType: click
   columns:
@@ -213,8 +178,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1460
-  'y': 320
+  x: 1780
+  'y': 200
   wires:
     - - 482622d47dd8f977
 - id: 575b09f0fb9e021c
@@ -227,8 +192,8 @@
     - c7dc8df688a74cbe
     - e60e4ab7617738c3
     - 0e9c3ca7f24bc8dc
-  x: 1995
-  'y': 320
+  x: 2315
+  'y': 200
   wires: []
 - id: 21c5bb46d1224264
   type: delay
@@ -247,8 +212,8 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1090
-  'y': 440
+  x: 1410
+  'y': 320
   wires:
     - - 0fc506fd101f1d0c
 - id: 3af957dd224c384a
@@ -259,8 +224,8 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1995
-  'y': 380
+  x: 2315
+  'y': 260
   wires: []
 - id: 0e9c3ca7f24bc8dc
   type: link in
@@ -269,8 +234,8 @@
   name: ui - period - list - internal
   links:
     - 575b09f0fb9e021c
-  x: 965
-  'y': 440
+  x: 1285
+  'y': 320
   wires:
     - - 21c5bb46d1224264
 - id: 4a798d15562c1309
@@ -281,8 +246,8 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1995
-  'y': 440
+  x: 2315
+  'y': 320
   wires: []
 - id: 0cbca936c25fa514
   type: ui-table
@@ -297,7 +262,7 @@
   maxrows: 0
   passthru: false
   autocols: false
-  showSearch: true
+  showSearch: false
   deselect: true
   selectionType: click
   columns:
@@ -347,8 +312,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1470
-  'y': 380
+  x: 1790
+  'y': 260
   wires:
     - - 482622d47dd8f977
 - id: a56fb1258f090a3e
@@ -360,31 +325,10 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 870
-  'y': 380
-  wires:
-    - - 4c4bb5da4693075d
-- id: d9fa5487f4e11c69
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1270
+  x: 1190
   'y': 260
   wires:
-    - - d0bfea36099bd97c
-      - 0cbca936c25fa514
-      - beac0cb54e4ebf07
-      - bade08026654ecc9
-      - 99c84a564059a3f7
-      - 7553efdc75355132
-      - 7eba63c1887abbfc
+    - - 4c4bb5da4693075d
 - id: 482622d47dd8f977
   type: link call
   z: 51c4b2897d2c318c
@@ -394,8 +338,8 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1690
-  'y': 320
+  x: 2010
+  'y': 200
   wires:
     - - 88105ea3fcd56b54
 - id: f4f846fcf380110e
@@ -418,8 +362,8 @@
   className: ''
   value: payload
   valueType: msg
-  x: 1630
-  'y': 260
+  x: 1790
+  'y': 140
   wires: []
 - id: beac0cb54e4ebf07
   type: ui-table
@@ -460,8 +404,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1460
-  'y': 440
+  x: 1780
+  'y': 320
   wires:
     - []
 - id: bade08026654ecc9
@@ -503,8 +447,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1470
-  'y': 500
+  x: 1790
+  'y': 380
   wires:
     - []
 - id: 39cf9bc6de140b04
@@ -513,7 +457,13 @@
   g: 744a665a3304c311
   name: teams
   func: |-
-    let teams = global.get('kernel.team', 'memoryOnly') || {};
+    if (msg.enabled !== true) {
+        // page is disabled
+
+        return [ msg, msg ];
+    }
+
+    const teams = { ...(global.get('kernel.team', 'memoryOnly') || { }) };
     let i = 0;
 
     msg.payload = [];
@@ -547,10 +497,10 @@
 
         if (msg.hmi.lang === 'fr') {
 
-            return [msg, null];
+            return [ msg, null ];
         } else {
 
-            return [null, msg];
+            return [ null, msg ];
         }
     }
 
@@ -561,8 +511,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1250
-  'y': 440
+  x: 1570
+  'y': 320
   wires:
     - - beac0cb54e4ebf07
     - - bade08026654ecc9
@@ -579,9 +529,8 @@
         msg.payload = '';
         msg.list = '';
 
-        return [msg, null, msg];
+        return [ msg, msg ];
     }
-
 
     if (msg.hmi.plant === '') {
         // admin can select a plant
@@ -590,28 +539,27 @@
         if (msg.payload === '') {
             // user must selected a plant
 
-            return [null, null, msg];
+            return [ null, msg ];
         } else {
             // show selected plant
 
-            return [null, msg, msg];
+            return [ msg, msg ];
         }
     } else {
         // user is linked to a plant
         msg.payload = msg.hmi.plant;
 
-        return [null, msg, null];
+        return [ msg, null ];
     }
-  outputs: 3
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 280
-  'y': 320
+  x: 600
+  'y': 200
   wires:
-    - - d9fa5487f4e11c69
     - - bd492fc337963491
     - - df38ede5c62b33f7
 - id: 4c4bb5da4693075d
@@ -623,8 +571,8 @@
     - 0e8a1d6969a7188b
   linkType: static
   timeout: '30'
-  x: 1070
-  'y': 380
+  x: 1390
+  'y': 260
   wires:
     - - 39cf9bc6de140b04
       - 0fc506fd101f1d0c
@@ -640,57 +588,67 @@
   from: ''
   to: ''
   reg: false
-  x: 1090
-  'y': 320
+  x: 1410
+  'y': 200
   wires:
     - - 39cf9bc6de140b04
       - 0fc506fd101f1d0c
       - f4d3e88b80009b83
+      - 7eba63c1887abbfc
 - id: f33c3568a857c4a6
   type: link call
   z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
+  g: 744a665a3304c311
   name: ''
   links:
     - 88c5aeadbe80be20
   linkType: static
   timeout: '30'
   x: 430
-  'y': 140
+  'y': 200
   wires:
-    - - 11a3e525f770e3aa
+    - - 2bae655127ea8edc
 - id: 0fc506fd101f1d0c
   type: function
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
   name: periods
   func: >-
+    if (msg.enabled !== true) {
+        // page is disabled
+
+        return [ msg, msg ];
+    }
+
+
     msg.payload = [];
 
 
     let i = 0;
 
-    let periods = {'m': 0, 'a': 0, 'n': 0, 'd': 0, 's': 0 };
 
-    let plant = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')
-    || '';
+    const enable = msg.dictionary.period.enable || '►';
 
+    const disable = msg.dictionary.period.disable || 'X';
 
-    let lines = global.get('kernel.lines', 'memoryOnly') || {};
+    const periods = { 'm': 0, 'a': 0, 'n': 0, 'd': 0, 's': 0 };
+
+    const plant = global.get('form["' + msg.hmi.id + '"]["plant"]',
+    'memoryOnly') || '';
+
+    const lines = { ...(global.get('kernel.lines', 'memoryOnly') || { }) };
+
 
     for (const line in lines) {
         if (lines[line] === plant) {
             let row = {};
 
-            let states = global.get('kernel.state', 'memoryOnly') || {};
+            const states = { ...(global.get('kernel.state', 'memoryOnly') || { }) };
             for (const state in states) {
                 let ssplit = state.split('|');
                 if (line === global.get('kernel.equipments["' + ssplit[0] + '"]', 'memoryOnly')
-                    && ssplit[1].match((new RegExp('^(heatswitch|heatlink|heattoggle|heatpulse)$'))) !== null
+                    && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(ssplit[1])
                 ) {
-                    let enable = msg.dictionary.period.enable || '►';
-                    let disable = msg.dictionary.period.disable || 'X';
-
                     row.equipment = ssplit[0];
                     row.component = ssplit[1];
                     row.plant = plant;
@@ -721,9 +679,7 @@
     if (i > 0) {
         msg.class = '';
         msg.enabled = true;
-        msg.payload.sort(function ($l, $r) {
-            return $l.line_full  > $r.line_full  ? 1 : -1;
-        });
+        msg.payload.sort((a, b) => a.line_full.localeCompare(b.line_full));
     }
 
 
@@ -731,10 +687,10 @@
 
     if (msg.hmi.lang === 'fr') {
 
-        return [msg, null];
+        return [ msg, null ];
     } else {
 
-        return [null, msg];
+        return [ null, msg ];
     }
   outputs: 2
   timeout: 0
@@ -742,13 +698,11 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1260
-  'y': 320
+  x: 1580
+  'y': 200
   wires:
     - - d0bfea36099bd97c
-      - 7eba63c1887abbfc
     - - 0cbca936c25fa514
-      - 7eba63c1887abbfc
 - id: 88105ea3fcd56b54
   type: function
   z: 51c4b2897d2c318c
@@ -774,7 +728,7 @@
                     'loop': false
                 };
 
-                return [newMsg, null, null];
+                return [ newMsg, null, null ];
             } else {
                 // kernel.period
                 newMsg['kernel'] = {
@@ -784,12 +738,12 @@
                     'loop': false
                 };
 
-                return [newMsg, null, null];
+                return [ newMsg, null, null ];
             }
         } else {
             msg.payload = msg.dictionary.option_notice.level_fail;
 
-            return [null, newMsg, null];
+            return [ null, newMsg, null ];
         }
 
     } else if (msg.action === 'row_click') {
@@ -801,7 +755,7 @@
         newMsg.hmi.page = global.get('describe.pages.detail.name', 'memoryOnly') || '';
         newMsg.payload = newMsg.hmi.tab;
 
-        return [null, null, newMsg];
+        return [ null, null, newMsg ];
     }
 
     return;
@@ -811,8 +765,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1870
-  'y': 320
+  x: 2190
+  'y': 200
   wires:
     - - 575b09f0fb9e021c
       - 4c2159ea37aa1ec2
@@ -825,7 +779,13 @@
   g: 744a665a3304c311
   name: holidays
   func: |-
-    let holidays = global.get('kernel.holiday', 'memoryOnly') || {};
+    if (msg.enabled !== true) {
+        // page is disabled
+
+        return [ msg, msg ];
+    }
+
+    const holidays = { ...(global.get('kernel.holiday', 'memoryOnly') || { }) };
     let i = 0;
 
     msg.payload = [];
@@ -854,10 +814,10 @@
 
         if (msg.hmi.lang === 'fr') {
 
-            return [msg, null];
+            return [ msg, null ];
         } else {
 
-            return [null, msg];
+            return [ null, msg ];
         }
     }
 
@@ -868,8 +828,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1260
-  'y': 560
+  x: 1580
+  'y': 440
   wires:
     - - 99c84a564059a3f7
     - - 7553efdc75355132
@@ -906,8 +866,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1470
-  'y': 560
+  x: 1790
+  'y': 440
   wires:
     - []
 - id: 7553efdc75355132
@@ -943,16 +903,18 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1480
-  'y': 620
+  x: 1800
+  'y': 500
   wires:
     - []
 - id: 84e5692a2078e77d
   type: function
   z: 51c4b2897d2c318c
-  g: 6cb8cb87cdf72081
+  g: 744a665a3304c311
   name: data
   func: |-
+    // Check if required page is current flow
+
     msg.check = env.get('NR_FLOW_NAME');
 
     return msg;
@@ -963,14 +925,14 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 140
+  'y': 200
   wires:
     - - f33c3568a857c4a6
 - id: 7eba63c1887abbfc
   type: function
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
-  name: data
+  name: help
   func: >-
     if (!msg.enabled) {
 
@@ -993,7 +955,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1430
-  'y': 260
+  x: 1570
+  'y': 140
   wires:
     - - f4f846fcf380110e

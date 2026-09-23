@@ -163,12 +163,12 @@
   width: 0
   height: 0
   options:
-    - label: Identifiant
+    - label: login
       key: login
       type: text
       required: true
       rows: null
-    - label: Mot de passe
+    - label: pass
       key: pass
       type: password
       required: true
@@ -228,7 +228,7 @@
     msg.class = 'remove';
     msg.enabled = false;
 
-    node.send([msg, msg, msg]);
+    node.send([ msg, msg, msg ]);
 
     await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -238,13 +238,13 @@
 
     if (msg.hmi.login !== '') {
 
-        node.send([null, msg, null]);
+        node.send([ null, msg, null ]);
         
         msg.ui_update.label = msg.dictionary.auth.user || 'User: ';
         msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';
 
         node.status({ 'fill': 'green' });
-        node.send([msg, null, null]);
+        node.send([ msg, null, null ]);
     }
     else {
         msg.ui_update.options = [
@@ -263,7 +263,7 @@
         ];
 
         node.status({ 'fill': 'red' });
-        node.send([null, null, msg]);
+        node.send([ null, null, msg ]);
     }
 
     return;
@@ -308,19 +308,19 @@
   g: 90f47fc795048184
   name: data
   func: |-
-    // Check ash response
+    // Check hash response
 
     // UI redirect to alert page
     if (msg.payload === true) {
         msg.payload = global.get('describe.pages.alert.tab', 'memoryOnly') || '';
 
-        node.send([msg, null]);
+        node.send([ msg, null ]);
     }
     // UI notice
     else {
         msg.payload = msg.dictionary.option_notice.login_fail;
 
-        node.send([null, msg]);
+        node.send([ null, msg ]);
     }
 
     return;
@@ -342,7 +342,7 @@
   name: data
   func: |-
     const user = { ...(global.get('user', 'memoryOnly') || { }) };
-    delete user[msg._client.socketId];
+    delete user[ msg._client.socketId ];
     global.set('user', 'memoryonly');
 
     delete msg.ui_update;

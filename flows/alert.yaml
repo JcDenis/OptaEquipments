@@ -14,7 +14,6 @@
     label: true
   nodes:
     - 7f208cf2ab66dd88
-    - c8c91a8a8cb864f2
     - eef8f90bc9ebb816
     - 2f959ccef56b1836
     - ed53bb28b7006772
@@ -26,27 +25,13 @@
     - dbee74cb0876ae72
     - 28484d7e89befc41
     - 2c755e01455b172f
-  x: 104
-  'y': 219
-  w: 1982
-  h: 142
-- id: d509ef3b5101effa
-  type: group
-  z: 476eb6fc04c55cec
-  name: alert - page
-  style:
-    fill: '#ff0000'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - d7bc8fc74bfc07cb
-    - 054bd47295999ad7
-    - f401e3b627aace38
     - d79c99d630e80486
+    - d7bc8fc74bfc07cb
+    - f401e3b627aace38
   x: 104
   'y': 99
-  w: 492
-  h: 82
+  w: 2302
+  h: 142
 - id: 7f208cf2ab66dd88
   type: link call
   z: 476eb6fc04c55cec
@@ -56,21 +41,10 @@
     - 22a6cc8a0964f595
   linkType: static
   timeout: '30'
-  x: 450
-  'y': 320
+  x: 770
+  'y': 200
   wires:
     - - eef8f90bc9ebb816
-- id: c8c91a8a8cb864f2
-  type: link in
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: alert - list
-  links:
-    - 054bd47295999ad7
-  x: 145
-  'y': 260
-  wires:
-    - - fca30e25f5087f5a
 - id: eef8f90bc9ebb816
   type: ui-dropdown
   z: 476eb6fc04c55cec
@@ -86,15 +60,18 @@
   multiple: false
   chips: false
   clearable: false
-  options: []
+  options:
+    - label: plant
+      value: ''
+      type: str
   payload: ''
   topic: topic
   topicType: msg
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 650
-  'y': 320
+  x: 970
+  'y': 200
   wires:
     - - 049aaf716a9eb767
 - id: 2f959ccef56b1836
@@ -154,8 +131,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1420
-  'y': 260
+  x: 1740
+  'y': 140
   wires:
     - - c1fe38bf4a62979c
 - id: ed53bb28b7006772
@@ -166,13 +143,13 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1935
-  'y': 260
+  x: 2255
+  'y': 140
   wires: []
 - id: d7bc8fc74bfc07cb
   type: link in
   z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
+  g: a2c5edf7acc56d7a
   name: alert - page
   links:
     - 575b91a30deac00d
@@ -181,17 +158,6 @@
   'y': 140
   wires:
     - - d79c99d630e80486
-- id: 054bd47295999ad7
-  type: link out
-  z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
-  name: alert - page
-  mode: link
-  links:
-    - c8c91a8a8cb864f2
-  x: 555
-  'y': 140
-  wires: []
 - id: 186467962929c0f8
   type: ui-table
   z: 476eb6fc04c55cec
@@ -249,8 +215,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1420
-  'y': 320
+  x: 1740
+  'y': 200
   wires:
     - - c1fe38bf4a62979c
 - id: 049aaf716a9eb767
@@ -262,8 +228,8 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 850
-  'y': 320
+  x: 1170
+  'y': 200
   wires:
     - - dbee74cb0876ae72
 - id: c1fe38bf4a62979c
@@ -275,8 +241,8 @@
     - 56e6a7b9b0e66451
   linkType: static
   timeout: '30'
-  x: 1630
-  'y': 260
+  x: 1950
+  'y': 140
   wires:
     - - 28484d7e89befc41
 - id: 953414d1b751a30d
@@ -290,14 +256,14 @@
     // Reset UI
     if (msg.enabled !== true) {
 
-        return [msg, msg];
+        return [ msg, msg ];
     }
 
     msg.payload = [];
     let i = 0;
 
     // Rows
-    let alerts = global.get('kernel.alert', 'memoryOnly') || {};
+    const alerts = { ...(global.get('kernel.alert', 'memoryOnly') || { }) };
     for (const alert in alerts) {
         let asplit = alert.split('|');
         let row = {};
@@ -352,10 +318,10 @@
     // lang
     if (msg.hmi.lang === 'fr') {
 
-        return [msg, null];
+        return [ msg, null ];
     } else {
 
-        return [null, msg];
+        return [ null, msg ];
     }
   outputs: 2
   timeout: 0
@@ -363,8 +329,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1230
-  'y': 260
+  x: 1550
+  'y': 140
   wires:
     - - 2f959ccef56b1836
     - - 186467962929c0f8
@@ -383,9 +349,8 @@
         msg.enabled = false;
         msg.payload = '';
 
-        return [msg, msg];
+        return [ msg, msg ];
     }
-
 
     // Plant was not defined for the user
     if (msg.hmi.plant === '') {
@@ -395,18 +360,18 @@
         if (msg.payload === '') {
             // user must selected a plant
 
-            return [null, msg];
+            return [ null, msg ];
         } else {
             // show selected plant
 
-            return [msg, msg];
+            return [ msg, msg ];
         }
     // Plant is defined for the user
     } else {
         // user is linked to a plant
         msg.payload = msg.hmi.plant;
 
-        return [msg, null];
+        return [ msg, null ];
     }
   outputs: 2
   timeout: 0
@@ -414,8 +379,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
-  'y': 260
+  x: 590
+  'y': 140
   wires:
     - - 953414d1b751a30d
     - - 7f208cf2ab66dd88
@@ -428,14 +393,14 @@
     - 0e8a1d6969a7188b
   linkType: static
   timeout: '30'
-  x: 1050
-  'y': 320
+  x: 1370
+  'y': 200
   wires:
     - - 953414d1b751a30d
 - id: f401e3b627aace38
   type: link call
   z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
+  g: a2c5edf7acc56d7a
   name: ''
   links:
     - 88c5aeadbe80be20
@@ -444,7 +409,7 @@
   x: 430
   'y': 140
   wires:
-    - - 054bd47295999ad7
+    - - fca30e25f5087f5a
 - id: 28484d7e89befc41
   type: function
   z: 476eb6fc04c55cec
@@ -457,7 +422,7 @@
 
     // Should not happened
     if (typeof form[msg.hmi.id] !== 'object') {
-        form[msg.hmi.id] = {};
+        form[msg.hmi.id] = { };
     }
 
     // Update form
@@ -482,8 +447,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1810
-  'y': 260
+  x: 2130
+  'y': 140
   wires:
     - - ed53bb28b7006772
       - 2c755e01455b172f
@@ -500,15 +465,17 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1980
-  'y': 320
+  x: 2300
+  'y': 200
   wires: []
 - id: d79c99d630e80486
   type: function
   z: 476eb6fc04c55cec
-  g: d509ef3b5101effa
+  g: a2c5edf7acc56d7a
   name: data
   func: |-
+    // Check if required page is current flow
+
     msg.check = env.get('NR_FLOW_NAME');
 
     return msg;
