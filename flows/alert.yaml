@@ -13,38 +13,20 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 7f208cf2ab66dd88
     - eef8f90bc9ebb816
     - 2f959ccef56b1836
     - ed53bb28b7006772
     - 186467962929c0f8
-    - 049aaf716a9eb767
-    - c1fe38bf4a62979c
     - 953414d1b751a30d
     - fca30e25f5087f5a
-    - dbee74cb0876ae72
     - 28484d7e89befc41
     - 2c755e01455b172f
-    - d79c99d630e80486
     - d7bc8fc74bfc07cb
-    - f401e3b627aace38
-  x: 104
+    - 6bf5f7c2a877d5f7
+  x: 344
   'y': 99
-  w: 2302
+  w: 1342
   h: 142
-- id: 7f208cf2ab66dd88
-  type: link call
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: ''
-  links:
-    - 22a6cc8a0964f595
-  linkType: static
-  timeout: '30'
-  x: 770
-  'y': 200
-  wires:
-    - - eef8f90bc9ebb816
 - id: eef8f90bc9ebb816
   type: ui-dropdown
   z: 476eb6fc04c55cec
@@ -70,10 +52,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 970
+  x: 690
   'y': 200
   wires:
-    - - 049aaf716a9eb767
+    - - 6bf5f7c2a877d5f7
 - id: 2f959ccef56b1836
   type: ui-table
   z: 476eb6fc04c55cec
@@ -131,10 +113,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1740
+  x: 1220
   'y': 140
   wires:
-    - - c1fe38bf4a62979c
+    - - 28484d7e89befc41
 - id: ed53bb28b7006772
   type: link out
   z: 476eb6fc04c55cec
@@ -143,7 +125,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 2255
+  x: 1535
   'y': 140
   wires: []
 - id: d7bc8fc74bfc07cb
@@ -154,10 +136,10 @@
   links:
     - 575b91a30deac00d
     - 7bba6594f41302c2
-  x: 145
+  x: 385
   'y': 140
   wires:
-    - - d79c99d630e80486
+    - - fca30e25f5087f5a
 - id: 186467962929c0f8
   type: ui-table
   z: 476eb6fc04c55cec
@@ -215,34 +197,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1740
+  x: 1220
   'y': 200
-  wires:
-    - - c1fe38bf4a62979c
-- id: 049aaf716a9eb767
-  type: link call
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1170
-  'y': 200
-  wires:
-    - - dbee74cb0876ae72
-- id: c1fe38bf4a62979c
-  type: link call
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1950
-  'y': 140
   wires:
     - - 28484d7e89befc41
 - id: 953414d1b751a30d
@@ -309,27 +265,23 @@
     if (i > 0) {
         msg.class = '';
         msg.enabled = true;
-        msg.payload.sort(function($l, $r) {
-
-            return $l.percent < $r.percent ? 1 : -1;
-        });
+        msg.payload.sort((a, b) => a.percent < b.percent ? 1 : -1);
     }
 
     // lang
     if (msg.hmi.lang === 'fr') {
 
         return [ msg, null ];
-    } else {
-
-        return [ null, msg ];
     }
+
+    return [ null, msg ];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1550
+  x: 1030
   'y': 140
   wires:
     - - 2f959ccef56b1836
@@ -341,6 +293,10 @@
   name: data
   func: |-
     // Get user plants
+
+    // Check if required page is current flow
+    msg.check = env.get('NR_FLOW_NAME');
+    msg = await node.linkcall('ui - tab', msg);
 
     // Reset UI
     if (msg.enabled !== true) {
@@ -357,59 +313,34 @@
         // admin can select a plant
         msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
 
+    // Get plants for form
+    msg = await node.linkcall('option - plant', msg);
+
+        // user must selected a plant
         if (msg.payload === '') {
-            // user must selected a plant
 
             return [ null, msg ];
-        } else {
-            // show selected plant
-
-            return [ msg, msg ];
         }
-    // Plant is defined for the user
-    } else {
-        // user is linked to a plant
-        msg.payload = msg.hmi.plant;
+        // show selected plant
 
-        return [ msg, null ];
+        return [ msg, msg ];
     }
+
+    // Plant is defined for the user
+    msg.payload = msg.hmi.plant;
+
+    return [ msg, null ];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
+  x: 510
   'y': 140
   wires:
     - - 953414d1b751a30d
-    - - 7f208cf2ab66dd88
-- id: dbee74cb0876ae72
-  type: link call
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: ''
-  links:
-    - 0e8a1d6969a7188b
-  linkType: static
-  timeout: '30'
-  x: 1370
-  'y': 200
-  wires:
-    - - 953414d1b751a30d
-- id: f401e3b627aace38
-  type: link call
-  z: 476eb6fc04c55cec
-  g: a2c5edf7acc56d7a
-  name: ''
-  links:
-    - 88c5aeadbe80be20
-  linkType: static
-  timeout: '30'
-  x: 430
-  'y': 140
-  wires:
-    - - fca30e25f5087f5a
+    - - eef8f90bc9ebb816
 - id: 28484d7e89befc41
   type: function
   z: 476eb6fc04c55cec
@@ -418,6 +349,10 @@
   func: |-
     // Compute user form
 
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get user form
     const form = { ...(global.get('form', 'memoryOnly') || { }) };
 
     // Should not happened
@@ -447,7 +382,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2130
+  x: 1410
   'y': 140
   wires:
     - - ed53bb28b7006772
@@ -465,18 +400,21 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2300
+  x: 1580
   'y': 200
   wires: []
-- id: d79c99d630e80486
+- id: 6bf5f7c2a877d5f7
   type: function
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
   name: data
   func: |-
-    // Check if required page is current flow
 
-    msg.check = env.get('NR_FLOW_NAME');
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get plant
+    msg = await node.linkcall('form - plant', msg);
 
     return msg;
   outputs: 1
@@ -485,7 +423,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
-  'y': 140
+  x: 870
+  'y': 200
   wires:
-    - - f401e3b627aace38
+    - - 953414d1b751a30d

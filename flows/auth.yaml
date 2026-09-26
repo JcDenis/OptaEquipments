@@ -17,20 +17,17 @@
     - aa0e1484ee75066f
     - bb71762ba2269b75
     - 8aca2e86c077d885
-    - c82457de0864e28c
     - 0cf63361a578f787
     - 3361a6a4765bfb11
     - f3b837acb99f6326
-    - 9093d61ed9142cff
     - bf3da41c4b5bd219
     - 5a825d48de813e3e
-    - 96a01e41c97e3672
-    - b159cf2d88aaf422
     - 87f5723e3123e133
+    - 1a7777114f11ff8b
   x: 104
   'y': 99
-  w: 1382
-  h: 202
+  w: 862
+  h: 262
 - id: 9833ea0e831ff8c7
   type: ui-button
   z: 27841aa886edd1cd
@@ -97,7 +94,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1315
+  x: 795
   'y': 200
   wires: []
 - id: 8aca2e86c077d885
@@ -113,22 +110,9 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1370
+  x: 850
   'y': 140
   wires: []
-- id: c82457de0864e28c
-  type: link call
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: ''
-  links:
-    - fdb028158b218535
-  linkType: static
-  timeout: '30'
-  x: 1010
-  'y': 260
-  wires:
-    - - b159cf2d88aaf422
 - id: bf3da41c4b5bd219
   type: link in
   z: 27841aa886edd1cd
@@ -149,7 +133,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1315
+  x: 795
   'y': 260
   wires: []
 - id: 3361a6a4765bfb11
@@ -189,29 +173,16 @@
   x: 450
   'y': 260
   wires:
-    - - 9093d61ed9142cff
+    - - 1a7777114f11ff8b
 - id: f3b837acb99f6326
   type: comment
   z: 27841aa886edd1cd
   g: 90f47fc795048184
   name: non authenticated users get language from browser. see ui-template
   info: ''
-  x: 820
-  'y': 140
+  x: 460
+  'y': 320
   wires: []
-- id: 9093d61ed9142cff
-  type: link call
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 650
-  'y': 260
-  wires:
-    - - 96a01e41c97e3672
 - id: 5a825d48de813e3e
   type: function
   z: 27841aa886edd1cd
@@ -222,7 +193,7 @@
     msg.payload = '';
     msg.ui_update = {
         'label': '',
-        'options': []
+        'options': [ ]
     }
 
     msg.class = 'remove';
@@ -236,6 +207,7 @@
     msg.class = '';
     msg.enabled = true;
 
+    // Use is connected, display level
     if (msg.hmi.login !== '') {
 
         node.send([ null, msg, null ]);
@@ -244,29 +216,27 @@
         msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';
 
         node.status({ 'fill': 'green' });
-        node.send([ msg, null, null ]);
-    }
-    else {
-        msg.ui_update.options = [
-            {
-                'type': 'text',
-                'label': msg.dictionary.auth.login || 'Login',
-                'key': 'login',
-                'required': true
-            },
-            {
-                'type': 'password',
-                'label': msg.dictionary.auth.pass || 'Password',
-                'key': 'pass',
-                'required': true
-            }
-        ];
-
-        node.status({ 'fill': 'red' });
-        node.send([ null, null, msg ]);
+        return [ msg, null, null ];
     }
 
-    return;
+    // User is not connected, display form
+    msg.ui_update.options = [
+        {
+            'type': 'text',
+            'label': msg.dictionary.auth.login || 'Login',
+            'key': 'login',
+            'required': true
+        },
+        {
+            'type': 'password',
+            'label': msg.dictionary.auth.pass || 'Password',
+            'key': 'pass',
+            'required': true
+        }
+    ];
+
+    node.status({ 'fill': 'red' });
+    return [ null, null, msg ];
   outputs: 3
   timeout: 0
   noerr: 0
@@ -279,62 +249,6 @@
     - - aa0e1484ee75066f
     - - 9833ea0e831ff8c7
     - - 3361a6a4765bfb11
-- id: 96a01e41c97e3672
-  type: function
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: data
-  func: |-
-    // Parse UI form to prepare hash test
-
-    msg.login = msg.payload.login;
-    msg.pass = msg.payload.pass;
-    msg.payload = '';
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 830
-  'y': 260
-  wires:
-    - - c82457de0864e28c
-- id: b159cf2d88aaf422
-  type: function
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: data
-  func: |-
-    // Check hash response
-
-    // UI redirect to alert page
-    if (msg.payload === true) {
-        msg.payload = global.get('describe.pages.alert.tab', 'memoryOnly') || '';
-
-        node.send([ msg, null ]);
-    }
-    // UI notice
-    else {
-        msg.payload = msg.dictionary.option_notice.login_fail;
-
-        node.send([ null, msg ]);
-    }
-
-    return;
-  outputs: 2
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1190
-  'y': 260
-  wires:
-    - - bb71762ba2269b75
-    - - 0cf63361a578f787
 - id: 87f5723e3123e133
   type: function
   z: 27841aa886edd1cd
@@ -354,8 +268,47 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1190
+  x: 670
   'y': 200
   wires:
     - - bb71762ba2269b75
       - 8aca2e86c077d885
+- id: 1a7777114f11ff8b
+  type: function
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: data
+  func: |-
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Parse UI form to prepare hash test
+    msg.login = msg.payload.login;
+    msg.pass = msg.payload.pass;
+    msg.payload = '';
+
+    // Check user hash
+    msg = await node.linkcall('user - check', msg);
+
+    // UI redirect to alert page
+    if (msg.payload === true) {
+        msg.payload = global.get('describe.pages.alert.tab', 'memoryOnly') || '';
+
+        return [ msg, null ];
+    }
+
+    // UI notice
+    msg.payload = msg.dictionary.option_notice.login_fail;
+
+    return [ null, msg ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 670
+  'y': 260
+  wires:
+    - - bb71762ba2269b75
+    - - 0cf63361a578f787

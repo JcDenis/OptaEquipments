@@ -15,11 +15,10 @@
   nodes:
     - 6304fe8d08f0cf47
     - 6b2108622867d8a4
-    - 435f3eb4a7773b87
     - f73269ad9421c5fa
   x: 104
   'y': 99
-  w: 492
+  w: 332
   h: 82
 - id: 7a7d35c0913aed9f
   type: group
@@ -184,7 +183,7 @@
     - 30571b6d70631747
     - ef2a2e8f65ff707e
     - feb590d38372e404
-  x: 555
+  x: 395
   'y': 140
   wires: []
 - id: 922d6d1c4163d169
@@ -2044,26 +2043,16 @@
   'y': 1340
   wires:
     - - 0a619717ada5bdb5
-- id: 435f3eb4a7773b87
-  type: link call
-  z: adb48ef35d9453c0
-  g: 6e3f77a2a72d0fa8
-  name: ''
-  links:
-    - 88c5aeadbe80be20
-  linkType: static
-  timeout: '30'
-  x: 430
-  'y': 140
-  wires:
-    - - 6b2108622867d8a4
 - id: f73269ad9421c5fa
   type: function
   z: adb48ef35d9453c0
   g: 6e3f77a2a72d0fa8
   name: data
   func: |-
+
+    // Check if required page is current flow
     msg.check = env.get('NR_FLOW_NAME');
+    msg = await node.linkcall('ui - tab', msg);
 
     delete msg.ui_update;
 
@@ -2077,4 +2066,4 @@
   x: 270
   'y': 140
   wires:
-    - - 435f3eb4a7773b87
+    - - 6b2108622867d8a4

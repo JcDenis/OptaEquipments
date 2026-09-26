@@ -13,7 +13,6 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - df38ede5c62b33f7
     - b845b219f76071e5
     - 4c2159ea37aa1ec2
     - d0bfea36099bd97c
@@ -23,14 +22,11 @@
     - 0e9c3ca7f24bc8dc
     - 4a798d15562c1309
     - 0cbca936c25fa514
-    - a56fb1258f090a3e
-    - 482622d47dd8f977
     - f4f846fcf380110e
     - beac0cb54e4ebf07
     - bade08026654ecc9
     - 39cf9bc6de140b04
     - 2bae655127ea8edc
-    - 4c4bb5da4693075d
     - bd492fc337963491
     - 0fc506fd101f1d0c
     - 88105ea3fcd56b54
@@ -38,12 +34,11 @@
     - 99c84a564059a3f7
     - 7553efdc75355132
     - 7eba63c1887abbfc
-    - f33c3568a857c4a6
     - d55041fdf28a3f36
-    - 84e5692a2078e77d
+    - 4de51ad5aa3bed09
   x: 104
   'y': 99
-  w: 2382
+  w: 1402
   h: 442
 - id: d55041fdf28a3f36
   type: link in
@@ -56,20 +51,7 @@
   x: 145
   'y': 200
   wires:
-    - - 84e5692a2078e77d
-- id: df38ede5c62b33f7
-  type: link call
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: ''
-  links:
-    - 22a6cc8a0964f595
-  linkType: static
-  timeout: '30'
-  x: 790
-  'y': 260
-  wires:
-    - - b845b219f76071e5
+    - - 2bae655127ea8edc
 - id: b845b219f76071e5
   type: ui-dropdown
   z: 51c4b2897d2c318c
@@ -95,10 +77,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 990
+  x: 450
   'y': 260
   wires:
-    - - a56fb1258f090a3e
+    - - 4de51ad5aa3bed09
 - id: 4c2159ea37aa1ec2
   type: debug
   z: 51c4b2897d2c318c
@@ -112,7 +94,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2370
+  x: 1390
   'y': 140
   wires: []
 - id: d0bfea36099bd97c
@@ -178,10 +160,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1780
+  x: 1000
   'y': 200
   wires:
-    - - 482622d47dd8f977
+    - - 88105ea3fcd56b54
 - id: 575b09f0fb9e021c
   type: link out
   z: 51c4b2897d2c318c
@@ -192,7 +174,7 @@
     - c7dc8df688a74cbe
     - e60e4ab7617738c3
     - 0e9c3ca7f24bc8dc
-  x: 2315
+  x: 1335
   'y': 200
   wires: []
 - id: 21c5bb46d1224264
@@ -212,7 +194,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 1410
+  x: 630
   'y': 320
   wires:
     - - 0fc506fd101f1d0c
@@ -224,7 +206,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 2315
+  x: 1335
   'y': 260
   wires: []
 - id: 0e9c3ca7f24bc8dc
@@ -234,7 +216,7 @@
   name: ui - period - list - internal
   links:
     - 575b09f0fb9e021c
-  x: 1285
+  x: 505
   'y': 320
   wires:
     - - 21c5bb46d1224264
@@ -246,7 +228,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 2315
+  x: 1335
   'y': 320
   wires: []
 - id: 0cbca936c25fa514
@@ -312,34 +294,8 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1790
+  x: 1010
   'y': 260
-  wires:
-    - - 482622d47dd8f977
-- id: a56fb1258f090a3e
-  type: link call
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1190
-  'y': 260
-  wires:
-    - - 4c4bb5da4693075d
-- id: 482622d47dd8f977
-  type: link call
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 2010
-  'y': 200
   wires:
     - - 88105ea3fcd56b54
 - id: f4f846fcf380110e
@@ -362,7 +318,7 @@
   className: ''
   value: payload
   valueType: msg
-  x: 1790
+  x: 1010
   'y': 140
   wires: []
 - id: beac0cb54e4ebf07
@@ -404,7 +360,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1780
+  x: 1000
   'y': 320
   wires:
     - []
@@ -447,7 +403,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1790
+  x: 1010
   'y': 380
   wires:
     - []
@@ -466,11 +422,11 @@
     const teams = { ...(global.get('kernel.team', 'memoryOnly') || { }) };
     let i = 0;
 
-    msg.payload = [];
+    msg.payload = [ ];
 
     if (typeof teams === 'object') {
         for (const team in teams) {
-            let row = {};
+            let row = { };
             /* 0 = plant, 1 = team */
             let ksplit = team.split("|");
             row.plant = ksplit[0];
@@ -491,27 +447,27 @@
         }
     }
 
-    if (i > 0) {
-        msg.class = '';
-        msg.enabled = true
+    if (i < 1) {
 
-        if (msg.hmi.lang === 'fr') {
-
-            return [ msg, null ];
-        } else {
-
-            return [ null, msg ];
-        }
+        return;
     }
 
-    return;
+    msg.class = '';
+    msg.enabled = true
+
+    if (msg.hmi.lang === 'fr') {
+
+        return [ msg, null ];
+    }
+
+    return [ null, msg ];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1570
+  x: 790
   'y': 320
   wires:
     - - beac0cb54e4ebf07
@@ -520,8 +476,15 @@
   type: function
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
-  name: user plant
+  name: data
   func: |-
+    // Get user plant
+
+    // Check if required page is current flow
+    msg.check = env.get('NR_FLOW_NAME');
+    msg = await node.linkcall('ui - tab', msg);
+
+
     if (msg.enabled !== true) {
         // page is disabled
         msg.class = 'remove';
@@ -536,47 +499,34 @@
         // admin can select a plant
         msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
 
+        // Get plants for form
+        msg = await node.linkcall('option - plant', msg);
+
         if (msg.payload === '') {
             // user must selected a plant
 
             return [ null, msg ];
-        } else {
-            // show selected plant
-
-            return [ msg, msg ];
         }
-    } else {
-        // user is linked to a plant
-        msg.payload = msg.hmi.plant;
+        // show selected plant
 
-        return [ msg, null ];
+        return [ msg, msg ];
     }
+
+    // user is linked to a plant
+    msg.payload = msg.hmi.plant;
+
+    return [ msg, null ];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 600
+  x: 270
   'y': 200
   wires:
     - - bd492fc337963491
-    - - df38ede5c62b33f7
-- id: 4c4bb5da4693075d
-  type: link call
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: ''
-  links:
-    - 0e8a1d6969a7188b
-  linkType: static
-  timeout: '30'
-  x: 1390
-  'y': 260
-  wires:
-    - - 39cf9bc6de140b04
-      - 0fc506fd101f1d0c
-      - f4d3e88b80009b83
+    - - b845b219f76071e5
 - id: bd492fc337963491
   type: change
   z: 51c4b2897d2c318c
@@ -588,26 +538,13 @@
   from: ''
   to: ''
   reg: false
-  x: 1410
+  x: 630
   'y': 200
   wires:
     - - 39cf9bc6de140b04
       - 0fc506fd101f1d0c
       - f4d3e88b80009b83
       - 7eba63c1887abbfc
-- id: f33c3568a857c4a6
-  type: link call
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: ''
-  links:
-    - 88c5aeadbe80be20
-  linkType: static
-  timeout: '30'
-  x: 430
-  'y': 200
-  wires:
-    - - 2bae655127ea8edc
 - id: 0fc506fd101f1d0c
   type: function
   z: 51c4b2897d2c318c
@@ -621,7 +558,7 @@
     }
 
 
-    msg.payload = [];
+    msg.payload = [ ];
 
 
     let i = 0;
@@ -676,11 +613,17 @@
 
     // sort
 
-    if (i > 0) {
-        msg.class = '';
-        msg.enabled = true;
-        msg.payload.sort((a, b) => a.line_full.localeCompare(b.line_full));
+    if (i < 1) {
+
+        return;
     }
+
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    msg.payload.sort((a, b) => a.line_full.localeCompare(b.line_full));
 
 
     // lang
@@ -688,17 +631,17 @@
     if (msg.hmi.lang === 'fr') {
 
         return [ msg, null ];
-    } else {
-
-        return [ null, msg ];
     }
+
+
+    return [ null, msg ];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1580
+  x: 800
   'y': 200
   wires:
     - - d0bfea36099bd97c
@@ -707,14 +650,21 @@
   type: function
   z: 51c4b2897d2c318c
   g: 744a665a3304c311
-  name: action
+  name: data
   func: |-
+    // Do form action
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
     let newMsg = {
         'topic': '',
         'payload': '',
         'hmi': msg.hmi,
         'dictionary': msg.dictionary,
-        '_client': msg._client
+        '_client': msg._client,
+        'enabled': true
     };
 
     if (msg.action === 'button_click') {
@@ -765,7 +715,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2190
+  x: 1210
   'y': 200
   wires:
     - - 575b09f0fb9e021c
@@ -788,7 +738,7 @@
     const holidays = { ...(global.get('kernel.holiday', 'memoryOnly') || { }) };
     let i = 0;
 
-    msg.payload = [];
+    msg.payload = [ ];
 
     if (typeof holidays === 'object') {
         for (const plant in holidays) {
@@ -796,7 +746,7 @@
                 let hsplit = holidays[plant].split('|');
 
                 for (const k in hsplit) {
-                    let row  = {};
+                    let row  = { };
                     row.entity = plant;
                     row.date = hsplit[k];
                     row.month = hsplit[k].slice(0,2);
@@ -808,27 +758,27 @@
         }
     }
 
-    if (i > 0) {
-        msg.class = '';
-        msg.enabled = true
+    if (i < 1) {
 
-        if (msg.hmi.lang === 'fr') {
-
-            return [ msg, null ];
-        } else {
-
-            return [ null, msg ];
-        }
+        return;
     }
 
-    return;
+    msg.class = '';
+    msg.enabled = true
+
+    if (msg.hmi.lang === 'fr') {
+
+        return [ msg, null ];
+    }
+
+    return [ null, msg ];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1580
+  x: 800
   'y': 440
   wires:
     - - 99c84a564059a3f7
@@ -866,7 +816,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1790
+  x: 1010
   'y': 440
   wires:
     - []
@@ -903,31 +853,10 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1800
+  x: 1020
   'y': 500
   wires:
     - []
-- id: 84e5692a2078e77d
-  type: function
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: data
-  func: |-
-    // Check if required page is current flow
-
-    msg.check = env.get('NR_FLOW_NAME');
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 270
-  'y': 200
-  wires:
-    - - f33c3568a857c4a6
 - id: 7eba63c1887abbfc
   type: function
   z: 51c4b2897d2c318c
@@ -955,7 +884,33 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1570
+  x: 790
   'y': 140
   wires:
     - - f4f846fcf380110e
+- id: 4de51ad5aa3bed09
+  type: function
+  z: 51c4b2897d2c318c
+  g: 744a665a3304c311
+  name: data
+  func: |-
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get plant
+    msg = await node.linkcall('form - plant', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 630
+  'y': 260
+  wires:
+    - - 0fc506fd101f1d0c
+      - 39cf9bc6de140b04
+      - f4d3e88b80009b83
