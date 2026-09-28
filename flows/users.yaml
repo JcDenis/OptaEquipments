@@ -897,10 +897,8 @@
   func: |-
     if (!msg.enabled) {
 
-        return [ msg, msg ];
+        return msg;
     }
-
-    node.send([ msg, null ]);
 
     msg = await node.linkcall('option - auth', msg);
 
@@ -912,8 +910,8 @@
 
     delete msg.options;
 
-    return [ null, msg ];
-  outputs: 2
+    return msg;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -923,7 +921,7 @@
   'y': 560
   wires:
     - - efe711a0d83110bc
-    - - 5090288d785383e7
+      - 5090288d785383e7
 - id: 8311af3d037b80ba
   type: function
   z: adb48ef35d9453c0
@@ -1007,10 +1005,8 @@
         msg.payload = '';
         msg.ui_update = { };
 
-        return [ msg, msg ];
+        return msg;
     }
-
-    node.send([ msg, null ]);
 
     msg.ui_update = {
         'dropdownOptions': []
@@ -1030,8 +1026,8 @@
     msg.ui_update.label = '';
     msg.payload = '';
 
-    return [ null, msg ];
-  outputs: 2
+    return msg;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1041,7 +1037,7 @@
   'y': 800
   wires:
     - - d4eed103d53be0ad
-    - - 7b0c5efa0173470c
+      - 7b0c5efa0173470c
 - id: 069b5e2011d3aa79
   type: function
   z: adb48ef35d9453c0
@@ -1129,8 +1125,8 @@
   z: adb48ef35d9453c0
   g: 7a7d35c0913aed9f
   name: data
-  func: 'return [ msg, msg ];'
-  outputs: 2
+  func: return msg;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1140,7 +1136,7 @@
   'y': 1040
   wires:
     - - 960524ae838673ed
-    - - eaf6fbb998a28d10
+      - eaf6fbb998a28d10
       - ba2c0a6c4e22a220
 - id: a05272b8664a08a5
   type: function
