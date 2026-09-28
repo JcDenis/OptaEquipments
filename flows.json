@@ -3863,8 +3863,8 @@
         ],
         "order": 1,
         "className": "",
-        "visible": true,
-        "disabled": false
+        "visible": "true",
+        "disabled": "false"
     },
     {
         "id": "3c952a83cfc8f302",
@@ -4181,7 +4181,8 @@
             "fbeb08a94e71e7bf",
             "00818f8c0686b556",
             "bf3da41c4b5bd219",
-            "61872228c92c7235"
+            "61872228c92c7235",
+            "8786aa238936ce23"
         ],
         "x": 395,
         "y": 440,
@@ -4847,7 +4848,8 @@
             "fbeb08a94e71e7bf",
             "d55041fdf28a3f36",
             "6304fe8d08f0cf47",
-            "bf3da41c4b5bd219"
+            "bf3da41c4b5bd219",
+            "8786aa238936ce23"
         ],
         "x": 595,
         "y": 3460,
@@ -5190,7 +5192,6 @@
         "name": "user - clean",
         "links": [
             "6dfb47bfe7905913",
-            "0de1e913fe6948a9",
             "cc9e5c04bf64876b",
             "eff93c702165abd0",
             "ae02a3d5cbedb090"
@@ -16282,6 +16283,90 @@
                 "953414d1b751a30d"
             ]
         ]
+    },
+    {
+        "id": "8786aa238936ce23",
+        "type": "link in",
+        "z": "476eb6fc04c55cec",
+        "d": true,
+        "name": "link in 1",
+        "links": [
+            "575b91a30deac00d",
+            "7bba6594f41302c2"
+        ],
+        "x": 145,
+        "y": 420,
+        "wires": [
+            [
+                "60fe6181b6a0e0c5"
+            ]
+        ]
+    },
+    {
+        "id": "60fe6181b6a0e0c5",
+        "type": "function",
+        "z": "476eb6fc04c55cec",
+        "d": true,
+        "name": "data",
+        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = { };\n\n    return msg;\n}\n\nmsg.payload = {\n    'L050003': {\n        'title': 'Toyo 8',\n        'x': 155,\n        'y': 205\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 420,
+        "wires": [
+            [
+                "7038df6ee47adfa0"
+            ]
+        ]
+    },
+    {
+        "id": "7038df6ee47adfa0",
+        "type": "ui-template",
+        "z": "476eb6fc04c55cec",
+        "d": true,
+        "group": "",
+        "page": "a19160517715b70b",
+        "ui": "",
+        "name": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div class=\"interactive-map\">\n        <svg id=\"oemap\" viewBox=\"0 0 800 600\" width=\"100%\" height=\"100%\">\n            <!-- Image de fond -->\n            <image href=\"/icon.png\" x=\"0\" y=\"0\" width=\"800\" height=\"600\" />\n        </svg>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        sendPayload(zoneName) {\n            // Envoie le nom de la zone cliquée au flux Node-RED\n            this.send({ payload: { zone: zoneName, status: \"clicked\" } });\n        }\n    },\n    watch: {\n        msg: function (msg) {\n            for (const l in msg.payload) {\n                var svg = document.body.querySelector(\"#oemap\");\n\n                let g = document.createElementNS(\"http://www.w3.org/2000/svg\",'g');\n\n                let t = document.createElementNS(\"http://www.w3.org/2000/svg\", 'text');\n                t.setAttribute('x', msg.payload[l]['x'] + 20);\n                t.setAttribute('y', msg.payload[l]['y'] + 20);\n                t.setAttribute('font-size', \"1em\");\n                t.append(msg.payload[l].title);\n                g.append(t);\n\n                let r = document.createElementNS(\"http://www.w3.org/2000/svg\", 'rect');\n                r.setAttribute('x', msg.payload[l]['x']);\n                r.setAttribute('y', msg.payload[l]['y']);\n                r.setAttribute('width', 100);\n                r.setAttribute('height', 80);\n                r.setAttribute('fill', 'rgba(0, 120, 255, 0.2)');\n                r.setAttribute('stroke', '#0078ff');\n                r.setAttribute('stroke-width', 2);\n                r.setAttribute('class', 'clickable-zone');\n                r.setAttribute('id', l);\n                g.append(r);\n\n                g.addEventListener('click', (evt) => {\n                    this.send({ payload: { id: l } });\n                });\n\n                svg.appendChild(g);\n            }\n        }\n    }\n}\n</script>\n\n<style scoped>\n    .clickable-zone {\n        cursor: pointer;\n        transition: fill 0.2s ease;\n    }\n\n    .clickable-zone:hover {\n        fill: rgba(255, 255, 255, 0.4);\n        /* Effet de survol */\n    }\n</style>",
+        "storeOutMessages": true,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "widget:page",
+        "className": "",
+        "x": 440,
+        "y": 420,
+        "wires": [
+            [
+                "9d83ebb7a31c5028"
+            ]
+        ]
+    },
+    {
+        "id": "9d83ebb7a31c5028",
+        "type": "debug",
+        "z": "476eb6fc04c55cec",
+        "d": true,
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 420,
+        "wires": []
     },
     {
         "id": "d55041fdf28a3f36",
