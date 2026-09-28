@@ -262,9 +262,6 @@
     label: true
   nodes:
     - 92b92f1477eea803
-    - 1519c14ed534e9c5
-    - d0a6734c4eea4f65
-    - a0d0a2572cc36906
     - 8076a4baf7ecf373
     - e159559235411f98
     - 6785c151971670d7
@@ -274,14 +271,34 @@
     - 20520a3e731eba2a
     - f599988a2963cd5d
     - 109e264af9a2365d
-    - 08491cb31d03e2a3
     - 8348390a38fefb9e
     - 707080d5c6492081
     - 8b93a4efc973b383
+    - 9dd391d0694a583c
   x: 104
   'y': 4059
-  w: 2442
+  w: 2198
   h: 202
+- id: 9dd391d0694a583c
+  type: group
+  z: 852390cb9559e176
+  g: de8127dbf035df93
+  style:
+    stroke: '#999999'
+    stroke-opacity: '1'
+    fill: none
+    fill-opacity: '1'
+    label: true
+    label-position: nw
+    color: '#767676'
+  nodes:
+    - 19aed2732225ae19
+    - 67bd4a9e7044053d
+    - bc5437ef345bb3dc
+  x: 1934
+  'y': 4119
+  w: 342
+  h: 82
 - id: a22ae28641468d18
   type: ui-dropdown
   z: 852390cb9559e176
@@ -3617,68 +3634,6 @@
   'y': 4100
   wires:
     - - af64c062728adfe6
-- id: 1519c14ed534e9c5
-  type: split
-  z: 852390cb9559e176
-  g: de8127dbf035df93
-  name: split
-  splt: \n
-  spltType: str
-  arraySplt: 1
-  arraySpltType: len
-  stream: false
-  addname: ''
-  property: payload
-  x: 1570
-  'y': 4160
-  wires:
-    - - a0d0a2572cc36906
-- id: d0a6734c4eea4f65
-  type: join
-  z: 852390cb9559e176
-  g: de8127dbf035df93
-  name: join
-  mode: auto
-  build: object
-  property: payload
-  propertyType: msg
-  key: topic
-  joiner: \n
-  joinerType: str
-  useparts: false
-  accumulate: true
-  timeout: ''
-  count: ''
-  reduceRight: false
-  reduceExp: ''
-  reduceInit: ''
-  reduceInitType: ''
-  reduceFixup: ''
-  x: 1890
-  'y': 4160
-  wires:
-    - - 707080d5c6492081
-- id: a0d0a2572cc36906
-  type: moment
-  z: 852390cb9559e176
-  g: de8127dbf035df93
-  name: date
-  topic: ''
-  input: payload.date
-  inputType: msg
-  inTz: Europe/Paris
-  adjAmount: 0
-  adjType: days
-  adjDir: add
-  format: 'HH:mm:ss'
-  locale: en-US
-  output: payload.date
-  outputType: msg
-  outTz: Europe/Paris
-  x: 1730
-  'y': 4160
-  wires:
-    - - d0a6734c4eea4f65
 - id: 8076a4baf7ecf373
   type: ui-table
   z: 852390cb9559e176
@@ -3724,7 +3679,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2270
+  x: 1630
   'y': 4160
   wires:
     - []
@@ -3748,7 +3703,7 @@
   className: ui-title
   value: payload
   valueType: msg
-  x: 2420
+  x: 1780
   'y': 4100
   wires: []
 - id: 6785c151971670d7
@@ -3796,7 +3751,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 2270
+  x: 1630
   'y': 4220
   wires:
     - []
@@ -3811,7 +3766,7 @@
   from: ''
   to: ''
   reg: false
-  x: 2050
+  x: 1410
   'y': 4100
   wires:
     - - 8076a4baf7ecf373
@@ -4203,16 +4158,18 @@
   g: de8127dbf035df93
   name: historics
   func: |-
-    let hideMsg = {
-        'topic': '',
-        'payload': '',
-        'class': 'remove',
-        'enabled': false,
-        'hmi': msg.hmi,
-        'dictionary': msg.dictionary
-    };
+    if (!msg.enabled) {
+        let hideMsg = {
+            'topic': '',
+            'payload': '',
+            'class': 'remove',
+            'enabled': false,
+            'hmi': msg.hmi,
+            'dictionary': msg.dictionary
+        };
 
-    node.send([ hideMsg, null ]);
+        node.send([ hideMsg, null ]);
+    }
 
     if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
         msg.payload = [ ];
@@ -4251,45 +4208,7 @@
   x: 1220
   'y': 4160
   wires:
-    - - 08491cb31d03e2a3
-- id: 08491cb31d03e2a3
-  type: function
-  z: 852390cb9559e176
-  g: de8127dbf035df93
-  name: rows
-  func: |-
-    if (msg.payload.length > 0) {
-        let rows = []
-
-        let i = 0;
-        for (const j in msg.payload) {
-            rows[i++] = {
-                'ts': msg.payload[j]._time,
-                'date': msg.payload[j]._time,
-                'component': msg.payload[j]._field,
-                'component_name': msg.dictionary.option_component[msg.payload[j]._field],
-                'value': msg.payload[j]._value,
-                'value_name': msg.payload[j]._value === 1 ? 'on ':'off',
-                'value_color': msg.payload[j]._value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off
-            };
-        }
-
-        msg.payload = rows;
-
-        return msg;
-    }
-
-    return;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1410
-  'y': 4160
-  wires:
-    - - 1519c14ed534e9c5
+    - - 707080d5c6492081
 - id: 588c5377c058c6aa
   type: function
   z: 852390cb9559e176
@@ -4974,7 +4893,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2210
+  x: 1570
   'y': 4100
   wires:
     - - e159559235411f98
@@ -5479,7 +5398,32 @@
   g: de8127dbf035df93
   name: data
   func: |-
+    if (msg.payload.length === 0) {
+
+        return;
+    }
+
+    let rows = [ ];
+
+    let i = 0;
+    for (const j in msg.payload) {
+        msg.payload[j] = await node.linkcall('detail - historic - date', msg.payload[j]);
+        rows[i++] = {
+            'ts': msg.payload[j]._time,
+            'date': msg.payload[j].date,
+            'component': msg.payload[j]._field,
+            'component_name': msg.dictionary.option_component[msg.payload[j]._field],
+            'value': msg.payload[j]._value,
+            'value_name': msg.payload[j]._value === 1 ? 'on ':'off',
+            'value_color': msg.payload[j]._value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off
+        };
+    }
+
+    msg.payload = rows;
+
     msg.payload.sort((l, r) => l.ts < r.ts ? 1:-1 );
+
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     if (msg.hmi.lang === 'fr') {
 
@@ -5493,7 +5437,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2050
+  x: 1410
   'y': 4160
   wires:
     - - 8348390a38fefb9e
@@ -5835,3 +5779,44 @@
   'y': 320
   wires:
     - - 5d8b8edef6560b3a
+- id: 19aed2732225ae19
+  type: link in
+  z: 852390cb9559e176
+  g: 9dd391d0694a583c
+  name: detail - historic - date
+  links: []
+  x: 1975
+  'y': 4160
+  wires:
+    - - bc5437ef345bb3dc
+- id: 67bd4a9e7044053d
+  type: link out
+  z: 852390cb9559e176
+  g: 9dd391d0694a583c
+  name: detail - historic - date
+  mode: return
+  links: []
+  x: 2235
+  'y': 4160
+  wires: []
+- id: bc5437ef345bb3dc
+  type: moment
+  z: 852390cb9559e176
+  g: 9dd391d0694a583c
+  name: date
+  topic: ''
+  input: _time
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: 0
+  adjType: days
+  adjDir: add
+  format: 'DD/MM HH:mm:ss'
+  locale: en-US
+  output: date
+  outputType: msg
+  outTz: Europe/Paris
+  x: 2110
+  'y': 4160
+  wires:
+    - - 67bd4a9e7044053d

@@ -1447,6 +1447,7 @@
     - 0de1e913fe6948a9
     - cc9e5c04bf64876b
     - eff93c702165abd0
+    - ae02a3d5cbedb090
   x: 145
   'y': 2720
   wires:
@@ -2468,11 +2469,11 @@
         && typeof global.get('kernel.period', 'memoryOnly') === 'object'
         && typeof global.get('kernel.state', 'memoryOnly') === 'object'
     ) {
-        flow.set('teams', {}, 'memoryOnly');
+        flow.set('teams', { }, 'memoryOnly');
 
         return {
             'topic': '',
-            'payload': { ...(global.get('kernel.team', 'memoryOnly') || {}) },
+            'payload': { ...(global.get('kernel.team', 'memoryOnly') || { }) },
             'row': {
                 'ts': Date.now()
                 // some timestamp tests
