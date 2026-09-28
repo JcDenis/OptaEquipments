@@ -118,16 +118,16 @@ OptaEquipments/
 
 The project includes the following Node-RED packages:
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| @flowfuse/node-red-dashboard | 1.30.2 | Web-based dashboard UI |
-| node-red-contrib-influxdb | 0.7.0 | InfluxDB integration |
-| node-red-node-base64 | 1.0.0 | Base64 encoding/decoding |
-| node-red-contrib-moment | 5.0.0 | Time/date utilities |
-| node-red-contrib-bcrypt | 0.1.6 | Password hashing |
-| node-red-contrib-flow-manager | 0.7.4 | Flow management tools |
-| node-red-contrib-os | 0.2.1 | System resources usage |
-| node-red-contrib-telegrambot | 17.4.12 | Telegram bot nodes for Node-RED |
+| Package | Purpose |
+|---------|---------|
+| @flowfuse/node-red-dashboard | Web-based dashboard UI |
+| node-red-contrib-influxdb | InfluxDB integration |
+| node-red-node-base64 | Base64 encoding/decoding |
+| node-red-contrib-moment | Time/date utilities |
+| node-red-contrib-bcrypt | Password hashing |
+| node-red-contrib-flow-manager | Flow management tools |
+| node-red-contrib-os | System resources usage |
+| node-red-contrib-telegrambot | Telegram bot nodes for Node-RED |
 
 ## Managing Containers
 
