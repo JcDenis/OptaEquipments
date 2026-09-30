@@ -1,0 +1,951 @@
+- id: 05f6b695d75a73cf
+  type: tab
+  label: map
+  disabled: false
+  info: ''
+  env: []
+- id: 0e5ee31c1122d84d
+  type: group
+  z: 05f6b695d75a73cf
+  name: map - main
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 1d8d13781c0d578e
+    - 219556949e1ed915
+    - c43d939036a2f5ce
+    - 755e5172c2ed4465
+    - a38263f9dfb005a8
+    - 95468e9c5d429aac
+    - 1efcfbd636328e02
+    - efc66b0b332f577e
+    - 19c86486f5d9b146
+  x: 84
+  'y': 99
+  w: 1232
+  h: 142
+- id: 97f10c211b33ee2e
+  type: group
+  z: 05f6b695d75a73cf
+  name: map - detail
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - a02204e3fae49cfc
+    - cf09fba4cc997462
+    - 9f08f02da6ea348c
+    - 5a066b7fa3f4f8af
+    - 1b3d8dd4cbf54d2e
+    - 1904ca1be94678dd
+    - 931e83dea43a7cf9
+    - de01b7bdff6e465a
+    - cfab8a9a98e54e95
+    - a9a840797469573f
+    - e4709f79d028ec19
+    - 97a2538ceb8b990d
+    - 1f7b2b51d4d84f18
+    - f486b8d2af3d7301
+  x: 84
+  'y': 279
+  w: 872
+  h: 502
+- id: 1d8d13781c0d578e
+  type: link in
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: map - page
+  links:
+    - 575b91a30deac00d
+    - 7bba6594f41302c2
+  x: 125
+  'y': 140
+  wires:
+    - - 219556949e1ed915
+- id: 219556949e1ed915
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: |-
+    // Get user plants
+
+    // Check if required page is current flow
+    msg.check = env.get('NR_FLOW_NAME');
+    msg = await node.linkcall('ui - tab', msg);
+
+    // Reset UI
+    if (msg.enabled !== true) {
+        // page is disabled
+        msg.class = 'remove';
+        msg.enabled = false;
+        msg.payload = '';
+
+        return [ msg, msg ];
+    }
+
+    // Plant was not defined for the user
+    if (msg.hmi.plant === '') {
+        // admin can select a plant
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
+
+    // Get plants for form
+    msg = await node.linkcall('option - plant', msg);
+
+        // user must selected a plant
+        if (msg.payload === '') {
+
+            return [ null, msg ];
+        }
+        // show selected plant
+
+        return [ msg, msg ];
+    }
+
+    // Plant is defined for the user
+    msg.payload = msg.hmi.plant;
+
+    return [ msg, null ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 250
+  'y': 140
+  wires:
+    - - a38263f9dfb005a8
+    - - c43d939036a2f5ce
+- id: c43d939036a2f5ce
+  type: ui-dropdown
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  group: 58df57b9ba2271ac
+  name: map - detail - plant
+  label: ''
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options:
+    - label: plant
+      value: ''
+      type: str
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 450
+  'y': 200
+  wires:
+    - - 755e5172c2ed4465
+- id: 755e5172c2ed4465
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: |-
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get plant
+    msg = await node.linkcall('form - plant', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 650
+  'y': 200
+  wires:
+    - - a38263f9dfb005a8
+- id: a38263f9dfb005a8
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: >-
+    // Get plant map
+
+
+    msg.plant = msg.payload;
+
+
+    // Reset UI
+
+    if (msg.enabled !== true || msg.plant === '') {
+        // page is disabled
+        msg.class = 'remove';
+        msg.enabled = false;
+        msg.payload = { };
+
+        return msg;
+    }
+
+
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+
+    const location = { ...(global.get('kernel.location', 'memoryOnly') || { })
+    };
+
+    const lines = { ...(global.get('kernel.lines', 'memoryOnly') || { }) };
+
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    msg.payload = { };
+
+
+    for (const l in location) {
+        if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
+            let split = location[l].split('|');
+            msg.payload[l] = {
+                'title': split[0],
+                'x': Number(split[1]),
+                'y': Number(split[2])
+            };
+
+            //node.send(msg);
+        }
+    }
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 810
+  'y': 140
+  wires:
+    - - 95468e9c5d429aac
+- id: 95468e9c5d429aac
+  type: ui-template
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  group: ''
+  page: ded8ef092f5c6531
+  ui: ''
+  name: ''
+  order: 0
+  width: 0
+  height: 0
+  head: ''
+  format: |-
+    <template>
+        <div id="oe-map-group">
+            <svg id="oemap" viewBox="0 0 800 450" width="100%" height="100%">
+                <image x="0" y="0" width="100%" height="100%" />
+            </svg>
+        </div>
+    </template>
+
+    <script>
+        export default {
+        methods: {
+            sendPayload(zoneName) {
+                // Envoie le nom de la zone cliquée au flux Node-RED
+                this.send({ payload: { zone: zoneName, status: "clicked" } });
+            }
+        },
+        mounted() {
+            this.mounted = true;
+        },
+        watch: {
+            msg: function (msg) {
+                var svg = document.body.querySelector("#oemap");
+                if (msg.class === 'remove') {
+                    var img = document.body.querySelector("#oemap image");
+                    img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/icon.png');
+                }
+                else {
+                    var img = document.body.querySelector("#oemap image");
+                    img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/' + msg.plant + '/plant.png');
+
+                    for (const l in msg.payload) {
+
+                        let g = document.createElementNS("http://www.w3.org/2000/svg",'g');
+
+                        let t = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                        t.setAttribute('x', msg.payload[l]['x'] + 10);
+                        t.setAttribute('y', msg.payload[l]['y'] + 20);
+                        t.setAttribute('font-size', "0.6em");
+                        t.setAttribute('class', 'clickable-title');
+                        t.textContent = msg.payload[l].title;
+                        g.append(t);
+
+                        let r = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                        r.setAttribute('x', msg.payload[l]['x']);
+                        r.setAttribute('y', msg.payload[l]['y']);
+                        r.setAttribute('width', 50);
+                        r.setAttribute('height', 40);
+                        r.setAttribute('fill', 'rgba(0, 120, 255, 0.0)');
+                        //r.setAttribute('stroke', '#0078ff');
+                        //r.setAttribute('stroke-width', 2);
+                        r.setAttribute('class', 'clickable-zone');
+                        r.setAttribute('id', l);
+                        g.append(r);
+
+                        g.addEventListener('click', (evt) => {
+                            this.send({ payload: { line: l, plant: msg.plant } });
+                        });
+
+                        svg.appendChild(g);
+                    }
+                }
+            }
+        }
+    }
+    </script>
+
+    <style scoped>
+        .clickable-zone {
+            cursor: pointer;
+            /*transition: fill 0.2s ease;*/
+        }
+
+        .clickable-zone:hover {
+            fill: rgba(255, 255, 255, 0.5);
+            /* Effet de survol */
+        }
+        .clickable-title {
+            filter: drop-shadow(0 0 1px white) drop-shadow(0 0 1px white);
+            //text-shadow: 2px 2px #5583bbff;
+        }
+    </style>
+  storeOutMessages: true
+  passthru: false
+  resendOnRefresh: true
+  templateScope: 'widget:page'
+  className: ''
+  x: 980
+  'y': 140
+  wires:
+    - - 1efcfbd636328e02
+- id: 1efcfbd636328e02
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: |-
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // faire un dialog
+    // - etat et mise ne chauffe de la ligne
+    // - heure et fontionenment des equipements
+
+    msg.data = { ...msg.payload };
+
+    msg.payload = {
+        'groups': {
+            'show': ['map - detail - dialog']
+        }
+    };
+
+    node.send([ msg, null ]);
+
+    msg.payload = msg.data;
+
+    return [ null, msg ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1150
+  'y': 140
+  wires:
+    - - efc66b0b332f577e
+    - - 19c86486f5d9b146
+- id: a02204e3fae49cfc
+  type: ui-text
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  order: 1
+  width: 0
+  height: 0
+  name: map - detail - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-left
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ui-title
+  value: payload
+  valueType: msg
+  x: 450
+  'y': 320
+  wires: []
+- id: cf09fba4cc997462
+  type: function
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: data
+  func: >-
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+
+    msg.line = msg.payload.line;
+
+
+    // Title
+
+    const title = global.get('kernel["line"]["' + msg.line + '"]', 'memoryOnly')
+    || '';
+
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    msg.payload = title;
+
+
+    node.send([ msg, null, null, null ]);
+
+
+    // Equipments
+
+    const equipments = { ...(global.get('kernel.equipments', 'memoryOnly') ||
+    {}) };
+
+    const states = { ...(global.get('kernel.state', 'memoryOnly') || {}) };
+
+    const alerts = { ...(global.get('kernel.alert', 'memoryOnly') || {}) };
+
+
+    let c = 0;
+
+    let child = [];
+
+    for (const e in equipments) {
+        if (equipments[e] !== msg.line) {
+
+            continue;
+        }
+
+        let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;
+
+        let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? '#0094ce' : 'grey') : '#EEEEEE';
+        let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';
+
+        let heat = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? '#0094ce' : 'grey') : '#EEEEEE';
+        let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';
+
+        child[c++] = {
+            'equipment': e,
+            'name': global.get('kernel.equipment["' + e + '"]', 'memoryOnly') || e,
+            'alert': '<i class="icon-in-row mdi mdi-' + alert_icon + '" style="font-size: 1.8em; color: ' + alert + '" title="alert"></i>',
+            'heat': '<i class="icon-in-row mdi mdi-' + heat_icon + '" style="font-size: 1.8em; color: '+ heat + '" title="heat"></i>'
+        };
+    }
+
+
+    msg.payload = child;
+
+
+    node.send([ null, msg, null, null ]);
+
+
+    // Line
+
+    const period = global.get('kernel.period["' + msg.line + '"]', 'memoryOnly')
+    || '';
+
+    const split = period.split('');
+
+
+    const periods = [ 'm', 'a', 'n', 'd', 's' ];
+
+    for (let i = 0; i < periods.length; i++) {
+        msg.period = periods[i];
+        msg.ui_update = {
+            'buttonColor': split.includes(periods[i]) ? 'green' : 'red',
+            'label': msg.dictionary.option_team[periods[i]]
+        }
+        node.send([null, null, msg, null ]);
+    }
+
+
+    // Disabled
+
+    const disabled = global.get('kernel.disabled["' + msg.line + '"]',
+    'memoryOnly') || false;
+
+    msg.ui_update = {
+        'buttonColor': disabled ? 'red' : 'green',
+        'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')
+    };
+
+    node.send([null, null, null, msg ]);
+
+
+    return;
+  outputs: 4
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 250
+  'y': 380
+  wires:
+    - - a02204e3fae49cfc
+    - - 9f08f02da6ea348c
+    - - 1904ca1be94678dd
+    - - a9a840797469573f
+- id: efc66b0b332f577e
+  type: link out
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: map - main - dialog
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 1275
+  'y': 140
+  wires: []
+- id: 9f08f02da6ea348c
+  type: ui-table
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - equipments
+  label: ''
+  order: 8
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: click
+  columns:
+    - title: ''
+      key: name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: alert
+      keyType: key
+      type: html
+      width: 20px
+      align: center
+    - title: ''
+      key: heat
+      keyType: key
+      type: html
+      width: 20px
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 470
+  'y': 380
+  wires:
+    - []
+- id: 5a066b7fa3f4f8af
+  type: ui-button
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - m
+  label: ''
+  order: 2
+  width: '1'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: m
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 600
+  'y': 440
+  wires:
+    - - e4709f79d028ec19
+- id: 1b3d8dd4cbf54d2e
+  type: ui-button
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - a
+  label: ''
+  order: 3
+  width: '1'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: a
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 600
+  'y': 500
+  wires:
+    - - e4709f79d028ec19
+- id: 1904ca1be94678dd
+  type: function
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: data
+  func: |-
+    switch (msg.period) {
+        case 'm': node.send([msg, null, null, null, null ]); break;
+        case 'a': node.send([null, msg, null, null, null ]); break;
+        case 'n': node.send([null, null, msg, null, null ]); break;
+        case 'd': node.send([null, null, null, msg, null ]); break;
+        case 's': node.send([null, null, null, null, msg ]); break;
+    }
+
+    return;
+  outputs: 5
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 410
+  'y': 500
+  wires:
+    - - 5a066b7fa3f4f8af
+    - - 1b3d8dd4cbf54d2e
+    - - 931e83dea43a7cf9
+    - - de01b7bdff6e465a
+    - - cfab8a9a98e54e95
+- id: 931e83dea43a7cf9
+  type: ui-button
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - n
+  label: ''
+  order: 4
+  width: '1'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: 'n'
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 600
+  'y': 560
+  wires:
+    - - e4709f79d028ec19
+- id: de01b7bdff6e465a
+  type: ui-button
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - d
+  label: ''
+  order: 5
+  width: '1'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: d
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 600
+  'y': 620
+  wires:
+    - - e4709f79d028ec19
+- id: cfab8a9a98e54e95
+  type: ui-button
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - s
+  label: ''
+  order: 6
+  width: '1'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: s
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 600
+  'y': 680
+  wires:
+    - - e4709f79d028ec19
+- id: a9a840797469573f
+  type: ui-button
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  group: 7190b289663a174d
+  name: map - detail - auto
+  label: ''
+  order: 7
+  width: '1'
+  height: '1'
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: auto
+  topicType: str
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 450
+  'y': 740
+  wires:
+    - - f486b8d2af3d7301
+- id: e4709f79d028ec19
+  type: function
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: data
+  func: >-
+    if (typeof msg.line !== 'string' || msg.line === '') {
+
+        return;
+    }
+
+
+    const periods = (global.get('kernel.period["' + msg.line + '"]',
+    'memoryOnly') || '').split('');
+
+
+    if (periods.includes(msg.topic)) {
+        for (let i = 0; i < periods.length; i++) {
+            if (periods[i] === msg.topic) {
+                periods.splice(i, 1);
+            }
+        }
+    }
+
+    else {
+        periods.push(msg.topic)
+    }
+
+
+    node.status({ 'text': periods.join('') });
+
+
+    global.set('kernel.period["' + msg.line + '"]', periods.join(''),
+    'memoryOnly');
+
+
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+
+    delete msg.ui_update;
+
+
+    msg.payload = {
+        'line': msg.line
+    };
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 500
+  wires:
+    - - 1f7b2b51d4d84f18
+- id: 97a2538ceb8b990d
+  type: link in
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: map - detail
+  links:
+    - 1f7b2b51d4d84f18
+    - 19c86486f5d9b146
+  x: 125
+  'y': 380
+  wires:
+    - - cf09fba4cc997462
+- id: 1f7b2b51d4d84f18
+  type: link out
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: map - detail
+  mode: link
+  links:
+    - 97a2538ceb8b990d
+  x: 915
+  'y': 500
+  wires: []
+- id: 19c86486f5d9b146
+  type: link out
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: map - main
+  mode: link
+  links:
+    - 97a2538ceb8b990d
+  x: 1275
+  'y': 200
+  wires: []
+- id: f486b8d2af3d7301
+  type: function
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: data
+  func: >-
+    if (typeof msg.line !== 'string' || msg.line === '') {
+
+        return;
+    }
+
+
+    let disabled = !(global.get('kernel.disabled["' + msg.line + '"]',
+    'memoryOnly') || false);
+
+
+    node.status({ 'text': disabled });
+
+
+    global.set('kernel.disabled["' + msg.line + '"]', disabled, 'memoryOnly');
+
+
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+
+    delete msg.ui_update;
+
+
+    msg.payload = {
+        'line': msg.line
+    };
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 740
+  wires:
+    - - 1f7b2b51d4d84f18

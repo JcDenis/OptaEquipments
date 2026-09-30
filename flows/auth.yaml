@@ -257,7 +257,7 @@
   func: |-
     const user = { ...(global.get('user', 'memoryOnly') || { }) };
     delete user[ msg._client.socketId ];
-    global.set('user', 'memoryonly');
+    global.set('user', user, 'memoryOnly');
 
     delete msg.ui_update;
 
