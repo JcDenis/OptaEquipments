@@ -2323,6 +2323,7 @@
     let pages = global.get('describe.pages', 'memoryOnly');
 
     if (typeof pages !== 'object') {
+
         return;
     }
 
@@ -2360,6 +2361,7 @@
         }
 
         if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {
+            msg.hmi.page = msg.dictionary.option_page[page];
             allowed = true;
         }
     }
@@ -2367,7 +2369,7 @@
 
     if (allowed === false) {
         msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');
-        msg.hmi.page = global.get('describe.pages.auth.name', 'memoryOnly');
+        msg.hmi.page = msg.dictionary.option_page.auth;
     }
 
 
@@ -3120,7 +3122,7 @@
                     'prod': true
                 }
             },
-            'list':{
+            'list': {
                 'tab': 5,
                 'id': '297c38d08e523a55',
                 'name': 'Listes',
@@ -3132,7 +3134,7 @@
                     'prod': false
                 }
             },
-            'tree':{
+            'tree': {
                 'tab': 6,
                 'id': '5287a3b059e7b4ce',
                 'name': 'Arborescence',
