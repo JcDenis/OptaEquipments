@@ -703,11 +703,11 @@
         border-top: 1px solid #CCCCCC;
         margin-top: -1px;
     }
-        #oe-map-group {
-            position: absolute;
-            top: 5em;
-            width: 100%;
-        }
+    #oe-map-group {
+        position: absolute;
+        top: 5em;
+        width: 100%;
+    }
   storeOutMessages: true
   passthru: true
   resendOnRefresh: true
@@ -3175,7 +3175,7 @@
             'heat': [ 'heat', 'heatswitch' ],
             'uptime': [ 'uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter' ],
             'voltage': [ 'voltage', 'power' ]
-        }
+        },
     }, 'memoryOnly');
 
     // Clear user and more
@@ -3281,6 +3281,19 @@
                 'payload': '',
                 'kernel': {
                     'type': 'plant',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            }]);
+
+            // kernel.map
+            node.send([{
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'map',
                     'entity': msg.kernel.entity,
                     'value': '',
                     'loop': false,
@@ -3434,6 +3447,19 @@
                 'payload': '',
                 'kernel': {
                     'type': 'line',
+                    'entity': msg.kernel.entity,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            }]);
+
+            // kernel.location
+            node.send([{
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'location',
                     'entity': msg.kernel.entity,
                     'value': '',
                     'loop': false,
@@ -4832,7 +4858,8 @@
             'median': '#F08000',
             'none': '#808000',
             'theme': '#0094CE',
-            'empty': '#CCCCCC'
+            'empty': '#999999',
+            'hidden': '#EEEEEE'
         },
         'option_select': {
             'plant': 'Select a plant',
@@ -4927,7 +4954,7 @@
         'lang': 'fr',
         'option_page': {
             'auth': 'Authentification',
-            'map': 'Map',
+            'map': 'Implantation',
             'alert': 'Alertes',
             'period': 'Programmes',
             'detail': 'Detail',

@@ -215,7 +215,6 @@
         msg.ui_update.label = msg.dictionary.auth.user || 'User: ';
         msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';
 
-        node.status({ 'fill': 'green' });
         return [ msg, null, null ];
     }
 
@@ -235,7 +234,6 @@
         }
     ];
 
-    node.status({ 'fill': 'red' });
     return [ null, null, msg ];
   outputs: 3
   timeout: 0
