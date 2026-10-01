@@ -22,10 +22,12 @@
     - 1efcfbd636328e02
     - efc66b0b332f577e
     - 19c86486f5d9b146
+    - e48cd79820e41f99
+    - abd4f9c4802b555c
   x: 84
   'y': 99
   w: 1232
-  h: 142
+  h: 262
 - id: 97f10c211b33ee2e
   type: group
   z: 05f6b695d75a73cf
@@ -50,7 +52,7 @@
     - 1f7b2b51d4d84f18
     - f486b8d2af3d7301
   x: 84
-  'y': 279
+  'y': 399
   w: 872
   h: 502
 - id: 1d8d13781c0d578e
@@ -80,29 +82,23 @@
     // Reset UI
     if (msg.enabled !== true) {
         // page is disabled
-        msg.class = 'remove';
-        msg.enabled = false;
-        msg.payload = '';
 
         return [ msg, msg ];
     }
 
     // Plant was not defined for the user
     if (msg.hmi.plant === '') {
+
         // admin can select a plant
         msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
 
-    // Get plants for form
-    msg = await node.linkcall('option - plant', msg);
+        // Get plants for form
+        msg = await node.linkcall('option - plant', msg);
 
-        // user must selected a plant
-        if (msg.payload === '') {
+        msg.enabled = true;
+        msg.class = '';
 
-            return [ null, msg ];
-        }
-        // show selected plant
-
-        return [ msg, msg ];
+        return [ null, msg ];
     }
 
     // Plant is defined for the user
@@ -119,7 +115,9 @@
   'y': 140
   wires:
     - - a38263f9dfb005a8
+      - abd4f9c4802b555c
     - - c43d939036a2f5ce
+      - e48cd79820e41f99
 - id: c43d939036a2f5ce
   type: ui-dropdown
   z: 05f6b695d75a73cf
@@ -131,7 +129,7 @@
   order: 1
   width: 0
   height: 0
-  passthru: false
+  passthru: true
   multiple: false
   chips: false
   clearable: false
@@ -187,10 +185,12 @@
 
     // Reset UI
 
-    if (msg.enabled !== true || msg.plant === '') {
+    if (msg.enabled !== true || msg.plant === '' || typeof
+    global.get('kernel.map["' + msg.plant +'"]', 'memoryOnly') !== 'string') {
         // page is disabled
         msg.class = 'remove';
         msg.enabled = false;
+        msg.plant = 'none'; // required for http get
         msg.payload = { };
 
         return msg;
@@ -205,6 +205,9 @@
 
     const lines = { ...(global.get('kernel.lines', 'memoryOnly') || { }) };
 
+    const equipments = { ...(global.get('kernel.equipments', 'memoryOnly') || {
+    }) };
+
 
     msg.class = '';
 
@@ -215,16 +218,48 @@
 
     for (const l in location) {
         if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
+            let color = msg.dictionary.option_color.theme + '00'; // transparent
+
+            // Get line equipements
+            let on = 0;
+            let off = 0;
+            for (const e in equipments) {
+                if (equipments[e] === l) {
+                    let heat = global.get('kernel.state["' + e + '|heat"]', 'memoryOnly');
+                    if (typeof heat === 'number') {
+                        if (heat === 1) {
+                            on++;
+                        }
+                        else {
+                            off++;
+                        }
+                    }
+                }
+            }
+            if (on > 0 && off === 0) {
+                color = msg.dictionary.option_color.on + 'BB';
+            }
+            else if (off > 0 && on === 0) {
+                color = msg.dictionary.option_color.off + 'BB';
+            }
+            else if (on > 0 && off > 0) {
+                color = msg.dictionary.option_color.median + 'BB';
+            }
+
+            let heat = global.get('kernel.state["' + l + '|heat"]', 'memoryOnly');
+            if (typeof heat === 'number') {
+                color = heat === 1 ? msg.dictionary.option_color.on + 'BB' : msg.dictionary.option_color.off + 'BB';
+            }
+
             let split = location[l].split('|');
             msg.payload[l] = {
                 'title': split[0],
                 'x': Number(split[1]),
                 'y': Number(split[2]),
                 'w': Number(split[3] || 50),
-                'h': Number(split[4] || 40)
+                'h': Number(split[4] || 40),
+                'c': color
             };
-
-            //node.send(msg);
         }
     }
 
@@ -254,76 +289,102 @@
   head: ''
   format: |-
     <template>
-        <div id="oe-map-group">
-            <svg viewBox="0 0 800 450" width="100%" height="100%">
-                <image x="0" y="0" width="100%" height="100%" />
-            </svg>
-        </div>
+        <Teleport v-if="mounted" to="#nrdb-page-ded8ef092f5c6531">
+            <div id="oe-map-group">
+                <svg viewBox="0 0 720 400" width="100%" height="100%">
+                    <image x="0" y="0" width="100%" height="100%" />
+                </svg>
+            </div>
+        </Teleport>
     </template>
 
     <script>
         export default {
-        methods: {
-        },
-        mounted() {
-            this.mounted = true;
-        },
-        watch: {
-            msg: function (msg) {
-                var svg = document.body.querySelector("#oe-map-group svg");
-                if (msg.class === 'remove') {
-                    var img = document.body.querySelector("#oe-map-group svg image");
-                    img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/icon.png');
+            data() {
+                return {
+                    mounted: false
                 }
-                else {
+            },
+            methods: {
+            },
+            mounted() {
+                this.mounted = true;
+            },
+            watch: {
+                msg: function (msg) {
+                    let svgns = "http://www.w3.org/2000/svg";
+                    let imgns = 'http://www.w3.org/1999/xlink';
+
+                    var svg = document.body.querySelector("#oe-map-group svg");
                     var img = document.body.querySelector("#oe-map-group svg image");
-                    img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/' + msg.plant + '/plant.png');
+                    img.setAttributeNS(imgns, 'xlink:href', '/' + msg.plant + '/plant.png');
 
-                    for (const l in msg.payload) {
+                    /* Clean up all zones on new message */
+                    let childs = svg.querySelectorAll('g');
+                    [].forEach.call(childs,c=>{
+                        c.parentNode.removeChild(c);
+                    });
+                    if (msg.class === 'remove') {
+                        img.setAttribute('visibility', 'hidden');
+                    }
+                    else {
+                        img.setAttribute('visibility', 'visible');
 
-                        let g = document.createElementNS("http://www.w3.org/2000/svg",'g');
+                        /* All zones must be set in one message */
+                        for (const l in msg.payload) {
 
-                        let t = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-                        t.setAttribute('x', msg.payload[l]['x'] + (msg.payload[l]['w'] / 2));
-                        t.setAttribute('y', msg.payload[l]['y'] + (msg.payload[l]['h'] / 2));
-                        t.setAttribute('text-anchor', 'middle');
-                        t.setAttribute('class', 'clickable-title');
-                        t.textContent = msg.payload[l].title;
-                        g.append(t);
+                            let g = document.createElementNS(svgns,'g');
+                            
+                            // background
+                            let f = document.createElementNS(svgns, 'rect');
+                            f.setAttribute('x', msg.payload[l]['x']);
+                            f.setAttribute('y', msg.payload[l]['y']);
+                            f.setAttribute('width', msg.payload[l]['w'] +'px');
+                            f.setAttribute('height', msg.payload[l]['h'] + 'px');
+                            f.setAttribute('fill', msg.payload[l]['c']);
+                            g.append(f);
 
-                        let r = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-                        r.setAttribute('x', msg.payload[l]['x']);
-                        r.setAttribute('y', msg.payload[l]['y']);
-                        r.setAttribute('width', msg.payload[l]['w'] +'px');
-                        r.setAttribute('height', msg.payload[l]['h'] + 'px');
-                        r.setAttribute('fill', 'rgba(0, 120, 255, 0.0)');
-                        //r.setAttribute('stroke', '#0078ff');
-                        //r.setAttribute('stroke-width', 2);
-                        r.setAttribute('class', 'clickable-zone');
-                        r.setAttribute('id', l);
-                        g.append(r);
+                            // Text
+                            let t = document.createElementNS(svgns, 'text');
+                            t.setAttribute('x', msg.payload[l]['x'] + (msg.payload[l]['w'] / 2));
+                            t.setAttribute('y', msg.payload[l]['y'] + (msg.payload[l]['h'] / 2));
+                            t.setAttribute('text-anchor', 'middle');
+                            t.setAttribute('class', 'clickable-title');
+                            t.textContent = msg.payload[l].title;
+                            g.append(t);
 
-                        g.addEventListener('click', (evt) => {
-                            this.send({ payload: { line: l, plant: msg.plant } });
-                        });
+                            // Clickable zone
+                            let r = document.createElementNS(svgns, 'rect');
+                            r.setAttribute('x', msg.payload[l]['x']);
+                            r.setAttribute('y', msg.payload[l]['y']);
+                            r.setAttribute('width', msg.payload[l]['w'] +'px');
+                            r.setAttribute('height', msg.payload[l]['h'] + 'px');
+                            r.setAttribute('fill', 'rgba(0, 255, 8, 0.0)');
+                            //r.setAttribute('stroke', '#0078ff');
+                            //r.setAttribute('stroke-width', 2);
+                            r.setAttribute('class', 'clickable-zone');
+                            r.setAttribute('id', l);
+                            g.append(r);
 
-                        svg.appendChild(g);
+                            g.addEventListener('click', (evt) => {
+                                this.send({ payload: { line: l, plant: msg.plant } });
+                            });
+
+                            svg.appendChild(g);
+                        }
                     }
                 }
             }
         }
-    }
     </script>
 
     <style scoped>
         .clickable-zone {
             cursor: pointer;
-            /*transition: fill 0.2s ease;*/
+            transition: fill 0.5s ease;
         }
-
         .clickable-zone:hover {
             fill: rgba(255, 255, 255, 0.5);
-            /* Effet de survol */
         }
         .clickable-title {
             filter: drop-shadow(0 0 1px white) drop-shadow(0 0 1px white);
@@ -349,23 +410,21 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    // faire un dialog
-    // - etat et mise ne chauffe de la ligne
-    // - heure et fontionenment des equipements
-
+    // { line, plant }
     msg.data = { ...msg.payload };
 
+    // Show dialog
     msg.payload = {
         'groups': {
             'show': ['map - detail - dialog']
         }
     };
 
-    node.send([ msg, null ]);
+    node.send([ null, msg ]);
 
     msg.payload = msg.data;
 
-    return [ null, msg ];
+    return [ msg, null ];
   outputs: 2
   timeout: 0
   noerr: 0
@@ -375,8 +434,8 @@
   x: 1150
   'y': 140
   wires:
-    - - efc66b0b332f577e
     - - 19c86486f5d9b146
+    - - efc66b0b332f577e
 - id: a02204e3fae49cfc
   type: ui-text
   z: 05f6b695d75a73cf
@@ -398,7 +457,7 @@
   value: payload
   valueType: msg
   x: 450
-  'y': 320
+  'y': 440
   wires: []
 - id: cf09fba4cc997462
   type: function
@@ -512,7 +571,7 @@
   finalize: ''
   libs: []
   x: 250
-  'y': 380
+  'y': 500
   wires:
     - - a02204e3fae49cfc
     - - 9f08f02da6ea348c
@@ -527,7 +586,7 @@
   links:
     - 00818f8c0686b556
   x: 1275
-  'y': 140
+  'y': 260
   wires: []
 - id: 9f08f02da6ea348c
   type: ui-table
@@ -569,7 +628,7 @@
   action: replace
   className: ''
   x: 470
-  'y': 380
+  'y': 500
   wires:
     - []
 - id: 5a066b7fa3f4f8af
@@ -604,7 +663,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 440
+  'y': 560
   wires:
     - - e4709f79d028ec19
 - id: 1b3d8dd4cbf54d2e
@@ -639,7 +698,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 500
+  'y': 620
   wires:
     - - e4709f79d028ec19
 - id: 1904ca1be94678dd
@@ -664,7 +723,7 @@
   finalize: ''
   libs: []
   x: 410
-  'y': 500
+  'y': 620
   wires:
     - - 5a066b7fa3f4f8af
     - - 1b3d8dd4cbf54d2e
@@ -703,7 +762,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 560
+  'y': 680
   wires:
     - - e4709f79d028ec19
 - id: de01b7bdff6e465a
@@ -738,7 +797,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 620
+  'y': 740
   wires:
     - - e4709f79d028ec19
 - id: cfab8a9a98e54e95
@@ -773,7 +832,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 680
+  'y': 800
   wires:
     - - e4709f79d028ec19
 - id: a9a840797469573f
@@ -808,7 +867,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 450
-  'y': 740
+  'y': 860
   wires:
     - - f486b8d2af3d7301
 - id: e4709f79d028ec19
@@ -866,7 +925,7 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 500
+  'y': 620
   wires:
     - - 1f7b2b51d4d84f18
 - id: 97a2538ceb8b990d
@@ -878,7 +937,7 @@
     - 1f7b2b51d4d84f18
     - 19c86486f5d9b146
   x: 125
-  'y': 380
+  'y': 500
   wires:
     - - cf09fba4cc997462
 - id: 1f7b2b51d4d84f18
@@ -890,7 +949,7 @@
   links:
     - 97a2538ceb8b990d
   x: 915
-  'y': 500
+  'y': 620
   wires: []
 - id: 19c86486f5d9b146
   type: link out
@@ -901,7 +960,7 @@
   links:
     - 97a2538ceb8b990d
   x: 1275
-  'y': 200
+  'y': 140
   wires: []
 - id: f486b8d2af3d7301
   type: function
@@ -944,6 +1003,54 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 740
+  'y': 860
   wires:
     - - 1f7b2b51d4d84f18
+- id: abd4f9c4802b555c
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: |-
+
+    msg.payload = {
+        'groups': {
+            'hide': ['map - group']
+        }
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 410
+  'y': 260
+  wires:
+    - - efc66b0b332f577e
+- id: e48cd79820e41f99
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: |-
+
+    msg.payload = {
+        'groups': {
+            'show': ['map - group']
+        }
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 410
+  'y': 320
+  wires:
+    - - efc66b0b332f577e
