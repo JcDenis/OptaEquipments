@@ -1472,12 +1472,12 @@
   z: f6f2187d.f17ca8
   g: ec05c59aee9e7dba
   name: user - clean
-  active: false
+  active: true
   tosidebar: true
   console: false
   tostatus: false
-  complete: 'true'
-  targetType: full
+  complete: payload
+  targetType: msg
   statusVal: ''
   statusType: auto
   x: 450
@@ -2140,10 +2140,11 @@
   func: |-
     // Check active users on ui
 
-    /* Limit to 6 hours */
-    let limit = Date.now() - (6*60*60*1000);
+    /* Limit to 1 hour */
+    let limit = Date.now() - (60*60*1000);
     msg.topic = limit;
 
+    let removed = 0;
     let users = global.get('user', 'memoryOnly');
     if (typeof users === 'object') {
         for (const user in users) {
@@ -2155,11 +2156,13 @@
                 global.set('form["' + user + '"]', undefined, 'memoryOnly');
                 msg.payload = user;
                 node.send(msg);
+
+                removed++;
             }
         }
     }
 
-    msg.payload = 'cleaned';
+    msg.payload = removed + ' cleaned';
 
     return msg;
   outputs: 1
@@ -5207,7 +5210,8 @@
 
         let user = global.get('user["' + msg.hmi.id + '"]', 'memoryOnly');
         if (typeof user === 'object') {
-            global.set('user["' + msg.hmi.id + '"]["time"]', Date.now(), 'memoryOnly');
+            user.time = Date.now();
+            global.set('user["' + msg.hmi.id + '"]', user, 'memoryOnly');
             msg.hmi = Object.assign({}, msg.hmi, user);
         }
     }

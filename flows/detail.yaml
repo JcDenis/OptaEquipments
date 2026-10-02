@@ -67,7 +67,6 @@
     - 2b59cd98758af02f
     - 020683f769d75bef
     - 847f3850106ae6a0
-    - 94fe6a75da9bf8db
     - 1669e26b4db844ba
     - 588c5377c058c6aa
     - '79169878e9014095'
@@ -97,9 +96,12 @@
     - 1c97400971136f0e
     - 5ae9e340ce3e9b9d
     - e7f08269d103c0dd
+    - 0328c0694ad50637
+    - e80281639d5d4d8e
+    - 0b3df6b8ed9b5ce6
   x: 104
   'y': 639
-  w: 2282
+  w: 2422
   h: 2242
 - id: 1c87eaf6a557f02d
   type: group
@@ -631,7 +633,7 @@
   x: 860
   'y': 1100
   wires:
-    - - 847f3850106ae6a0
+    - - e80281639d5d4d8e
 - id: 3c49b3039dfe7b95
   type: debug
   z: 852390cb9559e176
@@ -645,7 +647,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 2270
+  x: 2410
   'y': 1160
   wires: []
 - id: cd9312927e6f5747
@@ -656,7 +658,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 2215
+  x: 2355
   'y': 1100
   wires: []
 - id: 780661d35554de7d
@@ -693,7 +695,7 @@
   x: 1040
   'y': 1940
   wires:
-    - - 94fe6a75da9bf8db
+    - - 0b3df6b8ed9b5ce6
 - id: bf0283565cf53483
   type: ui-button
   z: 852390cb9559e176
@@ -792,7 +794,7 @@
   x: 860
   'y': 1520
   wires:
-    - - 847f3850106ae6a0
+    - - e80281639d5d4d8e
 - id: 02c026f38c097405
   type: ui-button
   z: 852390cb9559e176
@@ -1669,7 +1671,7 @@
   checkall: 'false'
   repair: false
   outputs: 2
-  x: 1590
+  x: 1730
   'y': 1940
   wires:
     - - 5b1260fb090f1438
@@ -1680,7 +1682,7 @@
   g: d04f02d6e1c02839
   name: Play twice command for pulse command
   info: ''
-  x: 1860
+  x: 2000
   'y': 1980
   wires: []
 - id: f7fbba1ce6763907
@@ -1816,7 +1818,7 @@
   bytopic: all
   topic: topic
   outputs: 2
-  x: 1750
+  x: 1890
   'y': 1940
   wires:
     - - 2b59cd98758af02f
@@ -1837,7 +1839,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1920
+  x: 2060
   'y': 1940
   wires:
     - - 020683f769d75bef
@@ -2059,7 +2061,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1555
+  x: 1695
   'y': 1160
   wires: []
 - id: 2045a5696769c038
@@ -3231,7 +3233,7 @@
   from: ''
   to: ''
   reg: false
-  x: 1920
+  x: 2060
   'y': 1880
   wires:
     - - 020683f769d75bef
@@ -3257,7 +3259,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 2090
+  x: 2230
   'y': 1100
   wires:
     - - cd9312927e6f5747
@@ -3279,31 +3281,10 @@
   drop: true
   allowrate: false
   outputs: 1
-  x: 1080
+  x: 1400
   'y': 1100
   wires:
     - - 40f21304e5883c5e
-- id: 94fe6a75da9bf8db
-  type: delay
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: 1mgs/s
-  pauseType: rate
-  timeout: '5'
-  timeoutUnits: seconds
-  rate: '1'
-  nbRateUnits: '1'
-  rateUnits: second
-  randomFirst: '1'
-  randomLast: '5'
-  randomUnits: seconds
-  drop: true
-  allowrate: false
-  outputs: 1
-  x: 1260
-  'y': 1940
-  wires:
-    - - 1c97400971136f0e
 - id: 8255398c09f4fc17
   type: function
   z: 852390cb9559e176
@@ -4963,7 +4944,6 @@
     msg.payload = '';
     msg.class = 'remove';
     msg.enabled = false;
-    msg.reset = true;
     msg.ui_update = {
         'label': '',
         'buttonColor': '0',
@@ -4971,8 +4951,9 @@
     }
 
     if (msg.hmi.login === '') {
+        msg.reset = true;
 
-        return [ msg, msg];
+        return [ msg, msg ];
     }
 
     return [ msg, null ];
@@ -5050,7 +5031,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1430
+  x: 1570
   'y': 1100
   wires:
     - - 020683f769d75bef
@@ -5084,7 +5065,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1430
+  x: 1570
   'y': 1940
   wires:
     - - e171907702d6e26e
@@ -5692,6 +5673,9 @@
     // Check we can refresh
 
 
+    delete msg.reset;
+
+
     const equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]',
     'memoryOnly') || '-';
 
@@ -5820,3 +5804,62 @@
   'y': 4160
   wires:
     - - 67bd4a9e7044053d
+- id: 0328c0694ad50637
+  type: delay
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: 1m/s
+  pauseType: rate
+  timeout: '5'
+  timeoutUnits: seconds
+  rate: '1'
+  nbRateUnits: '1'
+  rateUnits: second
+  randomFirst: '1'
+  randomLast: '5'
+  randomUnits: seconds
+  drop: false
+  allowrate: false
+  outputs: 1
+  x: 1410
+  'y': 1940
+  wires:
+    - - 1c97400971136f0e
+- id: e80281639d5d4d8e
+  type: function
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: data
+  func: |-
+    delete msg.reset;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1090
+  'y': 1100
+  wires:
+    - - 847f3850106ae6a0
+- id: 0b3df6b8ed9b5ce6
+  type: function
+  z: 852390cb9559e176
+  g: d04f02d6e1c02839
+  name: data
+  func: |-
+    delete msg.reset;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1250
+  'y': 1940
+  wires:
+    - - 0328c0694ad50637

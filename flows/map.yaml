@@ -381,10 +381,10 @@
 
                                 let run = document.createElementNS(svgns, 'svg');
                                 run.setAttribute('viewBox', "0 0 640 640");
-                                run.setAttribute('width', '2%');
-                                run.setAttribute('height', '2%');
+                                run.setAttribute('width', '0.75em');
+                                run.setAttribute('height', '0.75em');
                                 run.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2) - 6);
-                                run.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2) + 6);
+                                run.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2) + 4);
                                 run.append(icon);
                                 group.append(run);
                             }
@@ -414,7 +414,7 @@
     <style scoped>
         .oe-click {
             cursor: pointer;
-            transition: fill 0.5s ease;
+            transition: fill 0.6s ease;
         }
         .oe-click:hover {
             fill: rgba(255, 255, 255, 0.5);
@@ -422,10 +422,12 @@
         .oe-short {
             filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);
             font-size: 0.6em;
+            font-weight: bold;
         }
         .oe-run {
             transform-origin: 50% 50%;
             animation: rotation 2s infinite linear;
+            //filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);
         }
 
         @keyframes rotation {
@@ -468,6 +470,9 @@
 
     node.send([ null, msg ]);
 
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Send data to dialog
     msg.payload = msg.data;
 
     return [ msg, null ];
@@ -1128,8 +1133,11 @@
   g: 0e5ee31c1122d84d
   name: data
   func: >-
-    if ((msg.hmi.id || '') !== '' && (global.get('user["' + msg.hmi.id +
-    '"]["login"]', 'memoryOnly') || '') !== '') {
+    // Try to limit loop
+
+    if ((msg.plant || '') !== '' && (msg.hmi.id || '') !== '' &&
+    (global.get('user["' + msg.hmi.id + '"]["login"]', 'memoryOnly') || '') !==
+    '') {
 
         msg.payload = msg.plant;
         
