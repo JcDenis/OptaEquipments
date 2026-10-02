@@ -290,7 +290,8 @@
 
     // UI redirect to alert page
     if (msg.payload === true) {
-        msg.payload = global.get('describe.pages.alert.tab', 'memoryOnly') || '';
+        // For now juste go to map page even if not set
+        msg.payload = global.get('describe.pages.map.tab', 'memoryOnly') || '';
 
         return [ msg, null ];
     }
