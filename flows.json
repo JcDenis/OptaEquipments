@@ -2565,7 +2565,9 @@
             "e4709f79d028ec19",
             "97a2538ceb8b990d",
             "1f7b2b51d4d84f18",
-            "f486b8d2af3d7301"
+            "f486b8d2af3d7301",
+            "3c88f9a6a337ae35",
+            "57dca1419d2bbcea"
         ],
         "x": 84,
         "y": 339,
@@ -5018,7 +5020,8 @@
             "68593265cb4e2507",
             "575b91a30deac00d",
             "ed53bb28b7006772",
-            "efc66b0b332f577e"
+            "efc66b0b332f577e",
+            "57dca1419d2bbcea"
         ],
         "x": 145,
         "y": 3460,
@@ -6135,7 +6138,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "data",
-        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.set('user', 'memoryOnly') || { };\nlet form = global.set('form', 'memoryOnly') || { };\nlet pages = global.get('describe.pages', 'memoryOnly');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id]; // auto\n        delete form[msg.hmi.id]; // auto\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth?.name || '';\n\n    return [null, null, msg];\n}\n\n// Should not happened\nif (typeof pages !== 'object') {\n\n    return;\n}\n\n// Prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {\n        if (pages[page]['level'][msg.hmi.level] === true) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    } else {\n        if ((pages.auth?.tab || 99) === pages[page]['tab']) {\n            msg.menus[page] = true;\n            msg.payload.pages.show[s++] = pages[page]['name'];\n        } else {\n            msg.menus[page] = false;\n            msg.payload.pages.hide[h++] = pages[page]['name'];\n        }\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth?.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nlet form_plant = form[msg.hmi.id][\"plant\"] || '-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant; // auto\n    form[msg.hmi.id][\"line\"] = ''; // auto\n    form[msg.hmi.id][\"equipment\"] = ''; // auto\n}\nform[msg.hmi.id][\"ts\"] = Date.now(); // auto\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = msg.hmi.page; \nmsg.document = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg, null];",
+        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.set('user', 'memoryOnly') || { };\nlet form = global.set('form', 'memoryOnly') || { };\nlet pages = global.get('describe.pages', 'memoryOnly');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id]; // auto\n        delete form[msg.hmi.id]; // auto\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth?.name || '';\n\n    return [null, null, msg];\n}\n\n// Should not happened\nif (typeof pages !== 'object') {\n\n    return;\n}\n\n// Prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (page === 'auth') {\n        msg.menus[page] = true;\n        msg.payload.pages.show[s++] = pages[page]['name'];\n    }\n    else if (pages[page]['level'][msg.hmi.level] === true) {\n        msg.menus[page] = true;\n        msg.payload.pages.show[s++] = pages[page]['name'];\n    } else {\n        msg.menus[page] = false;\n        msg.payload.pages.hide[h++] = pages[page]['name'];\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth?.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nlet form_plant = form[msg.hmi.id][\"plant\"] || '-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant; // auto\n    form[msg.hmi.id][\"line\"] = ''; // auto\n    form[msg.hmi.id][\"equipment\"] = ''; // auto\n}\nform[msg.hmi.id][\"ts\"] = Date.now(); // auto\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = msg.hmi.page; \nmsg.document = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg, null];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -15314,7 +15317,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "// Get plant map\n\nmsg.plant = msg.payload;\n\n// Reset UI\nif (msg.enabled !== true \n    || msg.plant === '' \n    || typeof global.get('kernel.map[\"' + msg.plant +'\"]', 'memoryOnly') !== 'string'\n) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.plant = 'none'; // required for http get\n    msg.payload = { };\n\n    return msg;\n}\n\nawait new Promise(resolve => setTimeout(resolve, 500));\n\n// Get memories\nconst location = global.get('kernel.location', 'memoryOnly') || { };\nconst lines = global.get('kernel.lines', 'memoryOnly') || { };\nconst equipments = global.get('kernel.equipments', 'memoryOnly') || { };\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = { };\n\nfor (const l in location) {\n    if (typeof lines[l] === 'string' && lines[l] === msg.plant) {\n        let color = msg.dictionary.option_color.theme + '00'; // transparent\n\n        // Get line equipements\n        let run = 0;\n        let on = 0;\n        let off = 0;\n        for (const e in equipments) {\n            if (equipments[e] === l) {\n                let heat = global.get('kernel.state[\"' + e + '|heat\"]', 'memoryOnly');\n                if (typeof heat === 'number') {\n                    if (heat === 1) {\n                        on++;\n                    }\n                    else {\n                        off++;\n                    }\n                }\n            \n                if ((global.get('kernel.state[\"' + e + '|run\"]', 'memoryOnly') || 0) > 0) {\n                    run = 1;\n                }\n            }\n        }\n        if (on > 0 && off === 0) {\n            color = msg.dictionary.option_color.on + 'BB';\n        }\n        else if (off > 0 && on === 0) {\n            color = msg.dictionary.option_color.off + 'BB';\n        }\n        else if (on > 0 && off > 0) {\n            color = msg.dictionary.option_color.median + 'BB';\n        }\n\n        let split = location[l].split('|');\n        msg.payload[l] = {\n            'title': split[0],\n            'x': Number(split[1]),\n            'y': Number(split[2]),\n            'w': Number(split[3] || 50),\n            'h': Number(split[4] || 40),\n            'c': color,\n            'r': run\n        };\n    }\n}\n\nreturn msg;",
+        "func": "// Get plant map\n\nmsg.plant = msg.payload;\n\n// Reset UI\nif (msg.enabled !== true \n    || msg.plant === '' \n    || typeof global.get('kernel.map[\"' + msg.plant +'\"]', 'memoryOnly') !== 'string'\n) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.plant = 'none'; // required for http get\n    msg.payload = { };\n\n    return msg;\n}\n\nawait new Promise(resolve => setTimeout(resolve, 500));\n\n// Get memories\nconst location = global.get('kernel.location', 'memoryOnly') || { };\nconst lines = global.get('kernel.lines', 'memoryOnly') || { };\nconst equipments = global.get('kernel.equipments', 'memoryOnly') || { };\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = { };\n\nlet heat_color = msg.dictionary.option_color.theme + '00'; // transparent\nlet run_on = 0;\nlet run_off = 0;\nlet heat_on = 0;\nlet heat_off = 0;\n\nfor (const l in location) {\n    if (typeof lines[l] === 'string' && lines[l] === msg.plant) {\n        heat_color = msg.dictionary.option_color.theme + '00';\n        run_on = 0;\n        run_off = 0;\n        heat_on = 0;\n        heat_off = 0;\n\n        // Get line equipements\n        for (const e in equipments) {\n            if (equipments[e] === l) {\n                let heat = global.get('kernel.state[\"' + e + '|heat\"]', 'memoryOnly');\n                if (typeof heat === 'number') {\n                    if (heat === 1) {\n                        heat_on++;\n                    }\n                    else {\n                        heat_off++;\n                    }\n                }\n            \n                let run_state = global.get('kernel.state[\"' + e + '|run\"]', 'memoryOnly');\n                if (typeof run_state === 'number') {\n                    if (run_state > 0) {\n                        run_on++;\n                    }\n                    else {\n                        run_off++;\n                    }\n                }\n            }\n        }\n        if (heat_on > 0 && heat_off === 0) {\n            heat_color = msg.dictionary.option_color.on + 'BB';\n        }\n        else if (heat_off > 0 && heat_on === 0) {\n            heat_color = msg.dictionary.option_color.off + 'BB';\n        }\n        else if (heat_on > 0 && heat_off > 0) {\n            heat_color = msg.dictionary.option_color.median + 'BB';\n        }\n\n        let split = location[l].split('|');\n        msg.payload[l] = {\n            'title': split[0],\n            'x': Number(split[1]),\n            'y': Number(split[2]),\n            'w': Number(split[3] || 50),\n            'h': Number(split[4] || 40),\n            'c': heat_color,\n            'r': run_on > run_off ? 1 : 0 // more than half of equipments\n        };\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15412,7 +15415,7 @@
         "z": "05f6b695d75a73cf",
         "g": "97f10c211b33ee2e",
         "name": "data",
-        "func": "await new Promise(resolve => setTimeout(resolve, 100));\n\nmsg.line = msg.payload.line;\n\n// Title\nconst title = global.get('kernel[\"line\"][\"' + msg.line + '\"]', 'memoryOnly') || '';\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = title;\n\nnode.send([ msg, null, null, null ]);\n\n// Get memories (for equipmenets)\nconst equipments = global.get('kernel.equipments', 'memoryOnly') || { };\nconst states = global.get('kernel.state', 'memoryOnly') || { };\nconst alerts = global.get('kernel.alert', 'memoryOnly') || { };\n\nlet c = 0;\nlet child = [];\nfor (const e in equipments) {\n    if (equipments[e] !== msg.line) {\n\n        continue;\n    }\n\n    let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;\n\n    let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';\n\n    let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';\n\n    child[c++] = {\n        'equipment': e,\n        'name': global.get('kernel.equipment[\"' + e + '\"]', 'memoryOnly') || e,\n        'alert': '<i class=\"icon-in-row mdi mdi-' + alert_icon + '\" style=\"font-size: 2.2em; color: ' + alert + '\" title=\"alert\"></i>',\n        'heat': '<i class=\"icon-in-row mdi mdi-' + heat_icon + '\" style=\"font-size: 2.2em; color: '+ heat + '\" title=\"heat\"></i>'\n    };\n}\n\nmsg.payload = child;\n\nnode.send([ null, msg, null, null ]);\n\n// Line\nconst period = global.get('kernel.period[\"' + msg.line + '\"]', 'memoryOnly') || '';\nconst split = period.split('');\n\nconst periods = [ 'm', 'a', 'n', 'd', 's' ];\nfor (let i = 0; i < periods.length; i++) {\n    msg.period = periods[i];\n    msg.ui_update = {\n        'buttonColor': split.includes(periods[i]) ? msg.dictionary.option_color.on : msg.dictionary.option_color.off,\n        'label': msg.dictionary.option_team[periods[i]]\n    }\n    node.send([null, null, msg, null ]);\n}\n\n// Disabled\nconst disabled = global.get('kernel.disabled[\"' + msg.line + '\"]', 'memoryOnly') || false;\nmsg.ui_update = {\n    'buttonColor': disabled ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,\n    'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')\n};\nnode.send([null, null, null, msg ]);\n\nreturn;",
+        "func": "await new Promise(resolve => setTimeout(resolve, 100));\n\nmsg.line = msg.payload.line;\n\n// Title\nconst title = global.get('kernel[\"line\"][\"' + msg.line + '\"]', 'memoryOnly') || '';\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = title;\n\nnode.send([ msg, null, null, null ]);\n\n// Get memories (for equipmenets)\nconst equipments = global.get('kernel.equipments', 'memoryOnly') || { };\nconst states = global.get('kernel.state', 'memoryOnly') || { };\nconst alerts = global.get('kernel.alert', 'memoryOnly') || { };\n\nlet c = 0;\nlet child = [];\nfor (const e in equipments) {\n    if (equipments[e] !== msg.line) {\n\n        continue;\n    }\n\n    let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;\n\n    let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';\n\n    let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';\n\n    child[c++] = {\n        'line': msg.line,\n        'equipment': e,\n        'name': global.get('kernel.equipment[\"' + e + '\"]', 'memoryOnly') || e,\n        'alert': '<i class=\"icon-in-row mdi mdi-' + alert_icon + '\" style=\"font-size: 2.2em; color: ' + alert + '\" title=\"alert\"></i>',\n        'heat': '<i class=\"icon-in-row mdi mdi-' + heat_icon + '\" style=\"font-size: 2.2em; color: '+ heat + '\" title=\"heat\"></i>'\n    };\n}\n\nmsg.payload = child;\n\nnode.send([ null, msg, null, null ]);\n\n// Line\nconst period = global.get('kernel.period[\"' + msg.line + '\"]', 'memoryOnly') || '';\nconst split = period.split('');\n\nconst periods = [ 'm', 'a', 'n', 'd', 's' ];\nfor (let i = 0; i < periods.length; i++) {\n    msg.period = periods[i];\n    msg.ui_update = {\n        'buttonColor': split.includes(periods[i]) ? msg.dictionary.option_color.on : msg.dictionary.option_color.off,\n        'label': msg.dictionary.option_team[periods[i]]\n    }\n    node.send([null, null, msg, null ]);\n}\n\n// Disabled\nconst disabled = global.get('kernel.disabled[\"' + msg.line + '\"]', 'memoryOnly') || false;\nmsg.ui_update = {\n    'buttonColor': disabled ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,\n    'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')\n};\nnode.send([null, null, null, msg ]);\n\nreturn;",
         "outputs": 4,
         "timeout": 0,
         "noerr": 0,
@@ -15500,7 +15503,9 @@
         "x": 470,
         "y": 440,
         "wires": [
-            []
+            [
+                "3c88f9a6a337ae35"
+            ]
         ]
     },
     {
@@ -15932,6 +15937,41 @@
                 "efc66b0b332f577e"
             ]
         ]
+    },
+    {
+        "id": "3c88f9a6a337ae35",
+        "type": "function",
+        "z": "05f6b695d75a73cf",
+        "g": "97f10c211b33ee2e",
+        "name": "data",
+        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get user form\nlet form = global.get('form', 'memoryOnly') || { };\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\n//form[msg.hmi.id]['plant'] = msg.payload.plant; // auto\nform[msg.hmi.id]['line'] = msg.payload.line; // auto\nform[msg.hmi.id]['equipment'] = msg.payload.equipment; // auto\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page', 'memoryOnly') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 440,
+        "wires": [
+            [
+                "57dca1419d2bbcea"
+            ]
+        ]
+    },
+    {
+        "id": "57dca1419d2bbcea",
+        "type": "link out",
+        "z": "05f6b695d75a73cf",
+        "g": "97f10c211b33ee2e",
+        "name": "map - detail - control",
+        "mode": "link",
+        "links": [
+            "00818f8c0686b556"
+        ],
+        "x": 915,
+        "y": 440,
+        "wires": []
     },
     {
         "id": "eef8f90bc9ebb816",
@@ -24028,7 +24068,7 @@
         "z": "e97c6f12735a13c1",
         "g": "e86385b18b9154e7",
         "name": "data",
-        "func": "// Do action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.action === 'row_click' || msg.action === 'button_click' && msg.column === 'delete') {\n    msg.kernel = {\n        'type': 'device',\n        'entity': msg.payload.model + '|' + msg.payload.id,\n        'value': '',\n        'loop': false,\n        'delete': true\n    };\n    msg.list = 'device';\n}\n\nif (msg.action === 'row_click') {\n    return [null, msg];\n} else {\n    return [msg, null];\n}",
+        "func": "// Do action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.action === 'row_click' || msg.action === 'button_click' && msg.column === 'delete') {\n    msg.kernel = {\n        'type': 'device',\n        'entity': msg.payload.model + '|' + msg.payload.device,\n        'value': '',\n        'loop': false,\n        'delete': true\n    };\n    msg.list = 'device';\n}\n\nif (msg.action === 'row_click') {\n    return [null, msg];\n} else {\n    return [msg, null];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,

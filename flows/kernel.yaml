@@ -1157,6 +1157,7 @@
     - 575b91a30deac00d
     - ed53bb28b7006772
     - efc66b0b332f577e
+    - 57dca1419d2bbcea
   x: 145
   'y': 3460
   wires:
@@ -2357,22 +2358,16 @@
     let h = 0;
 
     for (const page in pages) {
-        if (typeof pages[page]['level'][msg.hmi.level] === 'boolean') {
-            if (pages[page]['level'][msg.hmi.level] === true) {
-                msg.menus[page] = true;
-                msg.payload.pages.show[s++] = pages[page]['name'];
-            } else {
-                msg.menus[page] = false;
-                msg.payload.pages.hide[h++] = pages[page]['name'];
-            }
+        if (page === 'auth') {
+            msg.menus[page] = true;
+            msg.payload.pages.show[s++] = pages[page]['name'];
+        }
+        else if (pages[page]['level'][msg.hmi.level] === true) {
+            msg.menus[page] = true;
+            msg.payload.pages.show[s++] = pages[page]['name'];
         } else {
-            if ((pages.auth?.tab || 99) === pages[page]['tab']) {
-                msg.menus[page] = true;
-                msg.payload.pages.show[s++] = pages[page]['name'];
-            } else {
-                msg.menus[page] = false;
-                msg.payload.pages.hide[h++] = pages[page]['name'];
-            }
+            msg.menus[page] = false;
+            msg.payload.pages.hide[h++] = pages[page]['name'];
         }
         msg.titles[page] = msg.dictionary.option_page[page];
 

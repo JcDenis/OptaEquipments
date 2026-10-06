@@ -52,6 +52,8 @@
     - 97a2538ceb8b990d
     - 1f7b2b51d4d84f18
     - f486b8d2af3d7301
+    - 3c88f9a6a337ae35
+    - 57dca1419d2bbcea
   x: 84
   'y': 339
   w: 872
@@ -221,39 +223,52 @@
     msg.enabled = true;
     msg.payload = { };
 
+    let heat_color = msg.dictionary.option_color.theme + '00'; // transparent
+    let run_on = 0;
+    let run_off = 0;
+    let heat_on = 0;
+    let heat_off = 0;
+
     for (const l in location) {
         if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
-            let color = msg.dictionary.option_color.theme + '00'; // transparent
+            heat_color = msg.dictionary.option_color.theme + '00';
+            run_on = 0;
+            run_off = 0;
+            heat_on = 0;
+            heat_off = 0;
 
             // Get line equipements
-            let run = 0;
-            let on = 0;
-            let off = 0;
             for (const e in equipments) {
                 if (equipments[e] === l) {
                     let heat = global.get('kernel.state["' + e + '|heat"]', 'memoryOnly');
                     if (typeof heat === 'number') {
                         if (heat === 1) {
-                            on++;
+                            heat_on++;
                         }
                         else {
-                            off++;
+                            heat_off++;
                         }
                     }
                 
-                    if ((global.get('kernel.state["' + e + '|run"]', 'memoryOnly') || 0) > 0) {
-                        run = 1;
+                    let run_state = global.get('kernel.state["' + e + '|run"]', 'memoryOnly');
+                    if (typeof run_state === 'number') {
+                        if (run_state > 0) {
+                            run_on++;
+                        }
+                        else {
+                            run_off++;
+                        }
                     }
                 }
             }
-            if (on > 0 && off === 0) {
-                color = msg.dictionary.option_color.on + 'BB';
+            if (heat_on > 0 && heat_off === 0) {
+                heat_color = msg.dictionary.option_color.on + 'BB';
             }
-            else if (off > 0 && on === 0) {
-                color = msg.dictionary.option_color.off + 'BB';
+            else if (heat_off > 0 && heat_on === 0) {
+                heat_color = msg.dictionary.option_color.off + 'BB';
             }
-            else if (on > 0 && off > 0) {
-                color = msg.dictionary.option_color.median + 'BB';
+            else if (heat_on > 0 && heat_off > 0) {
+                heat_color = msg.dictionary.option_color.median + 'BB';
             }
 
             let split = location[l].split('|');
@@ -263,8 +278,8 @@
                 'y': Number(split[2]),
                 'w': Number(split[3] || 50),
                 'h': Number(split[4] || 40),
-                'c': color,
-                'r': run
+                'c': heat_color,
+                'r': run_on > run_off ? 1 : 0 // more than half of equipments
             };
         }
     }
@@ -553,6 +568,7 @@
         let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';
 
         child[c++] = {
+            'line': msg.line,
             'equipment': e,
             'name': global.get('kernel.equipment["' + e + '"]', 'memoryOnly') || e,
             'alert': '<i class="icon-in-row mdi mdi-' + alert_icon + '" style="font-size: 2.2em; color: ' + alert + '" title="alert"></i>',
@@ -667,7 +683,7 @@
   x: 470
   'y': 440
   wires:
-    - []
+    - - 3c88f9a6a337ae35
 - id: 5a066b7fa3f4f8af
   type: ui-button
   z: 05f6b695d75a73cf
@@ -1117,3 +1133,56 @@
   'y': 260
   wires:
     - - efc66b0b332f577e
+- id: 3c88f9a6a337ae35
+  type: function
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: data
+  func: |-
+    // Compute user form
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get user form
+    let form = global.get('form', 'memoryOnly') || { };
+
+    // Should not happened
+    if (typeof form[msg.hmi.id] !== 'object') {
+        form[msg.hmi.id] = { };
+    }
+
+    // Update form
+    //form[msg.hmi.id]['plant'] = msg.payload.plant; // auto
+    form[msg.hmi.id]['line'] = msg.payload.line; // auto
+    form[msg.hmi.id]['equipment'] = msg.payload.equipment; // auto
+
+    delete msg.action;
+
+    // UI redirect
+    msg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || '';
+    msg.hmi.name = global.get('describe.pages.detail.page', 'memoryOnly') || '';
+    msg.payload = msg.hmi.tab;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 440
+  wires:
+    - - 57dca1419d2bbcea
+- id: 57dca1419d2bbcea
+  type: link out
+  z: 05f6b695d75a73cf
+  g: 97f10c211b33ee2e
+  name: map - detail - control
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 915
+  'y': 440
+  wires: []
