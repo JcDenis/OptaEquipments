@@ -1897,8 +1897,6 @@
     await new Promise(resolve => setTimeout(resolve, 20));
 
 
-    global.set('rlink', {}, 'memoryOnly');
-
     global.set('rlink', inverse(global.get('kernel.link', 'memoryOnly'))
     ,'memoryOnly');
 
@@ -2015,7 +2013,7 @@
     (global.get('kernel.app.watchdog', 'memoryOnly') || 120);
 
 
-    const devices = { ...(global.get('kernel.device', 'memoryOnly') || { }) };
+    const devices = global.get('kernel.device', 'memoryOnly') || { };
 
     for (const device in devices) {
         let watchdog = (global.get('kernel.watchdog["' + device + '"]', 'memoryOnly') || 0) < limit ? 0 : 1;
@@ -2028,7 +2026,7 @@
         };
 
         newMsg.telegram = {'change': false};
-        if (newMsg.kernel.value !== global.get('kernel.device["' + device + '"]', 'memoryOnly')) {
+        if (newMsg.kernel.value !== (devices[device] || '-')) {
             newMsg.telegram = {
                 'type': 'watchdog',
                 'change': true,
@@ -2069,7 +2067,7 @@
     // devices watchdogs
     if (msg.kernel.type === 'device') {
         msg.measurement = msg.kernel.entity;
-        msg.payload = [{'watchdog': msg.kernel.value }];
+        msg.payload = [ { 'watchdog': msg.kernel.value } ];
 
         //delete msg.kernel;
 
@@ -2079,9 +2077,12 @@
     // components states
     else if (msg.kernel.component !== 'cycle' || msg.kernel.value > 0) {
         msg.measurement = msg.kernel.equipment;
-        msg.payload = [{[msg.kernel.component]: msg.kernel.value }];
+        msg.payload = [ { [msg.kernel.component]: msg.kernel.value } ];
 
-        node.status({ 'fill': 'green', 'text': msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value })
+        node.status({
+            'fill': 'green',
+            'text': msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value
+        })
 
         delete msg.kernel;
 
@@ -2145,22 +2146,26 @@
     msg.topic = limit;
 
     let removed = 0;
-    let users = global.get('user', 'memoryOnly');
-    if (typeof users === 'object') {
-        for (const user in users) {
-            if (typeof global.get('auth["' + users[user]["login"] + '"]["level"]', 'memoryOnly') !== 'string' 
-            || users[user]["time"] < limit 
-            || (typeof msg.login === 'string' && msg.login === users[user]["login"])
-            ) {
-                global.set('user["' + user + '"]', undefined, 'memoryOnly');
-                global.set('form["' + user + '"]', undefined, 'memoryOnly');
-                msg.payload = user;
-                node.send(msg);
+    let user = global.get('user', 'memoryOnly') || { };
+    let form = global.get('form', 'memoryOnly') || { };
 
-                removed++;
-            }
+    for (const u in user) {
+        if (typeof global.get('auth["' + user[u]["login"] + '"]["level"]', 'memoryOnly') !== 'string' 
+        || user[u]["time"] < limit 
+        || (typeof msg.login === 'string' && msg.login === user[u]["login"])
+        ) {
+            delete user[u];
+            delete form[u];
+
+            msg.payload = u;
+            node.send(msg);
+
+            removed++;
         }
     }
+
+    //global.set('user', user, 'memoryOnly'); // autoupdate
+    //global.set('form', form, 'memoryOnly'); // autoupdate
 
     msg.payload = removed + ' cleaned';
 
@@ -2284,28 +2289,52 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
 
-    // on unwanted state, stop here
+    // Get memories
+
+    let user = global.set('user', 'memoryOnly') || { };
+
+    let form = global.set('form', 'memoryOnly') || { };
+
+    let pages = global.get('describe.pages', 'memoryOnly');
+
+
+    // Initialize some variables
+
+    if (typeof form[msg.hmi.id] !== 'object') {
+        form[msg.hmi.id] = { };
+    }
+
+
+    // On unwanted state, stop here
 
     if (!['connect', 'change', 'lost'].includes(msg.payload)) {
         if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {
-            global.set('user["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
-            global.set('form["' + msg.hmi.id + '"]', undefined, 'memoryOnly');
+            delete user[msg.hmi.id]; // auto
+            delete form[msg.hmi.id]; // auto
         }
 
         return;
     }
 
 
-    // on connect or lost connection, go to auth page
+    // On connect or lost connection, go to auth page
 
     if (['connect', 'lost'].includes(msg.payload)) {
-        msg.payload = global.get('describe.pages.auth.name', 'memoryOnly') || '';
+        msg.payload = pages.auth?.name || '';
 
         return [null, null, msg];
     }
 
 
-    // prepare
+    // Should not happened
+
+    if (typeof pages !== 'object') {
+
+        return;
+    }
+
+
+    // Prepare
 
     msg.menus = {};
 
@@ -2319,15 +2348,7 @@
     };
 
 
-    let pages = global.get('describe.pages', 'memoryOnly');
-
-    if (typeof pages !== 'object') {
-
-        return;
-    }
-
-
-    // check user page right
+    // Check user page right
 
     let allowed = false;
 
@@ -2345,7 +2366,7 @@
                 msg.payload.pages.hide[h++] = pages[page]['name'];
             }
         } else {
-            if (global.get('describe.pages.auth.tab', 'memoryOnly') === pages[page]['tab']) {
+            if ((pages.auth?.tab || 99) === pages[page]['tab']) {
                 msg.menus[page] = true;
                 msg.payload.pages.show[s++] = pages[page]['name'];
             } else {
@@ -2367,23 +2388,22 @@
 
 
     if (allowed === false) {
-        msg.hmi.tab = global.get('describe.pages.auth.tab', 'memoryOnly');
+        msg.hmi.tab = pages.auth?.tab || 99;
         msg.hmi.page = msg.dictionary.option_page.auth;
     }
 
 
     // user plant
 
-    let form_plant = global.get('form["' + msg.hmi.id + '"]["plant"]',
-    'memoryOnly')||'-';
+    let form_plant = form[msg.hmi.id]["plant"] || '-';
 
     if (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {
-        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.hmi.plant, 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["line"]', '', 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["equipment"]', '', 'memoryOnly');
+        form[msg.hmi.id]["plant"] = msg.hmi.plant; // auto
+        form[msg.hmi.id]["line"] = ''; // auto
+        form[msg.hmi.id]["equipment"] = ''; // auto
     }
 
-    global.set('form["' + msg.hmi.id + '"]["ts"]', Date.now(), 'memoryOnly');
+    form[msg.hmi.id]["ts"] = Date.now(); // auto
 
 
     // page process
@@ -2398,7 +2418,7 @@
     };
 
 
-    // ui menu
+    // UI menu
 
     msg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';
 
@@ -2439,6 +2459,9 @@
     // Check ui page informations
 
 
+    let browser = global.get('browser', 'memoryOnly') || {};
+
+
     if (msg.payload !== '' && typeof global.get('describe.pages["' + msg.payload
     + '"]["name"]', 'memoryOnly') === 'string') {
         msg.tab = global.get('describe.pages["' + msg.payload + '"]["tab"]', 'memoryOnly');
@@ -2454,16 +2477,14 @@
             'lang': msg.payload,
             'time': Date.now()
         }
-        global.set('browser["' + msg._client.socketId + '"]', default_browser, 'memoryOnly');
+        browser[msg._client.socketId] = default_browser; // auto
 
         const time = Date.now() - 60000;
-        let browsers = { ...(global.get('browser', 'memoryOnly') || {}) };
-        for (const browser in browsers) {
-            if (browsers[browser]['time'] < time) {
-                delete browsers[browser];
+        for (const b in browser) {
+            if (browser[b]['time'] < time) {
+                delete browser[b]; // auto
             }
         }
-        global.set('browser', browsers, 'memoryOnly');
 
         return;
     }
@@ -2684,7 +2705,7 @@
     delete msg.team;
     flow.set('teams', undefined, 'memoryOnly');
 
-    const periods = { ...(global.get('kernel.period', 'memoryOnly') || { }) };
+    const periods = global.get('kernel.period', 'memoryOnly') || { };
     for (const line in periods) {
         final_periods[line] = false;
 
@@ -2713,7 +2734,7 @@
         }
     }
 
-    const states = { ...(global.get('kernel.state','memoryOnly') || { }) };
+    const states = global.get('kernel.state','memoryOnly') || { };
     for (const entity in states) {
         let esplit = entity.split('|');
         let equipment = esplit[0];
@@ -2725,7 +2746,7 @@
             && typeof global.get('kernel.link["' + entity + '"]', 'memoryOnly') === 'string'
             && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(component)
         ) {
-            let state = global.get('kernel.state["' + equipment + '|run"]', 'memoryOnly');
+            let state = states[equipment + '|run'] || '';
             if (typeof state === 'number' && state === 1 && pilot === false) {
                 /* do not pilot heat to off if equipment is running */
             } else {
@@ -2745,7 +2766,7 @@
 
                 if (component === 'heatpulse') {
                     /* pulse only if current state is not the one we want */
-                    if (msg.kernel.value !== global.get('kernel.state["' + equipment + '|heat"]', 'memoryOnly')) {
+                    if (msg.kernel.value !== (states[equipment + '|heat'] || '-')) {
                         /* pulse */
                         msg.kernel.value = 1;
                         node.send(msg);
@@ -2790,13 +2811,6 @@
     delete msg.qos;
     delete msg.retain;
 
-    /* Node counter */
-    /*
-    let ctx = (context.get('count','memoryOnly')||0)+1;
-    context.set('count',ctx,'memoryOnly');
-    node.status({'text':ctx});
-    //*/
-
     /* check kernel message */
     if (typeof msg.kernel === 'object'
         && typeof msg.kernel.type === 'string'
@@ -2808,8 +2822,8 @@
         if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
             global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', undefined, 'memoryOnly');
         } else {
-            let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'memoryOnly');
             /* new value is not the same as existing */
+            //let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'memoryOnly');
             //if (current !== msg.kernel.value) {
                 //msg.kernel.loop = false;
                 /* update kernel value */
@@ -2846,7 +2860,10 @@
                             }
                         };
 
-                        node.status({ 'fill': 'blue', 'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value });
+                        node.status({ 
+                            'fill': 'blue',
+                            'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value
+                        });
 
                         node.send([null, null, null, mirrorMsg]);
                     }
@@ -2859,7 +2876,10 @@
                 'kernel': msg.kernel
             };
 
-            node.status({ 'fill': msg.kernel.loop === false ? 'green' : 'yellow', 'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value });
+            node.status({
+                'fill': msg.kernel.loop === false ? 'green' : 'yellow',
+                'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value
+            });
 
             return [
                 // to kernel MQTT loop
@@ -2924,7 +2944,7 @@
   func: |-
     // Parse users backup
 
-    flow.set('has_admin', false, 'memoryOnly');
+    let has_admin = false;
 
     if (typeof msg.payload === 'object') {
         for (const login in msg.payload) {
@@ -2941,7 +2961,7 @@
                 }
 
                 if (msg.payload[login]["level"] === 'admin') {
-                    flow.set('has_admin', true, 'memoryOnly');
+                    has_admin = true;
                 }
 
                 global.set('auth["' + login + '"]', {
@@ -2962,8 +2982,7 @@
     await new Promise(resolve => setTimeout(resolve, 10));
 
     // Check if backup contents admin
-    if (flow.get('has_admin', 'memoryOnly') === true) {
-        flow.set('has_admin', undefined, 'memoryOnly');
+    if (has_admin) {
 
         return;
     }
@@ -3179,7 +3198,7 @@
         },
     }, 'memoryOnly');
 
-    // Clear user and more
+    // Set and clean required memories
     global.set('auth', { }, 'memoryOnly');
     global.set('user', { }, 'memoryOnly');
     global.set('form', { }, 'memoryOnly');
@@ -3218,7 +3237,7 @@
 
     if (msg.boot === true) {
         // on (re)boot, load kernel backup
-        global.set('kernel', (global.get('kernel_bk', 'default') || {}), 'memoryOnly');
+        global.set('kernel', (global.get('kernel_bk', 'default') || { }), 'memoryOnly');
     } else {
         // on cron, write kernel to backup
         global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');
@@ -3268,7 +3287,7 @@
     'plant') {
         let is_empty = true;
         // kernel.lines
-        const lines = { ...(global.get('kernel.lines', 'memoryOnly') || {}) };
+        const lines = global.get('kernel.lines', 'memoryOnly') || { };
         for (const line in lines) {
             if (lines[line] === msg.kernel.entity) {
                 is_empty = false;
@@ -3329,7 +3348,7 @@
             }]);
 
             // kernel.team
-            const teams = { ...(global.get('kernel.team', 'memoryOnly') || {}) };
+            const teams = global.get('kernel.team', 'memoryOnly') || { };
             for (const team in teams) {
                 let tsplit = team.split('|');
                 if (tsplit[0] === msg.kernel.entity) {
@@ -3421,7 +3440,7 @@
     'line') {
         let is_empty = true;
         // kernel.lines
-        const equipments = { ...(global.get('kernel.equipments', 'memoryOnly') || {}) };
+        const equipments = global.get('kernel.equipments', 'memoryOnly') || { };
         for (const equipment in equipments) {
             if (equipments[equipment] === msg.kernel.entity) {
                 is_empty = false;
@@ -3469,7 +3488,7 @@
             }]);
 
             // kernel.period
-            const periods = { ...(global.get('kernel.period', 'memoryOnly') || {}) };
+            const periods = global.get('kernel.period', 'memoryOnly') || { };
             for (const period in periods) {
                 if (period === msg.kernel.entity) {
                     node.send([{
@@ -3487,7 +3506,7 @@
             }
 
             // kernel.disabled
-            const disableds = { ...(global.get('kernel.disabled', 'memoryOnly') || {}) };
+            const disableds = global.get('kernel.disabled', 'memoryOnly') || { };
             for (const disabled in disableds) {
                 if (disabled === msg.kernel.entity) {
                     node.send([{
@@ -3541,7 +3560,7 @@
     'equipment') {
         let is_empty = true;
         // kernel.link
-        const links = { ...(global.get('kernel.link', 'memoryOnly') || {}) };
+        const links = global.get('kernel.link', 'memoryOnly') || { };
         for (const link in links) {
             let lsplit = link.split('|');
             if (lsplit[0] === msg.kernel.entity) {
@@ -3669,7 +3688,7 @@
     'device') {
         let is_empty = true;
         // rlink (component)
-        const rlinks = { ...(global.get('rlink', 'memoryOnly') || {}) };
+        const rlinks = global.get('rlink', 'memoryOnly') || { };
         for (const rlink in rlinks) {
             let rsplit = rlink.split('|');
             if ((rsplit[0] + '|' + rsplit[1]) === msg.kernel.entity) {
@@ -3870,8 +3889,8 @@
     // Prepare telegram message
 
 
-    if (typeof msg.telegram.change === 'boolean' && msg.telegram.change ===
-    true) {
+    if (typeof msg.telegram === 'object' && typeof msg.telegram.change ===
+    'boolean' && msg.telegram.change === true) {
         if (msg.telegram.type === 'period') {
             let line = global.get('kernel.equipments["' + msg.telegram.entity + '"]', 'memoryOnly') || '-';
             let plant = global.get('kernel.lines["' + line + '"]','memoryOnly') || '-';
@@ -3928,7 +3947,7 @@
   func: |-
     // Add connected user in memory
 
-    const user = { ...(global.get('user', 'memoryOnly') || { }) };
+    let user = global.get('user', 'memoryOnly') || { };
 
     user[msg._client.socketId] = {
         'login': msg.login,
@@ -3938,7 +3957,7 @@
         'time': Date.now()
     };
 
-    global.set('user', user, 'memoryOnly');
+    //global.set('user', user, 'memoryOnly'); // autoupdate
 
     delete msg.login;
     delete msg.pass;
@@ -3964,11 +3983,11 @@
   func: |-
     // Remove connected user from memory
 
-    const user = { ...(global.get('user', 'memoryOnly') || { }) };
+    let user = global.get('user', 'memoryOnly') || { };
 
     delete user[msg._client.socketId];
 
-    global.set('user', user, 'memoryOnly');
+    //global.set('user', user, 'memoryOnly'); // autoupdate
 
     delete msg.login;
     delete msg.pass;
@@ -4321,12 +4340,17 @@
   z: f6f2187d.f17ca8
   g: 023034158f7c14f0
   name: data
-  func: |-
+  func: >-
     // Get backup filename
 
-    const automate = global.get('describe.app.automate', 'memoryOnly') || '';
+
+    const automate = global.get('describe.app.automate', 'memoryOnly') ||
+    'unknown';
+
     msg.filename  = '/data/' + automate + '/kernel.json';
+
     msg.payload = global.get('kernel', 'memoryOnly') || { };
+
 
     return msg;
   outputs: 1
@@ -4344,12 +4368,17 @@
   z: f6f2187d.f17ca8
   g: ede1bcd992279676
   name: data
-  func: |-
+  func: >-
     // Get backup filename
 
-    const automate = global.get('describe.app.automate', 'memoryOnly') || '';
+
+    const automate = global.get('describe.app.automate', 'memoryOnly') ||
+    'unknown';
+
     msg.filename  = '/data/' + automate + '/kernel.json';
+
     msg.payload = global.get('kernel', 'memoryOnly') || { };
+
 
     return msg;
   outputs: 1
@@ -4367,17 +4396,18 @@
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
   name: data
-  func: >-
+  func: |-
     // Prepare mqtt subscription message
 
+    const automate = global.get('describe.app.automate', 'memoryOnly') || '';
+    if (automate === '') {
+        
+        return;
+    }
 
-    msg.topic = (global.get('describe.app.automate', 'memoryOnly') || '') +
-    '/#';
-
+    msg.topic = automate + '/#';
     msg.payload = '';
-
     msg.action = 'subscribe';
-
 
     return msg;
   outputs: 1
@@ -4460,7 +4490,6 @@
     };
 
     global.set('auth', msg.payload, 'memoryOnly');
-    flow.set('has_admin', undefined, 'memoryOnly');
 
     msg.payload = '';
 
@@ -5181,6 +5210,12 @@
   func: |-
     // Prepare HMI
 
+    // Get memories
+    let user = global.get('user', 'memoryOnly') || { };
+    let form = global.get('form', 'memoryOnly') || { };
+    let pages = global.get('describe.pages', 'memoryOnly') || { };
+
+    // Initalize hmi if required
     if (typeof msg.hmi === 'undefined') {
         msg.hmi = {
             'tab': 99,
@@ -5194,6 +5229,7 @@
         };
     }
 
+    // Clean request
     if (typeof msg.tab === 'number' && typeof msg.name === 'string') {
         msg.hmi.tab = msg.tab;
         msg.hmi.page = msg.name;
@@ -5201,6 +5237,7 @@
         delete msg.name;
     }
 
+    // Clean user
     if (typeof msg._client?.socketId === 'string') {
         let browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]', 'memoryOnly');
         if (typeof browser_lang === 'string') {
@@ -5208,22 +5245,24 @@
         }
         msg.hmi.id = msg._client.socketId;
 
-        let user = global.get('user["' + msg.hmi.id + '"]', 'memoryOnly');
-        if (typeof user === 'object') {
-            user.time = Date.now();
-            global.set('user["' + msg.hmi.id + '"]', user, 'memoryOnly');
-            msg.hmi = Object.assign({}, msg.hmi, user);
+        if (typeof user[msg.hmi.id] === 'object') {
+            user[msg.hmi.id].time = Date.now(); // auto
+            msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);
+
+            if (typeof form[msg.hmi.id] !== 'object') {
+                form[msg.hmi.id] = { }; // auto
+            }
+
+            node.status({
+                'text': msg.hmi.id
+            })
         }
     }
 
-    if (msg.tab === 99) {
-        global.set('form', {}, 'memoryOnly');
-    }
-
+    // Should not happened
     delete msg.reset; //???
 
     // Initialize additional dictionary data
-    const pages = { ...(global.get('describe.pages', 'memoryOnly') || { }) };
     for (const p in pages) {
         msg.dictionary[p] = { };
     }

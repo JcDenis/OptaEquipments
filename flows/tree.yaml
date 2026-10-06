@@ -15,51 +15,23 @@
   nodes:
     - be594973267232f5
     - 7f71a6461fbd80e4
-    - 5cf49ec89673bbad
-    - 494c3185b89f0846
-    - 0480b316d029f0ba
     - fe979b02242af9b6
     - 343f72e19cb63063
-    - 29984cf2609351c3
-    - cf645c7f47ad3986
-    - 3066cc55b98ce1e4
-    - f3f2a6d3dbb25158
     - 97eee541bd4e9655
     - 902fe68ecf2dae15
     - 1668a609c18888db
-    - fa6d9718d672de6a
     - 5d53388977faa547
-    - e4d88f4537b5c0ef
-    - f0b2090250aec7d4
-    - 359c236edd3eb910
-    - a69259142b57e07b
-    - 0b4f86391d926a8f
     - f1a4ce3bdf024862
-    - f7bebc020deba752
     - 38b3a4ebd1fca09e
-    - ce99fb90d41439af
     - 64a4f6586a2e78b7
-    - d9cd6c9f80634841
     - b05dcc03725fe05d
-    - ec4853b377489f18
-    - df7317dcad2218e7
     - 67e9379426db2553
-    - d1c7c5bedc7ddb14
-    - 0507fcab7a2ea779
-    - 2f1f0ca81820f9c6
-    - 7155d9bbef3cc098
-    - 5d3791b50e998db0
     - 4cd01df4467b69a4
-    - 32b448b0d77b7c0b
-    - d58acd1679194056
-    - 1d53227ec94f5a77
     - 5da93f7f423e4b99
     - cb3f2f692c4eedd7
-    - 68b1245cfffaec3b
     - 1e4ab253e69deb45
     - 7e3087b85c5c5e2a
     - f3970906841a189d
-    - 85f0809b19c2455e
     - 891b4e9311d29ac3
     - 0461c9a00d6e3dd9
     - d7cde30277b319e7
@@ -67,24 +39,23 @@
     - 0003ac8de1853ba9
     - 7d9153917a194877
     - c44b5709218b8b71
-    - a860436a2341c3d9
     - f61e472d935ac77c
-    - 554e6ce85f263c0d
-    - a5ebb91b114ae62f
     - 0f6b1b88de453ea3
-    - fe6168986c6d18ee
     - 6d0f3f87538739cc
     - 0e952b90dfdaa670
     - a6f9ce6750c4f67d
-    - 58b1df3e8d06d017
     - 877ea4e8d072b688
     - 455fe14cea691168
     - 7259f2d0a360638a
     - d0a9fb9c2d8c9b4b
-  x: 104
-  'y': 459
-  w: 1432
-  h: 862
+    - c9047b0df9225569
+    - e4d88f4537b5c0ef
+    - 00a98d5a2701d028
+    - 3812b7370e256367
+  x: 94
+  'y': 451.5
+  w: 862
+  h: 757
 - id: d8d8a361ac715076
   type: group
   z: 64ce08af468b8197
@@ -902,10 +873,10 @@
     - d5a2492cd9b261b1
     - f1a4ce3bdf024862
     - 38b3a4ebd1fca09e
-  x: 145
+  x: 205
   'y': 500
   wires:
-    - - 5d3791b50e998db0
+    - - c9047b0df9225569
 - id: 7f71a6461fbd80e4
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -928,107 +899,11 @@
   className: ''
   typeIsComboBox: false
   msgTrigger: onChange
-  x: 790
+  x: 530
   'y': 560
   wires:
-    - - 494c3185b89f0846
-      - c44b5709218b8b71
-- id: 5cf49ec89673bbad
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: client
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]action'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]time'
-      pt: flow
-      to: ''
-      tot: date
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1150
-  'y': 620
-  wires:
-    - - 0480b316d029f0ba
-- id: 494c3185b89f0846
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 990
-  'y': 500
-  wires:
-    - - e4d88f4537b5c0ef
-- id: 0480b316d029f0ba
-  type: switch
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: action
-  property: '#:(memoryOnly)::form[msg.hmi.id]action'
-  propertyType: flow
-  rules:
-    - t: eq
-      v: addplant
-      vt: str
-    - t: eq
-      v: delplant
-      vt: str
-    - t: eq
-      v: editplant
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 430
-  'y': 680
-  wires:
-    - - 891b4e9311d29ac3
-    - - 455fe14cea691168
-    - - 7259f2d0a360638a
+    - - c44b5709218b8b71
+      - e4d88f4537b5c0ef
 - id: fe979b02242af9b6
   type: ui-text-input
   z: 64ce08af468b8197
@@ -1054,10 +929,10 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 820
-  'y': 740
+  x: 560
+  'y': 620
   wires:
-    - - a860436a2341c3d9
+    - - 00a98d5a2701d028
 - id: 343f72e19cb63063
   type: ui-text-input
   z: 64ce08af468b8197
@@ -1083,120 +958,10 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 810
-  'y': 800
+  x: 550
+  'y': 680
   wires:
     - - f61e472d935ac77c
-- id: 29984cf2609351c3
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 740
-  wires:
-    - - 891b4e9311d29ac3
-- id: cf645c7f47ad3986
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]name'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1210
-  'y': 800
-  wires:
-    - - 877ea4e8d072b688
-- id: 3066cc55b98ce1e4
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 800
-  wires:
-    - - 0461c9a00d6e3dd9
-- id: f3f2a6d3dbb25158
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 920
-  wires:
-    - - d7cde30277b319e7
 - id: 97eee541bd4e9655
   type: ui-button
   z: 64ce08af468b8197
@@ -1228,10 +993,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 810
-  'y': 920
+  x: 550
+  'y': 800
   wires:
-    - - a5ebb91b114ae62f
+    - - 1e4ab253e69deb45
 - id: 902fe68ecf2dae15
   type: link out
   z: 64ce08af468b8197
@@ -1240,8 +1005,8 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1335
-  'y': 1100
+  x: 915
+  'y': 860
   wires: []
 - id: 1668a609c18888db
   type: ui-dropdown
@@ -1268,45 +1033,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 810
-  'y': 980
+  x: 550
+  'y': 860
   wires:
     - - 0f6b1b88de453ea3
-- id: fa6d9718d672de6a
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]id'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1210
-  'y': 980
-  wires:
-    - - e219d1195e078bcb
 - id: 5d53388977faa547
   type: ui-button
   z: 64ce08af468b8197
@@ -1338,84 +1068,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 810
-  'y': 1040
+  x: 550
+  'y': 920
   wires:
-    - - fe6168986c6d18ee
-- id: e4d88f4537b5c0ef
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 680
-  wires:
-    - - fe979b02242af9b6
-      - 1668a609c18888db
-      - 64a4f6586a2e78b7
-      - 343f72e19cb63063
-      - 97eee541bd4e9655
-      - 5d53388977faa547
-      - b05dcc03725fe05d
-      - 67e9379426db2553
-      - cb3f2f692c4eedd7
-      - 5da93f7f423e4b99
-- id: f0b2090250aec7d4
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 980
-  wires:
-    - - 455fe14cea691168
-- id: 359c236edd3eb910
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 1040
-  wires:
-    - - e219d1195e078bcb
+    - - f3970906841a189d
 - id: d26031479e8fbf60
   type: change
   z: 64ce08af468b8197
@@ -1990,47 +1646,6 @@
       - a0e032a9434aedf1
       - 76f250cb71462a7d
       - c285c05b82d4c355
-- id: a69259142b57e07b
-  type: switch
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: exists
-  property: '#:(memoryOnly)::kernel.plant'
-  propertyType: global
-  rules:
-    - t: hask
-      v: payload
-      vt: msg
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 1210
-  'y': 740
-  wires:
-    - - 0b4f86391d926a8f
-    - - 29984cf2609351c3
-      - f7bebc020deba752
-- id: 0b4f86391d926a8f
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: notice
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: dictionary.option_notice.plant_exists
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 680
-  wires:
-    - - f1a4ce3bdf024862
 - id: f1a4ce3bdf024862
   type: link out
   z: 64ce08af468b8197
@@ -2040,8 +1655,8 @@
   links:
     - 4e94023e8ba12f50
     - be594973267232f5
-  x: 1495
-  'y': 680
+  x: 915
+  'y': 620
   wires: []
 - id: f0cda36bf38c99f7
   type: switch
@@ -4879,41 +4494,6 @@
   x: 1815
   'y': 5000
   wires: []
-- id: f7bebc020deba752
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]id'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 740
-  wires:
-    - - 0461c9a00d6e3dd9
 - id: 3c9c0f76791a548f
   type: link call
   z: 64ce08af468b8197
@@ -5355,24 +4935,8 @@
   links:
     - 4e94023e8ba12f50
     - be594973267232f5
-  x: 1335
-  'y': 1040
-  wires: []
-- id: ce99fb90d41439af
-  type: debug
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: tree - plant
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1390
-  'y': 1160
+  x: 915
+  'y': 800
   wires: []
 - id: a4152fb852afd64c
   type: link out
@@ -7361,45 +6925,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 810
-  'y': 1100
+  x: 550
+  'y': 980
   wires:
     - - 6d0f3f87538739cc
-- id: d9cd6c9f80634841
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]id'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::kernel.plant[msg.payload]'
-      tot: global
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1210
-  'y': 1100
-  wires:
-    - - 0003ac8de1853ba9
 - id: b05dcc03725fe05d
   type: ui-text-input
   z: 64ce08af468b8197
@@ -7425,75 +6954,10 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 810
-  'y': 1160
+  x: 550
+  'y': 1040
   wires:
     - - 0e952b90dfdaa670
-- id: ec4853b377489f18
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: plant
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]name'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: 'form[msg.hmi.id]id'
-      tot: flow
-    - t: set
-      p: payload
-      pt: msg
-      to: '#:(memoryOnly)::kernel.tz[msg.payload]'
-      tot: global
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1210
-  'y': 1160
-  wires:
-    - - d0a9fb9c2d8c9b4b
-- id: df7317dcad2218e7
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 1160
-  wires:
-    - - 0003ac8de1853ba9
 - id: 67e9379426db2553
   type: ui-button
   z: 64ce08af468b8197
@@ -7525,60 +6989,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 810
-  'y': 1280
+  x: 550
+  'y': 1160
   wires:
-    - - 58b1df3e8d06d017
-- id: d1c7c5bedc7ddb14
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 1280
-  wires:
-    - - 7d9153917a194877
-- id: 0507fcab7a2ea779
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 1100
-  wires:
-    - - 7259f2d0a360638a
+    - - 7e3087b85c5c5e2a
 - id: 4fc3c8451747df9d
   type: link call
   z: 64ce08af468b8197
@@ -8625,54 +8039,6 @@
   'y': 3200
   wires:
     - - f4d76402e76e5f51
-- id: 2f1f0ca81820f9c6
-  type: switch
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 430
-  'y': 560
-  wires:
-    - - 85f0809b19c2455e
-    - - 7155d9bbef3cc098
-      - 32b448b0d77b7c0b
-- id: 7155d9bbef3cc098
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 500
-  wires:
-    - - 494c3185b89f0846
-      - 7f71a6461fbd80e4
-      - 4cd01df4467b69a4
 - id: 1c0ee1f1677d9445
   type: switch
   z: 64ce08af468b8197
@@ -9226,26 +8592,6 @@
   x: 955
   'y': 320
   wires: []
-- id: 5d3791b50e998db0
-  type: switch
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: list
-  property: list
-  propertyType: msg
-  rules:
-    - t: neq
-      v: plant
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 270
-  'y': 500
-  wires:
-    - - 7155d9bbef3cc098
-    - - 2f1f0ca81820f9c6
 - id: 4cd01df4467b69a4
   type: ui-text
   z: 64ce08af468b8197
@@ -9266,29 +8612,9 @@
   className: ''
   value: dictionary.option_notice.level_fail
   valueType: msg
-  x: 790
-  'y': 620
+  x: 530
+  'y': 500
   wires: []
-- id: 32b448b0d77b7c0b
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 620
-  wires:
-    - - 4cd01df4467b69a4
 - id: 8e3f9fd827754e4f
   type: ui-text
   z: 64ce08af468b8197
@@ -12560,66 +11886,6 @@
   'y': 7280
   wires:
     - - f670a7124a9072b0
-- id: d58acd1679194056
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 860
-  wires:
-    - - 877ea4e8d072b688
-- id: 1d53227ec94f5a77
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: tz
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]tz'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1210
-  'y': 860
-  wires:
-    - - d7cde30277b319e7
 - id: 5da93f7f423e4b99
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -12642,34 +11908,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 800
-  'y': 860
+  x: 540
+  'y': 740
   wires:
-    - - 554e6ce85f263c0d
-- id: 27237bfa973065f0
-  type: change
-  z: 64ce08af468b8197
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 420
-  'y': 1220
-  wires:
-    - - d0a9fb9c2d8c9b4b
+    - - 3812b7370e256367
 - id: cb3f2f692c4eedd7
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -12692,45 +11934,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 800
-  'y': 1220
+  x: 540
+  'y': 1100
   wires:
     - - a6f9ce6750c4f67d
-- id: 68b1245cfffaec3b
-  type: change
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: tz
-  rules:
-    - t: set
-      p: '#:(memoryOnly)::form[msg.hmi.id]tz'
-      pt: flow
-      to: payload
-      tot: msg
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1210
-  'y': 1220
-  wires:
-    - - 7d9153917a194877
 - id: 1e4ab253e69deb45
   type: function
   z: 64ce08af468b8197
@@ -12738,6 +11945,14 @@
   name: data
   func: |-
     // parse plant and tz
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled plant form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null, null]);
 
     if (msg.hmi.level === 'admin') {
         let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
@@ -12753,7 +11968,7 @@
                 'loop': false
             }
         };
-        node.send([plantMsg, null]);
+        node.send([null, plantMsg, null]);
 
         // tz
         let tzMsg =  {
@@ -12766,25 +11981,25 @@
                 'loop': false
             }
         };
-        node.send([tzMsg, null]);
+        node.send([null, tzMsg, null]);
 
         // notice
         msg.payload = msg.dictionary.option_notice.update_success;
-        node.send([null, msg]);
+        node.send([null, null, msg]);
     }
 
     return;
-  outputs: 2
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1210
-  'y': 920
+  x: 790
+  'y': 800
   wires:
+    - - d7cde30277b319e7
     - - 902fe68ecf2dae15
-      - ce99fb90d41439af
     - - 38b3a4ebd1fca09e
 - id: 7e3087b85c5c5e2a
   type: function
@@ -12793,6 +12008,14 @@
   name: data
   func: |-
     // Parse plant and tz
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled plant form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null, null]);
 
     if (msg.hmi.level === 'admin') {
         let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
@@ -12808,7 +12031,7 @@
                 'loop': false
             }
         };
-        node.send([plantMsg, null]);
+        node.send([null, plantMsg, null]);
 
         // tz delete
         let tzMsg = {
@@ -12821,25 +12044,25 @@
                 'loop': false
             }
         };
-        node.send([tzMsg, null]);
+        node.send([null, tzMsg, null]);
 
         // notice
         msg.payload = msg.dictionary.option_notice.update_success;
-        node.send([null, msg]);
+        node.send([null, null, msg]);
     }
 
     return;
-  outputs: 2
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1210
-  'y': 1280
+  x: 790
+  'y': 1160
   wires:
+    - - 7d9153917a194877
     - - 902fe68ecf2dae15
-      - ce99fb90d41439af
     - - 38b3a4ebd1fca09e
 - id: 0908d2d6aa609a72
   type: function
@@ -13420,6 +12643,16 @@
   func: |-
     // Delete plant
 
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Disabled plant form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+
     msg.kernel = {
         'type': 'plant',
         'entity': flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly') || '-',
@@ -13431,16 +12664,17 @@
     // Do delete
     msg = await node.linkcall('kernel - delete', msg);
 
-    return msg;
-  outputs: 1
+    return [null, msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1210
-  'y': 1040
+  x: 790
+  'y': 920
   wires:
+    - - e219d1195e078bcb
     - - 38b3a4ebd1fca09e
 - id: bcdf86cb3bd9f652
   type: function
@@ -15587,51 +14821,6 @@
   'y': 380
   wires:
     - - e005b35880effb28
-- id: 85f0809b19c2455e
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: data
-  func: |-
-    //Build plant action selector
-
-    msg.payload = '';
-    msg.class= '';
-    msg.enabled = true;
-
-    msg.options = [
-        {
-            'label': '',
-            'value': ''
-        },
-        {
-            'label': msg.dictionary.option_action.add,
-            'value': 'addplant'
-        },
-        {
-            'label': msg.dictionary.option_action.delete,
-            'value': 'delplant'
-        },
-        {
-            'label': msg.dictionary.option_action.edit,
-            'value':'editplant'
-        }
-    ];
-
-    msg.ui_update = {
-        'label': msg.dictionary.option_select.action
-    }
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 590
-  'y': 560
-  wires:
-    - - 7f71a6461fbd80e4
 - id: 891b4e9311d29ac3
   type: function
   z: 64ce08af468b8197
@@ -15649,8 +14838,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 740
+  x: 330
+  'y': 620
   wires:
     - - fe979b02242af9b6
 - id: 0461c9a00d6e3dd9
@@ -15670,8 +14859,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 800
+  x: 330
+  'y': 680
   wires:
     - - 343f72e19cb63063
 - id: d7cde30277b319e7
@@ -15691,8 +14880,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 920
+  x: 330
+  'y': 800
   wires:
     - - 97eee541bd4e9655
 - id: e219d1195e078bcb
@@ -15712,8 +14901,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 1040
+  x: 330
+  'y': 920
   wires:
     - - 5d53388977faa547
 - id: 0003ac8de1853ba9
@@ -15733,8 +14922,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 1160
+  x: 330
+  'y': 1040
   wires:
     - - b05dcc03725fe05d
 - id: 7d9153917a194877
@@ -15754,8 +14943,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 1280
+  x: 330
+  'y': 1160
   wires:
     - - 67e9379426db2553
 - id: 67a760f94942c13d
@@ -16685,42 +15874,38 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 990
-  'y': 560
-  wires:
-    - - 5cf49ec89673bbad
-- id: a860436a2341c3d9
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: data
-  func: |-
-    if (msg.payload === '') {
+    await new Promise(resolve => setTimeout(resolve, 50));
 
-        return;
+    const action = msg.payload;
+
+    flow.set('form["' + msg.hmi.id + '"]', {
+        'action': action,
+        'time': Date.now()
+    }, 'memoryOnly');
+
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+
+    switch (action) {
+        case 'addplant': return [msg, null, null];
+        case 'delplant': return [null, msg, null];
+        case 'editplant': return [null, null, msg];
     }
 
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    return msg;
-  outputs: 1
+    return;
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1050
-  'y': 740
+  x: 170
+  'y': 560
   wires:
-    - - a69259142b57e07b
+    - - 891b4e9311d29ac3
+    - - 455fe14cea691168
+    - - 7259f2d0a360638a
 - id: f61e472d935ac77c
   type: function
   z: 64ce08af468b8197
@@ -16732,69 +15917,36 @@
         return;
     }
 
+    const name = msg.payload;
+
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    return msg;
-  outputs: 1
+    flow.set('form["' + msg.hmi.id + '"]["name"]', name, 'memoryOnly');
+
+    msg.paylaod = '';
+    msg.class = '';
+
+    // Disabled plant form
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1050
-  'y': 800
+  x: 790
+  'y': 680
   wires:
-    - - 3066cc55b98ce1e4
-      - cf645c7f47ad3986
-- id: 554e6ce85f263c0d
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: data
-  func: |-
-    if (msg.payload === '') {
-
-        return;
-    }
-
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1050
-  'y': 860
-  wires:
-    - - d58acd1679194056
-      - 1d53227ec94f5a77
-- id: a5ebb91b114ae62f
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: data
-  func: |-
-
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1050
-  'y': 920
-  wires:
-    - - f3f2a6d3dbb25158
-      - 1e4ab253e69deb45
+    - - 0461c9a00d6e3dd9
+    - - 877ea4e8d072b688
 - id: 0f6b1b88de453ea3
   type: function
   z: 64ce08af468b8197
@@ -16806,43 +15958,36 @@
         return;
     }
 
+    const id = msg.payload;
+
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    return msg;
-  outputs: 1
+    flow.set('form["' + msg.hmi.id + '"]["id"]', id, 'memoryOnly');
+
+    msg.paylaod = '';
+    msg.class = '';
+
+    // Disabled plant form
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1050
-  'y': 980
+  x: 790
+  'y': 860
   wires:
-    - - f0b2090250aec7d4
-      - fa6d9718d672de6a
-- id: fe6168986c6d18ee
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: data
-  func: |-
-
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1050
-  'y': 1040
-  wires:
-    - - 359c236edd3eb910
-      - f3970906841a189d
+    - - 455fe14cea691168
+    - - e219d1195e078bcb
 - id: 6d0f3f87538739cc
   type: function
   z: 64ce08af468b8197
@@ -16854,21 +15999,36 @@
         return;
     }
 
+    const id = msg.payload;
+
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    return msg;
-  outputs: 1
+    flow.set('form["' + msg.hmi.id + '"]["id"]', id, 'memoryOnly');
+
+    msg.paylaod = '';
+    msg.class = '';
+
+    // Disabled plant form
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1050
-  'y': 1100
+  x: 790
+  'y': 980
   wires:
-    - - 0507fcab7a2ea779
-      - d9cd6c9f80634841
+    - - 7259f2d0a360638a
+    - - 0003ac8de1853ba9
 - id: 0e952b90dfdaa670
   type: function
   z: 64ce08af468b8197
@@ -16880,21 +16040,36 @@
         return;
     }
 
+    const name = msg.payload;
+
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    return msg;
-  outputs: 1
+    flow.set('form["' + msg.hmi.id + '"]["name"]', name, 'memoryOnly');
+
+    msg.paylaod = '';
+    msg.class = '';
+
+    // Disabled plant form
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1050
-  'y': 1160
+  x: 790
+  'y': 1040
   wires:
-    - - df7317dcad2218e7
-      - ec4853b377489f18
+    - - 0003ac8de1853ba9
+    - - d0a9fb9c2d8c9b4b
 - id: a6f9ce6750c4f67d
   type: function
   z: 64ce08af468b8197
@@ -16906,43 +16081,36 @@
         return;
     }
 
+    const tz = msg.payload;
+
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    return msg;
-  outputs: 1
+    flow.set('form["' + msg.hmi.id + '"]["tz"]', tz, 'memoryOnly');
+
+    msg.paylaod = '';
+    msg.class = '';
+
+    // Disabled plant form
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1050
-  'y': 1220
+  x: 790
+  'y': 1100
   wires:
-    - - 68b1245cfffaec3b
-      - 27237bfa973065f0
-- id: 58b1df3e8d06d017
-  type: function
-  z: 64ce08af468b8197
-  g: fa7516c28cf64b47
-  name: data
-  func: |-
-
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 1050
-  'y': 1280
-  wires:
-    - - d1c7c5bedc7ddb14
-      - 7e3087b85c5c5e2a
+    - - d0a9fb9c2d8c9b4b
+    - - 7d9153917a194877
 - id: 877ea4e8d072b688
   type: function
   z: 64ce08af468b8197
@@ -16960,8 +16128,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 860
+  x: 330
+  'y': 740
   wires:
     - - 5da93f7f423e4b99
 - id: 455fe14cea691168
@@ -16981,8 +16149,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 980
+  x: 330
+  'y': 860
   wires:
     - - 1668a609c18888db
 - id: 7259f2d0a360638a
@@ -17002,8 +16170,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 1100
+  x: 330
+  'y': 980
   wires:
     - - 64a4f6586a2e78b7
 - id: d0a9fb9c2d8c9b4b
@@ -17023,8 +16191,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 1220
+  x: 330
+  'y': 1100
   wires:
     - - cb3f2f692c4eedd7
 - id: 0c0a9473fb5ff8b7
@@ -17751,17 +16919,21 @@
   g: 29452f5f913b11d0
   name: data
   func: |-
+    // Save form data to form memory
 
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    const form = { ...(global.get('form', 'memoryOnly') || { }) };
+    if (msg.hmi.level === '') {
+
+        return;
+    }
+
+    let form = global.get('form', 'memoryOnly') || { };
 
     node.status({text: msg.topic });
 
-    form[msg.hmi.id][msg.topic] = msg.payload;
-
-    global.set('form', form, 'memoryOnly');
+    form[msg.hmi.id][msg.topic] = msg.payload; // auto
 
     return msg;
   outputs: 1
@@ -17997,3 +17169,205 @@
   x: 2380
   'y': 520
   wires: []
+- id: c9047b0df9225569
+  type: function
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: data
+  func: |-
+    msg.payload = '';
+
+    if (msg.list !== 'plant') {
+        msg.class = 'remove';
+
+        return [msg, msg, msg];
+    }
+
+    if (msg.hmi.level === 'admin') {
+        msg.class = '';
+        msg.enabled = true;
+        msg.options = [
+            {
+                'label': '',
+                'value': ''
+            },
+            {
+                'label': msg.dictionary.option_action.add,
+                'value': 'addplant'
+            },
+            {
+                'label': msg.dictionary.option_action.delete,
+                'value': 'delplant'
+            },
+            {
+                'label': msg.dictionary.option_action.edit,
+                'value':'editplant'
+            }
+        ];
+
+        msg.ui_update = {
+            'label': msg.dictionary.option_select.action
+        }
+
+        return [null, msg, null];
+    }
+    else {
+        msg.class = '';
+
+
+        return [null, null, msg];
+    }
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 500
+  wires:
+    - - 7f71a6461fbd80e4
+      - 4cd01df4467b69a4
+      - fe979b02242af9b6
+      - 343f72e19cb63063
+      - 5da93f7f423e4b99
+      - 97eee541bd4e9655
+      - 1668a609c18888db
+      - 5d53388977faa547
+      - 64a4f6586a2e78b7
+      - b05dcc03725fe05d
+      - cb3f2f692c4eedd7
+      - 67e9379426db2553
+      - e4d88f4537b5c0ef
+    - - 7f71a6461fbd80e4
+    - - 4cd01df4467b69a4
+- id: e4d88f4537b5c0ef
+  type: change
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 330
+  'y': 560
+  wires:
+    - - fe979b02242af9b6
+      - 1668a609c18888db
+      - 64a4f6586a2e78b7
+      - 343f72e19cb63063
+      - 97eee541bd4e9655
+      - 5d53388977faa547
+      - b05dcc03725fe05d
+      - 67e9379426db2553
+      - cb3f2f692c4eedd7
+      - 5da93f7f423e4b99
+- id: 00a98d5a2701d028
+  type: function
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: data
+  func: >-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+
+    const id = msg.payload;
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Plant already exists
+
+    if (typeof global.get('kernel.plant["' + id + '"]', 'memoryOnly') ===
+    'string') {
+        msg.payload = msg.dictionary.option_notice.plant_exists || '';
+
+        return [msg, null, null];
+    }
+
+
+    flow.set('form["' + msg.hmi.id + '"]["id"]', id, 'memoryOnly');
+
+
+    msg.paylaod = '';
+
+    msg.class = '';
+
+
+    // Disabled plant form
+
+    msg.enabled = false;
+
+    node.send([null, msg, null]);
+
+
+    // Go to next form
+
+    msg.enabled = true;
+
+    node.send([null, null, msg]);
+
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 620
+  wires:
+    - - f1a4ce3bdf024862
+    - - 891b4e9311d29ac3
+    - - 0461c9a00d6e3dd9
+- id: 3812b7370e256367
+  type: function
+  z: 64ce08af468b8197
+  g: fa7516c28cf64b47
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const tz = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    flow.set('form["' + msg.hmi.id + '"]["tz"]', tz, 'memoryOnly');
+
+    msg.paylaod = '';
+    msg.class = '';
+
+    // Disabled plant form
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 740
+  wires:
+    - - 877ea4e8d072b688
+    - - d7cde30277b319e7

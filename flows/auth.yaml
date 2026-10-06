@@ -253,9 +253,9 @@
   g: 90f47fc795048184
   name: data
   func: |-
-    const user = { ...(global.get('user', 'memoryOnly') || { }) };
-    delete user[ msg._client.socketId ];
-    global.set('user', user, 'memoryOnly');
+    // Disconnect user
+    let user = global.get('user', 'memoryOnly') || { };
+    delete user[ msg._client.socketId ]; // auto
 
     delete msg.ui_update;
 

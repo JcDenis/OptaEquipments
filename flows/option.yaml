@@ -907,7 +907,7 @@
 
     let i = 1;
 
-    const plants = { ...(global.get('kernel.plant', 'memoryOnly') || {}) };
+    const plants = global.get('kernel.plant', 'memoryOnly') || { };
 
 
     for (const plant in plants) {
@@ -920,7 +920,7 @@
 
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
 
     msg.ui_update.label = msg.dictionary.option_select.plant || 'Select a
@@ -956,7 +956,7 @@
     }];
 
     let i = 1;
-    const lines = { ...(global.get('kernel.line', 'memoryOnly') || {}) };
+    const lines = global.get('kernel.line', 'memoryOnly') || { };
 
     for (const line in lines) {
         let line_plant = global.get('kernel.lines["' + line + '"]', 'memoryOnly') || '';
@@ -970,7 +970,7 @@
     }
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
     msg.ui_update.label = msg.dictionary.option_select.line || 'Select a line';
 
@@ -1005,8 +1005,7 @@
 
     let i = 1;
 
-    const equipments = { ...(global.get('kernel.equipment', 'memoryOnly') || {})
-    };
+    const equipments = global.get('kernel.equipment', 'memoryOnly') || { };
 
 
     for (const equipment in equipments) {
@@ -1022,7 +1021,7 @@
 
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
 
     msg.ui_update.label = msg.dictionary.option_select.equipment || 'Select an
@@ -1063,7 +1062,7 @@
 
     let i = 1;
 
-    const models = { ...(global.get('describe.model', 'memoryOnly') || {}) };
+    const models = global.get('describe.model', 'memoryOnly') || { };
 
 
     for (const model in models) {
@@ -1078,7 +1077,7 @@
 
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
 
     msg.ui_update.label = msg.dictionary.option_select.model || 'Select a
@@ -1114,7 +1113,7 @@
     }];
 
     let i = 1;
-    const teams = { ...(msg.dictionary.option_team || {})};
+    const teams = msg.dictionary.option_team || { };
 
     for (const team in teams) {
         msg.options[i++] = {
@@ -1125,7 +1124,7 @@
     }
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
     msg.ui_update.label = msg.dictionary.option_select.team || 'Select a team';
 
@@ -1158,7 +1157,7 @@
     }];
 
     let i = 1;
-    const resolutions = { ...(msg.dictionary.option_resolution || {}) };
+    const resolutions = msg.dictionary.option_resolution || { };
 
     for (const resolution in resolutions) {
         msg.options[i++] = {
@@ -1197,7 +1196,7 @@
     }];
 
     let i = 1;
-    const levels = { ...(msg.dictionary.option_level || {}) };
+    const levels = msg.dictionary.option_level || { };
 
     for (const level in levels) {
         msg.options[i++] = {
@@ -1234,7 +1233,7 @@
     }];
 
     let i = 1;
-    const langs = { ...(msg.dictionary.option_lang || {}) };
+    const langs = msg.dictionary.option_lang || { };
 
     for (const lang in langs) {
         msg.options[i++] = {
@@ -1271,7 +1270,7 @@
     }];
 
     let i = 1;
-    const logins = { ...(global.get('auth', 'memoryOnly') || {}) };
+    const logins = global.get('auth', 'memoryOnly') || { };
 
     for (const login in logins) {
         msg.options[i++] = {
@@ -1310,7 +1309,7 @@
 
     let i = 1;
 
-    const alerts = { ...(global.get('kernel.alert', 'memoryOnly') || {}) };
+    const alerts = global.get('kernel.alert', 'memoryOnly') || { };
 
 
     for (const alert in alerts) {
@@ -1327,7 +1326,7 @@
 
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
 
     msg.ui_update.label = msg.dictionary.option_select.component ||'Select a
@@ -1366,7 +1365,7 @@
     }];
 
     let i = 1;
-    const components = { ...(msg.dictionary?.option_component || {}) };
+    const components = msg.dictionary?.option_component || { };
 
     for (const component in components) {
         if (typeof msg.limit_component === 'undefined' || component.match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {
@@ -1379,7 +1378,7 @@
     }
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
     msg.ui_update.label = msg.dictionary.option_select.link ||'Select a link';
 
@@ -1412,7 +1411,7 @@
 
     if (typeof msg.limit_model !== 'undefined') {
         let i = 1;
-        const  devices = { ...(global.get('kernel.device', 'memoryOnly') || {}) };
+        const  devices = global.get('kernel.device', 'memoryOnly') || { };
         for (const device in devices) {
             /* 0 = model, 1 = device */
             let split = device.split("|");
@@ -1428,7 +1427,7 @@
 
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
 
     msg.ui_update.label = msg.dictionary.option_select.device || 'Select a
@@ -1464,7 +1463,7 @@
     }];
 
     let i = 1;
-    const links = { ...(global.get('kernel.link', 'memoryOnly') ||{}) };
+    const links = global.get('kernel.link', 'memoryOnly') ||{ };
     for (const link in links) {
         /* 0 = equipment, 1 = component */
         let split = link.split("|");
@@ -1481,7 +1480,7 @@
     }
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
     msg.ui_update.label = msg.dictionary.option_select.link ||'Select a link';
 
@@ -1543,30 +1542,19 @@
   z: adb9fbf379118d77
   g: 2dadce6cd1694d7d
   name: data
-  func: >-
-    /*
+  func: |-
 
-    if (typeof msg.kernel?.equipment === 'string' && typeof
-    msg.kernel?.component === 'string') {
-        let reverse = global.get('kernel.reverse["' + msg.kernel.equipment + '|' + msg.kernel.component + '"]', 'memoryOnly');
-        if (typeof reverse === 'boolean' && reverse === true) {
-            msg.kernel.value = msg.kernel.value === 0 ? 1 : 0;
+    if (typeof msg.kernel === 'object' 
+        && typeof msg.kernel.entity === 'string' 
+        && msg.kernel.type === 'state'
+        && global.get('kernel.reverse["' + msg.kernel.entity + '"]', 'memoryOnly') === true
+    ) {
+        // only on 1/0 values
+        if (msg.kernel.value === 1 || msg.kernel.value === 0) {
+            msg.kernel.value = msg.kernel.value === 1 ? 0 : 1;
+            msg.kernel.reverse = true;
         }
     }
-
-    */
-
-    if (typeof msg.kernel?.entity === 'string' && msg.kernel.type === 'state') {
-        let reverse = global.get('kernel.reverse["' + msg.kernel.entity + '"]', 'memoryOnly');
-        if (reverse === true) {
-            // only on 1/0 values
-            if (msg.kernel.value === 1 || msg.kernel.value === 0) {
-                msg.kernel.value = msg.kernel.value === 1 ? 0 : 1;
-                msg.kernel.reverse = true;
-            }
-        }
-    }
-
 
     return msg;
   outputs: 1
@@ -1612,7 +1600,7 @@
     }];
 
     let i = 1;
-    const groups = { ...(msg.dictionary?.option_group || {}) };
+    const groups = msg.dictionary?.option_group || { };
 
     for (const group in groups) {
         if (typeof msg.limit_group === 'undefined' || group.match((new RegExp('^(' + msg.limit_group + ')$'))) !== null) {
@@ -1625,7 +1613,7 @@
     }
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
     msg.ui_update.label = msg.dictionary.option_select.group ||'Select a group';
 
@@ -1805,7 +1793,7 @@
     }];
 
     let i = 0;
-    const holidays = { ...(global.get('kernel.holiday', 'memoryOnly') || {}) };
+    const holidays = global.get('kernel.holiday', 'memoryOnly') || { };
 
     for (const holiday in holidays) {
         if (typeof msg.limit_plant === 'undefined' || holiday === msg.limit_plant) {
@@ -1821,7 +1809,7 @@
     }
 
     if (typeof msg.ui_update === 'undefined') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
     msg.ui_update.label = msg.dictionary.option_select.day || 'Select a day';
 
@@ -1925,7 +1913,7 @@
 
 
     if (typeof msg.ui_update !== 'object') {
-        msg.ui_update = {};
+        msg.ui_update = { };
     }
 
 
@@ -1954,7 +1942,7 @@
   z: adb9fbf379118d77
   g: c5d0cafa68f99f1b
   name: data
-  func: "msg.options = [\n    {\n        'label':'NO',\n        'value':false\n    },\n    {\n        'label':'NC',\n        'value':true\n    }\n];\t\n\nif (typeof msg.ui_update !== 'object') {\n    msg.ui_update = {};\n}\n\nmsg.ui_update.label = msg.dictionary.option_select.contact || 'Select contact type';\n\nreturn msg;"
+  func: "msg.options = [\n    {\n        'label':'NO',\n        'value':false\n    },\n    {\n        'label':'NC',\n        'value':true\n    }\n];\t\n\nif (typeof msg.ui_update !== 'object') {\n    msg.ui_update = { };\n}\n\nmsg.ui_update.label = msg.dictionary.option_select.contact || 'Select contact type';\n\nreturn msg;"
   outputs: 1
   timeout: 0
   noerr: 0

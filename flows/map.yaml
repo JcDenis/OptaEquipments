@@ -22,14 +22,13 @@
     - 1efcfbd636328e02
     - efc66b0b332f577e
     - 19c86486f5d9b146
-    - e48cd79820e41f99
-    - abd4f9c4802b555c
     - 32eebc8246bf0244
     - df1f25706f22a3c0
+    - f3b914a01d17eed7
   x: 84
   'y': 99
   w: 1232
-  h: 262
+  h: 202
 - id: 97f10c211b33ee2e
   type: group
   z: 05f6b695d75a73cf
@@ -54,7 +53,7 @@
     - 1f7b2b51d4d84f18
     - f486b8d2af3d7301
   x: 84
-  'y': 399
+  'y': 339
   w: 872
   h: 502
 - id: 1d8d13781c0d578e
@@ -117,9 +116,8 @@
   'y': 140
   wires:
     - - a38263f9dfb005a8
-      - abd4f9c4802b555c
+      - f3b914a01d17eed7
     - - c43d939036a2f5ce
-      - e48cd79820e41f99
 - id: c43d939036a2f5ce
   type: ui-dropdown
   z: 05f6b695d75a73cf
@@ -193,17 +191,16 @@
   z: 05f6b695d75a73cf
   g: 0e5ee31c1122d84d
   name: data
-  func: >-
+  func: |-
     // Get plant map
-
 
     msg.plant = msg.payload;
 
-
     // Reset UI
-
-    if (msg.enabled !== true || msg.plant === '' || typeof
-    global.get('kernel.map["' + msg.plant +'"]', 'memoryOnly') !== 'string') {
+    if (msg.enabled !== true 
+        || msg.plant === '' 
+        || typeof global.get('kernel.map["' + msg.plant +'"]', 'memoryOnly') !== 'string'
+    ) {
         // page is disabled
         msg.class = 'remove';
         msg.enabled = false;
@@ -213,25 +210,16 @@
         return msg;
     }
 
-
     await new Promise(resolve => setTimeout(resolve, 500));
 
-
-    const location = { ...(global.get('kernel.location', 'memoryOnly') || { })
-    };
-
-    const lines = { ...(global.get('kernel.lines', 'memoryOnly') || { }) };
-
-    const equipments = { ...(global.get('kernel.equipments', 'memoryOnly') || {
-    }) };
-
+    // Get memories
+    const location = global.get('kernel.location', 'memoryOnly') || { };
+    const lines = global.get('kernel.lines', 'memoryOnly') || { };
+    const equipments = global.get('kernel.equipments', 'memoryOnly') || { };
 
     msg.class = '';
-
     msg.enabled = true;
-
     msg.payload = { };
-
 
     for (const l in location) {
         if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
@@ -280,7 +268,6 @@
             };
         }
     }
-
 
     return msg;
   outputs: 1
@@ -508,7 +495,7 @@
   value: payload
   valueType: msg
   x: 450
-  'y': 440
+  'y': 380
   wires: []
 - id: cf09fba4cc997462
   type: function
@@ -538,14 +525,13 @@
     node.send([ msg, null, null, null ]);
 
 
-    // Equipments
+    // Get memories (for equipmenets)
 
-    const equipments = { ...(global.get('kernel.equipments', 'memoryOnly') ||
-    {}) };
+    const equipments = global.get('kernel.equipments', 'memoryOnly') || { };
 
-    const states = { ...(global.get('kernel.state', 'memoryOnly') || {}) };
+    const states = global.get('kernel.state', 'memoryOnly') || { };
 
-    const alerts = { ...(global.get('kernel.alert', 'memoryOnly') || {}) };
+    const alerts = global.get('kernel.alert', 'memoryOnly') || { };
 
 
     let c = 0;
@@ -622,7 +608,7 @@
   finalize: ''
   libs: []
   x: 250
-  'y': 500
+  'y': 440
   wires:
     - - a02204e3fae49cfc
     - - 9f08f02da6ea348c
@@ -679,7 +665,7 @@
   action: replace
   className: ''
   x: 470
-  'y': 500
+  'y': 440
   wires:
     - []
 - id: 5a066b7fa3f4f8af
@@ -714,7 +700,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 560
+  'y': 500
   wires:
     - - e4709f79d028ec19
 - id: 1b3d8dd4cbf54d2e
@@ -749,7 +735,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 620
+  'y': 560
   wires:
     - - e4709f79d028ec19
 - id: 1904ca1be94678dd
@@ -774,7 +760,7 @@
   finalize: ''
   libs: []
   x: 410
-  'y': 620
+  'y': 560
   wires:
     - - 5a066b7fa3f4f8af
     - - 1b3d8dd4cbf54d2e
@@ -813,7 +799,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 680
+  'y': 620
   wires:
     - - e4709f79d028ec19
 - id: de01b7bdff6e465a
@@ -848,7 +834,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 740
+  'y': 680
   wires:
     - - e4709f79d028ec19
 - id: cfab8a9a98e54e95
@@ -883,7 +869,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 800
+  'y': 740
   wires:
     - - e4709f79d028ec19
 - id: a9a840797469573f
@@ -918,7 +904,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 450
-  'y': 860
+  'y': 800
   wires:
     - - f486b8d2af3d7301
 - id: e4709f79d028ec19
@@ -976,7 +962,7 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 620
+  'y': 560
   wires:
     - - 1f7b2b51d4d84f18
 - id: 97a2538ceb8b990d
@@ -988,7 +974,7 @@
     - 1f7b2b51d4d84f18
     - 19c86486f5d9b146
   x: 125
-  'y': 500
+  'y': 440
   wires:
     - - cf09fba4cc997462
 - id: 1f7b2b51d4d84f18
@@ -1000,7 +986,7 @@
   links:
     - 97a2538ceb8b990d
   x: 915
-  'y': 620
+  'y': 560
   wires: []
 - id: 19c86486f5d9b146
   type: link out
@@ -1054,57 +1040,9 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 860
+  'y': 800
   wires:
     - - 1f7b2b51d4d84f18
-- id: abd4f9c4802b555c
-  type: function
-  z: 05f6b695d75a73cf
-  g: 0e5ee31c1122d84d
-  name: data
-  func: |-
-
-    msg.payload = {
-        'groups': {
-            'hide': ['map - group']
-        }
-    };
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 410
-  'y': 260
-  wires:
-    - - efc66b0b332f577e
-- id: e48cd79820e41f99
-  type: function
-  z: 05f6b695d75a73cf
-  g: 0e5ee31c1122d84d
-  name: data
-  func: |-
-
-    msg.payload = {
-        'groups': {
-            'show': ['map - group']
-        }
-    };
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 410
-  'y': 320
-  wires:
-    - - efc66b0b332f577e
 - id: 32eebc8246bf0244
   type: trigger
   z: 05f6b695d75a73cf
@@ -1132,18 +1070,17 @@
   z: 05f6b695d75a73cf
   g: 0e5ee31c1122d84d
   name: data
-  func: >-
+  func: |-
     // Try to limit loop
-
-    if ((msg.plant || '') !== '' && (msg.hmi.id || '') !== '' &&
-    (global.get('user["' + msg.hmi.id + '"]["login"]', 'memoryOnly') || '') !==
-    '') {
+    if ((msg.plant || '') !== '' 
+        && (msg.hmi.id || '') !== '' 
+        && (global.get('user["' + msg.hmi.id + '"]["login"]', 'memoryOnly') || '') !== ''
+    ) {
 
         msg.payload = msg.plant;
         
         return msg;
     }
-
 
     return;
   outputs: 1
@@ -1156,3 +1093,27 @@
   'y': 200
   wires:
     - - a38263f9dfb005a8
+- id: f3b914a01d17eed7
+  type: function
+  z: 05f6b695d75a73cf
+  g: 0e5ee31c1122d84d
+  name: data
+  func: |-
+
+    msg.payload = {
+        'groups': {
+            [msg.enabled ? 'hide' : 'show' ]: ['map - group']
+        }
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 410
+  'y': 260
+  wires:
+    - - efc66b0b332f577e
