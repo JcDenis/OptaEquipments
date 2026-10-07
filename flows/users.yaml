@@ -850,7 +850,8 @@
             msg.payload = 'Successfully updated';
             node.send([ msg, null, null]);
 
-            await new Promise(resolve => setTimeout(resolve, 50));
+            // Wait ui update
+            msg = await node.linkcall('wait - ui', msg);
 
             msg.enabled = true;
 
@@ -868,7 +869,8 @@
         msg.payload = 'Successfully updated';
         node.send([ msg, null, null]);
         
-        await new Promise(resolve => setTimeout(resolve, 50));
+        // Wait ui update
+        msg = await node.linkcall('wait - ui', msg);
 
         msg.enabled = true;
 
@@ -963,9 +965,16 @@
   g: 4c2194718c72648c
   name: data
   func: |-
-    const auth = { ...(global.get('auth') || { }) };
+
+    // Get memories
+    let auth = global.get('auth'); // autoupdate
+
+    if (typeof auth[msg.payload.login] !== 'object') {
+
+        return;
+    }
+
     auth[msg.payload.login]['pass'] = msg.payload.pass;
-    global.set('auth', auth);
 
     msg.login = msg.payload.login;
 
@@ -978,7 +987,8 @@
     msg.payload = '';
     msg.options = [];
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    // Wait data update
+    //msg = await node.linkcall('wait - data', msg);
 
     node.send([ null, null, msg ]);
 
@@ -1099,7 +1109,8 @@
     msg.options = [];
     msg.enabled = true;
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    // Wait data update
+    //msg = await node.linkcall('wait - data', msg);
 
     node.send([ null, null, msg ]);
 

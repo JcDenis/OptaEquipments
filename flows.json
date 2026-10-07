@@ -1869,7 +1869,7 @@
         "x": 68,
         "y": 3033,
         "w": 944,
-        "h": 1154
+        "h": 1074
     },
     {
         "id": "23adbb4a30523ae7",
@@ -3188,13 +3188,11 @@
         "nodes": [
             "e121bb6441bf21e5",
             "025edbd02daf82d0",
-            "571f58fa9072eafb",
             "d0edfe80cd189ba8",
             "306b2fee3a4b886d",
             "80538c5af3c6a70b",
             "37ef0dacd1f0e952",
             "359336bc8ac8947e",
-            "d8fa54a0c3f6d9a5",
             "d5cec84ece588ffc",
             "51fd87fb2d0f8249",
             "7e12373daec6b4f7",
@@ -3203,19 +3201,21 @@
             "8b016ccb6d72f020",
             "fa9f56578f777f16",
             "6eaf225aac0649db",
-            "185e7efaa5a871d0",
             "c684af5ea5b26d2e",
             "e5f40d53235d0aed",
             "c70ea2cf1d1f49a8",
             "b3e896cabe611cde",
             "4c04568e727d9c3e",
             "dae34187af7a074d",
-            "ad00c0bf6ff55efe"
+            "ad00c0bf6ff55efe",
+            "668f8c2606240642",
+            "94ba0fd87c23ff38",
+            "cf21433f7f25224a"
         ],
         "x": 94,
         "y": 3599,
         "w": 892,
-        "h": 562
+        "h": 482
     },
     {
         "id": "8cc9a474d6cd27ec",
@@ -3561,6 +3561,95 @@
         "h": 82
     },
     {
+        "id": "a7690ab9b2b9f8fd",
+        "type": "group",
+        "z": "adb9fbf379118d77",
+        "g": "fcdd366dc6c2ecc6",
+        "name": "wait - ui",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "1bb2db855a04d0bd",
+            "155df541cc6a629f",
+            "113e9bb7526cfa73"
+        ],
+        "x": 1864,
+        "y": 279,
+        "w": 332,
+        "h": 82
+    },
+    {
+        "id": "fa41b54bf1c36fe8",
+        "type": "group",
+        "z": "adb9fbf379118d77",
+        "g": "fcdd366dc6c2ecc6",
+        "name": "wait - data",
+        "style": {
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true,
+            "stroke": "#ff0000"
+        },
+        "nodes": [
+            "06121e6d31f80687",
+            "85fb7c42bdaffd47",
+            "a3c44406daa0b106"
+        ],
+        "x": 1864,
+        "y": 399,
+        "w": 332,
+        "h": 82
+    },
+    {
+        "id": "f78652bda367bea4",
+        "type": "group",
+        "z": "adb9fbf379118d77",
+        "g": "fcdd366dc6c2ecc6",
+        "name": "",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "b2bc9166528cc416",
+            "a9160230a18ff449",
+            "af7e5ed43a6bc8c7"
+        ],
+        "x": 1864,
+        "y": 519,
+        "w": 332,
+        "h": 82
+    },
+    {
+        "id": "fcdd366dc6c2ecc6",
+        "type": "group",
+        "z": "adb9fbf379118d77",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#767676"
+        },
+        "nodes": [
+            "a7690ab9b2b9f8fd",
+            "fa41b54bf1c36fe8",
+            "f78652bda367bea4"
+        ],
+        "x": 1838,
+        "y": 253,
+        "w": 384,
+        "h": 374
+    },
+    {
         "id": "f516c1341f0f634c",
         "type": "mqtt-broker",
         "name": "mqtt",
@@ -3830,10 +3919,11 @@
                 "cols": "12"
             }
         ],
+        "tabs": [],
         "order": 9,
         "className": "",
-        "visible": false,
-        "disabled": false
+        "visible": "false",
+        "disabled": "false"
     },
     {
         "id": "18e387e2011da847",
@@ -5551,12 +5641,12 @@
         "type": "http response",
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
-        "name": "",
+        "name": "307",
         "statusCode": "307",
         "headers": {
             "Location": "/dashboard"
         },
-        "x": 340,
+        "x": 910,
         "y": 3640,
         "wires": []
     },
@@ -5644,32 +5734,6 @@
         ]
     },
     {
-        "id": "571f58fa9072eafb",
-        "type": "delay",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "1m/s",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 590,
-        "y": 3820,
-        "wires": [
-            [
-                "c70ea2cf1d1f49a8"
-            ]
-        ]
-    },
-    {
         "id": "d0edfe80cd189ba8",
         "type": "http in",
         "z": "f6f2187d.f17ca8",
@@ -5681,10 +5745,10 @@
         "skipBodyParsing": false,
         "swaggerDoc": "",
         "x": 220,
-        "y": 3820,
+        "y": 3920,
         "wires": [
             [
-                "571f58fa9072eafb"
+                "668f8c2606240642"
             ]
         ]
     },
@@ -5701,8 +5765,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 590,
-        "y": 3700,
+        "x": 610,
+        "y": 3820,
         "wires": [
             [
                 "8b016ccb6d72f020"
@@ -5721,7 +5785,7 @@
         "skipBodyParsing": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 3700,
+        "y": 3760,
         "wires": [
             [
                 "5a8875d1a8d3c550"
@@ -5737,7 +5801,7 @@
         "statusCode": "200",
         "headers": {},
         "x": 910,
-        "y": 3700,
+        "y": 3760,
         "wires": []
     },
     {
@@ -5749,28 +5813,10 @@
         "action": "",
         "property": "payload",
         "x": 590,
-        "y": 3640,
+        "y": 3760,
         "wires": [
             [
                 "8b016ccb6d72f020"
-            ]
-        ]
-    },
-    {
-        "id": "d8fa54a0c3f6d9a5",
-        "type": "catch",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "catch http",
-        "scope": [
-            "306b2fee3a4b886d"
-        ],
-        "uncaught": false,
-        "x": 180,
-        "y": 4000,
-        "wires": [
-            [
-                "185e7efaa5a871d0"
             ]
         ]
     },
@@ -5786,7 +5832,7 @@
         "skipBodyParsing": false,
         "swaggerDoc": "",
         "x": 220,
-        "y": 3880,
+        "y": 3980,
         "wires": [
             [
                 "fa9f56578f777f16"
@@ -5812,7 +5858,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 590,
-        "y": 3760,
+        "y": 3880,
         "wires": [
             [
                 "e5f40d53235d0aed"
@@ -5831,10 +5877,10 @@
         "skipBodyParsing": false,
         "swaggerDoc": "",
         "x": 220,
-        "y": 3760,
+        "y": 3860,
         "wires": [
             [
-                "51fd87fb2d0f8249"
+                "cf21433f7f25224a"
             ]
         ]
     },
@@ -5900,7 +5946,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "b0a29d62b8e00f94",
         "name": "data",
-        "func": "// Keep up to date reverse links\n\nfunction inverse(obj) {\n  let retobj = { };\n  for(var key in obj) {\n    retobj[obj[key]] = key;\n  }\n\n  return retobj;\n}\n\n// Wait data was saved\nawait new Promise(resolve => setTimeout(resolve, 20));\n\nglobal.set('rlink', inverse(global.get('kernel.link')));\n\nmsg.payload = '';\n\n// Wait data was saved\nawait new Promise(resolve => setTimeout(resolve, 20));\n\nreturn msg;",
+        "func": "// Keep up to date reverse links\n\nfunction inverse(obj) {\n  let retobj = { };\n  for(var key in obj) {\n    retobj[obj[key]] = key;\n  }\n\n  return retobj;\n}\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\nglobal.set('rlink', inverse(global.get('kernel.link')));\n\nmsg.payload = '';\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -5990,7 +6036,7 @@
         "skipBodyParsing": false,
         "swaggerDoc": "",
         "x": 220,
-        "y": 3940,
+        "y": 4040,
         "wires": [
             [
                 "c684af5ea5b26d2e"
@@ -6332,7 +6378,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "data",
-        "func": "// Compute period state\n\nmsg.payload = '';\n\nlet final_teams = flow.get('teams') || { };\nlet final_periods = { };\nlet final_pilots = { };\n\ndelete msg.row;\ndelete msg.settings;\ndelete msg.outTz;\ndelete msg.team;\nflow.set('teams', undefined);\n\nconst periods = global.get('kernel.period') || { };\nfor (const line in periods) {\n    final_periods[line] = false;\n\n    /* line program is enabled */\n    if (global.get('kernel.disabled[\"' + line + '\"]') === false) {\n        /* no periods set for this line */\n        if (periods[line] === '') {\n            /* set to off */\n            final_pilots[line] = false;\n        } else {\n            let exists = false;\n            const plant = global.get('kernel.lines[\"' + line + '\"]');\n            const teams = periods[line].split(\"\");\n            for (const i in teams) {\n                if (typeof final_teams[plant][teams[i]] === 'boolean') {\n                    exists = true;\n                    if (final_teams[plant][teams[i]] === true) {\n                        final_periods[line] = true;\n                    }\n                }\n            }\n            if (exists) {\n                final_pilots[line] = final_periods[line];\n            }\n        }\n    }\n}\n\nconst states = global.get('kernel.state') || { };\nfor (const entity in states) {\n    let esplit = entity.split('|');\n    let equipment = esplit[0];\n    let component = esplit[1];\n    let line = global.get('kernel.equipments[\"' + equipment + '\"]');\n\n    let pilot = final_pilots[line];\n    if (typeof pilot === 'boolean'\n        && typeof global.get('kernel.link[\"' + entity + '\"]') === 'string'\n        && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(component)\n    ) {\n        let state = states[equipment + '|run'] || '';\n        if (typeof state === 'number' && state === 1 && pilot === false) {\n            /* do not pilot heat to off if equipment is running */\n        } else {\n            msg.kernel = {\n                'type': 'state',\n                'entity': entity,\n                'value': pilot === true ? 1 : 0,\n                'loop': false\n            };\n\n            msg.telegram = {\n                'type': 'period',\n                'value': pilot,\n                'entity': equipment,\n                'change': msg.kernel.value !== states[entity]\n            };\n\n            if (component === 'heatpulse') {\n                /* pulse only if current state is not the one we want */\n                if (msg.kernel.value !== (states[equipment + '|heat'] || '-')) {\n                    /* pulse */\n                    msg.kernel.value = 1;\n                    node.send(msg);\n\n                    await new Promise(resolve => setTimeout(resolve, 500));\n                    msg.kernel.value = 0;\n                    delete msg.telegram;\n                    node.send(msg);\n                }\n            } else {\n                node.send(msg);\n            }\n\n            node.status({\n                'fill': pilot ? 'green' : 'red',\n                'text': entity + ' = ' + pilot\n            });\n        }\n    }\n}\n\nreturn;",
+        "func": "// Compute period state\n\nmsg.payload = '';\n\nlet final_teams = flow.get('teams') || { };\nlet final_periods = { };\nlet final_pilots = { };\n\ndelete msg.row;\ndelete msg.settings;\ndelete msg.outTz;\ndelete msg.team;\nflow.set('teams', undefined);\n\nconst periods = global.get('kernel.period') || { };\nfor (const line in periods) {\n    final_periods[line] = false;\n\n    /* line program is enabled */\n    if (global.get('kernel.disabled[\"' + line + '\"]') !== true) {\n        /* no periods set for this line */\n        if (periods[line] === '') {\n            /* set to off */\n            final_pilots[line] = false;\n        } else {\n            let exists = false;\n            const plant = global.get('kernel.lines[\"' + line + '\"]');\n            const teams = periods[line].split(\"\");\n            for (const i in teams) {\n                if (typeof final_teams[plant][teams[i]] === 'boolean') {\n                    exists = true;\n                    if (final_teams[plant][teams[i]] === true) {\n                        final_periods[line] = true;\n                    }\n                }\n            }\n            if (exists) {\n                final_pilots[line] = final_periods[line];\n            }\n        }\n    }\n}\n\nconst states = global.get('kernel.state') || { };\nfor (const entity in states) {\n    let esplit = entity.split('|');\n    let equipment = esplit[0];\n    let component = esplit[1];\n    let line = global.get('kernel.equipments[\"' + equipment + '\"]') || '-';\n\n    let pilot = final_pilots[line];\n    if (typeof pilot === 'boolean'\n        && typeof global.get('kernel.link[\"' + entity + '\"]') === 'string'\n        && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(component)\n    ) {\n        let state = states[equipment + '|run'] || '';\n        if (typeof state === 'number' && state === 1 && pilot === false) {\n            /* do not pilot heat to off if equipment is running */\n        } else {\n            msg.kernel = {\n                'type': 'state',\n                'entity': entity,\n                'value': pilot === true ? 1 : 0,\n                'loop': false\n            };\n\n            msg.telegram = {\n                'type': 'period',\n                'value': pilot,\n                'entity': equipment,\n                'change': msg.kernel.value !== states[entity]\n            };\n\n            if (component === 'heatpulse') {\n                /* pulse only if current state is not the one we want */\n                if (msg.kernel.value !== (states[equipment + '|heat'] || '-')) {\n                    /* pulse */\n                    msg.kernel.value = 1;\n                    node.send(msg);\n\n                    // Wait pulse duration\n                    await new Promise(resolve => setTimeout(resolve, 500));\n                    msg.kernel.value = 0;\n                    delete msg.telegram;\n                    node.send(msg);\n                }\n            } else {\n                node.send(msg);\n            }\n\n            node.status({\n                'fill': pilot ? 'green' : 'red',\n                'text': entity + ' = ' + pilot\n            });\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6405,7 +6451,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "fc6029b7d49d1e93",
         "name": "data",
-        "func": "// Parse users backup\n\nlet has_admin = false;\n\nif (typeof msg.payload === 'object') {\n    for (const login in msg.payload) {\n        if (typeof msg.payload[login][\"pass\"] === 'string'\n            && typeof msg.payload[login][\"pass\"] === 'string'\n            && typeof msg.payload[login][\"plant\"] === 'string'\n            && typeof msg.payload[login][\"level\"] === 'string'\n        ) {\n            if (typeof msg.payload[login][\"lang\"] !== 'string') {\n                msg.payload[login][\"lang\"] = 'fr';\n            }\n            if (typeof msg.payload[login][\"telegram\"] !== 'string') {\n                msg.payload[login][\"telegram\"] = '';\n            }\n\n            if (msg.payload[login][\"level\"] === 'admin') {\n                has_admin = true;\n            }\n\n            global.set('auth[\"' + login + '\"]', {\n                'pass': msg.payload[login][\"pass\"],\n                'level': msg.payload[login][\"level\"],\n                'plant': msg.payload[login][\"plant\"],\n                'lang': msg.payload[login][\"lang\"],\n                'telegram': msg.payload[login][\"telegram\"]\n            });\n        }\n    }\n}\n\ndelete msg.automate;\ndelete msg.filename;\n\n// Wait data was saved\nawait new Promise(resolve => setTimeout(resolve, 10));\n\n// Check if backup contents admin\nif (has_admin) {\n\n    return;\n}\n\nreturn msg;",
+        "func": "// Parse users backup\n\nlet has_admin = false;\n\nif (typeof msg.payload === 'object') {\n    for (const login in msg.payload) {\n        if (typeof msg.payload[login][\"pass\"] === 'string'\n            && typeof msg.payload[login][\"pass\"] === 'string'\n            && typeof msg.payload[login][\"plant\"] === 'string'\n            && typeof msg.payload[login][\"level\"] === 'string'\n        ) {\n            if (typeof msg.payload[login][\"lang\"] !== 'string') {\n                msg.payload[login][\"lang\"] = 'fr';\n            }\n            if (typeof msg.payload[login][\"telegram\"] !== 'string') {\n                msg.payload[login][\"telegram\"] = '';\n            }\n\n            if (msg.payload[login][\"level\"] === 'admin') {\n                has_admin = true;\n            }\n\n            global.set('auth[\"' + login + '\"]', {\n                'pass': msg.payload[login][\"pass\"],\n                'level': msg.payload[login][\"level\"],\n                'plant': msg.payload[login][\"plant\"],\n                'lang': msg.payload[login][\"lang\"],\n                'telegram': msg.payload[login][\"telegram\"]\n            });\n        }\n    }\n}\n\ndelete msg.automate;\ndelete msg.filename;\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\n// Check if backup contents admin\nif (has_admin) {\n\n    return;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6526,7 +6572,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "data",
-        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // on (re)boot, load kernel backup\n    global.set('kernel', (global.get('kernel_bk', 'file') || { }));\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', global.get('kernel'), 'file');\n}\n\ndelete msg.boot;\n\n// Wait data was saved\nawait new Promise(resolve => setTimeout(resolve, 20));\n\nreturn msg;",
+        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // on (re)boot, load kernel backup\n    global.set('kernel', (global.get('kernel_bk', 'file') || { }));\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', global.get('kernel'), 'file');\n}\n\ndelete msg.boot;\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7170,7 +7216,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "data",
-        "func": "if (msg.payload === '') {\n    // Wait data was saved\n    await new Promise(resolve => setTimeout(resolve, 5));\n\n    // Kernel\n    return [ msg, null ];\n}\n\n// Wait ui redirect\nawait new Promise(resolve => setTimeout(resolve, 50));\n\n// Notice\nreturn [ null, msg ];",
+        "func": "if (msg.payload === '') {\n    // Wait data update\n    //msg = await node.linkcall('wait - data', msg);\n\n    // Kernel\n    return [ msg, null ];\n}\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\n// Notice\nreturn [ null, msg ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7290,7 +7336,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 3700,
+        "y": 3760,
         "wires": [
             [
                 "359336bc8ac8947e"
@@ -7314,7 +7360,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 3700,
+        "y": 3760,
         "wires": [
             [
                 "37ef0dacd1f0e952"
@@ -7327,7 +7373,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
         "name": "data",
-        "func": "// Get HTTP response for opta ota firmware response\n\nif ((global.get('opta.version', 'file') || 0) > 0\n    && (global.get('opta.buffer', 'file') || '') !== ''\n) {\n    msg.payload = [ ...(global.get('opta.buffer', 'file') || []) ];\n    msg.headers = {\n        'Accept-Ranges':'bytes',\n        'Content-Type':'application/octet-stream',\n        'Content-Length':msg.payload.length,\n        'Connection':'close',\n        'Content-Disposition':' attachment; filename=\"' + global.get('opta.version', 'file') + '.ota\"'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
+        "func": "// Get HTTP response for opta ota firmware response\n\nif ((global.get('opta.version', 'file') || 0) > 0\n    && (global.get('opta.buffer', 'file') || '') !== ''\n) {\n    msg.payload = [ ...(global.get('opta.buffer', 'file') || []) ];\n\n    msg.headers = {\n        'Accept-Ranges':'bytes',\n        'Content-Type':'application/octet-stream',\n        'Content-Length':msg.payload.length,\n        'Connection':'close',\n        'Content-Disposition':' attachment; filename=\"' + global.get('opta.version', 'file') + '.ota\"'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7335,7 +7381,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 3880,
+        "y": 3980,
         "wires": [
             [
                 "37ef0dacd1f0e952"
@@ -7354,29 +7400,8 @@
         "statusCode": "404",
         "headers": {},
         "x": 910,
-        "y": 4120,
+        "y": 3700,
         "wires": []
-    },
-    {
-        "id": "185e7efaa5a871d0",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "g": "64e28c88b4c7b710",
-        "name": "data",
-        "func": "// Bad request\n\nmsg.payload = '';\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 750,
-        "y": 4000,
-        "wires": [
-            [
-                "6eaf225aac0649db"
-            ]
-        ]
     },
     {
         "id": "c684af5ea5b26d2e",
@@ -7392,7 +7417,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 3940,
+        "y": 4040,
         "wires": [
             [
                 "37ef0dacd1f0e952"
@@ -7416,7 +7441,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 3760,
+        "y": 3860,
         "wires": [
             [
                 "37ef0dacd1f0e952"
@@ -7432,7 +7457,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
         "name": "data",
-        "func": "// Get http reponse for kernel backup\n\nif (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random') || '').toString()) {\n    msg.payload = { ...(global.get('kernel') || { }) };\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Disposition': 'attachment; filename=\"kernel.backup.json\"',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\nelse {\n    msg.payload = '';\n\n    return [null, msg];\n}",
+        "func": "// Get http reponse for kernel backup\n\nif (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random') || '').toString()) {\n    msg.payload = JSON.stringify(global.get('kernel'));\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Disposition': 'attachment; filename=\"kernel.backup.json\"',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\nelse {\n    msg.payload = '';\n\n    return [null, msg];\n}",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7440,7 +7465,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 3820,
+        "y": 3920,
         "wires": [
             [
                 "37ef0dacd1f0e952"
@@ -7589,7 +7614,7 @@
         "skipBodyParsing": false,
         "swaggerDoc": "",
         "x": 220,
-        "y": 4120,
+        "y": 3700,
         "wires": [
             [
                 "4c04568e727d9c3e"
@@ -7610,7 +7635,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 4120,
+        "y": 3700,
         "wires": [
             [
                 "ad00c0bf6ff55efe"
@@ -7634,7 +7659,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 4060,
+        "y": 3700,
         "wires": [
             [
                 "37ef0dacd1f0e952"
@@ -7650,12 +7675,98 @@
         "action": "",
         "property": "payload",
         "x": 590,
-        "y": 4060,
+        "y": 3700,
         "wires": [
             [
                 "dae34187af7a074d"
             ]
         ]
+    },
+    {
+        "id": "668f8c2606240642",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "1m/s",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 3920,
+        "wires": [
+            [
+                "c70ea2cf1d1f49a8"
+            ],
+            [
+                "94ba0fd87c23ff38"
+            ]
+        ],
+        "info": "browser send 2 successive messages !!!!"
+    },
+    {
+        "id": "94ba0fd87c23ff38",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "1m/s",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 3940,
+        "wires": [
+            [
+                "c70ea2cf1d1f49a8"
+            ]
+        ]
+    },
+    {
+        "id": "cf21433f7f25224a",
+        "type": "delay",
+        "z": "f6f2187d.f17ca8",
+        "g": "64e28c88b4c7b710",
+        "name": "1m/s",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 3860,
+        "wires": [
+            [
+                "e5f40d53235d0aed"
+            ],
+            [
+                "51fd87fb2d0f8249"
+            ]
+        ],
+        "info": "browser send 2 successive messages !!!!"
     },
     {
         "id": "2ee1493983ba4b61",
@@ -8798,6 +8909,150 @@
         ]
     },
     {
+        "id": "1bb2db855a04d0bd",
+        "type": "link in",
+        "z": "adb9fbf379118d77",
+        "g": "a7690ab9b2b9f8fd",
+        "name": "wait - ui",
+        "links": [],
+        "x": 1905,
+        "y": 320,
+        "wires": [
+            [
+                "155df541cc6a629f"
+            ]
+        ]
+    },
+    {
+        "id": "155df541cc6a629f",
+        "type": "function",
+        "z": "adb9fbf379118d77",
+        "g": "a7690ab9b2b9f8fd",
+        "name": "data",
+        "func": "\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2030,
+        "y": 320,
+        "wires": [
+            [
+                "113e9bb7526cfa73"
+            ]
+        ]
+    },
+    {
+        "id": "113e9bb7526cfa73",
+        "type": "link out",
+        "z": "adb9fbf379118d77",
+        "g": "a7690ab9b2b9f8fd",
+        "name": "wait - ui",
+        "mode": "return",
+        "links": [],
+        "x": 2155,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "06121e6d31f80687",
+        "type": "link in",
+        "z": "adb9fbf379118d77",
+        "g": "fa41b54bf1c36fe8",
+        "name": "wait - data",
+        "links": [],
+        "x": 1905,
+        "y": 440,
+        "wires": [
+            [
+                "85fb7c42bdaffd47"
+            ]
+        ]
+    },
+    {
+        "id": "85fb7c42bdaffd47",
+        "type": "function",
+        "z": "adb9fbf379118d77",
+        "g": "fa41b54bf1c36fe8",
+        "name": "data",
+        "func": "\nawait new Promise(resolve => setTimeout(resolve, 10));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2030,
+        "y": 440,
+        "wires": [
+            [
+                "a3c44406daa0b106"
+            ]
+        ]
+    },
+    {
+        "id": "a3c44406daa0b106",
+        "type": "link out",
+        "z": "adb9fbf379118d77",
+        "g": "fa41b54bf1c36fe8",
+        "name": "wait - data",
+        "mode": "return",
+        "links": [],
+        "x": 2155,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b2bc9166528cc416",
+        "type": "link in",
+        "z": "adb9fbf379118d77",
+        "g": "f78652bda367bea4",
+        "name": "wait - long",
+        "links": [],
+        "x": 1905,
+        "y": 560,
+        "wires": [
+            [
+                "a9160230a18ff449"
+            ]
+        ]
+    },
+    {
+        "id": "a9160230a18ff449",
+        "type": "function",
+        "z": "adb9fbf379118d77",
+        "g": "f78652bda367bea4",
+        "name": "data",
+        "func": "\nawait new Promise(resolve => setTimeout(resolve, 500));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2030,
+        "y": 560,
+        "wires": [
+            [
+                "af7e5ed43a6bc8c7"
+            ]
+        ]
+    },
+    {
+        "id": "af7e5ed43a6bc8c7",
+        "type": "link out",
+        "z": "adb9fbf379118d77",
+        "g": "f78652bda367bea4",
+        "name": "wait - long",
+        "mode": "return",
+        "links": [],
+        "x": 2155,
+        "y": 560,
+        "wires": []
+    },
+    {
         "id": "48c679cabeacfa79",
         "type": "telegram command",
         "z": "c886080f59e5c106",
@@ -9007,21 +9262,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]plant",
+                "p": "tree[msg.user.telegram]plant",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]line",
+                "p": "tree[msg.user.telegram]line",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]equipment",
+                "p": "tree[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
@@ -9088,14 +9343,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]line",
+                "p": "tree[msg.user.telegram]line",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]equipment",
+                "p": "tree[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "",
                 "tot": "str"
@@ -9123,7 +9378,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]equipment",
+                "p": "tree[msg.user.telegram]equipment",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
@@ -9132,14 +9387,14 @@
                 "t": "set",
                 "p": "plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::tree[msg.user.telegram]plant",
+                "to": "tree[msg.user.telegram]plant",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::tree[msg.user.telegram]line",
+                "to": "tree[msg.user.telegram]line",
                 "tot": "flow"
             }
         ],
@@ -9252,7 +9507,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "user",
-        "property": "#:(memoryOnly)::tree",
+        "property": "tree",
         "propertyType": "flow",
         "rules": [
             {
@@ -9295,7 +9550,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "state",
-        "property": "#:(memoryOnly)::kernel.state",
+        "property": "kernel.state",
         "propertyType": "global",
         "rules": [
             {
@@ -9373,7 +9628,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]state",
+                "p": "tree[msg.user.telegram]state",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
@@ -9382,14 +9637,14 @@
                 "t": "set",
                 "p": "equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::tree[msg.user.telegram]equipment",
+                "to": "tree[msg.user.telegram]equipment",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::tree[msg.user.telegram]line",
+                "to": "tree[msg.user.telegram]line",
                 "tot": "flow"
             }
         ],
@@ -9412,7 +9667,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "state",
-        "property": "#:(memoryOnly)::kernel.state",
+        "property": "kernel.state",
         "propertyType": "global",
         "rules": [
             {
@@ -9596,7 +9851,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "period",
-        "property": "#:(memoryOnly)::kernel.disabled[msg.line]",
+        "property": "kernel.disabled[msg.line]",
         "propertyType": "global",
         "rules": [
             {
@@ -9671,7 +9926,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::tree[msg.user.telegram]period",
+                "p": "tree[msg.user.telegram]period",
                 "pt": "flow",
                 "to": "entity",
                 "tot": "msg"
@@ -9680,14 +9935,14 @@
                 "t": "set",
                 "p": "equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::tree[msg.user.telegram]equipment",
+                "to": "tree[msg.user.telegram]equipment",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::tree[msg.user.telegram]line",
+                "to": "tree[msg.user.telegram]line",
                 "tot": "flow"
             }
         ],
@@ -9907,7 +10162,7 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]",
+                "p": "sentence[msg.user.telegram]",
                 "pt": "flow",
                 "to": "{\t    'time':$millis(),\t    'sentence':msg.payload.content,\t    'words':$split(msg.payload.content,' '),\t    'left':{}\t}",
                 "tot": "jsonata"
@@ -9916,7 +10171,7 @@
                 "t": "set",
                 "p": "needles",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]words",
+                "to": "sentence[msg.user.telegram]words",
                 "tot": "flow"
             }
         ],
@@ -10105,19 +10360,19 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]state",
+                "p": "sentence[msg.user.telegram]state",
                 "pt": "flow",
                 "to": "haystack",
                 "tot": "msg"
             },
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]left[msg.needle]",
+                "p": "sentence[msg.user.telegram]left[msg.needle]",
                 "pt": "flow"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]state_name",
+                "p": "sentence[msg.user.telegram]state_name",
                 "pt": "flow",
                 "to": "msg.haystack=1?'Activer':'Désactiver'",
                 "tot": "jsonata"
@@ -10179,7 +10434,7 @@
         "z": "c886080f59e5c106",
         "g": "2bb43b669f72b0e4",
         "name": "has state",
-        "property": "#:(memoryOnly)::sentence[msg.user.telegram]",
+        "property": "sentence[msg.user.telegram]",
         "propertyType": "flow",
         "rules": [
             {
@@ -10388,7 +10643,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['left'][msg.needles]",
+                "p": "sentence[msg.user.telegram]['left'][msg.needles]",
                 "pt": "flow",
                 "to": "0",
                 "tot": "num"
@@ -10448,7 +10703,7 @@
                 "t": "set",
                 "p": "needles",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]left",
+                "to": "sentence[msg.user.telegram]left",
                 "tot": "flow"
             }
         ],
@@ -10504,7 +10759,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['left'][msg.needles]",
+                "p": "sentence[msg.user.telegram]['left'][msg.needles]",
                 "pt": "flow",
                 "to": "1",
                 "tot": "num"
@@ -10534,7 +10789,7 @@
                 "t": "set",
                 "p": "haystack",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]left",
+                "to": "sentence[msg.user.telegram]left",
                 "tot": "flow"
             }
         ],
@@ -10613,7 +10868,7 @@
         "rules": [
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['left'][msg.needle]",
+                "p": "sentence[msg.user.telegram]['left'][msg.needle]",
                 "pt": "flow"
             }
         ],
@@ -10726,7 +10981,7 @@
                 "t": "set",
                 "p": "needles",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]left",
+                "to": "sentence[msg.user.telegram]left",
                 "tot": "flow"
             }
         ],
@@ -10754,7 +11009,7 @@
                 "t": "set",
                 "p": "needles",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]left",
+                "to": "sentence[msg.user.telegram]left",
                 "tot": "flow"
             }
         ],
@@ -10851,19 +11106,19 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]component",
+                "p": "sentence[msg.user.telegram]component",
                 "pt": "flow",
                 "to": "heatswitch",
                 "tot": "str"
             },
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['left'][msg.needle]",
+                "p": "sentence[msg.user.telegram]['left'][msg.needle]",
                 "pt": "flow"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]component_name",
+                "p": "sentence[msg.user.telegram]component_name",
                 "pt": "flow",
                 "to": "la chauffe",
                 "tot": "str"
@@ -10918,7 +11173,7 @@
         "z": "c886080f59e5c106",
         "g": "2bb43b669f72b0e4",
         "name": "has component",
-        "property": "#:(memoryOnly)::sentence[msg.user.telegram]",
+        "property": "sentence[msg.user.telegram]",
         "propertyType": "flow",
         "rules": [
             {
@@ -10967,7 +11222,7 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]equipments",
+                "p": "sentence[msg.user.telegram]equipments",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
@@ -11044,7 +11299,7 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.row.equipment]",
+                "p": "sentence[msg.user.telegram]['equipments'][msg.row.equipment]",
                 "pt": "flow",
                 "to": "0",
                 "tot": "num"
@@ -11128,19 +11383,19 @@
                 "t": "set",
                 "p": "tmp",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.row.equipment]",
+                "to": "sentence[msg.user.telegram]['equipments'][msg.row.equipment]",
                 "tot": "flow"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.row.equipment]",
+                "p": "sentence[msg.user.telegram]['equipments'][msg.row.equipment]",
                 "pt": "flow",
                 "to": "msg.tmp+1",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['match'][msg.needle]",
+                "p": "sentence[msg.user.telegram]['match'][msg.needle]",
                 "pt": "flow",
                 "to": "1",
                 "tot": "num"
@@ -11230,7 +11485,7 @@
                 "t": "set",
                 "p": "haystack",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]left",
+                "to": "sentence[msg.user.telegram]left",
                 "tot": "flow"
             }
         ],
@@ -11274,7 +11529,7 @@
         "z": "c886080f59e5c106",
         "g": "2bb43b669f72b0e4",
         "name": "compare",
-        "property": "#:(memoryOnly)::sentence[msg.user.telegram]['match']",
+        "property": "sentence[msg.user.telegram]['match']",
         "propertyType": "flow",
         "rules": [
             {
@@ -11309,7 +11564,7 @@
         "rules": [
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['left'][msg.needle]",
+                "p": "sentence[msg.user.telegram]['left'][msg.needle]",
                 "pt": "flow"
             }
         ],
@@ -11431,7 +11686,7 @@
                 "t": "set",
                 "p": "haystack",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]equipments",
+                "to": "sentence[msg.user.telegram]equipments",
                 "tot": "flow"
             }
         ],
@@ -11540,7 +11795,7 @@
         "rules": [
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.equipment]",
+                "p": "sentence[msg.user.telegram]['equipments'][msg.equipment]",
                 "pt": "flow"
             }
         ],
@@ -11563,7 +11818,7 @@
         "z": "c886080f59e5c106",
         "g": "2bb43b669f72b0e4",
         "name": "has equipment",
-        "property": "#:(memoryOnly)::sentence[msg.user.telegram]",
+        "property": "sentence[msg.user.telegram]",
         "propertyType": "flow",
         "rules": [
             {
@@ -11598,7 +11853,7 @@
                 "t": "set",
                 "p": "row.state",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['state']",
+                "to": "sentence[msg.user.telegram]['state']",
                 "tot": "flow"
             },
             {
@@ -11612,33 +11867,33 @@
                 "t": "set",
                 "p": "row.state_name",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['state_name']",
+                "to": "sentence[msg.user.telegram]['state_name']",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "row.component",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['component']",
+                "to": "sentence[msg.user.telegram]['component']",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "row.component_name",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['component_name']",
+                "to": "sentence[msg.user.telegram]['component_name']",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "tmp",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['opts']",
+                "to": "sentence[msg.user.telegram]['opts']",
                 "tot": "flow"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['opts']",
+                "p": "sentence[msg.user.telegram]['opts']",
                 "pt": "flow",
                 "to": "$append(msg.tmp,msg.row)",
                 "tot": "jsonata"
@@ -11666,7 +11921,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::sentence[msg.user.telegram]['opts']",
+                "p": "sentence[msg.user.telegram]['opts']",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
@@ -11675,7 +11930,7 @@
                 "t": "set",
                 "p": "rows",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['equipments']",
+                "to": "sentence[msg.user.telegram]['equipments']",
                 "tot": "flow"
             },
             {
@@ -11782,7 +12037,7 @@
                 "t": "set",
                 "p": "options",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::sentence[msg.user.telegram]['opts']",
+                "to": "sentence[msg.user.telegram]['opts']",
                 "tot": "flow"
             },
             {
@@ -12135,7 +12390,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "has state",
-        "property": "#:(memoryOnly)::kernel.state",
+        "property": "kernel.state",
         "propertyType": "global",
         "rules": [
             {
@@ -12188,7 +12443,7 @@
         "z": "c886080f59e5c106",
         "g": "9530b4911db3e343",
         "name": "state",
-        "property": "#:(memoryOnly)::kernel.state",
+        "property": "kernel.state",
         "propertyType": "global",
         "rules": [
             {
@@ -12256,7 +12511,7 @@
         "z": "c886080f59e5c106",
         "g": "c02c15caf5410947",
         "name": "data",
-        "func": "// Boot message\n\nawait new Promise(resolve => setTimeout(resolve, 1000));\n\nreturn {\n    'topic': '',\n    'payload': {\n        'type': 'message',\n        'content': '[Boot] Application process starts'\n    }\n}",
+        "func": "// Boot message\n\n// Wait long update\nmsg = await node.linkcall('wait - long', msg);\n\nreturn {\n    'topic': '',\n    'payload': {\n        'type': 'message',\n        'content': '[Boot] Application process starts'\n    }\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -12451,14 +12706,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.model.opta",
+                "p": "describe.model.opta",
                 "pt": "global",
                 "to": "Arduino Findernet Opta Series",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.convert.opta",
+                "p": "describe.convert.opta",
                 "pt": "global",
                 "to": "{\t    'run': 'i|state',\t    'runmeter': 'i|partialHigh',\t    'runmetertotal': 'i|high',\t    'runreset': 'i|reset',\t    'cycle': 'i|state',\t    'cyclemeter': 'i|partialPulse',\t    'cyclemetertotal': 'i|pulse',\t    'cyclereset': 'i|reset',\t    'heat': 'i|state',\t    'voltage': 'i|voltage',\t    'heatswitch': 'o|state',\t    'heattoggle': 'o|state',\t    'heatlink': 'o|state',\t    'heatpulse': 'o|state',\t    'runmirror': 'o|state',\t    'cyclemirror': 'o|state'\t}",
                 "tot": "jsonata"
@@ -12631,14 +12886,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.model.tcw122bcm",
+                "p": "describe.model.tcw122bcm",
                 "pt": "global",
                 "to": "Teracom Systems TCW122B-CM",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.convert.tcw122bcm",
+                "p": "describe.convert.tcw122bcm",
                 "pt": "global",
                 "to": "{\t    'run':'DigitalInput',\t    'cycle':'DigitalInput',\t    'heat':'DigitalInput',\t    'voltage':'AnalogInput',\t    'heatswitch':'r',\t    'heattoggle':'r',\t    'heatlink':'r',\t    'heatpulse':'r'\t}",
                 "tot": "jsonata"
@@ -12872,14 +13127,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.model.ep32s3eth8di8ro",
+                "p": "describe.model.ep32s3eth8di8ro",
                 "pt": "global",
                 "to": "Waveshare - ESP32-S3-ETH-8DI-8RO",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.endpoint.ep32s3eth8di8ro",
+                "p": "describe.endpoint.ep32s3eth8di8ro",
                 "pt": "global",
                 "to": "{\t    'input1':'Etat entrée 1',\t    'input2':'Etat entrée 2',\t    'input3':'Etat entrée 3',\t    'input4':'Etat entrée 4',\t    'input5':'Etat entrée 5',\t    'input6':'Etat entrée 6',\t    'input7':'Etat entrée 7',\t    'input8':'Etat entrée 8',\t    'relay1':'Commande de sortie 1',\t    'relay2':'Commande de sortie 2',\t    'relay3':'Commande de sortie 3',\t    'relay4':'Commande de sortie 4',\t    'relay5':'Commande de sortie 5',\t    'relay6':'Commande de sortie 6',\t    'relay7':'Commande de sortie 7',\t    'relay8':'Commande de sortie 8',\t    'input1partialHigh':\"Compteur partiel d'heures entrée 1\",\t    'input2partialHigh':\"Compteur partiel d'heures entrée 2\",\t    'input3partialHigh':\"Compteur partiel d'heures entrée 3\",\t    'input4partialHigh':\"Compteur partiel d'heures entrée 4\",\t    'input5partialHigh':\"Compteur partiel d'heures entrée 5\",\t    'input6partialHigh':\"Compteur partiel d'heures entrée 6\",\t    'input7partialHigh':\"Compteur partiel d'heures entrée 7\",\t    'input8partialHigh':\"Compteur partiel d'heures entrée 8\",\t    'input1high':\"Compteur total d'heures entrée 1\",\t    'input2high':\"Compteur total d'heures entrée 2\",\t    'input3high':\"Compteur total d'heures entrée 3\",\t    'input4high':\"Compteur total d'heures entrée 4\",\t    'input5high':\"Compteur total d'heures entrée 5\",\t    'input6high':\"Compteur total d'heures entrée 6\",\t    'input7high':\"Compteur total d'heures entrée 7\",\t    'input8high':\"Compteur total d'heures entrée 8\",\t    'input1partialPulse':\"Compteur partiel d'impulstions entrée 1\",\t    'input2partialPulse':\"Compteur partiel d'impulstions entrée 2\",\t    'input3partialPulse':\"Compteur partiel d'impulstions entrée 3\",\t    'input4partialPulse':\"Compteur partiel d'impulstions entrée 4\",\t    'input5partialPulse':\"Compteur partiel d'impulstions entrée 5\",\t    'input6partialPulse':\"Compteur partiel d'impulstions entrée 6\",\t    'input7partialPulse':\"Compteur partiel d'impulstions entrée 7\",\t    'input8partialPulse':\"Compteur partiel d'impulstions entrée 8\",\t    'input1pulse':\"Compteur total d'impulstions entrée 1\",\t    'input2pulse':\"Compteur total d'impulstions entrée 2\",\t    'input3pulse':\"Compteur total d'impulstions entrée 3\",\t    'input4pulse':\"Compteur total d'impulstions entrée 4\",\t    'input5pulse':\"Compteur total d'impulstions entrée 5\",\t    'input6pulse':\"Compteur total d'impulstions entrée 6\",\t    'input7pulse':\"Compteur total d'impulstions entrée 7\",\t    'input8pulse':\"Compteur total d'impulstions entrée 8\",\t    'input1reset':\"Raz compteurs partiels entrée 1\",\t    'input2reset':\"Raz compteurs partiels entrée 2\",\t    'input3reset':\"Raz compteurs partiels entrée 3\",\t    'input4reset':\"Raz compteurs partiels entrée 4\",\t    'input5reset':\"Raz compteurs partiels entrée 5\",\t    'input6reset':\"Raz compteurs partiels entrée 6\",\t    'input7reset':\"Raz compteurs partiels entrée 7\",\t    'input8reset':\"Raz compteurs partiels entrée 8\"\t}",
                 "tot": "jsonata"
@@ -14295,14 +14550,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.model.local",
+                "p": "describe.model.local",
                 "pt": "global",
                 "to": "Local server",
                 "tot": "str"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::describe.convert.local",
+                "p": "describe.convert.local",
                 "pt": "global",
                 "to": "{\t    'load1meter':'load1meter',\t    'load5meter':'load5meter',\t    'load15meter':'load15meter',\t    'memorymeter':'memorymeter',\t    'diskmeter':'diskmeter',\t    'uptime':'uptime'\t}",
                 "tot": "jsonata"
@@ -15030,7 +15285,7 @@
         "z": "27841aa886edd1cd",
         "g": "90f47fc795048184",
         "name": "auth - form",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -15140,7 +15395,7 @@
         "z": "27841aa886edd1cd",
         "g": "90f47fc795048184",
         "name": "data",
-        "func": "// Reset form\nmsg.payload = '';\nmsg.ui_update = {\n    'label': '',\n    'options': [ ]\n}\n\nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send([ msg, msg, msg ]);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\n// Prepare form\nmsg.class = '';\nmsg.enabled = true;\n\n// Use is connected, display level\nif (msg.hmi.login !== '') {\n\n    node.send([ null, msg, null ]);\n    \n    msg.ui_update.label = msg.dictionary.auth.user || 'User: ';\n    msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';\n\n    return [ msg, null, null ];\n}\n\n// User is not connected, display form\nmsg.ui_update.options = [\n    {\n        'type': 'text',\n        'label': msg.dictionary.auth.login || 'Login',\n        'key': 'login',\n        'required': true\n    },\n    {\n        'type': 'password',\n        'label': msg.dictionary.auth.pass || 'Password',\n        'key': 'pass',\n        'required': true\n    }\n];\n\nreturn [ null, null, msg ];",
+        "func": "// Reset form\nmsg.payload = '';\nmsg.ui_update = {\n    'label': '',\n    'options': [ ]\n}\n\nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send([ msg, msg, msg ]);\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\n// Prepare form\nmsg.class = '';\nmsg.enabled = true;\n\n// User is connected, display level\nif (msg.hmi.login !== '') {\n\n    node.send([ null, msg, null ]);\n    \n    msg.ui_update.label = msg.dictionary.auth.user || 'User: ';\n    msg.payload = msg.dictionary.option_level[msg.hmi.level] || '';\n\n    return [ msg, null, null ];\n}\n\n// User is not connected, display form\nmsg.ui_update.options = [\n    {\n        'type': 'text',\n        'label': msg.dictionary.auth.login || 'Login',\n        'key': 'login',\n        'required': true\n    },\n    {\n        'type': 'password',\n        'label': msg.dictionary.auth.pass || 'Password',\n        'key': 'pass',\n        'required': true\n    }\n];\n\nreturn [ null, null, msg ];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -15167,7 +15422,7 @@
         "z": "27841aa886edd1cd",
         "g": "90f47fc795048184",
         "name": "data",
-        "func": "// Disconnect user\nlet user = global.get('user') || { };\ndelete user[ msg._client.socketId ]; // auto\n\ndelete msg.ui_update;\n\nreturn msg;",
+        "func": "// Disconnect user\nlet user = global.get('user'); // autoupdate\n\ndelete user[ msg._client.socketId ];\n\ndelete msg.ui_update;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15293,7 +15548,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.payload === '') {\n\n    // Prevent user form reset\n    return;\n}\n\n// Get plant\nmsg = await node.linkcall('form - plant', msg);\n\nmsg.reset = true;\n\nnode.send([ null, msg ]);\n\nawait new Promise(resolve => setTimeout(resolve, 100));\n\ndelete msg.reset;\n\nreturn [ msg, null ];",
+        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.payload === '') {\n\n    // Prevent user form reset\n    return;\n}\n\n// Get plant\nmsg = await node.linkcall('form - plant', msg);\n\nmsg.reset = true;\n\nnode.send([ null, msg ]);\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\ndelete msg.reset;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -15317,7 +15572,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "// Get plant map\n\nmsg.plant = msg.payload;\n\n// Reset UI\nif (msg.enabled !== true \n    || msg.plant === '' \n    || typeof global.get('kernel.map[\"' + msg.plant +'\"]') !== 'string'\n) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.plant = 'none'; // required for http get\n    msg.payload = { };\n\n    return msg;\n}\n\nawait new Promise(resolve => setTimeout(resolve, 500));\n\n// Get memories\nconst location = global.get('kernel.location') || { };\nconst lines = global.get('kernel.lines') || { };\nconst equipments = global.get('kernel.equipments') || { };\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = { };\n\nlet heat_color = msg.dictionary.option_color.theme + '00'; // transparent\nlet run_on = 0;\nlet run_off = 0;\nlet heat_on = 0;\nlet heat_off = 0;\n\nfor (const l in location) {\n    if (typeof lines[l] === 'string' && lines[l] === msg.plant) {\n        heat_color = msg.dictionary.option_color.theme + '00';\n        run_on = 0;\n        run_off = 0;\n        heat_on = 0;\n        heat_off = 0;\n\n        // Get line equipements\n        for (const e in equipments) {\n            if (equipments[e] === l) {\n                let heat = global.get('kernel.state[\"' + e + '|heat\"]');\n                if (typeof heat === 'number') {\n                    if (heat === 1) {\n                        heat_on++;\n                    }\n                    else {\n                        heat_off++;\n                    }\n                }\n            \n                let run_state = global.get('kernel.state[\"' + e + '|run\"]');\n                if (typeof run_state === 'number') {\n                    if (run_state > 0) {\n                        run_on++;\n                    }\n                    else {\n                        run_off++;\n                    }\n                }\n            }\n        }\n        if (heat_on > 0 && heat_off === 0) {\n            heat_color = msg.dictionary.option_color.on + 'BB';\n        }\n        else if (heat_off > 0 && heat_on === 0) {\n            heat_color = msg.dictionary.option_color.off + 'BB';\n        }\n        else if (heat_on > 0 && heat_off > 0) {\n            heat_color = msg.dictionary.option_color.median + 'BB';\n        }\n\n        let split = location[l].split('|');\n        msg.payload[l] = {\n            'title': split[0],\n            'x': Number(split[1]),\n            'y': Number(split[2]),\n            'w': Number(split[3] || 50),\n            'h': Number(split[4] || 40),\n            'c': heat_color,\n            'r': run_on > run_off ? 1 : 0 // more than half of equipments\n        };\n    }\n}\n\nreturn msg;",
+        "func": "// Get plant map\n\nmsg.plant = msg.payload;\n\n// Reset UI\nif (msg.enabled !== true \n    || msg.plant === '' \n    || typeof global.get('kernel.map[\"' + msg.plant +'\"]') !== 'string'\n) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.plant = 'none'; // required for http get\n    msg.payload = { };\n\n    return msg;\n}\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\n// Get memories\nconst location = global.get('kernel.location') || { }; // Read\nconst lines = global.get('kernel.lines') || { }; // Read\nconst equipments = global.get('kernel.equipments') || { }; // Read\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = { };\n\nlet heat_color = msg.dictionary.option_color.theme + '00'; // transparent\nlet run_on = 0;\nlet run_off = 0;\nlet heat_on = 0;\nlet heat_off = 0;\n\nfor (const l in location) {\n    if (typeof lines[l] === 'string' && lines[l] === msg.plant) {\n        heat_color = msg.dictionary.option_color.theme + '00';\n        run_on = 0;\n        run_off = 0;\n        heat_on = 0;\n        heat_off = 0;\n\n        // Get line equipements\n        for (const e in equipments) {\n            if (equipments[e] === l) {\n                let heat = global.get('kernel.state[\"' + e + '|heat\"]');\n                if (typeof heat === 'number') {\n                    if (heat === 1) {\n                        heat_on++;\n                    }\n                    else {\n                        heat_off++;\n                    }\n                }\n            \n                let run_state = global.get('kernel.state[\"' + e + '|run\"]');\n                if (typeof run_state === 'number') {\n                    if (run_state > 0) {\n                        run_on++;\n                    }\n                    else {\n                        run_off++;\n                    }\n                }\n            }\n        }\n        if (heat_on > 0 && heat_off === 0) {\n            heat_color = msg.dictionary.option_color.on + 'BB';\n        }\n        else if (heat_off > 0 && heat_on === 0) {\n            heat_color = msg.dictionary.option_color.off + 'BB';\n        }\n        else if (heat_on > 0 && heat_off > 0) {\n            heat_color = msg.dictionary.option_color.median + 'BB';\n        }\n\n        let split = location[l].split('|');\n        msg.payload[l] = {\n            'title': split[0],\n            'x': Number(split[1]),\n            'y': Number(split[2]),\n            'w': Number(split[3] || 50),\n            'h': Number(split[4] || 40),\n            'c': heat_color,\n            'r': run_on > run_off ? 1 : 0 // more than half of equipments\n        };\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15366,7 +15621,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// { line, plant }\nmsg.data = { ...msg.payload };\n\n// Show dialog\nmsg.payload = {\n    'groups': {\n        'show': ['map - detail - dialog']\n    }\n};\n\nnode.send([ null, msg ]);\n\nawait new Promise(resolve => setTimeout(resolve, 100));\n\n// Send data to dialog\nmsg.payload = msg.data;\n\nreturn [ msg, null ];",
+        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// { line, plant }\nmsg.data = { ...msg.payload };\n\n// Show dialog\nmsg.payload = {\n    'groups': {\n        'show': ['map - detail - dialog']\n    }\n};\n\nnode.send([ null, msg ]);\n\n// Send data to dialog\nmsg.payload = msg.data;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -15415,7 +15670,7 @@
         "z": "05f6b695d75a73cf",
         "g": "97f10c211b33ee2e",
         "name": "data",
-        "func": "await new Promise(resolve => setTimeout(resolve, 100));\n\nmsg.line = msg.payload.line;\n\n// Title\nconst title = global.get('kernel[\"line\"][\"' + msg.line + '\"]') || '';\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = title;\n\nnode.send([ msg, null, null, null ]);\n\n// Get memories (for equipmenets)\nconst equipments = global.get('kernel.equipments') || { };\nconst states = global.get('kernel.state') || { };\nconst alerts = global.get('kernel.alert') || { };\n\nlet c = 0;\nlet child = [];\nfor (const e in equipments) {\n    if (equipments[e] !== msg.line) {\n\n        continue;\n    }\n\n    let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;\n\n    let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';\n\n    let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';\n\n    child[c++] = {\n        'line': msg.line,\n        'equipment': e,\n        'name': global.get('kernel.equipment[\"' + e + '\"]') || e,\n        'alert': '<i class=\"icon-in-row mdi mdi-' + alert_icon + '\" style=\"font-size: 2.2em; color: ' + alert + '\" title=\"alert\"></i>',\n        'heat': '<i class=\"icon-in-row mdi mdi-' + heat_icon + '\" style=\"font-size: 2.2em; color: '+ heat + '\" title=\"heat\"></i>'\n    };\n}\n\nmsg.payload = child;\n\nnode.send([ null, msg, null, null ]);\n\n// Line\nconst period = global.get('kernel.period[\"' + msg.line + '\"]') || '';\nconst split = period.split('');\n\nconst periods = [ 'm', 'a', 'n', 'd', 's' ];\nfor (let i = 0; i < periods.length; i++) {\n    msg.period = periods[i];\n    msg.ui_update = {\n        'buttonColor': split.includes(periods[i]) ? msg.dictionary.option_color.on : msg.dictionary.option_color.off,\n        'label': msg.dictionary.option_team[periods[i]]\n    }\n    node.send([null, null, msg, null ]);\n}\n\n// Disabled\nconst disabled = global.get('kernel.disabled[\"' + msg.line + '\"]') || false;\nmsg.ui_update = {\n    'buttonColor': disabled ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,\n    'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')\n};\nnode.send([null, null, null, msg ]);\n\nreturn;",
+        "func": "// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\nmsg = await node.linkcall('wait - ui', msg); // map is slow...\n\nmsg.line = msg.payload.line;\n\n// Title\nconst title = global.get('kernel[\"line\"][\"' + msg.line + '\"]') || '';\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = title;\n\nnode.send([ msg, null, null, null ]);\n\n// Get memories (for equipmenets)\nconst equipments = global.get('kernel.equipments') || { }; // read\nconst states = global.get('kernel.state') || { }; // read\nconst alerts = global.get('kernel.alert') || { }; // read\n\nlet c = 0;\nlet child = [];\nfor (const e in equipments) {\n    if (equipments[e] !== msg.line) {\n\n        continue;\n    }\n\n    let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;\n\n    let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';\n\n    let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;\n    let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';\n\n    child[c++] = {\n        'line': msg.line,\n        'equipment': e,\n        'name': global.get('kernel.equipment[\"' + e + '\"]') || e,\n        'alert': '<i class=\"icon-in-row mdi mdi-' + alert_icon + '\" style=\"font-size: 2.2em; color: ' + alert + '\" title=\"alert\"></i>',\n        'heat': '<i class=\"icon-in-row mdi mdi-' + heat_icon + '\" style=\"font-size: 2.2em; color: '+ heat + '\" title=\"heat\"></i>'\n    };\n}\n\nmsg.payload = child;\n\nnode.send([ null, msg, null, null ]);\n\n// Line\nconst split = (global.get('kernel.period[\"' + msg.line + '\"]') || '').split('');\nconst periods = [ 'm', 'a', 'n', 'd', 's' ];\n\nfor (let i = 0; i < periods.length; i++) {\n    msg.period = periods[i];\n    msg.ui_update = {\n        'buttonColor': split.includes(periods[i]) ? msg.dictionary.option_color.on : msg.dictionary.option_color.off,\n        'label': msg.dictionary.option_team[periods[i]]\n    }\n    node.send([null, null, msg, null ]);\n}\n\n// Disabled\nconst disabled = global.get('kernel.disabled[\"' + msg.line + '\"]') || false;\nmsg.ui_update = {\n    'buttonColor': disabled ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,\n    'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')\n};\nnode.send([null, null, null, msg ]);\n\nreturn;",
         "outputs": 4,
         "timeout": 0,
         "noerr": 0,
@@ -15787,7 +16042,7 @@
         "z": "05f6b695d75a73cf",
         "g": "97f10c211b33ee2e",
         "name": "data",
-        "func": "if (typeof msg.line !== 'string' || msg.line === '') {\n\n    return;\n}\n\nconst periods = (global.get('kernel.period[\"' + msg.line + '\"]') || '').split('');\n\nif (periods.includes(msg.topic)) {\n    for (let i = 0; i < periods.length; i++) {\n        if (periods[i] === msg.topic) {\n            periods.splice(i, 1);\n        }\n    }\n}\nelse {\n    periods.push(msg.topic)\n}\n\nnode.status({ 'text': periods.join('') });\n\nglobal.set('kernel.period[\"' + msg.line + '\"]', periods.join(''));\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\ndelete msg.ui_update;\n\nmsg.payload = {\n    'line': msg.line\n};\n\nreturn msg;",
+        "func": "if (typeof msg.line !== 'string' || msg.line === '') {\n\n    return;\n}\n\nconst periods = (global.get('kernel.period[\"' + msg.line + '\"]') || '').split('');\n\nif (periods.includes(msg.topic)) {\n    for (let i = 0; i < periods.length; i++) {\n        if (periods[i] === msg.topic) {\n            periods.splice(i, 1);\n        }\n    }\n}\nelse {\n    periods.push(msg.topic)\n}\n\nglobal.set('kernel.period[\"' + msg.line + '\"]', periods.join(''));\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\ndelete msg.ui_update;\n\nmsg.payload = {\n    'line': msg.line\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15854,7 +16109,7 @@
         "z": "05f6b695d75a73cf",
         "g": "97f10c211b33ee2e",
         "name": "data",
-        "func": "if (typeof msg.line !== 'string' || msg.line === '') {\n\n    return;\n}\n\nlet disabled = !(global.get('kernel.disabled[\"' + msg.line + '\"]') || false);\n\nnode.status({ 'text': disabled });\n\nglobal.set('kernel.disabled[\"' + msg.line + '\"]', disabled);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\ndelete msg.ui_update;\n\nmsg.payload = {\n    'line': msg.line\n};\n\nreturn msg;",
+        "func": "if (typeof msg.line !== 'string' || msg.line === '') {\n\n    return;\n}\n\nglobal.set('kernel.disabled[\"' + msg.line + '\"]', !(global.get('kernel.disabled[\"' + msg.line + '\"]') || false));\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\ndelete msg.ui_update;\n\nmsg.payload = {\n    'line': msg.line\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15923,7 +16178,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "\nmsg.payload = {\n    'groups': {\n        [msg.enabled ? 'hide' : 'show' ]: ['map - group']\n    }\n};\n\nreturn msg;",
+        "func": "\n// Toggle map group\nmsg.payload = {\n    'groups': {\n        [msg.enabled ? 'hide' : 'show' ]: ['map - group']\n    }\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15944,7 +16199,7 @@
         "z": "05f6b695d75a73cf",
         "g": "97f10c211b33ee2e",
         "name": "data",
-        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get user form\nlet form = global.get('form') || { };\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\n//form[msg.hmi.id]['plant'] = msg.payload.plant; // auto\nform[msg.hmi.id]['line'] = msg.payload.line; // auto\nform[msg.hmi.id]['equipment'] = msg.payload.equipment; // auto\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn msg;",
+        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get user form\nlet form = global.get('form'); // autoupdate\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\n//form[msg.hmi.id]['plant'] = msg.payload.plant;\nform[msg.hmi.id]['line'] = msg.payload.line;\nform[msg.hmi.id]['equipment'] = msg.payload.equipment;\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -19359,7 +19614,7 @@
                 "t": "set",
                 "p": "dec",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.day[msg.form.plant]",
+                "to": "kernel.day[msg.form.plant]",
                 "tot": "global"
             },
             {
@@ -19597,8 +19852,15 @@
                 "t": "set",
                 "p": "dec",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.day[msg.form.plant]",
+                "to": "kernel.day[msg.form.plant]",
                 "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "dec",
+                "pt": "msg",
+                "to": "6",
+                "tot": "num"
             },
             {
                 "t": "set",
@@ -20235,7 +20497,7 @@
         "z": "852390cb9559e176",
         "g": "d04f02d6e1c02839",
         "name": "component",
-        "property": "#:(memoryOnly)::kernel.link",
+        "property": "kernel.link",
         "propertyType": "global",
         "rules": [
             {
@@ -20829,7 +21091,7 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "data",
-        "func": "// Get states\n\nawait new Promise(resolve => setTimeout(resolve, 100));\n\nlet states = global.get('kernel.state')||{};\nfor (const state in states) {\n    msg.kernel = {\n        'type':'state',\n        'entity': state,\n        'value': states[state]\n    };\n\n    let link = global.get('kernel.link[\"' + msg.kernel.entity + '\"]');\n    if (typeof link === 'string') {\n        let esplit = msg.kernel.entity.split('|');\n        msg.kernel.equipment = esplit[0];\n\n        if ((global.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]')||'') === msg.kernel.equipment) {\n            let lsplit = link.split('|');\n            msg.kernel.device = lsplit[0];\n            msg.kernel.model = lsplit[1];\n            msg.kernel.terminal = lsplit[2];\n            msg.kernel.component = esplit[1];\n            msg.kernel.component_name = msg.dictionary.option_component[msg.kernel.component] || '';\n\n            msg.payload = '';\n            msg.class = '';\n            msg.enabled = true;\n            \n            node.send(msg);\n        }\n    }\n}\n\nreturn;",
+        "func": "// Get states\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\nlet states = global.get('kernel.state')||{};\nfor (const state in states) {\n    msg.kernel = {\n        'type':'state',\n        'entity': state,\n        'value': states[state]\n    };\n\n    let link = global.get('kernel.link[\"' + msg.kernel.entity + '\"]');\n    if (typeof link === 'string') {\n        let esplit = msg.kernel.entity.split('|');\n        msg.kernel.equipment = esplit[0];\n\n        if ((global.get('form[\"' + msg.hmi.id + '\"][\"equipment\"]')||'') === msg.kernel.equipment) {\n            let lsplit = link.split('|');\n            msg.kernel.device = lsplit[0];\n            msg.kernel.model = lsplit[1];\n            msg.kernel.terminal = lsplit[2];\n            msg.kernel.component = esplit[1];\n            msg.kernel.component_name = msg.dictionary.option_component[msg.kernel.component] || '';\n\n            msg.payload = '';\n            msg.class = '';\n            msg.enabled = true;\n            \n            node.send(msg);\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -21223,7 +21485,7 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "data",
-        "func": "// Prepare form\n\nlet hideMsg = {\n    'topic': '',\n    'payload': '',\n    'class': 'remove',\n    'enabled': false,\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\nnode.send([ hideMsg, hideMsg, hideMsg, hideMsg, null ]);\n\nif (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {\n\n    await new Promise(resolve => setTimeout(resolve, 50));\n\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    let form = global.get('form[\"' + msg.hmi.id + '\"]') || { };\n\n    if (typeof form.plant !== 'string') {\n        form.plant = '';\n    }\n\n    if (msg.hmi.plant !== '') {\n        form.plant = msg.hmi.plant;\n    } else {\n        msg.payload = form.plant;\n\n        node.send([ null, msg, null, null, null ]);\n    }\n\n    if (form.plant === '' || typeof form.line !== 'string') {\n        form.line = '';\n    }\n\n    if (form.plant !== '') {\n        msg.limit_plant = form.plant;\n        msg.payload = form.line;\n\n        node.send([ null, null, msg, null, null ]);\n    }\n\n    if (form.line === '' || typeof form.equipment !== 'string') {\n        form.equipment = '';\n    }\n\n    if (form.plant !== '' && form.line !== '') {\n        msg.limit_line = form.line;\n        msg.payload = form.equipment;\n\n        node.send([ null, null, null, msg, null ]);\n    }\n\n    if (form.plant !== '' && form.line !== '' && form.equipment !== '') {\n        delete msg.limit_plant;\n        delete msg.limit_line;\n        msg.payload = '';\n\n        await new Promise(resolve => setTimeout(resolve, 250));\n\n        node.send([ null, null, null, null, msg ]);\n    }\n}\n\nreturn;",
+        "func": "// Prepare form\n\nlet hideMsg = {\n    'topic': '',\n    'payload': '',\n    'class': 'remove',\n    'enabled': false,\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\nnode.send([ hideMsg, hideMsg, hideMsg, hideMsg, null ]);\n\nif (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {\n    \n    // Wait ui update\n    msg = await node.linkcall('wait - ui', msg);\n\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    let form = global.get('form[\"' + msg.hmi.id + '\"]') || { };\n\n    if (typeof form.plant !== 'string') {\n        form.plant = '';\n    }\n\n    if (msg.hmi.plant !== '') {\n        form.plant = msg.hmi.plant;\n    } else {\n        msg.payload = form.plant;\n\n        node.send([ null, msg, null, null, null ]);\n    }\n\n    if (form.plant === '' || typeof form.line !== 'string') {\n        form.line = '';\n    }\n\n    if (form.plant !== '') {\n        msg.limit_plant = form.plant;\n        msg.payload = form.line;\n\n        node.send([ null, null, msg, null, null ]);\n    }\n\n    if (form.line === '' || typeof form.equipment !== 'string') {\n        form.equipment = '';\n    }\n\n    if (form.plant !== '' && form.line !== '') {\n        msg.limit_line = form.line;\n        msg.payload = form.equipment;\n\n        node.send([ null, null, null, msg, null ]);\n    }\n\n    if (form.plant !== '' && form.line !== '' && form.equipment !== '') {\n        delete msg.limit_plant;\n        delete msg.limit_line;\n        msg.payload = '';\n\n        // Wait ? update\n        //msg = await node.linkcall('wait - long', msg);\n\n        node.send([ null, null, null, null, msg ]);\n    }\n}\n\nreturn;",
         "outputs": 5,
         "timeout": 0,
         "noerr": 0,
@@ -22490,7 +22752,7 @@
         "z": "852390cb9559e176",
         "g": "1c87eaf6a557f02d",
         "name": "data",
-        "func": "const form = { ...(global.get('form') || { }) };\nform[msg.hmi.id]['date'] = msg.curday\nglobal.set('form', form);\n\ndelete msg.curday;\n\nreturn msg;",
+        "func": "let form = global.get('form'); // autoupdate\n\nform[msg.hmi.id]['date'] = msg.curday\n\nnode.status({\n    'text': msg.curday\n});\n\ndelete msg.curday;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -22532,7 +22794,7 @@
         "z": "852390cb9559e176",
         "g": "de8127dbf035df93",
         "name": "data",
-        "func": "if (msg.payload.length === 0) {\n\n    return;\n}\n\nlet rows = [ ];\n\nlet i = 0;\nfor (const j in msg.payload) {\n    msg.payload[j] = await node.linkcall('detail - historic - date', msg.payload[j]);\n    rows[i++] = {\n        'ts': msg.payload[j]._time,\n        'date': msg.payload[j].date,\n        'component': msg.payload[j]._field,\n        'component_name': msg.dictionary.option_component[msg.payload[j]._field],\n        'value': msg.payload[j]._value,\n        'value_name': msg.payload[j]._value === 1 ? 'on ':'off',\n        'value_color': msg.payload[j]._value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off\n    };\n}\n\nmsg.payload = rows;\n\nmsg.payload.sort((l, r) => l.ts < r.ts ? 1:-1 );\n\nawait new Promise(resolve => setTimeout(resolve, 100));\n\nif (msg.hmi.lang === 'fr') {\n\n    return [ msg, null ];\n}\n\nreturn [ null, msg ];",
+        "func": "if (msg.payload.length === 0) {\n\n    return;\n}\n\nlet rows = [ ];\n\nlet i = 0;\nfor (const j in msg.payload) {\n    msg.payload[j] = await node.linkcall('detail - historic - date', msg.payload[j]);\n    rows[i++] = {\n        'ts': msg.payload[j]._time,\n        'date': msg.payload[j].date,\n        'component': msg.payload[j]._field,\n        'component_name': msg.dictionary.option_component[msg.payload[j]._field],\n        'value': msg.payload[j]._value,\n        'value_name': msg.payload[j]._value === 1 ? 'on ':'off',\n        'value_color': msg.payload[j]._value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off\n    };\n}\n\nmsg.payload = rows;\n\nmsg.payload.sort((l, r) => l.ts < r.ts ? 1:-1 );\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\nif (msg.hmi.lang === 'fr') {\n\n    return [ msg, null ];\n}\n\nreturn [ null, msg ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -24269,7 +24531,7 @@
         "z": "e97c6f12735a13c1",
         "g": "ac0595b45d9786aa",
         "name": "tab",
-        "func": "if (typeof msg.success === 'boolean' && msg.success === true) {\n/*\n    msg.hmi.tab = global.get('describe.pages.list.tab') || 0;\n    msg.hmi.page = global.get('describe.pages.list.name') || '';\n*/\n    delete msg.action;\n    delete msg.column;\n    delete msg.success;\n\n    node.send([ null, msg ]);\n\n    await new Promise(resolve => setTimeout(resolve, 150));\n\n    return [ msg, null ];\n}\n\ndelete msg.success;\n\nreturn [null, msg];",
+        "func": "if (typeof msg.success === 'boolean' && msg.success === true) {\n/*\n    msg.hmi.tab = global.get('describe.pages.list.tab') || 0;\n    msg.hmi.page = global.get('describe.pages.list.name') || '';\n*/\n    delete msg.action;\n    delete msg.column;\n    delete msg.success;\n\n    node.send([ null, msg ]);\n\n    // Wait ui update\n    msg = await node.linkcall('wait - ui', msg);\n\n    return [ msg, null ];\n}\n\ndelete msg.success;\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -24964,21 +25226,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]action",
+                "p": "form[msg.hmi.id]action",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -25024,7 +25286,7 @@
         "z": "64ce08af468b8197",
         "g": "d8d8a361ac715076",
         "name": "action",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]action",
+        "property": "form[msg.hmi.id]action",
         "propertyType": "flow",
         "rules": [
             {
@@ -25240,7 +25502,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -25270,7 +25532,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -25296,7 +25558,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -25405,7 +25667,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]name",
+                "p": "form[msg.hmi.id]name",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -25653,7 +25915,7 @@
         "z": "64ce08af468b8197",
         "g": "d8d8a361ac715076",
         "name": "exists",
-        "property": "#:(memoryOnly)::kernel.line",
+        "property": "kernel.line",
         "propertyType": "global",
         "rules": [
             {
@@ -25815,7 +26077,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -26053,21 +26315,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]action",
+                "p": "form[msg.hmi.id]action",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -26113,7 +26375,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "action",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]action",
+        "property": "form[msg.hmi.id]action",
         "propertyType": "flow",
         "rules": [
             {
@@ -26234,7 +26496,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -26264,7 +26526,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -26398,7 +26660,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -26444,7 +26706,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "exists",
-        "property": "#:(memoryOnly)::kernel.equipment",
+        "property": "kernel.equipment",
         "propertyType": "global",
         "rules": [
             {
@@ -26583,7 +26845,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -26692,7 +26954,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]name",
+                "p": "form[msg.hmi.id]name",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -27046,7 +27308,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -27248,21 +27510,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]action",
+                "p": "form[msg.hmi.id]action",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -27308,7 +27570,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "action",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]action",
+        "property": "form[msg.hmi.id]action",
         "propertyType": "flow",
         "rules": [
             {
@@ -27398,7 +27660,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -27472,7 +27734,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -27678,7 +27940,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "p": "form[msg.hmi.id]equipment",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -27849,7 +28111,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]group",
+                "p": "form[msg.hmi.id]group",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -28032,21 +28294,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]action",
+                "p": "form[msg.hmi.id]action",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -28092,7 +28354,7 @@
         "z": "64ce08af468b8197",
         "g": "771b362aacd557cd",
         "name": "action",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]action",
+        "property": "form[msg.hmi.id]action",
         "propertyType": "flow",
         "rules": [
             {
@@ -28240,7 +28502,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]model",
+                "p": "form[msg.hmi.id]model",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -28389,7 +28651,7 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -28435,7 +28697,7 @@
         "z": "64ce08af468b8197",
         "g": "771b362aacd557cd",
         "name": "exists",
-        "property": "#:(memoryOnly)::kernel.device",
+        "property": "kernel.device",
         "propertyType": "global",
         "rules": [
             {
@@ -28678,7 +28940,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]model",
+                "p": "form[msg.hmi.id]model",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -28708,7 +28970,7 @@
                 "t": "set",
                 "p": "limit_model",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]model",
+                "to": "form[msg.hmi.id]model",
                 "tot": "flow"
             }
         ],
@@ -28896,7 +29158,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -29096,7 +29358,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]model",
+                "p": "form[msg.hmi.id]model",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -29290,7 +29552,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]device",
+                "p": "form[msg.hmi.id]device",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -29380,7 +29642,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['input']",
+                "p": "form[msg.hmi.id]['input']",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -29575,7 +29837,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -29605,7 +29867,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -29711,7 +29973,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -29851,7 +30113,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "p": "form[msg.hmi.id]equipment",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -30230,7 +30492,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]link",
+                "p": "form[msg.hmi.id]link",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -30332,7 +30594,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -30381,7 +30643,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -30514,7 +30776,7 @@
                 "t": "set",
                 "p": "limit_model",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]model",
+                "to": "form[msg.hmi.id]model",
                 "tot": "flow"
             }
         ],
@@ -30647,7 +30909,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -30696,7 +30958,7 @@
                 "t": "set",
                 "p": "limit_equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "to": "form[msg.hmi.id]equipment",
                 "tot": "flow"
             }
         ],
@@ -30766,7 +31028,7 @@
                 "t": "set",
                 "p": "form_device",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]model",
+                "to": "form[msg.hmi.id]model",
                 "tot": "flow"
             },
             {
@@ -30910,21 +31172,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]action",
+                "p": "form[msg.hmi.id]action",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -30970,7 +31232,7 @@
         "z": "64ce08af468b8197",
         "g": "85b6019ecabb42eb",
         "name": "action",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]action",
+        "property": "form[msg.hmi.id]action",
         "propertyType": "flow",
         "rules": [
             {
@@ -31052,7 +31314,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -31126,7 +31388,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -31332,7 +31594,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "p": "form[msg.hmi.id]equipment",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -31503,7 +31765,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]component",
+                "p": "form[msg.hmi.id]component",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -31619,7 +31881,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -31668,7 +31930,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -31724,7 +31986,7 @@
                 "t": "set",
                 "p": "limit_equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "to": "form[msg.hmi.id]equipment",
                 "tot": "flow"
             }
         ],
@@ -31887,7 +32149,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]limit",
+                "p": "form[msg.hmi.id]limit",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -32126,7 +32388,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -32235,7 +32497,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "p": "form[msg.hmi.id]equipment",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -32395,7 +32657,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]endpoint",
+                "p": "form[msg.hmi.id]endpoint",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -32447,7 +32709,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -32496,7 +32758,7 @@
                 "t": "set",
                 "p": "limit_equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]['equipment']",
+                "to": "form[msg.hmi.id]['equipment']",
                 "tot": "flow"
             }
         ],
@@ -32963,7 +33225,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -32972,7 +33234,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.line[msg.payload]",
+                "to": "kernel.line[msg.payload]",
                 "tot": "global"
             },
             {
@@ -33107,7 +33369,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]name",
+                "p": "form[msg.hmi.id]name",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -33116,7 +33378,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             },
             {
@@ -33342,7 +33604,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -33410,7 +33672,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -33440,7 +33702,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -33577,7 +33839,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]id",
+                "p": "form[msg.hmi.id]id",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -33586,7 +33848,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.equipment[msg.payload]",
+                "to": "kernel.equipment[msg.payload]",
                 "tot": "global"
             },
             {
@@ -33813,7 +34075,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]name",
+                "p": "form[msg.hmi.id]name",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -33822,7 +34084,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             },
             {
@@ -33942,7 +34204,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -33951,7 +34213,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             },
             {
@@ -33972,7 +34234,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -34078,7 +34340,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -34404,9 +34666,9 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
-                "to": "#:(memoryOnly)::user[msg.hmi.id]plant",
+                "to": "user[msg.hmi.id]plant",
                 "tot": "global"
             },
             {
@@ -34434,7 +34696,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -34600,9 +34862,9 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
-                "to": "#:(memoryOnly)::user[msg.hmi.id]plant",
+                "to": "user[msg.hmi.id]plant",
                 "tot": "global"
             },
             {
@@ -34630,7 +34892,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -34943,7 +35205,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "hmi.plant",
                 "tot": "msg"
@@ -35449,7 +35711,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "hmi.plant",
                 "tot": "msg"
@@ -35765,14 +36027,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -35965,7 +36227,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -35994,9 +36256,9 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
-                "to": "#:(memoryOnly)::user[msg.hmi.id]plant",
+                "to": "user[msg.hmi.id]plant",
                 "tot": "global"
             }
         ],
@@ -36095,7 +36357,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]team",
+                "p": "form[msg.hmi.id]team",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -36146,14 +36408,14 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "limit_team",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]team",
+                "to": "form[msg.hmi.id]team",
                 "tot": "flow"
             }
         ],
@@ -36241,7 +36503,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]starttime",
+                "p": "form[msg.hmi.id]starttime",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -36293,7 +36555,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]stoptime",
+                "p": "form[msg.hmi.id]stoptime",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -36638,14 +36900,14 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -36829,7 +37091,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -36858,7 +37120,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "hmi.plant",
                 "tot": "msg"
@@ -36995,7 +37257,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]hour",
+                "p": "form[msg.hmi.id]hour",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -37233,7 +37495,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "p": "form[msg.hmi.id]line",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -37342,7 +37604,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "p": "form[msg.hmi.id]equipment",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -37464,7 +37726,7 @@
                 "t": "set",
                 "p": "limit_line",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]line",
+                "to": "form[msg.hmi.id]line",
                 "tot": "flow"
             }
         ],
@@ -37513,7 +37775,7 @@
                 "t": "set",
                 "p": "limit_equipment",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]equipment",
+                "to": "form[msg.hmi.id]equipment",
                 "tot": "flow"
             }
         ],
@@ -37555,14 +37817,14 @@
                 "t": "set",
                 "p": "entity",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]link",
+                "to": "form[msg.hmi.id]link",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.reverse[msg.entity]",
+                "to": "kernel.reverse[msg.entity]",
                 "tot": "global"
             },
             {
@@ -37655,7 +37917,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]link",
+                "p": "form[msg.hmi.id]link",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -37795,7 +38057,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]reverse",
+                "p": "form[msg.hmi.id]reverse",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -39891,7 +40153,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]component",
+                "p": "form[msg.hmi.id]component",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -40066,14 +40328,14 @@
                 "t": "set",
                 "p": "entity",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]link",
+                "to": "form[msg.hmi.id]link",
                 "tot": "flow"
             },
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::kernel.reverse[msg.entity]",
+                "to": "kernel.reverse[msg.entity]",
                 "tot": "global"
             }
         ],
@@ -40160,7 +40422,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['output']",
+                "p": "form[msg.hmi.id]['output']",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -40556,7 +40818,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "state & link & reverse",
-        "func": "if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {\n    let form = flow.get('form[\"' + msg.hmi.id + '\"]') || {};\n    let target = global.get('kernel.link[\"' + form.link + '\"]') || '-';\n    let entity = form.equipment + '|' + form.component;\n\n    // state delete\n    let stateDel = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'state',\n            'entity': form.link,\n            'value': 0,\n            'loop': false,\n            'delete': true\n        }\n    };\n    node.send([stateDel, null]);\n    \n    // link delete\n    let linkDel = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'link',\n            'entity': form.link,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    };\n    node.send([linkDel, null]);\n    \n    // reverse delete\n    let reverseDel = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'reverse',\n            'entity': form.link,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    };\n    node.send([reverseDel, null]);\n\n    await new Promise(resolve => setTimeout(resolve, 20)); // wait 20ms\n    \n    // state add\n    let stateAdd = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'state',\n            'entity': entity,\n            'value': 0,\n            'loop': false\n        }\n    };\n    node.send([stateAdd, null]);\n    \n    // link add\n    let linkAdd = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'link',\n            'entity': entity,\n            'value': target,\n            'loop': false\n        }\n    };\n    node.send([linkAdd, null]);\n    \n    // reverse add\n    let reverseAdd = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'reverse',\n            'entity': entity,\n            'value': form.reverse,\n            'loop': false\n        }\n    };\n    node.send([reverseAdd, null]);\n\n    msg.payload = msg.dictionary.option_notice.update_success;\n    node.send([null, msg]);\n}\n\nreturn msg;",
+        "func": "if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {\n    let form = flow.get('form[\"' + msg.hmi.id + '\"]') || {};\n    let target = global.get('kernel.link[\"' + form.link + '\"]') || '-';\n    let entity = form.equipment + '|' + form.component;\n\n    // state delete\n    let stateDel = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'state',\n            'entity': form.link,\n            'value': 0,\n            'loop': false,\n            'delete': true\n        }\n    };\n    node.send([stateDel, null]);\n    \n    // link delete\n    let linkDel = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'link',\n            'entity': form.link,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    };\n    node.send([linkDel, null]);\n    \n    // reverse delete\n    let reverseDel = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'reverse',\n            'entity': form.link,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    };\n    node.send([reverseDel, null]);\n\n    // Wait data update\n    //msg = await node.linkcall('wait - data', msg);\n\n    // state add\n    let stateAdd = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'state',\n            'entity': entity,\n            'value': 0,\n            'loop': false\n        }\n    };\n    node.send([stateAdd, null]);\n    \n    // link add\n    let linkAdd = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'link',\n            'entity': entity,\n            'value': target,\n            'loop': false\n        }\n    };\n    node.send([linkAdd, null]);\n    \n    // reverse add\n    let reverseAdd = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'reverse',\n            'entity': entity,\n            'value': form.reverse,\n            'loop': false\n        }\n    };\n    node.send([reverseAdd, null]);\n\n    msg.payload = msg.dictionary.option_notice.update_success;\n    node.send([null, msg]);\n}\n\nreturn msg;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -40641,7 +40903,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['input_reverse']",
+                "p": "form[msg.hmi.id]['input_reverse']",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -40670,7 +40932,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['output_reverse']",
+                "p": "form[msg.hmi.id]['output_reverse']",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -41041,7 +41303,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['input_reverse']",
+                "p": "form[msg.hmi.id]['input_reverse']",
                 "pt": "flow",
                 "to": "false",
                 "tot": "bool"
@@ -41101,7 +41363,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]['output_reverse']",
+                "p": "form[msg.hmi.id]['output_reverse']",
                 "pt": "flow",
                 "to": "false",
                 "tot": "bool"
@@ -41126,7 +41388,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "no output",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]group",
+        "property": "form[msg.hmi.id]group",
         "propertyType": "flow",
         "rules": [
             {
@@ -41159,7 +41421,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "no reverse",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]group",
+        "property": "form[msg.hmi.id]group",
         "propertyType": "flow",
         "rules": [
             {
@@ -41192,7 +41454,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "no reverse",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]group",
+        "property": "form[msg.hmi.id]group",
         "propertyType": "flow",
         "rules": [
             {
@@ -41286,21 +41548,21 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]",
+                "p": "form[msg.hmi.id]",
                 "pt": "flow",
                 "to": "{}",
                 "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]action",
+                "p": "form[msg.hmi.id]action",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]time",
+                "p": "form[msg.hmi.id]time",
                 "pt": "flow",
                 "to": "",
                 "tot": "date"
@@ -41346,7 +41608,7 @@
         "z": "64ce08af468b8197",
         "g": "3f9c0107c43536e4",
         "name": "action",
-        "property": "#:(memoryOnly)::form[msg.hmi.id]action",
+        "property": "form[msg.hmi.id]action",
         "propertyType": "flow",
         "rules": [
             {
@@ -41428,7 +41690,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -41546,7 +41808,7 @@
                 "t": "set",
                 "p": "limit_plant",
                 "pt": "msg",
-                "to": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "to": "form[msg.hmi.id]plant",
                 "tot": "flow"
             }
         ],
@@ -41741,7 +42003,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]plant",
+                "p": "form[msg.hmi.id]plant",
                 "pt": "flow",
                 "to": "hmi.plant",
                 "tot": "msg"
@@ -42104,7 +42366,7 @@
             },
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]holiday",
+                "p": "form[msg.hmi.id]holiday",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -42543,7 +42805,7 @@
         "rules": [
             {
                 "t": "set",
-                "p": "#:(memoryOnly)::form[msg.hmi.id]holiday",
+                "p": "form[msg.hmi.id]holiday",
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
@@ -43619,7 +43881,7 @@
         "z": "64ce08af468b8197",
         "g": "fa7516c28cf64b47",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nconst action = msg.payload;\n\nflow.set('form[\"' + msg.hmi.id + '\"]', {\n    'action': action,\n    'time': Date.now()\n});\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nswitch (action) {\n    case 'addplant': return [msg, null, null];\n    case 'delplant': return [null, msg, null];\n    case 'editplant': return [null, null, msg];\n}\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Wait ui update\nmsg = await node.linkcall('wait - ui', msg);\n\nconst action = msg.payload;\n\nflow.set('form[\"' + msg.hmi.id + '\"]', {\n    'action': action,\n    'time': Date.now()\n});\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nswitch (action) {\n    case 'addplant': return [msg, null, null];\n    case 'delplant': return [null, msg, null];\n    case 'editplant': return [null, null, msg];\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -44392,7 +44654,7 @@
         "z": "64ce08af468b8197",
         "g": "29452f5f913b11d0",
         "name": "data",
-        "func": "// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get line\nmsg = await node.linkcall('form - line', msg);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nconst location = global.get('kernel[\"location\"][\"' + msg.payload + '\"]') || ''; \nconst form  = { ...(global.get('form[\"' + msg.hmi.id + '\"]') || { }) };\n\nlet split = location.split('|');\nform['name'] = split[0] || '';\nform['x'] = split[1] || 0;\nform['y'] = split[2] || 0;\nform['w'] = split[3] || 50;\nform['h'] = split[4] || 40;\n\nglobal.set('form[\"' + msg.hmi.id + '\"]', form);\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nmsg.class = '';\nmsg.topic = '';\nmsg.enabled = true;\nmsg.payload = '';\n\nreturn msg;",
+        "func": "// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get line\nmsg = await node.linkcall('form - line', msg);\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\nconst location = (global.get('kernel[\"location\"][\"' + msg.payload + '\"]') || '').split('|');\n\nform[msg.hmi.id]['name'] = location[0] || '';\nform[msg.hmi.id]['x'] = location[1] || 0;\nform[msg.hmi.id]['y'] = location[2] || 0;\nform[msg.hmi.id]['w'] = location[3] || 50;\nform[msg.hmi.id]['h'] = location[4] || 40;\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\nmsg.class = '';\nmsg.topic = '';\nmsg.enabled = true;\nmsg.payload = '';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -44737,7 +44999,7 @@
         "rules": [
             {
                 "t": "delete",
-                "p": "#:(memoryOnly)::kernel.location[\"T.10\"]",
+                "p": "kernel.location[\"T.10\"]",
                 "pt": "global"
             }
         ],
@@ -45680,7 +45942,7 @@
         "z": "adb48ef35d9453c0",
         "g": "a69df92e27bcc577",
         "name": "data",
-        "func": "if (msg.action !== 'button_click') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// user level and do not delete itself\nif (![ 'admin' ].includes(msg.hmi.level) || msg.hmi.login === msg.payload.login) {\n\n    return;\n}\n\nif (msg.column === 'delete') {\n    // Do not delete default admin\n    if (msg.payload.login === env.get('OPTA_ADMIN_USERNAME')) {\n        msg.payload = 'Admin is not deletable';\n\n        return [ msg, null, null ];\n    }\n    else {\n        let auth = { ...(global.get('auth') || { }) };\n        delete auth[msg.payload.login];\n        global.set('auth', auth);\n\n        msg.payload = 'Successfully updated';\n        node.send([ msg, null, null]);\n\n        await new Promise(resolve => setTimeout(resolve, 50));\n\n        msg.enabled = true;\n\n        return [ null, msg, msg ];\n    }\n\n}\nelse if (msg.column === 'disconnect') {\n\n    let user = { ...(global.get('user') || { }) };\n    delete user[msg.payload.session];\n    global.set('user', user);\n\n    msg.payload = 'Successfully updated';\n    node.send([ msg, null, null]);\n    \n    await new Promise(resolve => setTimeout(resolve, 50));\n\n    msg.enabled = true;\n\n    return [ null, null, msg ];\n}\n\nreturn;",
+        "func": "if (msg.action !== 'button_click') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// user level and do not delete itself\nif (![ 'admin' ].includes(msg.hmi.level) || msg.hmi.login === msg.payload.login) {\n\n    return;\n}\n\nif (msg.column === 'delete') {\n    // Do not delete default admin\n    if (msg.payload.login === env.get('OPTA_ADMIN_USERNAME')) {\n        msg.payload = 'Admin is not deletable';\n\n        return [ msg, null, null ];\n    }\n    else {\n        let auth = { ...(global.get('auth') || { }) };\n        delete auth[msg.payload.login];\n        global.set('auth', auth);\n\n        msg.payload = 'Successfully updated';\n        node.send([ msg, null, null]);\n\n        // Wait ui update\n        msg = await node.linkcall('wait - ui', msg);\n\n        msg.enabled = true;\n\n        return [ null, msg, msg ];\n    }\n\n}\nelse if (msg.column === 'disconnect') {\n\n    let user = { ...(global.get('user') || { }) };\n    delete user[msg.payload.session];\n    global.set('user', user);\n\n    msg.payload = 'Successfully updated';\n    node.send([ msg, null, null]);\n    \n    // Wait ui update\n    msg = await node.linkcall('wait - ui', msg);\n\n    msg.enabled = true;\n\n    return [ null, null, msg ];\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -45753,7 +46015,7 @@
         "z": "adb48ef35d9453c0",
         "g": "4c2194718c72648c",
         "name": "data",
-        "func": "const auth = { ...(global.get('auth') || { }) };\nauth[msg.payload.login]['pass'] = msg.payload.pass;\nglobal.set('auth', auth);\n\nmsg.login = msg.payload.login;\n\nnode.send([ null, msg, null ]);\n\nmsg.payload = 'Successfully updated';\n\nnode.send([ msg, null, null ]);\n\nmsg.payload = '';\nmsg.options = [];\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nnode.send([ null, null, msg ]);\n\nreturn;",
+        "func": "\n// Get memories\nlet auth = global.get('auth'); // autoupdate\n\nif (typeof auth[msg.payload.login] !== 'object') {\n\n    return;\n}\n\nauth[msg.payload.login]['pass'] = msg.payload.pass;\n\nmsg.login = msg.payload.login;\n\nnode.send([ null, msg, null ]);\n\nmsg.payload = 'Successfully updated';\n\nnode.send([ msg, null, null ]);\n\nmsg.payload = '';\nmsg.options = [];\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\nnode.send([ null, null, msg ]);\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -45826,7 +46088,7 @@
         "z": "adb48ef35d9453c0",
         "g": "bb8597f031aabc08",
         "name": "data",
-        "func": "msg.payload.login = msg.payload.login.toLowerCase();\n\nconst auth = { ...(global.get('auth') || { }) };\nauth[msg.payload.login] = {\n    'pass': msg.payload.pass,\n    'level': msg.payload.level,\n    'plant': msg.payload.plant,\n    'lang': msg.payload.lang,\n    'telegram': msg.payload.telegram\n};\nglobal.set('auth', auth);\n\nmsg.login = msg.payload.login;\nmsg.payload = '';\n\nnode.send([ null, msg, null ]);\n\nmsg.options = [];\nmsg.enabled = true;\n\nawait new Promise(resolve => setTimeout(resolve, 50));\n\nnode.send([ null, null, msg ]);\n\nmsg.payload = 'Successfully updated';\n\nnode.send([ msg, null, null ]);\n\nreturn msg;",
+        "func": "msg.payload.login = msg.payload.login.toLowerCase();\n\nconst auth = { ...(global.get('auth') || { }) };\nauth[msg.payload.login] = {\n    'pass': msg.payload.pass,\n    'level': msg.payload.level,\n    'plant': msg.payload.plant,\n    'lang': msg.payload.lang,\n    'telegram': msg.payload.telegram\n};\nglobal.set('auth', auth);\n\nmsg.login = msg.payload.login;\nmsg.payload = '';\n\nnode.send([ null, msg, null ]);\n\nmsg.options = [];\nmsg.enabled = true;\n\n// Wait data update\n//msg = await node.linkcall('wait - data', msg);\n\nnode.send([ null, null, msg ]);\n\nmsg.payload = 'Successfully updated';\n\nnode.send([ msg, null, null ]);\n\nreturn msg;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -46772,7 +47034,7 @@
         "z": "44465f18e06bb58d",
         "g": "6ed9fb5c0b268c66",
         "name": "data",
-        "func": "await new Promise(resolve => setTimeout(resolve, 50));\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// reset\nflow.set('kernel[\"' + msg.hmi.id + '\"]', {});\n\n// ui\nmsg.options = [];\nmsg.class = '';\nmsg.enabled = true;\n\n// get kernel types\nlet types = global.get('kernel');\nlet i = 0;\nfor (const type in types) {\n    msg.options[i++] = {\n        'label':type,\n        'value':type,\n    };\n}\n\nreturn msg;",
+        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Reset\nflow.set('kernel[\"' + msg.hmi.id + '\"]', { });\n\n// ui\nmsg.options = [];\nmsg.class = '';\nmsg.enabled = true;\n\n// get kernel types\nlet types = global.get('kernel');\nlet i = 0;\nfor (const type in types) {\n    msg.options[i++] = {\n        'label':type,\n        'value':type,\n    };\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -47202,7 +47464,7 @@
         "z": "44465f18e06bb58d",
         "g": "43bcc4020c29e03d",
         "name": "data",
-        "func": "if (msg.payload.reload) {\n    msg.payload = 'Reboot...';\n\n    node.send([ msg, null ]);\n\n    await new Promise(resolve => setTimeout(resolve, 500));\n\n    msg.payload = true;\n    msg.boot = true;\n\n    return  [ null, msg ];\n}\n\nreturn;",
+        "func": "if (msg.payload.reload) {\n    msg.payload = 'Reboot...';\n\n    node.send([ msg, null ]);\n\n    // Wait ui update\n    msg = await node.linkcall('wait - ui', msg);\n\n    msg.payload = true;\n    msg.boot = true;\n\n    return  [ null, msg ];\n}\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,

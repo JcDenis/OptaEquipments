@@ -102,7 +102,7 @@
   z: 27841aa886edd1cd
   g: 90f47fc795048184
   name: auth - form
-  active: true
+  active: false
   tosidebar: true
   console: false
   tostatus: false
@@ -201,13 +201,14 @@
 
     node.send([ msg, msg, msg ]);
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    // Wait ui update
+    msg = await node.linkcall('wait - ui', msg);
 
     // Prepare form
     msg.class = '';
     msg.enabled = true;
 
-    // Use is connected, display level
+    // User is connected, display level
     if (msg.hmi.login !== '') {
 
         node.send([ null, msg, null ]);
@@ -254,8 +255,9 @@
   name: data
   func: |-
     // Disconnect user
-    let user = global.get('user') || { };
-    delete user[ msg._client.socketId ]; // auto
+    let user = global.get('user'); // autoupdate
+
+    delete user[ msg._client.socketId ];
 
     delete msg.ui_update;
 

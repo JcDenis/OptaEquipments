@@ -521,6 +521,79 @@
   'y': 999
   w: 332
   h: 82
+- id: a7690ab9b2b9f8fd
+  type: group
+  z: adb9fbf379118d77
+  g: fcdd366dc6c2ecc6
+  name: wait - ui
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 1bb2db855a04d0bd
+    - 155df541cc6a629f
+    - 113e9bb7526cfa73
+  x: 1864
+  'y': 279
+  w: 332
+  h: 82
+- id: fa41b54bf1c36fe8
+  type: group
+  z: adb9fbf379118d77
+  g: fcdd366dc6c2ecc6
+  name: wait - data
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+    stroke: '#ff0000'
+  nodes:
+    - 06121e6d31f80687
+    - 85fb7c42bdaffd47
+    - a3c44406daa0b106
+  x: 1864
+  'y': 399
+  w: 332
+  h: 82
+- id: f78652bda367bea4
+  type: group
+  z: adb9fbf379118d77
+  g: fcdd366dc6c2ecc6
+  name: ''
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - b2bc9166528cc416
+    - a9160230a18ff449
+    - af7e5ed43a6bc8c7
+  x: 1864
+  'y': 519
+  w: 332
+  h: 82
+- id: fcdd366dc6c2ecc6
+  type: group
+  z: adb9fbf379118d77
+  style:
+    stroke: '#999999'
+    stroke-opacity: '1'
+    fill: none
+    fill-opacity: '1'
+    label: true
+    label-position: nw
+    color: '#767676'
+  nodes:
+    - a7690ab9b2b9f8fd
+    - fa41b54bf1c36fe8
+    - f78652bda367bea4
+  x: 1838
+  'y': 253
+  w: 384
+  h: 374
 - id: 2ee1493983ba4b61
   type: link out
   z: adb9fbf379118d77
@@ -1953,3 +2026,123 @@
   'y': 440
   wires:
     - - d38c99e5d7be057a
+- id: 1bb2db855a04d0bd
+  type: link in
+  z: adb9fbf379118d77
+  g: a7690ab9b2b9f8fd
+  name: wait - ui
+  links: []
+  x: 1905
+  'y': 320
+  wires:
+    - - 155df541cc6a629f
+- id: 155df541cc6a629f
+  type: function
+  z: adb9fbf379118d77
+  g: a7690ab9b2b9f8fd
+  name: data
+  func: |-
+
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2030
+  'y': 320
+  wires:
+    - - 113e9bb7526cfa73
+- id: 113e9bb7526cfa73
+  type: link out
+  z: adb9fbf379118d77
+  g: a7690ab9b2b9f8fd
+  name: wait - ui
+  mode: return
+  links: []
+  x: 2155
+  'y': 320
+  wires: []
+- id: 06121e6d31f80687
+  type: link in
+  z: adb9fbf379118d77
+  g: fa41b54bf1c36fe8
+  name: wait - data
+  links: []
+  x: 1905
+  'y': 440
+  wires:
+    - - 85fb7c42bdaffd47
+- id: 85fb7c42bdaffd47
+  type: function
+  z: adb9fbf379118d77
+  g: fa41b54bf1c36fe8
+  name: data
+  func: |-
+
+    await new Promise(resolve => setTimeout(resolve, 10));
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2030
+  'y': 440
+  wires:
+    - - a3c44406daa0b106
+- id: a3c44406daa0b106
+  type: link out
+  z: adb9fbf379118d77
+  g: fa41b54bf1c36fe8
+  name: wait - data
+  mode: return
+  links: []
+  x: 2155
+  'y': 440
+  wires: []
+- id: b2bc9166528cc416
+  type: link in
+  z: adb9fbf379118d77
+  g: f78652bda367bea4
+  name: wait - long
+  links: []
+  x: 1905
+  'y': 560
+  wires:
+    - - a9160230a18ff449
+- id: a9160230a18ff449
+  type: function
+  z: adb9fbf379118d77
+  g: f78652bda367bea4
+  name: data
+  func: |-
+
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2030
+  'y': 560
+  wires:
+    - - af7e5ed43a6bc8c7
+- id: af7e5ed43a6bc8c7
+  type: link out
+  z: adb9fbf379118d77
+  g: f78652bda367bea4
+  name: wait - long
+  mode: return
+  links: []
+  x: 2155
+  'y': 560
+  wires: []

@@ -872,13 +872,12 @@
   g: 6ed9fb5c0b268c66
   name: data
   func: |-
-    await new Promise(resolve => setTimeout(resolve, 50));
 
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    // reset
-    flow.set('kernel["' + msg.hmi.id + '"]', {});
+    // Reset
+    flow.set('kernel["' + msg.hmi.id + '"]', { });
 
     // ui
     msg.options = [];
@@ -1391,7 +1390,8 @@
 
         node.send([ msg, null ]);
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Wait ui update
+        msg = await node.linkcall('wait - ui', msg);
 
         msg.payload = true;
         msg.boot = true;

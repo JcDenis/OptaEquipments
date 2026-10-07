@@ -1654,7 +1654,8 @@
 
         node.send([ null, msg ]);
 
-        await new Promise(resolve => setTimeout(resolve, 150));
+        // Wait ui update
+        msg = await node.linkcall('wait - ui', msg);
 
         return [ msg, null ];
     }

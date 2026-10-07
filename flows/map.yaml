@@ -172,7 +172,8 @@
 
     node.send([ null, msg ]);
 
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Wait ui update
+    msg = await node.linkcall('wait - ui', msg);
 
     delete msg.reset;
 
@@ -212,12 +213,13 @@
         return msg;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Wait ui update
+    msg = await node.linkcall('wait - ui', msg);
 
     // Get memories
-    const location = global.get('kernel.location') || { };
-    const lines = global.get('kernel.lines') || { };
-    const equipments = global.get('kernel.equipments') || { };
+    const location = global.get('kernel.location') || { }; // Read
+    const lines = global.get('kernel.lines') || { }; // Read
+    const equipments = global.get('kernel.equipments') || { }; // Read
 
     msg.class = '';
     msg.enabled = true;
@@ -472,8 +474,6 @@
 
     node.send([ null, msg ]);
 
-    await new Promise(resolve => setTimeout(resolve, 100));
-
     // Send data to dialog
     msg.payload = msg.data;
 
@@ -517,27 +517,45 @@
   z: 05f6b695d75a73cf
   g: 97f10c211b33ee2e
   name: data
-  func: |-
-    await new Promise(resolve => setTimeout(resolve, 100));
+  func: >-
+    // Wait ui update
+
+    msg = await node.linkcall('wait - ui', msg);
+
+    msg = await node.linkcall('wait - ui', msg); // map is slow...
+
 
     msg.line = msg.payload.line;
 
+
     // Title
+
     const title = global.get('kernel["line"]["' + msg.line + '"]') || '';
 
+
     msg.class = '';
+
     msg.enabled = true;
+
     msg.payload = title;
+
 
     node.send([ msg, null, null, null ]);
 
+
     // Get memories (for equipmenets)
-    const equipments = global.get('kernel.equipments') || { };
-    const states = global.get('kernel.state') || { };
-    const alerts = global.get('kernel.alert') || { };
+
+    const equipments = global.get('kernel.equipments') || { }; // read
+
+    const states = global.get('kernel.state') || { }; // read
+
+    const alerts = global.get('kernel.alert') || { }; // read
+
 
     let c = 0;
+
     let child = [];
+
     for (const e in equipments) {
         if (equipments[e] !== msg.line) {
 
@@ -561,15 +579,21 @@
         };
     }
 
+
     msg.payload = child;
+
 
     node.send([ null, msg, null, null ]);
 
+
     // Line
-    const period = global.get('kernel.period["' + msg.line + '"]') || '';
-    const split = period.split('');
+
+    const split = (global.get('kernel.period["' + msg.line + '"]') ||
+    '').split('');
 
     const periods = [ 'm', 'a', 'n', 'd', 's' ];
+
+
     for (let i = 0; i < periods.length; i++) {
         msg.period = periods[i];
         msg.ui_update = {
@@ -579,13 +603,18 @@
         node.send([null, null, msg, null ]);
     }
 
+
     // Disabled
+
     const disabled = global.get('kernel.disabled["' + msg.line + '"]') || false;
+
     msg.ui_update = {
         'buttonColor': disabled ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,
         'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')
     };
+
     node.send([null, null, null, msg ]);
+
 
     return;
   outputs: 4
@@ -923,13 +952,12 @@
     }
 
 
-    node.status({ 'text': periods.join('') });
-
-
     global.set('kernel.period["' + msg.line + '"]', periods.join(''));
 
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    // Wait data update
+
+    //msg = await node.linkcall('wait - data', msg);
 
 
     delete msg.ui_update;
@@ -997,17 +1025,13 @@
     }
 
 
-    let disabled = !(global.get('kernel.disabled["' + msg.line + '"]') ||
-    false);
+    global.set('kernel.disabled["' + msg.line + '"]',
+    !(global.get('kernel.disabled["' + msg.line + '"]') || false));
 
 
-    node.status({ 'text': disabled });
+    // Wait data update
 
-
-    global.set('kernel.disabled["' + msg.line + '"]', disabled);
-
-
-    await new Promise(resolve => setTimeout(resolve, 50));
+    //msg = await node.linkcall('wait - data', msg);
 
 
     delete msg.ui_update;
@@ -1086,6 +1110,7 @@
   name: data
   func: |-
 
+    // Toggle map group
     msg.payload = {
         'groups': {
             [msg.enabled ? 'hide' : 'show' ]: ['map - group']
@@ -1115,7 +1140,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     // Get user form
-    let form = global.get('form') || { };
+    let form = global.get('form'); // autoupdate
 
     // Should not happened
     if (typeof form[msg.hmi.id] !== 'object') {
@@ -1123,9 +1148,9 @@
     }
 
     // Update form
-    //form[msg.hmi.id]['plant'] = msg.payload.plant; // auto
-    form[msg.hmi.id]['line'] = msg.payload.line; // auto
-    form[msg.hmi.id]['equipment'] = msg.payload.equipment; // auto
+    //form[msg.hmi.id]['plant'] = msg.payload.plant;
+    form[msg.hmi.id]['line'] = msg.payload.line;
+    form[msg.hmi.id]['equipment'] = msg.payload.equipment;
 
     delete msg.action;
 

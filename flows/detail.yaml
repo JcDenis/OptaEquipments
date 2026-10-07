@@ -2127,7 +2127,7 @@
     - t: set
       p: dec
       pt: msg
-      to: '#:(memoryOnly)::kernel.day[msg.form.plant]'
+      to: 'kernel.day[msg.form.plant]'
       tot: global
     - t: set
       p: form.ts
@@ -2312,8 +2312,13 @@
     - t: set
       p: dec
       pt: msg
-      to: '#:(memoryOnly)::kernel.day[msg.form.plant]'
+      to: 'kernel.day[msg.form.plant]'
       tot: global
+    - t: set
+      p: dec
+      pt: msg
+      to: '6'
+      tot: num
     - t: set
       p: form.ts
       pt: msg
@@ -2843,7 +2848,7 @@
   z: 852390cb9559e176
   g: d04f02d6e1c02839
   name: component
-  property: '#:(memoryOnly)::kernel.link'
+  property: kernel.link
   propertyType: global
   rules:
     - t: hask
@@ -3293,7 +3298,8 @@
   func: |-
     // Get states
 
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Wait ui update
+    msg = await node.linkcall('wait - ui', msg);
 
     let states = global.get('kernel.state')||{};
     for (const state in states) {
@@ -3779,8 +3785,9 @@
     node.send([ hideMsg, hideMsg, hideMsg, hideMsg, null ]);
 
     if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
-
-        await new Promise(resolve => setTimeout(resolve, 50));
+        
+        // Wait ui update
+        msg = await node.linkcall('wait - ui', msg);
 
         msg.class = '';
         msg.enabled = true;
@@ -3827,7 +3834,8 @@
             delete msg.limit_line;
             msg.payload = '';
 
-            await new Promise(resolve => setTimeout(resolve, 250));
+            // Wait ? update
+            //msg = await node.linkcall('wait - long', msg);
 
             node.send([ null, null, null, null, msg ]);
         }
@@ -5310,9 +5318,13 @@
   g: 1c87eaf6a557f02d
   name: data
   func: |-
-    const form = { ...(global.get('form') || { }) };
+    let form = global.get('form'); // autoupdate
+
     form[msg.hmi.id]['date'] = msg.curday
-    global.set('form', form);
+
+    node.status({
+        'text': msg.curday
+    });
 
     delete msg.curday;
 
@@ -5390,7 +5402,8 @@
 
     msg.payload.sort((l, r) => l.ts < r.ts ? 1:-1 );
 
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Wait ui update
+    msg = await node.linkcall('wait - ui', msg);
 
     if (msg.hmi.lang === 'fr') {
 

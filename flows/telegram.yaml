@@ -377,17 +377,17 @@
   name: plant
   rules:
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]plant'
+      p: 'tree[msg.user.telegram]plant'
       pt: flow
       to: entity
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]line'
+      p: 'tree[msg.user.telegram]line'
       pt: flow
       to: ''
       tot: str
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]equipment'
+      p: 'tree[msg.user.telegram]equipment'
       pt: flow
       to: ''
       tot: str
@@ -464,12 +464,12 @@
   name: line
   rules:
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]line'
+      p: 'tree[msg.user.telegram]line'
       pt: flow
       to: entity
       tot: msg
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]equipment'
+      p: 'tree[msg.user.telegram]equipment'
       pt: flow
       to: ''
       tot: str
@@ -489,19 +489,19 @@
   name: equipment
   rules:
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]equipment'
+      p: 'tree[msg.user.telegram]equipment'
       pt: flow
       to: entity
       tot: msg
     - t: set
       p: plant
       pt: msg
-      to: '#:(memoryOnly)::tree[msg.user.telegram]plant'
+      to: 'tree[msg.user.telegram]plant'
       tot: flow
     - t: set
       p: line
       pt: msg
-      to: '#:(memoryOnly)::tree[msg.user.telegram]line'
+      to: 'tree[msg.user.telegram]line'
       tot: flow
   action: ''
   property: ''
@@ -620,7 +620,7 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: user
-  property: '#:(memoryOnly)::tree'
+  property: tree
   propertyType: flow
   rules:
     - t: hask
@@ -649,7 +649,7 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: state
-  property: '#:(memoryOnly)::kernel.state'
+  property: kernel.state
   propertyType: global
   rules:
     - t: hask
@@ -741,19 +741,19 @@
   name: state
   rules:
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]state'
+      p: 'tree[msg.user.telegram]state'
       pt: flow
       to: entity
       tot: msg
     - t: set
       p: equipment
       pt: msg
-      to: '#:(memoryOnly)::tree[msg.user.telegram]equipment'
+      to: 'tree[msg.user.telegram]equipment'
       tot: flow
     - t: set
       p: line
       pt: msg
-      to: '#:(memoryOnly)::tree[msg.user.telegram]line'
+      to: 'tree[msg.user.telegram]line'
       tot: flow
   action: ''
   property: ''
@@ -769,7 +769,7 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: state
-  property: '#:(memoryOnly)::kernel.state'
+  property: kernel.state
   propertyType: global
   rules:
     - t: hask
@@ -900,7 +900,7 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: period
-  property: '#:(memoryOnly)::kernel.disabled[msg.line]'
+  property: 'kernel.disabled[msg.line]'
   propertyType: global
   rules:
     - t: 'true'
@@ -957,19 +957,19 @@
   name: period
   rules:
     - t: set
-      p: '#:(memoryOnly)::tree[msg.user.telegram]period'
+      p: 'tree[msg.user.telegram]period'
       pt: flow
       to: entity
       tot: msg
     - t: set
       p: equipment
       pt: msg
-      to: '#:(memoryOnly)::tree[msg.user.telegram]equipment'
+      to: 'tree[msg.user.telegram]equipment'
       tot: flow
     - t: set
       p: line
       pt: msg
-      to: '#:(memoryOnly)::tree[msg.user.telegram]line'
+      to: 'tree[msg.user.telegram]line'
       tot: flow
   action: ''
   property: ''
@@ -1132,14 +1132,14 @@
       to: ' $trim($lowercase(msg.payload.content))'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]'
+      p: 'sentence[msg.user.telegram]'
       pt: flow
       to: "{\t    'time':$millis(),\t    'sentence':msg.payload.content,\t    'words':$split(msg.payload.content,' '),\t    'left':{}\t}"
       tot: jsonata
     - t: set
       p: needles
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]words'
+      to: 'sentence[msg.user.telegram]words'
       tot: flow
   action: ''
   property: ''
@@ -1280,15 +1280,15 @@
   name: state
   rules:
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]state'
+      p: 'sentence[msg.user.telegram]state'
       pt: flow
       to: haystack
       tot: msg
     - t: delete
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]left[msg.needle]'
+      p: 'sentence[msg.user.telegram]left[msg.needle]'
       pt: flow
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]state_name'
+      p: 'sentence[msg.user.telegram]state_name'
       pt: flow
       to: 'msg.haystack=1?''Activer'':''Désactiver'''
       tot: jsonata
@@ -1331,7 +1331,7 @@
   z: c886080f59e5c106
   g: 2bb43b669f72b0e4
   name: has state
-  property: '#:(memoryOnly)::sentence[msg.user.telegram]'
+  property: 'sentence[msg.user.telegram]'
   propertyType: flow
   rules:
     - t: hask
@@ -1474,7 +1474,7 @@
   name: mark
   rules:
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''left''][msg.needles]'
+      p: 'sentence[msg.user.telegram][''left''][msg.needles]'
       pt: flow
       to: '0'
       tot: num
@@ -1521,7 +1521,7 @@
     - t: set
       p: needles
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]left'
+      to: 'sentence[msg.user.telegram]left'
       tot: flow
   action: ''
   property: ''
@@ -1564,7 +1564,7 @@
   name: add
   rules:
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''left''][msg.needles]'
+      p: 'sentence[msg.user.telegram][''left''][msg.needles]'
       pt: flow
       to: '1'
       tot: num
@@ -1586,7 +1586,7 @@
     - t: set
       p: haystack
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]left'
+      to: 'sentence[msg.user.telegram]left'
       tot: flow
   action: ''
   property: ''
@@ -1640,7 +1640,7 @@
   name: remove
   rules:
     - t: delete
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''left''][msg.needle]'
+      p: 'sentence[msg.user.telegram][''left''][msg.needle]'
       pt: flow
   action: ''
   property: ''
@@ -1730,7 +1730,7 @@
     - t: set
       p: needles
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]left'
+      to: 'sentence[msg.user.telegram]left'
       tot: flow
   action: ''
   property: ''
@@ -1750,7 +1750,7 @@
     - t: set
       p: needles
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]left'
+      to: 'sentence[msg.user.telegram]left'
       tot: flow
   action: ''
   property: ''
@@ -1820,15 +1820,15 @@
   name: add
   rules:
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]component'
+      p: 'sentence[msg.user.telegram]component'
       pt: flow
       to: heatswitch
       tot: str
     - t: delete
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''left''][msg.needle]'
+      p: 'sentence[msg.user.telegram][''left''][msg.needle]'
       pt: flow
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]component_name'
+      p: 'sentence[msg.user.telegram]component_name'
       pt: flow
       to: la chauffe
       tot: str
@@ -1871,7 +1871,7 @@
   z: c886080f59e5c106
   g: 2bb43b669f72b0e4
   name: has component
-  property: '#:(memoryOnly)::sentence[msg.user.telegram]'
+  property: 'sentence[msg.user.telegram]'
   propertyType: flow
   rules:
     - t: hask
@@ -1903,7 +1903,7 @@
       to: '{}'
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram]equipments'
+      p: 'sentence[msg.user.telegram]equipments'
       pt: flow
       to: '{}'
       tot: jsonata
@@ -1959,8 +1959,7 @@
       to: 'kernel.lines[msg.row.line]'
       tot: global
     - t: set
-      p: >-
-        #:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.row.equipment]
+      p: 'sentence[msg.user.telegram][''equipments''][msg.row.equipment]'
       pt: flow
       to: '0'
       tot: num
@@ -2019,17 +2018,15 @@
     - t: set
       p: tmp
       pt: msg
-      to: >-
-        #:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.row.equipment]
+      to: 'sentence[msg.user.telegram][''equipments''][msg.row.equipment]'
       tot: flow
     - t: set
-      p: >-
-        #:(memoryOnly)::sentence[msg.user.telegram]['equipments'][msg.row.equipment]
+      p: 'sentence[msg.user.telegram][''equipments''][msg.row.equipment]'
       pt: flow
       to: msg.tmp+1
       tot: jsonata
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''match''][msg.needle]'
+      p: 'sentence[msg.user.telegram][''match''][msg.needle]'
       pt: flow
       to: '1'
       tot: num
@@ -2101,7 +2098,7 @@
     - t: set
       p: haystack
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]left'
+      to: 'sentence[msg.user.telegram]left'
       tot: flow
   action: ''
   property: ''
@@ -2133,7 +2130,7 @@
   z: c886080f59e5c106
   g: 2bb43b669f72b0e4
   name: compare
-  property: '#:(memoryOnly)::sentence[msg.user.telegram][''match'']'
+  property: 'sentence[msg.user.telegram][''match'']'
   propertyType: flow
   rules:
     - t: hask
@@ -2155,7 +2152,7 @@
   name: remove
   rules:
     - t: delete
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''left''][msg.needle]'
+      p: 'sentence[msg.user.telegram][''left''][msg.needle]'
       pt: flow
   action: ''
   property: ''
@@ -2240,7 +2237,7 @@
     - t: set
       p: haystack
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram]equipments'
+      to: 'sentence[msg.user.telegram]equipments'
       tot: flow
   action: ''
   property: ''
@@ -2319,7 +2316,7 @@
   name: remove
   rules:
     - t: delete
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''equipments''][msg.equipment]'
+      p: 'sentence[msg.user.telegram][''equipments''][msg.equipment]'
       pt: flow
   action: ''
   property: ''
@@ -2335,7 +2332,7 @@
   z: c886080f59e5c106
   g: 2bb43b669f72b0e4
   name: has equipment
-  property: '#:(memoryOnly)::sentence[msg.user.telegram]'
+  property: 'sentence[msg.user.telegram]'
   propertyType: flow
   rules:
     - t: nempty
@@ -2357,7 +2354,7 @@
     - t: set
       p: row.state
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''state'']'
+      to: 'sentence[msg.user.telegram][''state'']'
       tot: flow
     - t: set
       p: row.name
@@ -2367,25 +2364,25 @@
     - t: set
       p: row.state_name
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''state_name'']'
+      to: 'sentence[msg.user.telegram][''state_name'']'
       tot: flow
     - t: set
       p: row.component
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''component'']'
+      to: 'sentence[msg.user.telegram][''component'']'
       tot: flow
     - t: set
       p: row.component_name
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''component_name'']'
+      to: 'sentence[msg.user.telegram][''component_name'']'
       tot: flow
     - t: set
       p: tmp
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''opts'']'
+      to: 'sentence[msg.user.telegram][''opts'']'
       tot: flow
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''opts'']'
+      p: 'sentence[msg.user.telegram][''opts'']'
       pt: flow
       to: '$append(msg.tmp,msg.row)'
       tot: jsonata
@@ -2405,14 +2402,14 @@
   name: equipments
   rules:
     - t: set
-      p: '#:(memoryOnly)::sentence[msg.user.telegram][''opts'']'
+      p: 'sentence[msg.user.telegram][''opts'']'
       pt: flow
       to: '{}'
       tot: jsonata
     - t: set
       p: rows
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''equipments'']'
+      to: 'sentence[msg.user.telegram][''equipments'']'
       tot: flow
     - t: set
       p: row
@@ -2515,7 +2512,7 @@
     - t: set
       p: options
       pt: msg
-      to: '#:(memoryOnly)::sentence[msg.user.telegram][''opts'']'
+      to: 'sentence[msg.user.telegram][''opts'']'
       tot: flow
     - t: delete
       p: 'options[0]'
@@ -2770,7 +2767,7 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: has state
-  property: '#:(memoryOnly)::kernel.state'
+  property: kernel.state
   propertyType: global
   rules:
     - t: hask
@@ -2835,7 +2832,7 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: state
-  property: '#:(memoryOnly)::kernel.state'
+  property: kernel.state
   propertyType: global
   rules:
     - t: hask
@@ -2882,7 +2879,8 @@
   func: |-
     // Boot message
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Wait long update
+    msg = await node.linkcall('wait - long', msg);
 
     return {
         'topic': '',
