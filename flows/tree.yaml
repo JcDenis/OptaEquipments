@@ -15690,13 +15690,17 @@
   z: 64ce08af468b8197
   g: 2c0384adc9ef91fe
   name: label
-  func: |-
-    const day = global.get('kernel.day["' + msg.payload + '"]', 'default') || 0;
+  func: >-
+    const day = global.get('kernel.day["' + msg.payload + '"]', 'memoryOnly') ||
+    0;
+
 
     msg.ui_update = {
         'label': msg.dictionary.option_select.day_starttime
     };
+
     msg.payload = msg.stoptime;
+
 
     return msg;
   outputs: 1
@@ -15776,13 +15780,17 @@
   z: 64ce08af468b8197
   g: 3f9c0107c43536e4
   name: label
-  func: |-
-    const day = global.get('kernel.day["' + msg.payload + '"]', 'default') || 0;
+  func: >-
+    const day = global.get('kernel.day["' + msg.payload + '"]', 'memoryOnly') ||
+    0;
+
 
     msg.ui_update = {
         'label': msg.dictionary.option_select.holiday_day
     };
+
     msg.payload = 0;
+
 
     return msg;
   outputs: 1

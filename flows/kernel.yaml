@@ -2913,7 +2913,7 @@
 
     if (global.get('kernel.app.tomqtt', 'memoryOnly') === true) {
         return  {
-            'topic': [(global.get('describe.app.automate', 'default') || 'optaequipments'), msg.kernel.type, msg.kernel.entity].join('/'),
+            'topic': [(global.get('describe.app.automate', 'memoryOnly') || 'optaequipments'), msg.kernel.type, msg.kernel.entity].join('/'),
             'payload': msg.kernel.value,
             'qos': 0,
             'retain': msg.kernel?.delete === true ? true : false
@@ -4158,7 +4158,7 @@
   group: ''
   page: ''
   ui: 68fb8d742e5053db
-  name: ''
+  name: ui - template
   order: 0
   width: 0
   height: 0
@@ -4177,7 +4177,7 @@
   resendOnRefresh: true
   templateScope: 'widget:ui'
   className: ''
-  x: 460
+  x: 470
   'y': 3520
   wires:
     - []

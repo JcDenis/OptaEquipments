@@ -290,8 +290,11 @@
 
     // UI redirect to alert page
     if (msg.payload === true) {
-        // For now juste go to map page even if not set
+        // For now just go to map page even if not set
         msg.payload = global.get('describe.pages.map.tab', 'memoryOnly') || '';
+
+        // debug
+        flow.set('login[' + msg.login + '"]', Date.now(), 'memoryOnly');
 
         return [ msg, null ];
     }
