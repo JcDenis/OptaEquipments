@@ -219,7 +219,7 @@
     let i = 0;
 
     // Rows
-    const alerts = global.get('kernel.alert', 'memoryOnly') || { };
+    const alerts = global.get('kernel.alert') || { };
     for (const alert in alerts) {
         let asplit = alert.split('|');
         let row = {};
@@ -227,24 +227,24 @@
         row.equipment = asplit[0];
         row.component = asplit[1];
         row.limit = alerts[alert];
-        row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
-        row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '';
+        row.line = global.get('kernel.equipments["' + row.equipment + '"]') || '';
+        row.plant = global.get('kernel.lines["' + row.line + '"]') || '';
 
         let state = row.equipment + '|' + 'run';
         if (row.component === 'cyclemeter') {
             state = row.equipment + '|' + 'cycle';
         }
 
-        if ((global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '') === row.plant 
-            && typeof global.get('kernel.link["' + state + '"]', 'memoryOnly') === 'string' 
-            && typeof global.get('kernel.link["' + row.entity + '"]', 'memoryOnly') === 'string' 
+        if ((global.get('form["' + msg.hmi.id + '"]["plant"]') || '') === row.plant 
+            && typeof global.get('kernel.link["' + state + '"]') === 'string' 
+            && typeof global.get('kernel.link["' + row.entity + '"]') === 'string' 
         ) {
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
-            row.line_name = global.get('kernel.line["' + row.line + '"]', 'memoryOnly') || '';
-            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
-            row.state = global.get('kernel.state["' + state + '"]', 'memoryOnly') || 0;
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]') || '';
+            row.line_name = global.get('kernel.line["' + row.line + '"]') || '';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]') || '';
+            row.state = global.get('kernel.state["' + state + '"]') || 0;
             row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
-            row.alert = global.get('kernel.state["' + row.entity + '"]', 'memoryOnly') || 0;
+            row.alert = global.get('kernel.state["' + row.entity + '"]') || 0;
             row.alert_full = row.alert + ' / ' + row.limit
             row.percent = Math.round(Number(row.alert) * 100 / Number(row.limit));
             row.percent_full = row.percent.toString() + '%';
@@ -252,8 +252,8 @@
             row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off)
 
             // chek if device is offline
-            let ssplit = (global.get('kernel.link["' + state + '"]', 'memoryOnly') || '').split('|');
-            if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]', 'memoryOnly') !== 1) {
+            let ssplit = (global.get('kernel.link["' + state + '"]') || '').split('|');
+            if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]') !== 1) {
                 row.state_color = msg.dictionary.option_color.none;
             }
 
@@ -291,19 +291,14 @@
   z: 476eb6fc04c55cec
   g: a2c5edf7acc56d7a
   name: data
-  func: >-
+  func: |-
     // Get user plants
 
-
     // Check if required page is current flow
-
     msg.check = env.get('NR_FLOW_NAME');
-
     msg = await node.linkcall('ui - tab', msg);
 
-
     // Reset UI
-
     if (msg.enabled !== true) {
         // page is disabled
         msg.class = 'remove';
@@ -313,15 +308,12 @@
         return [ msg, msg ];
     }
 
-
     // Plant was not defined for the user
-
     if (msg.hmi.plant === '') {
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
 
     // Get plants for form
-
     msg = await node.linkcall('option - plant', msg);
 
         // user must selected a plant
@@ -334,14 +326,9 @@
         return [ msg, msg ];
     }
 
-
     // Plant is defined for the user
-
     msg.payload = msg.hmi.plant;
-
-    global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload,
-    'memoryOnly');
-
+    global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload);
 
     return [ msg, null ];
   outputs: 2
@@ -367,7 +354,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     // Get user form
-    let form = global.get('form', 'memoryOnly') || { };
+    let form = global.get('form') || { };
 
     // Should not happened
     if (typeof form[msg.hmi.id] !== 'object') {
@@ -382,8 +369,8 @@
     delete msg.action;
 
     // UI redirect
-    msg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || '';
-    msg.hmi.name = global.get('describe.pages.detail.page', 'memoryOnly') || '';
+    msg.hmi.tab = global.get('describe.pages.detail.tab') || '';
+    msg.hmi.name = global.get('describe.pages.detail.page') || '';
     msg.payload = msg.hmi.tab;
 
     return msg;

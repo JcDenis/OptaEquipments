@@ -698,7 +698,7 @@
                 && typeof msg.payload[login]["pass"] === 'string'
                 && typeof msg.payload[login]["plant"] === 'string'
                 && typeof msg.payload[login]["level"] === 'string'
-                && typeof global.get('auth["' + login + '"]["level"]', 'memoryOnly') !== 'string'
+                && typeof global.get('auth["' + login + '"]["level"]') !== 'string'
             ) {
                 if (typeof msg.payload[login]["lang"] !== 'string') {
                     msg.payload[login]["lang"] = 'fr';
@@ -708,7 +708,7 @@
                 }
 
                 if (msg.payload[login]["level"] === 'admin') {
-                    //flow.set('has_admin', true, 'memoryOnly');
+                    //flow.set('has_admin', true);
                 }
 
                 global.set('auth["' + login + '"]' ,{
@@ -717,7 +717,7 @@
                     'plant':msg.payload[login]["plant"],
                     'lang': msg.payload[login]["lang"],
                     'telegram': msg.payload[login]["telegram"]
-                }, 'memoryOnly');
+                });
             }
         }
 
@@ -773,12 +773,12 @@
         return msg;
     }
 
-    const users = { ...(global.get('user', 'memoryOnly') || { }) };
-    msg.payload = { ...(global.get('auth', 'memoryOnly') || { }) };
+    const users = { ...(global.get('user') || { }) };
+    msg.payload = { ...(global.get('auth') || { }) };
 
     for (const u in msg.payload) {
         msg.payload[u].login = u;
-        msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant["' + msg.payload[u].plant + '"]', 'memoryOnly') || '');
+        msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant["' + msg.payload[u].plant + '"]') || '');
         msg.payload[u].delete = msg.dictionary.option_action.delete;
         msg.payload[u].disconnect = msg.dictionary.option_action.disconnect;
         msg.payload[u].session = '-';
@@ -843,9 +843,9 @@
             return [ msg, null, null ];
         }
         else {
-            let auth = { ...(global.get('auth', 'memoryOnly') || { }) };
+            let auth = { ...(global.get('auth') || { }) };
             delete auth[msg.payload.login];
-            global.set('auth', auth, 'memoryOnly');
+            global.set('auth', auth);
 
             msg.payload = 'Successfully updated';
             node.send([ msg, null, null]);
@@ -861,9 +861,9 @@
 
     else if (msg.column === 'disconnect') {
 
-        let user = { ...(global.get('user', 'memoryOnly') || { }) };
+        let user = { ...(global.get('user') || { }) };
         delete user[msg.payload.session];
-        global.set('user', user, 'memoryOnly');
+        global.set('user', user);
 
         msg.payload = 'Successfully updated';
         node.send([ msg, null, null]);
@@ -932,7 +932,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    const auth = { ...(global.get('auth', 'memoryOnly') || { }) };
+    const auth = { ...(global.get('auth') || { }) };
     if (typeof auth[msg.payload.login] === 'object') {
         if (msg.payload.pass === msg.payload.pass2) {
 
@@ -963,9 +963,9 @@
   g: 4c2194718c72648c
   name: data
   func: |-
-    const auth = { ...(global.get('auth', 'memoryOnly') || { }) };
+    const auth = { ...(global.get('auth') || { }) };
     auth[msg.payload.login]['pass'] = msg.payload.pass;
-    global.set('auth', auth, 'memoryOnly');
+    global.set('auth', auth);
 
     msg.login = msg.payload.login;
 
@@ -1048,7 +1048,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    const auth = { ...(global.get('auth', 'memoryOnly') || { }) };
+    const auth = { ...(global.get('auth') || { }) };
     if (typeof msg.dictionary.option_level[msg.payload.level] === 'string') {
         if (typeof auth[msg.payload.login] === 'object') {
             msg.payload = 'User is not empty';
@@ -1081,7 +1081,7 @@
   func: |-
     msg.payload.login = msg.payload.login.toLowerCase();
 
-    const auth = { ...(global.get('auth', 'memoryOnly') || { }) };
+    const auth = { ...(global.get('auth') || { }) };
     auth[msg.payload.login] = {
         'pass': msg.payload.pass,
         'level': msg.payload.level,
@@ -1089,7 +1089,7 @@
         'lang': msg.payload.lang,
         'telegram': msg.payload.telegram
     };
-    global.set('auth', auth, 'memoryOnly');
+    global.set('auth', auth);
 
     msg.login = msg.payload.login;
     msg.payload = '';
@@ -1154,7 +1154,7 @@
     }
 
     const random = Math.floor(Math.random() * 1000000);
-    global.set('random', random, 'memoryOnly');
+    global.set('random', random);
 
     msg.payload = {
         'url': '/user.export.json?rnd=' + random.toString()

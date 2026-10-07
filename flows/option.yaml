@@ -907,7 +907,7 @@
 
     let i = 1;
 
-    const plants = global.get('kernel.plant', 'memoryOnly') || { };
+    const plants = global.get('kernel.plant') || { };
 
 
     for (const plant in plants) {
@@ -956,10 +956,10 @@
     }];
 
     let i = 1;
-    const lines = global.get('kernel.line', 'memoryOnly') || { };
+    const lines = global.get('kernel.line') || { };
 
     for (const line in lines) {
-        let line_plant = global.get('kernel.lines["' + line + '"]', 'memoryOnly') || '';
+        let line_plant = global.get('kernel.lines["' + line + '"]') || '';
         if (typeof msg.limit_plant === 'undefined' || msg.limit_plant === line_plant) {
             msg.options[i++] = {
                 'label': lines[line] + ' (' + line + ')',
@@ -1005,11 +1005,11 @@
 
     let i = 1;
 
-    const equipments = global.get('kernel.equipment', 'memoryOnly') || { };
+    const equipments = global.get('kernel.equipment') || { };
 
 
     for (const equipment in equipments) {
-        let equipment_line = global.get('kernel.equipments["' + equipment + '"]', 'memoryOnly') || '';
+        let equipment_line = global.get('kernel.equipments["' + equipment + '"]') || '';
         if (typeof msg.limit_line === 'undefined' || msg.limit_line === equipment_line) {
             msg.options[i++] = {
                 'label': equipments[equipment] + ' (' + equipment + ')',
@@ -1062,11 +1062,11 @@
 
     let i = 1;
 
-    const models = global.get('describe.model', 'memoryOnly') || { };
+    const models = global.get('describe.model') || { };
 
 
     for (const model in models) {
-        if (typeof msg.limit_component === 'undefined' || typeof global.get('describe.convert["' + model + '"]["' + msg.limit_component + '"]', 'memoryOnly') === 'string') {
+        if (typeof msg.limit_component === 'undefined' || typeof global.get('describe.convert["' + model + '"]["' + msg.limit_component + '"]') === 'string') {
             msg.options[i++] = {
                 'label': models[model] + ' (' + model + ')',
                 'value': model,
@@ -1270,7 +1270,7 @@
     }];
 
     let i = 1;
-    const logins = global.get('auth', 'memoryOnly') || { };
+    const logins = global.get('auth') || { };
 
     for (const login in logins) {
         msg.options[i++] = {
@@ -1309,7 +1309,7 @@
 
     let i = 1;
 
-    const alerts = global.get('kernel.alert', 'memoryOnly') || { };
+    const alerts = global.get('kernel.alert') || { };
 
 
     for (const alert in alerts) {
@@ -1411,7 +1411,7 @@
 
     if (typeof msg.limit_model !== 'undefined') {
         let i = 1;
-        const  devices = global.get('kernel.device', 'memoryOnly') || { };
+        const  devices = global.get('kernel.device') || { };
         for (const device in devices) {
             /* 0 = model, 1 = device */
             let split = device.split("|");
@@ -1463,7 +1463,7 @@
     }];
 
     let i = 1;
-    const links = global.get('kernel.link', 'memoryOnly') ||{ };
+    const links = global.get('kernel.link') ||{ };
     for (const link in links) {
         /* 0 = equipment, 1 = component */
         let split = link.split("|");
@@ -1512,7 +1512,7 @@
     if (typeof msg.limit_plant === 'string' && msg.limit_plant !== '' && typeof
     msg.limit_team === 'string' && msg.limit_team != '') {
         let period = msg.limit_plant + '|' + msg.limit_team;
-        let times = global.get('kernel.team["' + period + '"]', 'memoryOnly');
+        let times = global.get('kernel.team["' + period + '"]');
         if (typeof times === 'string') {
             let split = times.split("|");
             msg.starttime = split[0];
@@ -1547,7 +1547,7 @@
     if (typeof msg.kernel === 'object' 
         && typeof msg.kernel.entity === 'string' 
         && msg.kernel.type === 'state'
-        && global.get('kernel.reverse["' + msg.kernel.entity + '"]', 'memoryOnly') === true
+        && global.get('kernel.reverse["' + msg.kernel.entity + '"]') === true
     ) {
         // only on 1/0 values
         if (msg.kernel.value === 1 || msg.kernel.value === 0) {
@@ -1648,9 +1648,9 @@
   name: data
   func: |-
     if (typeof msg.payload === 'string' && typeof msg.hmi?.id === 'string') {
-        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload, 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["line"]', '', 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["equipment"]', '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload);
+        global.set('form["' + msg.hmi.id + '"]["line"]', '');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', '');
         msg.enabled = true;
     }
 
@@ -1692,8 +1692,8 @@
   name: data
   func: |-
     if (typeof msg.payload === 'string' && typeof msg.hmi?.id === 'string') {
-        global.set('form["' + msg.hmi.id + '"]["line"]', msg.payload, 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["equipment"]', '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["line"]', msg.payload);
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', '');
         msg.enabled = true;
     }
 
@@ -1735,7 +1735,7 @@
   name: data
   func: |-
     if (typeof msg.payload === 'string' && typeof msg.hmi?.id === 'string') {
-        global.set('form["' + msg.hmi.id + '"]["equipment"]', msg.payload, 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', msg.payload);
         msg.enabled = true;
     }
 
@@ -1793,7 +1793,7 @@
     }];
 
     let i = 0;
-    const holidays = global.get('kernel.holiday', 'memoryOnly') || { };
+    const holidays = global.get('kernel.holiday') || { };
 
     for (const holiday in holidays) {
         if (typeof msg.limit_plant === 'undefined' || holiday === msg.limit_plant) {

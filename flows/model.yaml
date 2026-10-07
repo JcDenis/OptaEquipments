@@ -1705,8 +1705,8 @@
 
 
     if (split[2] === 'device') {
-        flow.set('devices["' + split[0] + '|' + split[1] + '"]["' + split[3] + '"]', msg.payload, 'memoryOnly');
-        flow.set('devices["' + split[0] + '|' + split[1] + '"]["date"]', Date.now(), 'memoryOnly');
+        flow.set('devices["' + split[0] + '|' + split[1] + '"]["' + split[3] + '"]', msg.payload);
+        flow.set('devices["' + split[0] + '|' + split[1] + '"]["date"]', Date.now());
     } else if (split[2] === 'watchdog') {
         if (split[1] !== 'distant') {
             newMsg.kernel = {
@@ -1728,10 +1728,10 @@
         }
 
         let link = 'opta|' + split[1] + '|' + split[4] + '|' + (split[2] === 'input' ? 'i' : 'o') + '|' + split[3];
-        let endpoint = global.get('rlink["' + link + '"]', 'memoryOnly');
+        let endpoint = global.get('rlink["' + link + '"]');
         if (typeof endpoint === 'string') {
             // for now limit to "run" component
-            let reverse = global.get('kernel.reverse["' + endpoint.split('|')[0] + '|run"]', 'memoryOnly') || false;
+            let reverse = global.get('kernel.reverse["' + endpoint.split('|')[0] + '|run"]') || false;
 
             // skip low value on not reversed state
             if (low && !reverse) {
@@ -1833,7 +1833,7 @@
   g: dbcc4077524c4e42
   name: devices
   func: |-
-    let devices = global.get('kernel.device','memoryOnly');
+    let devices = global.get('kernel.device');
     if (typeof devices === 'object') {
         for (const device in devices) {
             if (device.match((new RegExp('^(local)'))) !== null) {
@@ -1865,10 +1865,8 @@
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: uptime
-  func: >-
-    let entity = global.get('rlink["' + msg.device + '|0|uptime"]',
-    'memoryOnly');
-
+  func: |-
+    let entity = global.get('rlink["' + msg.device + '|0|uptime"]');
     if (typeof entity === 'string') {
         return {
             'topic':'',
@@ -1881,7 +1879,6 @@
             }
         };
     }
-
 
     return;
   outputs: 1
@@ -1900,10 +1897,8 @@
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: load
-  func: >-
-    let load1meter = global.get('rlink["' + msg.device + '|0|load1meter"]',
-    'memoryOnly');
-
+  func: |-
+    let load1meter = global.get('rlink["' + msg.device + '|0|load1meter"]');
     if (typeof load1meter === 'string') {
         node.send({
             'topic': '',
@@ -1917,10 +1912,7 @@
         });
     }
 
-
-    let load5meter = global.get('rlink["' + msg.device + '|0|load5meter"]',
-    'memoryOnly');
-
+    let load5meter = global.get('rlink["' + msg.device + '|0|load5meter"]');
     if (typeof load5meter === 'string') {
         node.send({
             'topic': '',
@@ -1934,10 +1926,7 @@
         });
     }
 
-
-    let load15meter = global.get('rlink["' + msg.device + '|0|load15meter"]',
-    'memoryOnly');
-
+    let load15meter = global.get('rlink["' + msg.device + '|0|load15meter"]');
     if (typeof load15meter === 'string') {
         node.send({
             'topic': '',
@@ -1950,7 +1939,6 @@
             }
         });
     }
-
 
     return;
   outputs: 1
@@ -1969,10 +1957,8 @@
   z: 135b7308617dad08
   g: dbcc4077524c4e42
   name: memory
-  func: >-
-    let memorymeter = global.get('rlink["' + msg.device + '|0|memorymeter"]',
-    'memoryOnly');
-
+  func: |-
+    let memorymeter = global.get('rlink["' + msg.device + '|0|memorymeter"]');
     if (typeof memorymeter === 'string') {
         return {
             'topic':'',
@@ -1985,7 +1971,6 @@
             }
         };
     }
-
 
     return;
   outputs: 1
@@ -2007,7 +1992,7 @@
   func: |-
     for (const key in msg.payload) {
         if (msg.payload[key]['mount'] === '/data') {
-            let diskmeter = global.get('rlink["' + msg.device + '|0|diskmeter"]', 'memoryOnly');
+            let diskmeter = global.get('rlink["' + msg.device + '|0|diskmeter"]');
             if (typeof diskmeter === 'string') {
                 return {
                     'topic':'',
@@ -2089,7 +2074,7 @@
   g: c0b72044a49a3f76
   name: devices
   func: |-
-    let devices = global.get('kernel.device','memoryOnly');
+    let devices = global.get('kernel.device');
     if (typeof devices === 'object') {
         for (const device in devices) {
             if (device.match((new RegExp('^(tcw122bcm)'))) !== null) {
@@ -2148,7 +2133,7 @@
         node.send(newMsg);
 
         for (const input in inputs) {
-            let component = global.get('rlink["' + msg.device + inputs[input] + '"]', 'memoryOnly');
+            let component = global.get('rlink["' + msg.device + inputs[input] + '"]');
             if (typeof component === 'string') {
                 if (input.match((new RegExp('^(Digital)'))) !== null) {
                     /* Digital */
@@ -2265,11 +2250,11 @@
   func: |-
     let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];
     msg.topic = '';
-    let device = flow.get('devices["' + msg.payload.entity + '"]','memoryOnly');
+    let device = flow.get('devices["' + msg.payload.entity + '"]');
     if (typeof device === 'object') {
-        let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]','memoryOnly')||0;
+        let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]')||0;
         msg.payload =
-            "<strong>Model: </strong>" + global.get('describe.model["' + msg.payload.entity.split('|')[0] + '"]','memoryOnly') + " <br />\n" +
+            "<strong>Model: </strong>" + global.get('describe.model["' + msg.payload.entity.split('|')[0] + '"]') + " <br />\n" +
             "<strong>Type: </strong>" + device.type + " <br />\n" +
             "<strong>ID: </strong>" + msg.payload.device + " <br />\n" +
             "<strong>IP: </strong><a href=\"http://" + device.ip + "\">" + device.ip + "</a> <br />\n" +

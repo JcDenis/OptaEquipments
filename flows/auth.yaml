@@ -254,7 +254,7 @@
   name: data
   func: |-
     // Disconnect user
-    let user = global.get('user', 'memoryOnly') || { };
+    let user = global.get('user') || { };
     delete user[ msg._client.socketId ]; // auto
 
     delete msg.ui_update;
@@ -291,10 +291,10 @@
     // UI redirect to alert page
     if (msg.payload === true) {
         // For now just go to map page even if not set
-        msg.payload = global.get('describe.pages.map.tab', 'memoryOnly') || '';
+        msg.payload = global.get('describe.pages.map.tab') || '';
 
         // debug
-        //flow.set('login[' + msg.login + '"]', Date.now(), 'memoryOnly');
+        //flow.set('login[' + msg.login + '"]', Date.now());
 
         return [ msg, null ];
     }

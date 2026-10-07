@@ -1211,23 +1211,23 @@
     msg.enabled = true;
 
     if (msg.list === 'line') {
-        const lines = { ...(global.get('kernel.lines', 'memoryOnly') || { }) };
+        const lines = { ...(global.get('kernel.lines') || { }) };
         let i = 0;
 
         for (const line in lines) {
             let row  = { };
 
             row.line = line;
-            row.line_name = global.get('kernel.line["' + line + '"]', 'memoryOnly') || '';
+            row.line_name = global.get('kernel.line["' + line + '"]') || '';
             row.line_full = row.line_name + ' (' + line + ')';
             row.plant = lines[line];
-            row.plant_name = global.get('kernel.plant["'  + row.plant + '"]', 'memoryOnly') || '';
+            row.plant_name = global.get('kernel.plant["'  + row.plant + '"]') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
             row.delete = (msg.dictionary.option_action.delete) || 'Delete';
             row.equipment_count = 0;
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
-                let equipments = global.get('kernel.equipments', 'memoryOnly');
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]')) {
+                let equipments = global.get('kernel.equipments');
                 if (typeof equipments === 'object') {
                     for (const equipment in equipments) {
                         if (equipments[equipment] === line) {
@@ -1286,38 +1286,38 @@
     msg.enabled = true;
 
     if (msg.list === 'equipment') {
-        let equipments = global.get('kernel.equipments', 'memoryOnly') || {};
+        let equipments = global.get('kernel.equipments') || {};
         let i = 0;
 
         for (const equipment in equipments) {
             let row  = {};
 
             row.equipment = equipment;
-            row.equipment_name = global.get('kernel.equipment["' + equipment + '"]', 'memoryOnly') || '';
+            row.equipment_name = global.get('kernel.equipment["' + equipment + '"]') || '';
             row.equipment_full = row.equipment_name + ' (' + equipment + ')';
             row.line = equipments[equipment];
-            row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]') || '';
             row.line_full = row.line_name + ' (' + row.line + ')';
-            row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '-';
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
+            row.plant = global.get('kernel.lines["' + row.line + '"]') || '-';
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
             row.delete = (msg.dictionary.option_action.delete) || 'Delete';
             row.component_count = 0;
             row.state_color = msg.dictionary.option_color.empty;
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
-                let state = global.get('kernel.state["' + row.equipment + '|run"]', 'memoryOnly');
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]')) {
+                let state = global.get('kernel.state["' + row.equipment + '|run"]');
                 if (typeof state === 'number') {
                     // chek if device is offline
-                    let ssplit = (global.get('kernel.link["' + equipment + '|run"]', 'memoryOnly') || '').split('|');
-                    if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]', 'memoryOnly') !== 1) {
+                    let ssplit = (global.get('kernel.link["' + equipment + '|run"]') || '').split('|');
+                    if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]') !== 1) {
                         row.state_color = msg.dictionary.option_color.none;
                     } else {
                         row.state_color = state === 0 ? msg.dictionary.option_color.off : msg.dictionary.option_color.on;
                     }
                 }
 
-                let links = global.get('kernel.link', 'memoryOnly');
+                let links = global.get('kernel.link');
                 let needle = new RegExp('^(' + row.equipment + '\\|)');
 
                 if (typeof links === 'object') {
@@ -1385,7 +1385,7 @@
     msg.enabled = true;
 
     if (msg.list === 'device') {
-        let devices = global.get('kernel.device', 'memoryOnly') || {};
+        let devices = global.get('kernel.device') || {};
         let i = 0;
 
         for (const entity in devices) {
@@ -1394,19 +1394,19 @@
 
             row.entity = entity;
             row.model = esplit[0];
-            row.model_name = global.get('describe.model["' + row.model + '"]', 'memoryOnly') || ''
+            row.model_name = global.get('describe.model["' + row.model + '"]') || ''
             row.model_full = row.model_name + ' (' + row.model + ')';
             row.device = esplit[1];
             row.delete = (msg.dictionary.option_action.delete) || 'Delete';
             row.component_count = 0;
             row.watchdog_color = msg.dictionary.option_color.empty;
 
-            let watchdog = global.get('kernel.watchdog["' + row.entity + '"]', 'memoryOnly');
+            let watchdog = global.get('kernel.watchdog["' + row.entity + '"]');
             if (typeof watchdog === 'number') {
                 row.watchdog_color = devices[entity] === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
             }
 
-            let rlinks = global.get('rlink', 'memoryOnly');
+            let rlinks = global.get('rlink');
             let needle = new RegExp('^(' + row.model + '\\|' + row.device + '\\|)');
 
             let names = {};
@@ -1415,7 +1415,7 @@
                     if (target.match(needle) !== null) {
                         let tsplit = rlinks[target].split('|');
                         // get uniq equipement
-                        names[tsplit[0]]  = global.get('kernel.equipment["' + tsplit[0] + '"]', 'memoryOnly') || '';
+                        names[tsplit[0]]  = global.get('kernel.equipment["' + tsplit[0] + '"]') || '';
                         row.component_count += 1;
                     }
                 }
@@ -1482,7 +1482,7 @@
     msg.enabled = true;
 
     if (msg.list === 'component') {
-        let links = global.get('kernel.link', 'memoryOnly') || {};
+        let links = global.get('kernel.link') || {};
         let i = 0;
 
         for (const endpoint in links) {
@@ -1490,28 +1490,28 @@
             let lsplit = links[endpoint].split('|');
             let esplit = endpoint.split('|');
 
-            row.value = global.get('kernel.state["' + endpoint + '"]', 'memoryOnly') || '';
+            row.value = global.get('kernel.state["' + endpoint + '"]') || '';
             row.model = lsplit[0];
-            row.model_name = global.get('describe.model["' + row.model + '"]', 'memoryOnly') || '';
+            row.model_name = global.get('describe.model["' + row.model + '"]') || '';
             row.device = lsplit[1];
             row.device_full = row.model_name + ' (' + row.device + ')';
             row.terminal = lsplit[2];
             row.equipment = esplit[0];
-            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]') || '';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
             row.component = esplit[1];
             row.component_name = (msg.dictionary.option_component[row.component]) || '';
             row.component_full = row.component_name + ' ('+ row.component + ')';
-            row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
-            row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
+            row.line = global.get('kernel.equipments["' + row.equipment + '"]') || '';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]') || '';
             row.line_full = row.line_name + ' (' + row.line + ')';
-            row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '';
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
+            row.plant = global.get('kernel.lines["' + row.line + '"]') || '';
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.reverse = (global.get('kernel.reverse["' + endpoint + '"]', 'memoryOnly') || false) === true ? 'NC' : 'NO';
+            row.reverse = (global.get('kernel.reverse["' + endpoint + '"]') || false) === true ? 'NC' : 'NO';
             row.delete = (msg.dictionary.option_action.delete) || 'Delete';
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]')) {
                 msg.payload[i++] = row;
             }
         }
@@ -1569,7 +1569,7 @@
     msg.enabled = true;
 
     if (msg.list === 'alert') {
-        let alerts = global.get('kernel.alert', 'memoryOnly') || {};
+        let alerts = global.get('kernel.alert') || {};
         let i = 0;
 
         for (const entity in alerts) {
@@ -1578,24 +1578,24 @@
 
             row.entity = entity;
             row.equipment = esplit[0];
-            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]', 'memoryOnly') || '';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]') || '';
             row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
             row.component = esplit[1];
             row.component_name = (msg.dictionary.option_component[row.component]) || '';
             row.component_full = row.component_name + ' ('+ row.component + ')';
-            row.line = global.get('kernel.equipments["' + row.equipment + '"]', 'memoryOnly') || '';
-            row.line_name = global.get('kernel.line["'  + row.line + '"]', 'memoryOnly') || '';
+            row.line = global.get('kernel.equipments["' + row.equipment + '"]') || '';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]') || '';
             row.line_full = row.line_name + ' (' + row.line + ')';
-            row.plant = global.get('kernel.lines["' + row.line + '"]', 'memoryOnly') || '';
-            row.plant_name = global.get('kernel.plant["' + row.plant + '"]', 'memoryOnly') || '';
+            row.plant = global.get('kernel.lines["' + row.line + '"]') || '';
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]') || '';
             row.plant_full = row.plant_name + ' (' + row.plant + ')';
-            row.state = global.get('kernel.state["' + entity + '"]', 'memoryOnly') || 0;
+            row.state = global.get('kernel.state["' + entity + '"]') || 0;
             row.state_limit = Number(alerts[entity]);
             row.state_color = row.state < row.state_limit ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
             row.state_diff = Math.round((row.state - row.state_limit) *10) / 10;
             row.delete = (msg.dictionary.option_action.delete) || 'Delete';
 
-            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
+            if (row.plant === global.get('form["' + msg.hmi.id + '"]["plant"]')) {
                 msg.payload[i++] = row;
             }
         }
@@ -1645,8 +1645,8 @@
   func: |-
     if (typeof msg.success === 'boolean' && msg.success === true) {
     /*
-        msg.hmi.tab = global.get('describe.pages.list.tab', 'memoryOnly') || 0;
-        msg.hmi.page = global.get('describe.pages.list.name', 'memoryOnly') || '';
+        msg.hmi.tab = global.get('describe.pages.list.tab') || 0;
+        msg.hmi.page = global.get('describe.pages.list.name') || '';
     */
         delete msg.action;
         delete msg.column;
@@ -1680,11 +1680,11 @@
   name: action
   func: |-
     if (msg.action === 'row_click') {
-        global.set('form["' + msg.hmi.id + '"]["plant"]', typeof msg.payload.plant === 'string' ? msg.payload.plant : '', 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["line"]', typeof msg.payload.line === 'string' ? msg.payload.line : '', 'memoryOnly');
-        global.set('form["' + msg.hmi.id + '"]["equipment"]', typeof msg.payload.equipment === 'string' ? msg.payload.equipment : '', 'memoryOnly');
+        global.set('form["' + msg.hmi.id + '"]["plant"]', typeof msg.payload.plant === 'string' ? msg.payload.plant : '');
+        global.set('form["' + msg.hmi.id + '"]["line"]', typeof msg.payload.line === 'string' ? msg.payload.line : '');
+        global.set('form["' + msg.hmi.id + '"]["equipment"]', typeof msg.payload.equipment === 'string' ? msg.payload.equipment : '');
 
-        msg.payload = global.get('describe.pages.detail.tab', 'memoryOnly') || 0;
+        msg.payload = global.get('describe.pages.detail.tab') || 0;
 
         delete msg.action;
         delete msg.column;
@@ -1758,7 +1758,7 @@
 
     if (msg.hmi.plant === '') {
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]','memoryOnly')||'';
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]')||'';
 
         // Get plants for form
         msg = await node.linkcall('option - plant', msg);
@@ -1816,11 +1816,11 @@
     msg.enabled = true;
 
     if (msg.list === 'holiday') {
-        let holidays = global.get('kernel.holiday', 'memoryOnly') || {};
+        let holidays = global.get('kernel.holiday') || {};
         let i = 0;
 
         for (const plant in holidays) {
-            if (plant === global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly')) {
+            if (plant === global.get('form["' + msg.hmi.id + '"]["plant"]')) {
                 let hsplit = holidays[plant].split('|');
 
                 for (const k in hsplit) {

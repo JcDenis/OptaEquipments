@@ -1879,9 +1879,8 @@
   z: f6f2187d.f17ca8
   g: b0a29d62b8e00f94
   name: data
-  func: >-
+  func: |-
     // Keep up to date reverse links
-
 
     function inverse(obj) {
       let retobj = { };
@@ -1892,23 +1891,15 @@
       return retobj;
     }
 
-
     // Wait data was saved
-
     await new Promise(resolve => setTimeout(resolve, 20));
 
-
-    global.set('rlink', inverse(global.get('kernel.link', 'memoryOnly'))
-    ,'memoryOnly');
-
+    global.set('rlink', inverse(global.get('kernel.link')));
 
     msg.payload = '';
 
-
     // Wait data was saved
-
     await new Promise(resolve => setTimeout(resolve, 20));
-
 
     return msg;
   outputs: 1
@@ -2011,13 +2002,13 @@
 
 
     const limit = Math.round(Date.now() / 1000) -
-    (global.get('kernel.app.watchdog', 'memoryOnly') || 120);
+    (global.get('kernel.app.watchdog') || 120);
 
 
-    const devices = global.get('kernel.device', 'memoryOnly') || { };
+    const devices = global.get('kernel.device') || { };
 
     for (const device in devices) {
-        let watchdog = (global.get('kernel.watchdog["' + device + '"]', 'memoryOnly') || 0) < limit ? 0 : 1;
+        let watchdog = (global.get('kernel.watchdog["' + device + '"]') || 0) < limit ? 0 : 1;
 
         newMsg.kernel = {
             'type': 'device',
@@ -2113,7 +2104,7 @@
     if (typeof msg.login === 'string' && msg.login !== "" && typeof msg.pass ===
     'string' && msg.pass !== "") {
         msg.login = msg.login.toLowerCase();
-        const hash = global.get('auth["' + msg.login + '"]["pass"]', 'memoryOnly');
+        const hash = global.get('auth["' + msg.login + '"]["pass"]');
         if (typeof hash === 'string') {
             msg.hash = hash;
 
@@ -2147,11 +2138,11 @@
     msg.topic = limit;
 
     let removed = 0;
-    let user = global.get('user', 'memoryOnly') || { };
-    let form = global.get('form', 'memoryOnly') || { };
+    let user = global.get('user') || { };
+    let form = global.get('form') || { };
 
     for (const u in user) {
-        if (typeof global.get('auth["' + user[u]["login"] + '"]["level"]', 'memoryOnly') !== 'string' 
+        if (typeof global.get('auth["' + user[u]["login"] + '"]["level"]') !== 'string' 
         || user[u]["time"] < limit 
         || (typeof msg.login === 'string' && msg.login === user[u]["login"])
         ) {
@@ -2165,8 +2156,8 @@
         }
     }
 
-    //global.set('user', user, 'memoryOnly'); // autoupdate
-    //global.set('form', form, 'memoryOnly'); // autoupdate
+    //global.set('user', user); // autoupdate
+    //global.set('form', form); // autoupdate
 
     msg.payload = removed + ' cleaned';
 
@@ -2204,7 +2195,7 @@
     /* Check if payload is well formed */
     if (typeof msg.payload?.app?.vendor === 'string') {
         /* Delete current kernel */
-        //global.set('kernel', newMsg.kernel, 'memoryOnly');
+        //global.set('kernel', newMsg.kernel);
 
         for (const type in msg.payload) {
             newMsg.kernel.type = type;
@@ -2238,14 +2229,12 @@
   z: f6f2187d.f17ca8
   g: 216f821485a9eb19
   name: data
-  func: >-
+  func: |-
     // Convert mqtt topic to kernel message
 
-
-    if (global.get('kernel.app.frommqtt', 'memoryOnly') === true && msg.payload
-    !== '') {
+    if (global.get('kernel.app.frommqtt') === true && msg.payload !== '') {
         let tsplit = msg.topic.split('/');
-        if (tsplit.length === 3 && typeof global.get('kernel["' + tsplit[1] + '"]["' + tsplit[2] + '"]', 'memoryOnly') !== 'undefined') {
+        if (tsplit.length === 3 && typeof global.get('kernel["' + tsplit[1] + '"]["' + tsplit[2] + '"]') !== 'undefined') {
             node.status({
                 'fill' : 'green',
                 'text': tsplit[1] + ' - ' + tsplit[2] + ' = ' + msg.payload
@@ -2263,7 +2252,6 @@
             }
         }
     }
-
 
     return;
   outputs: 1
@@ -2292,11 +2280,11 @@
 
     // Get memories
 
-    let user = global.get('user', 'memoryOnly') || { };
+    let user = global.get('user') || { };
 
-    let form = global.get('form', 'memoryOnly') || { };
+    let form = global.get('form') || { };
 
-    let pages = global.get('describe.pages', 'memoryOnly');
+    let pages = global.get('describe.pages');
 
 
     // Initialize some variables
@@ -2415,15 +2403,15 @@
 
     // UI menu
 
-    msg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';
+    msg.version = global.get('describe.app.version') || '0.0.0';
 
-    msg.vendor = global.get('kernel.app.vendor', 'memoryOnly') ||
-    global.get('describe.app.vendor', 'memoryOnly');
+    msg.vendor = global.get('kernel.app.vendor') ||
+    global.get('describe.app.vendor');
 
     msg.title = msg.hmi.page; 
 
-    msg.document = global.get('kernel.app.title', 'memoryOnly') ||
-    global.get('describe.app.title', 'memoryOnly');
+    msg.document = global.get('kernel.app.title') ||
+    global.get('describe.app.title');
 
     msg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;
 
@@ -2454,13 +2442,13 @@
     // Check ui page informations
 
 
-    let browser = global.get('browser', 'memoryOnly') || {};
+    let browser = global.get('browser') || {};
 
 
     if (msg.payload !== '' && typeof global.get('describe.pages["' + msg.payload
-    + '"]["name"]', 'memoryOnly') === 'string') {
-        msg.tab = global.get('describe.pages["' + msg.payload + '"]["tab"]', 'memoryOnly');
-        msg.name = global.get('describe.pages["' + msg.payload + '"]["name"]', 'memoryOnly');
+    + '"]["name"]') === 'string') {
+        msg.tab = global.get('describe.pages["' + msg.payload + '"]["tab"]');
+        msg.name = global.get('describe.pages["' + msg.payload + '"]["name"]');
         msg.payload = msg.name;
 
         // Get user from UI element
@@ -2501,15 +2489,15 @@
   func: |-
     // Prepare period loop
 
-    if (typeof global.get('kernel.team', 'memoryOnly') === 'object'
-        && typeof global.get('kernel.period', 'memoryOnly') === 'object'
-        && typeof global.get('kernel.state', 'memoryOnly') === 'object'
+    if (typeof global.get('kernel.team') === 'object'
+        && typeof global.get('kernel.period') === 'object'
+        && typeof global.get('kernel.state') === 'object'
     ) {
-        flow.set('teams', { }, 'memoryOnly');
+        flow.set('teams', { });
 
         return {
             'topic': '',
-            'payload': { ...(global.get('kernel.team', 'memoryOnly') || { }) },
+            'payload': { ...(global.get('kernel.team') || { }) },
             'row': {
                 'ts': Date.now()
                 // some timestamp tests
@@ -2563,8 +2551,7 @@
 
     /* plant offset (dec) */
 
-    let dec = Number(global.get('kernel.day["' + msg.row.plant + '"]',
-    'memoryOnly') || 0);
+    let dec = Number(global.get('kernel.day["' + msg.row.plant + '"]') || 0);
 
     msg.row.dectime = dec * 100; // ex: 600, in order to compare to
     starttime/stoptime 630, 2330...
@@ -2582,8 +2569,8 @@
 
     /* datetime formatter tz */
 
-    msg.outTz = msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]',
-    'memoryOnly') || 'Europe/Paris';
+    msg.outTz = msg.row.tz = global.get('kernel.tz["' + msg.row.plant + '"]') ||
+    'Europe/Paris';
 
 
     return msg;
@@ -2690,7 +2677,7 @@
 
     msg.payload = '';
 
-    let final_teams = flow.get('teams', 'memoryOnly') || { };
+    let final_teams = flow.get('teams') || { };
     let final_periods = { };
     let final_pilots = { };
 
@@ -2698,21 +2685,21 @@
     delete msg.settings;
     delete msg.outTz;
     delete msg.team;
-    flow.set('teams', undefined, 'memoryOnly');
+    flow.set('teams', undefined);
 
-    const periods = global.get('kernel.period', 'memoryOnly') || { };
+    const periods = global.get('kernel.period') || { };
     for (const line in periods) {
         final_periods[line] = false;
 
         /* line program is enabled */
-        if (global.get('kernel.disabled["' + line + '"]', 'memoryOnly') === false) {
+        if (global.get('kernel.disabled["' + line + '"]') === false) {
             /* no periods set for this line */
             if (periods[line] === '') {
                 /* set to off */
                 final_pilots[line] = false;
             } else {
                 let exists = false;
-                const plant = global.get('kernel.lines["' + line + '"]', 'memoryOnly');
+                const plant = global.get('kernel.lines["' + line + '"]');
                 const teams = periods[line].split("");
                 for (const i in teams) {
                     if (typeof final_teams[plant][teams[i]] === 'boolean') {
@@ -2729,16 +2716,16 @@
         }
     }
 
-    const states = global.get('kernel.state','memoryOnly') || { };
+    const states = global.get('kernel.state') || { };
     for (const entity in states) {
         let esplit = entity.split('|');
         let equipment = esplit[0];
         let component = esplit[1];
-        let line = global.get('kernel.equipments["' + equipment + '"]', 'memoryOnly');
+        let line = global.get('kernel.equipments["' + equipment + '"]');
 
         let pilot = final_pilots[line];
         if (typeof pilot === 'boolean'
-            && typeof global.get('kernel.link["' + entity + '"]', 'memoryOnly') === 'string'
+            && typeof global.get('kernel.link["' + entity + '"]') === 'string'
             && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(component)
         ) {
             let state = states[equipment + '|run'] || '';
@@ -2815,20 +2802,20 @@
     ) {
         /* deletion requested */
         if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
-            global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', undefined, 'memoryOnly');
+            global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', undefined);
         } else {
             /* new value is not the same as existing */
-            //let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', 'memoryOnly');
+            //let current = global.get('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]');
             //if (current !== msg.kernel.value) {
                 //msg.kernel.loop = false;
                 /* update kernel value */
-                global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', msg.kernel.value, 'memoryOnly');
+                global.set('kernel["' + msg.kernel.type + '"]["' + msg.kernel.entity + '"]', msg.kernel.value);
             //}
 
             delete msg.kernel.model;
             if (msg.kernel.type === 'state') {
                 // For kernel state, retrieve component definition
-                let target = global.get('kernel.link["' + msg.kernel.entity + '"]', 'memoryOnly');
+                let target = global.get('kernel.link["' + msg.kernel.entity + '"]');
                 if (typeof target === 'string') {
                     let csplit = msg.kernel.entity.split("|");
                     msg.kernel.equipment = csplit[0];
@@ -2838,11 +2825,11 @@
                     msg.kernel.model = tsplit[0];
                     msg.kernel.device = tsplit[1];
                     msg.kernel.terminal = tsplit[2];
-                    msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]','memoryOnly')||'';
+                    msg.kernel.convert = global.get('describe.convert["' + msg.kernel.model + '"]["' + msg.kernel.component + '"]')||'';
 
                     // Mirror components repeat input state to output
                     let mirror = msg.kernel.equipment + '|' + msg.kernel.component + 'mirror';
-                    let link = global.get('kernel.link["' + mirror + '"]', 'memoryOnly');
+                    let link = global.get('kernel.link["' + mirror + '"]');
                     if (typeof link === 'string') {
                         let mirrorMsg = {
                             'topic': '',
@@ -2911,9 +2898,9 @@
   func: |-
     // Perpare mqtt message
 
-    if (global.get('kernel.app.tomqtt', 'memoryOnly') === true) {
+    if (global.get('kernel.app.tomqtt') === true) {
         return  {
-            'topic': [(global.get('describe.app.automate', 'memoryOnly') || 'optaequipments'), msg.kernel.type, msg.kernel.entity].join('/'),
+            'topic': [(global.get('describe.app.automate') || 'optaequipments'), msg.kernel.type, msg.kernel.entity].join('/'),
             'payload': msg.kernel.value,
             'qos': 0,
             'retain': msg.kernel?.delete === true ? true : false
@@ -2965,7 +2952,7 @@
                     'plant': msg.payload[login]["plant"],
                     'lang': msg.payload[login]["lang"],
                     'telegram': msg.payload[login]["telegram"]
-                }, 'memoryOnly');
+                });
             }
         }
     }
@@ -3191,12 +3178,12 @@
             'uptime': [ 'uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter' ],
             'voltage': [ 'voltage', 'power' ]
         },
-    }, 'memoryOnly');
+    });
 
     // Set and clean required memories
-    global.set('auth', { }, 'memoryOnly');
-    global.set('user', { }, 'memoryOnly');
-    global.set('form', { }, 'memoryOnly');
+    global.set('auth', { });
+    global.set('user', { });
+    global.set('form', { });
 
     // Various
     msg = {
@@ -3232,10 +3219,10 @@
 
     if (msg.boot === true) {
         // on (re)boot, load kernel backup
-        global.set('kernel', (global.get('kernel_bk', 'file') || { }), 'memoryOnly');
+        global.set('kernel', (global.get('kernel_bk', 'file') || { }));
     } else {
         // on cron, write kernel to backup
-        global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'file');
+        global.set('kernel_bk', global.get('kernel'), 'file');
     }
 
     delete msg.boot;
@@ -3282,7 +3269,7 @@
     'plant') {
         let is_empty = true;
         // kernel.lines
-        const lines = global.get('kernel.lines', 'memoryOnly') || { };
+        const lines = global.get('kernel.lines') || { };
         for (const line in lines) {
             if (lines[line] === msg.kernel.entity) {
                 is_empty = false;
@@ -3343,7 +3330,7 @@
             }]);
 
             // kernel.team
-            const teams = global.get('kernel.team', 'memoryOnly') || { };
+            const teams = global.get('kernel.team') || { };
             for (const team in teams) {
                 let tsplit = team.split('|');
                 if (tsplit[0] === msg.kernel.entity) {
@@ -3435,7 +3422,7 @@
     'line') {
         let is_empty = true;
         // kernel.lines
-        const equipments = global.get('kernel.equipments', 'memoryOnly') || { };
+        const equipments = global.get('kernel.equipments') || { };
         for (const equipment in equipments) {
             if (equipments[equipment] === msg.kernel.entity) {
                 is_empty = false;
@@ -3483,7 +3470,7 @@
             }]);
 
             // kernel.period
-            const periods = global.get('kernel.period', 'memoryOnly') || { };
+            const periods = global.get('kernel.period') || { };
             for (const period in periods) {
                 if (period === msg.kernel.entity) {
                     node.send([{
@@ -3501,7 +3488,7 @@
             }
 
             // kernel.disabled
-            const disableds = global.get('kernel.disabled', 'memoryOnly') || { };
+            const disableds = global.get('kernel.disabled') || { };
             for (const disabled in disableds) {
                 if (disabled === msg.kernel.entity) {
                     node.send([{
@@ -3555,7 +3542,7 @@
     'equipment') {
         let is_empty = true;
         // kernel.link
-        const links = global.get('kernel.link', 'memoryOnly') || { };
+        const links = global.get('kernel.link') || { };
         for (const link in links) {
             let lsplit = link.split('|');
             if (lsplit[0] === msg.kernel.entity) {
@@ -3683,7 +3670,7 @@
     'device') {
         let is_empty = true;
         // rlink (component)
-        const rlinks = global.get('rlink', 'memoryOnly') || { };
+        const rlinks = global.get('rlink') || { };
         for (const rlink in rlinks) {
             let rsplit = rlink.split('|');
             if ((rsplit[0] + '|' + rsplit[1]) === msg.kernel.entity) {
@@ -3887,15 +3874,15 @@
     if (typeof msg.telegram === 'object' && typeof msg.telegram.change ===
     'boolean' && msg.telegram.change === true) {
         if (msg.telegram.type === 'period') {
-            let line = global.get('kernel.equipments["' + msg.telegram.entity + '"]', 'memoryOnly') || '-';
-            let plant = global.get('kernel.lines["' + line + '"]','memoryOnly') || '-';
-            let name = global.get('kernel.plant["' + plant + '"]', 'memoryOnly') || '???';
+            let line = global.get('kernel.equipments["' + msg.telegram.entity + '"]') || '-';
+            let plant = global.get('kernel.lines["' + line + '"]') || '-';
+            let name = global.get('kernel.plant["' + plant + '"]') || '???';
 
             return {
                 'topic': '',
                 'payload': {
                     'type': 'message',
-                    'content': '[Period] ' + name + ": \n" + (global.get('kernel.equipment["' + msg.telegram.entity + '"]', 'memoryOnly') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')
+                    'content': '[Period] ' + name + ": \n" + (global.get('kernel.equipment["' + msg.telegram.entity + '"]') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')
                 }
             }
         } else if (msg.telegram.type === 'watchdog') {
@@ -3905,7 +3892,7 @@
                 'topic': '',
                 'payload': {
                     'type': 'message',
-                    'content': '[Watchdog] ' + ": \n" + (global.get('describe.model["' + dsplit[0] + '"]','memoryOnly')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
+                    'content': '[Watchdog] ' + ": \n" + (global.get('describe.model["' + dsplit[0] + '"]')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')
                 }
             }
         }
@@ -3942,17 +3929,17 @@
   func: |-
     // Add connected user in memory
 
-    let user = global.get('user', 'memoryOnly') || { };
+    let user = global.get('user') || { };
 
     user[msg._client.socketId] = {
         'login': msg.login,
-        'level': global.get('auth["' + msg.login + '"]["level"]', 'memoryOnly') || '',
-        'plant': global.get('auth["' + msg.login + '"]["plant"]', 'memoryOnly') || '',
-        'lang': global.get('auth["' + msg.login + '"]["lang"]', 'memoryOnly') || '',
+        'level': global.get('auth["' + msg.login + '"]["level"]') || '',
+        'plant': global.get('auth["' + msg.login + '"]["plant"]') || '',
+        'lang': global.get('auth["' + msg.login + '"]["lang"]') || '',
         'time': Date.now()
     };
 
-    //global.set('user', user, 'memoryOnly'); // autoupdate
+    //global.set('user', user); // autoupdate
 
     delete msg.login;
     delete msg.pass;
@@ -3978,11 +3965,11 @@
   func: |-
     // Remove connected user from memory
 
-    let user = global.get('user', 'memoryOnly') || { };
+    let user = global.get('user') || { };
 
     delete user[msg._client.socketId];
 
-    //global.set('user', user, 'memoryOnly'); // autoupdate
+    //global.set('user', user); // autoupdate
 
     delete msg.login;
     delete msg.pass;
@@ -4011,8 +3998,8 @@
 
     if (typeof msg.check === 'string'
         && msg.hmi.level !== ''
-        && msg.hmi.tab === global.get('describe.pages["' + msg.check + '"]["tab"]', 'memoryOnly')
-        && global.get('describe.pages["' + msg.check + '"]["level"]["' + msg.hmi.level + '"]', 'memoryOnly') === true
+        && msg.hmi.tab === global.get('describe.pages["' + msg.check + '"]["tab"]')
+        && global.get('describe.pages["' + msg.check + '"]["level"]["' + msg.hmi.level + '"]') === true
     ) {
         msg.class = '';
         msg.enabled = true;
@@ -4123,8 +4110,8 @@
     msg.row.curdate = ("0" + (curdate.getMonth() +1)).slice(-2) + "-" + ("0" +
     curdate.getDate()).slice(-2);
 
-    const holidays = (global.get('kernel.holiday["' + msg.row.plant + '"]',
-    'memoryOnly') || '').split('|');
+    const holidays = (global.get('kernel.holiday["' + msg.row.plant + '"]') ||
+    '').split('|');
 
     for (const k in holidays) {
         if (holidays[k] === msg.row.curdate) {
@@ -4134,7 +4121,7 @@
 
 
     flow.set('teams["' + msg.row.plant + '"]["' + msg.row.team + '"]',
-    msg.row.value, 'memoryOnly');
+    msg.row.value);
 
     //msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team +
     ':' + msg.row.value;
@@ -4233,7 +4220,7 @@
     'holiday') {
 
         // Get existing plant holidays
-        let tmp = global.get('kernel.holiday["' + msg.kernel.entity + '"]', 'memoryOnly') || '';
+        let tmp = global.get('kernel.holiday["' + msg.kernel.entity + '"]') || '';
         // Split existing plant holidays
         let holidays = tmp.split('|');
         // Remove day from holidays
@@ -4281,14 +4268,10 @@
   z: f6f2187d.f17ca8
   g: fc6029b7d49d1e93
   name: data
-  func: >-
+  func: |-
     // Get backup path
-
-    const automate = global.get('describe.app.automate', 'memoryOnly') ||
-    'unknown';
-
+    const automate = global.get('describe.app.automate') || 'unknown';
     msg.filename = '/data/' + automate + '/user.json';
-
 
     return msg;
   outputs: 1
@@ -4306,18 +4289,12 @@
   z: f6f2187d.f17ca8
   g: 7ea06c29d525f7ce
   name: data
-  func: >-
+  func: |-
     // Get backup path
-
-    const automate = global.get('describe.app.automate', 'memoryOnly') ||
-    'unknown';
-
+    const automate = global.get('describe.app.automate') || 'unknown';
     msg.filename = '/data/' + automate + '/user.json';
-
     // Get user data
-
-    msg.payload = { ...(global.get('auth', 'memoryOnly') || {}) };
-
+    msg.payload = { ...(global.get('auth') || {}) };
 
     return msg;
   outputs: 1
@@ -4335,17 +4312,12 @@
   z: f6f2187d.f17ca8
   g: 023034158f7c14f0
   name: data
-  func: >-
+  func: |-
     // Get backup filename
 
-
-    const automate = global.get('describe.app.automate', 'memoryOnly') ||
-    'unknown';
-
+    const automate = global.get('describe.app.automate') || 'unknown';
     msg.filename  = '/data/' + automate + '/kernel.json';
-
-    msg.payload = global.get('kernel', 'memoryOnly') || { };
-
+    msg.payload = global.get('kernel') || { };
 
     return msg;
   outputs: 1
@@ -4363,17 +4335,12 @@
   z: f6f2187d.f17ca8
   g: ede1bcd992279676
   name: data
-  func: >-
+  func: |-
     // Get backup filename
 
-
-    const automate = global.get('describe.app.automate', 'memoryOnly') ||
-    'unknown';
-
+    const automate = global.get('describe.app.automate') || 'unknown';
     msg.filename  = '/data/' + automate + '/kernel.json';
-
-    msg.payload = global.get('kernel', 'memoryOnly') || { };
-
+    msg.payload = global.get('kernel') || { };
 
     return msg;
   outputs: 1
@@ -4394,7 +4361,7 @@
   func: |-
     // Prepare mqtt subscription message
 
-    const automate = global.get('describe.app.automate', 'memoryOnly') || '';
+    const automate = global.get('describe.app.automate') || '';
     if (automate === '') {
         
         return;
@@ -4484,7 +4451,7 @@
         }
     };
 
-    global.set('auth', msg.payload, 'memoryOnly');
+    global.set('auth', msg.payload);
 
     msg.payload = '';
 
@@ -4550,8 +4517,8 @@
   g: 64e28c88b4c7b710
   name: data
   func: |
-    if ((global.get('kernel.app.icon', 'memoryOnly') || '') !== '') {
-        msg.payload = global.get('kernel.app.icon', 'memoryOnly');
+    if ((global.get('kernel.app.icon') || '') !== '') {
+        msg.payload = global.get('kernel.app.icon');
 
         return [msg, null];
     }
@@ -4709,9 +4676,9 @@
     // Get http reponse for users backup
 
 
-    if (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random',
-    'memoryOnly') || '').toString()) {
-        msg.payload = { ...(global.get('auth', 'memoryOnly') || { }) };
+    if (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random') ||
+    '').toString()) {
+        msg.payload = { ...(global.get('auth') || { }) };
         msg.headers = {
             'Content-Type': 'application/json',
             'Content-Disposition': 'attachment; filename="user.backup.json"',
@@ -4747,9 +4714,9 @@
     // Get http reponse for kernel backup
 
 
-    if (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random',
-    'memoryOnly') || '').toString()) {
-        msg.payload = { ...(global.get('kernel', 'memoryOnly') || { }) };
+    if (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random') ||
+    '').toString()) {
+        msg.payload = { ...(global.get('kernel') || { }) };
         msg.headers = {
             'Content-Type': 'application/json',
             'Content-Disposition': 'attachment; filename="kernel.backup.json"',
@@ -5206,9 +5173,9 @@
     // Prepare HMI
 
     // Get memories
-    let user = global.get('user', 'memoryOnly') || { };
-    let form = global.get('form', 'memoryOnly') || { };
-    let pages = global.get('describe.pages', 'memoryOnly') || { };
+    let user = global.get('user') || { };
+    let form = global.get('form') || { };
+    let pages = global.get('describe.pages') || { };
 
     // Initalize hmi if required
     if (typeof msg.hmi === 'undefined') {
@@ -5234,7 +5201,7 @@
 
     // Clean user
     if (typeof msg._client?.socketId === 'string') {
-        let browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]', 'memoryOnly');
+        let browser_lang = global.get('browser["' + msg._client.socketId + '"]["lang"]');
         if (typeof browser_lang === 'string') {
             msg.hmi.lang = browser_lang;
         }
@@ -5339,8 +5306,8 @@
     }
 
 
-    msg.payload = global.get('kernel["map"]["' + msg.req.params.plant + '"]',
-    'memoryOnly') || '';
+    msg.payload = global.get('kernel["map"]["' + msg.req.params.plant + '"]') ||
+    '';
 
 
     if (msg.payload.length === 0) {

@@ -11955,7 +11955,7 @@
     node.send([msg, null, null]);
 
     if (msg.hmi.level === 'admin') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // plant
         let plantMsg = {
@@ -12018,7 +12018,7 @@
     node.send([msg, null, null]);
 
     if (msg.hmi.level === 'admin') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // plant delete
         let plantMsg = {
@@ -12071,7 +12071,7 @@
   name: lines & line
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // lines
         let linesMsg = {
@@ -12124,7 +12124,7 @@
   name: lines & line
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // lines delete
         let linesMsg = {
@@ -12177,7 +12177,7 @@
   name: equipments & equipment
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // equipment add
         let equipmentMsg = {
@@ -12230,7 +12230,7 @@
   name: equipments & equipment
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // equipments
         let equipmentsMsg = {
@@ -12283,7 +12283,7 @@
   name: device
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         let deviceMsg = {
             'topic': '',
@@ -12655,7 +12655,7 @@
 
     msg.kernel = {
         'type': 'plant',
-        'entity': flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly') || '-',
+        'entity': flow.get('form["' + msg.hmi.id + '"]["id"]') || '-',
         'value': '',
         'loop': false,
         'delete': true
@@ -12684,7 +12684,7 @@
   func: |-
     msg.kernel = {
         'type': 'line',
-        'entity': flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly') || '-',
+        'entity': flow.get('form["' + msg.hmi.id + '"]["id"]') || '-',
         'value': '',
         'loop': false,
         'delete': true
@@ -12723,7 +12723,7 @@
   func: |-
     msg.kernel = {
         'type': 'equipment',
-        'entity': flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly') || '-',
+        'entity': flow.get('form["' + msg.hmi.id + '"]["id"]') || '-',
         'value': '',
         'loop': false,
         'delete': true
@@ -12762,7 +12762,7 @@
   func: |-
     msg.kernel = {
         'type': 'device',
-        'entity': (flow.get('form["' + msg.hmi.id + '"]["model"]', 'memoryOnly') || '-') + '|' + (flow.get('form["' + msg.hmi.id + '"]["id"]', 'memoryOnly') || '-'),
+        'entity': (flow.get('form["' + msg.hmi.id + '"]["model"]') || '-') + '|' + (flow.get('form["' + msg.hmi.id + '"]["id"]') || '-'),
         'value': '',
         'loop': false,
         'delete': true
@@ -12801,7 +12801,7 @@
   func: |-
     msg.kernel = {
         'type': 'link',
-        'entity': (flow.get('form["' + msg.hmi.id + '"]["link"]', 'memoryOnly') || '-'),
+        'entity': (flow.get('form["' + msg.hmi.id + '"]["link"]') || '-'),
         'value': '',
         'loop': false,
         'delete': true
@@ -12840,7 +12840,7 @@
   func: |-
     msg.kernel = {
         'type': 'alert',
-        'entity': (flow.get('form["' + msg.hmi.id + '"]["endpoint"]', 'memoryOnly') || '-'),
+        'entity': (flow.get('form["' + msg.hmi.id + '"]["endpoint"]') || '-'),
         'value': '',
         'loop': false,
         'delete': true
@@ -12891,11 +12891,11 @@
   name: state & link & reverse
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
-        let groups = global.get('describe.groups["' + form.group + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
+        let groups = global.get('describe.groups["' + form.group + '"]') || {};
         for (const group in groups) {
             let component = groups[group];
-            let device = global.get('describe.convert["' + form.model + '"]["' + component + '"]', 'memoryOnly');
+            let device = global.get('describe.convert["' + form.model + '"]["' + component + '"]');
             if (typeof device === 'string') {
                 let terminal = form.input;
                 let reverse = form.input_reverse;
@@ -12976,8 +12976,8 @@
   name: state & link & reverse
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
-        let target = global.get('kernel.link["' + form.link + '"]', 'memoryOnly') || '-';
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
+        let target = global.get('kernel.link["' + form.link + '"]') || '-';
         let entity = form.equipment + '|' + form.component;
 
         // state delete
@@ -13343,7 +13343,7 @@
   name: alert
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // alert
         let alertMsg = {
@@ -13383,7 +13383,7 @@
   name: team
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // alert
         let teamMsg = {
@@ -13423,7 +13423,7 @@
   name: day
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
 
         // alert
         let dayMsg = {
@@ -14332,9 +14332,9 @@
   func: |-
     if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
         // Get form values
-        let form = flow.get('form["' + msg.hmi.id + '"]', 'memoryOnly') || {};
+        let form = flow.get('form["' + msg.hmi.id + '"]') || {};
         // Get existing plant holidays
-        let tmp = global.get('kernel.holiday["' + form.plant + '"]', 'memoryOnly') || '';
+        let tmp = global.get('kernel.holiday["' + form.plant + '"]') || '';
         // Split existing plant holidays
         let holidays = tmp.split('|');
         // Add day
@@ -14658,8 +14658,8 @@
   func: |-
     msg.kernel = {
         'type': 'holiday',
-        'entity': flow.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly'),
-        'value': flow.get('form["' + msg.hmi.id + '"]["holiday"]', 'memoryOnly'),
+        'entity': flow.get('form["' + msg.hmi.id + '"]["plant"]'),
+        'value': flow.get('form["' + msg.hmi.id + '"]["holiday"]'),
         'loop': false,
         'delete': true
     };
@@ -15690,17 +15690,13 @@
   z: 64ce08af468b8197
   g: 2c0384adc9ef91fe
   name: label
-  func: >-
-    const day = global.get('kernel.day["' + msg.payload + '"]', 'memoryOnly') ||
-    0;
-
+  func: |-
+    const day = global.get('kernel.day["' + msg.payload + '"]') || 0;
 
     msg.ui_update = {
         'label': msg.dictionary.option_select.day_starttime
     };
-
     msg.payload = msg.stoptime;
-
 
     return msg;
   outputs: 1
@@ -15780,17 +15776,13 @@
   z: 64ce08af468b8197
   g: 3f9c0107c43536e4
   name: label
-  func: >-
-    const day = global.get('kernel.day["' + msg.payload + '"]', 'memoryOnly') ||
-    0;
-
+  func: |-
+    const day = global.get('kernel.day["' + msg.payload + '"]') || 0;
 
     msg.ui_update = {
         'label': msg.dictionary.option_select.holiday_day
     };
-
     msg.payload = 0;
-
 
     return msg;
   outputs: 1
@@ -15889,7 +15881,7 @@
     flow.set('form["' + msg.hmi.id + '"]', {
         'action': action,
         'time': Date.now()
-    }, 'memoryOnly');
+    });
 
     msg.payload = '';
     msg.class = '';
@@ -15930,7 +15922,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    flow.set('form["' + msg.hmi.id + '"]["name"]', name, 'memoryOnly');
+    flow.set('form["' + msg.hmi.id + '"]["name"]', name);
 
     msg.paylaod = '';
     msg.class = '';
@@ -15971,7 +15963,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    flow.set('form["' + msg.hmi.id + '"]["id"]', id, 'memoryOnly');
+    flow.set('form["' + msg.hmi.id + '"]["id"]', id);
 
     msg.paylaod = '';
     msg.class = '';
@@ -16012,7 +16004,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    flow.set('form["' + msg.hmi.id + '"]["id"]', id, 'memoryOnly');
+    flow.set('form["' + msg.hmi.id + '"]["id"]', id);
 
     msg.paylaod = '';
     msg.class = '';
@@ -16053,7 +16045,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    flow.set('form["' + msg.hmi.id + '"]["name"]', name, 'memoryOnly');
+    flow.set('form["' + msg.hmi.id + '"]["name"]', name);
 
     msg.paylaod = '';
     msg.class = '';
@@ -16094,7 +16086,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    flow.set('form["' + msg.hmi.id + '"]["tz"]', tz, 'memoryOnly');
+    flow.set('form["' + msg.hmi.id + '"]["tz"]', tz);
 
     msg.paylaod = '';
     msg.class = '';
@@ -16428,7 +16420,7 @@
         'payload': '',
         'kernel': {
             'type': 'map',
-            'entity': (global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '-'),
+            'entity': (global.get('form["' + msg.hmi.id + '"]["plant"]') || '-'),
             'value': msg.payload,
             'loop': false
         }
@@ -16739,11 +16731,10 @@
     await new Promise(resolve => setTimeout(resolve, 50));
 
 
-    const location = global.get('kernel["location"]["' + msg.payload + '"]',
-    'memoryOnly') || ''; 
+    const location = global.get('kernel["location"]["' + msg.payload + '"]') ||
+    ''; 
 
-    const form  = { ...(global.get('form["' + msg.hmi.id + '"]', 'memoryOnly')
-    || { }) };
+    const form  = { ...(global.get('form["' + msg.hmi.id + '"]') || { }) };
 
 
     let split = location.split('|');
@@ -16759,7 +16750,7 @@
     form['h'] = split[4] || 40;
 
 
-    global.set('form["' + msg.hmi.id + '"]', form, 'memoryOnly');
+    global.set('form["' + msg.hmi.id + '"]', form);
 
 
     await new Promise(resolve => setTimeout(resolve, 50));
@@ -16851,14 +16842,11 @@
   z: 64ce08af468b8197
   g: 29452f5f913b11d0
   name: label
-  func: >-
+  func: |-
     msg.ui_update = {
         'label': msg.dictionary.tree.location_y || 'Location y'
     };
-
-    msg.payload = global.get('form["' + msg.hmi.id + '"]["y"]', 'memoryOnly') ||
-    0;
-
+    msg.payload = global.get('form["' + msg.hmi.id + '"]["y"]') || 0;
 
     return msg;
   outputs: 1
@@ -16876,14 +16864,11 @@
   z: 64ce08af468b8197
   g: 29452f5f913b11d0
   name: label
-  func: >-
+  func: |-
     msg.ui_update = {
         'label': msg.dictionary.tree.location_x || 'Location x'
     };
-
-    msg.payload = global.get('form["' + msg.hmi.id + '"]["x"]', 'memoryOnly') ||
-    0;
-
+    msg.payload = global.get('form["' + msg.hmi.id + '"]["x"]') || 0;
 
     return msg;
   outputs: 1
@@ -16901,14 +16886,11 @@
   z: 64ce08af468b8197
   g: 29452f5f913b11d0
   name: label
-  func: >-
+  func: |-
     msg.ui_update = {
         'label': msg.dictionary.tree.location_name || 'Line short name'
     };
-
-    msg.payload = global.get('form["' + msg.hmi.id + '"]["name"]', 'memoryOnly')
-    || '';
-
+    msg.payload = global.get('form["' + msg.hmi.id + '"]["name"]') || '';
 
     return msg;
   outputs: 1
@@ -16937,7 +16919,7 @@
         return;
     }
 
-    let form = global.get('form', 'memoryOnly') || { };
+    let form = global.get('form') || { };
 
     node.status({text: msg.topic });
 
@@ -16972,8 +16954,7 @@
     }
 
 
-    const form = { ...(global.get('form["' + msg.hmi.id + '"]', 'memoryOnly') ||
-    {}) };
+    const form = { ...(global.get('form["' + msg.hmi.id + '"]') || {}) };
 
 
     if (form.name === '' || Number(form.x) < 1 || Number(form.y) < 1 ||
@@ -16983,8 +16964,7 @@
     }
 
 
-    const location = { ...(global.get('kernel.location', 'memoryOnly') || { })
-    };
+    const location = { ...(global.get('kernel.location') || { }) };
 
 
     location[form.line] = [
@@ -16996,7 +16976,7 @@
     ].join('|');
 
 
-    global.set('kernel.location', location, 'memoryOnly');
+    global.set('kernel.location', location);
 
 
     msg.payload = msg.dictionary.option_notice.update_success;
@@ -17087,14 +17067,11 @@
   z: 64ce08af468b8197
   g: 29452f5f913b11d0
   name: label
-  func: >-
+  func: |-
     msg.ui_update = {
         'label': msg.dictionary.tree.location_w || 'Location w'
     };
-
-    msg.payload = global.get('form["' + msg.hmi.id + '"]["w"]', 'memoryOnly') ||
-    50;
-
+    msg.payload = global.get('form["' + msg.hmi.id + '"]["w"]') || 50;
 
     return msg;
   outputs: 1
@@ -17112,14 +17089,11 @@
   z: 64ce08af468b8197
   g: 29452f5f913b11d0
   name: label
-  func: >-
+  func: |-
     msg.ui_update = {
         'label': msg.dictionary.tree.location_h || 'Location h'
     };
-
-    msg.payload = global.get('form["' + msg.hmi.id + '"]["h"]', 'memoryOnly') ||
-    40;
-
+    msg.payload = global.get('form["' + msg.hmi.id + '"]["h"]') || 40;
 
     return msg;
   outputs: 1
@@ -17278,52 +17252,36 @@
   z: 64ce08af468b8197
   g: fa7516c28cf64b47
   name: data
-  func: >-
+  func: |-
     if (msg.payload === '') {
 
         return;
     }
 
-
     const id = msg.payload;
 
-
     // Get user from UI element
-
     msg = await node.linkcall('kernel - hmi', msg);
 
-
     // Plant already exists
-
-    if (typeof global.get('kernel.plant["' + id + '"]', 'memoryOnly') ===
-    'string') {
+    if (typeof global.get('kernel.plant["' + id + '"]') === 'string') {
         msg.payload = msg.dictionary.option_notice.plant_exists || '';
 
         return [msg, null, null];
     }
 
-
-    flow.set('form["' + msg.hmi.id + '"]["id"]', id, 'memoryOnly');
-
+    flow.set('form["' + msg.hmi.id + '"]["id"]', id);
 
     msg.paylaod = '';
-
     msg.class = '';
 
-
     // Disabled plant form
-
     msg.enabled = false;
-
     node.send([null, msg, null]);
 
-
     // Go to next form
-
     msg.enabled = true;
-
     node.send([null, null, msg]);
-
 
     return;
   outputs: 3
@@ -17354,7 +17312,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    flow.set('form["' + msg.hmi.id + '"]["tz"]', tz, 'memoryOnly');
+    flow.set('form["' + msg.hmi.id + '"]["tz"]', tz);
 
     msg.paylaod = '';
     msg.class = '';

@@ -878,7 +878,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     // reset
-    flow.set('kernel["' + msg.hmi.id + '"]', {}, 'memoryOnly');
+    flow.set('kernel["' + msg.hmi.id + '"]', {});
 
     // ui
     msg.options = [];
@@ -886,7 +886,7 @@
     msg.enabled = true;
 
     // get kernel types
-    let types = global.get('kernel', 'memoryOnly');
+    let types = global.get('kernel');
     let i = 0;
     for (const type in types) {
         msg.options[i++] = {
@@ -947,11 +947,11 @@
 
     if (msg.payload !== '') {
         // set type
-        flow.set('kernel["' + msg.hmi.id + '"]["type"]', msg.payload, 'memoryOnly');
-        flow.set('kernel["' + msg.hmi.id + '"]["entity"]', '', 'memoryOnly');
+        flow.set('kernel["' + msg.hmi.id + '"]["type"]', msg.payload);
+        flow.set('kernel["' + msg.hmi.id + '"]["entity"]', '');
 
         // get kernel entitites
-        let entities = global.get('kernel["' + msg.payload + '"]', 'memoryOnly');
+        let entities = global.get('kernel["' + msg.payload + '"]');
         msg.options = [];
         let i = 0;
         for (const entity in entities) {
@@ -1054,7 +1054,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     if (msg.payload !== '') {
-        flow.set('kernel["' + msg.hmi.id + '"]["entity"]', msg.payload, 'memoryOnly');
+        flow.set('kernel["' + msg.hmi.id + '"]["entity"]', msg.payload);
         
         // ui
         msg.class = '';
@@ -1090,8 +1090,8 @@
     }
 
     msg.kernel = {
-        'type':flow.get('kernel["' + msg.hmi.id + '"]["type"]', 'memoryOnly')||'',
-        'entity':flow.get('kernel["' + msg.hmi.id + '"]["entity"]', 'memoryOnly'),
+        'type':flow.get('kernel["' + msg.hmi.id + '"]["type"]')||'',
+        'entity':flow.get('kernel["' + msg.hmi.id + '"]["entity"]'),
         'value':'',
         'loop':false,
         'delete':true
@@ -1230,7 +1230,7 @@
     }
 
     const random = Math.floor(Math.random() * 1000000);
-    global.set('random', random, 'memoryOnly');
+    global.set('random', random);
 
     msg.payload = {
         'url': '/kernel.export.json?rnd=' + random.toString()
@@ -1362,11 +1362,11 @@
   name: data
   func: |-
     msg.payload =  {
-        'vendor': global.get('kernel.app.vendor', 'memoryOnly') || '',
-        'title': global.get('kernel.app.title', 'memoryOnly') || '',
-        'tomqtt': global.get('kernel.app.tomqtt', 'memoryOnly') || false,
-        'frommqtt': global.get('kernel.app.frommqtt', 'memoryOnly') || false,
-        'watchdog': global.get('kernel.app.watchdog', 'memoryOnly') || 120,
+        'vendor': global.get('kernel.app.vendor') || '',
+        'title': global.get('kernel.app.title') || '',
+        'tomqtt': global.get('kernel.app.tomqtt') || false,
+        'frommqtt': global.get('kernel.app.frommqtt') || false,
+        'watchdog': global.get('kernel.app.watchdog') || 120,
     };
 
     return msg;
@@ -1439,7 +1439,7 @@
   g: 7c224f2f2afc76d3
   name: data
   func: |-
-    flow.set('form_version', 0, 'memoryOnly');
+    flow.set('form_version', 0);
 
     msg.topic = '';
     msg.payload = 0;
@@ -1500,7 +1500,7 @@
     }
 
     global.set('opta', {
-        'version': Number(flow.get('form_version', 'memoryOnly') || 0),
+        'version': Number(flow.get('form_version') || 0),
         'buffer': msg.payload
     }, 'file');
 
@@ -1542,7 +1542,7 @@
         return [ null, msg ];
     }
 
-    flow.set('form_version', opta_version, 'memoryOnly');
+    flow.set('form_version', opta_version);
 
     global.set('opta.version', {
         'verion': 0,

@@ -407,11 +407,11 @@
   name: lines
   func: |-
     function oe_opts(plant){
-      var lines = global.get('kernel.line','memoryOnly');
+      var lines = global.get('kernel.line');
       var opts = [[]];
       var i = 0;
       for(var key in lines){
-        var comp = global.get('kernel.lines.' + key, 'memoryOnly');
+        var comp = global.get('kernel.lines.' + key);
         if (comp == plant) {
           opts[i++] = [{
             'callback_data':'line|'+key,
@@ -426,7 +426,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"@" + msg.user.telegram + ", vous avez choisi l'usine '" + global.get('kernel.plant.' + msg.entity, 'memoryOnly') + "'.\nSélectionnez une ligne :",
+        'content':"@" + msg.user.telegram + ", vous avez choisi l'usine '" + global.get('kernel.plant.' + msg.entity) + "'.\nSélectionnez une ligne :",
         'options': {reply_markup: JSON.stringify({"inline_keyboard":oe_opts(msg.entity)})}
     }
 
@@ -520,11 +520,11 @@
   name: equipments
   func: |-
     function oe_opts(line){
-      var equipments = global.get('kernel.equipment','memoryOnly');
+      var equipments = global.get('kernel.equipment');
       var opts = [[]];
       var i = 0;
       for(var key in equipments){
-        var comp = global.get('kernel.equipments.' + key, 'memoryOnly');
+        var comp = global.get('kernel.equipments.' + key);
         if (comp == line) {
           opts[i++] = [{
             'callback_data':'equipment|'+key,
@@ -539,7 +539,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"@" + msg.user.telegram + ", vous avez choisi la ligne '" + global.get('kernel.line.' + msg.entity, 'memoryOnly') + "'.\nSélectionnez un equipment :",
+        'content':"@" + msg.user.telegram + ", vous avez choisi la ligne '" + global.get('kernel.line.' + msg.entity) + "'.\nSélectionnez un equipment :",
         'options': {reply_markup: JSON.stringify({"inline_keyboard":oe_opts(msg.entity)})}
     }
 
@@ -564,7 +564,7 @@
     //    'messageId':99,
     //    'sentMessageId':99,
         'type':'message',
-        'content':"@" + msg.user.telegram + ", vous avez choisi l'équipement '" + global.get('kernel.equipment.' + msg.entity, 'memoryOnly') + "'.\nVoyons ce qu'on peut faire..."
+        'content':"@" + msg.user.telegram + ", vous avez choisi l'équipement '" + global.get('kernel.equipment.' + msg.entity) + "'.\nVoyons ce qu'on peut faire..."
     }
 
     return msg;
@@ -667,14 +667,11 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: heat
-  func: >-
+  func: |-
     var opts = [[]];
-
     var i = 0;
 
-
-    if (global.get('kernel.state.' + msg.entity + '|' + msg.component,
-    'memoryOnly')) {
+    if (global.get('kernel.state.' + msg.entity + '|' + msg.component)) {
       opts[i++] = [{
         "text": "Désactiver la chauffe",
         "callback_data": "heat|0"
@@ -685,10 +682,8 @@
         "callback_data": "heat|1"
       }];
     }
-
-    if (global.get('kernel.team.' + msg.plant + '|m', 'memoryOnly') !==
-    undefined) {
-      if (global.get('kernel.disabled.' + msg.line, 'memoryOnly') === true) {
+    if (global.get('kernel.team.' + msg.plant + '|m') !== undefined) {
+      if (global.get('kernel.disabled.' + msg.line) === true) {
         opts[i++] = [{
           "text": "Activer la programmation",
           "callback_data": "period|1"
@@ -700,17 +695,13 @@
         }];
       }
     }
-
     msg.payload = {
-
     //    'messageId':99,
-
     //    'sentMessageId':99,
         'type':'message',
         'content':'Gestion de la chauffe:',
         'options': {reply_markup: JSON.stringify({"inline_keyboard":opts})}
     }
-
 
     return msg;
   outputs: 1
@@ -2799,17 +2790,12 @@
   z: c886080f59e5c106
   g: 9530b4911db3e343
   name: meter
-  func: >-
+  func: |-
     var opts = [[]];
-
     var content = '';
-
     var i = 0;
 
-
-    var runmeter = global.get('kernel.state.' + msg.entity + '|runmeter',
-    'memoryOnly')
-
+    var runmeter = global.get('kernel.state.' + msg.entity + '|runmeter')
     if (runmeter !== undefined) {
       content += "\n* Compteur partiel d'heures: " + runmeter + 'h';
       opts[i++] = [{
@@ -2817,10 +2803,7 @@
         "callback_data": "runmeter|0"
       }];
     }
-
-    var cyclemeter = global.get('kernel.state.' + msg.entity + '|cyclemeter',
-    'memoryOnly');
-
+    var cyclemeter = global.get('kernel.state.' + msg.entity + '|cyclemeter');
     if (cyclemeter !== undefined) {
       content += "\n* Compteur partiel de cycles: " + cyclemeter + ' c';
       opts[i++] = [{
@@ -2828,17 +2811,13 @@
         "callback_data": "cyclemeter|0"
       }];
     }
-
     msg.payload = {
-
     //    'messageId':99,
-
     //    'sentMessageId':99,
         'type':'message',
         'content':'Gestion de compteur:' + content,
         'options': {reply_markup: JSON.stringify({"inline_keyboard":opts})}
     }
-
 
     return msg;
   outputs: 1
@@ -2940,21 +2919,21 @@
   name: data
   func: |-
     const now = Date.now();
-    const tree = { ...(flow.get('tree', 'memoryOnly') || { }) };
+    const tree = { ...(flow.get('tree') || { }) };
     for ( const k in tree) {
         if (tree.time < (now - (5 * 60 *1000))) {
             delete tree[k];
         }
     }
-    flow.set('tree', tree, 'memoryOnlly');
+    flow.set('tree', tree);
 
-    const sentence = { ...(flow.get('sentence', 'memoryOnly') || { }) };
+    const sentence = { ...(flow.get('sentence') || { }) };
     for (const k in sentence) {
         if (sentence.time < (now - (5 * 60 *1000))) {
             delete sentence[k];
         }
     }
-    flow.set('tree', sentence, 'memoryOnly');
+    flow.set('tree', sentence);
 
     return;
   outputs: 0
@@ -3025,14 +3004,14 @@
   name: data
   func: |-
 
-    const users = { ...(global.get('auth', 'memoryOnly') || { }) };
+    const users = { ...(global.get('auth') || { }) };
     for (const u in users) {
         if (typeof users[u]['telegram'] === 'string' && users[u]['telegram'] !== '') {
             let split = users[u]['telegram'].split(',');
             for (let i = 0; i< split.length; i++) {
                 if (msg.originalMessage.from.username === split[i]) {
                     msg.user = { ...users[u], ...{ 'id': u } };
-                    flow.set('user', msg.user, 'memoryOnly');
+                    flow.set('user', msg.user);
 
                     msg.hmi = {
                         'lang': msg.user.lang
@@ -3069,14 +3048,14 @@
 
     msg = await node.linkcall('kernel - hmi', msg);
 
-    const tree = { ...(flow.get('tree', 'memoryOnly') || { }) };
+    const tree = { ...(flow.get('tree') || { }) };
     tree[msg.user.telegram] = {
         'time': Date.now()
     };
-    flow.set('tree', tree, 'memoryOnly');
+    flow.set('tree', tree);
 
     if (msg.user.plant === '') {
-        const plants = { ...(global.get('kernel.plant', 'memoryOnly') || { }) };
+        const plants = { ...(global.get('kernel.plant') || { }) };
         let opts = [ [ ] ];
         let i = 0;
         for (const key in plants) {
@@ -3104,13 +3083,13 @@
         'line': '',
         'equipment': ''
     };
-    flow.set('tree', tree, 'memoryOnly');
+    flow.set('tree', tree);
 
-    const lines = { ...(global.get('kernel.line','memoryOnly') || { }) };
+    const lines = { ...(global.get('kernel.line') || { }) };
     let lopts = [ [ ] ];
     let j = 0;
     for (const key in lines) {
-      let comp = global.get('kernel.lines.' + key, 'memoryOnly') || '-';
+      let comp = global.get('kernel.lines.' + key) || '-';
       if (comp === msg.entity) {
         lopts[j++] = [ {
           'callback_data': 'line|'+key,

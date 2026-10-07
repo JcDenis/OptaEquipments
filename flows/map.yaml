@@ -93,7 +93,7 @@
     if (msg.hmi.plant === '') {
 
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]', 'memoryOnly') || '';
+        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
 
         // Get plants for form
         msg = await node.linkcall('option - plant', msg);
@@ -201,7 +201,7 @@
     // Reset UI
     if (msg.enabled !== true 
         || msg.plant === '' 
-        || typeof global.get('kernel.map["' + msg.plant +'"]', 'memoryOnly') !== 'string'
+        || typeof global.get('kernel.map["' + msg.plant +'"]') !== 'string'
     ) {
         // page is disabled
         msg.class = 'remove';
@@ -215,9 +215,9 @@
     await new Promise(resolve => setTimeout(resolve, 500));
 
     // Get memories
-    const location = global.get('kernel.location', 'memoryOnly') || { };
-    const lines = global.get('kernel.lines', 'memoryOnly') || { };
-    const equipments = global.get('kernel.equipments', 'memoryOnly') || { };
+    const location = global.get('kernel.location') || { };
+    const lines = global.get('kernel.lines') || { };
+    const equipments = global.get('kernel.equipments') || { };
 
     msg.class = '';
     msg.enabled = true;
@@ -240,7 +240,7 @@
             // Get line equipements
             for (const e in equipments) {
                 if (equipments[e] === l) {
-                    let heat = global.get('kernel.state["' + e + '|heat"]', 'memoryOnly');
+                    let heat = global.get('kernel.state["' + e + '|heat"]');
                     if (typeof heat === 'number') {
                         if (heat === 1) {
                             heat_on++;
@@ -250,7 +250,7 @@
                         }
                     }
                 
-                    let run_state = global.get('kernel.state["' + e + '|run"]', 'memoryOnly');
+                    let run_state = global.get('kernel.state["' + e + '|run"]');
                     if (typeof run_state === 'number') {
                         if (run_state > 0) {
                             run_on++;
@@ -517,42 +517,27 @@
   z: 05f6b695d75a73cf
   g: 97f10c211b33ee2e
   name: data
-  func: >-
+  func: |-
     await new Promise(resolve => setTimeout(resolve, 100));
-
 
     msg.line = msg.payload.line;
 
-
     // Title
-
-    const title = global.get('kernel["line"]["' + msg.line + '"]', 'memoryOnly')
-    || '';
-
+    const title = global.get('kernel["line"]["' + msg.line + '"]') || '';
 
     msg.class = '';
-
     msg.enabled = true;
-
     msg.payload = title;
-
 
     node.send([ msg, null, null, null ]);
 
-
     // Get memories (for equipmenets)
-
-    const equipments = global.get('kernel.equipments', 'memoryOnly') || { };
-
-    const states = global.get('kernel.state', 'memoryOnly') || { };
-
-    const alerts = global.get('kernel.alert', 'memoryOnly') || { };
-
+    const equipments = global.get('kernel.equipments') || { };
+    const states = global.get('kernel.state') || { };
+    const alerts = global.get('kernel.alert') || { };
 
     let c = 0;
-
     let child = [];
-
     for (const e in equipments) {
         if (equipments[e] !== msg.line) {
 
@@ -570,29 +555,21 @@
         child[c++] = {
             'line': msg.line,
             'equipment': e,
-            'name': global.get('kernel.equipment["' + e + '"]', 'memoryOnly') || e,
+            'name': global.get('kernel.equipment["' + e + '"]') || e,
             'alert': '<i class="icon-in-row mdi mdi-' + alert_icon + '" style="font-size: 2.2em; color: ' + alert + '" title="alert"></i>',
             'heat': '<i class="icon-in-row mdi mdi-' + heat_icon + '" style="font-size: 2.2em; color: '+ heat + '" title="heat"></i>'
         };
     }
 
-
     msg.payload = child;
-
 
     node.send([ null, msg, null, null ]);
 
-
     // Line
-
-    const period = global.get('kernel.period["' + msg.line + '"]', 'memoryOnly')
-    || '';
-
+    const period = global.get('kernel.period["' + msg.line + '"]') || '';
     const split = period.split('');
 
-
     const periods = [ 'm', 'a', 'n', 'd', 's' ];
-
     for (let i = 0; i < periods.length; i++) {
         msg.period = periods[i];
         msg.ui_update = {
@@ -602,19 +579,13 @@
         node.send([null, null, msg, null ]);
     }
 
-
     // Disabled
-
-    const disabled = global.get('kernel.disabled["' + msg.line + '"]',
-    'memoryOnly') || false;
-
+    const disabled = global.get('kernel.disabled["' + msg.line + '"]') || false;
     msg.ui_update = {
         'buttonColor': disabled ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,
         'label': disabled ? (msg.dictionary.period.manual || 'Manual') : (msg.dictionary.period.auto || 'Auto')
     };
-
     node.send([null, null, null, msg ]);
-
 
     return;
   outputs: 4
@@ -935,8 +906,8 @@
     }
 
 
-    const periods = (global.get('kernel.period["' + msg.line + '"]',
-    'memoryOnly') || '').split('');
+    const periods = (global.get('kernel.period["' + msg.line + '"]') ||
+    '').split('');
 
 
     if (periods.includes(msg.topic)) {
@@ -955,8 +926,7 @@
     node.status({ 'text': periods.join('') });
 
 
-    global.set('kernel.period["' + msg.line + '"]', periods.join(''),
-    'memoryOnly');
+    global.set('kernel.period["' + msg.line + '"]', periods.join(''));
 
 
     await new Promise(resolve => setTimeout(resolve, 50));
@@ -1027,14 +997,14 @@
     }
 
 
-    let disabled = !(global.get('kernel.disabled["' + msg.line + '"]',
-    'memoryOnly') || false);
+    let disabled = !(global.get('kernel.disabled["' + msg.line + '"]') ||
+    false);
 
 
     node.status({ 'text': disabled });
 
 
-    global.set('kernel.disabled["' + msg.line + '"]', disabled, 'memoryOnly');
+    global.set('kernel.disabled["' + msg.line + '"]', disabled);
 
 
     await new Promise(resolve => setTimeout(resolve, 50));
@@ -1090,7 +1060,7 @@
     // Try to limit loop
     if ((msg.plant || '') !== '' 
         && (msg.hmi.id || '') !== '' 
-        && (global.get('user["' + msg.hmi.id + '"]["login"]', 'memoryOnly') || '') !== ''
+        && (global.get('user["' + msg.hmi.id + '"]["login"]') || '') !== ''
     ) {
 
         msg.payload = msg.plant;
@@ -1145,7 +1115,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     // Get user form
-    let form = global.get('form', 'memoryOnly') || { };
+    let form = global.get('form') || { };
 
     // Should not happened
     if (typeof form[msg.hmi.id] !== 'object') {
@@ -1160,8 +1130,8 @@
     delete msg.action;
 
     // UI redirect
-    msg.hmi.tab = global.get('describe.pages.detail.tab', 'memoryOnly') || '';
-    msg.hmi.name = global.get('describe.pages.detail.page', 'memoryOnly') || '';
+    msg.hmi.tab = global.get('describe.pages.detail.tab') || '';
+    msg.hmi.name = global.get('describe.pages.detail.page') || '';
     msg.payload = msg.hmi.tab;
 
     return msg;
