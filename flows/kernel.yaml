@@ -2292,9 +2292,9 @@
 
     // Get memories
 
-    let user = global.set('user', 'memoryOnly') || { };
+    let user = global.get('user', 'memoryOnly') || { };
 
-    let form = global.set('form', 'memoryOnly') || { };
+    let form = global.get('form', 'memoryOnly') || { };
 
     let pages = global.get('describe.pages', 'memoryOnly');
 
@@ -3232,10 +3232,10 @@
 
     if (msg.boot === true) {
         // on (re)boot, load kernel backup
-        global.set('kernel', (global.get('kernel_bk', 'default') || { }), 'memoryOnly');
+        global.set('kernel', (global.get('kernel_bk', 'file') || { }), 'memoryOnly');
     } else {
         // on cron, write kernel to backup
-        global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');
+        global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'file');
     }
 
     delete msg.boot;
@@ -4608,16 +4608,16 @@
   func: |-
     // Get HTTP response for opta ota firmware response
 
-    if ((global.get('opta.version', 'default') || 0) > 0
-        && (global.get('opta.buffer', 'default') || '') !== ''
+    if ((global.get('opta.version', 'file') || 0) > 0
+        && (global.get('opta.buffer', 'file') || '') !== ''
     ) {
-        msg.payload = [ ...(global.get('opta.buffer', 'default') || []) ];
+        msg.payload = [ ...(global.get('opta.buffer', 'file') || []) ];
         msg.headers = {
             'Accept-Ranges':'bytes',
             'Content-Type':'application/octet-stream',
             'Content-Length':msg.payload.length,
             'Connection':'close',
-            'Content-Disposition':' attachment; filename="' + global.get('opta.version', 'default') + '.ota"'
+            'Content-Disposition':' attachment; filename="' + global.get('opta.version', 'file') + '.ota"'
         };
 
         return [msg, null];
@@ -4674,9 +4674,9 @@
   func: |-
     // Get HTTP response for opta ota version
 
-    if ((global.get('opta.version', 'default') || 0) > 0) {
+    if ((global.get('opta.version', 'file') || 0) > 0) {
         msg.payload = JSON.stringify({
-            'version': global.get('opta.version', 'default'),
+            'version': global.get('opta.version', 'file'),
             'uri': '/optafirmware.ota'
         });
         msg.headers = {

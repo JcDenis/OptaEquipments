@@ -1417,7 +1417,7 @@
   g: 7c224f2f2afc76d3
   name: data
   func: |-
-    if (Number(global.get('opta.version', 'default') || 0) > 0) {
+    if (Number(global.get('opta.version', 'file') || 0) > 0) {
 
         return msg;
     }
@@ -1444,13 +1444,13 @@
     msg.topic = '';
     msg.payload = 0;
 
-    const opta_version = Number(global.get('opta.version', 'default') || 0);
+    const opta_version = Number(global.get('opta.version', 'file') || 0);
 
     if (opta_version > 0) {
         msg.payload = opta_version;
     }
     else {
-        global.set('opta.version', 0, 'default');
+        global.set('opta.version', 0, 'file');
     }
 
     return msg;
@@ -1502,7 +1502,7 @@
     global.set('opta', {
         'version': Number(flow.get('form_version', 'memoryOnly') || 0),
         'buffer': msg.payload
-    }, 'default');
+    }, 'file');
 
     return msg;
   outputs: 1
@@ -1547,7 +1547,7 @@
     global.set('opta.version', {
         'verion': 0,
         'buffer': ''
-    }, 'default');
+    }, 'file');
 
     msg.payload = 0;
 
@@ -1575,7 +1575,7 @@
   name: data
   func: |-
     msg.topic = '';
-    msg.payload = Number(global.get('opta.version', 'default') || 0);
+    msg.payload = Number(global.get('opta.version', 'file') || 0);
 
     delete msg.hmi;
     delete msg.dictionary;
@@ -1593,3 +1593,41 @@
   wires:
     - - a4fb301472039371
       - 80e11615d0347342
+- id: adb425e57ab7ed52
+  type: inject
+  z: 44465f18e06bb58d
+  name: ''
+  props:
+    - p: payload
+    - p: topic
+      vt: str
+  repeat: ''
+  crontab: ''
+  once: false
+  onceDelay: 0.1
+  topic: ''
+  payload: ''
+  payloadType: date
+  x: 230
+  'y': 1800
+  wires:
+    - []
+- id: e3fad1c75b6c7edb
+  type: change
+  z: 44465f18e06bb58d
+  name: ''
+  rules:
+    - t: set
+      p: payload
+      pt: global
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 460
+  'y': 1800
+  wires:
+    - []

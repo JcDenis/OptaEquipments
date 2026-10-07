@@ -6138,7 +6138,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "data",
-        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.set('user', 'memoryOnly') || { };\nlet form = global.set('form', 'memoryOnly') || { };\nlet pages = global.get('describe.pages', 'memoryOnly');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id]; // auto\n        delete form[msg.hmi.id]; // auto\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth?.name || '';\n\n    return [null, null, msg];\n}\n\n// Should not happened\nif (typeof pages !== 'object') {\n\n    return;\n}\n\n// Prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (page === 'auth') {\n        msg.menus[page] = true;\n        msg.payload.pages.show[s++] = pages[page]['name'];\n    }\n    else if (pages[page]['level'][msg.hmi.level] === true) {\n        msg.menus[page] = true;\n        msg.payload.pages.show[s++] = pages[page]['name'];\n    } else {\n        msg.menus[page] = false;\n        msg.payload.pages.hide[h++] = pages[page]['name'];\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth?.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nlet form_plant = form[msg.hmi.id][\"plant\"] || '-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant; // auto\n    form[msg.hmi.id][\"line\"] = ''; // auto\n    form[msg.hmi.id][\"equipment\"] = ''; // auto\n}\nform[msg.hmi.id][\"ts\"] = Date.now(); // auto\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = msg.hmi.page; \nmsg.document = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg, null];",
+        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user', 'memoryOnly') || { };\nlet form = global.get('form', 'memoryOnly') || { };\nlet pages = global.get('describe.pages', 'memoryOnly');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id]; // auto\n        delete form[msg.hmi.id]; // auto\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth?.name || '';\n\n    return [null, null, msg];\n}\n\n// Should not happened\nif (typeof pages !== 'object') {\n\n    return;\n}\n\n// Prepare\nmsg.menus = {};\nmsg.titles = {};\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nlet s = 0;\nlet h = 0;\nfor (const page in pages) {\n    if (page === 'auth') {\n        msg.menus[page] = true;\n        msg.payload.pages.show[s++] = pages[page]['name'];\n    }\n    else if (pages[page]['level'][msg.hmi.level] === true) {\n        msg.menus[page] = true;\n        msg.payload.pages.show[s++] = pages[page]['name'];\n    } else {\n        msg.menus[page] = false;\n        msg.payload.pages.hide[h++] = pages[page]['name'];\n    }\n    msg.titles[page] = msg.dictionary.option_page[page];\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth?.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nlet form_plant = form[msg.hmi.id][\"plant\"] || '-';\nif (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant; // auto\n    form[msg.hmi.id][\"line\"] = ''; // auto\n    form[msg.hmi.id][\"equipment\"] = ''; // auto\n}\nform[msg.hmi.id][\"ts\"] = Date.now(); // auto\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.version = global.get('describe.app.version', 'memoryOnly') || '0.0.0';\nmsg.vendor = global.get('kernel.app.vendor', 'memoryOnly') || global.get('describe.app.vendor', 'memoryOnly');\nmsg.title = msg.hmi.page; \nmsg.document = global.get('kernel.app.title', 'memoryOnly') || global.get('describe.app.title', 'memoryOnly');\nmsg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg, null];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -6526,7 +6526,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "data",
-        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // on (re)boot, load kernel backup\n    global.set('kernel', (global.get('kernel_bk', 'default') || { }), 'memoryOnly');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'default');\n}\n\ndelete msg.boot;\n\n// Wait data was saved\nawait new Promise(resolve => setTimeout(resolve, 20));\n\nreturn msg;",
+        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // on (re)boot, load kernel backup\n    global.set('kernel', (global.get('kernel_bk', 'file') || { }), 'memoryOnly');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', global.get('kernel', 'memoryOnly'), 'file');\n}\n\ndelete msg.boot;\n\n// Wait data was saved\nawait new Promise(resolve => setTimeout(resolve, 20));\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7327,7 +7327,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
         "name": "data",
-        "func": "// Get HTTP response for opta ota firmware response\n\nif ((global.get('opta.version', 'default') || 0) > 0\n    && (global.get('opta.buffer', 'default') || '') !== ''\n) {\n    msg.payload = [ ...(global.get('opta.buffer', 'default') || []) ];\n    msg.headers = {\n        'Accept-Ranges':'bytes',\n        'Content-Type':'application/octet-stream',\n        'Content-Length':msg.payload.length,\n        'Connection':'close',\n        'Content-Disposition':' attachment; filename=\"' + global.get('opta.version', 'default') + '.ota\"'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
+        "func": "// Get HTTP response for opta ota firmware response\n\nif ((global.get('opta.version', 'file') || 0) > 0\n    && (global.get('opta.buffer', 'file') || '') !== ''\n) {\n    msg.payload = [ ...(global.get('opta.buffer', 'file') || []) ];\n    msg.headers = {\n        'Accept-Ranges':'bytes',\n        'Content-Type':'application/octet-stream',\n        'Content-Length':msg.payload.length,\n        'Connection':'close',\n        'Content-Disposition':' attachment; filename=\"' + global.get('opta.version', 'file') + '.ota\"'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -7384,7 +7384,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "64e28c88b4c7b710",
         "name": "data",
-        "func": "// Get HTTP response for opta ota version\n\nif ((global.get('opta.version', 'default') || 0) > 0) {\n    msg.payload = JSON.stringify({\n        'version': global.get('opta.version', 'default'),\n        'uri': '/optafirmware.ota'\n    });\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
+        "func": "// Get HTTP response for opta ota version\n\nif ((global.get('opta.version', 'file') || 0) > 0) {\n    msg.payload = JSON.stringify({\n        'version': global.get('opta.version', 'file'),\n        'uri': '/optafirmware.ota'\n    });\n    msg.headers = {\n        'Content-Type': 'application/json',\n        'Content-Length': msg.payload.length,\n        'Connection': 'close'\n    };\n\n    return [msg, null];\n}\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -47226,7 +47226,7 @@
         "z": "44465f18e06bb58d",
         "g": "7c224f2f2afc76d3",
         "name": "data",
-        "func": "if (Number(global.get('opta.version', 'default') || 0) > 0) {\n\n    return msg;\n}\n\nreturn;",
+        "func": "if (Number(global.get('opta.version', 'file') || 0) > 0) {\n\n    return msg;\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -47247,7 +47247,7 @@
         "z": "44465f18e06bb58d",
         "g": "7c224f2f2afc76d3",
         "name": "data",
-        "func": "flow.set('form_version', 0, 'memoryOnly');\n\nmsg.topic = '';\nmsg.payload = 0;\n\nconst opta_version = Number(global.get('opta.version', 'default') || 0);\n\nif (opta_version > 0) {\n    msg.payload = opta_version;\n}\nelse {\n    global.set('opta.version', 0, 'default');\n}\n\nreturn msg;",
+        "func": "flow.set('form_version', 0, 'memoryOnly');\n\nmsg.topic = '';\nmsg.payload = 0;\n\nconst opta_version = Number(global.get('opta.version', 'file') || 0);\n\nif (opta_version > 0) {\n    msg.payload = opta_version;\n}\nelse {\n    global.set('opta.version', 0, 'file');\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -47289,7 +47289,7 @@
         "z": "44465f18e06bb58d",
         "g": "7c224f2f2afc76d3",
         "name": "data",
-        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (![ 'admin' ].includes(msg.hmi.level) || msg.payload === '') {\n\n    return;\n}\n\nglobal.set('opta', {\n    'version': Number(flow.get('form_version', 'memoryOnly') || 0),\n    'buffer': msg.payload\n}, 'default');\n\nreturn msg;",
+        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (![ 'admin' ].includes(msg.hmi.level) || msg.payload === '') {\n\n    return;\n}\n\nglobal.set('opta', {\n    'version': Number(flow.get('form_version', 'memoryOnly') || 0),\n    'buffer': msg.payload\n}, 'file');\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -47311,7 +47311,7 @@
         "z": "44465f18e06bb58d",
         "g": "7c224f2f2afc76d3",
         "name": "data",
-        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (![ 'admin' ].includes(msg.hmi.level)) {\n\n    return;\n}\n\nconst opta_version = Number(msg.payload);\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nif (opta_version < 1) {\n\n    return [ null, msg ];\n}\n\nflow.set('form_version', opta_version, 'memoryOnly');\n\nglobal.set('opta.version', {\n    'verion': 0,\n    'buffer': ''\n}, 'default');\n\nmsg.payload = 0;\n\ndelete msg.hmi;\ndelete msg.dictionary;\n\nreturn [ msg, null ];",
+        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (![ 'admin' ].includes(msg.hmi.level)) {\n\n    return;\n}\n\nconst opta_version = Number(msg.payload);\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nif (opta_version < 1) {\n\n    return [ null, msg ];\n}\n\nflow.set('form_version', opta_version, 'memoryOnly');\n\nglobal.set('opta.version', {\n    'verion': 0,\n    'buffer': ''\n}, 'file');\n\nmsg.payload = 0;\n\ndelete msg.hmi;\ndelete msg.dictionary;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -47337,7 +47337,7 @@
         "z": "44465f18e06bb58d",
         "g": "7c224f2f2afc76d3",
         "name": "data",
-        "func": "msg.topic = '';\nmsg.payload = Number(global.get('opta.version', 'default') || 0);\n\ndelete msg.hmi;\ndelete msg.dictionary;\ndelete msg.file;\n\nreturn msg;",
+        "func": "msg.topic = '';\nmsg.payload = Number(global.get('opta.version', 'file') || 0);\n\ndelete msg.hmi;\ndelete msg.dictionary;\ndelete msg.file;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -47351,6 +47351,58 @@
                 "a4fb301472039371",
                 "80e11615d0347342"
             ]
+        ]
+    },
+    {
+        "id": "adb425e57ab7ed52",
+        "type": "inject",
+        "z": "44465f18e06bb58d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3fad1c75b6c7edb",
+        "type": "change",
+        "z": "44465f18e06bb58d",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "global",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 1800,
+        "wires": [
+            []
         ]
     }
 ]
