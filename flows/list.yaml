@@ -1681,9 +1681,12 @@
   name: action
   func: |-
     if (msg.action === 'row_click') {
-        global.set('form["' + msg.hmi.id + '"]["plant"]', typeof msg.payload.plant === 'string' ? msg.payload.plant : '');
-        global.set('form["' + msg.hmi.id + '"]["line"]', typeof msg.payload.line === 'string' ? msg.payload.line : '');
-        global.set('form["' + msg.hmi.id + '"]["equipment"]', typeof msg.payload.equipment === 'string' ? msg.payload.equipment : '');
+        // Get memories
+        let form = global.get('form'); // autoupdate
+
+        form[msg.hmi.id]['plant'] = typeof msg.payload.plant === 'string' ? msg.payload.plant : '';
+        form[msg.hmi.id]['line'] = typeof msg.payload.line === 'string' ? msg.payload.line : '';
+        form[msg.hmi.id]['equipment'] = typeof msg.payload.equipment === 'string' ? msg.payload.equipment : '';
 
         msg.payload = global.get('describe.pages.detail.tab') || 0;
 

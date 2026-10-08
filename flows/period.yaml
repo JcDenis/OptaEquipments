@@ -27,7 +27,6 @@
     - bade08026654ecc9
     - 39cf9bc6de140b04
     - 2bae655127ea8edc
-    - bd492fc337963491
     - 0fc506fd101f1d0c
     - 88105ea3fcd56b54
     - f4d3e88b80009b83
@@ -36,9 +35,9 @@
     - 7eba63c1887abbfc
     - d55041fdf28a3f36
     - 4de51ad5aa3bed09
-  x: 104
+  x: 94
   'y': 99
-  w: 1402
+  w: 1152
   h: 442
 - id: d55041fdf28a3f36
   type: link in
@@ -48,7 +47,7 @@
   links:
     - 575b91a30deac00d
     - 7bba6594f41302c2
-  x: 145
+  x: 245
   'y': 200
   wires:
     - - 2bae655127ea8edc
@@ -77,7 +76,7 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 450
+  x: 190
   'y': 260
   wires:
     - - 4de51ad5aa3bed09
@@ -94,7 +93,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1390
+  x: 1130
   'y': 140
   wires: []
 - id: d0bfea36099bd97c
@@ -160,7 +159,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1000
+  x: 740
   'y': 200
   wires:
     - - 88105ea3fcd56b54
@@ -174,7 +173,7 @@
     - c7dc8df688a74cbe
     - e60e4ab7617738c3
     - 0e9c3ca7f24bc8dc
-  x: 1335
+  x: 1075
   'y': 200
   wires: []
 - id: 21c5bb46d1224264
@@ -194,7 +193,7 @@
   drop: false
   allowrate: false
   outputs: 1
-  x: 630
+  x: 370
   'y': 320
   wires:
     - - 0fc506fd101f1d0c
@@ -206,7 +205,7 @@
   mode: link
   links:
     - 4e94023e8ba12f50
-  x: 1335
+  x: 1075
   'y': 260
   wires: []
 - id: 0e9c3ca7f24bc8dc
@@ -216,7 +215,7 @@
   name: ui - period - list - internal
   links:
     - 575b09f0fb9e021c
-  x: 505
+  x: 245
   'y': 320
   wires:
     - - 21c5bb46d1224264
@@ -228,7 +227,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1335
+  x: 1075
   'y': 320
   wires: []
 - id: 0cbca936c25fa514
@@ -294,7 +293,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1010
+  x: 750
   'y': 260
   wires:
     - - 88105ea3fcd56b54
@@ -318,7 +317,7 @@
   className: ''
   value: payload
   valueType: msg
-  x: 1010
+  x: 750
   'y': 140
   wires: []
 - id: beac0cb54e4ebf07
@@ -360,7 +359,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1000
+  x: 740
   'y': 320
   wires:
     - []
@@ -403,7 +402,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1010
+  x: 750
   'y': 380
   wires:
     - []
@@ -467,7 +466,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 790
+  x: 530
   'y': 320
   wires:
     - - beac0cb54e4ebf07
@@ -494,9 +493,12 @@
         return [ msg, msg ];
     }
 
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
     if (msg.hmi.plant === '') {
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
+        msg.payload = form[msg.hmi.id]['plant'] || '';
 
         // Get plants for form
         msg = await node.linkcall('option - plant', msg);
@@ -513,7 +515,8 @@
 
     // user is linked to a plant
     msg.payload = msg.hmi.plant;
-    global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload);
+
+    form[msg.hmi.id]['plant'] = msg.payload;
 
     return [ msg, null ];
   outputs: 2
@@ -522,29 +525,14 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
+  x: 370
   'y': 200
   wires:
-    - - bd492fc337963491
-    - - b845b219f76071e5
-- id: bd492fc337963491
-  type: change
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: '-'
-  rules: []
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 630
-  'y': 200
-  wires:
-    - - 39cf9bc6de140b04
+    - - 7eba63c1887abbfc
       - 0fc506fd101f1d0c
+      - 39cf9bc6de140b04
       - f4d3e88b80009b83
-      - 7eba63c1887abbfc
+    - - b845b219f76071e5
 - id: 0fc506fd101f1d0c
   type: function
   z: 51c4b2897d2c318c
@@ -624,7 +612,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 800
+  x: 540
   'y': 200
   wires:
     - - d0bfea36099bd97c
@@ -639,7 +627,6 @@
 
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
-
 
     let newMsg = {
         'topic': '',
@@ -680,13 +667,12 @@
         }
 
     } else if (msg.action === 'row_click') {
-        let form = global.get('form') || {};
-        if (typeof form[msg.hmi.id] !== 'object') {
-            form[msg.hmi.id] = { };
-        }
-        form[msg.hmi.id]["plant"] = msg.payload.plant; // auto
-        form[msg.hmi.id]["line"] = msg.payload.line; // auto
-        form[msg.hmi.id]["equipment"] = ''; // auto
+        // Get memories
+        let form = global.get('form'); // autoupdate
+
+        form[msg.hmi.id]["plant"] = msg.payload.plant;
+        form[msg.hmi.id]["line"] = msg.payload.line;
+        form[msg.hmi.id]["equipment"] = '';
 
         newMsg.hmi.tab = global.get('describe.pages.detail.tab') || 0;
         newMsg.hmi.page = global.get('describe.pages.detail.name') || '';
@@ -702,7 +688,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1210
+  x: 950
   'y': 200
   wires:
     - - 575b09f0fb9e021c
@@ -765,7 +751,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 800
+  x: 540
   'y': 440
   wires:
     - - 99c84a564059a3f7
@@ -803,7 +789,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1010
+  x: 750
   'y': 440
   wires:
     - []
@@ -840,7 +826,7 @@
   mobileBreakpointType: defaults
   action: replace
   className: ''
-  x: 1020
+  x: 760
   'y': 500
   wires:
     - []
@@ -871,7 +857,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 790
+  x: 530
   'y': 140
   wires:
     - - f4f846fcf380110e
@@ -895,7 +881,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 630
+  x: 370
   'y': 260
   wires:
     - - 0fc506fd101f1d0c

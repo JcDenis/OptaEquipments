@@ -681,13 +681,13 @@
   name: icon
   func: |-
     return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'app',
-            'entity':'icon',
-            'value':msg.payload,
-            'loop':false
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': 'app',
+            'entity': 'icon',
+            'value': msg.payload,
+            'loop': false
         }
     };
   outputs: 1
@@ -707,13 +707,13 @@
   name: title
   func: |-
     return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'app',
-            'entity':'title',
-            'value':msg.payload.title,
-            'loop':false
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': 'app',
+            'entity': 'title',
+            'value': msg.payload.title,
+            'loop': false
         }
     };
   outputs: 1
@@ -733,13 +733,13 @@
   name: vendor
   func: |-
     return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'app',
-            'entity':'vendor',
-            'value':msg.payload.vendor,
-            'loop':false
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': 'app',
+            'entity': 'vendor',
+            'value': msg.payload.vendor,
+            'loop': false
         }
     };
   outputs: 1
@@ -759,13 +759,13 @@
   name: tomqtt
   func: |-
     return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'app',
-            'entity':'tomqtt',
-            'value':msg.payload.tomqtt,
-            'loop':false
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type':' app',
+            'entity': 'tomqtt',
+            'value': msg.payload.tomqtt,
+            'loop': false
         }
     };
   outputs: 1
@@ -785,13 +785,13 @@
   name: frommqtt
   func: |-
     return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'app',
-            'entity':'frommqtt',
-            'value':msg.payload.frommqtt,
-            'loop':false
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': 'app',
+            'entity': 'frommqtt',
+            'value': msg.payload.frommqtt,
+            'loop': false
         }
     };
   outputs: 1
@@ -811,13 +811,13 @@
   name: watchdog
   func: |-
     return {
-        'topic':'',
-        'payload':'',
-        'kernel':{
-            'type':'app',
-            'entity':'watchdog',
-            'value':Number(msg.payload.watchdog),
-            'loop':false
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type':' app',
+            'entity': 'watchdog',
+            'value': Number(msg.payload.watchdog),
+            'loop': false
         }
     };
   outputs: 1
@@ -889,8 +889,8 @@
     let i = 0;
     for (const type in types) {
         msg.options[i++] = {
-            'label':type,
-            'value':type,
+            'label': type,
+            'value': type,
         };
     }
 
@@ -950,13 +950,13 @@
         flow.set('kernel["' + msg.hmi.id + '"]["entity"]', '');
 
         // get kernel entitites
-        let entities = global.get('kernel["' + msg.payload + '"]');
+        let entities = global.get('kernel["' + msg.payload + '"]') || { };
         msg.options = [];
         let i = 0;
         for (const entity in entities) {
             msg.options[i++] = {
-                'label':entity,
-                'value':entity,
+                'label': entity,
+                'value': entity,
             };
         }
 
@@ -1083,17 +1083,18 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
     }
 
     msg.kernel = {
-        'type':flow.get('kernel["' + msg.hmi.id + '"]["type"]')||'',
-        'entity':flow.get('kernel["' + msg.hmi.id + '"]["entity"]'),
-        'value':'',
-        'loop':false,
-        'delete':true
+        'type': flow.get('kernel["' + msg.hmi.id + '"]["type"]') || '',
+        'entity': flow.get('kernel["' + msg.hmi.id + '"]["entity"]') || '',
+        'value': '',
+        'loop': false,
+        'delete': true
     };
 
     return msg;
@@ -1171,6 +1172,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
@@ -1197,6 +1199,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
@@ -1223,6 +1226,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
@@ -1232,7 +1236,7 @@
     global.set('random', random);
 
     msg.payload = {
-        'url': '/kernel.export.json?rnd=' + random.toString()
+        'url': '/' + random.toString() + '/kernel.export.json'
     };
 
     return msg;
@@ -1256,6 +1260,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level) || msg.payload === '') {
 
         return;
@@ -1282,7 +1287,10 @@
 
     msg.class = '';
     msg.enabled = false;
-    msg.options = [{ 'label':'','value':'' }];
+    msg.options = [{
+        'label': '',
+        'value': ''
+    }];
 
     return msg;
   outputs: 1
@@ -1307,6 +1315,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level) || msg.payload === '') {
 
         return;
@@ -1333,6 +1342,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
@@ -1396,7 +1406,7 @@
         msg.payload = true;
         msg.boot = true;
 
-        return  [ null, msg ];
+        return [ null, msg ];
     }
 
     return;
@@ -1494,6 +1504,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level) || msg.payload === '') {
 
         return;
@@ -1526,6 +1537,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
@@ -1593,41 +1605,3 @@
   wires:
     - - a4fb301472039371
       - 80e11615d0347342
-- id: adb425e57ab7ed52
-  type: inject
-  z: 44465f18e06bb58d
-  name: ''
-  props:
-    - p: payload
-    - p: topic
-      vt: str
-  repeat: ''
-  crontab: ''
-  once: false
-  onceDelay: 0.1
-  topic: ''
-  payload: ''
-  payloadType: date
-  x: 230
-  'y': 1800
-  wires:
-    - []
-- id: e3fad1c75b6c7edb
-  type: change
-  z: 44465f18e06bb58d
-  name: ''
-  rules:
-    - t: set
-      p: payload
-      pt: global
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 460
-  'y': 1800
-  wires:
-    - []

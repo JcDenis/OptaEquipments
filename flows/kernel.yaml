@@ -756,7 +756,6 @@
   name: ui - notice
   links:
     - f1a4ce3bdf024862
-    - 8574ce7e34610420
     - 5b08e73e6fba747e
     - aeafe7168ac11461
     - a4152fb852afd64c
@@ -1597,13 +1596,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
+  name: app root
   url: /
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 170
+  x: 180
   'y': 3640
   wires:
     - - 025edbd02daf82d0
@@ -1686,13 +1685,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
-  url: /kernel.export.json
+  name: kernel export
+  url: '/:rnd/kernel.export.json'
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 220
+  x: 190
   'y': 3920
   wires:
     - - 668f8c2606240642
@@ -1716,13 +1715,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
+  name: app icon
   url: /icon.png
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 190
+  x: 180
   'y': 3760
   wires:
     - - 5a8875d1a8d3c550
@@ -1751,13 +1750,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
+  name: opta ota
   url: /optafirmware.ota
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 220
+  x: 180
   'y': 3980
   wires:
     - - fa9f56578f777f16
@@ -1786,13 +1785,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
-  url: /user.export.json
+  name: user export
+  url: '/:rnd/user.export.json'
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 220
+  x: 180
   'y': 3860
   wires:
     - - cf21433f7f25224a
@@ -1932,13 +1931,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
+  name: opta version
   url: /optafirmware.json
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 220
+  x: 190
   'y': 4040
   wires:
     - - c684af5ea5b26d2e
@@ -4624,7 +4623,7 @@
     // Get http reponse for users backup
 
 
-    if (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random') ||
+    if ((msg.req.params.rnd || '-').toString() === (global.get('random') ||
     '').toString()) {
         msg.payload = { ...(global.get('auth') || { }) };
         msg.headers = {
@@ -4662,7 +4661,7 @@
     // Get http reponse for kernel backup
 
 
-    if (msg.payload.rnd !== '' && msg.payload.rnd === (global.get('random') ||
+    if ((msg.req.params.rnd || '-').toString() === (global.get('random') ||
     '').toString()) {
         msg.payload = JSON.stringify(global.get('kernel'));
         msg.headers = {
@@ -5232,13 +5231,13 @@
   type: http in
   z: f6f2187d.f17ca8
   g: 64e28c88b4c7b710
-  name: ''
+  name: plant map
   url: '/:plant/plant.png'
   method: get
   upload: false
   skipBodyParsing: false
   swaggerDoc: ''
-  x: 220
+  x: 180
   'y': 3700
   wires:
     - - 4c04568e727d9c3e

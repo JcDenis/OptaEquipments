@@ -458,6 +458,7 @@
   g: 0e5ee31c1122d84d
   name: data
   func: |-
+    delete msg.reset;
 
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
@@ -1083,6 +1084,7 @@
   func: |-
     // Try to limit loop
     if ((msg.plant || '') !== '' 
+        && (msg.plant || 'none') !== 'none' 
         && (msg.hmi.id || '') !== '' 
         && (global.get('user["' + msg.hmi.id + '"]["login"]') || '') !== ''
     ) {

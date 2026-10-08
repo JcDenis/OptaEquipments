@@ -308,10 +308,13 @@
         return [ msg, msg ];
     }
 
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
     // Plant was not defined for the user
     if (msg.hmi.plant === '') {
         // admin can select a plant
-        msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
+        msg.payload = form[msg.hmi.id]['plant'] || '';
 
     // Get plants for form
     msg = await node.linkcall('option - plant', msg);
@@ -328,7 +331,8 @@
 
     // Plant is defined for the user
     msg.payload = msg.hmi.plant;
-    global.set('form["' + msg.hmi.id + '"]["plant"]', msg.payload);
+
+    form[msg.hmi.id]['plant'] = msg.payload;
 
     return [ msg, null ];
   outputs: 2
@@ -354,7 +358,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     // Get user form
-    let form = global.get('form') || { };
+    let form = global.get('form'); // autoupdate
 
     // Should not happened
     if (typeof form[msg.hmi.id] !== 'object') {
@@ -362,9 +366,9 @@
     }
 
     // Update form
-    form[msg.hmi.id]['plant'] = msg.payload.plant; // auto
-    form[msg.hmi.id]['line'] = msg.payload.line; // auto
-    form[msg.hmi.id]['equipment'] = msg.payload.equipment; // auto
+    form[msg.hmi.id]['plant'] = msg.payload.plant;
+    form[msg.hmi.id]['line'] = msg.payload.line;
+    form[msg.hmi.id]['equipment'] = msg.payload.equipment;
 
     delete msg.action;
 

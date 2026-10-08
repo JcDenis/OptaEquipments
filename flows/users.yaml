@@ -693,6 +693,9 @@
   name: data
   func: |-
     if (typeof msg.payload === 'object') {
+        // Get memories
+        let auth = global.get('auth'); // autoupdate
+
         for (const login in msg.payload) {
             if (typeof msg.payload[login]["pass"] === 'string'
                 && typeof msg.payload[login]["pass"] === 'string'
@@ -707,17 +710,13 @@
                     msg.payload[login]["telegram"] = '';
                 }
 
-                if (msg.payload[login]["level"] === 'admin') {
-                    //flow.set('has_admin', true);
-                }
-
-                global.set('auth["' + login + '"]' ,{
+                auth[login] = {
                     'pass':msg.payload[login]["pass"],
                     'level':msg.payload[login]["level"],
                     'plant':msg.payload[login]["plant"],
                     'lang': msg.payload[login]["lang"],
                     'telegram': msg.payload[login]["telegram"]
-                });
+                };
             }
         }
 
@@ -773,10 +772,13 @@
         return msg;
     }
 
-    const users = { ...(global.get('user') || { }) };
-    msg.payload = { ...(global.get('auth') || { }) };
+    const users = global.get('user');
+    const auth = global.get('auth');
 
-    for (const u in msg.payload) {
+    msg.payload = { };
+
+    for (const u in auth) {
+        msg.payload[u] = { ...auth[u] };
         msg.payload[u].login = u;
         msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant["' + msg.payload[u].plant + '"]') || '');
         msg.payload[u].delete = msg.dictionary.option_action.delete;
@@ -826,7 +828,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
 
-    // user level and do not delete itself
+    // Check user right (and prevent self deletion)
 
     if (![ 'admin' ].includes(msg.hmi.level) || msg.hmi.login ===
     msg.payload.login) {
@@ -843,9 +845,10 @@
             return [ msg, null, null ];
         }
         else {
-            let auth = { ...(global.get('auth') || { }) };
+            // Get memories
+            let auth = global.get('auth'); // autoupdate
+
             delete auth[msg.payload.login];
-            global.set('auth', auth);
 
             msg.payload = 'Successfully updated';
             node.send([ msg, null, null]);
@@ -857,18 +860,17 @@
 
             return [ null, msg, msg ];
         }
-
     }
 
     else if (msg.column === 'disconnect') {
+        // Get memories
+        let user = global.get('user'); // autoupdate
 
-        let user = { ...(global.get('user') || { }) };
         delete user[msg.payload.session];
-        global.set('user', user);
 
         msg.payload = 'Successfully updated';
         node.send([ msg, null, null]);
-        
+
         // Wait ui update
         msg = await node.linkcall('wait - ui', msg);
 
@@ -934,8 +936,11 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    const auth = { ...(global.get('auth') || { }) };
+    const auth = global.get('auth');
+
+    // Check user exists
     if (typeof auth[msg.payload.login] === 'object') {
+        // Check passwords match
         if (msg.payload.pass === msg.payload.pass2) {
 
             return [ null, msg ];
@@ -974,6 +979,7 @@
         return;
     }
 
+    // Update user hash password
     auth[msg.payload.login]['pass'] = msg.payload.pass;
 
     msg.login = msg.payload.login;
@@ -984,11 +990,11 @@
 
     node.send([ msg, null, null ]);
 
+    // Wait ui update
+    msg = await node.linkcall('wait - ui', msg);
+
     msg.payload = '';
     msg.options = [];
-
-    // Wait data update
-    //msg = await node.linkcall('wait - data', msg);
 
     node.send([ null, null, msg ]);
 
@@ -1058,7 +1064,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
-    const auth = { ...(global.get('auth') || { }) };
+    const auth = global.get('auth');
     if (typeof msg.dictionary.option_level[msg.payload.level] === 'string') {
         if (typeof auth[msg.payload.login] === 'object') {
             msg.payload = 'User is not empty';
@@ -1089,9 +1095,13 @@
   g: bb8597f031aabc08
   name: data
   func: |-
+    // User login is always convert to lowercase
     msg.payload.login = msg.payload.login.toLowerCase();
 
-    const auth = { ...(global.get('auth') || { }) };
+    // Get memories
+    let auth = global.get('auth'); // autoupdate
+
+    // Set user params
     auth[msg.payload.login] = {
         'pass': msg.payload.pass,
         'level': msg.payload.level,
@@ -1099,7 +1109,6 @@
         'lang': msg.payload.lang,
         'telegram': msg.payload.telegram
     };
-    global.set('auth', auth);
 
     msg.login = msg.payload.login;
     msg.payload = '';
@@ -1108,9 +1117,6 @@
 
     msg.options = [];
     msg.enabled = true;
-
-    // Wait data update
-    //msg = await node.linkcall('wait - data', msg);
 
     node.send([ null, null, msg ]);
 
@@ -1159,16 +1165,19 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level)) {
 
         return;
     }
 
+    // Put on memory a random number to check download from current user
     const random = Math.floor(Math.random() * 1000000);
     global.set('random', random);
 
+    // Set download URL
     msg.payload = {
-        'url': '/user.export.json?rnd=' + random.toString()
+        'url': '/' + random.toString() + '/user.export.json?rnd='
     };
 
     return msg;
@@ -1192,6 +1201,7 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Check user right
     if (![ 'admin' ].includes(msg.hmi.level) || msg.payload === '') {
 
         return;
