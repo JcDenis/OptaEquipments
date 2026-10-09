@@ -1432,39 +1432,24 @@
         },
         "nodes": [
             "636d0d23ef67c933",
-            "5ef035c3adf37196",
-            "13ab231ebca5525a",
-            "d7169b4e02e68613",
-            "c13ab5c3ca82616d",
-            "2e130818079a92e9",
             "c2183046f1f0399d",
-            "b7099c57f2f23662",
-            "498a2ec8abccfd6e",
-            "4732a869cdb51d41",
-            "43341848e3c1054c",
-            "78989290c846220c",
-            "32857ddf61bcd2a3",
-            "a1ea8a231f95f998",
             "d973896cabdc89e1",
             "6ca53b431ccfbd51",
-            "075402bd375e939f",
-            "6fd49fde5a5ea729",
-            "d1f3c878e2fa8d07",
             "3f07a0ef93bef0ea",
             "5089216d327d1312",
             "7866a0ada50fe22f",
-            "d587c6ae16073069",
-            "71c80e8c323bda5b",
-            "aa85e0cb07dfacdb",
-            "d31f4fb6ffcfef09",
-            "f670a7124a9072b0",
             "db2795528bed1f7f",
-            "2a63357f9f37b03c"
+            "2a63357f9f37b03c",
+            "75aad0a4c07837d7",
+            "c981937d7c2175e0",
+            "e388e76ada065624",
+            "523000e5afd4d5ae",
+            "66cd836b115c30bc"
         ],
         "x": 104,
-        "y": 6879,
-        "w": 1682,
-        "h": 442
+        "y": 7051.5,
+        "w": 862,
+        "h": 277
     },
     {
         "id": "6d125a0d231d55d4",
@@ -31959,206 +31944,10 @@
             "d5a2492cd9b261b1"
         ],
         "x": 145,
-        "y": 6920,
+        "y": 7100,
         "wires": [
             [
-                "5ef035c3adf37196"
-            ]
-        ]
-    },
-    {
-        "id": "5ef035c3adf37196",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "list",
-        "property": "list",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "day",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 270,
-        "y": 6920,
-        "wires": [
-            [
-                "d7169b4e02e68613"
-            ],
-            [
-                "13ab231ebca5525a",
-                "d7169b4e02e68613"
-            ]
-        ]
-    },
-    {
-        "id": "13ab231ebca5525a",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "level",
-        "property": "hmi.level",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "rt",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 3,
-        "x": 430,
-        "y": 6980,
-        "wires": [
-            [
-                "2e130818079a92e9"
-            ],
-            [
-                "2e130818079a92e9"
-            ],
-            [
-                "d7169b4e02e68613",
-                "c13ab5c3ca82616d"
-            ]
-        ]
-    },
-    {
-        "id": "d7169b4e02e68613",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "hide",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "remove",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 6920,
-        "wires": [
-            [
-                "c2183046f1f0399d",
-                "d973896cabdc89e1",
-                "6ca53b431ccfbd51",
-                "3f07a0ef93bef0ea"
-            ]
-        ]
-    },
-    {
-        "id": "c13ab5c3ca82616d",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "show",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 7040,
-        "wires": [
-            [
-                "c2183046f1f0399d"
-            ]
-        ]
-    },
-    {
-        "id": "2e130818079a92e9",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "client",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]",
-                "pt": "flow",
-                "to": "{}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]time",
-                "pt": "flow",
-                "to": "",
-                "tot": "date"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 6980,
-        "wires": [
-            [
-                "b7099c57f2f23662"
+                "75aad0a4c07837d7"
             ]
         ]
     },
@@ -32183,218 +31972,9 @@
         "className": "",
         "value": "dictionary.option_notice.level_fail",
         "valueType": "msg",
-        "x": 800,
-        "y": 7040,
+        "x": 620,
+        "y": 7100,
         "wires": []
-    },
-    {
-        "id": "b7099c57f2f23662",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "plant",
-        "property": "hmi.plant",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 250,
-        "y": 7100,
-        "wires": [
-            [
-                "32857ddf61bcd2a3"
-            ],
-            [
-                "4732a869cdb51d41"
-            ]
-        ]
-    },
-    {
-        "id": "498a2ec8abccfd6e",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 240,
-        "y": 7160,
-        "wires": [
-            [
-                "4732a869cdb51d41"
-            ]
-        ]
-    },
-    {
-        "id": "4732a869cdb51d41",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "",
-        "links": [
-            "22a6cc8a0964f595"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 430,
-        "y": 7160,
-        "wires": [
-            [
-                "d973896cabdc89e1"
-            ]
-        ]
-    },
-    {
-        "id": "43341848e3c1054c",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 990,
-        "y": 7160,
-        "wires": [
-            [
-                "71c80e8c323bda5b"
-            ]
-        ]
-    },
-    {
-        "id": "78989290c846220c",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "plant",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]plant",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1350,
-        "y": 7160,
-        "wires": [
-            [
-                "a1ea8a231f95f998",
-                "498a2ec8abccfd6e"
-            ]
-        ]
-    },
-    {
-        "id": "32857ddf61bcd2a3",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "plant",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]plant",
-                "pt": "flow",
-                "to": "hmi.plant",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "hmi.plant",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1350,
-        "y": 7100,
-        "wires": [
-            [
-                "a1ea8a231f95f998"
-            ]
-        ]
-    },
-    {
-        "id": "a1ea8a231f95f998",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "enable",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1510,
-        "y": 7160,
-        "wires": [
-            [
-                "db2795528bed1f7f"
-            ]
-        ]
     },
     {
         "id": "d973896cabdc89e1",
@@ -32419,11 +31999,11 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 800,
+        "x": 620,
         "y": 7160,
         "wires": [
             [
-                "43341848e3c1054c"
+                "e388e76ada065624"
             ]
         ]
     },
@@ -32455,116 +32035,11 @@
         "iconPosition": "left",
         "iconInnerPosition": "inside",
         "spinner": "default",
-        "x": 800,
+        "x": 620,
         "y": 7220,
         "wires": [
             [
-                "aa85e0cb07dfacdb"
-            ]
-        ]
-    },
-    {
-        "id": "075402bd375e939f",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "hour",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]hour",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1350,
-        "y": 7220,
-        "wires": [
-            [
-                "d1f3c878e2fa8d07"
-            ]
-        ]
-    },
-    {
-        "id": "6fd49fde5a5ea729",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 240,
-        "y": 7280,
-        "wires": [
-            [
-                "2a63357f9f37b03c"
-            ]
-        ]
-    },
-    {
-        "id": "d1f3c878e2fa8d07",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "enable",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1510,
-        "y": 7220,
-        "wires": [
-            [
-                "2a63357f9f37b03c"
+                "523000e5afd4d5ae"
             ]
         ]
     },
@@ -32600,13 +32075,10 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 800,
+        "x": 620,
         "y": 7280,
         "wires": [
-            [
-                "6fd49fde5a5ea729",
-                "d31f4fb6ffcfef09"
-            ]
+            []
         ]
     },
     {
@@ -32619,7 +32091,7 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 1635,
+        "x": 925,
         "y": 7280,
         "wires": []
     },
@@ -32634,26 +32106,8 @@
             "636d0d23ef67c933",
             "e60e4ab7617738c3"
         ],
-        "x": 1635,
+        "x": 925,
         "y": 7220,
-        "wires": []
-    },
-    {
-        "id": "d587c6ae16073069",
-        "type": "debug",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "tree - day",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1680,
-        "y": 7160,
         "wires": []
     },
     {
@@ -34303,63 +33757,6 @@
         ]
     },
     {
-        "id": "71c80e8c323bda5b",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1170,
-        "y": 7160,
-        "wires": [
-            [
-                "78989290c846220c"
-            ]
-        ]
-    },
-    {
-        "id": "aa85e0cb07dfacdb",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1170,
-        "y": 7220,
-        "wires": [
-            [
-                "075402bd375e939f"
-            ]
-        ]
-    },
-    {
-        "id": "d31f4fb6ffcfef09",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1170,
-        "y": 7280,
-        "wires": [
-            [
-                "f670a7124a9072b0"
-            ]
-        ]
-    },
-    {
         "id": "5da93f7f423e4b99",
         "type": "ui-dropdown",
         "z": "64ce08af468b8197",
@@ -35478,31 +34875,6 @@
             ],
             [
                 "e01152247fcb2952"
-            ]
-        ]
-    },
-    {
-        "id": "f670a7124a9072b0",
-        "type": "function",
-        "z": "64ce08af468b8197",
-        "g": "2c0384adc9ef91fe",
-        "name": "day",
-        "func": "if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {\n    let form = flow.get('form[\"' + msg.hmi.id + '\"]') || {};\n\n    // alert\n    let dayMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'day',\n            'entity': form.plant,\n            'value': form.hour,\n            'loop': false\n        }\n    };\n    node.send([dayMsg, null]);\n\n    // notice\n    msg.payload = msg.dictionary.option_notice.update_success;\n    node.send([null, msg]);\n}\n\nreturn;",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1510,
-        "y": 7280,
-        "wires": [
-            [
-                "7866a0ada50fe22f",
-                "d587c6ae16073069"
-            ],
-            [
-                "5089216d327d1312"
             ]
         ]
     },
@@ -36766,14 +36138,14 @@
         "z": "64ce08af468b8197",
         "g": "2c0384adc9ef91fe",
         "name": "label",
-        "func": "const day = global.get('kernel.day[\"' + msg.payload + '\"]') || 0;\n\nmsg.ui_update = {\n    'label': msg.dictionary.option_select.day_starttime\n};\nmsg.payload = msg.stoptime;\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.day_starttime\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
+        "x": 430,
         "y": 7220,
         "wires": [
             [
@@ -36794,7 +36166,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
+        "x": 430,
         "y": 7280,
         "wires": [
             [
@@ -39721,6 +39093,132 @@
             ],
             [
                 "2ea2dfd8b060d57a"
+            ]
+        ]
+    },
+    {
+        "id": "75aad0a4c07837d7",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "2c0384adc9ef91fe",
+        "name": "data",
+        "func": "msg.payload = '';\n\nif (msg.list !== 'day') {\n    msg.class = 'remove';\n\n    return [msg, msg, msg];\n}\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n\n    // Get memories\n    let form = flow.get('form'); // autoupdate\n\n    const action = msg.payload;\n\n    form[msg.hmi.id] = {\n        'action': action,\n        'time': Date.now(),\n        'plant': '',\n        'hour': 0\n    };\n\n    msg.class= '';\n    msg.enabled = true;\n\n    if (msg.hmi.plant !== '') {\n        form[msg.hmi.id]['plant'] = msg.hmi.plant;\n\n        return [null, null, msg]\n    ;}\n    else {\n\n        return [null, msg, null];\n    }\n}",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 7100,
+        "wires": [
+            [
+                "c2183046f1f0399d",
+                "c981937d7c2175e0",
+                "db2795528bed1f7f",
+                "2a63357f9f37b03c"
+            ],
+            [
+                "c981937d7c2175e0"
+            ],
+            [
+                "db2795528bed1f7f"
+            ]
+        ]
+    },
+    {
+        "id": "c981937d7c2175e0",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "2c0384adc9ef91fe",
+        "name": "data",
+        "func": "\n// Get options\nmsg = await node.linkcall('option - plant', msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 7160,
+        "wires": [
+            [
+                "d973896cabdc89e1"
+            ]
+        ]
+    },
+    {
+        "id": "e388e76ada065624",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "2c0384adc9ef91fe",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst plant = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = flow.get('form'); // autoupdate\n\nform[msg.hmi.id]['plant'] = plant;\n\n// Disabled plant form\nmsg.payload = plant;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Wait UI to be disablde\nmsg = await node.linkcall('wait - ui', msg);\n\n// Go to next form\nmsg.payload = global.get('kernel.day[\"' + flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') + '\"]') || 0;\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 7160,
+        "wires": [
+            [
+                "c981937d7c2175e0"
+            ],
+            [
+                "db2795528bed1f7f"
+            ]
+        ]
+    },
+    {
+        "id": "523000e5afd4d5ae",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "2c0384adc9ef91fe",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst hour = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = flow.get('form'); // autoupdate\n\nform[msg.hmi.id]['hour'] = hour;\n\n// Disabled plant form\nmsg.payload = hour;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Wait UI to be disablde\nmsg = await node.linkcall('wait - ui', msg);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 7220,
+        "wires": [
+            [
+                "db2795528bed1f7f"
+            ],
+            [
+                "2a63357f9f37b03c"
+            ]
+        ]
+    },
+    {
+        "id": "66cd836b115c30bc",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "2c0384adc9ef91fe",
+        "name": "data",
+        "func": "// parse plant and tz\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled plant form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    let form = flow.get('form[\"' + msg.hmi.id + '\"]') || {};\n\n    // alert\n    let dayMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'day',\n            'entity': form.plant,\n            'value': form.hour,\n            'loop': false\n        }\n    };\n    node.send([null, dayMsg, null]);\n\n    // notice\n    msg.payload = msg.dictionary.option_notice.update_success;\n    node.send([null, null, msg]);\n}\n\nreturn;",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 7280,
+        "wires": [
+            [
+                "2a63357f9f37b03c"
+            ],
+            [
+                "7866a0ada50fe22f"
+            ],
+            [
+                "5089216d327d1312"
             ]
         ]
     },
