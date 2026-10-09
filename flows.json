@@ -2230,63 +2230,35 @@
         },
         "nodes": [
             "44f58708826359cf",
-            "4617977d00747a48",
-            "1c90eeca89aba8be",
-            "4bccb63b0ebe4d38",
-            "83af8944f3765f62",
-            "a93eb97a37c18157",
-            "17ad68922bd5b5f9",
-            "5003caddeaad4e38",
             "1febeab72b1ea1ee",
-            "783045b17b5fa694",
-            "667fa26933a2f26c",
             "012b1da9587503b4",
             "be4ab06ea1921c0f",
-            "5f1561cc6c9c5d9f",
-            "d999f2dcf0b9c5b2",
-            "465e6f4e992f0d8b",
-            "20d030102f44d2aa",
-            "f01bb47f8ae2edeb",
-            "4cb12c2e134ea41c",
-            "a070fc11c9a83f59",
-            "8634f703409ebc36",
-            "5c73a37a96af3d64",
-            "d5050d4014222a86",
             "f76b3efc04c8d7c1",
-            "ea24958eb48dc55f",
             "024760d787140430",
-            "f9c6a1aed88f1758",
-            "f7e45df9ee8f5ef9",
-            "bc06b9e19adb5913",
-            "1d119735a86060c3",
-            "56a0d2d7ee1812f8",
-            "e1934d6d4aff6697",
-            "52a1420fda01394b",
-            "8c5134a99a1fd8b9",
             "2ea2dfd8b060d57a",
             "32eaed6b550d9ba9",
             "f13ab7e8c8384256",
-            "bca08f529f9d3be0",
-            "b3b05bac15391b6b",
             "c2bc02e30e010627",
             "dfc7a04073241c97",
-            "0b46f199be187231",
-            "9e96ad7d050c5788",
-            "6b7d5b755e4ff05d",
-            "4c94a63ae9c60f99",
-            "50faca8542d1352b",
-            "32ad88dfc5b0a353",
-            "c9bbbcdeb2c66fdf",
-            "86e427fd6f0efb9b",
-            "b1d02f1414640f4f",
             "f40e9a436a84a602",
             "9aa153969fc6876e",
-            "4d2294f74f7d1f66"
+            "4d2294f74f7d1f66",
+            "7a3724da28f0d928",
+            "6a1842d631c74101",
+            "59e688c7b5ec6e8d",
+            "6e06a65cdf5162c9",
+            "7241a7f13fa51224",
+            "8bd8acd1080112f2",
+            "cf80c352c418e0d8",
+            "b13a609341234e74",
+            "168e0f64e8684bb5",
+            "4460bb53ec4a871a",
+            "9315284e0b6d6321"
         ],
-        "x": 104,
-        "y": 7359,
-        "w": 2842,
-        "h": 522
+        "x": 94,
+        "y": 7351.5,
+        "w": 972,
+        "h": 449.5
     },
     {
         "id": "4e3920250d1c0ff6",
@@ -2336,8 +2308,8 @@
             "2a8c0939d7fff9f9",
             "6b1df564ad413b8a"
         ],
-        "x": 1884,
-        "y": 479,
+        "x": 1054,
+        "y": 279,
         "w": 1222,
         "h": 202
     },
@@ -2375,8 +2347,8 @@
             "2869dcd24d9d8451",
             "c8c4a6991b81bfe8"
         ],
-        "x": 1874,
-        "y": 719,
+        "x": 1054,
+        "y": 519,
         "w": 822,
         "h": 502
     },
@@ -6740,7 +6712,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "data",
-        "func": "// Prepare telegram message\n\nif (typeof msg.telegram === 'object' && typeof msg.telegram.change === 'boolean' && msg.telegram.change === true) {\n    if (msg.telegram.type === 'period') {\n        let line = global.get('kernel.equipments[\"' + msg.telegram.entity + '\"]') || '-';\n        let plant = global.get('kernel.lines[\"' + line + '\"]') || '-';\n        let name = global.get('kernel.plant[\"' + plant + '\"]') || '???';\n\n        return {\n            'topic': '',\n            'payload': {\n                'type': 'message',\n                'content': '[Period] ' + name + \": \\n\" + (global.get('kernel.equipment[\"' + msg.telegram.entity + '\"]') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')\n            }\n        }\n    } else if (msg.telegram.type === 'watchdog') {\n        let dsplit = msg.telegram.entity.split('|');\n\n        return {\n            'topic': '',\n            'payload': {\n                'type': 'message',\n                'content': '[Watchdog] ' + \": \\n\" + (global.get('describe.model[\"' + dsplit[0] + '\"]')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')\n            }\n        }\n    }\n}\n\nreturn;",
+        "func": "// Prepare telegram message\n\nif (typeof msg.telegram === 'object' && (msg.telegram.change || false) === true) {\n    if (msg.telegram.type === 'period') {\n        let line = global.get('kernel.equipments[\"' + msg.telegram.entity + '\"]') || '-';\n        let plant = global.get('kernel.lines[\"' + line + '\"]') || '-';\n        let name = global.get('kernel.plant[\"' + plant + '\"]') || '???';\n\n        return {\n            'topic': '',\n            'payload': {\n                'type': 'message',\n                'content': '[Period] ' + name + \": \\n\" + (global.get('kernel.equipment[\"' + msg.telegram.entity + '\"]') || '???') + (msg.telegram.value ? ' mis en chauffe' : ' mis en veille')\n            }\n        }\n    } else if (msg.telegram.type === 'watchdog') {\n        let dsplit = msg.telegram.entity.split('|');\n\n        return {\n            'topic': '',\n            'payload': {\n                'type': 'message',\n                'content': '[Watchdog] ' + \": \\n\" + (global.get('describe.model[\"' + dsplit[0] + '\"]')||'???') + ' ' + dsplit[1] + (msg.telegram.value ? ' est connecté' : ' est déconnecté')\n            }\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -35776,244 +35748,12 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 820,
-        "y": 7460,
+        "x": 540,
+        "y": 7400,
         "wires": [
             [
-                "4617977d00747a48",
-                "8634f703409ebc36"
-            ]
-        ]
-    },
-    {
-        "id": "4617977d00747a48",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 1050,
-        "y": 7460,
-        "wires": [
-            [
-                "4cb12c2e134ea41c"
-            ]
-        ]
-    },
-    {
-        "id": "1c90eeca89aba8be",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "client",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]",
-                "pt": "flow",
-                "to": "{}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]action",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]time",
-                "pt": "flow",
-                "to": "",
-                "tot": "date"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1410,
-        "y": 7460,
-        "wires": [
-            [
-                "465e6f4e992f0d8b"
-            ]
-        ]
-    },
-    {
-        "id": "4bccb63b0ebe4d38",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "action",
-        "property": "form[msg.hmi.id]action",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "addholiday",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "delholiday",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 210,
-        "y": 7580,
-        "wires": [
-            [
-                "f40e9a436a84a602"
-            ],
-            [
-                "b3b05bac15391b6b"
-            ]
-        ]
-    },
-    {
-        "id": "83af8944f3765f62",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "22a6cc8a0964f595"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1750,
-        "y": 7520,
-        "wires": [
-            [
-                "1febeab72b1ea1ee"
-            ]
-        ]
-    },
-    {
-        "id": "a93eb97a37c18157",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 2350,
-        "y": 7520,
-        "wires": [
-            [
-                "5c73a37a96af3d64"
-            ]
-        ]
-    },
-    {
-        "id": "17ad68922bd5b5f9",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "plant",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]plant",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2710,
-        "y": 7520,
-        "wires": [
-            [
-                "783045b17b5fa694",
-                "5003caddeaad4e38"
-            ]
-        ]
-    },
-    {
-        "id": "5003caddeaad4e38",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1560,
-        "y": 7520,
-        "wires": [
-            [
-                "83af8944f3765f62"
+                "7241a7f13fa51224",
+                "6a1842d631c74101"
             ]
         ]
     },
@@ -36040,83 +35780,11 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 2140,
+        "x": 540,
         "y": 7520,
         "wires": [
             [
-                "a93eb97a37c18157"
-            ]
-        ]
-    },
-    {
-        "id": "783045b17b5fa694",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "enable",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "limit_plant",
-                "pt": "msg",
-                "to": "form[msg.hmi.id]plant",
-                "tot": "flow"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2870,
-        "y": 7580,
-        "wires": [
-            [
-                "4bccb63b0ebe4d38"
-            ]
-        ]
-    },
-    {
-        "id": "667fa26933a2f26c",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "-",
-        "rules": [],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 7580,
-        "wires": [
-            [
-                "f76b3efc04c8d7c1",
-                "024760d787140430",
-                "c2bc02e30e010627",
-                "dfc7a04073241c97"
+                "8bd8acd1080112f2"
             ]
         ]
     },
@@ -36130,11 +35798,11 @@
             "d5a2492cd9b261b1",
             "2ea2dfd8b060d57a"
         ],
-        "x": 145,
+        "x": 205,
         "y": 7400,
         "wires": [
             [
-                "5f1561cc6c9c5d9f"
+                "7a3724da28f0d928"
             ]
         ]
     },
@@ -36159,313 +35827,9 @@
         "className": "",
         "value": "dictionary.option_notice.level_fail",
         "valueType": "msg",
-        "x": 810,
-        "y": 7520,
+        "x": 530,
+        "y": 7460,
         "wires": []
-    },
-    {
-        "id": "5f1561cc6c9c5d9f",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "list",
-        "property": "list",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "holiday",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 290,
-        "y": 7400,
-        "wires": [
-            [
-                "a070fc11c9a83f59"
-            ],
-            [
-                "d999f2dcf0b9c5b2"
-            ]
-        ]
-    },
-    {
-        "id": "d999f2dcf0b9c5b2",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "level",
-        "property": "hmi.level",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "admin",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "rt",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 3,
-        "x": 450,
-        "y": 7460,
-        "wires": [
-            [
-                "b1d02f1414640f4f"
-            ],
-            [
-                "b1d02f1414640f4f"
-            ],
-            [
-                "f01bb47f8ae2edeb",
-                "a070fc11c9a83f59"
-            ]
-        ]
-    },
-    {
-        "id": "465e6f4e992f0d8b",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "plant",
-        "property": "hmi.plant",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 1570,
-        "y": 7460,
-        "wires": [
-            [
-                "20d030102f44d2aa"
-            ],
-            [
-                "83af8944f3765f62"
-            ]
-        ]
-    },
-    {
-        "id": "20d030102f44d2aa",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "plant",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]plant",
-                "pt": "flow",
-                "to": "hmi.plant",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2710,
-        "y": 7460,
-        "wires": [
-            [
-                "783045b17b5fa694"
-            ]
-        ]
-    },
-    {
-        "id": "f01bb47f8ae2edeb",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "show",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 7520,
-        "wires": [
-            [
-                "be4ab06ea1921c0f"
-            ]
-        ]
-    },
-    {
-        "id": "4cb12c2e134ea41c",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1230,
-        "y": 7460,
-        "wires": [
-            [
-                "1c90eeca89aba8be"
-            ]
-        ]
-    },
-    {
-        "id": "a070fc11c9a83f59",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "hide",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "remove",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 7400,
-        "wires": [
-            [
-                "8634f703409ebc36",
-                "44f58708826359cf",
-                "be4ab06ea1921c0f"
-            ]
-        ]
-    },
-    {
-        "id": "8634f703409ebc36",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "hide",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "remove",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1050,
-        "y": 7400,
-        "wires": [
-            [
-                "667fa26933a2f26c",
-                "d5050d4014222a86"
-            ]
-        ]
-    },
-    {
-        "id": "5c73a37a96af3d64",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 2530,
-        "y": 7520,
-        "wires": [
-            [
-                "17ad68922bd5b5f9"
-            ]
-        ]
-    },
-    {
-        "id": "d5050d4014222a86",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "-",
-        "rules": [],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1930,
-        "y": 7400,
-        "wires": [
-            [
-                "1febeab72b1ea1ee"
-            ]
-        ]
     },
     {
         "id": "f76b3efc04c8d7c1",
@@ -36493,46 +35857,11 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 830,
-        "y": 7660,
+        "x": 550,
+        "y": 7580,
         "wires": [
             [
-                "f9c6a1aed88f1758"
-            ]
-        ]
-    },
-    {
-        "id": "ea24958eb48dc55f",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 220,
-        "y": 7660,
-        "wires": [
-            [
-                "f40e9a436a84a602"
+                "b13a609341234e74"
             ]
         ]
     },
@@ -36568,234 +35897,13 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 830,
-        "y": 7720,
+        "x": 550,
+        "y": 7640,
         "wires": [
             [
-                "56a0d2d7ee1812f8",
-                "e1934d6d4aff6697"
+                "168e0f64e8684bb5"
             ]
         ]
-    },
-    {
-        "id": "f9c6a1aed88f1758",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 1050,
-        "y": 7660,
-        "wires": [
-            [
-                "f7e45df9ee8f5ef9"
-            ]
-        ]
-    },
-    {
-        "id": "f7e45df9ee8f5ef9",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1230,
-        "y": 7660,
-        "wires": [
-            [
-                "bc06b9e19adb5913"
-            ]
-        ]
-    },
-    {
-        "id": "bc06b9e19adb5913",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "holiday",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$substring(msg.payload, 5)",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]holiday",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1420,
-        "y": 7660,
-        "wires": [
-            [
-                "1d119735a86060c3",
-                "ea24958eb48dc55f"
-            ]
-        ]
-    },
-    {
-        "id": "1d119735a86060c3",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "enable",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1590,
-        "y": 7660,
-        "wires": [
-            [
-                "9aa153969fc6876e"
-            ]
-        ]
-    },
-    {
-        "id": "56a0d2d7ee1812f8",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 220,
-        "y": 7720,
-        "wires": [
-            [
-                "9aa153969fc6876e"
-            ]
-        ]
-    },
-    {
-        "id": "e1934d6d4aff6697",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1230,
-        "y": 7720,
-        "wires": [
-            [
-                "52a1420fda01394b"
-            ]
-        ]
-    },
-    {
-        "id": "52a1420fda01394b",
-        "type": "function",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "holiday",
-        "func": "if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {\n    // Get form values\n    let form = flow.get('form[\"' + msg.hmi.id + '\"]') || {};\n    // Get existing plant holidays\n    let tmp = global.get('kernel.holiday[\"' + form.plant + '\"]') || '';\n    // Split existing plant holidays\n    let holidays = tmp.split('|');\n    // Add day\n    holidays.push(form.holiday);\n\n    // Check unique value\n    function onlyUnique(value, index, array) {\n        return value != '' && array.indexOf(value) === index;\n    }\n\n    // Filter holidays to keep unique values\n    let res = holidays.filter(onlyUnique);\n\n    // holiday\n    let holidayMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'holiday',\n            'entity': form.plant,\n            'value': res.join('|'),\n            'loop': false\n        }\n    };\n    node.send([holidayMsg, null]);\n\n    // notice\n    msg.payload = msg.dictionary.option_notice.update_success;\n    node.send([null, msg]);\n}\n\nreturn;",
-        "outputs": 2,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1820,
-        "y": 7720,
-        "wires": [
-            [
-                "8c5134a99a1fd8b9",
-                "2ea2dfd8b060d57a"
-            ],
-            [
-                "32eaed6b550d9ba9"
-            ]
-        ]
-    },
-    {
-        "id": "8c5134a99a1fd8b9",
-        "type": "debug",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "tree - holiday",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2010,
-        "y": 7720,
-        "wires": []
     },
     {
         "id": "2ea2dfd8b060d57a",
@@ -36808,8 +35916,8 @@
             "e60e4ab7617738c3",
             "012b1da9587503b4"
         ],
-        "x": 1955,
-        "y": 7780,
+        "x": 895,
+        "y": 7640,
         "wires": []
     },
     {
@@ -36822,8 +35930,8 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 1955,
-        "y": 7840,
+        "x": 895,
+        "y": 7700,
         "wires": []
     },
     {
@@ -36833,63 +35941,9 @@
         "g": "3f9c0107c43536e4",
         "name": "Holiday is based on month-day ex: 07-14",
         "info": "",
-        "x": 1160,
-        "y": 7520,
+        "x": 880,
+        "y": 7400,
         "wires": []
-    },
-    {
-        "id": "bca08f529f9d3be0",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 220,
-        "y": 7780,
-        "wires": [
-            [
-                "b3b05bac15391b6b"
-            ]
-        ]
-    },
-    {
-        "id": "b3b05bac15391b6b",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "77c6ca7aba30bff6"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 420,
-        "y": 7780,
-        "wires": [
-            [
-                "c2bc02e30e010627"
-            ]
-        ]
     },
     {
         "id": "c2bc02e30e010627",
@@ -36920,11 +35974,11 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 830,
-        "y": 7780,
+        "x": 550,
+        "y": 7700,
         "wires": [
             [
-                "0b46f199be187231"
+                "4460bb53ec4a871a"
             ]
         ]
     },
@@ -36960,223 +36014,11 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 830,
-        "y": 7840,
+        "x": 550,
+        "y": 7760,
         "wires": [
             [
-                "6b7d5b755e4ff05d",
-                "4c94a63ae9c60f99"
-            ]
-        ]
-    },
-    {
-        "id": "0b46f199be187231",
-        "type": "switch",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "empty",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 1,
-        "x": 1050,
-        "y": 7780,
-        "wires": [
-            [
-                "9e96ad7d050c5788"
-            ]
-        ]
-    },
-    {
-        "id": "9e96ad7d050c5788",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1230,
-        "y": 7780,
-        "wires": [
-            [
-                "50faca8542d1352b"
-            ]
-        ]
-    },
-    {
-        "id": "6b7d5b755e4ff05d",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "56e6a7b9b0e66451"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1230,
-        "y": 7840,
-        "wires": [
-            [
-                "c9bbbcdeb2c66fdf"
-            ]
-        ]
-    },
-    {
-        "id": "4c94a63ae9c60f99",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "disabled",
-        "rules": [
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 220,
-        "y": 7840,
-        "wires": [
-            [
-                "4d2294f74f7d1f66"
-            ]
-        ]
-    },
-    {
-        "id": "50faca8542d1352b",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "holiday",
-        "rules": [
-            {
-                "t": "set",
-                "p": "form[msg.hmi.id]holiday",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1420,
-        "y": 7780,
-        "wires": [
-            [
-                "32ad88dfc5b0a353",
-                "bca08f529f9d3be0"
-            ]
-        ]
-    },
-    {
-        "id": "32ad88dfc5b0a353",
-        "type": "change",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "enable",
-        "rules": [
-            {
-                "t": "set",
-                "p": "class",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "enabled",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1590,
-        "y": 7780,
-        "wires": [
-            [
-                "4d2294f74f7d1f66"
-            ]
-        ]
-    },
-    {
-        "id": "c9bbbcdeb2c66fdf",
-        "type": "function",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "holiday",
-        "func": "msg.kernel = {\n    'type': 'holiday',\n    'entity': flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]'),\n    'value': flow.get('form[\"' + msg.hmi.id + '\"][\"holiday\"]'),\n    'loop': false,\n    'delete': true\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1600,
-        "y": 7840,
-        "wires": [
-            [
-                "86e427fd6f0efb9b"
-            ]
-        ]
-    },
-    {
-        "id": "86e427fd6f0efb9b",
-        "type": "link call",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "",
-        "links": [
-            "714f68a693410801"
-        ],
-        "linkType": "static",
-        "timeout": "30",
-        "x": 1800,
-        "y": 7840,
-        "wires": [
-            [
-                "2ea2dfd8b060d57a",
-                "32eaed6b550d9ba9"
+                "9315284e0b6d6321"
             ]
         ]
     },
@@ -37961,41 +36803,20 @@
         ]
     },
     {
-        "id": "b1d02f1414640f4f",
-        "type": "function",
-        "z": "64ce08af468b8197",
-        "g": "3f9c0107c43536e4",
-        "name": "data",
-        "func": "//Build plant action selector\n\nmsg.payload = '';\nmsg.class= '';\nmsg.enabled = true;\n\nmsg.options = [\n    {\n        'label': '',\n        'value': ''\n    },\n    {\n        'label': msg.dictionary.option_action.add,\n        'value': 'addholiday'\n    },\n    {\n        'label': msg.dictionary.option_action.delete,\n        'value': 'delholiday'\n    }\n];\n\nmsg.ui_update = {\n    'label': msg.dictionary.option_select.action\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 7460,
-        "wires": [
-            [
-                "44f58708826359cf"
-            ]
-        ]
-    },
-    {
         "id": "f40e9a436a84a602",
         "type": "function",
         "z": "64ce08af468b8197",
         "g": "3f9c0107c43536e4",
         "name": "label",
-        "func": "const day = global.get('kernel.day[\"' + msg.payload + '\"]') || 0;\n\nmsg.ui_update = {\n    'label': msg.dictionary.option_select.holiday_day\n};\nmsg.payload = 0;\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.holiday_day\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 7660,
+        "x": 330,
+        "y": 7580,
         "wires": [
             [
                 "f76b3efc04c8d7c1"
@@ -38015,8 +36836,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 7720,
+        "x": 330,
+        "y": 7640,
         "wires": [
             [
                 "024760d787140430"
@@ -38036,8 +36857,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 7840,
+        "x": 330,
+        "y": 7760,
         "wires": [
             [
                 "dfc7a04073241c97"
@@ -38306,8 +37127,8 @@
             "d5a2492cd9b261b1",
             "2a8c0939d7fff9f9"
         ],
-        "x": 1925,
-        "y": 520,
+        "x": 1095,
+        "y": 320,
         "wires": [
             [
                 "ea117193d83c0652"
@@ -38327,8 +37148,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2050,
-        "y": 520,
+        "x": 1220,
+        "y": 320,
         "wires": [
             [
                 "ca393bc712c05da8"
@@ -38352,8 +37173,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2050,
-        "y": 580,
+        "x": 1220,
+        "y": 380,
         "wires": [
             [
                 "696124c9e738110e"
@@ -38389,8 +37210,8 @@
         "className": "",
         "typeIsComboBox": false,
         "msgTrigger": "onChange",
-        "x": 2250,
-        "y": 580,
+        "x": 1420,
+        "y": 380,
         "wires": [
             [
                 "37e63b10fed86cd1"
@@ -38411,8 +37232,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2980,
-        "y": 640,
+        "x": 2150,
+        "y": 440,
         "wires": []
     },
     {
@@ -38432,8 +37253,8 @@
         "allowMultiple": false,
         "accept": "",
         "className": "",
-        "x": 2250,
-        "y": 640,
+        "x": 1420,
+        "y": 440,
         "wires": [
             [
                 "43e879bfb71cc596"
@@ -38453,8 +37274,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2050,
-        "y": 640,
+        "x": 1220,
+        "y": 440,
         "wires": [
             [
                 "696124c9e738110e"
@@ -38474,8 +37295,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2450,
-        "y": 580,
+        "x": 1620,
+        "y": 380,
         "wires": [
             [
                 "d41e6c99993a2c09"
@@ -38495,8 +37316,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2450,
-        "y": 640,
+        "x": 1620,
+        "y": 440,
         "wires": [
             [
                 "9c99971ef2371043"
@@ -38511,8 +37332,8 @@
         "name": "",
         "action": "",
         "property": "payload",
-        "x": 2620,
-        "y": 640,
+        "x": 1790,
+        "y": 440,
         "wires": [
             [
                 "481b9486dfe919a7"
@@ -38532,8 +37353,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2790,
-        "y": 580,
+        "x": 1960,
+        "y": 380,
         "wires": [
             [
                 "2a8c0939d7fff9f9"
@@ -38555,8 +37376,8 @@
             "4e94023e8ba12f50",
             "0c0a9473fb5ff8b7"
         ],
-        "x": 2915,
-        "y": 520,
+        "x": 2085,
+        "y": 320,
         "wires": []
     },
     {
@@ -38569,8 +37390,8 @@
         "links": [
             "e60e4ab7617738c3"
         ],
-        "x": 2915,
-        "y": 580,
+        "x": 2085,
+        "y": 380,
         "wires": []
     },
     {
@@ -38582,8 +37403,8 @@
         "links": [
             "d5a2492cd9b261b1"
         ],
-        "x": 1985,
-        "y": 760,
+        "x": 1165,
+        "y": 560,
         "wires": [
             [
                 "93380c73160ddf76"
@@ -38603,8 +37424,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 760,
+        "x": 1290,
+        "y": 560,
         "wires": [
             [
                 "678d3a394bbd543c"
@@ -38643,8 +37464,8 @@
         "className": "",
         "typeIsComboBox": false,
         "msgTrigger": "onChange",
-        "x": 2320,
-        "y": 760,
+        "x": 1500,
+        "y": 560,
         "wires": [
             [
                 "715dd7369609f316"
@@ -38664,8 +37485,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2530,
-        "y": 760,
+        "x": 1710,
+        "y": 560,
         "wires": [
             [
                 "6ee7077357fe74b0"
@@ -38685,8 +37506,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 820,
+        "x": 1290,
+        "y": 620,
         "wires": [
             [
                 "cf8922bc2c087a01",
@@ -38725,8 +37546,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 2320,
-        "y": 880,
+        "x": 1500,
+        "y": 680,
         "wires": [
             [
                 "60a6efc39f064e8d"
@@ -38759,8 +37580,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 2310,
-        "y": 940,
+        "x": 1490,
+        "y": 740,
         "wires": [
             [
                 "60a6efc39f064e8d"
@@ -38793,8 +37614,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 2310,
-        "y": 1000,
+        "x": 1490,
+        "y": 800,
         "wires": [
             [
                 "60a6efc39f064e8d"
@@ -38830,8 +37651,8 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 2310,
-        "y": 820,
+        "x": 1490,
+        "y": 620,
         "wires": [
             [
                 "ca47f22c0f76bb11"
@@ -38851,8 +37672,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1950,
-        "y": 880,
+        "x": 1130,
+        "y": 680,
         "wires": [
             [
                 "de5d45dd69d70b94",
@@ -38896,8 +37717,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 2320,
-        "y": 1180,
+        "x": 1500,
+        "y": 980,
         "wires": [
             [
                 "517d7d13efcd2277"
@@ -38917,8 +37738,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 1180,
+        "x": 1290,
+        "y": 980,
         "wires": [
             [
                 "2508bb6e171c7538"
@@ -38938,8 +37759,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 1000,
+        "x": 1290,
+        "y": 800,
         "wires": [
             [
                 "6ee493d335cb3cc8"
@@ -38959,8 +37780,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 940,
+        "x": 1290,
+        "y": 740,
         "wires": [
             [
                 "e6ca83e4ab9f6b97"
@@ -38980,8 +37801,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 880,
+        "x": 1290,
+        "y": 680,
         "wires": [
             [
                 "cf8922bc2c087a01"
@@ -39001,8 +37822,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2530,
-        "y": 880,
+        "x": 1710,
+        "y": 680,
         "wires": [
             []
         ]
@@ -39020,8 +37841,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2530,
-        "y": 1180,
+        "x": 1710,
+        "y": 980,
         "wires": [
             [
                 "e2e89adcc83156e5"
@@ -39038,8 +37859,8 @@
         "links": [
             "4e94023e8ba12f50"
         ],
-        "x": 2655,
-        "y": 1180,
+        "x": 1835,
+        "y": 980,
         "wires": []
     },
     {
@@ -39068,8 +37889,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 2310,
-        "y": 1060,
+        "x": 1490,
+        "y": 860,
         "wires": [
             [
                 "60a6efc39f064e8d"
@@ -39102,8 +37923,8 @@
         "icon": "",
         "iconPosition": "left",
         "iconInnerPosition": "inside",
-        "x": 2310,
-        "y": 1120,
+        "x": 1490,
+        "y": 920,
         "wires": [
             [
                 "60a6efc39f064e8d"
@@ -39123,8 +37944,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 1060,
+        "x": 1290,
+        "y": 860,
         "wires": [
             [
                 "19e2151cb156dae4"
@@ -39144,8 +37965,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2110,
-        "y": 1120,
+        "x": 1290,
+        "y": 920,
         "wires": [
             [
                 "e8e572fe78e46c19"
@@ -40126,7 +38947,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst line = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"id\"]', line);\n\nmsg.payload = '';\nmsg.class = '';\n\n// Disabled plant form\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.line_limit = line;\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst line = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"id\"]', line);\n\n// Disabled plant form\nmsg.payload = line;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.line_limit = line;\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -40150,7 +38971,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst id = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"id\"]', id);\n\nmsg.payload = '';\nmsg.class = '';\n\n// Disabled plant form\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = global.get('kernel[\"equipment\"][\"' + id + '\"]') ||'';;\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst id = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"id\"]', id);\n\n// Disabled plant form\nmsg.payload = '';\nmsg.class = id;\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = global.get('kernel[\"equipment\"][\"' + id + '\"]') ||'';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -40174,7 +38995,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst name = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"name\"]', name);\n\nmsg.payload = '';\nmsg.class = '';\n\n// Disabled plant form\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst name = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"name\"]', name);\n\n// Disabled plant form\nmsg.payload = name;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -40198,7 +39019,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst plant = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', plant);\n\nmsg.payload = '';\nmsg.class = '';\n\n// Disabled plant form\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.limit_plant = plant;\nmsg.payload = flow.get('form[\"' + msg.hmi.id + '\"][\"line\"]');\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst plant = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"plant\"]', plant);\n\n// Disabled plant form\nmsg.payload = plant;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.limit_plant = plant;\nmsg.payload = flow.get('form[\"' + msg.hmi.id + '\"][\"line\"]');\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -40222,7 +39043,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst line = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"line\"]', line);\n\nmsg.payload = '';\nmsg.class = '';\n\n// Disabled plant form\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.line_limit = line;\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst line = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"line\"]', line);\n\n// Disabled plant form\nmsg.payload = line;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.line_limit = line;\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -40634,6 +39455,272 @@
             ],
             [
                 "07613e36e6919db7"
+            ]
+        ]
+    },
+    {
+        "id": "7a3724da28f0d928",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "msg.payload = '';\n\nif (msg.list !== 'holiday') {\n    msg.class = 'remove';\n\n    return [msg, msg, msg];\n}\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.options = [\n        {\n            'label': '',\n            'value': ''\n        },\n        {\n            'label': msg.dictionary.option_action.add,\n            'value': 'addholiday'\n        },\n        {\n            'label': msg.dictionary.option_action.delete,\n            'value': 'delholiday'\n        }\n    ];\n\n    msg.ui_update = {\n        'label': msg.dictionary.option_select.action\n    }\n\n    return [null, msg, null];\n}\nelse {\n    msg.class = '';\n\n\n    return [null, null, msg];\n}",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 7400,
+        "wires": [
+            [
+                "44f58708826359cf",
+                "be4ab06ea1921c0f",
+                "6a1842d631c74101"
+            ],
+            [
+                "44f58708826359cf"
+            ],
+            [
+                "be4ab06ea1921c0f"
+            ]
+        ]
+    },
+    {
+        "id": "59e688c7b5ec6e8d",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "\nconst action = msg.payload;\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nswitch (action) {\n    case 'addholiday': node.send([msg, null]); break;\n    case 'delholiday': node.send([null, msg]); break;\n}\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 170,
+        "y": 7520,
+        "wires": [
+            [
+                "f40e9a436a84a602"
+            ],
+            [
+                "cf80c352c418e0d8"
+            ]
+        ]
+    },
+    {
+        "id": "6a1842d631c74101",
+        "type": "change",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "-",
+        "rules": [],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 7460,
+        "wires": [
+            [
+                "f76b3efc04c8d7c1",
+                "024760d787140430",
+                "c2bc02e30e010627",
+                "dfc7a04073241c97",
+                "1febeab72b1ea1ee"
+            ]
+        ]
+    },
+    {
+        "id": "6e06a65cdf5162c9",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "\n// Get options\nmsg = await node.linkcall('option - plant', msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 7520,
+        "wires": [
+            [
+                "1febeab72b1ea1ee"
+            ]
+        ]
+    },
+    {
+        "id": "7241a7f13fa51224",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = flow.get('form'); // autoupdate\n\nconst action = msg.payload;\n\nform[msg.hmi.id] = {\n    'action': action,\n    'time': Date.now(),\n    'plant': ''\n};\n\nmsg.class= '';\nmsg.enabled = true;\n\nif (msg.hmi.plant !== '') {\n    form[msg.hmi.id]['plant'] = msg.hmi.plant;\n\n    return [msg, null]\n;}\nelse {\n\n    return [null, msg];\n}",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 7460,
+        "wires": [
+            [
+                "59e688c7b5ec6e8d"
+            ],
+            [
+                "6e06a65cdf5162c9"
+            ]
+        ]
+    },
+    {
+        "id": "8bd8acd1080112f2",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst plant = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = flow.get('form'); // autoupdate\n\nform[msg.hmi.id]['plant'] = plant;\n\n// Disabled plant form\nmsg.payload = plant;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Wait UI to be disablde\nmsg = await node.linkcall('wait - ui', msg);\n\n// Go to next form\nmsg.payload = form[msg.hmi.id]['action'];\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 7520,
+        "wires": [
+            [
+                "6e06a65cdf5162c9"
+            ],
+            [
+                "59e688c7b5ec6e8d"
+            ]
+        ]
+    },
+    {
+        "id": "cf80c352c418e0d8",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "msg.limit_plant = flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\n\n// Get options\nmsg = await node.linkcall('option - holiday', msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 7700,
+        "wires": [
+            [
+                "c2bc02e30e010627"
+            ]
+        ]
+    },
+    {
+        "id": "b13a609341234e74",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst holiday = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = flow.get('form'); // autoupdate\n\nform[msg.hmi.id]['holiday'] = holiday.substring(5);\n\n// Disabled plant form\nmsg.payload = holiday;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Wait UI to be disablde\nmsg = await node.linkcall('wait - ui', msg);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 7580,
+        "wires": [
+            [
+                "f40e9a436a84a602"
+            ],
+            [
+                "9aa153969fc6876e"
+            ]
+        ]
+    },
+    {
+        "id": "168e0f64e8684bb5",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "// parse plant and tz\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled plant form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    // Get form values\n    let form = flow.get('form[\"' + msg.hmi.id + '\"]') || {};\n    // Get existing plant holidays\n    let tmp = global.get('kernel.holiday[\"' + form.plant + '\"]') || '';\n    // Split existing plant holidays\n    let holidays = tmp.split('|');\n    // Add day\n    holidays.push(form.holiday);\n\n    // Check unique value\n    function onlyUnique(value, index, array) {\n        return value != '' && array.indexOf(value) === index;\n    }\n\n    // Filter holidays to keep unique values\n    let res = holidays.filter(onlyUnique);\n\n    // holiday\n    let holidayMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'holiday',\n            'entity': form.plant,\n            'value': res.join('|'),\n            'loop': false\n        }\n    };\n    node.send([null, holidayMsg, null]);\n\n    // notice\n    msg.payload = msg.dictionary.option_notice.update_success;\n    node.send([null, null, msg]);\n}\n\nreturn;",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 7640,
+        "wires": [
+            [
+                "9aa153969fc6876e"
+            ],
+            [
+                "2ea2dfd8b060d57a"
+            ],
+            [
+                "32eaed6b550d9ba9"
+            ]
+        ]
+    },
+    {
+        "id": "4460bb53ec4a871a",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst holiday = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nflow.set('form[\"' + msg.hmi.id + '\"][\"holiday\"]', holiday);\n\n// Disabled plant form\nmsg.payload = holiday;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 7700,
+        "wires": [
+            [
+                "cf80c352c418e0d8"
+            ],
+            [
+                "4d2294f74f7d1f66"
+            ]
+        ]
+    },
+    {
+        "id": "9315284e0b6d6321",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "3f9c0107c43536e4",
+        "name": "data",
+        "func": "// Delete plant\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n\n// Disabled plant form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nmsg.kernel = {\n    'type': 'holiday',\n    'entity': flow.get('form[\"' + msg.hmi.id + '\"][\"plant\"]'),\n    'value': flow.get('form[\"' + msg.hmi.id + '\"][\"holiday\"]'),\n    'loop': false,\n    'delete': true\n};\n\n// Do delete\nmsg = await node.linkcall('kernel - delete', msg);\n\nreturn [null, msg];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 7760,
+        "wires": [
+            [
+                "4d2294f74f7d1f66"
+            ],
+            [
+                "2ea2dfd8b060d57a"
             ]
         ]
     },

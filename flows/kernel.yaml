@@ -3838,8 +3838,8 @@
     // Prepare telegram message
 
 
-    if (typeof msg.telegram === 'object' && typeof msg.telegram.change ===
-    'boolean' && msg.telegram.change === true) {
+    if (typeof msg.telegram === 'object' && (msg.telegram.change || false) ===
+    true) {
         if (msg.telegram.type === 'period') {
             let line = global.get('kernel.equipments["' + msg.telegram.entity + '"]') || '-';
             let plant = global.get('kernel.lines["' + line + '"]') || '-';
