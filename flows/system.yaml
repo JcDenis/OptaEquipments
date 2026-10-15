@@ -43,7 +43,6 @@
     - ded160847ba79c1d
     - c3fbd0eb276c1dd6
     - cdff23747bd66c63
-    - bee6a866a78902c8
     - dd8ce7e8d8c17c91
     - 9ab5170ec61ff830
     - 301bb73805b7e405
@@ -54,7 +53,6 @@
     - e63131037fb16dd4
     - c58b883c9be07c8f
     - af97c0473e39e9c9
-    - 15767da82438cd31
     - 9cbc4017d398ba50
     - fae357aaa0b7bf86
     - 38445bd7ada1b14b
@@ -62,7 +60,7 @@
   x: 104
   'y': 879
   w: 912
-  h: 502
+  h: 442
 - id: c5aa438b6dcec795
   type: group
   z: 44465f18e06bb58d
@@ -324,7 +322,7 @@
   links:
     - 76e32feb14c8c8a9
   x: 955
-  'y': 1340
+  'y': 1280
   wires: []
 - id: eba6e18370fbfe76
   type: link in
@@ -361,7 +359,7 @@
   accept: image/png
   className: ''
   x: 310
-  'y': 980
+  'y': 920
   wires:
     - - 9cbc4017d398ba50
 - id: cdff23747bd66c63
@@ -372,22 +370,9 @@
   action: ''
   property: payload
   x: 680
-  'y': 980
+  'y': 920
   wires:
     - - 1c423cb24f5a5aed
-      - 15767da82438cd31
-- id: bee6a866a78902c8
-  type: link out
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: system - app - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-    - 6640363c796f547b
-  x: 975
-  'y': 920
-  wires: []
 - id: fbeb08a94e71e7bf
   type: link in
   z: 44465f18e06bb58d
@@ -510,7 +495,7 @@
   links:
     - 0c83fe1f9690e061
   x: 145
-  'y': 980
+  'y': 920
   wires:
     - - c3fbd0eb276c1dd6
       - 8e8e767ca137fe49
@@ -574,7 +559,7 @@
   passthru: false
   dropdownOptions: []
   x: 470
-  'y': 1040
+  'y': 980
   wires:
     - - fae357aaa0b7bf86
 - id: 301bb73805b7e405
@@ -586,7 +571,7 @@
   links:
     - e60e4ab7617738c3
   x: 975
-  'y': 1040
+  'y': 980
   wires: []
 - id: 8e8e767ca137fe49
   type: ui-text
@@ -609,7 +594,7 @@
   value: Application
   valueType: str
   x: 310
-  'y': 920
+  'y': 1040
   wires: []
 - id: 6a1ce7f23e17f6f1
   type: ui-text
@@ -680,6 +665,11 @@
   g: 43bcc4020c29e03d
   name: icon
   func: |-
+
+    // UI notice
+    msg.notice = msg.dictionary.option_notice.update_success;
+    msg = await node.linkcall('ui - notice', msg);
+
     return {
         'topic': '',
         'payload': '',
@@ -697,7 +687,7 @@
   finalize: ''
   libs: []
   x: 850
-  'y': 980
+  'y': 920
   wires:
     - - 301bb73805b7e405
 - id: 1c87f841143f4612
@@ -723,7 +713,7 @@
   finalize: ''
   libs: []
   x: 830
-  'y': 1040
+  'y': 980
   wires:
     - - 301bb73805b7e405
 - id: cf4a12c7d7a329eb
@@ -749,7 +739,7 @@
   finalize: ''
   libs: []
   x: 830
-  'y': 1100
+  'y': 1040
   wires:
     - - 301bb73805b7e405
 - id: e63131037fb16dd4
@@ -775,7 +765,7 @@
   finalize: ''
   libs: []
   x: 830
-  'y': 1160
+  'y': 1100
   wires:
     - - 301bb73805b7e405
 - id: c58b883c9be07c8f
@@ -801,7 +791,7 @@
   finalize: ''
   libs: []
   x: 840
-  'y': 1220
+  'y': 1160
   wires:
     - - 301bb73805b7e405
 - id: af97c0473e39e9c9
@@ -827,7 +817,7 @@
   finalize: ''
   libs: []
   x: 840
-  'y': 1280
+  'y': 1220
   wires:
     - - 301bb73805b7e405
 - id: 59caf901906e515a
@@ -1142,26 +1132,6 @@
   'y': 140
   wires:
     - - 0c83fe1f9690e061
-- id: 15767da82438cd31
-  type: function
-  z: 44465f18e06bb58d
-  g: 43bcc4020c29e03d
-  name: notice
-  func: |-
-    msg.topic = '';
-    msg.payload = msg.dictionary.option_notice.update_success;
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 850
-  'y': 920
-  wires:
-    - - bee6a866a78902c8
 - id: 069e252219475256
   type: function
   z: 44465f18e06bb58d
@@ -1329,7 +1299,7 @@
   finalize: ''
   libs: []
   x: 510
-  'y': 980
+  'y': 920
   wires:
     - - cdff23747bd66c63
 - id: fae357aaa0b7bf86
@@ -1356,7 +1326,7 @@
   finalize: ''
   libs: []
   x: 670
-  'y': 1040
+  'y': 980
   wires:
     - - 1c87f841143f4612
       - cf4a12c7d7a329eb
@@ -1386,7 +1356,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 1040
+  'y': 980
   wires:
     - - 9ab5170ec61ff830
 - id: 44d0125af7abe861
@@ -1396,9 +1366,10 @@
   name: data
   func: |-
     if (msg.payload.reload) {
-        msg.payload = 'Reboot...';
 
-        node.send([ msg, null ]);
+        // UI notice
+        msg.notice = 'Reboot...';
+        msg = await node.linkcall('ui - notice', msg);
 
         // Wait ui update
         msg = await node.linkcall('ui - latency', msg);
@@ -1406,20 +1377,19 @@
         msg.payload = true;
         msg.boot = true;
 
-        return [ null, msg ];
+        return msg;
     }
 
     return;
-  outputs: 2
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
   x: 830
-  'y': 1340
+  'y': 1280
   wires:
-    - - bee6a866a78902c8
     - - ded160847ba79c1d
 - id: 5c30ac5806d00156
   type: function

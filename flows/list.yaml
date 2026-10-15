@@ -131,7 +131,6 @@
     label: true
   nodes:
     - 468277bb16c8903c
-    - 4c1093802ef038cc
     - b8fd1cbbd582e7cb
     - a5f3c8ee7632fbc3
     - e4807fa3e9836f6e
@@ -993,17 +992,6 @@
   'y': 200
   wires:
     - - e4807fa3e9836f6e
-- id: 4c1093802ef038cc
-  type: link out
-  z: e97c6f12735a13c1
-  g: ac0595b45d9786aa
-  name: list - action - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-  x: 555
-  'y': 200
-  wires: []
 - id: b8fd1cbbd582e7cb
   type: link out
   z: e97c6f12735a13c1
@@ -1652,18 +1640,14 @@
         delete msg.column;
         delete msg.success;
 
-        node.send([ null, msg ]);
-
         // Wait ui update
         msg = await node.linkcall('ui - latency', msg);
 
-        return [ msg, null ];
+        return msg;
     }
 
-    delete msg.success;
-
-    return [null, msg];
-  outputs: 2
+    return;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1673,7 +1657,6 @@
   'y': 140
   wires:
     - - b8fd1cbbd582e7cb
-    - - 4c1093802ef038cc
 - id: e4807fa3e9836f6e
   type: function
   z: e97c6f12735a13c1

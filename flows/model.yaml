@@ -31,7 +31,6 @@
     - cfd036160380a8a6
     - 31f72f6c4d5ded3b
     - f84a1943480e45cb
-    - 2219b610eb1a3cc0
     - 9051b334f33e9c0b
     - 06c4a3cc69a25734
     - 4e235d7225c08043
@@ -2253,7 +2252,7 @@
     let device = flow.get('devices["' + msg.payload.entity + '"]');
     if (typeof device === 'object') {
         let dt = global.get('kernel.watchdog["' + msg.payload.entity  + '"]')||0;
-        msg.payload =
+        msg.notice =
             "<strong>Model: </strong>" + global.get('describe.model["' + msg.payload.entity.split('|')[0] + '"]') + " <br />\n" +
             "<strong>Type: </strong>" + device.type + " <br />\n" +
             "<strong>ID: </strong>" + msg.payload.device + " <br />\n" +
@@ -2263,8 +2262,11 @@
             "<strong>Ping: </strong>" + (new Date(dt*1000).toISOString()) + " <br />\n"
             ;
     } else {
-        msg.payload = "Aucune information disponible";
+        msg.notice = "Aucune information disponible";
     }
+
+    // UI notice
+    msg = await node.linkcall('ui - notice', msg);
 
     return msg;
   outputs: 1
@@ -2276,18 +2278,7 @@
   x: 310
   'y': 320
   wires:
-    - - 2219b610eb1a3cc0
-- id: 2219b610eb1a3cc0
-  type: link out
-  z: 135b7308617dad08
-  g: 44d39e7547289d97
-  name: model - opta - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-  x: 435
-  'y': 320
-  wires: []
+    - []
 - id: 9051b334f33e9c0b
   type: trigger
   z: 135b7308617dad08

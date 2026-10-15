@@ -16,12 +16,11 @@
   nodes:
     - cd21bdc2e85b8b8e
     - 8c39bd33f664a1a5
-    - c1e73f2d8bca4b0b
     - 4700c24d1c1221d1
     - 23538a924ec63a92
   x: 104
   'y': 39
-  w: 332
+  w: 482
   h: 142
 - id: 7ed4d1f8e276b3c4
   type: group
@@ -718,17 +717,6 @@
   name: option - clean
   mode: return
   links: []
-  x: 395
-  'y': 140
-  wires: []
-- id: c1e73f2d8bca4b0b
-  type: link out
-  z: adb9fbf379118d77
-  g: 6083e6018629a109
-  name: option - clean - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
   x: 395
   'y': 80
   wires: []
@@ -1835,10 +1823,10 @@
   func: |-
     // No options
     if (!Array.isArray(msg.options)) {
-        // Notice
-        msg.payload = msg.dictionary.common_notice_no_option || 'No options';
 
-        node.send([msg, null]),
+        // UI notice
+        msg.notice = msg.dictionary.common_notice_no_option || 'No options';
+        msg = await node.linkcall('ui - notice', msg);
 
         // Set a default option
         msg.options = [
@@ -1861,10 +1849,8 @@
         msg.payload = msg.options[0]['value'] || '';
     }
 
-    node.send([null, msg]);
-
-    return;
-  outputs: 2
+    return msg;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1873,7 +1859,6 @@
   x: 270
   'y': 80
   wires:
-    - - c1e73f2d8bca4b0b
     - - 8c39bd33f664a1a5
       - 23538a924ec63a92
 - id: 23538a924ec63a92
@@ -1889,7 +1874,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 240
+  x: 460
   'y': 140
   wires: []
 - id: 1e40745ad50d25a6

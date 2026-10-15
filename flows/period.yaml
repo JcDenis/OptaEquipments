@@ -18,7 +18,6 @@
     - d0bfea36099bd97c
     - 575b09f0fb9e021c
     - 21c5bb46d1224264
-    - 3af957dd224c384a
     - 0e9c3ca7f24bc8dc
     - 4a798d15562c1309
     - 0cbca936c25fa514
@@ -197,17 +196,6 @@
   'y': 320
   wires:
     - - 0fc506fd101f1d0c
-- id: 3af957dd224c384a
-  type: link out
-  z: 51c4b2897d2c318c
-  g: 744a665a3304c311
-  name: period - list - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-  x: 1075
-  'y': 260
-  wires: []
 - id: 0e9c3ca7f24bc8dc
   type: link in
   z: 51c4b2897d2c318c
@@ -228,7 +216,7 @@
   links:
     - 00818f8c0686b556
   x: 1075
-  'y': 320
+  'y': 260
   wires: []
 - id: 0cbca936c25fa514
   type: ui-table
@@ -648,7 +636,7 @@
                     'loop': false
                 };
 
-                return [ newMsg, null, null ];
+                return [ newMsg, null ];
             } else {
                 // kernel.period
                 newMsg['kernel'] = {
@@ -658,12 +646,14 @@
                     'loop': false
                 };
 
-                return [ newMsg, null, null ];
+                return [ newMsg, null ];
             }
         } else {
-            msg.payload = msg.dictionary.option_notice.level_fail;
+            // UI notice
+            msg.notice = msg.dictionary.option_notice.level_fail;
+            msg = await node.linkcall('ui - notice', msg);
 
-            return [ null, newMsg, null ];
+            return;
         }
 
     } else if (msg.action === 'row_click') {
@@ -678,11 +668,11 @@
         newMsg.hmi.page = global.get('describe.pages.detail.name') || '';
         newMsg.payload = newMsg.hmi.tab;
 
-        return [ null, null, newMsg ];
+        return [ null, newMsg ];
     }
 
     return;
-  outputs: 3
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -692,8 +682,6 @@
   'y': 200
   wires:
     - - 575b09f0fb9e021c
-      - 4c2159ea37aa1ec2
-    - - 3af957dd224c384a
       - 4c2159ea37aa1ec2
     - - 4a798d15562c1309
 - id: f4d3e88b80009b83

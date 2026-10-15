@@ -46,7 +46,6 @@
     - 8f49a36d06854646
     - e53533c181c0088b
     - 017d8ea4cd04326e
-    - b42047a933d30eb6
     - 5a16afcbf5a4a9b2
     - 2d5c99c58d2577f7
     - cf4de81025097dc1
@@ -1972,17 +1971,6 @@
   'y': 1460
   wires:
     - - e7f08269d103c0dd
-- id: b42047a933d30eb6
-  type: link out
-  z: 852390cb9559e176
-  g: d04f02d6e1c02839
-  name: detail - live - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-  x: 1695
-  'y': 1160
-  wires: []
 - id: 2045a5696769c038
   type: link in
   z: 852390cb9559e176
@@ -4923,13 +4911,15 @@
     // Check level
     if ([ 'admin', 'rt', 'tech' ].includes(msg.hmi.level)) {
 
-        return [ msg, null ];
+        return msg;
     }
 
-    msg.payload = msg.dictionary.option_notice.level_fail;
+    // UI notice
+    msg.notice = msg.dictionary.option_notice.level_fail;
+    msg = await node.linkcall('ui - notice', msg);
 
-    return [ null, msg ];
-  outputs: 2
+    return;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -4939,7 +4929,6 @@
   'y': 1100
   wires:
     - - 020683f769d75bef
-    - - b42047a933d30eb6
 - id: 1c97400971136f0e
   type: function
   z: 852390cb9559e176
@@ -4957,13 +4946,15 @@
     // Check level
     if ([ 'admin', 'rt', 'tech', 'rp', 'prod' ].includes(msg.hmi.level)) {
 
-        return [ msg, null ];
+        return msg;
     }
 
-    msg.payload = msg.dictionary.option_notice.level_fail;
+    // UI notice
+    msg.notice = msg.dictionary.option_notice.level_fail;
+    msg = await node.linkcall('ui - notice', msg);
 
-    return [ null, msg ];
-  outputs: 2
+    return;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -4973,7 +4964,6 @@
   'y': 1940
   wires:
     - - e171907702d6e26e
-    - - b42047a933d30eb6
 - id: 5ae9e340ce3e9b9d
   type: function
   z: 852390cb9559e176

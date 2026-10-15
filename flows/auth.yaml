@@ -17,7 +17,6 @@
     - aa0e1484ee75066f
     - bb71762ba2269b75
     - 8aca2e86c077d885
-    - 0cf63361a578f787
     - 3361a6a4765bfb11
     - f3b837acb99f6326
     - bf3da41c4b5bd219
@@ -125,17 +124,6 @@
   'y': 200
   wires:
     - - 5a825d48de813e3e
-- id: 0cf63361a578f787
-  type: link out
-  z: 27841aa886edd1cd
-  g: 90f47fc795048184
-  name: auth - form - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-  x: 795
-  'y': 260
-  wires: []
 - id: 3361a6a4765bfb11
   type: ui-form
   z: 27841aa886edd1cd
@@ -298,14 +286,15 @@
         // debug
         //flow.set('login[' + msg.login + '"]', Date.now());
 
-        return [ msg, null ];
+        return msg;
     }
 
     // UI notice
-    msg.payload = msg.dictionary.option_notice.login_fail;
+    msg.notice = msg.dictionary.option_notice.login_fail;
+    msg = await node.linkcall('ui - notice', msg);
 
-    return [ null, msg ];
-  outputs: 2
+    return;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -315,4 +304,3 @@
   'y': 260
   wires:
     - - bb71762ba2269b75
-    - - 0cf63361a578f787
