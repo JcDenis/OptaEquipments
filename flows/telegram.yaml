@@ -2880,7 +2880,7 @@
     // Boot message
 
     // Wait long update
-    msg = await node.linkcall('wait - long', msg);
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     return {
         'topic': '',

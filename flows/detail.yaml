@@ -3195,7 +3195,7 @@
     // Get states
 
     // Wait ui update
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     let states = global.get('kernel.state')||{};
     for (const state in states) {
@@ -3683,7 +3683,7 @@
     if (typeof msg.enabled !== 'boolean' || msg.enabled !== false) {
         
         // Wait ui update
-        msg = await node.linkcall('wait - ui', msg);
+        msg = await node.linkcall('ui - latency', msg);
 
         msg.class = '';
         msg.enabled = true;
@@ -3730,9 +3730,6 @@
             delete msg.limit_plant;
             delete msg.limit_line;
             msg.payload = '';
-
-            // Wait ? update
-            //msg = await node.linkcall('wait - long', msg);
 
             node.send([ null, null, null, null, msg ]);
         }
@@ -5305,9 +5302,6 @@
     msg.payload = rows;
 
     msg.payload.sort((l, r) => l.ts < r.ts ? 1:-1 );
-
-    // Wait ui update
-    msg = await node.linkcall('wait - ui', msg);
 
     if (msg.hmi.lang === 'fr') {
 

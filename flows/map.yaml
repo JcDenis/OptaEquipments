@@ -20,15 +20,13 @@
     - a38263f9dfb005a8
     - 95468e9c5d429aac
     - 1efcfbd636328e02
-    - efc66b0b332f577e
     - 19c86486f5d9b146
     - 32eebc8246bf0244
     - df1f25706f22a3c0
-    - f3b914a01d17eed7
   x: 84
   'y': 99
   w: 1232
-  h: 202
+  h: 142
 - id: 97f10c211b33ee2e
   type: group
   z: 05f6b695d75a73cf
@@ -82,6 +80,16 @@
     msg.check = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
+    // Toggle map group
+    if (msg.enabled) {
+        msg.hide = ['map - group'];
+    }
+    else {
+        msg.show = ['map - group'];
+    }
+
+    msg = await node.linkcall('ui - group', msg);
+
     // Reset UI
     if (msg.enabled !== true) {
         // page is disabled
@@ -118,7 +126,6 @@
   'y': 140
   wires:
     - - a38263f9dfb005a8
-      - f3b914a01d17eed7
     - - c43d939036a2f5ce
 - id: c43d939036a2f5ce
   type: ui-dropdown
@@ -173,7 +180,7 @@
     node.send([ null, msg ]);
 
     // Wait ui update
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     delete msg.reset;
 
@@ -214,7 +221,7 @@
     }
 
     // Wait ui update
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Get memories
     const location = global.get('kernel.location') || { }; // Read
@@ -467,19 +474,14 @@
     msg.data = { ...msg.payload };
 
     // Show dialog
-    msg.payload = {
-        'groups': {
-            'show': ['map - detail - dialog']
-        }
-    };
-
-    node.send([ null, msg ]);
+    msg.show = ['map - detail - dialog'];
+    msg = await node.linkcall('ui - group', msg);
 
     // Send data to dialog
     msg.payload = msg.data;
 
-    return [ msg, null ];
-  outputs: 2
+    return msg;
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
@@ -489,7 +491,6 @@
   'y': 140
   wires:
     - - 19c86486f5d9b146
-    - - efc66b0b332f577e
 - id: a02204e3fae49cfc
   type: ui-text
   z: 05f6b695d75a73cf
@@ -521,9 +522,7 @@
   func: >-
     // Wait ui update
 
-    msg = await node.linkcall('wait - ui', msg);
-
-    msg = await node.linkcall('wait - ui', msg); // map is slow...
+    msg = await node.linkcall('ui - latency', msg);
 
 
     msg.line = msg.payload.line;
@@ -631,17 +630,6 @@
     - - 9f08f02da6ea348c
     - - 1904ca1be94678dd
     - - a9a840797469573f
-- id: efc66b0b332f577e
-  type: link out
-  z: 05f6b695d75a73cf
-  g: 0e5ee31c1122d84d
-  name: map - main - dialog
-  mode: link
-  links:
-    - 00818f8c0686b556
-  x: 1275
-  'y': 260
-  wires: []
 - id: 9f08f02da6ea348c
   type: ui-table
   z: 05f6b695d75a73cf
@@ -956,11 +944,6 @@
     global.set('kernel.period["' + msg.line + '"]', periods.join(''));
 
 
-    // Wait data update
-
-    //msg = await node.linkcall('wait - data', msg);
-
-
     delete msg.ui_update;
 
 
@@ -1028,11 +1011,6 @@
 
     global.set('kernel.disabled["' + msg.line + '"]',
     !(global.get('kernel.disabled["' + msg.line + '"]') || false));
-
-
-    // Wait data update
-
-    //msg = await node.linkcall('wait - data', msg);
 
 
     delete msg.ui_update;
@@ -1105,31 +1083,6 @@
   'y': 200
   wires:
     - - a38263f9dfb005a8
-- id: f3b914a01d17eed7
-  type: function
-  z: 05f6b695d75a73cf
-  g: 0e5ee31c1122d84d
-  name: data
-  func: |-
-
-    // Toggle map group
-    msg.payload = {
-        'groups': {
-            [msg.enabled ? 'hide' : 'show' ]: ['map - group']
-        }
-    };
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 410
-  'y': 260
-  wires:
-    - - efc66b0b332f577e
 - id: 3c88f9a6a337ae35
   type: function
   z: 05f6b695d75a73cf

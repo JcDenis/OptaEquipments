@@ -1171,7 +1171,6 @@
   g: 7e8f13051c405b1e
   name: tree - equipment
   links:
-    - 5b08e73e6fba747e
     - d5a2492cd9b261b1
     - 2ec570aa85f2098f
   x: 205
@@ -1989,7 +1988,6 @@
   g: 771b362aacd557cd
   name: ui - tree - device
   links:
-    - aeafe7168ac11461
     - d5a2492cd9b261b1
     - 5f6f52df59cd8e40
   x: 205
@@ -8357,9 +8355,6 @@
         };
         node.send([reverseDel, null]);
 
-        // Wait data update
-        //msg = await node.linkcall('wait - data', msg);
-
         // state add
         let stateAdd = {
             'topic': '',
@@ -11043,11 +11038,6 @@
     form[msg.hmi.id]['h'] = location[4] || 40;
 
 
-    // Wait data update
-
-    //msg = await node.linkcall('wait - data', msg);
-
-
     msg.class = '';
 
     msg.topic = '';
@@ -11693,7 +11683,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = form[msg.hmi.id]['action'];
@@ -12386,7 +12376,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = form[msg.hmi.id]['action'];
@@ -12582,7 +12572,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = '';
@@ -13423,7 +13413,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = '';
@@ -13593,7 +13583,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.limit_model = model;
@@ -13703,7 +13693,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui -latency', msg);
 
     // Go to next form
     msg.payload = '';
@@ -13927,7 +13917,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = form[msg.hmi.id]['action'];
@@ -13997,7 +13987,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = '';
@@ -14282,7 +14272,7 @@
 
     // Wait UI to be disablde
 
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
 
     // Go to next form
@@ -14337,7 +14327,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('wait - ui', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = '';
