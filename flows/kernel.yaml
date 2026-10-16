@@ -1178,15 +1178,7 @@
         <Teleport v-if="mounted" to="#oe_header">
             <v-toolbar class="oe_nav"> 
             <v-btn-group variant="outlined" divided>
-                <v-btn v-if="oe_menus.map" @click="oe_nav('map')" :title="oe_titles.map" icon="mdi-map"></v-btn>
-                <v-btn v-if="oe_menus.alert" @click="oe_nav('alert')" :title="oe_titles.alert" icon="mdi-wrench"></v-btn>
-                <v-btn v-if="oe_menus.period" @click="oe_nav('period')" :title="oe_titles.period" icon="mdi-clock"></v-btn> 
-                <v-btn v-if="oe_menus.detail" @click="oe_nav('detail')" :title="oe_titles.detail" icon="mdi-magnify"></v-btn> 
-                <v-btn v-if="oe_menus.list" @click="oe_nav('list')" :title="oe_titles.list" icon="mdi-format-list-bulleted-square"></v-btn> 
-                <v-btn v-if="oe_menus.tree" @click="oe_nav('tree')" :title="oe_titles.tree" icon="mdi-file-tree"></i></v-btn> 
-                <v-btn v-if="oe_menus.users" @click="oe_nav('users')" :title="oe_titles.users" icon="mdi-account"></v-btn> 
-                <v-btn v-if="oe_menus.system" @click="oe_nav('system')" :title="oe_titles.system" icon="mdi-cog"></v-btn> 
-                <v-btn v-if="oe_menus.auth" @click="oe_nav('auth')" :title="oe_titles.auth" icon="mdi-login"></v-btn> 
+                <v-btn v-for="btn in oe_buttons" :icon="btn.icon" :title="btn.title" @click="oe_nav(btn)"></v-btn>
             </v-btn-group>
             <v-toolbar-title :text="msg.title"></v-toolbar-title>
             <v-btn href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></v-btn>
@@ -1198,8 +1190,7 @@
         export default {
             data() {
                 return {
-                    oe_menus: { auth: true, map: false, alert: false, period: false, detail: false, list: false, tree: false, users: false, system: false },
-                    oe_titles: { auth: '', map: '', alert: '', period: '', detail: '', list: '', tree: '', users: '', system: '' },
+                    oe_buttons: [],
                     mounted: false
                 }
             },
@@ -1212,8 +1203,8 @@
                 this.mounted = true;
             },
             methods: {
-                oe_nav: function (page) {
-                    this.send(page)
+                oe_nav: function (btn) {
+                    this.send(btn.id)
                 }
             },
             watch: {
@@ -1221,8 +1212,11 @@
                     document.documentElement.setAttribute("lang", msg.page_lang);
                     document.documentElement.setAttribute("translate", "no");
                     document.title = msg.document;
-                    this.oe_menus = msg.menus;
-                    this.oe_titles = msg.titles;
+
+                    // Populate menu
+                    if (msg && Array.isArray(msg.buttons)) {
+                    this.oe_buttons = msg.buttons
+                    }
                 }
             }
         }
@@ -2236,9 +2230,7 @@
 
     // Prepare
 
-    msg.menus = {};
-
-    msg.titles = {};
+    msg.buttons = [];
 
     msg.payload = {
         'pages': {
@@ -2252,23 +2244,19 @@
 
     let allowed = false;
 
-    let s = 0;
-
-    let h = 0;
-
     for (const page in pages) {
-        if (page === 'auth') {
-            msg.menus[page] = true;
-            msg.payload.pages.show[s++] = pages[page]['name'];
+        let menu = false;
+        if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {
+            msg.buttons.push({
+                'id': page,
+                'icon': pages[page]['icon'],
+                'title': pages[page]['name']
+            });
+            msg.payload.pages.show.push(pages[page]['name']);
         }
-        else if (pages[page]['level'][msg.hmi.level] === true) {
-            msg.menus[page] = true;
-            msg.payload.pages.show[s++] = pages[page]['name'];
-        } else {
-            msg.menus[page] = false;
-            msg.payload.pages.hide[h++] = pages[page]['name'];
+        else {
+            msg.payload.pages.hide.push(pages[page]['name']);
         }
-        msg.titles[page] = msg.dictionary.option_page[page];
 
         if (pages[page]['tab'] === msg.hmi.tab) {
             msg.page_lang = msg.dictionary.lang;
@@ -2975,6 +2963,7 @@
                 'tab': 0,
                 'id': '64fe17ae4a406472',
                 'name': 'Authentification',
+                'icon': 'mdi-login',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -2987,6 +2976,7 @@
                 'tab': 1,
                 'id': 'ded8ef092f5c6531',
                 'name': 'Map',
+                'icon': 'mdi-map',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -2999,6 +2989,7 @@
                 'tab': 2,
                 'id': 'a19160517715b70b',
                 'name': 'Maintenance',
+                'icon': 'mdi-wrench',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -3011,6 +3002,7 @@
                 'tab': 3,
                 'id': '4d7d40fad3a281d3',
                 'name': 'Programmes',
+                'icon': 'mdi-clock',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -3023,6 +3015,7 @@
                 'tab': 4,
                 'id': '71ccb6fab20261e2',
                 'name': 'Détail',
+                'icon': 'mdi-magnify',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -3035,6 +3028,7 @@
                 'tab': 5,
                 'id': '297c38d08e523a55',
                 'name': 'Listes',
+                'icon': 'mdi-format-list-bulleted-square',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -3047,6 +3041,7 @@
                 'tab': 6,
                 'id': '5287a3b059e7b4ce',
                 'name': 'Arborescence',
+                'icon': 'mdi-file-tree',
                 'level': {
                     'admin': true,
                     'rt': true,
@@ -3059,6 +3054,7 @@
                 'tab': 7,
                 'id': 'ed8b7656d516b26d',
                 'name': 'Utilisateurs',
+                'icon': 'mdi-account',
                 'level': {
                     'admin': true,
                     'rt': false,
@@ -3071,6 +3067,7 @@
                 'tab': 8,
                 'id': '1ac335c1e0a24a11',
                 'name': 'Système',
+                'icon': 'mdi-cog',
                 'level': {
                     'admin': true,
                     'rt': false,
