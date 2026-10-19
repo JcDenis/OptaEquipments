@@ -80,22 +80,18 @@
     msg.check = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
-    // Toggle map group
-    if (msg.enabled) {
-        msg.hide = ['map - group'];
-    }
-    else {
-        msg.show = ['map - group'];
-    }
-
-    msg = await node.linkcall('ui - group', msg);
-
     // Reset UI
     if (msg.enabled !== true) {
         // page is disabled
 
+        msg.hide = ['map - map - group'];
+        msg = await node.linkcall('ui - group', msg);
+
         return [ msg, msg ];
     }
+
+    msg.show = ['map - map - group'];
+    msg = await node.linkcall('ui - group', msg);
 
     // Plant was not defined for the user
     if (msg.hmi.plant === '') {
@@ -106,8 +102,8 @@
         // Get plants for form
         msg = await node.linkcall('option - plant', msg);
 
-        msg.enabled = true;
-        msg.class = '';
+        //msg.enabled = true;
+        //msg.class = '';
 
         return [ null, msg ];
     }
@@ -132,7 +128,7 @@
   z: 05f6b695d75a73cf
   g: 0e5ee31c1122d84d
   group: 58df57b9ba2271ac
-  name: map - detail - plant
+  name: map - map - plant
   label: ''
   tooltip: ''
   order: 1

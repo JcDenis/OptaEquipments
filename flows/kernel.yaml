@@ -620,7 +620,6 @@
   name: kernel - boot
   mode: link
   links:
-    - 6640363c796f547b
     - 10af438fbe88a4a2
     - f7245ef690c212b6
     - 0867279186d4420d
@@ -723,6 +722,16 @@
         visibility: hidden;
         color: transparent !important;
     }
+    .nrdb-ui-file-input .v-btn__content {
+        text-indent: -9999px;
+        line-height: 0;
+    }
+    .nrdb-ui-file-input .v-btn__content::after {
+        content: "►";
+        text-indent: 0;
+        display: block;
+        line-height: initial;
+    }
     .v-main {
         padding-bottom: 2em;
     }
@@ -787,28 +796,9 @@
   g: 41bba9b342eebdae
   name: ui - notice - old
   links:
-    - 0cf63361a578f787
-    - 2219b610eb1a3cc0
-    - 25946e03a69f38c2
     - 2e0c6e8b3e58b338
-    - 2ec570aa85f2098f
-    - 32238bfb65baf1bc
-    - 32eaed6b550d9ba9
-    - 3af957dd224c384a
-    - 3b43519fe264fe49
-    - 462680003626376e
-    - 4c1093802ef038cc
-    - 5f6f52df59cd8e40
-    - 688c8cd091260c94
-    - 9f779446d59dedd9
-    - a4152fb852afd64c
     - a9568851b155c486
-    - b42047a933d30eb6
-    - bee6a866a78902c8
-    - c1e73f2d8bca4b0b
-    - c26a749118b05f68
     - e01152247fcb2952
-    - f1a4ce3bdf024862
   x: 145
   'y': 3620
   wires:
@@ -1107,7 +1097,6 @@
     - 69341ab189affbbd
     - 4a798d15562c1309
     - 9436213abf2c9241
-    - 68593265cb4e2507
     - 575b91a30deac00d
     - ed53bb28b7006772
     - 57dca1419d2bbcea
@@ -1151,8 +1140,8 @@
             <v-btn-group variant="outlined" divided>
                 <v-btn v-for="btn in oe_buttons" :icon="btn.icon" :title="btn.title" @click="oe_nav(btn)"></v-btn>
             </v-btn-group>
-            <v-toolbar-title :text="msg.title"></v-toolbar-title>
-            <v-btn href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.full"></img></v-btn>
+            <v-toolbar-title :text="msg.page"></v-toolbar-title>
+            <v-btn href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.vendor"></img></v-btn>
             </v-toolbar>
         </Teleport>
     </template>
@@ -1196,7 +1185,7 @@
                 msg: function (msg) {
                     document.documentElement.setAttribute("lang", msg.page_lang);
                     document.documentElement.setAttribute("translate", "no");
-                    document.title = msg.document;
+                    document.title = msg.title;
 
                     // Populate menu
                     if (Array.isArray(msg.buttons)) {
@@ -2268,17 +2257,14 @@
 
     // UI menu
 
-    msg.version = global.get('describe.app.version') || '0.0.0';
+    msg.page = msg.hmi.page; 
 
-    msg.vendor = global.get('kernel.app.vendor') ||
-    global.get('describe.app.vendor');
-
-    msg.title = msg.hmi.page; 
-
-    msg.document = global.get('kernel.app.title') ||
+    msg.title = global.get('kernel.app.title') ||
     global.get('describe.app.title');
 
-    msg.full = 'OptaEquipments v' + msg.version + ' for ' + msg.vendor;
+    msg.vendor = 'OptaEquipments v' + (global.get('describe.app.version') ||
+    '0.0.0') + ' for ' + (global.get('kernel.app.vendor') ||
+    global.get('describe.app.vendor'));
 
 
     delete msg.dictionary;
@@ -5346,8 +5332,7 @@
   z: f6f2187d.f17ca8
   g: 58a56d94ba226005
   name: ui - group
-  links:
-    - efc66b0b332f577e
+  links: []
   x: 145
   'y': 3940
   wires:
@@ -5422,7 +5407,7 @@
   dismissText: Close
   allowConfirm: false
   confirmText: Confirm
-  raw: false
+  raw: true
   className: ''
   name: ui - notice
   x: 440

@@ -515,51 +515,28 @@
     label: true
   nodes:
     - 2e622bfdffcf772f
-    - 3f5f52bebd930984
-    - 9f32fa366d58cd8d
-    - 74ab0c3b817eef20
-    - 8e82751fe8d7aa7a
     - 2ecc26495709f145
     - 05ba4b7f6680f576
-    - 7790ecd553ec819d
-    - 4a1331c92d73cb50
     - f33a1e795377137b
-    - 9ad67a9024063115
-    - 1b58eb8ff0faf8f7
-    - 0f8bd50eaed470ce
-    - f39d2501c6c82331
-    - 16e2da4b8880d10d
-    - 5623b3c3cb5bb77e
-    - 1d690d1abfee2624
     - 40a83c7330953a8a
-    - aebc5ebd6b3e25c7
-    - 96839a6fe31398bc
     - e7949d3e2c1f6a1d
-    - 2f07d472b6705458
-    - 724268c0f75e47fe
-    - 276dc3dcc7834da2
-    - e7c25a8a674e113b
-    - e8d67eca0ccb0966
-    - 43ef01fe81d0150c
-    - e657a9170f8a107c
     - 9fbbba627c2116fb
-    - 427d268933d4be54
     - 28e25528291dd3e4
-    - e01152247fcb2952
-    - da74628b2918c2b1
-    - 579b259b849dd0bb
-    - 2577ea76d74e1bf2
-    - 07cc971bd0b5f2ae
-    - bc0b066ea58bb9aa
-    - 1883ec2d4730284a
     - d46795bff38178a9
     - f02be41277d9291f
     - b3915a9ea9445c11
     - 5382b118360a79d7
+    - 91f5242b5b0cbf62
+    - 6807c5fae58176c0
+    - 3de45c58206d9993
+    - 5c0de67381daffed
+    - f8c6350c8aae6806
+    - d842a6f41cf51e4b
+    - cb1bf0cd7dc36566
   x: 104
-  'y': 6279
-  w: 1562
-  h: 562
+  'y': 6631.5
+  w: 892
+  h: 389.5
 - id: 2c0384adc9ef91fe
   type: group
   z: 64ce08af468b8197
@@ -690,8 +667,6 @@
   name: tree - plant
   links:
     - d5a2492cd9b261b1
-    - f1a4ce3bdf024862
-    - 38b3a4ebd1fca09e
     - 902fe68ecf2dae15
   x: 205
   'y': 320
@@ -927,7 +902,6 @@
   name: tree - line
   links:
     - d5a2492cd9b261b1
-    - a4152fb852afd64c
     - 3cc5c7bd4abc1cb9
   x: 205
   'y': 1100
@@ -1156,7 +1130,6 @@
   name: tree - equipment
   links:
     - d5a2492cd9b261b1
-    - 2ec570aa85f2098f
     - 9ca41d82ae49b0f7
   x: 205
   'y': 1880
@@ -1974,7 +1947,6 @@
   name: ui - tree - device
   links:
     - d5a2492cd9b261b1
-    - 5f6f52df59cd8e40
     - f8543a7df7581b14
   x: 205
   'y': 2900
@@ -5497,105 +5469,9 @@
     - 28e25528291dd3e4
     - d5a2492cd9b261b1
   x: 145
-  'y': 6320
+  'y': 6680
   wires:
-    - - 3f5f52bebd930984
-- id: 3f5f52bebd930984
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: list
-  property: list
-  propertyType: msg
-  rules:
-    - t: neq
-      v: period
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 270
-  'y': 6320
-  wires:
-    - - 74ab0c3b817eef20
-    - - 9f32fa366d58cd8d
-      - 74ab0c3b817eef20
-- id: 9f32fa366d58cd8d
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: level
-  property: hmi.level
-  propertyType: msg
-  rules:
-    - t: eq
-      v: admin
-      vt: str
-    - t: eq
-      v: rt
-      vt: str
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 3
-  x: 430
-  'y': 6380
-  wires:
-    - - 4a1331c92d73cb50
-    - - 4a1331c92d73cb50
-    - - 74ab0c3b817eef20
-      - 8e82751fe8d7aa7a
-- id: 74ab0c3b817eef20
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: hide
-  rules:
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: remove
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 6320
-  wires:
-    - - 2ecc26495709f145
-      - 05ba4b7f6680f576
-      - 40a83c7330953a8a
-      - f33a1e795377137b
-      - e7949d3e2c1f6a1d
-      - 9fbbba627c2116fb
-- id: 8e82751fe8d7aa7a
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: show
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 6440
-  wires:
-    - - 2ecc26495709f145
+    - - 91f5242b5b0cbf62
 - id: 2ecc26495709f145
   type: ui-text
   z: 64ce08af468b8197
@@ -5616,8 +5492,8 @@
   className: ''
   value: dictionary.option_notice.level_fail
   valueType: msg
-  x: 790
-  'y': 6440
+  x: 630
+  'y': 6680
   wires: []
 - id: 05ba4b7f6680f576
   type: ui-dropdown
@@ -5641,68 +5517,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 790
-  'y': 6620
+  x: 630
+  'y': 6800
   wires:
-    - - 7790ecd553ec819d
-- id: 7790ecd553ec819d
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: neq
-      v: ''
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1010
-  'y': 6620
-  wires:
-    - - 2577ea76d74e1bf2
-- id: 4a1331c92d73cb50
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: client
-  rules:
-    - t: set
-      p: 'form[msg.hmi.id]'
-      pt: flow
-      to: '{}'
-      tot: jsonata
-    - t: set
-      p: 'form[msg.hmi.id]time'
-      pt: flow
-      to: ''
-      tot: date
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 590
-  'y': 6380
-  wires:
-    - - 9ad67a9024063115
+    - - f8c6350c8aae6806
 - id: f33a1e795377137b
   type: ui-text-input
   z: 64ce08af468b8197
@@ -5728,155 +5546,10 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 800
-  'y': 6680
+  x: 640
+  'y': 6860
   wires:
-    - - 2f07d472b6705458
-- id: 9ad67a9024063115
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: plant
-  property: hmi.plant
-  propertyType: msg
-  rules:
-    - t: nempty
-    - t: else
-  checkall: 'false'
-  repair: false
-  outputs: 2
-  x: 230
-  'y': 6500
-  wires:
-    - - 5623b3c3cb5bb77e
-    - - 0f8bd50eaed470ce
-- id: 1b58eb8ff0faf8f7
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 220
-  'y': 6560
-  wires:
-    - - 0f8bd50eaed470ce
-- id: 0f8bd50eaed470ce
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 22a6cc8a0964f595
-  linkType: static
-  timeout: '30'
-  x: 410
-  'y': 6560
-  wires:
-    - - 40a83c7330953a8a
-- id: f39d2501c6c82331
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: neq
-      v: ''
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1010
-  'y': 6560
-  wires:
-    - - 579b259b849dd0bb
-- id: 16e2da4b8880d10d
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: plant
-  rules:
-    - t: set
-      p: 'form[msg.hmi.id]plant'
-      pt: flow
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 6560
-  wires:
-    - - 1d690d1abfee2624
-      - 1b58eb8ff0faf8f7
-- id: 5623b3c3cb5bb77e
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: plant
-  rules:
-    - t: set
-      p: 'form[msg.hmi.id]plant'
-      pt: flow
-      to: 'user[msg.hmi.id]plant'
-      tot: global
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 6500
-  wires:
-    - - 1d690d1abfee2624
-- id: 1d690d1abfee2624
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: enable
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1530
-  'y': 6560
-  wires:
-    - - da74628b2918c2b1
+    - - d842a6f41cf51e4b
 - id: 40a83c7330953a8a
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -5899,72 +5572,10 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 790
-  'y': 6560
+  x: 630
+  'y': 6740
   wires:
-    - - f39d2501c6c82331
-- id: aebc5ebd6b3e25c7
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: team
-  rules:
-    - t: set
-      p: 'form[msg.hmi.id]team'
-      pt: flow
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 6620
-  wires:
-    - - 96839a6fe31398bc
-- id: 96839a6fe31398bc
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: enable
-  rules:
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'true'
-      tot: bool
-    - t: set
-      p: payload
-      pt: msg
-      to: ''
-      tot: str
-    - t: set
-      p: limit_plant
-      pt: msg
-      to: 'form[msg.hmi.id]plant'
-      tot: flow
-    - t: set
-      p: limit_team
-      pt: msg
-      to: 'form[msg.hmi.id]team'
-      tot: flow
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1530
-  'y': 6620
-  wires:
-    - - e8d67eca0ccb0966
-      - 43ef01fe81d0150c
-      - 5382b118360a79d7
+    - - 3de45c58206d9993
 - id: e7949d3e2c1f6a1d
   type: ui-text-input
   z: 64ce08af468b8197
@@ -5990,128 +5601,10 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 800
-  'y': 6740
+  x: 640
+  'y': 6920
   wires:
-    - - 276dc3dcc7834da2
-- id: 2f07d472b6705458
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: neq
-      v: ''
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1010
-  'y': 6680
-  wires:
-    - - 07cc971bd0b5f2ae
-- id: 724268c0f75e47fe
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: start
-  rules:
-    - t: set
-      p: 'form[msg.hmi.id]starttime'
-      pt: flow
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 6680
-  wires:
-    - []
-- id: 276dc3dcc7834da2
-  type: switch
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: empty
-  property: payload
-  propertyType: msg
-  rules:
-    - t: neq
-      v: ''
-      vt: str
-  checkall: 'false'
-  repair: false
-  outputs: 1
-  x: 1010
-  'y': 6740
-  wires:
-    - - bc0b066ea58bb9aa
-- id: e7c25a8a674e113b
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: stop
-  rules:
-    - t: set
-      p: 'form[msg.hmi.id]stoptime'
-      pt: flow
-      to: payload
-      tot: msg
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 1370
-  'y': 6740
-  wires:
-    - []
-- id: e8d67eca0ccb0966
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 12dd534f81c34fbe
-  linkType: static
-  timeout: '30'
-  x: 410
-  'y': 6680
-  wires:
-    - - f02be41277d9291f
-- id: 43ef01fe81d0150c
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 12dd534f81c34fbe
-  linkType: static
-  timeout: '30'
-  x: 410
-  'y': 6740
-  wires:
-    - - b3915a9ea9445c11
-- id: e657a9170f8a107c
-  type: debug
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: tree - team
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1550
-  'y': 6680
-  wires: []
+    - - cb1bf0cd7dc36566
 - id: 9fbbba627c2116fb
   type: ui-button
   z: 64ce08af468b8197
@@ -6143,36 +5636,10 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 790
-  'y': 6800
+  x: 630
+  'y': 6980
   wires:
-    - - 427d268933d4be54
-      - 1883ec2d4730284a
-- id: 427d268933d4be54
-  type: change
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: disabled
-  rules:
-    - t: set
-      p: enabled
-      pt: msg
-      to: 'false'
-      tot: bool
-    - t: set
-      p: class
-      pt: msg
-      to: ''
-      tot: str
-  action: ''
-  property: ''
-  from: ''
-  to: ''
-  reg: false
-  x: 220
-  'y': 6800
-  wires:
-    - - 5382b118360a79d7
+    - - d46795bff38178a9
 - id: 28e25528291dd3e4
   type: link out
   z: 64ce08af468b8197
@@ -6182,19 +5649,8 @@
   links:
     - 2e622bfdffcf772f
     - e60e4ab7617738c3
-  x: 1495
-  'y': 6740
-  wires: []
-- id: e01152247fcb2952
-  type: link out
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: tree - team - notice
-  mode: link
-  links:
-    - 4e94023e8ba12f50
-  x: 1495
-  'y': 6800
+  x: 955
+  'y': 6980
   wires: []
 - id: 636d0d23ef67c933
   type: link in
@@ -7437,84 +6893,6 @@
   'y': 5960
   wires:
     - - 6e9fcc837abc4746
-- id: da74628b2918c2b1
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - b0fe570753fc01f7
-  linkType: static
-  timeout: '30'
-  x: 410
-  'y': 6620
-  wires:
-    - - 05ba4b7f6680f576
-- id: 579b259b849dd0bb
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1190
-  'y': 6560
-  wires:
-    - - 16e2da4b8880d10d
-- id: 2577ea76d74e1bf2
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1190
-  'y': 6620
-  wires:
-    - - aebc5ebd6b3e25c7
-- id: 07cc971bd0b5f2ae
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1190
-  'y': 6680
-  wires:
-    - - 724268c0f75e47fe
-- id: bc0b066ea58bb9aa
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1190
-  'y': 6740
-  wires:
-    - - e7c25a8a674e113b
-- id: 1883ec2d4730284a
-  type: link call
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  name: ''
-  links:
-    - 56e6a7b9b0e66451
-  linkType: static
-  timeout: '30'
-  x: 1190
-  'y': 6800
-  wires:
-    - - d46795bff38178a9
 - id: 5da93f7f423e4b99
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -8637,7 +8015,11 @@
   g: 1ac161d9a8075225
   name: team
   func: |-
-    if (msg.hmi.level === 'admin' || msg.hmi.level === 'rt') {
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
         let form = global.get('form["' + msg.hmi.id + '"]') || {};
 
         // alert
@@ -8651,26 +8033,25 @@
                 'loop': false
             }
         };
-        node.send([teamMsg, null]);
+        node.send([teamMsg]);
 
-        // notice
-        msg.payload = msg.dictionary.option_notice.update_success;
-        node.send([null, msg]);
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        msg = await node.linkcall('ui - notice', msg);
     }
 
     return;
-  outputs: 2
+  outputs: 1
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
   libs: []
-  x: 1370
-  'y': 6800
+  x: 830
+  'y': 6980
   wires:
     - - 28e25528291dd3e4
-      - e657a9170f8a107c
-    - - e01152247fcb2952
+      - 5382b118360a79d7
 - id: fb31d04e3e5f3e71
   type: switch
   z: 64ce08af468b8197
@@ -9869,6 +9250,9 @@
   g: 1ac161d9a8075225
   name: label
   func: |-
+
+    msg = await node.linkcall('value - team', msg);
+
     msg.ui_update = {
         'label': msg.dictionary.option_select.limit
     };
@@ -9881,8 +9265,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 6680
+  x: 430
+  'y': 6860
   wires:
     - - f33a1e795377137b
 - id: b3915a9ea9445c11
@@ -9891,6 +9275,9 @@
   g: 1ac161d9a8075225
   name: label
   func: |-
+
+    msg = await node.linkcall('value - team', msg);
+
     msg.ui_update = {
         'label': msg.dictionary.option_select.limit
     };
@@ -9903,8 +9290,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 6740
+  x: 430
+  'y': 6920
   wires:
     - - e7949d3e2c1f6a1d
 - id: 5382b118360a79d7
@@ -9924,8 +9311,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 590
-  'y': 6800
+  x: 430
+  'y': 6980
   wires:
     - - 9fbbba627c2116fb
 - id: db2795528bed1f7f
@@ -13806,7 +13193,6 @@
   wires:
     - - 59e688c7b5ec6e8d
     - - 6e06a65cdf5162c9
-      - 3351453ac13e932a
 - id: 8bd8acd1080112f2
   type: function
   z: 64ce08af468b8197
@@ -14313,18 +13699,286 @@
   wires:
     - - 2a63357f9f37b03c
     - - 7866a0ada50fe22f
-- id: 3351453ac13e932a
-  type: debug
+- id: 91f5242b5b0cbf62
+  type: function
   z: 64ce08af468b8197
-  name: debug 1
-  active: true
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 1240
-  'y': 7280
-  wires: []
+  g: 1ac161d9a8075225
+  name: data
+  func: |-
+    msg.payload = '';
+
+    if (msg.list !== 'period') {
+        msg.class = 'remove';
+
+        return [msg, msg, msg];
+    }
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+
+        // Get memories
+        let form = global.get('form'); // autoupdate
+
+        const action = msg.payload;
+
+        form[msg.hmi.id] = {
+            'action': action,
+            'time': Date.now(),
+            'plant': '',
+            'hour': 0
+        };
+
+        msg.class= '';
+        msg.enabled = true;
+
+        if (msg.hmi.plant !== '') {
+            form[msg.hmi.id]['plant'] = msg.hmi.plant;
+
+            return [null, null, msg]
+        ;}
+        else {
+
+            return [null, msg, null];
+        }
+    }
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 6680
+  wires:
+    - - 2ecc26495709f145
+      - 6807c5fae58176c0
+      - 5c0de67381daffed
+    - - 6807c5fae58176c0
+    - - 5c0de67381daffed
+- id: 6807c5fae58176c0
+  type: function
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: data
+  func: |-
+
+    // Get options
+    msg = await node.linkcall('option - plant', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 430
+  'y': 6740
+  wires:
+    - - 40a83c7330953a8a
+- id: 3de45c58206d9993
+  type: function
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: data
+  func: >-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+
+    const plant = msg.payload;
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Get memories
+
+    let form = global.get('form'); // autoupdate
+
+
+    form[msg.hmi.id]['plant'] = plant;
+
+
+    // Disabled plant form
+
+    msg.payload = plant;
+
+    msg.class = '';
+
+    msg.enabled = false;
+
+    node.send([msg, null]);
+
+
+    // Wait UI to be disablde
+
+    msg = await node.linkcall('ui - latency', msg);
+
+
+    // Go to next form
+
+    msg.payload = global.get('kernel.day["' + form[msg.hmi.id]["plant"] + '"]')
+    || 0;
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    node.send([null, msg]);
+
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 6740
+  wires:
+    - - 6807c5fae58176c0
+    - - 5c0de67381daffed
+- id: 5c0de67381daffed
+  type: function
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: data
+  func: |-
+
+    // Get options
+    msg = await node.linkcall('option - team', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 430
+  'y': 6800
+  wires:
+    - - 05ba4b7f6680f576
+- id: f8c6350c8aae6806
+  type: function
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const team = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
+    form[msg.hmi.id]['team'] = team;
+
+    // Disabled plant form
+    msg.payload = team;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Wait UI to be disablde
+    msg = await node.linkcall('ui - latency', msg);
+
+    // Go to next form
+    msg.limit_plant = form[msg.hmi.id]['plant'];
+    msg.limit_team = form[msg.hmi.id]['team'];
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 6800
+  wires:
+    - - 5c0de67381daffed
+    - - f02be41277d9291f
+      - b3915a9ea9445c11
+      - 5382b118360a79d7
+- id: d842a6f41cf51e4b
+  type: function
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const starttime = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
+    form[msg.hmi.id]['starttime'] = starttime;
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 6860
+  wires:
+    - []
+    - []
+- id: cb1bf0cd7dc36566
+  type: function
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const stoptime = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
+    form[msg.hmi.id]['stoptime'] = stoptime;
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 6920
+  wires:
+    - []
+    - []
