@@ -167,17 +167,14 @@
     - 23dd24021e2cecf1
     - ba6ef07c6e523872
     - 430e091bb05b99e7
-    - 6640363c796f547b
     - 7bba6594f41302c2
     - 00818f8c0686b556
     - 3450fffd4f368319
-    - 68593265cb4e2507
     - fd39d13ae9c195f3
     - 8f1a54f299198096
-    - b490f62e4ba2632e
   x: 104
   'y': 3359
-  w: 872
+  w: 782
   h: 202
 - id: ede1bcd992279676
   type: group
@@ -729,9 +726,7 @@
     .v-main {
         padding-bottom: 2em;
     }
-    #app-bar-actions img {
-        margin-right: 20px;
-    }
+
     .ui-title span {
         font-size: 1.4rem !important;
         font-weight: normal !important;
@@ -745,21 +740,14 @@
         border-radius: 4px;
         box-shadow: 3px 2px 2px rgba(0, 55, 77, 0.25);
     }
-    .oe_nav {
+    .v-toolbar {
         background: rgb(var(--v-theme-navigation-background));
+        padding: 0 0.5em;
+        border-bottom: 1px solid #CCCCCC;
+        margin-bottom: 1px;
     }
-    #oe_header {
-        border: none;
-        padding-left: 1em;
-        background: rgb(var(--v-theme-navigation-background));
-    }
-    .v-application {
-        border-top: 1px solid #CCCCCC;
-        margin-top: -1px;
-    }
+
     #oe-map-group {
-        //position: absolute;
-        //top: 7em;
         width: 100%;
     }
   storeOutMessages: true
@@ -768,21 +756,9 @@
   templateScope: 'site:style'
   className: ''
   x: 280
-  'y': 3520
+  'y': 3400
   wires:
-    - - b490f62e4ba2632e
-- id: 6640363c796f547b
-  type: link in
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: ui - boot
-  links:
-    - 575b91a30deac00d
-    - bee6a866a78902c8
-  x: 145
-  'y': 3520
-  wires:
-    - - 430e091bb05b99e7
+    - []
 - id: 457bd17747e44d56
   type: ui-notification
   z: f6f2187d.f17ca8
@@ -1190,11 +1166,25 @@
                 }
             },
             mounted() {
+                // Default lang
                 const blang = navigator.language || navigator.userLanguage;
                 this.send(blang);
-                let div = document.createElement("div");
-                div.id="oe_header";
-                const el = document.body.querySelector("#app").prepend(div);
+
+                // Navigation bar
+                if (!document.querySelector("#oe_header")) {
+                    let div = document.createElement("div");
+                    div.id="oe_header";
+                    const el = document.body.querySelector("#app").prepend(div);
+                }
+
+                // Prevent refresh
+                document.addEventListener('keydown', (e) => {
+                    e = e || window.event;
+                    if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){
+                        e.preventDefault();
+                    }
+                });
+
                 this.mounted = true;
             },
             methods: {
@@ -1209,8 +1199,8 @@
                     document.title = msg.document;
 
                     // Populate menu
-                    if (msg && Array.isArray(msg.buttons)) {
-                    this.oe_buttons = msg.buttons
+                    if (Array.isArray(msg.buttons)) {
+                        this.oe_buttons = msg.buttons
                     }
                 }
             }
@@ -1838,17 +1828,6 @@
   x: 610
   'y': 1820
   wires: []
-- id: 68593265cb4e2507
-  type: link out
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: ui - control - loop
-  mode: link
-  links:
-    - 00818f8c0686b556
-  x: 935
-  'y': 3400
-  wires: []
 - id: 2314d737e13a181c
   type: link in
   z: f6f2187d.f17ca8
@@ -2180,9 +2159,9 @@
 
     // Get memories
 
-    let user = global.get('user') || { };
+    let user = global.get('user'); // autoupdate
 
-    let form = global.get('form') || { };
+    let form = global.get('form'); // autoupdate
 
     let pages = global.get('describe.pages');
 
@@ -2198,8 +2177,8 @@
 
     if (!['connect', 'change', 'lost'].includes(msg.payload)) {
         if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {
-            delete user[msg.hmi.id]; // auto
-            delete form[msg.hmi.id]; // auto
+            delete user[msg.hmi.id];
+            delete form[msg.hmi.id];
         }
 
         return;
@@ -2209,17 +2188,11 @@
     // On connect or lost connection, go to auth page
 
     if (['connect', 'lost'].includes(msg.payload)) {
-        msg.payload = pages.auth?.name || '';
+        msg.payload = pages.auth.name || '';
+        msg.hmi.page = msg.payload;
 
-        return [null, null, msg];
-    }
-
-
-    // Should not happened
-
-    if (typeof pages !== 'object') {
-
-        return;
+        node.send([null, null, msg]);
+        //return;
     }
 
 
@@ -2240,7 +2213,6 @@
     let allowed = false;
 
     for (const page in pages) {
-        let menu = false;
         if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {
             msg.buttons.push({
                 'id': page,
@@ -2265,22 +2237,21 @@
 
 
     if (allowed === false) {
-        msg.hmi.tab = pages.auth?.tab || 99;
+        msg.hmi.tab = pages.auth.tab || 99;
         msg.hmi.page = msg.dictionary.option_page.auth;
     }
 
 
     // user plant
 
-    let form_plant = form[msg.hmi.id]["plant"] || '-';
-
-    if (msg.hmi.plant !== '' && msg.hmi.plant !== form_plant) {
-        form[msg.hmi.id]["plant"] = msg.hmi.plant; // auto
-        form[msg.hmi.id]["line"] = ''; // auto
-        form[msg.hmi.id]["equipment"] = ''; // auto
+    if (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id]["plant"] ||
+    '-')) {
+        form[msg.hmi.id]["plant"] = msg.hmi.plant;
+        form[msg.hmi.id]["line"] = '';
+        form[msg.hmi.id]["equipment"] = '';
     }
 
-    form[msg.hmi.id]["ts"] = Date.now(); // auto
+    form[msg.hmi.id]["ts"] = Date.now();
 
 
     // page process
@@ -2374,7 +2345,7 @@
   x: 810
   'y': 3400
   wires:
-    - - 68593265cb4e2507
+    - - ba6ef07c6e523872
 - id: bf59724bfb1762b4
   type: function
   z: f6f2187d.f17ca8
@@ -2954,19 +2925,6 @@
             'vendor': 'Opta Equipments by JcDenis'
         },
         'pages': {
-            'auth': {
-                'tab': 0,
-                'id': '64fe17ae4a406472',
-                'name': 'Authentification',
-                'icon': 'mdi-login',
-                'level': {
-                    'admin': true,
-                    'rt': true,
-                    'tech': true,
-                    'rp': true,
-                    'prod': true
-                }
-            },
             'map': {
                 'tab': 1,
                 'id': 'ded8ef092f5c6531',
@@ -3069,6 +3027,19 @@
                     'tech': false,
                     'rp': false,
                     'prod': false
+                }
+            },
+            'auth': {
+                'tab': 0,
+                'id': '64fe17ae4a406472',
+                'name': 'Authentification',
+                'icon': 'mdi-login',
+                'level': {
+                    'admin': true,
+                    'rt': true,
+                    'tech': true,
+                    'rp': true,
+                    'prod': true
                 }
             }
         },
@@ -4036,36 +4007,6 @@
   'y': 800
   wires:
     - - 2b027f15e857dc2d
-- id: b490f62e4ba2632e
-  type: ui-template
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  group: ''
-  page: ''
-  ui: 68fb8d742e5053db
-  name: ui - template
-  order: 0
-  width: 0
-  height: 0
-  head: ''
-  format: |
-    <script>
-    document.addEventListener('keydown', (e) => {
-        e = e || window.event;
-        if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){
-            e.preventDefault();
-        }
-    });
-    </script>
-  storeOutMessages: true
-  passthru: true
-  resendOnRefresh: true
-  templateScope: 'widget:ui'
-  className: ''
-  x: 470
-  'y': 3520
-  wires:
-    - []
 - id: c9b77de2e18e7767
   type: link in
   z: f6f2187d.f17ca8
