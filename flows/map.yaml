@@ -53,7 +53,7 @@
     - 3c88f9a6a337ae35
     - 57dca1419d2bbcea
   x: 84
-  'y': 339
+  'y': 279
   w: 872
   h: 502
 - id: 1d8d13781c0d578e
@@ -90,11 +90,11 @@
         return [ msg, msg ];
     }
 
-    msg.show = ['map - map - group'];
-    msg = await node.linkcall('ui - group', msg);
-
     // Plant was not defined for the user
     if (msg.hmi.plant === '') {
+
+        msg.show = ['map - map - group'];
+        msg = await node.linkcall('ui - group', msg);
 
         // admin can select a plant
         msg.payload = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
@@ -508,7 +508,7 @@
   value: payload
   valueType: msg
   x: 450
-  'y': 380
+  'y': 320
   wires: []
 - id: cf09fba4cc997462
   type: function
@@ -620,7 +620,7 @@
   finalize: ''
   libs: []
   x: 250
-  'y': 440
+  'y': 380
   wires:
     - - a02204e3fae49cfc
     - - 9f08f02da6ea348c
@@ -666,7 +666,7 @@
   action: replace
   className: ''
   x: 470
-  'y': 440
+  'y': 380
   wires:
     - - 3c88f9a6a337ae35
 - id: 5a066b7fa3f4f8af
@@ -701,7 +701,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 500
+  'y': 440
   wires:
     - - e4709f79d028ec19
 - id: 1b3d8dd4cbf54d2e
@@ -736,7 +736,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 560
+  'y': 500
   wires:
     - - e4709f79d028ec19
 - id: 1904ca1be94678dd
@@ -761,7 +761,7 @@
   finalize: ''
   libs: []
   x: 410
-  'y': 560
+  'y': 500
   wires:
     - - 5a066b7fa3f4f8af
     - - 1b3d8dd4cbf54d2e
@@ -800,7 +800,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 620
+  'y': 560
   wires:
     - - e4709f79d028ec19
 - id: de01b7bdff6e465a
@@ -835,7 +835,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 680
+  'y': 620
   wires:
     - - e4709f79d028ec19
 - id: cfab8a9a98e54e95
@@ -870,7 +870,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 600
-  'y': 740
+  'y': 680
   wires:
     - - e4709f79d028ec19
 - id: a9a840797469573f
@@ -905,7 +905,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 450
-  'y': 800
+  'y': 740
   wires:
     - - f486b8d2af3d7301
 - id: e4709f79d028ec19
@@ -956,7 +956,7 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 560
+  'y': 500
   wires:
     - - 1f7b2b51d4d84f18
 - id: 97a2538ceb8b990d
@@ -968,7 +968,7 @@
     - 1f7b2b51d4d84f18
     - 19c86486f5d9b146
   x: 125
-  'y': 440
+  'y': 380
   wires:
     - - cf09fba4cc997462
 - id: 1f7b2b51d4d84f18
@@ -980,7 +980,7 @@
   links:
     - 97a2538ceb8b990d
   x: 915
-  'y': 560
+  'y': 500
   wires: []
 - id: 19c86486f5d9b146
   type: link out
@@ -1025,7 +1025,7 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 800
+  'y': 740
   wires:
     - - 1f7b2b51d4d84f18
 - id: 32eebc8246bf0244
@@ -1118,7 +1118,7 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 440
+  'y': 380
   wires:
     - - 57dca1419d2bbcea
 - id: 57dca1419d2bbcea
@@ -1130,5 +1130,5 @@
   links:
     - 00818f8c0686b556
   x: 915
-  'y': 440
+  'y': 380
   wires: []

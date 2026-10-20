@@ -2357,7 +2357,7 @@
             "57dca1419d2bbcea"
         ],
         "x": 84,
-        "y": 339,
+        "y": 279,
         "w": 872,
         "h": 502
     },
@@ -4276,7 +4276,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": ".v-card-item__content {\n    display: none;\n}\n.v-tab-item--selected {\n    color: #0094ce !important;\n}\n.v-card .remove,\n.v-card-text .remove {\n    display: none !important;\n    visibility: hidden;\n    color: transparent !important;\n}\n.nrdb-ui-file-input .v-btn__content {\n    text-indent: -9999px;\n    line-height: 0;\n}\n.nrdb-ui-file-input .v-btn__content::after {\n    content: \"►\";\n    text-indent: 0;\n    display: block;\n    line-height: initial;\n}\n.v-main {\n    padding-bottom: 2em;\n}\n\n.ui-title span {\n    font-size: 1.4rem !important;\n    font-weight: normal !important;\n    padding: 0;\n    color: #0094ce;\n}\n.ui-spacer {\n    border-top: 2px solid #CCCCCC;\n}\n.nrdb-ui-group {\n    border-radius: 4px;\n    box-shadow: 3px 2px 2px rgba(0, 55, 77, 0.25);\n}\n.v-toolbar {\n    background: rgb(var(--v-theme-navigation-background));\n    padding: 0 0.5em;\n    border-bottom: 1px solid #CCCCCC;\n    margin-bottom: 1px;\n}\n\n#oe-map-group {\n    width: 100%;\n}",
+        "format": ".v-card-item__content {\n    display: none;\n}\n.v-tab-item--selected {\n    color: #0094ce !important;\n}\n.v-card .remove,\n.v-card-text .remove {\n    display: none !important;\n    visibility: hidden;\n    color: transparent !important;\n}\n.nrdb-ui-file-input .v-btn__content {\n    text-indent: -9999px;\n    line-height: 0;\n}\n.nrdb-ui-file-input .v-btn__content::after {\n    content: \"►\";\n    text-indent: 0;\n    display: block;\n    line-height: initial;\n}\n.v-main {\n    padding-bottom: 2em;\n}\n\n.ui-title span {\n    font-size: 1.4rem !important;\n    font-weight: normal !important;\n    padding: 0;\n    color: #0094ce;\n}\n.ui-spacer {\n    border-top: 2px solid #CCCCCC;\n}\n.nrdb-ui-group {\n    border-radius: 4px;\n    box-shadow: 3px 2px 2px rgba(0, 55, 77, 0.25);\n}\n.v-toolbar {\n    background: rgb(var(--v-theme-background));\n    padding: 0 0.5em;\n    //background: rgb(var(--v-theme-navigation-background));\n    //border-bottom: 1px solid #CCCCCC;\n    //margin-bottom: 1px;\n}\n.v-toolbar .v-btn-group {\n    background: rgb(var(--v-theme-navigation-background));\n}\n\n#oe-map-group {\n    width: 100%;\n}",
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
@@ -4766,7 +4766,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe_nav\"> \n        <v-btn-group variant=\"outlined\" divided>\n            <v-btn v-for=\"btn in oe_buttons\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-group>\n        <v-toolbar-title :text=\"msg.page\"></v-toolbar-title>\n        <v-btn href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.vendor\"></img></v-btn>\n        </v-toolbar>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_buttons: [],\n                mounted: false\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe_header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe_header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n\n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe_nav\"> \n        <v-btn-toggle v-model=\"msg.current\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"msg.page\"></v-toolbar-title>\n        <v-btn href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.vendor\"></img></v-btn>\n        </v-toolbar>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_buttons: [],\n                mounted: false\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe_header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe_header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
         "storeOutMessages": true,
         "passthru": false,
         "resendOnRefresh": true,
@@ -5738,7 +5738,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "data",
-        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id];\n        delete form[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page = msg.hmi.page; \nmsg.title = global.get('kernel.app.title') || global.get('describe.app.title');\nmsg.vendor = 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor'));\n\ndelete msg.dictionary;\n\nreturn [msg, newMsg, null];",
+        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id];\n        delete form[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nlet current = 'auth';\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        current = page;\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page = msg.hmi.page; \nmsg.title = global.get('kernel.app.title') || global.get('describe.app.title');\nmsg.vendor = 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor'));\nmsg.current = current;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\nreturn [null, newMsg, null];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -15116,7 +15116,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n\n    msg.hide = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    return [ msg, msg ];\n}\n\nmsg.show = ['map - map - group'];\nmsg = await node.linkcall('ui - group', msg);\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    //msg.enabled = true;\n    //msg.class = '';\n\n    return [ null, msg ];\n}\n\n// Plant is defined for the user\nmsg.payload = msg.hmi.plant;\n\nreturn [ msg, null ];",
+        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n\n    msg.hide = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    return [ msg, msg ];\n}\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n\n    msg.show = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    //msg.enabled = true;\n    //msg.class = '';\n\n    return [ null, msg ];\n}\n\n// Plant is defined for the user\nmsg.payload = msg.hmi.plant;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -15287,7 +15287,7 @@
         "value": "payload",
         "valueType": "msg",
         "x": 450,
-        "y": 380,
+        "y": 320,
         "wires": []
     },
     {
@@ -15304,7 +15304,7 @@
         "finalize": "",
         "libs": [],
         "x": 250,
-        "y": 440,
+        "y": 380,
         "wires": [
             [
                 "a02204e3fae49cfc"
@@ -15368,7 +15368,7 @@
         "action": "replace",
         "className": "",
         "x": 470,
-        "y": 440,
+        "y": 380,
         "wires": [
             [
                 "3c88f9a6a337ae35"
@@ -15408,7 +15408,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 600,
-        "y": 500,
+        "y": 440,
         "wires": [
             [
                 "e4709f79d028ec19"
@@ -15448,7 +15448,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 600,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "e4709f79d028ec19"
@@ -15469,7 +15469,7 @@
         "finalize": "",
         "libs": [],
         "x": 410,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "5a066b7fa3f4f8af"
@@ -15521,7 +15521,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 600,
-        "y": 620,
+        "y": 560,
         "wires": [
             [
                 "e4709f79d028ec19"
@@ -15561,7 +15561,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 600,
-        "y": 680,
+        "y": 620,
         "wires": [
             [
                 "e4709f79d028ec19"
@@ -15601,7 +15601,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 600,
-        "y": 740,
+        "y": 680,
         "wires": [
             [
                 "e4709f79d028ec19"
@@ -15641,7 +15641,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 450,
-        "y": 800,
+        "y": 740,
         "wires": [
             [
                 "f486b8d2af3d7301"
@@ -15662,7 +15662,7 @@
         "finalize": "",
         "libs": [],
         "x": 790,
-        "y": 560,
+        "y": 500,
         "wires": [
             [
                 "1f7b2b51d4d84f18"
@@ -15680,7 +15680,7 @@
             "19c86486f5d9b146"
         ],
         "x": 125,
-        "y": 440,
+        "y": 380,
         "wires": [
             [
                 "cf09fba4cc997462"
@@ -15698,7 +15698,7 @@
             "97a2538ceb8b990d"
         ],
         "x": 915,
-        "y": 560,
+        "y": 500,
         "wires": []
     },
     {
@@ -15729,7 +15729,7 @@
         "finalize": "",
         "libs": [],
         "x": 790,
-        "y": 800,
+        "y": 740,
         "wires": [
             [
                 "1f7b2b51d4d84f18"
@@ -15798,7 +15798,7 @@
         "finalize": "",
         "libs": [],
         "x": 790,
-        "y": 440,
+        "y": 380,
         "wires": [
             [
                 "57dca1419d2bbcea"
@@ -15816,7 +15816,7 @@
             "00818f8c0686b556"
         ],
         "x": 915,
-        "y": 440,
+        "y": 380,
         "wires": []
     },
     {
