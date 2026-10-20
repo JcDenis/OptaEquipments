@@ -710,8 +710,11 @@
   height: 0
   head: ''
   format: |-
-    .v-card-item__content {
+    .v-card-item {
         display: none;
+    }
+    .v-card-text {
+        margin-top: 1em;
     }
     .v-tab-item--selected {
         color: rgb(var(--v-theme-primary)) !important;
@@ -738,7 +741,6 @@
 
     .ui-title span {
         font-size: 1.4rem !important;
-        font-weight: normal !important;
         padding: 0;
         color: rgb(var(--v-theme-primary));
     }
@@ -759,6 +761,12 @@
 
     #oe-map-group {
         width: 100%;
+    }
+    .oe-vendor {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        opacity: 0.2;
     }
   storeOutMessages: true
   passthru: true
@@ -1137,13 +1145,16 @@
   format: |-
     <template>
         <Teleport v-if="mounted" to="#oe_header">
-            <v-toolbar class="oe_nav"> 
+            <v-toolbar class="oe-nav"> 
             <v-btn-toggle v-model="msg.current" color="primary" variant="outlined" divided mandatory>
                 <v-btn v-for="btn in oe_buttons" :value="btn.id" :icon="btn.icon" :title="btn.title" @click="oe_nav(btn)"></v-btn>
             </v-btn-toggle>
             <v-toolbar-title :text="msg.page"></v-toolbar-title>
-            <v-btn href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.vendor"></img></v-btn>
             </v-toolbar>
+        </Teleport>
+        
+        <Teleport v-if="mounted" to="main">
+            <v-btn class="oe-vendor" href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.vendor"></img></v-btn>
         </Teleport>
     </template>
 
@@ -4665,7 +4676,7 @@
             'off': '#FF0000',
             'median': '#F08000',
             'none': '#808000',
-            'theme': '#0094CE',
+            'theme': '#073d87',
             'empty': '#999999',
             'hidden': '#EEEEEE'
         },
