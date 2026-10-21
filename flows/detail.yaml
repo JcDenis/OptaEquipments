@@ -172,6 +172,7 @@
     - 3cddef1e105f1039
     - 01a3e5a29c8942ad
     - acb7047c142b68bc
+    - a8dad7d80b9a62e0
   x: 104
   'y': 2919
   w: 2902
@@ -1316,7 +1317,7 @@
   g: 1c87eaf6a557f02d
   group: 1669fa4fe2f204a0
   name: detail - chart - refresh
-  label: Rafraichir
+  label: ''
   order: 28
   width: '2'
   height: '1'
@@ -4103,9 +4104,12 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_runreset || 'Reset hours meter',
-        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : msg.dictionary.option_color.theme
+        'label': msg.dictionary.detail.live_runreset || 'Reset hours meter'
     };
+
+    if (msg.kernel.watchdog === 0) {
+        msg.ui_update.buttonColor = msg.dictionary.option_color.none;
+    }
 
     if (msg.kernel.watchdog === 0) {
         msg.enabled = false;
@@ -4181,11 +4185,11 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_cyclereset || 'Reset cycles meter',
-        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : msg.dictionary.option_color.theme
+        'label': msg.dictionary.detail.live_cyclereset || 'Reset cycles meter'
     };
 
     if (msg.kernel.watchdog === 0) {
+        msg.ui_update.buttonColor = msg.dictionary.option_color.none;
         msg.enabled = false;
     }
 
@@ -4234,11 +4238,11 @@
   func: |-
     msg.ui_update = {
         'label': msg.kernel.value === 1 ? (msg.dictionary.detail.live_heatswitchoff || 'Swicth off heat') : (msg.dictionary.detail.live_heatswitchon || 'Switch on heat'),
-        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : msg.dictionary.option_color.theme,
         'icon': msg.kernel.value === 1 ? 'circle' : 'circle-outline'
     }
 
     if (msg.kernel.watchdog === 0) {
+        msg.ui_update.buttonColor = msg.dictionary.option_color.none;
         msg.enabled = false;
     }
 
@@ -4266,12 +4270,12 @@
 
     msg.ui_update = {
         'label': state === 1 ? (msg.dictionary.detail.live_heatswitchoff || 'Switch off heat') : (msg.dictionary.detail.live_heatswitchon || 'switch on heat'),
-        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : msg.dictionary.option_color.theme,
         'icon': msg.kernel.value === 1 ? 'circle' : 'circle-outline'
     }
 
 
     if (msg.kernel.watchdog === 0) {
+        msg.ui_update.buttonColor = msg.dictionary.option_color.none;
         msg.enabled = false;
     }
 
@@ -4296,11 +4300,11 @@
   func: |-
     msg.ui_update = {
         'label': msg.dictionary.detail.live_heattoggle || 'Toggle heat',
-        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : msg.dictionary.option_color.theme,
         'icon': msg.kernel.value === 1 ? 'circle' : 'circle-outline'
     }
 
     if (msg.kernel.watchdog === 0) {
+        msg.ui_update.buttonColor = msg.dictionary.option_color.none;
         msg.enabled = false;
     }
 
@@ -4328,7 +4332,6 @@
 
     msg.ui_update = {
         'label': state === 1 ? (msg.dictionary.detail.live_heatswitchoff || 'Switch off heat') : (msg.dictionary.detail.live_heatswitchon || 'Switch on heat'),
-        'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : msg.dictionary.option_color.theme,
         'icon': msg.kernel.value === 1 ? 'circle' : 'circle-outline'
     }
 
@@ -4337,6 +4340,7 @@
 
 
     if (msg.kernel.watchdog === 0) {
+        msg.ui_update.buttonColor = msg.dictionary.option_color.none;
         msg.enabled = false;
     }
 
@@ -5198,8 +5202,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
-  'y': 3200
+  x: 250
+  'y': 3260
   wires:
     - - b15906f64f676c58
       - 67dd6befba96ef0c
@@ -5501,9 +5505,9 @@
   'y': 3140
   wires:
     - - f647395af025317d
-      - 38d76fb8bec3c348
       - 01a3e5a29c8942ad
       - acb7047c142b68bc
+      - a8dad7d80b9a62e0
 - id: f2916db2b04f939b
   type: function
   z: 852390cb9559e176
@@ -5806,3 +5810,24 @@
   'y': 3260
   wires:
     - - 8c8b18f7d203ece6
+- id: a8dad7d80b9a62e0
+  type: function
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: data
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.detail.chart_refresh || 'Refresh'
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 250
+  'y': 3200
+  wires:
+    - - 38d76fb8bec3c348

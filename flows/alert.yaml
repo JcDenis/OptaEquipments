@@ -316,8 +316,8 @@
         // admin can select a plant
         msg.payload = form[msg.hmi.id]['plant'] || '';
 
-    // Get plants for form
-    msg = await node.linkcall('option - plant', msg);
+        // Get plants for form
+        msg = await node.linkcall('option - plant', msg);
 
         // user must selected a plant
         if (msg.payload === '') {

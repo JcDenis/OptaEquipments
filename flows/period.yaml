@@ -434,13 +434,11 @@
         }
     }
 
-    if (i < 1) {
-
-        return;
+    // sort
+    if (i > 0) {
+        msg.class = '';
+        msg.enabled = true;
     }
-
-    msg.class = '';
-    msg.enabled = true
 
     if (msg.hmi.lang === 'fr') {
 
@@ -578,14 +576,11 @@
     }
 
     // sort
-    if (i < 1) {
-
-        return;
+    if (i > 0) {
+        msg.class = '';
+        msg.enabled = true;
+        msg.payload.sort((a, b) => a.line_full.localeCompare(b.line_full));
     }
-
-    msg.class = '';
-    msg.enabled = true;
-    msg.payload.sort((a, b) => a.line_full.localeCompare(b.line_full));
 
     // lang
     if (msg.hmi.lang === 'fr') {
@@ -719,13 +714,11 @@
         }
     }
 
-    if (i < 1) {
-
-        return;
+    // sort
+    if (i > 0) {
+        msg.class = '';
+        msg.enabled = true;
     }
-
-    msg.class = '';
-    msg.enabled = true
 
     if (msg.hmi.lang === 'fr') {
 

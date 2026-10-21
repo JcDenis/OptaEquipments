@@ -56,6 +56,25 @@
   'y': 279
   w: 872
   h: 502
+- id: f528a17616994ebd
+  type: group
+  z: 05f6b695d75a73cf
+  name: map - cycle
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 83b36a54207edf64
+    - e9f0038d043c59de
+    - d15633e2b1277117
+    - 81d17d11d8819a19
+    - aa4f46fb6524930e
+  x: 84
+  'y': 819
+  w: 692
+  h: 82
 - id: 1d8d13781c0d578e
   type: link in
   z: 05f6b695d75a73cf
@@ -101,9 +120,6 @@
 
         // Get plants for form
         msg = await node.linkcall('option - plant', msg);
-
-        //msg.enabled = true;
-        //msg.class = '';
 
         return [ null, msg ];
     }
@@ -228,23 +244,33 @@
     msg.enabled = true;
     msg.payload = { };
 
-    let heat_color = msg.dictionary.option_color.theme + '00'; // transparent
+    let heat_color = msg.dictionary.option_color.off + '00'; // transparent
     let run_on = 0;
     let run_off = 0;
+    let cycle_on = 0;
     let heat_on = 0;
     let heat_off = 0;
 
     for (const l in location) {
         if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
-            heat_color = msg.dictionary.option_color.theme + '00';
+            heat_color = msg.dictionary.option_color.on + '00';
             run_on = 0;
             run_off = 0;
+            cycle_on = 0;
             heat_on = 0;
             heat_off = 0;
 
             // Get line equipements
             for (const e in equipments) {
                 if (equipments[e] === l) {
+                    let cycle = global.get('kernel.state["' + e + '|cycle"]');
+                    if (typeof cycle === 'number') {
+                        msg.equipment = e;
+                        msg = await node.linkcall('map - cycle', msg);
+                        if (msg.equipment === 1) {
+                            cycle_on++;
+                        }
+                    }
                     let heat = global.get('kernel.state["' + e + '|heat"]');
                     if (typeof heat === 'number') {
                         if (heat === 1) {
@@ -284,7 +310,8 @@
                 'w': Number(split[3] || 50),
                 'h': Number(split[4] || 40),
                 'c': heat_color,
-                'r': run_on > run_off ? 1 : 0 // more than half of equipments
+                'r': run_on > run_off ? 1 : 0, // more than half of equipments
+                'p': cycle_on > 0 ? 1 : 0
             };
         }
     }
@@ -380,14 +407,30 @@
                             name.textContent = msg.payload[line]['title'];
                             group.append(name);
 
-                            // Run icon and color
-                            if (msg.payload[line]['r'] === 1) {
+                            // Cycle icon and color
+                            if (msg.payload[line]['p'] === 1) {
                                 let icon = document.createElementNS(svgns, 'path');
                                 icon.setAttribute('d', "M544.1 256L552 256C565.3 256 576 245.3 576 232L576 88C576 78.3 570.2 69.5 561.2 65.8C552.2 62.1 541.9 64.2 535 71L483.3 122.8C439 86.1 382 64 320 64C191 64 84.3 159.4 66.6 283.5C64.1 301 76.2 317.2 93.7 319.7C111.2 322.2 127.4 310 129.9 292.6C143.2 199.5 223.3 128 320 128C364.4 128 405.2 143 437.7 168.3L391 215C384.1 221.9 382.1 232.2 385.8 241.2C389.5 250.2 398.3 256 408 256L544.1 256zM573.5 356.5C576 339 563.8 322.8 546.4 320.3C529 317.8 512.7 330 510.2 347.4C496.9 440.4 416.8 511.9 320.1 511.9C275.7 511.9 234.9 496.9 202.4 471.6L249 425C255.9 418.1 257.9 407.8 254.2 398.8C250.5 389.8 241.7 384 232 384L88 384C74.7 384 64 394.7 64 408L64 552C64 561.7 69.8 570.5 78.8 574.2C87.8 577.9 98.1 575.8 105 569L156.8 517.2C201 553.9 258 576 320 576C449 576 555.7 480.6 573.4 356.5z");
-                                icon.setAttribute('class', 'oe-run');
+                                icon.setAttribute('class', 'oe-cycle');
 
                                 let run = document.createElementNS(svgns, 'svg');
                                 run.setAttribute('viewBox', "0 0 640 640");
+                                run.setAttribute('width', '0.75em');
+                                run.setAttribute('height', '0.75em');
+                                run.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2) - 6);
+                                run.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2) + 4);
+                                run.append(icon);
+                                group.append(run);
+                            }
+
+                            // Run icon and color
+                            else if (msg.payload[line]['r'] === 1) {
+                                let icon = document.createElementNS(svgns, 'path');
+                                icon.setAttribute('d', "M13,3H11V13H13V3M17.83,5.17L16.41,6.59C18.05,7.91 19,9.9 19,12A7,7 0 0,1 12,19C8.14,19 5,15.88 5,12C5,9.91 5.95,7.91 7.58,6.58L6.17,5.17C2.38,8.39 1.92,14.07 5.14,17.86C8.36,21.64 14.04,22.1 17.83,18.88C19.85,17.17 21,14.65 21,12C21,9.37 19.84,6.87 17.83,5.17Z");
+                                icon.setAttribute('class', 'oe-run');
+
+                                let run = document.createElementNS(svgns, 'svg');
+                                run.setAttribute('viewBox', "0 0 24 24");
                                 run.setAttribute('width', '0.75em');
                                 run.setAttribute('height', '0.75em');
                                 run.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2) - 6);
@@ -431,7 +474,7 @@
             font-size: 0.6em;
             font-weight: bold;
         }
-        .oe-run {
+        .oe-cycle {
             transform-origin: 50% 50%;
             animation: rotation 2s infinite linear;
             //filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);
@@ -560,10 +603,10 @@
 
         let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;
 
-        let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;
+        let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.on : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;
         let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';
 
-        let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.theme : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;
+        let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.on : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;
         let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';
 
         child[c++] = {
@@ -1132,3 +1175,92 @@
   x: 915
   'y': 380
   wires: []
+- id: 83b36a54207edf64
+  type: link in
+  z: 05f6b695d75a73cf
+  g: f528a17616994ebd
+  name: map - cycle
+  links: []
+  x: 125
+  'y': 860
+  wires:
+    - - 81d17d11d8819a19
+- id: e9f0038d043c59de
+  type: link out
+  z: 05f6b695d75a73cf
+  g: f528a17616994ebd
+  name: map - cycle
+  mode: return
+  links: []
+  x: 735
+  'y': 860
+  wires: []
+- id: d15633e2b1277117
+  type: influxdb in
+  z: 05f6b695d75a73cf
+  g: f528a17616994ebd
+  influxdb: 71289f771ef25fc5
+  name: map - cycle
+  query: ''
+  rawOutput: false
+  precision: ''
+  retentionPolicy: ''
+  org: optaequipments
+  x: 430
+  'y': 860
+  wires:
+    - - aa4f46fb6524930e
+- id: 81d17d11d8819a19
+  type: function
+  z: 05f6b695d75a73cf
+  g: f528a17616994ebd
+  name: data
+  func: |-
+    // Prepare influxdb query
+
+    msg.topic = '';
+    msg.old_payload = msg.payload;
+    msg.payload = '';
+    msg.query = 
+    'from(bucket: "state") ' +
+    '  |> range(start: -5s, stop: now()) ' +
+    '  |> filter(fn: (r) => r["_measurement"] == "' + msg.equipment + '") ' +
+    '  |> filter(fn: (r) => r["_field"] == "cycle") ' +
+    '  |> filter(fn: (r) => r["_value"] == 1) ' +
+    '  |> last()';
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 250
+  'y': 860
+  wires:
+    - - d15633e2b1277117
+- id: aa4f46fb6524930e
+  type: function
+  z: 05f6b695d75a73cf
+  g: f528a17616994ebd
+  name: data
+  func: |-
+    msg.equipment = msg.payload.length;
+    msg.payload = msg.old_payload;
+
+    delete msg.old_payload;
+    delete msg.equipement;
+    delete msg.query
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 610
+  'y': 860
+  wires:
+    - - e9f0038d043c59de

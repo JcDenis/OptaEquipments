@@ -23,6 +23,7 @@
     - 5a825d48de813e3e
     - 87f5723e3123e133
     - 1a7777114f11ff8b
+    - a27ba878fd1b8cd2
   x: 104
   'y': 99
   w: 862
@@ -168,7 +169,7 @@
   g: 90f47fc795048184
   name: non authenticated users get language from browser. see ui-template
   info: ''
-  x: 460
+  x: 620
   'y': 320
   wires: []
 - id: 5a825d48de813e3e
@@ -225,7 +226,7 @@
 
     return [ null, null, msg ];
   outputs: 3
-  timeout: 0
+  timeout: '0'
   noerr: 0
   initialize: ''
   finalize: ''
@@ -246,7 +247,6 @@
     let user = global.get('user'); // autoupdate
 
     delete user[ msg._client.socketId ];
-
     delete msg.ui_update;
 
     return msg;
@@ -280,11 +280,16 @@
 
     // UI redirect to alert page
     if (msg.payload === true) {
-        // For now just go to map page even if not set
-        msg.payload = global.get('describe.pages.map.tab') || '';
 
-        // debug
-        //flow.set('login[' + msg.login + '"]', Date.now());
+        // Get user from user check
+        msg = await node.linkcall('kernel - hmi', msg);
+
+        if (msg.hmi.level === 'admin' || (msg.hmi.plant !== '' && (global.get('kernel["map"]["' + msg.hmi.plant + '"]') || '') !== '')) {
+            msg.payload = global.get('describe.pages.map.tab') || '';
+        }
+        else {
+            msg.payload = global.get('describe.pages.alert.tab') || '';
+        }
 
         return msg;
     }
@@ -304,3 +309,15 @@
   'y': 260
   wires:
     - - bb71762ba2269b75
+- id: a27ba878fd1b8cd2
+  type: catch
+  z: 27841aa886edd1cd
+  g: 90f47fc795048184
+  name: lost linkcall
+  scope:
+    - 5a825d48de813e3e
+  uncaught: false
+  x: 280
+  'y': 320
+  wires:
+    - []
