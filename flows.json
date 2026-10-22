@@ -1551,9 +1551,6 @@
             "5621e43ca08d7164",
             "548dfd511b350f7a",
             "58a56d94ba226005",
-            "457bd17747e44d56",
-            "4e94023e8ba12f50",
-            "3808fde4099a032e",
             "b26118d774fd82d4"
         ],
         "x": 68,
@@ -2229,6 +2226,29 @@
         "y": 279,
         "w": 872,
         "h": 502
+    },
+    {
+        "id": "f528a17616994ebd",
+        "type": "group",
+        "z": "05f6b695d75a73cf",
+        "name": "map - cycle",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "83b36a54207edf64",
+            "e9f0038d043c59de",
+            "d15633e2b1277117",
+            "81d17d11d8819a19",
+            "aa4f46fb6524930e"
+        ],
+        "x": 84,
+        "y": 819,
+        "w": 692,
+        "h": 82
     },
     {
         "id": "fa94e5dda0432e95",
@@ -3280,29 +3300,6 @@
         "h": 82
     },
     {
-        "id": "f528a17616994ebd",
-        "type": "group",
-        "z": "05f6b695d75a73cf",
-        "name": "map - cycle",
-        "style": {
-            "stroke": "#ff0000",
-            "fill": "#ff0000",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "83b36a54207edf64",
-            "e9f0038d043c59de",
-            "d15633e2b1277117",
-            "81d17d11d8819a19",
-            "aa4f46fb6524930e"
-        ],
-        "x": 84,
-        "y": 819,
-        "w": 692,
-        "h": 82
-    },
-    {
         "id": "f516c1341f0f634c",
         "type": "mqtt-broker",
         "name": "mqtt",
@@ -3377,7 +3374,7 @@
         "name": "Default Theme",
         "colors": {
             "surface": "#fcfcfd",
-            "primary": "#0a55bd",
+            "primary": "#0d74ce",
             "bgPage": "#f9f9fb",
             "groupBg": "#ffffff",
             "groupOutline": "#d9d9e0"
@@ -4172,9 +4169,9 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": ".v-card-item {\n    display: none;\n}\n.v-card-text {\n    margin-top: 1em;\n}\n.v-tab-item--selected {\n    color: rgb(var(--v-theme-primary)) !important;\n}\n.v-card .remove,\n.v-card-text .remove {\n    display: none !important;\n    visibility: hidden;\n    color: transparent !important;\n}\n.nrdb-ui-file-input .v-btn__content {\n    text-indent: -9999px;\n    line-height: 0;\n}\n.nrdb-ui-file-input .v-btn__content::after {\n    content: \"►\";\n    text-indent: 0;\n    display: block;\n    line-height: initial;\n}\n.v-main {\n    padding-bottom: 2em;\n}\n\n.ui-title span {\n    font-size: 1.4rem !important;\n    padding: 0;\n    color: rgb(var(--v-theme-primary));\n}\n.ui-spacer {\n    border-top: 2px solid rgba(var(--v-border-color), var(--v-border-opacity));\n}\n.nrdb-ui-group {\n    border-radius: 4px;\n    box-shadow: 3px 2px 2px rgba(var(--v-border-color), var(--v-border-opacity));\n}\n.v-toolbar {\n    background: rgb(var(--v-theme-background));\n    padding: 0 0.5em;\n}\n.v-toolbar .v-btn-group {\n    background: rgb(var(--v-theme-navigation-background));\n}\n\n#oe-map-group {\n    width: 100%;\n}\n.oe-vendor {\n    position: absolute;\n    right: 5px;\n    bottom: 5px;\n    opacity: 0.2;\n}",
+        "format": "body {\n    background: rgb(var(--v-theme-background));\n}\n.v-application__wrap {\n    min-height: 60dvh;\n}\n.v-card-item {\n    display: none;\n}\n.v-card-text {\n    margin-top: 1em;\n}\n.v-tab-item--selected {\n    color: rgb(var(--v-theme-primary)) !important;\n}\n.v-card .remove,\n.v-card-text .remove {\n    display: none !important;\n    visibility: hidden;\n    color: transparent !important;\n}\n.nrdb-ui-file-input .v-btn__content {\n    text-indent: -9999px;\n    line-height: 0;\n}\n.nrdb-ui-file-input .v-btn__content::after {\n    content: \"►\";\n    text-indent: 0;\n    display: block;\n    line-height: initial;\n}\n\n.nrdb-ui-group {\n    border-radius: 4px;\n    box-shadow: 3px 2px 2px rgba(var(--v-border-color), var(--v-border-opacity));\n}\n.v-toolbar {\n    background: rgb(var(--v-theme-background));\n    padding: 0 0.5em;\n}\n.v-toolbar .v-btn-group {\n    z-index: 2;\n    background: rgb(var(--v-theme-navigation-background));\n}\n\n.oe-vendor {\n    position: absolute;\n    right: 1em;\n    bottom: 1em;\n    opacity: 0.15;\n}\n.oe-vendor:hover {\n    opacity: 1;\n}\n.oe-title span {\n    font-size: 1.4rem !important;\n    padding: 0;\n    color: rgb(var(--v-theme-primary));\n}\n\n#oe-map-group {\n    width: 100%;\n    padding-bottom: 6em;\n}\n.oe-map-heat {\n    cursor: pointer;\n    transition: fill 0.6s ease;\n}\n.oe-map-click:hover {\n    opacity: 0.75;\n    stroke: rgb(var(--v-theme-navigation-background));\n    stroke-width: 2px;\n}\n.oe-map-short {\n    filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);\n    font-size: 0.6em;\n    font-weight: bold;\n}\n.oe-map-play {\n    animation: blink 1s 5;\n}\n.oe-map-help {\n    position: absolute;\n    bottom: 1em;\n    left: 1em;\n    padding: 1em;\n    list-style-type: none;\n    line-height: 1.2em;\nborder-radius: 4px;\n    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));\n    box-shadow: 3px 2px 2px rgba(var(--v-border-color), var(--v-border-opacity));\n    background: rgb(var(--v-theme-group-background));\n}\n\n@keyframes blink {\n    0% { opacity: 1; }\n    100% { opacity: 0; }\n}",
         "storeOutMessages": true,
-        "passthru": true,
+        "passthru": false,
         "resendOnRefresh": true,
         "templateScope": "site:style",
         "className": "",
@@ -4182,52 +4179,6 @@
         "y": 3400,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "457bd17747e44d56",
-        "type": "ui-notification",
-        "z": "f6f2187d.f17ca8",
-        "g": "41bba9b342eebdae",
-        "ui": "68fb8d742e5053db",
-        "position": "center center",
-        "colorDefault": true,
-        "color": "#000000",
-        "displayTime": "5",
-        "showCountdown": true,
-        "outputs": 1,
-        "allowDismiss": true,
-        "dismissText": "Close",
-        "allowConfirm": false,
-        "confirmText": "Confirm",
-        "raw": true,
-        "className": "",
-        "name": "ui - notice",
-        "x": 280,
-        "y": 3620,
-        "wires": [
-            [
-                "3808fde4099a032e"
-            ]
-        ]
-    },
-    {
-        "id": "4e94023e8ba12f50",
-        "type": "link in",
-        "z": "f6f2187d.f17ca8",
-        "g": "41bba9b342eebdae",
-        "name": "ui - notice - old",
-        "links": [
-            "2e0c6e8b3e58b338",
-            "a9568851b155c486",
-            "e01152247fcb2952"
-        ],
-        "x": 145,
-        "y": 3620,
-        "wires": [
-            [
-                "457bd17747e44d56"
-            ]
         ]
     },
     {
@@ -4365,24 +4316,6 @@
         ],
         "x": 335,
         "y": 140,
-        "wires": []
-    },
-    {
-        "id": "3808fde4099a032e",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "g": "41bba9b342eebdae",
-        "name": "ui - notice",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 460,
-        "y": 3620,
         "wires": []
     },
     {
@@ -4662,7 +4595,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe_header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"msg.current\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"msg.page\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_buttons: [],\n                mounted: false\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe_header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe_header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"msg.current\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"msg.page\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_buttons: [],\n                mounted: false\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
         "storeOutMessages": true,
         "passthru": false,
         "resendOnRefresh": true,
@@ -6946,7 +6879,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "fr",
-        "func": "if (msg.hmi.lang !== 'fr') {\n\n    return msg;\n}\n\nconst data = {\n    'lang': 'fr',\n    'option_page': {\n        'auth': 'Authentification',\n        'map': 'Implantation',\n        'alert': 'Alertes',\n        'period': 'Programmes',\n        'detail': 'Detail',\n        'list': 'Liste',\n        'tree': 'Arborescence',\n        'users': 'Utilisateurs',\n        'system': 'Système'\n    },\n    'option_resolution': {\n        '1': '1 minute',\n        '2': '2 minutes',\n        '5': '5 minutes',\n        '15': '15 minutes',\n        '30': '30 minuts',\n        '60': '1 heure'\n    },\n    'option_level': {\n        'prod': 'Production',\n        'rp': 'Responsable production',\n        'tech': 'Technicien',\n        'rt': 'Responsable technique',\n        'admin': 'Administrateur'\n    },\n    'option_team': {\n        'm': 'Matin',\n        'a': 'Après-midi',\n        'n': 'Nuit',\n        'd': 'Journée',\n        's': 'Samedi'\n    },\n    'option_lang': {\n        'en': 'Anglais',\n        'fr': 'Français'\n    },\n    'option_group': {\n        'run': 'Fonctionnement',\n        'cycle':'Impulsion',\n        'heat': 'Chauffe',\n        'uptime': 'Système',\n        'voltage': 'Puissance',\n        'mirror': 'Mirroir'\n    },\n    'option_component': {\n        'run': 'Lecture état de fonctionnement',\n        'heat': 'Lecture état de chauffe',\n        'voltage': 'Lecture de tension',\n        'power': 'Lecture de puisance',\n        '1wh': \"Lecture d'impulsion de puissance par Wh\",\n        'cycle': \"Lecture d'impulsion de cycle\",\n        'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n        'runmeter': \"Lecture de compteur partiel d'heures\",\n        'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n        'runmetertotal': \"Lecture de compteur total d'heures\",\n        'cyclemirror': 'Commande de cycle mirroir',\n        'runmirror': 'Command de fonctionnement mirroir',\n        'heatswitch': 'Commande de chauffe permanente libre',\n        'heattoggle': 'Commande de chauffe inverseur libre',\n        'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n        'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n        'runreset': \"Commande de RAZ compteur partiel d'heures\",\n        'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n        'load1meter': 'Charge système à 1 minute',\n        'load5meter': 'Charge système à 5 minutes',\n        'load15meter': 'Charge système à 15 minutes',\n        'memorymeter': 'Utilisation mémoire',\n        'diskmeter': 'Utilisation disque',\n        'uptimemeter': 'Durée de fonctionnement'\n    },\n    'option_select': {\n        'plant': 'Sélectionner une usine',\n        'line': 'Sélectionner une ligne',\n        'equipment': 'Sélectionner un équipement',\n        'model': 'Sélectionner un modèle',\n        'device': 'Sélectionner un matériel',\n        'link': 'Sélectionner un lien',\n        'component': 'Sélectionner un composant',\n        'group': 'Sélectionner un groupe',\n        'team': 'Sélectionner une équipe',\n        'day': 'Sélectionner un jour',\n        'timezone': 'Sélectionner une zone horaire',\n        'contact': 'Sélectionner un type de contact',\n        'list': 'Sélectionner une liste',\n        'action': 'Sélectionner une action',\n        'input': 'Sélectionner une entrée',\n        'output': 'Sélectionner une sortie',\n        'limit': 'Sélectionner une limite',\n        'start_time': \"Sélectionner l'heure de début\",\n        'stop_time': \"Sélectionner l'heure de fin\",\n        'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n    },\n    'option_action': {\n        'delete': 'Supprimer',\n        'add': 'Ajouter',\n        'edit': 'Modifier',\n        'save': 'Enregistrer',\n        'disconnect': 'Déconnecter'\n    },\n    'option_notice': {\n        'login_fail': 'Mauvais identifiant ou mot de passe',\n        'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n        'update_fail': 'La mise à jour a échoué',\n        'update_success': 'Mise à jour avec succès',\n        'plant_exists': 'Cette usine existe déjà',\n        'line_exists': 'Cette ligne existe déjà',\n        'equipment exists': 'Cet équipement existe déjà',\n        'device_noempty': \"Ce matériel n'est pas vide\"\n    },\n    'option_name': {\n        'plants': 'Usines',\n        'lines': 'Lignes',\n        'equipments': 'Equipements',\n        'devices': 'Matériels',\n        'components': 'Composants',\n        'alerts': 'Alertes',\n        'teams': 'Equipes',\n        'day': 'Changement de jour',\n        'holidays': 'Jours fériés',\n        'maps': \"Plans d'usines\",\n        'locations': 'Implantation des lignes',\n        'team_morning': 'Matin',\n        'team_afternoon': 'Après-midi',\n        'team_night': 'Nuit',\n        'team_day': 'Journée',\n        'team_saturday': 'Samedi',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant':' Usine',\n        'watchdog': 'Chien de garde',\n        'telegram': 'Telegram',\n    },\n    'auth': {\n        'user': 'Utilisateur : ',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe'\n    },\n    'period': {\n        'enable': '►',\n        'disable': 'X',\n        'state_title':'Etat actuel : ',\n        'state_help':'► est activé,  X est désactivé',\n    },\n    'detail': {\n        'live_title': 'Direct',\n        'live_run': 'Fonctionnement',\n        'live_runmeter': 'Heures partieles',\n        'live_runmetertotal': 'Herures totales',\n        'live_runreset': \"RAZ compteur d'heures\",\n        'live_cycle': 'Cycle',\n        'live_cyclemeter': 'Cycles partiels',\n        'live_cyclemetertotal': 'Cycles totals',\n        'live_cyclereset': 'RAZ compteur de cycles',\n        'live_heat': 'Chauffe',\n        'live_heatswitchon': 'Activer la chauffe',\n        'live_heatswitchoff': 'Désactiver la chauffe',\n        'live_heattoggle': 'Inverser la chauffe',\n        'live_voltage': 'Tension',\n        'live_power': 'Puissance',\n        'live_load1meter': 'Charge à 1m',\n        'live_load5meter': 'Charge à 5m',\n        'live_load15meter': 'Charge à 15m',\n        'live_memorymeter': 'Utilisation mémoire',\n        'live_diskmeter': 'Utilisation disque',\n        'live_uptimemeter': 'Durée',\n        'chart_historic': 'Historique',\n        'chart_refresh': 'Rafraichir',\n        'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',\n        'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',\n        'chart_rundate': 'Etat de fonctionnement moyen suivant résolution',\n    },\n    'list': {\n        'records': \"Nombre total d'enregistrements: \"\n    },\n    'tree': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour'\n    },\n    'users': {\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant': 'Usine',\n        'telegram': 'Telegram'\n    }\n};\n\n// Merge dictionary fr to en\nfor (const k in msg.dictionary) {\n    if (typeof msg.dictionary[k] === 'object' && typeof data[k] === 'object') {\n        msg.dictionary[k] = { ...msg.dictionary[k], ...data[k] };\n    }\n    else if (typeof msg.dictionary[k] === 'string' && typeof data[k] === 'object') {\n        msg.dictionary[k] = data[k];\n    }\n}\nreturn msg;",
+        "func": "if (msg.hmi.lang !== 'fr') {\n\n    return msg;\n}\n\nconst data = {\n    'lang': 'fr',\n    'option_page': {\n        'auth': 'Authentification',\n        'map': 'Implantation',\n        'alert': 'Alertes',\n        'period': 'Programmes',\n        'detail': 'Detail',\n        'list': 'Liste',\n        'tree': 'Arborescence',\n        'users': 'Utilisateurs',\n        'system': 'Système'\n    },\n    'option_resolution': {\n        '1': '1 minute',\n        '2': '2 minutes',\n        '5': '5 minutes',\n        '15': '15 minutes',\n        '30': '30 minuts',\n        '60': '1 heure'\n    },\n    'option_level': {\n        'prod': 'Production',\n        'rp': 'Responsable production',\n        'tech': 'Technicien',\n        'rt': 'Responsable technique',\n        'admin': 'Administrateur'\n    },\n    'option_team': {\n        'm': 'Matin',\n        'a': 'Après-midi',\n        'n': 'Nuit',\n        'd': 'Journée',\n        's': 'Samedi'\n    },\n    'option_lang': {\n        'en': 'Anglais',\n        'fr': 'Français'\n    },\n    'option_group': {\n        'run': 'Fonctionnement',\n        'cycle':'Impulsion',\n        'heat': 'Chauffe',\n        'uptime': 'Système',\n        'voltage': 'Puissance',\n        'mirror': 'Mirroir'\n    },\n    'option_component': {\n        'run': 'Lecture état de fonctionnement',\n        'heat': 'Lecture état de chauffe',\n        'voltage': 'Lecture de tension',\n        'power': 'Lecture de puisance',\n        '1wh': \"Lecture d'impulsion de puissance par Wh\",\n        'cycle': \"Lecture d'impulsion de cycle\",\n        'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n        'runmeter': \"Lecture de compteur partiel d'heures\",\n        'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n        'runmetertotal': \"Lecture de compteur total d'heures\",\n        'cyclemirror': 'Commande de cycle mirroir',\n        'runmirror': 'Command de fonctionnement mirroir',\n        'heatswitch': 'Commande de chauffe permanente libre',\n        'heattoggle': 'Commande de chauffe inverseur libre',\n        'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n        'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n        'runreset': \"Commande de RAZ compteur partiel d'heures\",\n        'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n        'load1meter': 'Charge système à 1 minute',\n        'load5meter': 'Charge système à 5 minutes',\n        'load15meter': 'Charge système à 15 minutes',\n        'memorymeter': 'Utilisation mémoire',\n        'diskmeter': 'Utilisation disque',\n        'uptimemeter': 'Durée de fonctionnement'\n    },\n    'option_select': {\n        'plant': 'Sélectionner une usine',\n        'line': 'Sélectionner une ligne',\n        'equipment': 'Sélectionner un équipement',\n        'model': 'Sélectionner un modèle',\n        'device': 'Sélectionner un matériel',\n        'link': 'Sélectionner un lien',\n        'component': 'Sélectionner un composant',\n        'group': 'Sélectionner un groupe',\n        'team': 'Sélectionner une équipe',\n        'day': 'Sélectionner un jour',\n        'timezone': 'Sélectionner une zone horaire',\n        'contact': 'Sélectionner un type de contact',\n        'list': 'Sélectionner une liste',\n        'action': 'Sélectionner une action',\n        'input': 'Sélectionner une entrée',\n        'output': 'Sélectionner une sortie',\n        'limit': 'Sélectionner une limite',\n        'start_time': \"Sélectionner l'heure de début\",\n        'stop_time': \"Sélectionner l'heure de fin\",\n        'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n    },\n    'option_action': {\n        'delete': 'Supprimer',\n        'add': 'Ajouter',\n        'edit': 'Modifier',\n        'save': 'Enregistrer',\n        'disconnect': 'Déconnecter'\n    },\n    'option_notice': {\n        'login_fail': 'Mauvais identifiant ou mot de passe',\n        'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n        'update_fail': 'La mise à jour a échoué',\n        'update_success': 'Mise à jour avec succès',\n        'plant_exists': 'Cette usine existe déjà',\n        'line_exists': 'Cette ligne existe déjà',\n        'equipment exists': 'Cet équipement existe déjà',\n        'device_noempty': \"Ce matériel n'est pas vide\"\n    },\n    'option_name': {\n        'plants': 'Usines',\n        'lines': 'Lignes',\n        'equipments': 'Equipements',\n        'devices': 'Matériels',\n        'components': 'Composants',\n        'alerts': 'Alertes',\n        'teams': 'Equipes',\n        'day': 'Changement de jour',\n        'holidays': 'Jours fériés',\n        'maps': \"Plans d'usines\",\n        'locations': 'Implantation des lignes',\n        'team_morning': 'Matin',\n        'team_afternoon': 'Après-midi',\n        'team_night': 'Nuit',\n        'team_day': 'Journée',\n        'team_saturday': 'Samedi',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant':' Usine',\n        'watchdog': 'Chien de garde',\n        'telegram': 'Telegram',\n    },\n    'auth': {\n        'user': 'Utilisateur : ',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe'\n    },\n    'map': {\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    },\n    'period': {\n        'enable': '►',\n        'disable': 'X',\n        'state_title':'Etat actuel : ',\n        'state_help':'► est activé,  X est désactivé',\n    },\n    'detail': {\n        'live_title': 'Direct',\n        'live_run': 'Fonctionnement',\n        'live_runmeter': 'Heures partieles',\n        'live_runmetertotal': 'Herures totales',\n        'live_runreset': \"RAZ compteur d'heures\",\n        'live_cycle': 'Cycle',\n        'live_cyclemeter': 'Cycles partiels',\n        'live_cyclemetertotal': 'Cycles totals',\n        'live_cyclereset': 'RAZ compteur de cycles',\n        'live_heat': 'Chauffe',\n        'live_heatswitchon': 'Activer la chauffe',\n        'live_heatswitchoff': 'Désactiver la chauffe',\n        'live_heattoggle': 'Inverser la chauffe',\n        'live_voltage': 'Tension',\n        'live_power': 'Puissance',\n        'live_load1meter': 'Charge à 1m',\n        'live_load5meter': 'Charge à 5m',\n        'live_load15meter': 'Charge à 15m',\n        'live_memorymeter': 'Utilisation mémoire',\n        'live_diskmeter': 'Utilisation disque',\n        'live_uptimemeter': 'Durée',\n        'chart_historic': 'Historique',\n        'chart_refresh': 'Rafraichir',\n        'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',\n        'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',\n        'chart_rundate': 'Etat de fonctionnement moyen suivant résolution',\n    },\n    'list': {\n        'records': \"Nombre total d'enregistrements: \"\n    },\n    'tree': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour'\n    },\n    'users': {\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant': 'Usine',\n        'telegram': 'Telegram'\n    }\n};\n\n// Merge dictionary fr to en\nfor (const k in msg.dictionary) {\n    if (typeof msg.dictionary[k] === 'object' && typeof data[k] === 'object') {\n        msg.dictionary[k] = { ...msg.dictionary[k], ...data[k] };\n    }\n    else if (typeof msg.dictionary[k] === 'string' && typeof data[k] === 'object') {\n        msg.dictionary[k] = data[k];\n    }\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15177,7 +15110,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "// Get plant map\n\nmsg.plant = msg.payload;\n\n// Reset UI\nif (msg.enabled !== true \n    || msg.plant === '' \n    || typeof global.get('kernel.map[\"' + msg.plant +'\"]') !== 'string'\n) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.plant = 'none'; // required for http get\n    msg.payload = { };\n\n    return msg;\n}\n\n// Wait ui update\nmsg = await node.linkcall('ui - latency', msg);\n\n// Get memories\nconst location = global.get('kernel.location') || { }; // Read\nconst lines = global.get('kernel.lines') || { }; // Read\nconst equipments = global.get('kernel.equipments') || { }; // Read\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = { };\n\nlet heat_color = msg.dictionary.option_color.off + '00'; // transparent\nlet run_on = 0;\nlet run_off = 0;\nlet cycle_on = 0;\nlet heat_on = 0;\nlet heat_off = 0;\n\nfor (const l in location) {\n    if (typeof lines[l] === 'string' && lines[l] === msg.plant) {\n        heat_color = msg.dictionary.option_color.on + '00';\n        run_on = 0;\n        run_off = 0;\n        cycle_on = 0;\n        heat_on = 0;\n        heat_off = 0;\n\n        // Get line equipements\n        for (const e in equipments) {\n            if (equipments[e] === l) {\n                let cycle = global.get('kernel.state[\"' + e + '|cycle\"]');\n                if (typeof cycle === 'number') {\n                    msg.equipment = e;\n                    msg = await node.linkcall('map - cycle', msg);\n                    if (msg.equipment === 1) {\n                        cycle_on++;\n                    }\n                }\n                let heat = global.get('kernel.state[\"' + e + '|heat\"]');\n                if (typeof heat === 'number') {\n                    if (heat === 1) {\n                        heat_on++;\n                    }\n                    else {\n                        heat_off++;\n                    }\n                }\n            \n                let run_state = global.get('kernel.state[\"' + e + '|run\"]');\n                if (typeof run_state === 'number') {\n                    if (run_state > 0) {\n                        run_on++;\n                    }\n                    else {\n                        run_off++;\n                    }\n                }\n            }\n        }\n        if (heat_on > 0 && heat_off === 0) {\n            heat_color = msg.dictionary.option_color.on + 'BB';\n        }\n        else if (heat_off > 0 && heat_on === 0) {\n            heat_color = msg.dictionary.option_color.off + 'BB';\n        }\n        else if (heat_on > 0 && heat_off > 0) {\n            heat_color = msg.dictionary.option_color.median + 'BB';\n        }\n\n        let split = location[l].split('|');\n        msg.payload[l] = {\n            'title': split[0],\n            'x': Number(split[1]),\n            'y': Number(split[2]),\n            'w': Number(split[3] || 50),\n            'h': Number(split[4] || 40),\n            'c': heat_color,\n            'r': run_on > run_off ? 1 : 0, // more than half of equipments\n            'p': cycle_on > 0 ? 1 : 0\n        };\n    }\n}\n\nreturn msg;",
+        "func": "// Get plant map\n\nmsg.plant = msg.payload;\n\n// Reset UI\nif (msg.enabled !== true \n    || msg.plant === '' \n    || typeof global.get('kernel.map[\"' + msg.plant +'\"]') !== 'string'\n) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.plant = 'none'; // required for http get\n    msg.payload = { };\n\n    return msg;\n}\n\n// Wait ui update\nmsg = await node.linkcall('ui - latency', msg);\n\n// Get memories\nconst location = global.get('kernel.location') || { }; // Read\nconst lines = global.get('kernel.lines') || { }; // Read\nconst equipments = global.get('kernel.equipments') || { }; // Read\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = { };\n\nlet heat_color = msg.dictionary.option_color.off + '00'; // transparent\nlet run_on = 0;\nlet run_off = 0;\nlet cycle_on = 0;\nlet heat_on = 0;\nlet heat_off = 0;\n\nfor (const l in location) {\n    if (typeof lines[l] === 'string' && lines[l] === msg.plant) {\n        heat_color = msg.dictionary.option_color.on + '00';\n        run_on = 0;\n        run_off = 0;\n        cycle_on = 0;\n        heat_on = 0;\n        heat_off = 0;\n\n        // Get line equipements\n        for (const e in equipments) {\n            if (equipments[e] === l) {\n                let cycle = global.get('kernel.state[\"' + e + '|cycle\"]');\n                if (typeof cycle === 'number') {\n                    msg.equipment = e;\n                    msg = await node.linkcall('map - cycle', msg);\n                    if (msg.equipment === 1) {\n                        cycle_on++;\n                    }\n                }\n                let heat = global.get('kernel.state[\"' + e + '|heat\"]');\n                if (typeof heat === 'number') {\n                    if (heat === 1) {\n                        heat_on++;\n                    }\n                    else {\n                        heat_off++;\n                    }\n                }\n            \n                let run_state = global.get('kernel.state[\"' + e + '|run\"]');\n                if (typeof run_state === 'number') {\n                    if (run_state > 0) {\n                        run_on++;\n                    }\n                    else {\n                        run_off++;\n                    }\n                }\n            }\n        }\n        if (heat_on > 0 && heat_off === 0) {\n            heat_color = msg.dictionary.option_color.on + 'BB';\n        }\n        else if (heat_off > 0 && heat_on === 0) {\n            heat_color = msg.dictionary.option_color.off + 'BB';\n        }\n        else if (heat_on > 0 && heat_off > 0) {\n            heat_color = msg.dictionary.option_color.median + 'BB';\n        }\n\n        let split = location[l].split('|');\n        msg.payload[l] = {\n            'title': split[0],\n            'x': Number(split[1]),\n            'y': Number(split[2]),\n            'w': Number(split[3] || 50),\n            'h': Number(split[4] || 40),\n            'c': heat_color,\n            'r': run_on > run_off ? 1 : 0, // more than half of equipments\n            'p': cycle_on > 0 ? 1 : 0\n        };\n    }\n}\n\nmsg.help_color = [msg.dictionary.option_color.on + 'BB', msg.dictionary.option_color.off + 'BB', msg.dictionary.option_color.median + 'BB'];\nmsg.help_on = msg.dictionary.map.help_on || 'Line is heating';\nmsg.help_off = msg.dictionary.map.help_off || 'Line is not heating';\nmsg.help_half = msg.dictionary.map.help_half || 'Some line equipments are not heating';\nmsg.help_stop = msg.dictionary.map.help_stop || 'Line is stopped';\nmsg.help_ready = msg.dictionary.map.help_ready || 'Line is ready';\nmsg.help_cycle = msg.dictionary.map.help_cycle || 'Line is in cycle';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15206,7 +15139,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#nrdb-page-ded8ef092f5c6531\">\n        <div id=\"oe-map-group\">\n            <svg viewBox=\"0 0 720 400\" width=\"100%\" height=\"100%\">\n                <image x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" />\n            </svg>\n        </div>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false\n            }\n        },\n        methods: {\n        },\n        mounted() {\n            this.mounted = true;\n        },\n        watch: {\n            msg: function (msg) {\n                let svgns = \"http://www.w3.org/2000/svg\";\n                let imgns = 'http://www.w3.org/1999/xlink';\n\n                var svg = document.body.querySelector(\"#oe-map-group svg\");\n                var img = document.body.querySelector(\"#oe-map-group svg image\");\n                img.setAttributeNS(imgns, 'xlink:href', '/' + msg.plant + '/plant.png');\n\n                /* Clean up all zones on new message */\n                let childs = svg.querySelectorAll('g');\n                [].forEach.call(childs,c=>{\n                    c.parentNode.removeChild(c);\n                });\n                if (msg.class === 'remove') {\n                    img.setAttribute('visibility', 'hidden');\n                }\n                else {\n                    img.setAttribute('visibility', 'visible');\n\n                    /* All zones must be set in one message */\n                    for (const line in msg.payload) {\n\n                        // Create line group\n                        let group = document.createElementNS(svgns,'g');\n                        \n                        // Background zone and color\n                        let heat = document.createElementNS(svgns, 'rect');\n                        heat.setAttribute('x', msg.payload[line]['x']);\n                        heat.setAttribute('y', msg.payload[line]['y']);\n                        heat.setAttribute('width', msg.payload[line]['w'] +'px');\n                        heat.setAttribute('height', msg.payload[line]['h'] + 'px');\n                        heat.setAttribute('fill', msg.payload[line]['c']);\n                        group.append(heat);\n\n                        // Short name zone and color\n                        let name = document.createElementNS(svgns, 'text');\n                        name.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2));\n                        name.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2));\n                        name.setAttribute('text-anchor', 'middle');\n                        name.setAttribute('class', 'oe-short');\n                        name.textContent = msg.payload[line]['title'];\n                        group.append(name);\n\n                        // Icon\n                        let icon = document.createElementNS(svgns, 'path');\n\n                        if (msg.payload[line]['p'] === 1) {\n                            icon.setAttribute('d', \"M8,5.14V19.14L19,12.14L8,5.14Z\");\n                            icon.setAttribute('class', 'oe-play');\n                        }\n                        else if (msg.payload[line]['r'] === 1) {\n                            icon.setAttribute('d', \"M14,19H18V5H14M6,19H10V5H6V19Z\");\n                            icon.setAttribute('class', 'oe-pause');\n                        }\n                        else {\n                            icon.setAttribute('d', \"M18,18H6V6H18V18Z\");\n                            icon.setAttribute('class', 'oe-stop');\n                        }\n\n                        let run = document.createElementNS(svgns, 'svg');\n                        run.setAttribute('viewBox', \"0 0 24 24\");\n                        run.setAttribute('width', '0.75em');\n                        run.setAttribute('height', '0.75em');\n                        run.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2) - 6);\n                        run.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2) + 4);\n                        run.append(icon);\n                        group.append(run);\n\n                        // Clickable zone\n                        let click = document.createElementNS(svgns, 'rect');\n                        click.setAttribute('x', msg.payload[line]['x']);\n                        click.setAttribute('y', msg.payload[line]['y']);\n                        click.setAttribute('width', msg.payload[line]['w'] +'px');\n                        click.setAttribute('height', msg.payload[line]['h'] + 'px');\n                        click.setAttribute('fill', 'rgba(0, 255, 8, 0.0)');\n                        click.setAttribute('class', 'oe-click');\n                        group.append(click);\n\n                        group.addEventListener('click', (evt) => {\n                            this.send({ payload: { 'line': line, 'plant': msg.plant } });\n                        });\n\n                        svg.appendChild(group);\n                    }\n                }\n            }\n        }\n    }\n</script>\n\n<style scoped>\n    .oe-click {\n        cursor: pointer;\n        transition: fill 0.6s ease;\n    }\n    .oe-click:hover {\n        fill: rgba(255, 255, 255, 0.5);\n    }\n    .oe-short {\n        filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);\n        font-size: 0.6em;\n        font-weight: bold;\n    }\n    .oe-play {\n        animation: blink 1s 5;\n    }\n    @keyframes blink {\n        0% { opacity: 1; }\n        100% { opacity: 0; }\n    }\n</style>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#nrdb-page-ded8ef092f5c6531\">\n        <div id=\"oe-map-group\">\n            <svg viewBox=\"0 0 720 400\" width=\"100%\" height=\"100%\">\n                <image x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" />\n            </svg>\n            <ul class=\"oe-map-help\">\n                <li><svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\"><rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" :fill=\"msg.help_color[0]\"></rect></svg> {{msg.help_on}}</li>\n                <li><svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\"><rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" :fill=\"msg.help_color[1]\"></rect></svg> {{msg.help_off}}</li>\n                <li><svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\"><rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" :fill=\"msg.help_color[2]\"></rect></svg> {{msg.help_half}}</li>\n\n                <li><span class=\"mdi mdi-stop\"></span> {{msg.help_stop}}</li>\n                <li><span class=\"mdi mdi-pause\"></span> {{msg.help_ready}}</li>\n                <li><span class=\"mdi mdi-play\"></span> {{msg.help_cycle}}</li>\n            <ul>\n        </div>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false\n            }\n        },\n        methods: {\n        },\n        mounted() {\n            this.mounted = true;\n        },\n        watch: {\n            msg: function (msg) {\n                let svgns = \"http://www.w3.org/2000/svg\";\n                let imgns = 'http://www.w3.org/1999/xlink';\n\n                var svg = document.body.querySelector(\"#oe-map-group svg\");\n                var img = document.body.querySelector(\"#oe-map-group svg image\");\n                img.setAttributeNS(imgns, 'xlink:href', '/' + msg.plant + '/plant.png');\n\n                /* Clean up all zones on new message */\n                let childs = svg.querySelectorAll('g');\n                [].forEach.call(childs,c=>{\n                    c.parentNode.removeChild(c);\n                });\n                if (msg.class === 'remove') {\n                    img.setAttribute('visibility', 'hidden');\n                }\n                else {\n                    img.setAttribute('visibility', 'visible');\n\n                    /* All zones must be set in one message */\n                    for (const line in msg.payload) {\n\n                        // Create line group\n                        let group = document.createElementNS(svgns,'g');\n                        \n                        // Background zone and color\n                        let heat = document.createElementNS(svgns, 'rect');\n                        heat.setAttribute('x', msg.payload[line]['x']);\n                        heat.setAttribute('y', msg.payload[line]['y']);\n                        heat.setAttribute('width', msg.payload[line]['w'] +'px');\n                        heat.setAttribute('height', msg.payload[line]['h'] + 'px');\n                        heat.setAttribute('fill', msg.payload[line]['c']);\n                        heat.setAttribute('class', 'oe-map-heat');\n                        group.append(heat);\n\n                        // Short name zone and color\n                        let name = document.createElementNS(svgns, 'text');\n                        name.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2));\n                        name.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2));\n                        name.setAttribute('text-anchor', 'middle');\n                        name.setAttribute('class', 'oe-map-short');\n                        name.textContent = msg.payload[line]['title'];\n                        group.append(name);\n\n                        // Icon\n                        let icon = document.createElementNS(svgns, 'path');\n\n                        if (msg.payload[line]['p'] === 1) {\n                            icon.setAttribute('d', \"M8,5.14V19.14L19,12.14L8,5.14Z\");\n                            icon.setAttribute('class', 'oe-map-play');\n                        }\n                        else if (msg.payload[line]['r'] === 1) {\n                            icon.setAttribute('d', \"M14,19H18V5H14M6,19H10V5H6V19Z\");\n                            icon.setAttribute('class', 'oe-map-pause');\n                        }\n                        else {\n                            icon.setAttribute('d', \"M18,18H6V6H18V18Z\");\n                            icon.setAttribute('class', 'oe-map-stop');\n                        }\n\n                        let run = document.createElementNS(svgns, 'svg');\n                        run.setAttribute('viewBox', \"0 0 24 24\");\n                        run.setAttribute('width', '0.75em');\n                        run.setAttribute('height', '0.75em');\n                        run.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2) - 6);\n                        run.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2) + 4);\n                        run.append(icon);\n                        group.append(run);\n\n                        // Clickable zone\n                        let click = document.createElementNS(svgns, 'rect');\n                        click.setAttribute('x', msg.payload[line]['x']);\n                        click.setAttribute('y', msg.payload[line]['y']);\n                        click.setAttribute('width', msg.payload[line]['w'] +'px');\n                        click.setAttribute('height', msg.payload[line]['h'] + 'px');\n                        click.setAttribute('fill', 'rgba(0, 0, 0, 0.0)');\n                        click.setAttribute('class', 'oe-map-click');\n                        group.append(click);\n\n                        group.addEventListener('click', (evt) => {\n                            this.send({ payload: { 'line': line, 'plant': msg.plant } });\n                        });\n\n                        svg.appendChild(group);\n                    }\n                }\n            }\n        }\n    }\n</script>",
         "storeOutMessages": true,
         "passthru": false,
         "resendOnRefresh": true,
@@ -15259,7 +15192,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "payload",
         "valueType": "msg",
         "x": 450,
@@ -15848,7 +15781,7 @@
         "z": "05f6b695d75a73cf",
         "g": "f528a17616994ebd",
         "name": "data",
-        "func": "// Prepare influxdb query\n\nmsg.topic = '';\nmsg.old_payload = msg.payload;\nmsg.payload = '';\nmsg.query = \n'from(bucket: \"state\") ' +\n'  |> range(start: -5s, stop: now()) ' +\n'  |> filter(fn: (r) => r[\"_measurement\"] == \"' + msg.equipment + '\") ' +\n'  |> filter(fn: (r) => r[\"_field\"] == \"cycle\") ' +\n'  |> filter(fn: (r) => r[\"_value\"] == 1) ' +\n'  |> last()';\n\nreturn msg;",
+        "func": "// Prepare influxdb query\n\nmsg.topic = '';\nmsg.old_payload = msg.payload;\nmsg.payload = '';\nmsg.query = \n'from(bucket: \"state\") ' +\n'  |> range(start: -15s, stop: now()) ' +\n'  |> filter(fn: (r) => r[\"_measurement\"] == \"' + msg.equipment + '\") ' +\n'  |> filter(fn: (r) => r[\"_field\"] == \"cycle\") ' +\n'  |> filter(fn: (r) => r[\"_value\"] == 1) ' +\n'  |> last()';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18481,7 +18414,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "payload",
         "valueType": "msg",
         "x": 1000,
@@ -18506,7 +18439,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "dictionary.option_page.alert",
         "valueType": "msg",
         "x": 470,
@@ -18531,7 +18464,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "payload",
         "valueType": "msg",
         "x": 630,
@@ -19250,7 +19183,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "dictionary.option_page.period",
         "valueType": "msg",
         "x": 490,
@@ -20839,7 +20772,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "payload",
         "valueType": "msg",
         "x": 1780,
@@ -26004,7 +25937,6 @@
         "g": "85b6019ecabb42eb",
         "name": "tree - alert",
         "links": [
-            "a9568851b155c486",
             "d5a2492cd9b261b1",
             "d72a795dc20c4057"
         ],
@@ -26940,7 +26872,6 @@
         "name": "tree - component",
         "links": [
             "d5a2492cd9b261b1",
-            "2e0c6e8b3e58b338",
             "54fd1f2eca676e0d"
         ],
         "x": 205,
@@ -34222,7 +34153,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Add a user",
         "valueType": "str",
         "x": 460,
@@ -34247,7 +34178,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Edit a user",
         "valueType": "str",
         "x": 460,
@@ -34272,7 +34203,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Users",
         "valueType": "str",
         "x": 460,
@@ -34297,7 +34228,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Backup users",
         "valueType": "str",
         "x": 470,
@@ -34694,7 +34625,7 @@
         "z": "adb48ef35d9453c0",
         "g": "a69df92e27bcc577",
         "name": "data",
-        "func": "if (!msg.enabled) {\n\n    return msg;\n}\n\nconst users = global.get('user');\nconst auth = global.get('auth');\n\nmsg.payload = { };\n\nfor (const u in auth) {\n    msg.payload[u] = { ...auth[u] };\n    msg.payload[u].login = u;\n    msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant[\"' + msg.payload[u].plant + '\"]') || '');\n    msg.payload[u].delete = msg.dictionary.option_action.delete;\n    msg.payload[u].disconnect = msg.dictionary.option_action.disconnect;\n    msg.payload[u].session = '-';\n    msg.payload[u].session_color = msg.dictionary.option_color.off;\n\n    for (const user in users) {\n        if (users[user][\"login\"] === msg.payload[u].login) {\n            msg.payload[u].session = user;\n            msg.payload[u].session_color = msg.dictionary.option_color.on;\n        }\n    }\n}\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = Object.values(msg.payload);\nmsg.payload.sort((a, b) => a.login.localeCompare(b.login));\n\nreturn msg;",
+        "func": "if (!msg.enabled) {\n\n    return msg;\n}\n\nconst users = global.get('user');\nconst auth = global.get('auth');\n\nmsg.payload = { };\n\nfor (const u in auth) {\n    msg.payload[u] = { ...auth[u] };\n    msg.payload[u].login = u;\n    msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant[\"' + msg.payload[u].plant + '\"]') || '');\n    msg.payload[u].delete = msg.dictionary.option_action.delete;\n    msg.payload[u].disconnect = msg.dictionary.option_action.disconnect;\n    msg.payload[u].session = '-';\n    msg.payload[u].session_color = msg.dictionary.option_color.off;\n    msg.payload[u].level_full = msg.payload[u].level === '' ? '' : (msg.dictionary.option_level[msg.payload[u].level] || msg.payload[u].level);\n\n    for (const user in users) {\n        if (users[user][\"login\"] === msg.payload[u].login) {\n            msg.payload[u].session = user;\n            msg.payload[u].session_color = msg.dictionary.option_color.on;\n        }\n    }\n}\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = Object.values(msg.payload);\nmsg.payload.sort((a, b) => a.login.localeCompare(b.login));\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -35528,7 +35459,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Application",
         "valueType": "str",
         "x": 310,
@@ -35553,7 +35484,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Opta firmware",
         "valueType": "str",
         "x": 310,
@@ -35578,7 +35509,7 @@
         "fontSize": 16,
         "color": "#717171",
         "wrapText": false,
-        "className": "ui-title",
+        "className": "oe-title",
         "value": "Tree structure",
         "valueType": "str",
         "x": 310,

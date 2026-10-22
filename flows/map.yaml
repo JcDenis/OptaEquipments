@@ -213,12 +213,15 @@
   z: 05f6b695d75a73cf
   g: 0e5ee31c1122d84d
   name: data
-  func: |-
+  func: >-
     // Get plant map
+
 
     msg.plant = msg.payload;
 
+
     // Reset UI
+
     if (msg.enabled !== true 
         || msg.plant === '' 
         || typeof global.get('kernel.map["' + msg.plant +'"]') !== 'string'
@@ -232,24 +235,40 @@
         return msg;
     }
 
+
     // Wait ui update
+
     msg = await node.linkcall('ui - latency', msg);
 
+
     // Get memories
+
     const location = global.get('kernel.location') || { }; // Read
+
     const lines = global.get('kernel.lines') || { }; // Read
+
     const equipments = global.get('kernel.equipments') || { }; // Read
 
+
     msg.class = '';
+
     msg.enabled = true;
+
     msg.payload = { };
 
+
     let heat_color = msg.dictionary.option_color.off + '00'; // transparent
+
     let run_on = 0;
+
     let run_off = 0;
+
     let cycle_on = 0;
+
     let heat_on = 0;
+
     let heat_off = 0;
+
 
     for (const l in location) {
         if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
@@ -316,6 +335,25 @@
         }
     }
 
+
+    msg.help_color = [msg.dictionary.option_color.on + 'BB',
+    msg.dictionary.option_color.off + 'BB', msg.dictionary.option_color.median +
+    'BB'];
+
+    msg.help_on = msg.dictionary.map.help_on || 'Line is heating';
+
+    msg.help_off = msg.dictionary.map.help_off || 'Line is not heating';
+
+    msg.help_half = msg.dictionary.map.help_half || 'Some line equipments are
+    not heating';
+
+    msg.help_stop = msg.dictionary.map.help_stop || 'Line is stopped';
+
+    msg.help_ready = msg.dictionary.map.help_ready || 'Line is ready';
+
+    msg.help_cycle = msg.dictionary.map.help_cycle || 'Line is in cycle';
+
+
     return msg;
   outputs: 1
   timeout: 0
@@ -347,6 +385,15 @@
                 <svg viewBox="0 0 720 400" width="100%" height="100%">
                     <image x="0" y="0" width="100%" height="100%" />
                 </svg>
+                <ul class="oe-map-help">
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="msg.help_color[0]"></rect></svg> {{msg.help_on}}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="msg.help_color[1]"></rect></svg> {{msg.help_off}}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="msg.help_color[2]"></rect></svg> {{msg.help_half}}</li>
+
+                    <li><span class="mdi mdi-stop"></span> {{msg.help_stop}}</li>
+                    <li><span class="mdi mdi-pause"></span> {{msg.help_ready}}</li>
+                    <li><span class="mdi mdi-play"></span> {{msg.help_cycle}}</li>
+                <ul>
             </div>
         </Teleport>
     </template>
@@ -396,6 +443,7 @@
                             heat.setAttribute('width', msg.payload[line]['w'] +'px');
                             heat.setAttribute('height', msg.payload[line]['h'] + 'px');
                             heat.setAttribute('fill', msg.payload[line]['c']);
+                            heat.setAttribute('class', 'oe-map-heat');
                             group.append(heat);
 
                             // Short name zone and color
@@ -403,7 +451,7 @@
                             name.setAttribute('x', msg.payload[line]['x'] + (msg.payload[line]['w'] / 2));
                             name.setAttribute('y', msg.payload[line]['y'] + (msg.payload[line]['h'] / 2));
                             name.setAttribute('text-anchor', 'middle');
-                            name.setAttribute('class', 'oe-short');
+                            name.setAttribute('class', 'oe-map-short');
                             name.textContent = msg.payload[line]['title'];
                             group.append(name);
 
@@ -412,15 +460,15 @@
 
                             if (msg.payload[line]['p'] === 1) {
                                 icon.setAttribute('d', "M8,5.14V19.14L19,12.14L8,5.14Z");
-                                icon.setAttribute('class', 'oe-play');
+                                icon.setAttribute('class', 'oe-map-play');
                             }
                             else if (msg.payload[line]['r'] === 1) {
                                 icon.setAttribute('d', "M14,19H18V5H14M6,19H10V5H6V19Z");
-                                icon.setAttribute('class', 'oe-pause');
+                                icon.setAttribute('class', 'oe-map-pause');
                             }
                             else {
                                 icon.setAttribute('d', "M18,18H6V6H18V18Z");
-                                icon.setAttribute('class', 'oe-stop');
+                                icon.setAttribute('class', 'oe-map-stop');
                             }
 
                             let run = document.createElementNS(svgns, 'svg');
@@ -438,8 +486,8 @@
                             click.setAttribute('y', msg.payload[line]['y']);
                             click.setAttribute('width', msg.payload[line]['w'] +'px');
                             click.setAttribute('height', msg.payload[line]['h'] + 'px');
-                            click.setAttribute('fill', 'rgba(0, 255, 8, 0.0)');
-                            click.setAttribute('class', 'oe-click');
+                            click.setAttribute('fill', 'rgba(0, 0, 0, 0.0)');
+                            click.setAttribute('class', 'oe-map-click');
                             group.append(click);
 
                             group.addEventListener('click', (evt) => {
@@ -453,28 +501,6 @@
             }
         }
     </script>
-
-    <style scoped>
-        .oe-click {
-            cursor: pointer;
-            transition: fill 0.6s ease;
-        }
-        .oe-click:hover {
-            fill: rgba(255, 255, 255, 0.5);
-        }
-        .oe-short {
-            filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);
-            font-size: 0.6em;
-            font-weight: bold;
-        }
-        .oe-play {
-            animation: blink 1s 5;
-        }
-        @keyframes blink {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-    </style>
   storeOutMessages: true
   passthru: false
   resendOnRefresh: true
@@ -533,7 +559,7 @@
   fontSize: 16
   color: '#717171'
   wrapText: false
-  className: ui-title
+  className: oe-title
   value: payload
   valueType: msg
   x: 450
@@ -1209,7 +1235,7 @@
     msg.payload = '';
     msg.query = 
     'from(bucket: "state") ' +
-    '  |> range(start: -5s, stop: now()) ' +
+    '  |> range(start: -15s, stop: now()) ' +
     '  |> filter(fn: (r) => r["_measurement"] == "' + msg.equipment + '") ' +
     '  |> filter(fn: (r) => r["_field"] == "cycle") ' +
     '  |> filter(fn: (r) => r["_value"] == 1) ' +

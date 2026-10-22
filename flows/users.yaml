@@ -315,7 +315,7 @@
   fontSize: 16
   color: '#717171'
   wrapText: false
-  className: ui-title
+  className: oe-title
   value: Add a user
   valueType: str
   x: 460
@@ -338,7 +338,7 @@
   fontSize: 16
   color: '#717171'
   wrapText: false
-  className: ui-title
+  className: oe-title
   value: Edit a user
   valueType: str
   x: 460
@@ -361,7 +361,7 @@
   fontSize: 16
   color: '#717171'
   wrapText: false
-  className: ui-title
+  className: oe-title
   value: Users
   valueType: str
   x: 460
@@ -384,7 +384,7 @@
   fontSize: 16
   color: '#717171'
   wrapText: false
-  className: ui-title
+  className: oe-title
   value: Backup users
   valueType: str
   x: 470
@@ -749,6 +749,7 @@
         msg.payload[u].disconnect = msg.dictionary.option_action.disconnect;
         msg.payload[u].session = '-';
         msg.payload[u].session_color = msg.dictionary.option_color.off;
+        msg.payload[u].level_full = msg.payload[u].level === '' ? '' : (msg.dictionary.option_level[msg.payload[u].level] || msg.payload[u].level);
 
         for (const user in users) {
             if (users[user]["login"] === msg.payload[u].login) {

@@ -41,9 +41,6 @@
     - 5621e43ca08d7164
     - 548dfd511b350f7a
     - 58a56d94ba226005
-    - 457bd17747e44d56
-    - 4e94023e8ba12f50
-    - 3808fde4099a032e
     - b26118d774fd82d4
   x: 68
   'y': 3033
@@ -713,6 +710,12 @@
   height: 0
   head: ''
   format: |-
+    body {
+        background: rgb(var(--v-theme-background));
+    }
+    .v-application__wrap {
+        min-height: 60dvh;
+    }
     .v-card-item {
         display: none;
     }
@@ -738,18 +741,7 @@
         display: block;
         line-height: initial;
     }
-    .v-main {
-        padding-bottom: 2em;
-    }
 
-    .ui-title span {
-        font-size: 1.4rem !important;
-        padding: 0;
-        color: rgb(var(--v-theme-primary));
-    }
-    .ui-spacer {
-        border-top: 2px solid rgba(var(--v-border-color), var(--v-border-opacity));
-    }
     .nrdb-ui-group {
         border-radius: 4px;
         box-shadow: 3px 2px 2px rgba(var(--v-border-color), var(--v-border-opacity));
@@ -759,20 +751,65 @@
         padding: 0 0.5em;
     }
     .v-toolbar .v-btn-group {
+        z-index: 2;
         background: rgb(var(--v-theme-navigation-background));
+    }
+
+    .oe-vendor {
+        position: absolute;
+        right: 1em;
+        bottom: 1em;
+        opacity: 0.15;
+    }
+    .oe-vendor:hover {
+        opacity: 1;
+    }
+    .oe-title span {
+        font-size: 1.4rem !important;
+        padding: 0;
+        color: rgb(var(--v-theme-primary));
     }
 
     #oe-map-group {
         width: 100%;
+        padding-bottom: 6em;
     }
-    .oe-vendor {
+    .oe-map-heat {
+        cursor: pointer;
+        transition: fill 0.6s ease;
+    }
+    .oe-map-click:hover {
+        opacity: 0.75;
+        stroke: rgb(var(--v-theme-navigation-background));
+        stroke-width: 2px;
+    }
+    .oe-map-short {
+        filter: drop-shadow(0 0 3px white) drop-shadow(0 0 2px white);
+        font-size: 0.6em;
+        font-weight: bold;
+    }
+    .oe-map-play {
+        animation: blink 1s 5;
+    }
+    .oe-map-help {
         position: absolute;
-        right: 5px;
-        bottom: 5px;
-        opacity: 0.2;
+        bottom: 1em;
+        left: 1em;
+        padding: 1em;
+        list-style-type: none;
+        line-height: 1.2em;
+    border-radius: 4px;
+        border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+        box-shadow: 3px 2px 2px rgba(var(--v-border-color), var(--v-border-opacity));
+        background: rgb(var(--v-theme-group-background));
+    }
+
+    @keyframes blink {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
     }
   storeOutMessages: true
-  passthru: true
+  passthru: false
   resendOnRefresh: true
   templateScope: 'site:style'
   className: ''
@@ -780,41 +817,6 @@
   'y': 3400
   wires:
     - []
-- id: 457bd17747e44d56
-  type: ui-notification
-  z: f6f2187d.f17ca8
-  g: 41bba9b342eebdae
-  ui: 68fb8d742e5053db
-  position: center center
-  colorDefault: true
-  color: '#000000'
-  displayTime: '5'
-  showCountdown: true
-  outputs: 1
-  allowDismiss: true
-  dismissText: Close
-  allowConfirm: false
-  confirmText: Confirm
-  raw: true
-  className: ''
-  name: ui - notice
-  x: 280
-  'y': 3620
-  wires:
-    - - 3808fde4099a032e
-- id: 4e94023e8ba12f50
-  type: link in
-  z: f6f2187d.f17ca8
-  g: 41bba9b342eebdae
-  name: ui - notice - old
-  links:
-    - 2e0c6e8b3e58b338
-    - a9568851b155c486
-    - e01152247fcb2952
-  x: 145
-  'y': 3620
-  wires:
-    - - 457bd17747e44d56
 - id: a2867f8c84273968
   type: mqtt out
   z: f6f2187d.f17ca8
@@ -913,22 +915,6 @@
     - c67cdb9d96401010
   x: 335
   'y': 140
-  wires: []
-- id: 3808fde4099a032e
-  type: debug
-  z: f6f2187d.f17ca8
-  g: 41bba9b342eebdae
-  name: ui - notice
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: payload
-  targetType: msg
-  statusVal: ''
-  statusType: auto
-  x: 460
-  'y': 3620
   wires: []
 - id: d5b4e8e17997e033
   type: file in
@@ -1147,7 +1133,7 @@
   head: ''
   format: |-
     <template>
-        <Teleport v-if="mounted" to="#oe_header">
+        <Teleport v-if="mounted" to="#oe-header">
             <v-toolbar class="oe-nav"> 
             <v-btn-toggle v-model="msg.current" color="primary" variant="outlined" divided mandatory>
                 <v-btn v-for="btn in oe_buttons" :value="btn.id" :icon="btn.icon" :title="btn.title" @click="oe_nav(btn)"></v-btn>
@@ -1175,9 +1161,9 @@
                 this.send(blang);
 
                 // Navigation bar
-                if (!document.querySelector("#oe_header")) {
+                if (!document.querySelector("#oe-header")) {
                     let div = document.createElement("div");
-                    div.id="oe_header";
+                    div.id="oe-header";
                     const el = document.body.querySelector("#app").prepend(div);
                 }
         
@@ -4913,6 +4899,14 @@
             'user': 'Utilisateur : ',
             'login': 'Identifiant',
             'pass': 'Mot de passe'
+        },
+        'map': {
+            'help_on': 'La ligne est en chauffe',
+            'help_off': "La ligne n'est pas en chauffe",
+            'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',
+            'help_stop': "La ligne est à l'arrêt",
+            'help_ready': 'La ligne est prête',
+            'help_cycle': 'La ligne est en cycle'
         },
         'period': {
             'enable': '►',
