@@ -161,7 +161,6 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 23dd24021e2cecf1
     - ba6ef07c6e523872
     - 430e091bb05b99e7
     - 7bba6594f41302c2
@@ -169,10 +168,14 @@
     - 3450fffd4f368319
     - fd39d13ae9c195f3
     - 8f1a54f299198096
+    - 712b6386176165af
+    - 94a829494f42c8f2
+    - cbc04b9dae60faad
+    - 97f5f0e0c014ba69
   x: 104
   'y': 3359
   w: 782
-  h: 202
+  h: 262
 - id: ede1bcd992279676
   type: group
   z: f6f2187d.f17ca8
@@ -670,22 +673,6 @@
   'y': 80
   wires:
     - - 6e06b3d7f1cfeb7c
-- id: 23dd24021e2cecf1
-  type: debug
-  z: f6f2187d.f17ca8
-  g: 32da9b1ae024e8bb
-  name: ui - control
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 650
-  'y': 3520
-  wires: []
 - id: ba6ef07c6e523872
   type: ui-control
   z: f6f2187d.f17ca8
@@ -808,13 +795,14 @@
         0% { opacity: 1; }
         100% { opacity: 0; }
     }
+  noerr: 0
   storeOutMessages: true
   passthru: false
   resendOnRefresh: true
   templateScope: 'site:style'
   className: ''
   x: 280
-  'y': 3400
+  'y': 3520
   wires:
     - []
 - id: a2867f8c84273968
@@ -2290,8 +2278,8 @@
   'y': 3460
   wires:
     - - 3450fffd4f368319
-    - - 23dd24021e2cecf1
-      - 7bba6594f41302c2
+    - - 7bba6594f41302c2
+      - 97f5f0e0c014ba69
     - - ba6ef07c6e523872
 - id: 8f1a54f299198096
   type: function
@@ -5634,3 +5622,117 @@
   'y': 3820
   wires:
     - - 439415c5119b5f70
+- id: 712b6386176165af
+  type: ui-template
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  group: ''
+  page: ''
+  ui: 68fb8d742e5053db
+  name: ui - colors
+  order: 0
+  width: 0
+  height: 0
+  head: ''
+  format: |-
+    <template>
+        
+    </template>
+
+    <script>
+    export default {
+        methods: {
+            getThemeColors() {
+                // FlowFuse Dashboard 2.0 theme colors are exposed as CSS variables on the root elements
+                const rootStyle = getComputedStyle(document.documentElement);
+                
+                // Vuetify variables store RGB strings (e.g., "33, 150, 243")
+                const primaryRGB = rootStyle.getPropertyValue('--v-theme-primary').trim();
+                const surfaceRGB = rootStyle.getPropertyValue('--v-theme-surface').trim();
+                const backgroundRGB = rootStyle.getPropertyValue('--v-theme-background').trim();
+                const groupRGB = rootStyle.getPropertyValue('--v-theme-group-background').trim();
+
+                const themePresetColors = {
+                    primary: `rgb(${primaryRGB})`,
+                    surface: `rgb(${surfaceRGB})`,
+                    background: `rgb(${backgroundRGB})`,
+                    group: `rgb(${groupRGB})`
+                };
+
+                this.send({ payload: themePresetColors });
+            }
+        },
+        mounted() {
+            setTimeout(() => { this.getThemeColors(); }, 500);
+        }
+    }
+    </script>
+  noerr: 0
+  storeOutMessages: true
+  passthru: false
+  resendOnRefresh: true
+  templateScope: 'widget:ui'
+  className: ''
+  x: 280
+  'y': 3580
+  wires:
+    - - 94a829494f42c8f2
+- id: 94a829494f42c8f2
+  type: function
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: data
+  func: |-
+    if (msg.payload === '') {
+        msg.payload = {
+            'primary': '',
+            'surface': '',
+            'background': ''
+        };
+    }
+
+    global.set('describe.app.colors', msg.payload);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 450
+  'y': 3580
+  wires:
+    - - cbc04b9dae60faad
+- id: cbc04b9dae60faad
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: ui - colors
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: payload
+  targetType: msg
+  statusVal: ''
+  statusType: auto
+  x: 620
+  'y': 3580
+  wires: []
+- id: 97f5f0e0c014ba69
+  type: debug
+  z: f6f2187d.f17ca8
+  g: 32da9b1ae024e8bb
+  name: kernel - ui - control
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 670
+  'y': 3520
+  wires: []

@@ -520,6 +520,23 @@
   'y': 999
   w: 332
   h: 82
+- id: 25545e8158bac1cf
+  type: group
+  z: adb9fbf379118d77
+  name: option - chart - color
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 83de2be864ccf494
+    - 091845fbf91a4e1f
+    - 5993a3aff317aa9c
+  x: 1424
+  'y': 699
+  w: 332
+  h: 82
 - id: 2ee1493983ba4b61
   type: link out
   z: adb9fbf379118d77
@@ -1938,3 +1955,60 @@
   'y': 440
   wires:
     - - d38c99e5d7be057a
+- id: 83de2be864ccf494
+  type: link in
+  z: adb9fbf379118d77
+  g: 25545e8158bac1cf
+  name: option - chart - color
+  links: []
+  x: 1465
+  'y': 740
+  wires:
+    - - 091845fbf91a4e1f
+- id: 091845fbf91a4e1f
+  type: function
+  z: adb9fbf379118d77
+  g: 25545e8158bac1cf
+  name: data
+  func: |-
+    if (typeof msg.ui_update !== 'object') {
+        msg.ui_update = { };
+    }
+
+    const color = global.get('describe.app.colors.primary') || 'blue';
+
+    msg.ui_update.chartOptions = {
+        'color': [
+            color,
+            color,
+            color,
+            color,
+            color,
+            color,
+            color,
+            color,
+            color
+        ]
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1590
+  'y': 740
+  wires:
+    - - 5993a3aff317aa9c
+- id: 5993a3aff317aa9c
+  type: link out
+  z: adb9fbf379118d77
+  g: 25545e8158bac1cf
+  name: option - chart - color
+  mode: return
+  links: []
+  x: 1715
+  'y': 740
+  wires: []
