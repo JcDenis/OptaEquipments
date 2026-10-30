@@ -2197,7 +2197,7 @@
             msg.buttons.push({
                 'id': page,
                 'icon': pages[page]['icon'],
-                'title': pages[page]['name']
+                'title': msg.dictionary.option_page[page] || pages[page]['name']
             });
             msg.payload.pages.show.push(pages[page]['name']);
         }
