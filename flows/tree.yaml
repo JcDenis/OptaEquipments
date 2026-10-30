@@ -400,6 +400,7 @@
     - f8c6350c8aae6806
     - d842a6f41cf51e4b
     - cb1bf0cd7dc36566
+    - 814cb1aa2cc4fa17
   x: 104
   'y': 5611.5
   w: 912
@@ -426,6 +427,7 @@
     - e388e76ada065624
     - 523000e5afd4d5ae
     - 66cd836b115c30bc
+    - 84951e8e19873637
   x: 104
   'y': 6031.5
   w: 872
@@ -491,7 +493,7 @@
     - 6b1df564ad413b8a
   x: 104
   'y': 6819
-  w: 1222
+  w: 1382
   h: 202
 - id: 29452f5f913b11d0
   type: group
@@ -525,8 +527,8 @@
     - c8c4a6991b81bfe8
   x: 104
   'y': 7059
-  w: 732
-  h: 502
+  w: 822
+  h: 562
 - id: be594973267232f5
   type: link in
   z: 64ce08af468b8197
@@ -2016,6 +2018,7 @@
       - d39a5589762dd543
       - f535b9aa3c8003b3
       - d73911cb76d0d957
+      - 88a806d982d7ffdf
 - id: 9e9a943596dfc2b5
   type: ui-text-input
   z: 64ce08af468b8197
@@ -2639,6 +2642,7 @@
       - ce78931234e72d07
       - 8d45202212d385b9
       - 5bb94e2c2cd79ac6
+      - cb28ad66e7da1c26
 - id: 1bd9c70a5be52bdc
   type: link in
   z: 64ce08af468b8197
@@ -4198,6 +4202,8 @@
     msg.check = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
+    node.send([msg, msg]);
+
     if (!msg.enabled) {
         msg.list = '';
 
@@ -5461,7 +5467,7 @@
     - d5a2492cd9b261b1
     - 2a8c0939d7fff9f9
   x: 145
-  'y': 6860
+  'y': 6920
   wires:
     - - ea117193d83c0652
 - id: ea117193d83c0652
@@ -5490,11 +5496,10 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 6860
+  'y': 6920
   wires:
     - - ca393bc712c05da8
     - - 29bbf7916f3dd75c
-      - ca393bc712c05da8
 - id: ca393bc712c05da8
   type: function
   z: 64ce08af468b8197
@@ -5512,10 +5517,11 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
-  'y': 6920
+  x: 430
+  'y': 6860
   wires:
     - - 696124c9e738110e
+      - 29bbf7916f3dd75c
 - id: 29bbf7916f3dd75c
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -5541,7 +5547,7 @@
   className: ''
   typeIsComboBox: false
   msgTrigger: onChange
-  x: 470
+  x: 630
   'y': 6920
   wires:
     - - 37e63b10fed86cd1
@@ -5558,7 +5564,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1200
+  x: 1360
   'y': 6980
   wires: []
 - id: 696124c9e738110e
@@ -5577,7 +5583,7 @@
   allowMultiple: false
   accept: ''
   className: ''
-  x: 470
+  x: 630
   'y': 6980
   wires:
     - - 43e879bfb71cc596
@@ -5601,7 +5607,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 270
+  x: 430
   'y': 6980
   wires:
     - - 696124c9e738110e
@@ -5625,7 +5631,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 670
+  x: 830
   'y': 6920
   wires:
     - - d41e6c99993a2c09
@@ -5651,7 +5657,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 670
+  x: 830
   'y': 6980
   wires:
     - - 9c99971ef2371043
@@ -5662,7 +5668,7 @@
   name: ''
   action: ''
   property: payload
-  x: 840
+  x: 1000
   'y': 6980
   wires:
     - - 481b9486dfe919a7
@@ -5706,7 +5712,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1010
+  x: 1170
   'y': 6920
   wires:
     - - 2a8c0939d7fff9f9
@@ -5720,7 +5726,7 @@
   mode: link
   links:
     - 0c0a9473fb5ff8b7
-  x: 1135
+  x: 1295
   'y': 6860
   wires: []
 - id: 6b1df564ad413b8a
@@ -5731,7 +5737,7 @@
   mode: link
   links:
     - e60e4ab7617738c3
-  x: 1135
+  x: 1295
   'y': 6920
   wires: []
 - id: 3933b0d493ef8317
@@ -5741,8 +5747,8 @@
   name: tree - list - location
   links:
     - d5a2492cd9b261b1
-  x: 215
-  'y': 7100
+  x: 145
+  'y': 7160
   wires:
     - - 93380c73160ddf76
 - id: 93380c73160ddf76
@@ -5770,8 +5776,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7100
+  x: 270
+  'y': 7160
   wires:
     - - 678d3a394bbd543c
     - - 0c36d5e2388de060
@@ -5800,8 +5806,8 @@
   className: ''
   typeIsComboBox: false
   msgTrigger: onChange
-  x: 550
-  'y': 7100
+  x: 640
+  'y': 7160
   wires:
     - - 715dd7369609f316
 - id: 715dd7369609f316
@@ -5832,8 +5838,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 760
-  'y': 7100
+  x: 850
+  'y': 7160
   wires:
     - - 6ee7077357fe74b0
 - id: 678d3a394bbd543c
@@ -5853,8 +5859,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7160
+  x: 430
+  'y': 7100
   wires:
     - - cf8922bc2c087a01
       - e6ca83e4ab9f6b97
@@ -5863,6 +5869,7 @@
       - 2508bb6e171c7538
       - 19e2151cb156dae4
       - e8e572fe78e46c19
+      - 0c36d5e2388de060
 - id: cf8922bc2c087a01
   type: ui-text-input
   z: 64ce08af468b8197
@@ -5888,8 +5895,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 550
-  'y': 7220
+  x: 640
+  'y': 7280
   wires:
     - - 60a6efc39f064e8d
 - id: e6ca83e4ab9f6b97
@@ -5917,8 +5924,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 540
-  'y': 7280
+  x: 630
+  'y': 7340
   wires:
     - - 60a6efc39f064e8d
 - id: 6ee493d335cb3cc8
@@ -5946,8 +5953,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 540
-  'y': 7340
+  x: 630
+  'y': 7400
   wires:
     - - 60a6efc39f064e8d
 - id: 6ee7077357fe74b0
@@ -5975,8 +5982,8 @@
   className: ''
   typeIsComboBox: true
   msgTrigger: onChange
-  x: 540
-  'y': 7160
+  x: 630
+  'y': 7220
   wires:
     - - ca47f22c0f76bb11
 - id: ca47f22c0f76bb11
@@ -6031,8 +6038,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 180
-  'y': 7220
+  x: 270
+  'y': 7280
   wires:
     - - de5d45dd69d70b94
       - 8ab96a1767973169
@@ -6071,8 +6078,8 @@
   enablePointerup: false
   pointerupPayload: ''
   pointerupPayloadType: str
-  x: 550
-  'y': 7520
+  x: 640
+  'y': 7580
   wires:
     - - 517d7d13efcd2277
 - id: de5d45dd69d70b94
@@ -6092,8 +6099,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7520
+  x: 430
+  'y': 7580
   wires:
     - - 2508bb6e171c7538
 - id: 8ab96a1767973169
@@ -6114,8 +6121,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7340
+  x: 430
+  'y': 7400
   wires:
     - - 6ee493d335cb3cc8
 - id: 7bdc470a77bfc8a2
@@ -6136,8 +6143,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7280
+  x: 430
+  'y': 7340
   wires:
     - - e6ca83e4ab9f6b97
 - id: a710a368ecf3c742
@@ -6158,8 +6165,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7220
+  x: 430
+  'y': 7280
   wires:
     - - cf8922bc2c087a01
 - id: 60a6efc39f064e8d
@@ -6191,8 +6198,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 760
-  'y': 7220
+  x: 850
+  'y': 7280
   wires:
     - []
 - id: 517d7d13efcd2277
@@ -6254,8 +6261,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 760
-  'y': 7520
+  x: 850
+  'y': 7580
   wires:
     - []
 - id: 19e2151cb156dae4
@@ -6283,8 +6290,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 540
-  'y': 7400
+  x: 630
+  'y': 7460
   wires:
     - - 60a6efc39f064e8d
 - id: e8e572fe78e46c19
@@ -6312,8 +6319,8 @@
   icon: ''
   iconPosition: left
   iconInnerPosition: inside
-  x: 540
-  'y': 7460
+  x: 630
+  'y': 7520
   wires:
     - - 60a6efc39f064e8d
 - id: 2869dcd24d9d8451
@@ -6334,8 +6341,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7400
+  x: 430
+  'y': 7460
   wires:
     - - 19e2151cb156dae4
 - id: c8c4a6991b81bfe8
@@ -6356,8 +6363,8 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 340
-  'y': 7460
+  x: 430
+  'y': 7520
   wires:
     - - e8e572fe78e46c19
 - id: c9047b0df9225569
@@ -9175,10 +9182,7 @@
   x: 270
   'y': 6080
   wires:
-    - - c2183046f1f0399d
-      - c981937d7c2175e0
-      - db2795528bed1f7f
-      - 2a63357f9f37b03c
+    - - 84951e8e19873637
     - - c981937d7c2175e0
     - - db2795528bed1f7f
 - id: c981937d7c2175e0
@@ -9375,7 +9379,7 @@
   func: |-
     msg.payload = '';
 
-    if (msg.list !== 'period') {
+    if (!msg.enabled || msg.list !== 'period') {
         msg.class = 'remove';
 
         return [msg, msg, msg];
@@ -9417,9 +9421,7 @@
   x: 270
   'y': 5660
   wires:
-    - - 2ecc26495709f145
-      - 6807c5fae58176c0
-      - 5c0de67381daffed
+    - - 814cb1aa2cc4fa17
     - - 6807c5fae58176c0
     - - 5c0de67381daffed
 - id: 6807c5fae58176c0
@@ -11980,3 +11982,41 @@
   wires:
     - - ef695d60703e4579
     - - 54fd1f2eca676e0d
+- id: 814cb1aa2cc4fa17
+  type: change
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 430
+  'y': 5660
+  wires:
+    - - 40a83c7330953a8a
+      - 05ba4b7f6680f576
+      - f33a1e795377137b
+      - e7949d3e2c1f6a1d
+      - 9fbbba627c2116fb
+      - 2ecc26495709f145
+- id: 84951e8e19873637
+  type: change
+  z: 64ce08af468b8197
+  g: 2c0384adc9ef91fe
+  name: '-'
+  rules: []
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 430
+  'y': 6080
+  wires:
+    - - c2183046f1f0399d
+      - d973896cabdc89e1
+      - 6ca53b431ccfbd51
+      - 3f07a0ef93bef0ea
