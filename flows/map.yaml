@@ -228,15 +228,22 @@
   z: 05f6b695d75a73cf
   g: 0e5ee31c1122d84d
   name: data
-  func: >-
+  func: |-
     // Get plant map
 
-
     msg.plant = msg.payload;
-
+    msg.help = {
+        'color': ['FFFFFF00', 'FFFFFF00', 'FFFFFF00'],
+        'on': '',
+        'off': '',
+        'half': '',
+        'stop': '',
+        'ready': '',
+        'cycle': ''
+    };
+    msg.payload = { };
 
     // Reset UI
-
     if (msg.enabled !== true 
         || msg.plant === '' 
         || typeof global.get('kernel.map["' + msg.plant +'"]') !== 'string'
@@ -245,45 +252,27 @@
         msg.class = 'remove';
         msg.enabled = false;
         msg.plant = 'none'; // required for http get
-        msg.payload = { };
 
         return msg;
     }
 
-
     // Wait ui update
-
     msg = await node.linkcall('ui - latency', msg);
 
-
     // Get memories
-
     const location = global.get('kernel.location') || { }; // Read
-
     const lines = global.get('kernel.lines') || { }; // Read
-
     const equipments = global.get('kernel.equipments') || { }; // Read
 
-
     msg.class = '';
-
     msg.enabled = true;
 
-    msg.payload = { };
-
-
     let heat_color = msg.dictionary.option_color.off + '00'; // transparent
-
     let run_on = 0;
-
     let run_off = 0;
-
     let cycle_on = 0;
-
     let heat_on = 0;
-
     let heat_off = 0;
-
 
     for (const l in location) {
         if (typeof lines[l] === 'string' && lines[l] === msg.plant) {
@@ -350,24 +339,15 @@
         }
     }
 
-
-    msg.help_color = [msg.dictionary.option_color.on + 'BB',
-    msg.dictionary.option_color.off + 'BB', msg.dictionary.option_color.median +
-    'BB'];
-
-    msg.help_on = msg.dictionary.map.help_on || 'Line is heating';
-
-    msg.help_off = msg.dictionary.map.help_off || 'Line is not heating';
-
-    msg.help_half = msg.dictionary.map.help_half || 'Some line equipments are
-    not heating';
-
-    msg.help_stop = msg.dictionary.map.help_stop || 'Line is stopped';
-
-    msg.help_ready = msg.dictionary.map.help_ready || 'Line is ready';
-
-    msg.help_cycle = msg.dictionary.map.help_cycle || 'Line is in cycle';
-
+    msg.help = {
+        'color': [msg.dictionary.option_color.on + 'BB', msg.dictionary.option_color.off + 'BB', msg.dictionary.option_color.median + 'BB'],
+        'on': msg.dictionary.map.help_on || 'Line is heating',
+        'off': msg.dictionary.map.help_off || 'Line is not heating',
+        'half': msg.dictionary.map.help_half || 'Some line equipments are not heating',
+        'stop': msg.dictionary.map.help_stop || 'Line is stopped',
+        'ready': msg.dictionary.map.help_ready || 'Line is ready',
+        'cycle': msg.dictionary.map.help_cycle || 'Line is in cycle'
+    };
 
     return msg;
   outputs: 1
@@ -379,8 +359,8 @@
   x: 830
   'y': 180
   wires:
-    - - 95468e9c5d429aac
-      - 32eebc8246bf0244
+    - - 32eebc8246bf0244
+      - 95468e9c5d429aac
 - id: 95468e9c5d429aac
   type: ui-template
   z: 05f6b695d75a73cf
@@ -397,17 +377,18 @@
     <template>
         <Teleport v-if="mounted" to="#nrdb-page-ded8ef092f5c6531">
             <div id="oe-map-group">
+                <div class="oe-map-wait"><p>Loading...</p></div>
                 <svg viewBox="0 0 720 400" width="100%" height="100%">
-                    <image x="0" y="0" width="100%" height="100%" />
+                    <image x="0" y="0" width="100%" height="100%">
                 </svg>
                 <ul class="oe-map-help">
-                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="msg.help_color[0]"></rect></svg> {{msg.help_on}}</li>
-                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="msg.help_color[1]"></rect></svg> {{msg.help_off}}</li>
-                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="msg.help_color[2]"></rect></svg> {{msg.help_half}}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help['color'][0]"></rect></svg> {{ help['on'] }}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help['color'][1]"></rect></svg> {{ help['off'] }}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help['color'][2]"></rect></svg> {{ help['half'] }}</li>
 
-                    <li><span class="mdi mdi-stop"></span> {{msg.help_stop}}</li>
-                    <li><span class="mdi mdi-pause"></span> {{msg.help_ready}}</li>
-                    <li><span class="mdi mdi-play"></span> {{msg.help_cycle}}</li>
+                    <li><span class="mdi mdi-stop"></span> {{ help['stop'] }}</li>
+                    <li><span class="mdi mdi-pause"></span> {{ help['ready'] }}</li>
+                    <li><span class="mdi mdi-play"></span> {{ help['cycle'] }}</li>
                 <ul>
             </div>
         </Teleport>
@@ -417,16 +398,32 @@
         export default {
             data() {
                 return {
-                    mounted: false
+                    mounted: false,
+                    help: {
+                        on: '',
+                        off: '',
+                        half: '',
+                        stop: '',
+                        ready: '',
+                        cycle: '',
+                        color: ['FFFFFF00','FFFFFF00','FFFFFF00']
+                    }
                 }
-            },
-            methods: {
             },
             mounted() {
                 this.mounted = true;
             },
             watch: {
                 msg: function (msg) {
+
+                    if (!msg.enabled || !Object.keys(msg.payload).length) {
+                        return;
+                    }
+
+                    if (this.help.on !== msg.help.on) {
+                        this.help = msg.help;
+                    }
+
                     let svgns = "http://www.w3.org/2000/svg";
                     let imgns = 'http://www.w3.org/1999/xlink';
 
@@ -434,7 +431,9 @@
                     var img = document.body.querySelector("#oe-map-group svg image");
                     img.setAttributeNS(imgns, 'xlink:href', '/' + msg.plant + '/plant.png');
 
-                    /* Clean up all zones on new message */
+                    document.querySelectorAll(".oe-map-wait").forEach(el => el.remove());
+
+                    // Clean up all zones on new message
                     let childs = svg.querySelectorAll('g');
                     [].forEach.call(childs,c=>{
                         c.parentNode.removeChild(c);
@@ -445,7 +444,7 @@
                     else {
                         img.setAttribute('visibility', 'visible');
 
-                        /* All zones must be set in one message */
+                        // All zones must be set in one message
                         for (const line in msg.payload) {
 
                             // Create line group
@@ -516,6 +515,7 @@
             }
         }
     </script>
+  noerr: 0
   storeOutMessages: true
   passthru: false
   resendOnRefresh: true
@@ -1105,7 +1105,7 @@
   name: 5s
   op1: ''
   op2: ''
-  op1type: nul
+  op1type: pay
   op2type: payl
   duration: '5'
   extend: false
@@ -1115,11 +1115,10 @@
   bytopic: topic
   topic: hmi.id
   outputs: 1
-  x: 830
+  x: 990
   'y': 240
   wires:
-    - - 95468e9c5d429aac
-      - df1f25706f22a3c0
+    - - df1f25706f22a3c0
 - id: df1f25706f22a3c0
   type: function
   z: 05f6b695d75a73cf
@@ -1145,7 +1144,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 990
+  x: 1150
   'y': 240
   wires:
     - - a38263f9dfb005a8
