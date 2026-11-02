@@ -1604,11 +1604,21 @@
             "216f821485a9eb19",
             "0782cf84e02ba5e3",
             "11d028449aaa105b",
-            "63238b6d584649d5"
+            "63238b6d584649d5",
+            "2b027f15e857dc2d",
+            "bf59724bfb1762b4",
+            "817afd07dd5f3b19",
+            "8686efc820f0e65f",
+            "b9fac0d63f3ff120",
+            "23327f086285c000",
+            "78e60df6e7d55f08",
+            "542c18dedc9ba3de",
+            "c5d1bd46d3dae694",
+            "bcd29c14e67166df"
         ],
         "x": 68,
         "y": 13,
-        "w": 2724,
+        "w": 2058,
         "h": 1814
     },
     {
@@ -2639,24 +2649,16 @@
             "671ddb3e2181d567",
             "8023109f6e0ad2c8",
             "c7dc8df688a74cbe",
-            "bf59724bfb1762b4",
-            "817afd07dd5f3b19",
-            "8686efc820f0e65f",
-            "b9fac0d63f3ff120",
-            "23327f086285c000",
-            "2b027f15e857dc2d",
-            "78e60df6e7d55f08",
             "0a6f746a33c66866",
-            "542c18dedc9ba3de",
             "c9b77de2e18e7767",
-            "c5d1bd46d3dae694",
             "4079f72618beed87",
             "df25ae26fe677956",
-            "613b0e80d05cf13a"
+            "613b0e80d05cf13a",
+            "dc41a85b166525a3"
         ],
         "x": 104,
         "y": 579,
-        "w": 2662,
+        "w": 1462,
         "h": 322
     },
     {
@@ -3457,6 +3459,32 @@
         "x": 104,
         "y": 19,
         "w": 242,
+        "h": 82
+    },
+    {
+        "id": "bcd29c14e67166df",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "kernel - team",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "be54eccfeb5cd86b",
+            "4ea4b346c7453612",
+            "f949241c6ec3ed78",
+            "a4a184920e601165",
+            "274b5abfd4525a98",
+            "e8c4ef0c0b4194a7",
+            "b66072d27172fc3b"
+        ],
+        "x": 504,
+        "y": 939,
+        "w": 1072,
         "h": 82
     },
     {
@@ -4339,7 +4367,7 @@
         "correl": "",
         "expiry": "",
         "broker": "f516c1341f0f634c",
-        "x": 2650,
+        "x": 1450,
         "y": 620,
         "wires": []
     },
@@ -4656,7 +4684,7 @@
             "6f0b1eb0278764e4",
             "e47fa68c1a570f10"
         ],
-        "x": 2595,
+        "x": 1395,
         "y": 680,
         "wires": []
     },
@@ -4721,7 +4749,7 @@
         "retentionPolicyV18Flux": "",
         "org": "optaequipments",
         "bucket": "state",
-        "x": 2660,
+        "x": 1460,
         "y": 800,
         "wires": []
     },
@@ -5282,7 +5310,7 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 2150,
+        "x": 950,
         "y": 740,
         "wires": [
             [
@@ -5585,7 +5613,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1990,
+        "x": 790,
         "y": 800,
         "wires": [
             [
@@ -5608,7 +5636,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2470,
+        "x": 1270,
         "y": 800,
         "wires": [
             [
@@ -5696,7 +5724,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1990,
+        "x": 790,
         "y": 620,
         "wires": [
             [
@@ -5757,7 +5785,8 @@
         "id": "bf59724bfb1762b4",
         "type": "function",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "data",
         "func": "// Prepare period loop\n\nif (typeof global.get('kernel.team') === 'object'\n    && typeof global.get('kernel.period') === 'object'\n    && typeof global.get('kernel.state') === 'object'\n) {\n    flow.set('teams', { });\n\n    return {\n        'topic': '',\n        'payload': { ...(global.get('kernel.team') || { }) },\n        'row': {\n            'ts': Date.now()\n            // some timestamp tests\n            //'ts': 1781921986000 // saturday 4:19\n            //'ts': 1781929186000 // saturday 6:19\n            //'ts': 1781936386000 // satruday 8:19\n            //'ts': 1782015586000 // sunday 6:19\n            //'ts': 1782076786000 // sunday 23:19\n            //'ts': 1782094786000 // monday 4:19\n            //'ts': 1782163186000 // monday 23:19\n            //'ts': 1782238786000 // tuesday 20:19\n            //'ts': 1782346500000 // wednesday 02:15\n            //'ts': 1784016000000 // 14/07/2026 10:00 holiday\n            //'ts': 1783987200000 // 14/07/2026 2:00\n            //'ts': 1783998000000 // 14/07/2026 5:00\n            //'ts': 1784064900000 // 14/07/2026 23:35\n            //'ts': 1784073600000 // 15/07/2026 2:00\n            //'ts': 1784084400000 // 15/07/2026 5:00\n        }\n    };\n}\n\nreturn;",
         "outputs": 1,
@@ -5766,8 +5795,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 860,
+        "x": 670,
+        "y": 1100,
         "wires": [
             [
                 "23327f086285c000"
@@ -5778,7 +5807,8 @@
         "id": "817afd07dd5f3b19",
         "type": "function",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "data",
         "func": "// Build period loop row\n\n/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = Number(global.get('kernel.day[\"' + msg.row.plant + '\"]') || 0);\nmsg.row.dectime = dec * 100; // ex: 600, in order to compare to starttime/stoptime 630, 2330...\n\n/* team time */\nlet psplit = msg.payload.split('|');\nmsg.row.starttime = Number(psplit[0].split(':').join('')); //convert calendar time to comparable number\nmsg.row.stoptime = Number(psplit[1].split(':').join(''));\n\n/* datetime formatter tz */\nmsg.outTz = msg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]') || 'Europe/Paris';\n\nreturn msg;",
         "outputs": 1,
@@ -5787,8 +5817,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
-        "y": 860,
+        "x": 990,
+        "y": 1100,
         "wires": [
             [
                 "c5d1bd46d3dae694"
@@ -5799,7 +5829,8 @@
         "id": "8686efc820f0e65f",
         "type": "moment",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "current time",
         "topic": "",
         "input": "row.ts",
@@ -5813,8 +5844,8 @@
         "output": "row.curtime",
         "outputType": "msg",
         "outTz": "Europe/Paris",
-        "x": 1290,
-        "y": 860,
+        "x": 1350,
+        "y": 1100,
         "wires": [
             [
                 "b9fac0d63f3ff120"
@@ -5825,7 +5856,8 @@
         "id": "b9fac0d63f3ff120",
         "type": "moment",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "current day",
         "topic": "",
         "input": "row.ts",
@@ -5839,8 +5871,8 @@
         "output": "row.curday",
         "outputType": "msg",
         "outTz": "Europe/Paris",
-        "x": 1490,
-        "y": 860,
+        "x": 1550,
+        "y": 1100,
         "wires": [
             [
                 "542c18dedc9ba3de"
@@ -5851,7 +5883,8 @@
         "id": "23327f086285c000",
         "type": "split",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "split",
         "splt": "\\n",
         "spltType": "str",
@@ -5860,8 +5893,8 @@
         "stream": false,
         "addname": "team",
         "property": "payload",
-        "x": 770,
-        "y": 860,
+        "x": 830,
+        "y": 1100,
         "wires": [
             [
                 "817afd07dd5f3b19"
@@ -5872,7 +5905,8 @@
         "id": "2b027f15e857dc2d",
         "type": "join",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "join",
         "mode": "auto",
         "build": "object",
@@ -5890,8 +5924,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 1830,
-        "y": 860,
+        "x": 1890,
+        "y": 1100,
         "wires": [
             [
                 "78e60df6e7d55f08"
@@ -5902,7 +5936,8 @@
         "id": "78e60df6e7d55f08",
         "type": "function",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "data",
         "func": "// Compute period state\n\nmsg.payload = '';\n\nlet final_teams = flow.get('teams') || { };\nlet final_periods = { };\nlet final_pilots = { };\n\ndelete msg.row;\ndelete msg.settings;\ndelete msg.outTz;\ndelete msg.team;\nflow.set('teams', undefined);\n\nconst periods = global.get('kernel.period') || { };\nfor (const line in periods) {\n    final_periods[line] = false;\n\n    /* line program is enabled */\n    if (global.get('kernel.disabled[\"' + line + '\"]') !== true) {\n        /* no periods set for this line */\n        if (periods[line] === '') {\n            /* set to off */\n            final_pilots[line] = false;\n        } else {\n            let exists = false;\n            const plant = global.get('kernel.lines[\"' + line + '\"]');\n            const teams = periods[line].split(\"\");\n            for (const i in teams) {\n                if (typeof final_teams[plant][teams[i]] === 'boolean') {\n                    exists = true;\n                    if (final_teams[plant][teams[i]] === true) {\n                        final_periods[line] = true;\n                    }\n                }\n            }\n            if (exists) {\n                final_pilots[line] = final_periods[line];\n            }\n        }\n    }\n}\n\nconst states = global.get('kernel.state') || { };\nfor (const entity in states) {\n    let esplit = entity.split('|');\n    let equipment = esplit[0];\n    let component = esplit[1];\n    let line = global.get('kernel.equipments[\"' + equipment + '\"]') || '-';\n\n    let pilot = final_pilots[line];\n    if (typeof pilot === 'boolean'\n        && typeof global.get('kernel.link[\"' + entity + '\"]') === 'string'\n        && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(component)\n    ) {\n        let state = states[equipment + '|run'] || '';\n        if (typeof state === 'number' && state === 1 && pilot === false) {\n            /* do not pilot heat to off if equipment is running */\n        } else {\n            msg.kernel = {\n                'type': 'state',\n                'entity': entity,\n                'value': pilot === true ? 1 : 0,\n                'loop': false\n            };\n\n            msg.telegram = {\n                'type': 'period',\n                'value': pilot,\n                'entity': equipment,\n                'change': msg.kernel.value !== states[entity]\n            };\n\n            if (component === 'heatpulse') {\n                /* pulse only if current state is not the one we want */\n                if (msg.kernel.value !== (states[equipment + '|heat'] || '-')) {\n                    /* pulse */\n                    msg.kernel.value = 1;\n                    node.send(msg);\n\n                    // Wait pulse duration\n                    await new Promise(resolve => setTimeout(resolve, 500));\n                    msg.kernel.value = 0;\n                    delete msg.telegram;\n                    node.send(msg);\n                }\n            } else {\n                node.send(msg);\n            }\n\n            node.status({\n                'fill': pilot ? 'green' : 'red',\n                'text': entity + ' = ' + pilot\n            });\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
@@ -5911,8 +5946,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1990,
-        "y": 860,
+        "x": 2050,
+        "y": 1100,
         "wires": [
             [
                 "b087fef5670c809f",
@@ -5926,14 +5961,14 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "data",
-        "func": "// Compute loop message\n\ndelete msg.qos;\ndelete msg.retain;\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined);\n    } else {\n        /* new value is not the same as existing */\n        //let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]');\n        //if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value);\n        //}\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]')||'';\n\n                // Mirror components repeat input state to output\n                let mirror = msg.kernel.equipment + '|' + msg.kernel.component + 'mirror';\n                let link = global.get('kernel.link[\"' + mirror + '\"]');\n                if (typeof link === 'string') {\n                    let mirrorMsg = {\n                        'topic': '',\n                        'payload': '',\n                        'kernel': {\n                            'type': msg.kernel.type,\n                            'entity': mirror,\n                            'value': msg.kernel.value,\n                            'loop': false\n                        }\n                    };\n\n                    node.status({ \n                        'fill': 'blue',\n                        'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value\n                    });\n\n                    node.send([null, null, null, mirrorMsg]);\n                }\n            }\n        }\n\n        let newMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': msg.kernel\n        };\n\n        node.status({\n            'fill': msg.kernel.loop === false ? 'green' : 'yellow',\n            'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value\n        });\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null,\n            // mirror\n            null\n        ];\n    }\n}\n\nreturn;",
+        "func": "// Compute loop message\n\ndelete msg.qos;\ndelete msg.retain;\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', undefined);\n    } else {\n        /* new value is not the same as existing */\n        //let current = global.get('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]');\n        //if (current !== msg.kernel.value) {\n            //msg.kernel.loop = false;\n            /* update kernel value */\n            global.set('kernel[\"' + msg.kernel.type + '\"][\"' + msg.kernel.entity + '\"]', msg.kernel.value);\n        //}\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            let target = global.get('kernel.link[\"' + msg.kernel.entity + '\"]');\n            if (typeof target === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = target.split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]')||'';\n\n                // Mirror components repeat input state to output\n                let mirror = msg.kernel.equipment + '|' + msg.kernel.component + 'mirror';\n                let link = global.get('kernel.link[\"' + mirror + '\"]');\n                if (typeof link === 'string') {\n                    let mirrorMsg = {\n                        'topic': '',\n                        'payload': '',\n                        'kernel': {\n                            'type': msg.kernel.type,\n                            'entity': mirror,\n                            'value': msg.kernel.value,\n                            'loop': false\n                        }\n                    };\n\n                    node.status({ \n                        'fill': 'blue',\n                        'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value\n                    });\n\n                    node.send([null, null, null, mirrorMsg]);\n                }\n            }\n        }\n\n        let newMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': msg.kernel\n        };\n\n        node.status({\n            'fill': msg.kernel.loop === false ? 'green' : 'yellow',\n            'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + (msg.kernel.component || 'watchdog') + ' = ' + msg.kernel.value\n        });\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null,\n            // mirror\n            null\n        ];\n    }\n}\n\nreturn;",
         "outputs": 4,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2310,
+        "x": 1110,
         "y": 680,
         "wires": [
             [
@@ -5963,7 +5998,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2470,
+        "x": 1270,
         "y": 620,
         "wires": [
             [
@@ -6040,6 +6075,7 @@
         "y": 860,
         "wires": [
             [
+                "dc41a85b166525a3",
                 "bf59724bfb1762b4"
             ]
         ]
@@ -6408,7 +6444,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2150,
+        "x": 950,
         "y": 860,
         "wires": [
             [
@@ -6426,7 +6462,7 @@
         "links": [
             "b62a3b02d3d8dabc"
         ],
-        "x": 2275,
+        "x": 1075,
         "y": 860,
         "wires": []
     },
@@ -6525,7 +6561,8 @@
         "id": "542c18dedc9ba3de",
         "type": "function",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "data",
         "func": "// Compute period current day\n\nconst one_day = 86400000; // 24h in ms\n\nmsg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\nmsg.row.curts = Number(msg.row.curts);\n\n/* team start before midnight and end after midnight and current time is before team start time*/\nif (msg.row.stoptime < msg.row.starttime && msg.row.curtime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday - 1;\n    msg.row.curts = msg.row.curts - one_day;\n}\n\n/* then regain week day */\nif (msg.row.curday === 7) {\n    msg.row.curday = 0;\n} else if (msg.row.curday === -1) {\n    msg.row.curday = 6;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 6 && msg.row.team === 's')\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n        //...\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n        //...\n    }\n}\n\n/* Check if its an holiday */\nconst curdate = new Date(msg.row.curts); \nmsg.row.curdate = (\"0\" + (curdate.getMonth() +1)).slice(-2) + \"-\" + (\"0\" + curdate.getDate()).slice(-2);\nconst holidays = (global.get('kernel.holiday[\"' + msg.row.plant + '\"]') || '').split('|');\nfor (const k in holidays) {\n    if (holidays[k] === msg.row.curdate) {\n        msg.row.value = false;\n    }\n}\n\nflow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value);\n//msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team + ':' + msg.row.value;\n\nreturn msg;",
         "outputs": 1,
@@ -6534,8 +6571,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1670,
-        "y": 860,
+        "x": 1730,
+        "y": 1100,
         "wires": [
             [
                 "2b027f15e857dc2d"
@@ -6566,7 +6603,8 @@
         "id": "c5d1bd46d3dae694",
         "type": "moment",
         "z": "f6f2187d.f17ca8",
-        "g": "216f821485a9eb19",
+        "d": true,
+        "g": "f9da6ea6fa5cc954",
         "name": "current ts",
         "topic": "",
         "input": "row.ts",
@@ -6580,8 +6618,8 @@
         "output": "row.curts",
         "outputType": "msg",
         "outTz": "Europe/Paris",
-        "x": 1100,
-        "y": 860,
+        "x": 1160,
+        "y": 1100,
         "wires": [
             [
                 "8686efc820f0e65f"
@@ -7075,7 +7113,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1990,
+        "x": 790,
         "y": 680,
         "wires": [
             [
@@ -7096,7 +7134,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2470,
+        "x": 1270,
         "y": 680,
         "wires": [
             [
@@ -7785,6 +7823,175 @@
         "x": 395,
         "y": 440,
         "wires": []
+    },
+    {
+        "id": "be54eccfeb5cd86b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "data",
+        "func": "// Compute period current day\n\nconst one_day = 86400000; // 24h in ms\n\nmsg.row.curday = Number(msg.row.curday);\nmsg.row.curtime = Number(msg.row.curtime);\nmsg.row.curts = Number(msg.row.curts);\n\n/* team start before midnight and end after midnight and current time is before team start time*/\nif (msg.row.stoptime < msg.row.starttime && msg.row.curtime < msg.row.starttime) {\n    msg.row.curday = msg.row.curday - 1;\n    msg.row.curts = msg.row.curts - one_day;\n}\n\n/* then regain week day */\nif (msg.row.curday === 7) {\n    msg.row.curday = 0;\n} else if (msg.row.curday === -1) {\n    msg.row.curday = 6;\n}\n\nmsg.row.value = false;\n\n/* If week day and week team or saturday day and saturday team */\nif ((msg.row.curday > 0 && msg.row.curday < 6 && msg.row.team.match((new RegExp('^(m|a|n|d)$'))) !== null) \n    || (msg.row.curday === 6 && msg.row.team === 's')\n) {\n    if (msg.row.starttime < msg.row.stoptime) {\n        msg.row.value = ((msg.row.curtime > msg.row.starttime) && (msg.row.curtime < msg.row.stoptime)) ? true : false;\n        //...\n    } else {\n        /* past midnight */\n        msg.row.value = ((msg.row.curtime > msg.row.stoptime) && (msg.row.curtime < msg.row.starttime)) ? false : true;\n        //...\n    }\n}\n\n/* Check if its an holiday */\nconst curdate = new Date(msg.row.curts); \nmsg.row.curdate = (\"0\" + (curdate.getMonth() +1)).slice(-2) + \"-\" + (\"0\" + curdate.getDate()).slice(-2);\nconst holidays = (global.get('kernel.holiday[\"' + msg.row.plant + '\"]') || '').split('|');\nfor (const k in holidays) {\n    if (holidays[k] === msg.row.curdate) {\n        msg.row.value = false;\n    }\n}\n\n//flow.set('teams[\"' + msg.row.plant + '\"][\"' + msg.row.team + '\"]', msg.row.value);\n//msg.payload = msg.row.plant + ':' + msg.row.curday + ':' + msg.row.team + ':' + msg.row.value;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 980,
+        "wires": [
+            [
+                "b66072d27172fc3b"
+            ]
+        ]
+    },
+    {
+        "id": "4ea4b346c7453612",
+        "type": "moment",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "current day",
+        "topic": "",
+        "input": "row.ts",
+        "inputType": "msg",
+        "inTz": "Europe/Paris",
+        "adjAmount": "0",
+        "adjType": "hours",
+        "adjDir": "add",
+        "format": "d",
+        "locale": "en-US",
+        "output": "row.curday",
+        "outputType": "msg",
+        "outTz": "Europe/Paris",
+        "x": 1230,
+        "y": 980,
+        "wires": [
+            [
+                "be54eccfeb5cd86b"
+            ]
+        ]
+    },
+    {
+        "id": "f949241c6ec3ed78",
+        "type": "moment",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "current time",
+        "topic": "",
+        "input": "row.ts",
+        "inputType": "msg",
+        "inTz": "Europe/Paris",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "HHmm",
+        "locale": "en-US",
+        "output": "row.curtime",
+        "outputType": "msg",
+        "outTz": "Europe/Paris",
+        "x": 1030,
+        "y": 980,
+        "wires": [
+            [
+                "4ea4b346c7453612"
+            ]
+        ]
+    },
+    {
+        "id": "a4a184920e601165",
+        "type": "moment",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "current ts",
+        "topic": "",
+        "input": "row.ts",
+        "inputType": "msg",
+        "inTz": "Europe/Paris",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "x",
+        "locale": "en-US",
+        "output": "row.curts",
+        "outputType": "msg",
+        "outTz": "Europe/Paris",
+        "x": 840,
+        "y": 980,
+        "wires": [
+            [
+                "f949241c6ec3ed78"
+            ]
+        ]
+    },
+    {
+        "id": "274b5abfd4525a98",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "data",
+        "func": "// Build period loop row\n\n/* tree */\nlet tsplit = msg.team.split('|');\nmsg.row.plant = tsplit[0];\nmsg.row.team = tsplit[1];\n\n/* plant offset (dec) */\nlet dec = Number(global.get('kernel.day[\"' + msg.row.plant + '\"]') || 0);\nmsg.row.dectime = dec * 100; // ex: 600, in order to compare to starttime/stoptime 630, 2330...\n\n/* team time */\nlet psplit = msg.payload.split('|');\nmsg.row.starttime = Number(psplit[0].split(':').join('')); //convert calendar time to comparable number\nmsg.row.stoptime = Number(psplit[1].split(':').join(''));\n\n/* datetime formatter tz */\nmsg.outTz = msg.row.tz = global.get('kernel.tz[\"' + msg.row.plant + '\"]') || 'Europe/Paris';\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 980,
+        "wires": [
+            [
+                "a4a184920e601165"
+            ]
+        ]
+    },
+    {
+        "id": "e8c4ef0c0b4194a7",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "kernel - team",
+        "links": [],
+        "x": 545,
+        "y": 980,
+        "wires": [
+            [
+                "274b5abfd4525a98"
+            ]
+        ]
+    },
+    {
+        "id": "b66072d27172fc3b",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "bcd29c14e67166df",
+        "name": "kernel - team",
+        "mode": "return",
+        "links": [],
+        "x": 1535,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "dc41a85b166525a3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "data",
+        "func": "// Prepare period loop\n\nif (typeof global.get('kernel.team') === 'object'\n    && typeof global.get('kernel.period') === 'object'\n    && typeof global.get('kernel.state') === 'object'\n) {\n    let final_teams = { };\n    let final_periods = { };\n    let final_pilots = { };\n\n    const teams = global.get('kernel.team') || { };\n    for (const team in teams) {\n        msg.team = team;\n        msg.payload = teams[team];\n        msg.row = {\n            'ts': Date.now()\n        }\n\n        // Get team data\n        msg = await node.linkcall('kernel - team', msg);\n\n        if (typeof msg.row === 'object') {\n            if (typeof final_teams[msg.row.plant] !== 'object') {\n                final_teams[msg.row.plant] = {};\n            }\n            final_teams[msg.row.plant][msg.row.team] = msg.row.value;\n        }\n    }\n\n    // Clean up\n    msg.payload = '';\n    delete msg.team;\n    delete msg.row;\n    delete msg.settings;\n    delete msg.outTz;\n\n    const periods = global.get('kernel.period') || { };\n    for (const line in periods) {\n        final_periods[line] = false;\n\n        // line program is enabled\n        if (global.get('kernel.disabled[\"' + line + '\"]') !== true) {\n            // no periods set for this line\n            if (periods[line] === '') {\n                // set to off\n                final_pilots[line] = false;\n            } else {\n                let exists = false;\n                const plant = global.get('kernel.lines[\"' + line + '\"]');\n                const teams = periods[line].split(\"\");\n                for (const i in teams) {\n                    if (typeof final_teams[plant][teams[i]] === 'boolean') {\n                        exists = true;\n                        if (final_teams[plant][teams[i]] === true) {\n                            final_periods[line] = true;\n                        }\n                    }\n                }\n                if (exists) {\n                    final_pilots[line] = final_periods[line];\n                }\n            }\n        }\n    }\n\n    const states = global.get('kernel.state') || { };\n    for (const entity in states) {\n        let esplit = entity.split('|');\n        let equipment = esplit[0];\n        let component = esplit[1];\n        let line = global.get('kernel.equipments[\"' + equipment + '\"]') || '-';\n\n        let pilot = final_pilots[line];\n        if (typeof pilot === 'boolean'\n            && typeof global.get('kernel.link[\"' + entity + '\"]') === 'string'\n            && [ 'heatswitch', 'heatlink', 'heattoggle', 'heatpulse' ].includes(component)\n        ) {\n            let state = states[equipment + '|run'] || '';\n            if (typeof state === 'number' && state === 1 && pilot === false) {\n                // do not pilot heat to off if equipment is running\n            } else {\n                msg.kernel = {\n                    'type': 'state',\n                    'entity': entity,\n                    'value': pilot === true ? 1 : 0,\n                    'loop': false\n                };\n\n                msg.telegram = {\n                    'type': 'period',\n                    'value': pilot,\n                    'entity': equipment,\n                    'change': msg.kernel.value !== states[entity]\n                };\n\n                if (component === 'heatpulse') {\n                    // pulse only if current state is not the one we want\n                    if (msg.kernel.value !== (states[equipment + '|heat'] || '-')) {\n                        // pulse\n                        msg.kernel.value = 1;\n                        node.send(msg);\n\n                        // Wait pulse duration\n                        await new Promise(resolve => setTimeout(resolve, 500));\n                        msg.kernel.value = 0;\n                        delete msg.telegram;\n                        node.send(msg);\n                    }\n                } else {\n                    node.send(msg);\n                }\n\n                node.status({\n                    'fill': pilot ? 'green' : 'red',\n                    'text': entity + ' = ' + pilot\n                });\n            }\n        }\n    }\n\n}\n\nreturn;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 860,
+        "wires": [
+            [
+                "d3c22873709318bb",
+                "b087fef5670c809f"
+            ]
+        ]
     },
     {
         "id": "2ee1493983ba4b61",
