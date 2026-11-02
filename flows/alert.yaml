@@ -24,9 +24,24 @@
     - d7bc8fc74bfc07cb
     - 6bf5f7c2a877d5f7
   x: 104
-  'y': 99
+  'y': 139
   w: 1342
   h: 142
+- id: d9c84cf8592b1630
+  type: group
+  z: 476eb6fc04c55cec
+  name: alert - register
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 0982b8afe66dcfad
+    - 8991eb72549c698c
+  x: 104
+  'y': 19
+  w: 242
+  h: 82
 - id: eef8f90bc9ebb816
   type: ui-dropdown
   z: 476eb6fc04c55cec
@@ -53,7 +68,7 @@
   typeIsComboBox: true
   msgTrigger: onChange
   x: 450
-  'y': 200
+  'y': 240
   wires:
     - - 6bf5f7c2a877d5f7
 - id: 2f959ccef56b1836
@@ -114,7 +129,7 @@
   action: replace
   className: ''
   x: 980
-  'y': 140
+  'y': 180
   wires:
     - - 28484d7e89befc41
 - id: ed53bb28b7006772
@@ -126,7 +141,7 @@
   links:
     - 00818f8c0686b556
   x: 1295
-  'y': 140
+  'y': 180
   wires: []
 - id: d7bc8fc74bfc07cb
   type: link in
@@ -137,7 +152,7 @@
     - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
-  'y': 140
+  'y': 180
   wires:
     - - fca30e25f5087f5a
 - id: 186467962929c0f8
@@ -198,7 +213,7 @@
   action: replace
   className: ''
   x: 980
-  'y': 200
+  'y': 240
   wires:
     - - 28484d7e89befc41
 - id: 953414d1b751a30d
@@ -282,7 +297,7 @@
   finalize: ''
   libs: []
   x: 790
-  'y': 140
+  'y': 180
   wires:
     - - 2f959ccef56b1836
     - - 186467962929c0f8
@@ -342,7 +357,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 140
+  'y': 180
   wires:
     - - 953414d1b751a30d
     - - eef8f90bc9ebb816
@@ -385,7 +400,7 @@
   finalize: ''
   libs: []
   x: 1170
-  'y': 140
+  'y': 180
   wires:
     - - ed53bb28b7006772
       - 2c755e01455b172f
@@ -403,7 +418,7 @@
   statusVal: ''
   statusType: auto
   x: 1340
-  'y': 200
+  'y': 240
   wires: []
 - id: 6bf5f7c2a877d5f7
   type: function
@@ -426,6 +441,52 @@
   finalize: ''
   libs: []
   x: 630
-  'y': 200
+  'y': 240
   wires:
     - - 953414d1b751a30d
+- id: 0982b8afe66dcfad
+  type: link in
+  z: 476eb6fc04c55cec
+  g: d9c84cf8592b1630
+  name: alert - register
+  links:
+    - edd7a86184b16415
+  x: 145
+  'y': 60
+  wires:
+    - - 8991eb72549c698c
+- id: 8991eb72549c698c
+  type: function
+  z: 476eb6fc04c55cec
+  g: d9c84cf8592b1630
+  name: data
+  func: |-
+
+    msg.page = env.get('NR_FLOW_NAME');
+
+    msg.payload = {
+        'tab': 2,
+        'id': 'a19160517715b70b',
+        'name': 'Maintenance',
+        'icon': 'mdi-wrench',
+        'level': {
+            'admin': true,
+            'rt': true,
+            'tech': true,
+            'rp': true,
+            'prod': true
+        }
+    };
+
+    msg = await node.linkcall('kernel - register', msg);
+
+    return;
+  outputs: 0
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 60
+  wires: []

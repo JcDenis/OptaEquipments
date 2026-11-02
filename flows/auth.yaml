@@ -25,9 +25,24 @@
     - 1a7777114f11ff8b
     - a27ba878fd1b8cd2
   x: 104
-  'y': 99
+  'y': 139
   w: 862
   h: 262
+- id: 65989ffcddd6ae81
+  type: group
+  z: 27841aa886edd1cd
+  name: auth - register
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - a384e5fd000fcf73
+    - f00b6d15db42441b
+  x: 104
+  'y': 19
+  w: 242
+  h: 82
 - id: 9833ea0e831ff8c7
   type: ui-button
   z: 27841aa886edd1cd
@@ -60,7 +75,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 470
-  'y': 200
+  'y': 240
   wires:
     - - 87f5723e3123e133
 - id: aa0e1484ee75066f
@@ -84,7 +99,7 @@
   value: payload
   valueType: msg
   x: 450
-  'y': 140
+  'y': 180
   wires: []
 - id: bb71762ba2269b75
   type: link out
@@ -95,7 +110,7 @@
   links:
     - 00818f8c0686b556
   x: 795
-  'y': 260
+  'y': 300
   wires: []
 - id: 8aca2e86c077d885
   type: debug
@@ -111,7 +126,7 @@
   statusVal: ''
   statusType: auto
   x: 850
-  'y': 200
+  'y': 240
   wires: []
 - id: bf3da41c4b5bd219
   type: link in
@@ -122,7 +137,7 @@
     - 575b91a30deac00d
     - 7bba6594f41302c2
   x: 145
-  'y': 200
+  'y': 240
   wires:
     - - 5a825d48de813e3e
 - id: 3361a6a4765bfb11
@@ -160,7 +175,7 @@
   passthru: false
   dropdownOptions: []
   x: 450
-  'y': 260
+  'y': 300
   wires:
     - - 1a7777114f11ff8b
 - id: f3b837acb99f6326
@@ -170,7 +185,7 @@
   name: non authenticated users get language from browser. see ui-template
   info: ''
   x: 620
-  'y': 320
+  'y': 360
   wires: []
 - id: 5a825d48de813e3e
   type: function
@@ -232,7 +247,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 200
+  'y': 240
   wires:
     - - aa0e1484ee75066f
     - - 9833ea0e831ff8c7
@@ -257,7 +272,7 @@
   finalize: ''
   libs: []
   x: 670
-  'y': 200
+  'y': 240
   wires:
     - - bb71762ba2269b75
       - 8aca2e86c077d885
@@ -306,7 +321,7 @@
   finalize: ''
   libs: []
   x: 670
-  'y': 260
+  'y': 300
   wires:
     - - bb71762ba2269b75
 - id: a27ba878fd1b8cd2
@@ -318,6 +333,52 @@
     - 5a825d48de813e3e
   uncaught: false
   x: 280
-  'y': 320
+  'y': 360
   wires:
     - []
+- id: a384e5fd000fcf73
+  type: link in
+  z: 27841aa886edd1cd
+  g: 65989ffcddd6ae81
+  name: auth - register
+  links:
+    - edd7a86184b16415
+  x: 145
+  'y': 60
+  wires:
+    - - f00b6d15db42441b
+- id: f00b6d15db42441b
+  type: function
+  z: 27841aa886edd1cd
+  g: 65989ffcddd6ae81
+  name: data
+  func: |-
+
+    msg.page = env.get('NR_FLOW_NAME');
+
+    msg.payload = {
+        'tab': 0,
+        'id': '64fe17ae4a406472',
+        'name': 'Authentification',
+        'icon': 'mdi-login',
+        'level': {
+            'admin': true,
+            'rt': true,
+            'tech': true,
+            'rp': true,
+            'prod': true
+        }
+    };
+
+    msg = await node.linkcall('kernel - register', msg);
+
+    return;
+  outputs: 0
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 60
+  wires: []
