@@ -377,18 +377,18 @@
     <template>
         <Teleport v-if="mounted" to="#nrdb-page-ded8ef092f5c6531">
             <div id="oe-map-group">
-                <div class="oe-map-wait"><p>Loading...</p></div>
+                <!-- <div class="oe-map-wait"><p>Waiting...</p></div> -->
                 <svg viewBox="0 0 720 400" width="100%" height="100%">
                     <image x="0" y="0" width="100%" height="100%">
                 </svg>
-                <ul class="oe-map-help">
-                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help['color'][0]"></rect></svg> {{ help['on'] }}</li>
-                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help['color'][1]"></rect></svg> {{ help['off'] }}</li>
-                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help['color'][2]"></rect></svg> {{ help['half'] }}</li>
+                <ul v-if="show_me" class="oe-map-help">
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help.color[0]"></rect></svg> {{ help.on }}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help.color[1]"></rect></svg> {{ help.off }}</li>
+                    <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help.color[2]"></rect></svg> {{ help.half }}</li>
 
-                    <li><span class="mdi mdi-stop"></span> {{ help['stop'] }}</li>
-                    <li><span class="mdi mdi-pause"></span> {{ help['ready'] }}</li>
-                    <li><span class="mdi mdi-play"></span> {{ help['cycle'] }}</li>
+                    <li><span class="mdi mdi-stop"></span> {{ help.stop }}</li>
+                    <li><span class="mdi mdi-pause"></span> {{ help.ready }}</li>
+                    <li><span class="mdi mdi-play"></span> {{ help.cycle }}</li>
                 <ul>
             </div>
         </Teleport>
@@ -399,6 +399,7 @@
             data() {
                 return {
                     mounted: false,
+                    show_me: false,
                     help: {
                         on: '',
                         off: '',
@@ -431,7 +432,7 @@
                     var img = document.body.querySelector("#oe-map-group svg image");
                     img.setAttributeNS(imgns, 'xlink:href', '/' + msg.plant + '/plant.png');
 
-                    document.querySelectorAll(".oe-map-wait").forEach(el => el.remove());
+                    //document.querySelectorAll(".oe-map-wait").forEach(el => el.remove());
 
                     // Clean up all zones on new message
                     let childs = svg.querySelectorAll('g');
