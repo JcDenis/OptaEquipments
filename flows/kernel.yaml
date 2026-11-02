@@ -1167,15 +1167,15 @@
     <template>
         <Teleport v-if="mounted" to="#oe-header">
             <v-toolbar class="oe-nav"> 
-            <v-btn-toggle v-model="msg.current" color="primary" variant="outlined" divided mandatory>
+            <v-btn-toggle v-model="oe_page.id" color="primary" variant="outlined" divided mandatory>
                 <v-btn v-for="btn in oe_buttons" :value="btn.id" :icon="btn.icon" :title="btn.title" @click="oe_nav(btn)"></v-btn>
             </v-btn-toggle>
-            <v-toolbar-title :text="msg.page"></v-toolbar-title>
+            <v-toolbar-title :text="oe_page.title"></v-toolbar-title>
             </v-toolbar>
         </Teleport>
         
         <Teleport v-if="mounted" to="main">
-            <v-btn class="oe-vendor" href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="msg.vendor"></img></v-btn>
+            <v-btn class="oe-vendor" href="https://github.com/JcDenis/OptaEquipments"><img height="32px" src="/icon.png" :title="oe_page.vendor"></img></v-btn>
         </Teleport>
     </template>
 
@@ -1183,8 +1183,15 @@
         export default {
             data() {
                 return {
+                    mounted: false,
                     oe_buttons: [],
-                    mounted: false
+                    oe_page: {
+                        id: 'none',
+                        title: '',
+                        lang: 'en',
+                        vendor: 'none',
+                        header: 'none'
+                    }
                 }
             },
             mounted() {
@@ -1216,9 +1223,16 @@
             },
             watch: {
                 msg: function (msg) {
-                    document.documentElement.setAttribute("lang", msg.page_lang);
+                    if (typeof msg.page_data !== 'object' || msg.page_data.title === '') {
+
+                        return;
+                    }
+
+                    this.oe_page = { ...msg.page_data };
+
+                    document.documentElement.setAttribute("lang", this.oe_page.lang);
                     document.documentElement.setAttribute("translate", "no");
-                    document.title = msg.title;
+                    document.title = this.oe_page.header + ' - ' + this.oe_page.title;
 
                     // Populate menu
                     if (Array.isArray(msg.buttons)) {
@@ -1229,6 +1243,7 @@
         }
 
     </script>
+  noerr: 0
   storeOutMessages: true
   passthru: false
   resendOnRefresh: true
@@ -2229,12 +2244,18 @@
         }
     };
 
+    msg.page_data = {
+        'id': 'auth',
+        'title': '',
+        'vendor': 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor')),
+        'header': global.get('kernel.app.title') || global.get('describe.app.title'),
+        'lang': 'en'
+    };
+
 
     // Check user page right
 
     let allowed = false;
-
-    let current = 'auth';
 
     for (const page in pages) {
         if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {
@@ -2250,11 +2271,11 @@
         }
 
         if (pages[page]['tab'] === msg.hmi.tab) {
-            msg.page_lang = msg.dictionary.lang;
+            msg.page_data.lang = msg.dictionary.lang;
         }
 
         if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {
-            current = page;
+            msg.page_data.id = page;
             msg.hmi.page = msg.dictionary.option_page[page];
             allowed = true;
         }
@@ -2293,22 +2314,16 @@
 
     // UI menu
 
-    msg.page = msg.hmi.page; 
-
-    msg.title = global.get('kernel.app.title') ||
-    global.get('describe.app.title');
-
-    msg.vendor = 'OptaEquipments v' + (global.get('describe.app.version') ||
-    '0.0.0') + ' for ' + (global.get('kernel.app.vendor') ||
-    global.get('describe.app.vendor'));
-
-    msg.current = current;
+    msg.page_data.title = msg.hmi.page;
 
 
     delete msg.dictionary;
 
 
     node.send([msg, null, null]);
+
+
+    delete msg.page_data;
 
 
     return [null, newMsg, null];

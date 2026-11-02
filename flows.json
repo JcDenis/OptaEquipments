@@ -3342,7 +3342,7 @@
             "f21467ce1ca91d75",
             "de5c9ae23b792c08"
         ],
-        "x": 94,
+        "x": 104,
         "y": 19,
         "w": 242,
         "h": 82
@@ -3361,7 +3361,7 @@
             "fbf68fd4fc218d29",
             "3b2c57dd6ef12082"
         ],
-        "x": 94,
+        "x": 104,
         "y": 19,
         "w": 242,
         "h": 82
@@ -4766,7 +4766,8 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"msg.current\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"msg.page\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"msg.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                oe_buttons: [],\n                mounted: false\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                document.documentElement.setAttribute(\"lang\", msg.page_lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = msg.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"oe_page.id\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"oe_page.title\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"oe_page.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false,\n                oe_buttons: [],\n                oe_page: {\n                    id: 'none',\n                    title: '',\n                    lang: 'en',\n                    vendor: 'none',\n                    header: 'none'\n                }\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                if (typeof msg.page_data !== 'object' || msg.page_data.title === '') {\n\n                    return;\n                }\n\n                this.oe_page = { ...msg.page_data };\n\n                document.documentElement.setAttribute(\"lang\", this.oe_page.lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = this.oe_page.header + ' - ' + this.oe_page.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
+        "noerr": 0,
         "storeOutMessages": true,
         "passthru": false,
         "resendOnRefresh": true,
@@ -5738,7 +5739,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "data",
-        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id];\n        delete form[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\n\n// Check user page right\nlet allowed = false;\nlet current = 'auth';\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': msg.dictionary.option_page[page] || pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        current = page;\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page = msg.hmi.page; \nmsg.title = global.get('kernel.app.title') || global.get('describe.app.title');\nmsg.vendor = 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor'));\nmsg.current = current;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\nreturn [null, newMsg, null];",
+        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id];\n        delete form[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\nmsg.page_data = {\n    'id': 'auth',\n    'title': '',\n    'vendor': 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor')),\n    'header': global.get('kernel.app.title') || global.get('describe.app.title'),\n    'lang': 'en'\n};\n\n// Check user page right\nlet allowed = false;\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': msg.dictionary.option_page[page] || pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_data.lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.page_data.id = page;\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page_data.title = msg.hmi.page;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\ndelete msg.page_data;\n\nreturn [null, newMsg, null];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -15730,7 +15731,7 @@
         "links": [
             "edd7a86184b16415"
         ],
-        "x": 135,
+        "x": 145,
         "y": 60,
         "wires": [
             [
@@ -15751,7 +15752,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 260,
+        "x": 270,
         "y": 60,
         "wires": []
     },
@@ -21567,7 +21568,7 @@
         "links": [
             "edd7a86184b16415"
         ],
-        "x": 135,
+        "x": 145,
         "y": 60,
         "wires": [
             [
@@ -21588,7 +21589,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 260,
+        "x": 270,
         "y": 60,
         "wires": []
     },
@@ -25818,12 +25819,12 @@
                 "2c9a3428a9ca7243",
                 "202807528f231a92",
                 "90f09c8d83cff770",
-                "b47a452c3a323b37",
                 "ed4d2d5161b86f09",
-                "ce78931234e72d07",
                 "8d45202212d385b9",
                 "5bb94e2c2cd79ac6",
-                "cb28ad66e7da1c26"
+                "cb28ad66e7da1c26",
+                "b47a452c3a323b37",
+                "ce78931234e72d07"
             ]
         ]
     },
