@@ -4988,8 +4988,8 @@
     msg.show = [];
     msg.ui_update = {};
 
-    // Menu keys saved on page build
-    const menu = flow.get('tree_menu') || [];
+    // User menu keys saved on page build
+    const menu = global.get('menu["' + msg.hmi.id + '"]["tree"]') || [];
 
     for (const k of menu) {
         if (k === msg.list) {
@@ -13208,9 +13208,6 @@
 
     const limit = ['plant', 'device', 'map', 'holiday'];
 
-    // Keep menu keys for tree - menu (msg.menu is lost on click)
-    flow.set('tree_menu', Object.keys(msg.menu));
-
     msg.hide = [];
 
     for (const k in msg.menu) {
@@ -13234,6 +13231,13 @@
         'options': []
     };
 
+    // Keep user menu keys for tree - menu (msg.menu is lost on click)
+    if (typeof global.get('menu') !== 'object') {
+        global.set('menu', { });
+    }
+    let menu = global.get('menu'); // autoupdate
+    menu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'tree': [] };
+
     for (const k in msg.menu) {
         if (msg.hmi.level !== 'admin' && limit.includes(k)) {
 
@@ -13244,6 +13248,7 @@
             'value': k,
             'label': msg.menu[k]
         });
+        menu[msg.hmi.id]['tree'].push(k);
     }
 
     return [ null, msg ];

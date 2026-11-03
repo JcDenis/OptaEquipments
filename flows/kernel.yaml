@@ -2026,6 +2026,7 @@
     let removed = 0;
     let user = global.get('user') || { };
     let form = global.get('form') || { };
+    let menu = global.get('menu') || { };
 
     for (const u in user) {
         if (typeof global.get('auth["' + user[u]["login"] + '"]["level"]') !== 'string' 
@@ -2034,6 +2035,7 @@
         ) {
             delete user[u];
             delete form[u];
+            delete menu[u];
 
             msg.payload = u;
             node.send(msg);
@@ -2646,6 +2648,7 @@
     global.set('auth', { });
     global.set('user', { });
     global.set('form', { });
+    global.set('menu', { });
 
     // Various
     msg = {
