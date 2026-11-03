@@ -87,6 +87,7 @@
     - 63238b6d584649d5
     - bcd29c14e67166df
     - 9eded20dfe6c1a19
+    - 00f63ad10b00133d
   x: 68
   'y': 13
   w: 1534
@@ -629,6 +630,7 @@
     - 21c130ed56315b01
     - 9ca41d82ae49b0f7
     - 134aaabd84080c78
+    - 910fcd1dc9c36741
   x: 145
   'y': 680
   wires:
@@ -1093,6 +1095,7 @@
     - 1472ee8de6253740
     - 6f0b1eb0278764e4
     - e47fa68c1a570f10
+    - 6fa7284670443dd9
   x: 1395
   'y': 620
   wires: []
@@ -2722,6 +2725,7 @@
             'families': { },
             'counter': { },
             'counters': { },
+            'meter': { },
             'device': { },
             'reverse': {},
             'disabled': { },
@@ -2756,6 +2760,132 @@
   'y': 1100
   wires:
     - - 775760e04ac6b20c
+- id: 00f63ad10b00133d
+  type: group
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: kernel - meter
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 6fa7284670443dd9
+    - 8e9269dd3c4b5b8f
+    - 910fcd1dc9c36741
+  x: 504
+  'y': 1059
+  w: 422
+  h: 82
+- id: 6fa7284670443dd9
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 00f63ad10b00133d
+  name: kernel - meter
+  links:
+    - 050a29c043a85584
+  x: 545
+  'y': 1100
+  wires:
+    - - 8e9269dd3c4b5b8f
+- id: 8e9269dd3c4b5b8f
+  type: function
+  z: f6f2187d.f17ca8
+  g: 00f63ad10b00133d
+  name: data
+  func: >-
+    // Update equipment counters from equipment total run meter
+
+    // kernel.meter["equipment|counter"] = "hours|last runmetertotal"
+
+
+    if (msg.kernel?.type !== 'state' || msg.kernel?.component !==
+    'runmetertotal') {
+
+        return;
+    }
+
+
+    const total = Number(msg.kernel.value);
+
+    const equipment = msg.kernel.equipment;
+
+    const kernel = global.get('kernel');
+
+    const family = kernel.families?.[equipment] || '';
+
+
+    if (!Number.isFinite(total) || family === '') {
+
+        return;
+    }
+
+
+    for (const counter in kernel.counters) {
+        if (kernel.counters[counter] !== family) {
+
+            continue;
+        }
+
+        const entity = equipment + '|' + counter;
+        const msplit = String(kernel.meter?.[entity] ?? '').split('|');
+        let hours = Number(msplit[0]) || 0;
+        const last = msplit.length > 1 ? Number(msplit[1]) : NaN;
+
+        if (Number.isFinite(last)) {
+            // Nothing new
+            if (total === last) {
+
+                continue;
+            }
+
+            // Device total meter went back (device reset or replaced): count from 0
+            let delta = total >= last ? total - last : total;
+            hours += delta;
+        }
+        // else first seen: start counting from current total
+
+        node.status({
+            'fill': 'green',
+            'text': entity + ' = ' + (Math.round(hours * 100) / 100)
+        });
+
+        node.send({
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'meter',
+                'entity': entity,
+                'value': (Math.round(hours * 100) / 100) + '|' + total,
+                'loop': false
+            }
+        });
+    }
+
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 670
+  'y': 1100
+  wires:
+    - - 910fcd1dc9c36741
+- id: 910fcd1dc9c36741
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 00f63ad10b00133d
+  name: kernel - meter
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 865
+  'y': 1100
+  wires: []
 - id: 694d0770f102a4d3
   type: function
   z: f6f2187d.f17ca8
@@ -3080,6 +3210,25 @@
                     'delete': true
                 }
             }]);
+
+            // kernel.meter
+            const meters = global.get('kernel.meter') || { };
+            for (const meter in meters) {
+                let msplit = meter.split('|');
+                if (msplit[0] === msg.kernel.entity) {
+                    node.send([{
+                        'topic': '',
+                        'payload': '',
+                        'kernel': {
+                            'type': 'meter',
+                            'entity': meter,
+                            'value': '',
+                            'loop': false,
+                            'delete': true
+                        }
+                    }]);
+                }
+            }
 
             // kernel.families
             node.send([{
@@ -3911,6 +4060,25 @@
                 'delete': true
             }
         }]);
+
+        // kernel.meter
+        const meters = global.get('kernel.meter') || { };
+        for (const meter in meters) {
+            let msplit = meter.split('|');
+            if (msplit[1] === msg.kernel.entity) {
+                node.send([{
+                    'topic': '',
+                    'payload': '',
+                    'kernel': {
+                        'type': 'meter',
+                        'entity': meter,
+                        'value': '',
+                        'loop': false,
+                        'delete': true
+                    }
+                }]);
+            }
+        }
 
         // kernel.counter
         node.send([{

@@ -1604,7 +1604,8 @@
             "11d028449aaa105b",
             "63238b6d584649d5",
             "bcd29c14e67166df",
-            "9eded20dfe6c1a19"
+            "9eded20dfe6c1a19",
+            "00f63ad10b00133d"
         ],
         "x": 68,
         "y": 13,
@@ -4547,7 +4548,8 @@
             "3cc5c7bd4abc1cb9",
             "21c130ed56315b01",
             "9ca41d82ae49b0f7",
-            "134aaabd84080c78"
+            "134aaabd84080c78",
+            "910fcd1dc9c36741"
         ],
         "x": 145,
         "y": 680,
@@ -5033,7 +5035,8 @@
         "links": [
             "1472ee8de6253740",
             "6f0b1eb0278764e4",
-            "e47fa68c1a570f10"
+            "e47fa68c1a570f10",
+            "6fa7284670443dd9"
         ],
         "x": 1395,
         "y": 620,
@@ -6296,7 +6299,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "data",
-        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
+        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6310,6 +6313,80 @@
                 "775760e04ac6b20c"
             ]
         ]
+    },
+    {
+        "id": "00f63ad10b00133d",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "kernel - meter",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "6fa7284670443dd9",
+            "8e9269dd3c4b5b8f",
+            "910fcd1dc9c36741"
+        ],
+        "x": 504,
+        "y": 1059,
+        "w": 422,
+        "h": 82
+    },
+    {
+        "id": "6fa7284670443dd9",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "00f63ad10b00133d",
+        "name": "kernel - meter",
+        "links": [
+            "050a29c043a85584"
+        ],
+        "x": 545,
+        "y": 1100,
+        "wires": [
+            [
+                "8e9269dd3c4b5b8f"
+            ]
+        ]
+    },
+    {
+        "id": "8e9269dd3c4b5b8f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "00f63ad10b00133d",
+        "name": "data",
+        "func": "// Update equipment counters from equipment total run meter\n// kernel.meter[\"equipment|counter\"] = \"hours|last runmetertotal\"\n\nif (msg.kernel?.type !== 'state' || msg.kernel?.component !== 'runmetertotal') {\n\n    return;\n}\n\nconst total = Number(msg.kernel.value);\nconst equipment = msg.kernel.equipment;\nconst kernel = global.get('kernel');\nconst family = kernel.families?.[equipment] || '';\n\nif (!Number.isFinite(total) || family === '') {\n\n    return;\n}\n\nfor (const counter in kernel.counters) {\n    if (kernel.counters[counter] !== family) {\n\n        continue;\n    }\n\n    const entity = equipment + '|' + counter;\n    const msplit = String(kernel.meter?.[entity] ?? '').split('|');\n    let hours = Number(msplit[0]) || 0;\n    const last = msplit.length > 1 ? Number(msplit[1]) : NaN;\n\n    if (Number.isFinite(last)) {\n        // Nothing new\n        if (total === last) {\n\n            continue;\n        }\n\n        // Device total meter went back (device reset or replaced): count from 0\n        let delta = total >= last ? total - last : total;\n        hours += delta;\n    }\n    // else first seen: start counting from current total\n\n    node.status({\n        'fill': 'green',\n        'text': entity + ' = ' + (Math.round(hours * 100) / 100)\n    });\n\n    node.send({\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'meter',\n            'entity': entity,\n            'value': (Math.round(hours * 100) / 100) + '|' + total,\n            'loop': false\n        }\n    });\n}\n\nreturn;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 1100,
+        "wires": [
+            [
+                "910fcd1dc9c36741"
+            ]
+        ]
+    },
+    {
+        "id": "910fcd1dc9c36741",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "00f63ad10b00133d",
+        "name": "kernel - meter",
+        "mode": "link",
+        "links": [
+            "e60e4ab7617738c3"
+        ],
+        "x": 865,
+        "y": 1100,
+        "wires": []
     },
     {
         "id": "694d0770f102a4d3",
@@ -6403,7 +6480,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - equipment",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.id !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {\n    let is_empty = true;\n    // kernel.link\n    const links = global.get('kernel.link');\n    for (const link in links) {\n        let lsplit = link.split('|');\n        if (lsplit[0] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.equipments\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipments',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.equipment\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipment',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.families\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.id !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {\n    let is_empty = true;\n    // kernel.link\n    const links = global.get('kernel.link');\n    for (const link in links) {\n        let lsplit = link.split('|');\n        if (lsplit[0] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.equipments\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipments',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.equipment\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipment',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.meter\n        const meters = global.get('kernel.meter') || { };\n        for (const meter in meters) {\n            let msplit = meter.split('|');\n            if (msplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'meter',\n                        'entity': meter,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.families\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6937,7 +7014,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - counter",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'counter') {\n\n    // kernel.counters\n    node.send([{\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'counters',\n            'entity': msg.kernel.entity,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    }]);\n\n    // kernel.counter\n    node.send([{\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'counter',\n            'entity': msg.kernel.entity,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    }]);\n\n    msg.payload = msg.dictionary.option_notice.update_success;\n    msg.success = true;\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'counter') {\n\n    // kernel.counters\n    node.send([{\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'counters',\n            'entity': msg.kernel.entity,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    }]);\n\n    // kernel.meter\n    const meters = global.get('kernel.meter') || { };\n    for (const meter in meters) {\n        let msplit = meter.split('|');\n        if (msplit[1] === msg.kernel.entity) {\n            node.send([{\n                'topic': '',\n                'payload': '',\n                'kernel': {\n                    'type': 'meter',\n                    'entity': meter,\n                    'value': '',\n                    'loop': false,\n                    'delete': true\n                }\n            }]);\n        }\n    }\n\n    // kernel.counter\n    node.send([{\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'counter',\n            'entity': msg.kernel.entity,\n            'value': '',\n            'loop': false,\n            'delete': true\n        }\n    }]);\n\n    msg.payload = msg.dictionary.option_notice.update_success;\n    msg.success = true;\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -32661,7 +32738,7 @@
         "z": "64ce08af468b8197",
         "g": "7e8f13051c405b1e",
         "name": "data",
-        "func": "// Parse plant and tz\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled plant form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    let form = global.get('form[\"' + msg.hmi.id + '\"]') || { };\n\n    // equipments\n    let equipmentsMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'equipments',\n            'entity': form.id,\n            'value': form.line,\n            'loop': false\n        }\n    };\n    node.send([null, equipmentsMsg]);\n\n    // equipment\n    let equipmentMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'equipment',\n            'entity': form.id,\n            'value': form.name,\n            'loop': false\n        }\n    };\n    node.send([null, equipmentMsg]);\n\n    // families\n    if (typeof form.family === 'string' && form.family !== '') {\n        let familiesMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': form.id,\n                'value': form.family === '-' ? '' : form.family,\n                'loop': false,\n                'delete': form.family === '-'\n            }\n        };\n        node.send([null, familiesMsg]);\n    }\n\n    // UI notice\n    msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';\n    msg = await node.linkcall('ui - notice', msg);\n}\n\nreturn;",
+        "func": "// Parse plant and tz\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled plant form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    let form = global.get('form[\"' + msg.hmi.id + '\"]') || { };\n\n    // equipments\n    let equipmentsMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'equipments',\n            'entity': form.id,\n            'value': form.line,\n            'loop': false\n        }\n    };\n    node.send([null, equipmentsMsg]);\n\n    // equipment\n    let equipmentMsg = {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'equipment',\n            'entity': form.id,\n            'value': form.name,\n            'loop': false\n        }\n    };\n    node.send([null, equipmentMsg]);\n\n    // families\n    if (typeof form.family === 'string' && form.family !== '') {\n        // meters of the previous family are no longer relevant\n        if ((global.get('kernel.families[\"' + form.id + '\"]') || '-') !== form.family) {\n            const meters = global.get('kernel.meter') || { };\n            for (const meter in meters) {\n                let msplit = meter.split('|');\n                if (msplit[0] === form.id) {\n                    node.send([null, {\n                        'topic': '',\n                        'payload': '',\n                        'kernel': {\n                            'type': 'meter',\n                            'entity': meter,\n                            'value': '',\n                            'loop': false,\n                            'delete': true\n                        }\n                    }]);\n                }\n            }\n        }\n\n        let familiesMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': form.id,\n                'value': form.family === '-' ? '' : form.family,\n                'loop': false,\n                'delete': form.family === '-'\n            }\n        };\n        node.send([null, familiesMsg]);\n    }\n\n    // UI notice\n    msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';\n    msg = await node.linkcall('ui - notice', msg);\n}\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,

@@ -10499,6 +10499,27 @@
 
         // families
         if (typeof form.family === 'string' && form.family !== '') {
+            // meters of the previous family are no longer relevant
+            if ((global.get('kernel.families["' + form.id + '"]') || '-') !== form.family) {
+                const meters = global.get('kernel.meter') || { };
+                for (const meter in meters) {
+                    let msplit = meter.split('|');
+                    if (msplit[0] === form.id) {
+                        node.send([null, {
+                            'topic': '',
+                            'payload': '',
+                            'kernel': {
+                                'type': 'meter',
+                                'entity': meter,
+                                'value': '',
+                                'loop': false,
+                                'delete': true
+                            }
+                        }]);
+                    }
+                }
+            }
+
             let familiesMsg = {
                 'topic': '',
                 'payload': '',
