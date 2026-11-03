@@ -15678,14 +15678,6 @@
                 "align": "start"
             },
             {
-                "title": "Famille",
-                "key": "family_name",
-                "keyType": "key",
-                "type": "text",
-                "width": "",
-                "align": "start"
-            },
-            {
                 "title": "Compteur",
                 "key": "counter_name",
                 "keyType": "key",
@@ -15714,6 +15706,14 @@
                 "key": "hours_full",
                 "keyType": "key",
                 "type": "text",
+                "width": "",
+                "align": "center"
+            },
+            {
+                "title": "",
+                "key": "reset",
+                "keyType": "key",
+                "type": "button",
                 "width": "",
                 "align": "center"
             }
@@ -15805,14 +15805,6 @@
                 "align": "start"
             },
             {
-                "title": "Family",
-                "key": "family_name",
-                "keyType": "key",
-                "type": "text",
-                "width": "",
-                "align": "start"
-            },
-            {
                 "title": "Counter",
                 "key": "counter_name",
                 "keyType": "key",
@@ -15843,6 +15835,14 @@
                 "type": "text",
                 "width": "",
                 "align": "center"
+            },
+            {
+                "title": "",
+                "key": "reset",
+                "keyType": "key",
+                "type": "button",
+                "width": "",
+                "align": "center"
             }
         ],
         "mobileBreakpoint": "sm",
@@ -15863,7 +15863,7 @@
         "z": "3782b10e2580f9d3",
         "g": "c1761abac2b91695",
         "name": "data",
-        "func": "// Get plant counters\n\n// Reset UI\nif (msg.enabled !== true) {\n\n    return [ msg, msg ];\n}\n\nmsg.payload = [];\nlet i = 0;\n\n// Get memories\nconst plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\nconst meters = global.get('kernel.meter') || { };\nconst counters = global.get('kernel.counters') || { };\n\n// Rows\nfor (const meter in meters) {\n    let msplit = meter.split('|');\n    let row = {};\n    row.entity = meter;\n    row.equipment = msplit[0];\n    row.counter = msplit[1];\n    row.family = global.get('kernel.families[\"' + row.equipment + '\"]') || '';\n    row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]') || '';\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]') || '';\n\n    const definition = global.get('kernel.counter[\"' + row.counter + '\"]');\n\n    if (plant === row.plant\n        && row.family !== ''\n        && counters[row.counter] === row.family\n        && typeof definition === 'string'\n    ) {\n        let csplit = definition.split('|');\n        let state = row.equipment + '|run';\n\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]') || '';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]') || '';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]') || '';\n        row.family_name = global.get('kernel.family[\"' + row.family + '\"]') || '';\n        row.counter_name = csplit.slice(1).join('|');\n        row.limit = Number(csplit[0]) || 0;\n        row.hours = Math.round((Number(String(meters[meter]).split('|')[0]) || 0) * 10) / 10;\n        row.hours_full = row.hours + ' / ' + row.limit + ' h';\n        row.percent = row.limit > 0 ? Math.round(row.hours * 100 / row.limit) : 0;\n        row.percent_full = row.percent.toString() + '%';\n        row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);\n        row.state = global.get('kernel.state[\"' + state + '\"]') || 0;\n        row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;\n\n        // chek if device is offline\n        let ssplit = (global.get('kernel.link[\"' + state + '\"]') || '').split('|');\n        if (global.get('kernel.device[\"' + ssplit[0] + '|' + ssplit[1] + '\"]') !== 1) {\n            row.state_color = msg.dictionary.option_color.none;\n        }\n\n        msg.payload[i++] = row;\n    }\n}\n\n// sort\nif (i > 0) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload.sort((a, b) => a.percent < b.percent ? 1 : -1);\n}\n\n// lang\nif (msg.hmi.lang === 'fr') {\n\n    return [ msg, null ];\n}\n\nreturn [ null, msg ];",
+        "func": "// Get plant counters\n\n// Reset UI\nif (msg.enabled !== true) {\n\n    return [ msg, msg ];\n}\n\nmsg.payload = [];\nlet i = 0;\n\n// Get memories\nconst plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\nconst meters = global.get('kernel.meter') || { };\nconst counters = global.get('kernel.counters') || { };\n\n// Rows\nfor (const meter in meters) {\n    let msplit = meter.split('|');\n    let row = {};\n    row.entity = meter;\n    row.equipment = msplit[0];\n    row.counter = msplit[1];\n    row.family = global.get('kernel.families[\"' + row.equipment + '\"]') || '';\n    row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]') || '';\n    row.plant = global.get('kernel.lines[\"' + row.line + '\"]') || '';\n\n    const definition = global.get('kernel.counter[\"' + row.counter + '\"]');\n\n    if (plant === row.plant\n        && row.family !== ''\n        && counters[row.counter] === row.family\n        && typeof definition === 'string'\n    ) {\n        let csplit = definition.split('|');\n        let state = row.equipment + '|run';\n\n        row.plant_name = global.get('kernel.plant[\"' + row.plant + '\"]') || '';\n        row.line_name = global.get('kernel.line[\"' + row.line + '\"]') || '';\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]') || '';\n        row.family_name = global.get('kernel.family[\"' + row.family + '\"]') || '';\n        row.counter_name = csplit.slice(1).join('|');\n        row.limit = Number(csplit[0]) || 0;\n        row.hours = Math.round((Number(String(meters[meter]).split('|')[0]) || 0) * 10) / 10;\n        row.hours_full = row.hours + ' / ' + row.limit + ' h';\n        row.percent = row.limit > 0 ? Math.round(row.hours * 100 / row.limit) : 0;\n        row.percent_full = row.percent.toString() + '%';\n        row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);\n        row.state = global.get('kernel.state[\"' + state + '\"]') || 0;\n        row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;\n        row.reset = ['admin', 'rt', 'tech'].includes(msg.hmi.level) ? ((msg.dictionary.option_action.reset) || 'Reset') : '';\n\n        // chek if device is offline\n        let ssplit = (global.get('kernel.link[\"' + state + '\"]') || '').split('|');\n        if (global.get('kernel.device[\"' + ssplit[0] + '|' + ssplit[1] + '\"]') !== 1) {\n            row.state_color = msg.dictionary.option_color.none;\n        }\n\n        msg.payload[i++] = row;\n    }\n}\n\n// sort\nif (i > 0) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload.sort((a, b) => a.percent < b.percent ? 1 : -1);\n}\n\n// lang\nif (msg.hmi.lang === 'fr') {\n\n    return [ msg, null ];\n}\n\nreturn [ null, msg ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -15911,8 +15911,8 @@
         "z": "3782b10e2580f9d3",
         "g": "c1761abac2b91695",
         "name": "data",
-        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get user form\nlet form = global.get('form'); // autoupdate\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\nform[msg.hmi.id]['plant'] = msg.payload.plant;\nform[msg.hmi.id]['line'] = msg.payload.line;\nform[msg.hmi.id]['equipment'] = msg.payload.equipment;\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn msg;",
-        "outputs": 1,
+        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Reset button: reset counter and refresh list\nif (msg.action === 'button_click' && msg.column === 'reset') {\n    msg.kernel = {\n        'type': 'meter',\n        'entity': msg.payload.entity,\n        'value': '',\n        'loop': false\n    };\n    msg = await node.linkcall('kernel - reset', msg);\n\n    delete msg.action;\n    delete msg.column;\n    delete msg.success;\n\n    msg.payload = '';\n    msg.class = '';\n    msg.enabled = true;\n\n    return [null, msg];\n}\n\n// Get user form\nlet form = global.get('form'); // autoupdate\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\nform[msg.hmi.id]['plant'] = msg.payload.plant;\nform[msg.hmi.id]['line'] = msg.payload.line;\nform[msg.hmi.id]['equipment'] = msg.payload.equipment;\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn [msg, null];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -15924,6 +15924,9 @@
             [
                 "455e27cde33b4dd6",
                 "33bb0d9e9d4569b1"
+            ],
+            [
+                "8c1ea3cbf7a64475"
             ]
         ]
     },

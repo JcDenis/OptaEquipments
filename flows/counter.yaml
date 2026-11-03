@@ -106,12 +106,6 @@
       type: text
       width: ''
       align: start
-    - title: Famille
-      key: family_name
-      keyType: key
-      type: text
-      width: ''
-      align: start
     - title: Compteur
       key: counter_name
       keyType: key
@@ -134,6 +128,12 @@
       key: hours_full
       keyType: key
       type: text
+      width: ''
+      align: center
+    - title: ''
+      key: reset
+      keyType: key
+      type: button
       width: ''
       align: center
   mobileBreakpoint: sm
@@ -202,12 +202,6 @@
       type: text
       width: ''
       align: start
-    - title: Family
-      key: family_name
-      keyType: key
-      type: text
-      width: ''
-      align: start
     - title: Counter
       key: counter_name
       keyType: key
@@ -230,6 +224,12 @@
       key: hours_full
       keyType: key
       type: text
+      width: ''
+      align: center
+    - title: ''
+      key: reset
+      keyType: key
+      type: button
       width: ''
       align: center
   mobileBreakpoint: sm
@@ -296,6 +296,7 @@
             row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);
             row.state = global.get('kernel.state["' + state + '"]') || 0;
             row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
+            row.reset = ['admin', 'rt', 'tech'].includes(msg.hmi.level) ? ((msg.dictionary.option_action.reset) || 'Reset') : '';
 
             // chek if device is offline
             let ssplit = (global.get('kernel.link["' + state + '"]') || '').split('|');
@@ -403,6 +404,27 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Reset button: reset counter and refresh list
+    if (msg.action === 'button_click' && msg.column === 'reset') {
+        msg.kernel = {
+            'type': 'meter',
+            'entity': msg.payload.entity,
+            'value': '',
+            'loop': false
+        };
+        msg = await node.linkcall('kernel - reset', msg);
+
+        delete msg.action;
+        delete msg.column;
+        delete msg.success;
+
+        msg.payload = '';
+        msg.class = '';
+        msg.enabled = true;
+
+        return [null, msg];
+    }
+
     // Get user form
     let form = global.get('form'); // autoupdate
 
@@ -423,8 +445,8 @@
     msg.hmi.name = global.get('describe.pages.detail.page') || '';
     msg.payload = msg.hmi.tab;
 
-    return msg;
-  outputs: 1
+    return [msg, null];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -435,6 +457,7 @@
   wires:
     - - 455e27cde33b4dd6
       - 33bb0d9e9d4569b1
+    - - 8c1ea3cbf7a64475
 - id: 33bb0d9e9d4569b1
   type: debug
   z: 3782b10e2580f9d3
