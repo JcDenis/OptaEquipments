@@ -4988,7 +4988,10 @@
     msg.show = [];
     msg.ui_update = {};
 
-    for (const k in msg.menu) {
+    // Menu keys saved on page build
+    const menu = flow.get('tree_menu') || [];
+
+    for (const k of menu) {
         if (k === msg.list) {
             msg.show.push('ui - group - tree - ' + k);
         }
@@ -9731,7 +9734,7 @@
     node.send([msg, null]);
 
     // Wait UI to be disablde
-    msg = await node.linkcall('ui -latency', msg);
+    msg = await node.linkcall('ui - latency', msg);
 
     // Go to next form
     msg.payload = '';
@@ -13204,6 +13207,9 @@
     };
 
     const limit = ['plant', 'device', 'map', 'holiday'];
+
+    // Keep menu keys for tree - menu (msg.menu is lost on click)
+    flow.set('tree_menu', Object.keys(msg.menu));
 
     msg.hide = [];
 
