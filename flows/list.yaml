@@ -1745,7 +1745,7 @@
     // Get user plant
 
     // Check if required page is current flow
-    msg.check = env.get('NR_FLOW_NAME');
+    msg.flow = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
     if (msg.enabled !== true) {
@@ -2147,7 +2147,7 @@
   name: data
   func: |-
 
-    msg.page = env.get('NR_FLOW_NAME');
+    msg.flow = env.get('NR_FLOW_NAME');
 
     msg.payload = {
         'tab': 5,
@@ -2163,7 +2163,16 @@
         }
     };
 
-    msg = await node.linkcall('kernel - register', msg);
+    msg = await node.linkcall('kernel - page', msg);
+
+    // Register page dictionary
+    msg.payload = {
+        'fr': {
+            'records': "Nombre total d'enregistrements: "
+        }
+    };
+
+    msg = await node.linkcall('kernel - dictionary', msg);
 
     return;
   outputs: 0

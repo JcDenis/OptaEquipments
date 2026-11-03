@@ -43,9 +43,9 @@
     - 58a56d94ba226005
     - b26118d774fd82d4
   x: 68
-  'y': 3193
+  'y': 3253
   w: 974
-  h: 1614
+  h: 1554
 - id: 23adbb4a30523ae7
   type: group
   z: f6f2187d.f17ca8
@@ -86,6 +86,7 @@
     - 11d028449aaa105b
     - 63238b6d584649d5
     - bcd29c14e67166df
+    - 9eded20dfe6c1a19
   x: 68
   'y': 13
   w: 1534
@@ -305,14 +306,11 @@
   nodes:
     - 56e6a7b9b0e66451
     - 7214e26c1a5974bd
-    - 01242cef4de43778
-    - beec4335d87f7644
     - 89bd63c1cca31299
-    - 80b3d3f7f4812fd6
   x: 104
-  'y': 3219
-  w: 782
-  h: 142
+  'y': 3279
+  w: 332
+  h: 82
 - id: fc6029b7d49d1e93
   type: group
   z: f6f2187d.f17ca8
@@ -550,7 +548,7 @@
   type: group
   z: f6f2187d.f17ca8
   g: f9da6ea6fa5cc954
-  name: kernel - register
+  name: kernel - page
   style:
     fill: '#ff0000'
     fill-opacity: '0.05'
@@ -585,6 +583,24 @@
   x: 504
   'y': 939
   w: 1072
+  h: 82
+- id: 9eded20dfe6c1a19
+  type: group
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: kernel - dictionary
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 0d9a6a33341f0a6d
+    - bfeaaa608e6e25a3
+    - 82ee0692b7dc0abf
+  x: 504
+  'y': 1179
+  w: 332
   h: 82
 - id: e60e4ab7617738c3
   type: link in
@@ -1759,7 +1775,7 @@
   x: 145
   'y': 3320
   wires:
-    - - beec4335d87f7644
+    - - 89bd63c1cca31299
 - id: 7214e26c1a5974bd
   type: link out
   z: f6f2187d.f17ca8
@@ -1767,24 +1783,8 @@
   name: kernel - hmi
   mode: return
   links: []
-  x: 715
+  x: 395
   'y': 3320
-  wires: []
-- id: 01242cef4de43778
-  type: debug
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: kernel - hmi
-  active: false
-  tosidebar: true
-  console: false
-  tostatus: false
-  complete: 'true'
-  targetType: full
-  statusVal: ''
-  statusType: auto
-  x: 770
-  'y': 3260
   wires: []
 - id: 0782cf84e02ba5e3
   type: comment
@@ -2627,7 +2627,7 @@
             'vendor': 'Opta Equipments by JcDenis'
         },
         'pages': {
-            // @see kernel - register
+            // @see kernel - page
         },
         'groups': {
             'run': [ 'run','runmeter', 'runmetertotal', 'runreset', 'runmirror' ],
@@ -2639,6 +2639,7 @@
     });
 
     // Set and clean required memories
+    global.set('dictionary', { });
     global.set('auth', { });
     global.set('user', { });
     global.set('form', { });
@@ -3489,16 +3490,14 @@
   func: |-
     // Check requested ui page according to user level
 
-    if (typeof msg.check === 'string'
+    if (typeof msg.flow === 'string'
         && msg.hmi.level !== ''
-        && msg.hmi.tab === global.get('describe.pages["' + msg.check + '"]["tab"]')
-        && global.get('describe.pages["' + msg.check + '"]["level"]["' + msg.hmi.level + '"]') === true
+        && msg.hmi.tab === global.get('describe.pages["' + msg.flow + '"]["tab"]')
+        && global.get('describe.pages["' + msg.flow + '"]["level"]["' + msg.hmi.level + '"]') === true
     ) {
         msg.class = '';
         msg.enabled = true;
         msg.payload = '';
-
-        delete msg.check;
     } else {
 
         msg.topic = '';
@@ -4095,415 +4094,6 @@
   'y': 2600
   wires:
     - - fa7160372fcfe3b2
-- id: beec4335d87f7644
-  type: function
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: en
-  func: |-
-    // Default dictionary (en)
-
-    msg.dictionary = {
-        'lang':'en',
-        'option_page':{
-            'auth':'Authentication',
-            'map': 'Map',
-            'alert':'Alerts',
-            'period':'Programs',
-            'detail':'Detail',
-            'list':'List',
-            'tree':'Tree',
-            'users':'Users',
-            'system':'System'
-        },
-        'option_resolution':{
-            '1':'1 minute',
-            '2':'2 minutes',
-            '5':'5 minutes',
-            '15':'15 minutes',
-            '30':'30 minuts',
-            '60':'1 hour'
-        },
-        'option_level':{
-            'prod':'Production',
-            'rp':'Production manager',
-            'tech':'Technician',
-            'rt':'Technician manager',
-            'admin':'Administrator'
-        },
-        'option_team':{
-            'm':'Morning',
-            'a':'Afternoon',
-            'n':'Night',
-            'd':'Day',
-            's':'Saturday'
-        },
-        'option_lang':{
-            'en':'English',
-            'fr':'French'
-        },
-        'option_group':{
-            'run': 'Run',
-            'cycle': 'Pulse',
-            'heat': 'Heat',
-            'uptime': 'System',
-            'voltage': 'Power'
-        },
-        'option_component':{
-            'run': 'Lecture état de fonctionnement',
-            'heat': 'Lecture état de chauffe',
-            'voltage': 'Lecture de tension',
-            'power': 'Lecture de puisance',
-            '1wh': "Lecture d'impulsion de puissance par Wh",
-            'cycle': "Lecture d'impulsion de cycle",
-            'cyclemeter': "Lecture de compteur partiel d'impulsions",
-            'runmeter': "Lecture de compteur partiel d'heures",
-            'cyclemetertotal': "Lecture de compteur total d'impulsions",
-            'runmetertotal': "Lecture de compteur total d'heures",
-            'cyclemirror': 'Commande de cycle mirroir',
-            'runmirror': 'Command de fonctionnement mirroir',
-            'heatswitch': 'Commande de chauffe permanente libre',
-            'heattoggle': 'Commande de chauffe inverseur libre',
-            'heatlink':'Commande de chauffe inverseur liée à une mesure',
-            'heatpulse': 'Commande de chauffe pulsé liée à une mesure',
-            'runreset': "Commande de RAZ compteur partiel d'heures",
-            'cyclereset': "Commande de RAZ compteur partiel d'impulsions",
-            'load1meter': 'Charge système à 1 minute',
-            'load5meter': 'Charge système à 5 minutes',
-            'load15meter': 'Charge système à 15 minutes',
-            'memorymeter': 'Utilisation mémoire',
-            'diskmeter': 'Utilisation disque',
-            'uptimemeter': 'Durée de fonctionnement'
-        },
-        'option_color': {
-            'on': '#008000',
-            'off': '#FF0000',
-            'median': '#F08000',
-            'none': '#808000',
-            'theme': '#073d87',
-            'empty': '#999999',
-            'hidden': '#EEEEEE'
-        },
-        'option_select': {
-            'plant': 'Select a plant',
-            'line': 'Select a line',
-            'equipment': 'Select an equipment',
-            'model': 'Selet a model',
-            'device': 'Select a device',
-            'link': 'Select a link',
-            'component': 'Select a component',
-            'group': 'Select a group',
-            'team': 'Select a team',
-            'day': 'Select a day',
-            'timezone': 'Select a timezone',
-            'contact': 'Select contact type',
-            'list': 'Select a list',
-            'action': 'Select an action',
-            'input': 'Select an input',
-            'output': 'Select an output',
-            'limit': 'Select a limit',
-            'start_time': 'Select start time',
-            'stop_time': 'Select stop time',
-            'day_starttime': 'Select start time of the first team of the day',
-            'holiday_day': 'Day'
-        },
-        'option_action': {
-            'delete': 'Delete',
-            'add': 'Add',
-            'edit': 'Edit',
-            'save': 'Save',
-            'disconnect': 'Disconnect'
-        },
-        'option_notice': {
-            'login_fail': 'Wrong login or password',
-            'level_fail': 'You are not authorized to do this action',
-            'update_fail': 'Update failed',
-            'update_success': 'Successfully updated',
-            'plant_exists': 'Plant exists',
-            'line exists': 'Line exists',
-            'equipment_exists': 'Equipment exists',
-            'device_noempty': 'Device is not empty'
-        },
-        'option_name': {
-            'plants': 'Plants',
-            'lines': 'Lines',
-            'equipments': 'Equipments',
-            'devices': 'Devices',
-            'components': 'Components',
-            'alerts': 'Alerts',
-            'teams': 'Teams',
-            'day': 'Day change',
-            'holidays': 'Holidays',
-            'maps': 'Plant map',
-            'locations': 'Line map',
-            'team_morning': 'Morning',
-            'team_afternoon': 'Afternoon',
-            'team_night': 'Night',
-            'team_day': 'Day',
-            'team_saturday': 'Saturday',
-            'login': 'Login',
-            'pass': 'Password',
-            'lang': 'Lang',
-            'level': 'Level',
-            'plant': 'Plant',
-            'watchdog': 'Watchdog',
-            'telegram': 'Telegram',
-        }
-    };
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 270
-  'y': 3320
-  wires:
-    - - 89bd63c1cca31299
-- id: 80b3d3f7f4812fd6
-  type: function
-  z: f6f2187d.f17ca8
-  g: 8cc9a474d6cd27ec
-  name: fr
-  func: |-
-    if (msg.hmi.lang !== 'fr') {
-
-        return msg;
-    }
-
-    const data = {
-        'lang': 'fr',
-        'option_page': {
-            'auth': 'Authentification',
-            'map': 'Implantation',
-            'alert': 'Alertes',
-            'period': 'Programmes',
-            'detail': 'Detail',
-            'list': 'Liste',
-            'tree': 'Arborescence',
-            'users': 'Utilisateurs',
-            'system': 'Système'
-        },
-        'option_resolution': {
-            '1': '1 minute',
-            '2': '2 minutes',
-            '5': '5 minutes',
-            '15': '15 minutes',
-            '30': '30 minuts',
-            '60': '1 heure'
-        },
-        'option_level': {
-            'prod': 'Production',
-            'rp': 'Responsable production',
-            'tech': 'Technicien',
-            'rt': 'Responsable technique',
-            'admin': 'Administrateur'
-        },
-        'option_team': {
-            'm': 'Matin',
-            'a': 'Après-midi',
-            'n': 'Nuit',
-            'd': 'Journée',
-            's': 'Samedi'
-        },
-        'option_lang': {
-            'en': 'Anglais',
-            'fr': 'Français'
-        },
-        'option_group': {
-            'run': 'Fonctionnement',
-            'cycle':'Impulsion',
-            'heat': 'Chauffe',
-            'uptime': 'Système',
-            'voltage': 'Puissance',
-            'mirror': 'Mirroir'
-        },
-        'option_component': {
-            'run': 'Lecture état de fonctionnement',
-            'heat': 'Lecture état de chauffe',
-            'voltage': 'Lecture de tension',
-            'power': 'Lecture de puisance',
-            '1wh': "Lecture d'impulsion de puissance par Wh",
-            'cycle': "Lecture d'impulsion de cycle",
-            'cyclemeter': "Lecture de compteur partiel d'impulsions",
-            'runmeter': "Lecture de compteur partiel d'heures",
-            'cyclemetertotal': "Lecture de compteur total d'impulsions",
-            'runmetertotal': "Lecture de compteur total d'heures",
-            'cyclemirror': 'Commande de cycle mirroir',
-            'runmirror': 'Command de fonctionnement mirroir',
-            'heatswitch': 'Commande de chauffe permanente libre',
-            'heattoggle': 'Commande de chauffe inverseur libre',
-            'heatlink': 'Commande de chauffe inverseur liée à une mesure',
-            'heatpulse': 'Commande de chauffe pulsé liée à une mesure',
-            'runreset': "Commande de RAZ compteur partiel d'heures",
-            'cyclereset': "Commande de RAZ compteur partiel d'impulsions",
-            'load1meter': 'Charge système à 1 minute',
-            'load5meter': 'Charge système à 5 minutes',
-            'load15meter': 'Charge système à 15 minutes',
-            'memorymeter': 'Utilisation mémoire',
-            'diskmeter': 'Utilisation disque',
-            'uptimemeter': 'Durée de fonctionnement'
-        },
-        'option_select': {
-            'plant': 'Sélectionner une usine',
-            'line': 'Sélectionner une ligne',
-            'equipment': 'Sélectionner un équipement',
-            'model': 'Sélectionner un modèle',
-            'device': 'Sélectionner un matériel',
-            'link': 'Sélectionner un lien',
-            'component': 'Sélectionner un composant',
-            'group': 'Sélectionner un groupe',
-            'team': 'Sélectionner une équipe',
-            'day': 'Sélectionner un jour',
-            'timezone': 'Sélectionner une zone horaire',
-            'contact': 'Sélectionner un type de contact',
-            'list': 'Sélectionner une liste',
-            'action': 'Sélectionner une action',
-            'input': 'Sélectionner une entrée',
-            'output': 'Sélectionner une sortie',
-            'limit': 'Sélectionner une limite',
-            'start_time': "Sélectionner l'heure de début",
-            'stop_time': "Sélectionner l'heure de fin",
-            'day_starttime': "Sélectionner l'heure de début de la première équipe du jour"
-        },
-        'option_action': {
-            'delete': 'Supprimer',
-            'add': 'Ajouter',
-            'edit': 'Modifier',
-            'save': 'Enregistrer',
-            'disconnect': 'Déconnecter'
-        },
-        'option_notice': {
-            'login_fail': 'Mauvais identifiant ou mot de passe',
-            'level_fail': "Vous n'êtes pas autorisé à effectuer cette action",
-            'update_fail': 'La mise à jour a échoué',
-            'update_success': 'Mise à jour avec succès',
-            'plant_exists': 'Cette usine existe déjà',
-            'line_exists': 'Cette ligne existe déjà',
-            'equipment exists': 'Cet équipement existe déjà',
-            'device_noempty': "Ce matériel n'est pas vide"
-        },
-        'option_name': {
-            'plants': 'Usines',
-            'lines': 'Lignes',
-            'equipments': 'Equipements',
-            'devices': 'Matériels',
-            'components': 'Composants',
-            'alerts': 'Alertes',
-            'teams': 'Equipes',
-            'day': 'Changement de jour',
-            'holidays': 'Jours fériés',
-            'maps': "Plans d'usines",
-            'locations': 'Implantation des lignes',
-            'team_morning': 'Matin',
-            'team_afternoon': 'Après-midi',
-            'team_night': 'Nuit',
-            'team_day': 'Journée',
-            'team_saturday': 'Samedi',
-            'login': 'Identifiant',
-            'pass': 'Mot de passe',
-            'lang': 'Langue',
-            'level': 'Niveau',
-            'plant':' Usine',
-            'watchdog': 'Chien de garde',
-            'telegram': 'Telegram',
-        },
-        'auth': {
-            'user': 'Utilisateur : ',
-            'login': 'Identifiant',
-            'pass': 'Mot de passe'
-        },
-        'map': {
-            'help_on': 'La ligne est en chauffe',
-            'help_off': "La ligne n'est pas en chauffe",
-            'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',
-            'help_stop': "La ligne est à l'arrêt",
-            'help_ready': 'La ligne est prête',
-            'help_cycle': 'La ligne est en cycle'
-        },
-        'period': {
-            'enable': '►',
-            'disable': 'X',
-            'state_title':'Etat actuel : ',
-            'state_help':'► est activé,  X est désactivé',
-        },
-        'detail': {
-            'live_title': 'Direct',
-            'live_run': 'Fonctionnement',
-            'live_runmeter': 'Heures partieles',
-            'live_runmetertotal': 'Herures totales',
-            'live_runreset': "RAZ compteur d'heures",
-            'live_cycle': 'Cycle',
-            'live_cyclemeter': 'Cycles partiels',
-            'live_cyclemetertotal': 'Cycles totals',
-            'live_cyclereset': 'RAZ compteur de cycles',
-            'live_heat': 'Chauffe',
-            'live_heatswitchon': 'Activer la chauffe',
-            'live_heatswitchoff': 'Désactiver la chauffe',
-            'live_heattoggle': 'Inverser la chauffe',
-            'live_voltage': 'Tension',
-            'live_power': 'Puissance',
-            'live_load1meter': 'Charge à 1m',
-            'live_load5meter': 'Charge à 5m',
-            'live_load15meter': 'Charge à 15m',
-            'live_memorymeter': 'Utilisation mémoire',
-            'live_diskmeter': 'Utilisation disque',
-            'live_uptimemeter': 'Durée',
-            'chart_historic': 'Historique',
-            'chart_refresh': 'Rafraichir',
-            'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',
-            'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',
-            'chart_rundate': 'Etat de fonctionnement moyen suivant résolution',
-        },
-        'list': {
-            'records': "Nombre total d'enregistrements: "
-        },
-        'tree': {
-            'plant_ident':"Identifiant de l'usine",
-            'plant_name':"Nom de l'usine",
-            'line_ident':'Identifiant de la ligne',
-            'line_name':'Nom de la ligne',
-            'equipment_ident':"Identifiant de l'équipement",
-            'equipment_name':"Nom de l'équipement",
-            'device_ident':'Identifiant du matériel',
-            'start_time':'Heure de début',
-            'stop_time':'Heure de fin',
-            'day_starttime':'Heure de début de la première équipe du jour',
-            'holiday_day':'Jour'
-        },
-        'users': {
-            'login': 'Identifiant',
-            'pass': 'Mot de passe',
-            'lang': 'Langue',
-            'level': 'Niveau',
-            'plant': 'Usine',
-            'telegram': 'Telegram'
-        }
-    };
-
-    // Merge dictionary fr to en
-    for (const k in msg.dictionary) {
-        if (typeof msg.dictionary[k] === 'object' && typeof data[k] === 'object') {
-            msg.dictionary[k] = { ...msg.dictionary[k], ...data[k] };
-        }
-        else if (typeof msg.dictionary[k] === 'string' && typeof data[k] === 'object') {
-            msg.dictionary[k] = data[k];
-        }
-    }
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 590
-  'y': 3320
-  wires:
-    - - 7214e26c1a5974bd
-      - 01242cef4de43778
 - id: 89bd63c1cca31299
   type: function
   z: f6f2187d.f17ca8
@@ -4561,13 +4151,11 @@
         }
     }
 
+    const dictionary = global.get('dictionary');
+    msg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];
+
     // Should not happened
     delete msg.reset; //???
-
-    // Initialize additional dictionary data
-    for (const p in pages) {
-        msg.dictionary[p] = { };
-    }
 
     return msg;
   outputs: 1
@@ -4576,10 +4164,10 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 430
+  x: 270
   'y': 3320
   wires:
-    - - 80b3d3f7f4812fd6
+    - - 7214e26c1a5974bd
 - id: df25ae26fe677956
   type: function
   z: f6f2187d.f17ca8
@@ -5267,7 +4855,7 @@
   type: link in
   z: f6f2187d.f17ca8
   g: 63238b6d584649d5
-  name: kernel - register
+  name: kernel - page
   links: []
   x: 145
   'y': 1220
@@ -5282,10 +4870,10 @@
 
     // Check required data
 
-    if (typeof msg.payload !== 'object' || typeof msg.page !== 'string' ||
-    msg.page === '') {
+    if (typeof msg.payload !== 'object' || typeof msg.flow !== 'string' ||
+    msg.flow === '') {
 
-        return;
+        return msg;
     }
 
 
@@ -5333,14 +4921,12 @@
 
     // Save data
 
-    describe.pages[msg.page] = page;
+    describe.pages[msg.flow] = page;
 
 
     // Clean msg
 
     msg.payload = '';
-
-    delete msg.page;
 
 
     return msg;
@@ -5358,7 +4944,7 @@
   type: link out
   z: f6f2187d.f17ca8
   g: 63238b6d584649d5
-  name: kernel - register
+  name: kernel - page
   mode: return
   links: []
   x: 395
@@ -5765,3 +5351,378 @@
   wires:
     - - b087fef5670c809f
       - d3c22873709318bb
+- id: 0d9a6a33341f0a6d
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 9eded20dfe6c1a19
+  name: kernel - dictionary
+  links: []
+  x: 545
+  'y': 1220
+  wires:
+    - - bfeaaa608e6e25a3
+- id: bfeaaa608e6e25a3
+  type: function
+  z: f6f2187d.f17ca8
+  g: 9eded20dfe6c1a19
+  name: data
+  func: |-
+    // Default dictionary (en)
+    if (typeof global.get('dictionary.en') !== 'object') {
+        global.set('dictionary', {
+            'en':  {
+                'common': {
+                    'locales':'en-GB',
+                },
+                'option_page':{
+                    'auth':'Authentication',
+                    'map': 'Map',
+                    'alert':'Alerts',
+                    'period':'Programs',
+                    'detail':'Detail',
+                    'list':'List',
+                    'tree':'Tree',
+                    'users':'Users',
+                    'system':'System'
+                },
+                'option_resolution':{
+                    '1':'1 minute',
+                    '2':'2 minutes',
+                    '5':'5 minutes',
+                    '15':'15 minutes',
+                    '30':'30 minuts',
+                    '60':'1 hour'
+                },
+                'option_level':{
+                    'prod':'Production',
+                    'rp':'Production manager',
+                    'tech':'Technician',
+                    'rt':'Technician manager',
+                    'admin':'Administrator'
+                },
+                'option_team':{
+                    'm':'Morning',
+                    'a':'Afternoon',
+                    'n':'Night',
+                    'd':'Day',
+                    's':'Saturday'
+                },
+                'option_lang':{
+                    'en':'English',
+                    'fr':'French'
+                },
+                'option_group':{
+                    'run': 'Run',
+                    'cycle': 'Pulse',
+                    'heat': 'Heat',
+                    'uptime': 'System',
+                    'voltage': 'Power'
+                },
+                'option_component':{
+                    'run': 'Lecture état de fonctionnement',
+                    'heat': 'Lecture état de chauffe',
+                    'voltage': 'Lecture de tension',
+                    'power': 'Lecture de puisance',
+                    '1wh': "Lecture d'impulsion de puissance par Wh",
+                    'cycle': "Lecture d'impulsion de cycle",
+                    'cyclemeter': "Lecture de compteur partiel d'impulsions",
+                    'runmeter': "Lecture de compteur partiel d'heures",
+                    'cyclemetertotal': "Lecture de compteur total d'impulsions",
+                    'runmetertotal': "Lecture de compteur total d'heures",
+                    'cyclemirror': 'Commande de cycle mirroir',
+                    'runmirror': 'Command de fonctionnement mirroir',
+                    'heatswitch': 'Commande de chauffe permanente libre',
+                    'heattoggle': 'Commande de chauffe inverseur libre',
+                    'heatlink':'Commande de chauffe inverseur liée à une mesure',
+                    'heatpulse': 'Commande de chauffe pulsé liée à une mesure',
+                    'runreset': "Commande de RAZ compteur partiel d'heures",
+                    'cyclereset': "Commande de RAZ compteur partiel d'impulsions",
+                    'load1meter': 'Charge système à 1 minute',
+                    'load5meter': 'Charge système à 5 minutes',
+                    'load15meter': 'Charge système à 15 minutes',
+                    'memorymeter': 'Utilisation mémoire',
+                    'diskmeter': 'Utilisation disque',
+                    'uptimemeter': 'Durée de fonctionnement'
+                },
+                'option_color': {
+                    'on': '#008000',
+                    'off': '#FF0000',
+                    'median': '#F08000',
+                    'none': '#808000',
+                    'theme': '#073d87',
+                    'empty': '#999999',
+                    'hidden': '#EEEEEE'
+                },
+                'option_select': {
+                    'plant': 'Select a plant',
+                    'line': 'Select a line',
+                    'equipment': 'Select an equipment',
+                    'model': 'Selet a model',
+                    'device': 'Select a device',
+                    'link': 'Select a link',
+                    'component': 'Select a component',
+                    'group': 'Select a group',
+                    'team': 'Select a team',
+                    'day': 'Select a day',
+                    'timezone': 'Select a timezone',
+                    'contact': 'Select contact type',
+                    'list': 'Select a list',
+                    'action': 'Select an action',
+                    'input': 'Select an input',
+                    'output': 'Select an output',
+                    'limit': 'Select a limit',
+                    'start_time': 'Select start time',
+                    'stop_time': 'Select stop time',
+                    'day_starttime': 'Select start time of the first team of the day',
+                    'holiday_day': 'Day'
+                },
+                'option_action': {
+                    'delete': 'Delete',
+                    'add': 'Add',
+                    'edit': 'Edit',
+                    'save': 'Save',
+                    'disconnect': 'Disconnect'
+                },
+                'option_notice': {
+                    'login_fail': 'Wrong login or password',
+                    'level_fail': 'You are not authorized to do this action',
+                    'update_fail': 'Update failed',
+                    'update_success': 'Successfully updated',
+                    'plant_exists': 'Plant exists',
+                    'line exists': 'Line exists',
+                    'equipment_exists': 'Equipment exists',
+                    'device_noempty': 'Device is not empty'
+                },
+                'option_name': {
+                    'plants': 'Plants',
+                    'lines': 'Lines',
+                    'equipments': 'Equipments',
+                    'devices': 'Devices',
+                    'components': 'Components',
+                    'alerts': 'Alerts',
+                    'teams': 'Teams',
+                    'day': 'Day change',
+                    'holidays': 'Holidays',
+                    'maps': 'Plant map',
+                    'locations': 'Line map',
+                    'team_morning': 'Morning',
+                    'team_afternoon': 'Afternoon',
+                    'team_night': 'Night',
+                    'team_day': 'Day',
+                    'team_saturday': 'Saturday',
+                    'login': 'Login',
+                    'pass': 'Password',
+                    'lang': 'Lang',
+                    'level': 'Level',
+                    'plant': 'Plant',
+                    'watchdog': 'Watchdog',
+                    'telegram': 'Telegram',
+                }
+            },
+            'fr': {
+                'common': {
+                    'lang': 'fr',
+                },
+                'option_page': {
+                    'auth': 'Authentification',
+                    'map': 'Implantation',
+                    'alert': 'Alertes',
+                    'period': 'Programmes',
+                    'detail': 'Detail',
+                    'list': 'Liste',
+                    'tree': 'Arborescence',
+                    'users': 'Utilisateurs',
+                    'system': 'Système'
+                },
+                'option_resolution': {
+                    '1': '1 minute',
+                    '2': '2 minutes',
+                    '5': '5 minutes',
+                    '15': '15 minutes',
+                    '30': '30 minuts',
+                    '60': '1 heure'
+                },
+                'option_level': {
+                    'prod': 'Production',
+                    'rp': 'Responsable production',
+                    'tech': 'Technicien',
+                    'rt': 'Responsable technique',
+                    'admin': 'Administrateur'
+                },
+                'option_team': {
+                    'm': 'Matin',
+                    'a': 'Après-midi',
+                    'n': 'Nuit',
+                    'd': 'Journée',
+                    's': 'Samedi'
+                },
+                'option_lang': {
+                    'en': 'Anglais',
+                    'fr': 'Français'
+                },
+                'option_group': {
+                    'run': 'Fonctionnement',
+                    'cycle':'Impulsion',
+                    'heat': 'Chauffe',
+                    'uptime': 'Système',
+                    'voltage': 'Puissance',
+                    'mirror': 'Mirroir'
+                },
+                'option_component': {
+                    'run': 'Lecture état de fonctionnement',
+                    'heat': 'Lecture état de chauffe',
+                    'voltage': 'Lecture de tension',
+                    'power': 'Lecture de puisance',
+                    '1wh': "Lecture d'impulsion de puissance par Wh",
+                    'cycle': "Lecture d'impulsion de cycle",
+                    'cyclemeter': "Lecture de compteur partiel d'impulsions",
+                    'runmeter': "Lecture de compteur partiel d'heures",
+                    'cyclemetertotal': "Lecture de compteur total d'impulsions",
+                    'runmetertotal': "Lecture de compteur total d'heures",
+                    'cyclemirror': 'Commande de cycle mirroir',
+                    'runmirror': 'Command de fonctionnement mirroir',
+                    'heatswitch': 'Commande de chauffe permanente libre',
+                    'heattoggle': 'Commande de chauffe inverseur libre',
+                    'heatlink': 'Commande de chauffe inverseur liée à une mesure',
+                    'heatpulse': 'Commande de chauffe pulsé liée à une mesure',
+                    'runreset': "Commande de RAZ compteur partiel d'heures",
+                    'cyclereset': "Commande de RAZ compteur partiel d'impulsions",
+                    'load1meter': 'Charge système à 1 minute',
+                    'load5meter': 'Charge système à 5 minutes',
+                    'load15meter': 'Charge système à 15 minutes',
+                    'memorymeter': 'Utilisation mémoire',
+                    'diskmeter': 'Utilisation disque',
+                    'uptimemeter': 'Durée de fonctionnement'
+                },
+                'option_select': {
+                    'plant': 'Sélectionner une usine',
+                    'line': 'Sélectionner une ligne',
+                    'equipment': 'Sélectionner un équipement',
+                    'model': 'Sélectionner un modèle',
+                    'device': 'Sélectionner un matériel',
+                    'link': 'Sélectionner un lien',
+                    'component': 'Sélectionner un composant',
+                    'group': 'Sélectionner un groupe',
+                    'team': 'Sélectionner une équipe',
+                    'day': 'Sélectionner un jour',
+                    'timezone': 'Sélectionner une zone horaire',
+                    'contact': 'Sélectionner un type de contact',
+                    'list': 'Sélectionner une liste',
+                    'action': 'Sélectionner une action',
+                    'input': 'Sélectionner une entrée',
+                    'output': 'Sélectionner une sortie',
+                    'limit': 'Sélectionner une limite',
+                    'start_time': "Sélectionner l'heure de début",
+                    'stop_time': "Sélectionner l'heure de fin",
+                    'day_starttime': "Sélectionner l'heure de début de la première équipe du jour"
+                },
+                'option_action': {
+                    'delete': 'Supprimer',
+                    'add': 'Ajouter',
+                    'edit': 'Modifier',
+                    'save': 'Enregistrer',
+                    'disconnect': 'Déconnecter'
+                },
+                'option_notice': {
+                    'login_fail': 'Mauvais identifiant ou mot de passe',
+                    'level_fail': "Vous n'êtes pas autorisé à effectuer cette action",
+                    'update_fail': 'La mise à jour a échoué',
+                    'update_success': 'Mise à jour avec succès',
+                    'plant_exists': 'Cette usine existe déjà',
+                    'line_exists': 'Cette ligne existe déjà',
+                    'equipment exists': 'Cet équipement existe déjà',
+                    'device_noempty': "Ce matériel n'est pas vide"
+                },
+                'option_name': {
+                    'plants': 'Usines',
+                    'lines': 'Lignes',
+                    'equipments': 'Equipements',
+                    'devices': 'Matériels',
+                    'components': 'Composants',
+                    'alerts': 'Alertes',
+                    'teams': 'Equipes',
+                    'day': 'Changement de jour',
+                    'holidays': 'Jours fériés',
+                    'maps': "Plans d'usines",
+                    'locations': 'Implantation des lignes',
+                    'team_morning': 'Matin',
+                    'team_afternoon': 'Après-midi',
+                    'team_night': 'Nuit',
+                    'team_day': 'Journée',
+                    'team_saturday': 'Samedi',
+                    'login': 'Identifiant',
+                    'pass': 'Mot de passe',
+                    'lang': 'Langue',
+                    'level': 'Niveau',
+                    'plant':' Usine',
+                    'watchdog': 'Chien de garde',
+                    'telegram': 'Telegram',
+                },
+            }
+        });
+    }
+
+    if (typeof msg.payload !== 'object') {
+
+        return msg;
+    }
+
+    let dictionary = global.get('dictionary');
+
+    // Add current page
+    if (typeof dictionary['en'][msg.flow] !== 'object') {
+        dictionary['en'][msg.flow] = {};
+    }
+
+    // Fill default lang with default en
+    for (const lang in dictionary) {
+        if (lang !== 'en') {
+            for (const option in dictionary['en']) {
+                dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };
+            }
+        }
+    }
+
+    // Merge dictionary xx to en
+    for (const lang in msg.payload) {
+
+        // Only supported lang
+        if (typeof dictionary[lang] !== 'object') {
+
+            continue;
+        }
+
+        // Create page for current lang
+        if (typeof dictionary[lang][msg.flow] !== 'object') {
+            dictionary[lang][msg.flow] = { };
+        }
+
+        // Fill current lang
+        for (const k in msg.payload[lang]) {
+            if (typeof msg.payload[lang][k] === 'string') {
+                dictionary[lang][msg.flow][k] = msg.payload[lang][k];
+            }
+        }
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 670
+  'y': 1220
+  wires:
+    - - 82ee0692b7dc0abf
+- id: 82ee0692b7dc0abf
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 9eded20dfe6c1a19
+  name: kernel - dictionary
+  mode: return
+  links: []
+  x: 795
+  'y': 1220
+  wires: []

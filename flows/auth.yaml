@@ -354,8 +354,9 @@
   name: data
   func: |-
 
-    msg.page = env.get('NR_FLOW_NAME');
+    msg.flow = env.get('NR_FLOW_NAME');
 
+    // Register page definition
     msg.payload = {
         'tab': 0,
         'id': '64fe17ae4a406472',
@@ -370,7 +371,18 @@
         }
     };
 
-    msg = await node.linkcall('kernel - register', msg);
+    msg = await node.linkcall('kernel - page', msg);
+
+    // Register page dictionary
+    msg.payload = {
+        'fr': {
+            'user': 'Utilisateur : ',
+            'login': 'Identifiant',
+            'pass': 'Mot de passe'
+        }
+    };
+
+    msg = await node.linkcall('kernel - dictionary', msg);
 
     return;
   outputs: 0

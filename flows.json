@@ -1556,9 +1556,9 @@
             "b26118d774fd82d4"
         ],
         "x": 68,
-        "y": 3193,
+        "y": 3253,
         "w": 974,
-        "h": 1614
+        "h": 1554
     },
     {
         "id": "23adbb4a30523ae7",
@@ -1605,7 +1605,8 @@
             "0782cf84e02ba5e3",
             "11d028449aaa105b",
             "63238b6d584649d5",
-            "bcd29c14e67166df"
+            "bcd29c14e67166df",
+            "9eded20dfe6c1a19"
         ],
         "x": 68,
         "y": 13,
@@ -3030,15 +3031,12 @@
         "nodes": [
             "56e6a7b9b0e66451",
             "7214e26c1a5974bd",
-            "01242cef4de43778",
-            "beec4335d87f7644",
-            "89bd63c1cca31299",
-            "80b3d3f7f4812fd6"
+            "89bd63c1cca31299"
         ],
         "x": 104,
-        "y": 3219,
-        "w": 782,
-        "h": 142
+        "y": 3279,
+        "w": 332,
+        "h": 82
     },
     {
         "id": "fc6029b7d49d1e93",
@@ -3434,7 +3432,7 @@
         "type": "group",
         "z": "f6f2187d.f17ca8",
         "g": "f9da6ea6fa5cc954",
-        "name": "kernel - register",
+        "name": "kernel - page",
         "style": {
             "fill": "#ff0000",
             "fill-opacity": "0.05",
@@ -3475,6 +3473,28 @@
         "x": 504,
         "y": 939,
         "w": 1072,
+        "h": 82
+    },
+    {
+        "id": "9eded20dfe6c1a19",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "g": "f9da6ea6fa5cc954",
+        "name": "kernel - dictionary",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ff0000",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "0d9a6a33341f0a6d",
+            "bfeaaa608e6e25a3",
+            "82ee0692b7dc0abf"
+        ],
+        "x": 504,
+        "y": 1179,
+        "w": 332,
         "h": 82
     },
     {
@@ -5626,7 +5646,7 @@
         "y": 3320,
         "wires": [
             [
-                "beec4335d87f7644"
+                "89bd63c1cca31299"
             ]
         ]
     },
@@ -5638,26 +5658,8 @@
         "name": "kernel - hmi",
         "mode": "return",
         "links": [],
-        "x": 715,
+        "x": 395,
         "y": 3320,
-        "wires": []
-    },
-    {
-        "id": "01242cef4de43778",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "g": "8cc9a474d6cd27ec",
-        "name": "kernel - hmi",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 3260,
         "wires": []
     },
     {
@@ -6084,7 +6086,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "dcb47b97829a1b78",
         "name": "data",
-        "func": "// Prepare app context\n\n// backup and restore\nmsg = await node.linkcall('kernel - memory', msg);\n\n// Set describe\nglobal.set('describe', {\n    'app': {\n        'automate': 'optaequipments',\n        'version': '0.6.0',\n        'title': 'Live Equipments',\n        'vendor': 'Opta Equipments by JcDenis'\n    },\n    'pages': {\n        // @see kernel - register\n    },\n    'groups': {\n        'run': [ 'run','runmeter', 'runmetertotal', 'runreset', 'runmirror' ],\n        'cycle': [ 'cycle', 'cyclemeter', 'cyclemetertotal', 'cyclereset', 'cyclemirror' ],\n        'heat': [ 'heat', 'heatswitch' ],\n        'uptime': [ 'uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter' ],\n        'voltage': [ 'voltage', 'power' ]\n    },\n});\n\n// Set and clean required memories\nglobal.set('auth', { });\nglobal.set('user', { });\nglobal.set('form', { });\n\n// Various\nmsg = {\n    'topic': '',\n    'payload': '',\n    'options': [ { 'label':'', 'value':'' } ]\n};\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// build reverse links\nmsg = await node.linkcall('kernel - rlink', msg);\n\n// Go to pages registration\nnode.send([msg, null]);\n\n// Wait registration end\nawait new Promise(resolve => setTimeout(resolve, 100));\n\n// Regain pages order\nlet describe = global.get('describe'); // autoupdate\nlet tabs = [];\nfor (const k in describe.pages) {\n    tabs.push({\n        'tab': describe.pages[k]['tab'],\n        'page': k,\n        'data' : describe.pages[k]\n    });\n}\ntabs.sort((a, b) => a.tab - b.tab);\ndescribe.pages = {};\nfor (let i = 0; i< tabs.length; i++) {\n    describe.pages[tabs[i]['page']] = tabs[i]['data'];\n}\n\n// Go on\nreturn [null, msg];",
+        "func": "// Prepare app context\n\n// backup and restore\nmsg = await node.linkcall('kernel - memory', msg);\n\n// Set describe\nglobal.set('describe', {\n    'app': {\n        'automate': 'optaequipments',\n        'version': '0.6.0',\n        'title': 'Live Equipments',\n        'vendor': 'Opta Equipments by JcDenis'\n    },\n    'pages': {\n        // @see kernel - page\n    },\n    'groups': {\n        'run': [ 'run','runmeter', 'runmetertotal', 'runreset', 'runmirror' ],\n        'cycle': [ 'cycle', 'cyclemeter', 'cyclemetertotal', 'cyclereset', 'cyclemirror' ],\n        'heat': [ 'heat', 'heatswitch' ],\n        'uptime': [ 'uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter' ],\n        'voltage': [ 'voltage', 'power' ]\n    },\n});\n\n// Set and clean required memories\nglobal.set('dictionary', { });\nglobal.set('auth', { });\nglobal.set('user', { });\nglobal.set('form', { });\n\n// Various\nmsg = {\n    'topic': '',\n    'payload': '',\n    'options': [ { 'label':'', 'value':'' } ]\n};\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// build reverse links\nmsg = await node.linkcall('kernel - rlink', msg);\n\n// Go to pages registration\nnode.send([msg, null]);\n\n// Wait registration end\nawait new Promise(resolve => setTimeout(resolve, 100));\n\n// Regain pages order\nlet describe = global.get('describe'); // autoupdate\nlet tabs = [];\nfor (const k in describe.pages) {\n    tabs.push({\n        'tab': describe.pages[k]['tab'],\n        'page': k,\n        'data' : describe.pages[k]\n    });\n}\ntabs.sort((a, b) => a.tab - b.tab);\ndescribe.pages = {};\nfor (let i = 0; i< tabs.length; i++) {\n    describe.pages[tabs[i]['page']] = tabs[i]['data'];\n}\n\n// Go on\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -6472,7 +6474,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "5621e43ca08d7164",
         "name": "data",
-        "func": "// Check requested ui page according to user level\n\nif (typeof msg.check === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.check + '\"][\"tab\"]')\n    && global.get('describe.pages[\"' + msg.check + '\"][\"level\"][\"' + msg.hmi.level + '\"]') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n\n    delete msg.check;\n} else {\n\n    msg.topic = '';\n    msg.payload = ''; \n    msg.class = 'remove';\n    msg.enabled = false;\n}\n\nreturn msg;",
+        "func": "// Check requested ui page according to user level\n\nif (typeof msg.flow === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.flow + '\"][\"tab\"]')\n    && global.get('describe.pages[\"' + msg.flow + '\"][\"level\"][\"' + msg.hmi.level + '\"]') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n} else {\n\n    msg.topic = '';\n    msg.payload = ''; \n    msg.class = 'remove';\n    msg.enabled = false;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6945,12 +6947,12 @@
         ]
     },
     {
-        "id": "beec4335d87f7644",
+        "id": "89bd63c1cca31299",
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
-        "name": "en",
-        "func": "// Default dictionary (en)\n\nmsg.dictionary = {\n    'lang':'en',\n    'option_page':{\n        'auth':'Authentication',\n        'map': 'Map',\n        'alert':'Alerts',\n        'period':'Programs',\n        'detail':'Detail',\n        'list':'List',\n        'tree':'Tree',\n        'users':'Users',\n        'system':'System'\n    },\n    'option_resolution':{\n        '1':'1 minute',\n        '2':'2 minutes',\n        '5':'5 minutes',\n        '15':'15 minutes',\n        '30':'30 minuts',\n        '60':'1 hour'\n    },\n    'option_level':{\n        'prod':'Production',\n        'rp':'Production manager',\n        'tech':'Technician',\n        'rt':'Technician manager',\n        'admin':'Administrator'\n    },\n    'option_team':{\n        'm':'Morning',\n        'a':'Afternoon',\n        'n':'Night',\n        'd':'Day',\n        's':'Saturday'\n    },\n    'option_lang':{\n        'en':'English',\n        'fr':'French'\n    },\n    'option_group':{\n        'run': 'Run',\n        'cycle': 'Pulse',\n        'heat': 'Heat',\n        'uptime': 'System',\n        'voltage': 'Power'\n    },\n    'option_component':{\n        'run': 'Lecture état de fonctionnement',\n        'heat': 'Lecture état de chauffe',\n        'voltage': 'Lecture de tension',\n        'power': 'Lecture de puisance',\n        '1wh': \"Lecture d'impulsion de puissance par Wh\",\n        'cycle': \"Lecture d'impulsion de cycle\",\n        'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n        'runmeter': \"Lecture de compteur partiel d'heures\",\n        'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n        'runmetertotal': \"Lecture de compteur total d'heures\",\n        'cyclemirror': 'Commande de cycle mirroir',\n        'runmirror': 'Command de fonctionnement mirroir',\n        'heatswitch': 'Commande de chauffe permanente libre',\n        'heattoggle': 'Commande de chauffe inverseur libre',\n        'heatlink':'Commande de chauffe inverseur liée à une mesure',\n        'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n        'runreset': \"Commande de RAZ compteur partiel d'heures\",\n        'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n        'load1meter': 'Charge système à 1 minute',\n        'load5meter': 'Charge système à 5 minutes',\n        'load15meter': 'Charge système à 15 minutes',\n        'memorymeter': 'Utilisation mémoire',\n        'diskmeter': 'Utilisation disque',\n        'uptimemeter': 'Durée de fonctionnement'\n    },\n    'option_color': {\n        'on': '#008000',\n        'off': '#FF0000',\n        'median': '#F08000',\n        'none': '#808000',\n        'theme': '#073d87',\n        'empty': '#999999',\n        'hidden': '#EEEEEE'\n    },\n    'option_select': {\n        'plant': 'Select a plant',\n        'line': 'Select a line',\n        'equipment': 'Select an equipment',\n        'model': 'Selet a model',\n        'device': 'Select a device',\n        'link': 'Select a link',\n        'component': 'Select a component',\n        'group': 'Select a group',\n        'team': 'Select a team',\n        'day': 'Select a day',\n        'timezone': 'Select a timezone',\n        'contact': 'Select contact type',\n        'list': 'Select a list',\n        'action': 'Select an action',\n        'input': 'Select an input',\n        'output': 'Select an output',\n        'limit': 'Select a limit',\n        'start_time': 'Select start time',\n        'stop_time': 'Select stop time',\n        'day_starttime': 'Select start time of the first team of the day',\n        'holiday_day': 'Day'\n    },\n    'option_action': {\n        'delete': 'Delete',\n        'add': 'Add',\n        'edit': 'Edit',\n        'save': 'Save',\n        'disconnect': 'Disconnect'\n    },\n    'option_notice': {\n        'login_fail': 'Wrong login or password',\n        'level_fail': 'You are not authorized to do this action',\n        'update_fail': 'Update failed',\n        'update_success': 'Successfully updated',\n        'plant_exists': 'Plant exists',\n        'line exists': 'Line exists',\n        'equipment_exists': 'Equipment exists',\n        'device_noempty': 'Device is not empty'\n    },\n    'option_name': {\n        'plants': 'Plants',\n        'lines': 'Lines',\n        'equipments': 'Equipments',\n        'devices': 'Devices',\n        'components': 'Components',\n        'alerts': 'Alerts',\n        'teams': 'Teams',\n        'day': 'Day change',\n        'holidays': 'Holidays',\n        'maps': 'Plant map',\n        'locations': 'Line map',\n        'team_morning': 'Morning',\n        'team_afternoon': 'Afternoon',\n        'team_night': 'Night',\n        'team_day': 'Day',\n        'team_saturday': 'Saturday',\n        'login': 'Login',\n        'pass': 'Password',\n        'lang': 'Lang',\n        'level': 'Level',\n        'plant': 'Plant',\n        'watchdog': 'Watchdog',\n        'telegram': 'Telegram',\n    }\n};\n\nreturn msg;",
+        "name": "data",
+        "func": "// Prepare HMI\n\n// Get memories\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet pages = global.get('describe.pages') || { };\n\n// Initalize hmi if required\nif (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\n// Clean request\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\n// Clean user\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    if (typeof user[msg.hmi.id] === 'object') {\n        user[msg.hmi.id].time = Date.now(); // auto\n        msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);\n\n        if (typeof form[msg.hmi.id] !== 'object') {\n            form[msg.hmi.id] = { }; // auto\n        }\n\n        node.status({\n            'text': msg.hmi.id\n        })\n    }\n}\n\nconst dictionary = global.get('dictionary');\nmsg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];\n\n// Should not happened\ndelete msg.reset; //???\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6961,50 +6963,7 @@
         "y": 3320,
         "wires": [
             [
-                "89bd63c1cca31299"
-            ]
-        ]
-    },
-    {
-        "id": "80b3d3f7f4812fd6",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "g": "8cc9a474d6cd27ec",
-        "name": "fr",
-        "func": "if (msg.hmi.lang !== 'fr') {\n\n    return msg;\n}\n\nconst data = {\n    'lang': 'fr',\n    'option_page': {\n        'auth': 'Authentification',\n        'map': 'Implantation',\n        'alert': 'Alertes',\n        'period': 'Programmes',\n        'detail': 'Detail',\n        'list': 'Liste',\n        'tree': 'Arborescence',\n        'users': 'Utilisateurs',\n        'system': 'Système'\n    },\n    'option_resolution': {\n        '1': '1 minute',\n        '2': '2 minutes',\n        '5': '5 minutes',\n        '15': '15 minutes',\n        '30': '30 minuts',\n        '60': '1 heure'\n    },\n    'option_level': {\n        'prod': 'Production',\n        'rp': 'Responsable production',\n        'tech': 'Technicien',\n        'rt': 'Responsable technique',\n        'admin': 'Administrateur'\n    },\n    'option_team': {\n        'm': 'Matin',\n        'a': 'Après-midi',\n        'n': 'Nuit',\n        'd': 'Journée',\n        's': 'Samedi'\n    },\n    'option_lang': {\n        'en': 'Anglais',\n        'fr': 'Français'\n    },\n    'option_group': {\n        'run': 'Fonctionnement',\n        'cycle':'Impulsion',\n        'heat': 'Chauffe',\n        'uptime': 'Système',\n        'voltage': 'Puissance',\n        'mirror': 'Mirroir'\n    },\n    'option_component': {\n        'run': 'Lecture état de fonctionnement',\n        'heat': 'Lecture état de chauffe',\n        'voltage': 'Lecture de tension',\n        'power': 'Lecture de puisance',\n        '1wh': \"Lecture d'impulsion de puissance par Wh\",\n        'cycle': \"Lecture d'impulsion de cycle\",\n        'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n        'runmeter': \"Lecture de compteur partiel d'heures\",\n        'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n        'runmetertotal': \"Lecture de compteur total d'heures\",\n        'cyclemirror': 'Commande de cycle mirroir',\n        'runmirror': 'Command de fonctionnement mirroir',\n        'heatswitch': 'Commande de chauffe permanente libre',\n        'heattoggle': 'Commande de chauffe inverseur libre',\n        'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n        'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n        'runreset': \"Commande de RAZ compteur partiel d'heures\",\n        'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n        'load1meter': 'Charge système à 1 minute',\n        'load5meter': 'Charge système à 5 minutes',\n        'load15meter': 'Charge système à 15 minutes',\n        'memorymeter': 'Utilisation mémoire',\n        'diskmeter': 'Utilisation disque',\n        'uptimemeter': 'Durée de fonctionnement'\n    },\n    'option_select': {\n        'plant': 'Sélectionner une usine',\n        'line': 'Sélectionner une ligne',\n        'equipment': 'Sélectionner un équipement',\n        'model': 'Sélectionner un modèle',\n        'device': 'Sélectionner un matériel',\n        'link': 'Sélectionner un lien',\n        'component': 'Sélectionner un composant',\n        'group': 'Sélectionner un groupe',\n        'team': 'Sélectionner une équipe',\n        'day': 'Sélectionner un jour',\n        'timezone': 'Sélectionner une zone horaire',\n        'contact': 'Sélectionner un type de contact',\n        'list': 'Sélectionner une liste',\n        'action': 'Sélectionner une action',\n        'input': 'Sélectionner une entrée',\n        'output': 'Sélectionner une sortie',\n        'limit': 'Sélectionner une limite',\n        'start_time': \"Sélectionner l'heure de début\",\n        'stop_time': \"Sélectionner l'heure de fin\",\n        'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n    },\n    'option_action': {\n        'delete': 'Supprimer',\n        'add': 'Ajouter',\n        'edit': 'Modifier',\n        'save': 'Enregistrer',\n        'disconnect': 'Déconnecter'\n    },\n    'option_notice': {\n        'login_fail': 'Mauvais identifiant ou mot de passe',\n        'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n        'update_fail': 'La mise à jour a échoué',\n        'update_success': 'Mise à jour avec succès',\n        'plant_exists': 'Cette usine existe déjà',\n        'line_exists': 'Cette ligne existe déjà',\n        'equipment exists': 'Cet équipement existe déjà',\n        'device_noempty': \"Ce matériel n'est pas vide\"\n    },\n    'option_name': {\n        'plants': 'Usines',\n        'lines': 'Lignes',\n        'equipments': 'Equipements',\n        'devices': 'Matériels',\n        'components': 'Composants',\n        'alerts': 'Alertes',\n        'teams': 'Equipes',\n        'day': 'Changement de jour',\n        'holidays': 'Jours fériés',\n        'maps': \"Plans d'usines\",\n        'locations': 'Implantation des lignes',\n        'team_morning': 'Matin',\n        'team_afternoon': 'Après-midi',\n        'team_night': 'Nuit',\n        'team_day': 'Journée',\n        'team_saturday': 'Samedi',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant':' Usine',\n        'watchdog': 'Chien de garde',\n        'telegram': 'Telegram',\n    },\n    'auth': {\n        'user': 'Utilisateur : ',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe'\n    },\n    'map': {\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    },\n    'period': {\n        'enable': '►',\n        'disable': 'X',\n        'state_title':'Etat actuel : ',\n        'state_help':'► est activé,  X est désactivé',\n    },\n    'detail': {\n        'live_title': 'Direct',\n        'live_run': 'Fonctionnement',\n        'live_runmeter': 'Heures partieles',\n        'live_runmetertotal': 'Herures totales',\n        'live_runreset': \"RAZ compteur d'heures\",\n        'live_cycle': 'Cycle',\n        'live_cyclemeter': 'Cycles partiels',\n        'live_cyclemetertotal': 'Cycles totals',\n        'live_cyclereset': 'RAZ compteur de cycles',\n        'live_heat': 'Chauffe',\n        'live_heatswitchon': 'Activer la chauffe',\n        'live_heatswitchoff': 'Désactiver la chauffe',\n        'live_heattoggle': 'Inverser la chauffe',\n        'live_voltage': 'Tension',\n        'live_power': 'Puissance',\n        'live_load1meter': 'Charge à 1m',\n        'live_load5meter': 'Charge à 5m',\n        'live_load15meter': 'Charge à 15m',\n        'live_memorymeter': 'Utilisation mémoire',\n        'live_diskmeter': 'Utilisation disque',\n        'live_uptimemeter': 'Durée',\n        'chart_historic': 'Historique',\n        'chart_refresh': 'Rafraichir',\n        'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',\n        'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',\n        'chart_rundate': 'Etat de fonctionnement moyen suivant résolution',\n    },\n    'list': {\n        'records': \"Nombre total d'enregistrements: \"\n    },\n    'tree': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour'\n    },\n    'users': {\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant': 'Usine',\n        'telegram': 'Telegram'\n    }\n};\n\n// Merge dictionary fr to en\nfor (const k in msg.dictionary) {\n    if (typeof msg.dictionary[k] === 'object' && typeof data[k] === 'object') {\n        msg.dictionary[k] = { ...msg.dictionary[k], ...data[k] };\n    }\n    else if (typeof msg.dictionary[k] === 'string' && typeof data[k] === 'object') {\n        msg.dictionary[k] = data[k];\n    }\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 3320,
-        "wires": [
-            [
-                "7214e26c1a5974bd",
-                "01242cef4de43778"
-            ]
-        ]
-    },
-    {
-        "id": "89bd63c1cca31299",
-        "type": "function",
-        "z": "f6f2187d.f17ca8",
-        "g": "8cc9a474d6cd27ec",
-        "name": "data",
-        "func": "// Prepare HMI\n\n// Get memories\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet pages = global.get('describe.pages') || { };\n\n// Initalize hmi if required\nif (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\n// Clean request\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\n// Clean user\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    if (typeof user[msg.hmi.id] === 'object') {\n        user[msg.hmi.id].time = Date.now(); // auto\n        msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);\n\n        if (typeof form[msg.hmi.id] !== 'object') {\n            form[msg.hmi.id] = { }; // auto\n        }\n\n        node.status({\n            'text': msg.hmi.id\n        })\n    }\n}\n\n// Should not happened\ndelete msg.reset; //???\n\n// Initialize additional dictionary data\nfor (const p in pages) {\n    msg.dictionary[p] = { };\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 430,
-        "y": 3320,
-        "wires": [
-            [
-                "80b3d3f7f4812fd6"
+                "7214e26c1a5974bd"
             ]
         ]
     },
@@ -7667,7 +7626,7 @@
         "type": "link in",
         "z": "f6f2187d.f17ca8",
         "g": "63238b6d584649d5",
-        "name": "kernel - register",
+        "name": "kernel - page",
         "links": [],
         "x": 145,
         "y": 1220,
@@ -7683,7 +7642,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "63238b6d584649d5",
         "name": "data",
-        "func": "\n// Check required data\nif (typeof msg.payload !== 'object' || typeof msg.page !== 'string' || msg.page === '') {\n\n    return;\n}\n\n// Get memories\nlet describe = global.get('describe'); // autoupdate\n\n// Get default page template\nconst page = {\n    'tab': 0,\n    'id': '-',\n    'name': 'Unkown',\n    'icon': 'mdi-border-none-variant',\n    'level': {\n        'admin': false,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\n// Parse data\nfor (const k in page) {\n    if (!msg.payload.hasOwnProperty(k)) {\n        \n        continue;\n    }\n    if (typeof page[k] === 'object') {\n        for (const l in page[k]) {\n            if (typeof msg.payload[k] === 'object' && msg.payload[k].hasOwnProperty(l)) {\n                page[k][l] = msg.payload[k][l];\n            }\n        }\n    }\n    else {\n        page[k] = msg.payload[k];\n    }\n}\n\n// Save data\ndescribe.pages[msg.page] = page;\n\n// Clean msg\nmsg.payload = '';\ndelete msg.page;\n\nreturn msg;",
+        "func": "\n// Check required data\nif (typeof msg.payload !== 'object' || typeof msg.flow !== 'string' || msg.flow === '') {\n\n    return msg;\n}\n\n// Get memories\nlet describe = global.get('describe'); // autoupdate\n\n// Get default page template\nconst page = {\n    'tab': 0,\n    'id': '-',\n    'name': 'Unkown',\n    'icon': 'mdi-border-none-variant',\n    'level': {\n        'admin': false,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\n// Parse data\nfor (const k in page) {\n    if (!msg.payload.hasOwnProperty(k)) {\n        \n        continue;\n    }\n    if (typeof page[k] === 'object') {\n        for (const l in page[k]) {\n            if (typeof msg.payload[k] === 'object' && msg.payload[k].hasOwnProperty(l)) {\n                page[k][l] = msg.payload[k][l];\n            }\n        }\n    }\n    else {\n        page[k] = msg.payload[k];\n    }\n}\n\n// Save data\ndescribe.pages[msg.flow] = page;\n\n// Clean msg\nmsg.payload = '';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7703,7 +7662,7 @@
         "type": "link out",
         "z": "f6f2187d.f17ca8",
         "g": "63238b6d584649d5",
-        "name": "kernel - register",
+        "name": "kernel - page",
         "mode": "return",
         "links": [],
         "x": 395,
@@ -7925,6 +7884,54 @@
                 "d3c22873709318bb"
             ]
         ]
+    },
+    {
+        "id": "0d9a6a33341f0a6d",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "g": "9eded20dfe6c1a19",
+        "name": "kernel - dictionary",
+        "links": [],
+        "x": 545,
+        "y": 1220,
+        "wires": [
+            [
+                "bfeaaa608e6e25a3"
+            ]
+        ]
+    },
+    {
+        "id": "bfeaaa608e6e25a3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "9eded20dfe6c1a19",
+        "name": "data",
+        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_page':{\n                'auth':'Authentication',\n                'map': 'Map',\n                'alert':'Alerts',\n                'period':'Programs',\n                'detail':'Detail',\n                'list':'List',\n                'tree':'Tree',\n                'users':'Users',\n                'system':'System'\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'disconnect': 'Disconnect'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'device_noempty': 'Device is not empty'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_page': {\n                'auth': 'Authentification',\n                'map': 'Implantation',\n                'alert': 'Alertes',\n                'period': 'Programmes',\n                'detail': 'Detail',\n                'list': 'Liste',\n                'tree': 'Arborescence',\n                'users': 'Utilisateurs',\n                'system': 'Système'\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'disconnect': 'Déconnecter'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment exists': 'Cet équipement existe déjà',\n                'device_noempty': \"Ce matériel n'est pas vide\"\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 1220,
+        "wires": [
+            [
+                "82ee0692b7dc0abf"
+            ]
+        ]
+    },
+    {
+        "id": "82ee0692b7dc0abf",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "9eded20dfe6c1a19",
+        "name": "kernel - dictionary",
+        "mode": "return",
+        "links": [],
+        "x": 795,
+        "y": 1220,
+        "wires": []
     },
     {
         "id": "2ee1493983ba4b61",
@@ -9095,6 +9102,36 @@
         "links": [],
         "x": 1715,
         "y": 740,
+        "wires": []
+    },
+    {
+        "id": "2cd3e627b5a9d947",
+        "type": "link in",
+        "z": "adb9fbf379118d77",
+        "name": "option - boot",
+        "links": [],
+        "x": 775,
+        "y": 100,
+        "wires": [
+            [
+                "1eb40b2312b077cb"
+            ]
+        ]
+    },
+    {
+        "id": "1eb40b2312b077cb",
+        "type": "function",
+        "z": "adb9fbf379118d77",
+        "name": "data",
+        "func": "\nreturn;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 100,
         "wires": []
     },
     {
@@ -13078,7 +13115,7 @@
         "z": "135b7308617dad08",
         "g": "dbcc4077524c4e42",
         "name": "devices",
-        "func": "let devices = global.get('kernel.device');\nif (typeof devices === 'object') {\n    for (const device in devices) {\n        if (device.match((new RegExp('^(local)'))) !== null) {\n            msg.device = device;\n            msg.id = device.split('|')[1];\n\n            node.send(msg);\n        }\n    }\n}\n\nreturn;",
+        "func": "let devices = global.get('kernel.device');\nif (typeof devices === 'object') {\n    for (const device in devices) {\n        if (device.match((new RegExp('^(local)'))) !== null) {\n            msg.device = device;\n            //msg.id = device.split('|')[1];\n\n            node.send(msg);\n        }\n    }\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -13714,7 +13751,7 @@
         "z": "27841aa886edd1cd",
         "g": "65989ffcddd6ae81",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 0,\n    'id': '64fe17ae4a406472',\n    'name': 'ui - page - auth',\n    'icon': 'mdi-login',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\n// Register page definition\nmsg.payload = {\n    'tab': 0,\n    'id': '64fe17ae4a406472',\n    'name': 'ui - page - auth',\n    'icon': 'mdi-login',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'user': 'Utilisateur : ',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -13749,7 +13786,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n\n    msg.hide = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    return [ msg, msg ];\n}\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n\n    msg.show = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    return [ null, msg ];\n}\n\n// Plant is defined for the user\nmsg.payload = msg.hmi.plant;\n\nreturn [ msg, null ];",
+        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n\n    msg.hide = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    return [ msg, msg ];\n}\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n\n    msg.show = ['map - map - group'];\n    msg = await node.linkcall('ui - group', msg);\n\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    return [ null, msg ];\n}\n\n// Plant is defined for the user\nmsg.payload = msg.hmi.plant;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -14564,7 +14601,7 @@
         "z": "05f6b695d75a73cf",
         "g": "b572d13bd275e8da",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 1,\n    'id': 'ded8ef092f5c6531',\n    'name': 'ui - page - map',\n    'icon': 'mdi-map',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 1,\n    'id': 'ded8ef092f5c6531',\n    'name': 'ui - page - map',\n    'icon': 'mdi-map',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -14832,7 +14869,7 @@
         "z": "476eb6fc04c55cec",
         "g": "a2c5edf7acc56d7a",
         "name": "data",
-        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [ msg, msg ];\n}\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = form[msg.hmi.id]['plant'] || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    // user must selected a plant\n    if (msg.payload === '') {\n\n        return [ null, msg ];\n    }\n    // show selected plant\n\n    return [ msg, msg ];\n}\n\n// Plant is defined for the user\nmsg.payload = msg.hmi.plant;\n\nform[msg.hmi.id]['plant'] = msg.payload;\n\nreturn [ msg, null ];",
+        "func": "// Get user plants\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Reset UI\nif (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [ msg, msg ];\n}\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\n// Plant was not defined for the user\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = form[msg.hmi.id]['plant'] || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    // user must selected a plant\n    if (msg.payload === '') {\n\n        return [ null, msg ];\n    }\n    // show selected plant\n\n    return [ msg, msg ];\n}\n\n// Plant is defined for the user\nmsg.payload = msg.hmi.plant;\n\nform[msg.hmi.id]['plant'] = msg.payload;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -14934,7 +14971,7 @@
         "z": "476eb6fc04c55cec",
         "g": "d9c84cf8592b1630",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 2,\n    'id': 'a19160517715b70b',\n    'name': 'ui - page - alert',\n    'icon': 'mdi-wrench',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 2,\n    'id': 'a19160517715b70b',\n    'name': 'ui - page - alert',\n    'icon': 'mdi-wrench',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -15426,7 +15463,7 @@
         "z": "51c4b2897d2c318c",
         "g": "744a665a3304c311",
         "name": "data",
-        "func": "// Get user plant\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Page is disabled\nif (msg.enabled !== true) {\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n    msg.list = '';\n\n    return [ msg, msg ];\n}\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = form[msg.hmi.id]['plant'] || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    if (msg.payload === '') {\n        // user must selected a plant\n\n        return [ null, msg ];\n    }\n    // show selected plant\n\n    return [ msg, msg ];\n}\n\n// user is linked to a plant\nmsg.payload = msg.hmi.plant;\n\nform[msg.hmi.id]['plant'] = msg.payload;\n\nreturn [ msg, null ];",
+        "func": "// Get user plant\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// Page is disabled\nif (msg.enabled !== true) {\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n    msg.list = '';\n\n    return [ msg, msg ];\n}\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = form[msg.hmi.id]['plant'] || '';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    if (msg.payload === '') {\n        // user must selected a plant\n\n        return [ null, msg ];\n    }\n    // show selected plant\n\n    return [ msg, msg ];\n}\n\n// user is linked to a plant\nmsg.payload = msg.hmi.plant;\n\nform[msg.hmi.id]['plant'] = msg.payload;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -15677,7 +15714,7 @@
         "z": "51c4b2897d2c318c",
         "g": "46483f79a033d950",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 3,\n    'id': '4d7d40fad3a281d3',\n    'name': 'ui - page - period',\n    'icon': 'mdi-clock',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 3,\n    'id': '4d7d40fad3a281d3',\n    'name': 'ui - page - period',\n    'icon': 'mdi-clock',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'enable': '►',\n        'disable': 'X',\n        'state_title':'Etat actuel : ',\n        'state_help':'► est activé,  X est désactivé',\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -20255,7 +20292,7 @@
         "z": "852390cb9559e176",
         "g": "20a2e240c83c48c2",
         "name": "data",
-        "func": "\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nreturn msg;",
+        "func": "\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -21514,7 +21551,7 @@
         "z": "852390cb9559e176",
         "g": "f576ed605b3c16a1",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 4,\n    'id': '71ccb6fab20261e2',\n    'name': 'ui - page - detail',\n    'icon': 'mdi-magnify',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 4,\n    'id': '71ccb6fab20261e2',\n    'name': 'ui - page - detail',\n    'icon': 'mdi-magnify',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'live_title': 'Direct',\n        'live_run': 'Fonctionnement',\n        'live_runmeter': 'Heures partieles',\n        'live_runmetertotal': 'Herures totales',\n        'live_runreset': \"RAZ compteur d'heures\",\n        'live_cycle': 'Cycle',\n        'live_cyclemeter': 'Cycles partiels',\n        'live_cyclemetertotal': 'Cycles totals',\n        'live_cyclereset': 'RAZ compteur de cycles',\n        'live_heat': 'Chauffe',\n        'live_heatswitchon': 'Activer la chauffe',\n        'live_heatswitchoff': 'Désactiver la chauffe',\n        'live_heattoggle': 'Inverser la chauffe',\n        'live_voltage': 'Tension',\n        'live_power': 'Puissance',\n        'live_load1meter': 'Charge à 1m',\n        'live_load5meter': 'Charge à 5m',\n        'live_load15meter': 'Charge à 15m',\n        'live_memorymeter': 'Utilisation mémoire',\n        'live_diskmeter': 'Utilisation disque',\n        'live_uptimemeter': 'Durée',\n        'chart_historic': 'Historique',\n        'chart_refresh': 'Rafraichir',\n        'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',\n        'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',\n        'chart_rundate': 'Etat de fonctionnement moyen suivant résolution'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -22935,7 +22972,7 @@
         "z": "e97c6f12735a13c1",
         "g": "1c2d5f046ccecc9d",
         "name": "data",
-        "func": "// Get user plant\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nif (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [ msg, msg ];\n}\n\n\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]')||'';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    if (msg.payload === '') {\n        // user must selected a plant\n\n        return [ null, msg ];\n    }\n    // show selected plant\n\n    return [ msg, msg ];\n}\n\n// user is linked to a plant\nmsg.payload = msg.hmi.plant;\n\nreturn [ msg, null ];",
+        "func": "// Get user plant\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nif (msg.enabled !== true) {\n    // page is disabled\n    msg.class = 'remove';\n    msg.enabled = false;\n    msg.payload = '';\n\n    return [ msg, msg ];\n}\n\n\nif (msg.hmi.plant === '') {\n    // admin can select a plant\n    msg.payload = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]')||'';\n\n    // Get plants for form\n    msg = await node.linkcall('option - plant', msg);\n\n    if (msg.payload === '') {\n        // user must selected a plant\n\n        return [ null, msg ];\n    }\n    // show selected plant\n\n    return [ msg, msg ];\n}\n\n// user is linked to a plant\nmsg.payload = msg.hmi.plant;\n\nreturn [ msg, null ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -23232,7 +23269,7 @@
         "z": "e97c6f12735a13c1",
         "g": "b16372546e0c5ee1",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 5,\n    'id': '297c38d08e523a55',\n    'name': 'ui - page - list',\n    'icon': 'mdi-format-list-bulleted-square',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 5,\n    'id': '297c38d08e523a55',\n    'name': 'ui - page - list',\n    'icon': 'mdi-format-list-bulleted-square',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'records': \"Nombre total d'enregistrements: \"\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -32793,7 +32830,7 @@
         "z": "64ce08af468b8197",
         "g": "b18407a573bfa291",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 6,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 6,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -32851,7 +32888,7 @@
         "z": "64ce08af468b8197",
         "g": "1b6332baa80f468b",
         "name": "data",
-        "func": "// Build list selector\n\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nmsg.menu = {\n    'plant': msg.dictionary.option_name.plants,\n    'line': msg.dictionary.option_name.lines,\n    'equipment': msg.dictionary.option_name.equipments,\n    'device': msg.dictionary.option_name.devices,\n    'component': msg.dictionary.option_name.components,\n    'alert': msg.dictionary.option_name.alerts,\n    'team': msg.dictionary.option_name.teams,\n    'day': msg.dictionary.option_name.day,\n    'holiday': msg.dictionary.option_name.holidays,\n    'map': msg.dictionary.option_name.maps,\n    'location': msg.dictionary.option_name.locations\n};\n\nconst limit = ['plant', 'device', 'map', 'holiday'];\n\nmsg.hide = [];\n\nfor (const k in msg.menu) {\n    msg.hide.push('ui - group - tree - ' + k);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\n//node.send([msg, msg]);\n\nif (!msg.enabled) {\n    msg.list = '';\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\nfor (const k in msg.menu) {\n    if (msg.hmi.level !== 'admin' && limit.includes(k)) {\n\n        continue;\n    }\n\n    msg.ui_update.options.push({ \n        'value': k,\n        'label': msg.menu[k]\n    });\n}\n\nreturn [ null, msg ];",
+        "func": "// Build list selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nmsg.menu = {\n    'plant': msg.dictionary.option_name.plants,\n    'line': msg.dictionary.option_name.lines,\n    'equipment': msg.dictionary.option_name.equipments,\n    'device': msg.dictionary.option_name.devices,\n    'component': msg.dictionary.option_name.components,\n    'alert': msg.dictionary.option_name.alerts,\n    'team': msg.dictionary.option_name.teams,\n    'day': msg.dictionary.option_name.day,\n    'holiday': msg.dictionary.option_name.holidays,\n    'map': msg.dictionary.option_name.maps,\n    'location': msg.dictionary.option_name.locations\n};\n\nconst limit = ['plant', 'device', 'map', 'holiday'];\n\nmsg.hide = [];\n\nfor (const k in msg.menu) {\n    msg.hide.push('ui - group - tree - ' + k);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\n//node.send([msg, msg]);\n\nif (!msg.enabled) {\n    msg.list = '';\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\nfor (const k in msg.menu) {\n    if (msg.hmi.level !== 'admin' && limit.includes(k)) {\n\n        continue;\n    }\n\n    msg.ui_update.options.push({ \n        'value': k,\n        'label': msg.menu[k]\n    });\n}\n\nreturn [ null, msg ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -33582,7 +33619,7 @@
         "z": "adb48ef35d9453c0",
         "g": "6e3f77a2a72d0fa8",
         "name": "data",
-        "func": "\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\ndelete msg.ui_update;\n\nreturn msg;",
+        "func": "\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\ndelete msg.ui_update;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -33865,7 +33902,7 @@
         "z": "adb48ef35d9453c0",
         "g": "21ae321a75b0d52e",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': 'ed8b7656d516b26d',\n    'name': 'ui - page - users',\n    'icon': 'mdi-account',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': 'ed8b7656d516b26d',\n    'name': 'ui - page - users',\n    'icon': 'mdi-account',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant': 'Usine',\n        'telegram': 'Telegram'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -34931,7 +34968,7 @@
         "z": "44465f18e06bb58d",
         "g": "c5aa438b6dcec795",
         "name": "data",
-        "func": "\n// Check if required page is current flow\nmsg.check = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nreturn msg;",
+        "func": "\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -35298,7 +35335,7 @@
         "z": "44465f18e06bb58d",
         "g": "93bc0fc1f391abe1",
         "name": "data",
-        "func": "\nmsg.page = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 8,\n    'id': '1ac335c1e0a24a11',\n    'name': 'ui - page - system',\n    'icon': 'mdi-cog',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - register', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 8,\n    'id': '1ac335c1e0a24a11',\n    'name': 'ui - page - system',\n    'icon': 'mdi-cog',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,

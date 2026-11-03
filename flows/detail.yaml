@@ -4438,7 +4438,7 @@
   func: |-
 
     // Check if required page is current flow
-    msg.check = env.get('NR_FLOW_NAME');
+    msg.flow = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
     return msg;
@@ -5902,7 +5902,7 @@
   name: data
   func: |-
 
-    msg.page = env.get('NR_FLOW_NAME');
+    msg.flow = env.get('NR_FLOW_NAME');
 
     msg.payload = {
         'tab': 4,
@@ -5918,7 +5918,41 @@
         }
     };
 
-    msg = await node.linkcall('kernel - register', msg);
+    msg = await node.linkcall('kernel - page', msg);
+
+    // Register page dictionary
+    msg.payload = {
+        'fr': {
+            'live_title': 'Direct',
+            'live_run': 'Fonctionnement',
+            'live_runmeter': 'Heures partieles',
+            'live_runmetertotal': 'Herures totales',
+            'live_runreset': "RAZ compteur d'heures",
+            'live_cycle': 'Cycle',
+            'live_cyclemeter': 'Cycles partiels',
+            'live_cyclemetertotal': 'Cycles totals',
+            'live_cyclereset': 'RAZ compteur de cycles',
+            'live_heat': 'Chauffe',
+            'live_heatswitchon': 'Activer la chauffe',
+            'live_heatswitchoff': 'Désactiver la chauffe',
+            'live_heattoggle': 'Inverser la chauffe',
+            'live_voltage': 'Tension',
+            'live_power': 'Puissance',
+            'live_load1meter': 'Charge à 1m',
+            'live_load5meter': 'Charge à 5m',
+            'live_load15meter': 'Charge à 15m',
+            'live_memorymeter': 'Utilisation mémoire',
+            'live_diskmeter': 'Utilisation disque',
+            'live_uptimemeter': 'Durée',
+            'chart_historic': 'Historique',
+            'chart_refresh': 'Rafraichir',
+            'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',
+            'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',
+            'chart_rundate': 'Etat de fonctionnement moyen suivant résolution'
+        }
+    };
+
+    msg = await node.linkcall('kernel - dictionary', msg);
 
     return;
   outputs: 0
