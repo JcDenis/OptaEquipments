@@ -88,6 +88,7 @@
     - bcd29c14e67166df
     - 9eded20dfe6c1a19
     - 00f63ad10b00133d
+    - c964e18221782e03
   x: 68
   'y': 13
   w: 1534
@@ -631,6 +632,7 @@
     - 9ca41d82ae49b0f7
     - 134aaabd84080c78
     - 910fcd1dc9c36741
+    - 377212556c27659a
   x: 145
   'y': 680
   wires:
@@ -2763,6 +2765,129 @@
   'y': 1100
   wires:
     - - 775760e04ac6b20c
+- id: c964e18221782e03
+  type: group
+  z: f6f2187d.f17ca8
+  g: f9da6ea6fa5cc954
+  name: kernel - reset
+  style:
+    stroke: '#ff0000'
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - d8f60eee39e6f946
+    - c406704f6968a018
+    - 377212556c27659a
+    - 88fdb1a4a07dfbce
+  x: 954
+  'y': 1179
+  w: 422
+  h: 102
+- id: d8f60eee39e6f946
+  type: link in
+  z: f6f2187d.f17ca8
+  g: c964e18221782e03
+  name: kernel - reset
+  links: []
+  x: 995
+  'y': 1220
+  wires:
+    - - c406704f6968a018
+- id: c406704f6968a018
+  type: function
+  z: f6f2187d.f17ca8
+  g: c964e18221782e03
+  name: data
+  func: >-
+    // Reset an equipment counter
+
+    // kernel.meter["equipment|counter"] = "0|current runmetertotal"
+
+
+    msg.payload = msg.dictionary.option_notice.update_fail;
+
+    msg.success = false;
+
+
+    if (!['admin', 'rt', 'tech'].includes(msg.hmi.level)) {
+        msg.payload = msg.dictionary.option_notice.level_fail;
+    } else if (msg.kernel?.type === 'meter' && typeof msg.kernel.entity ===
+    'string') {
+        const meter = global.get('kernel.meter["' + msg.kernel.entity + '"]');
+
+        if (typeof meter === 'string') {
+            const equipment = msg.kernel.entity.split('|')[0];
+            let total = Number(global.get('kernel.state["' + equipment + '|runmetertotal"]'));
+            if (!Number.isFinite(total)) {
+                total = Number(meter.split('|')[1]) || 0;
+            }
+
+            node.send([{
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'meter',
+                    'entity': msg.kernel.entity,
+                    'value': '0|' + total,
+                    'loop': false
+                }
+            }, null]);
+
+            msg.payload = msg.dictionary.option_notice.update_success;
+            msg.success = true;
+        }
+    }
+
+
+    delete msg.kernel;
+
+
+    // Wait ui update
+
+    msg = await node.linkcall('ui - latency', msg);
+
+
+    // UI notice
+
+    msg.notice = msg.payload;
+
+    msg = await node.linkcall('ui - notice', msg);
+
+
+    return [null, msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1120
+  'y': 1220
+  wires:
+    - - 377212556c27659a
+    - - 88fdb1a4a07dfbce
+- id: 377212556c27659a
+  type: link out
+  z: f6f2187d.f17ca8
+  g: c964e18221782e03
+  name: kernel - reset - loop
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1295
+  'y': 1200
+  wires: []
+- id: 88fdb1a4a07dfbce
+  type: link out
+  z: f6f2187d.f17ca8
+  g: c964e18221782e03
+  name: kernel - reset
+  mode: return
+  links: []
+  x: 1295
+  'y': 1240
+  wires: []
 - id: 00f63ad10b00133d
   type: group
   z: f6f2187d.f17ca8
@@ -5817,7 +5942,8 @@
                     'add': 'Add',
                     'edit': 'Edit',
                     'save': 'Save',
-                    'disconnect': 'Disconnect'
+                    'disconnect': 'Disconnect',
+                    'reset': 'Reset'
                 },
                 'option_notice': {
                     'login_fail': 'Wrong login or password',
@@ -5969,7 +6095,8 @@
                     'add': 'Ajouter',
                     'edit': 'Modifier',
                     'save': 'Enregistrer',
-                    'disconnect': 'Déconnecter'
+                    'disconnect': 'Déconnecter',
+                    'reset': 'RAZ'
                 },
                 'option_notice': {
                     'login_fail': 'Mauvais identifiant ou mot de passe',

@@ -214,6 +214,7 @@
     - f66528f67c8d7cfd
     - 17e7a0d50bf546d9
     - 468277bb16c8903c
+    - 09987068f1a0d8a4
   x: 1355
   'y': 420
   wires: []
@@ -303,7 +304,7 @@
   group: c605809a8fe63a3b
   name: list - device - table - fr
   label: ''
-  order: 9
+  order: 11
   width: 0
   height: 0
   maxrows: 0
@@ -376,7 +377,7 @@
   group: c605809a8fe63a3b
   name: list - component - table - fr
   label: ''
-  order: 11
+  order: 13
   width: 0
   height: 0
   maxrows: '50'
@@ -668,7 +669,7 @@
   z: e97c6f12735a13c1
   g: ac0595b45d9786aa
   group: c605809a8fe63a3b
-  order: 15
+  order: 17
   width: 0
   height: 0
   name: list - total
@@ -791,7 +792,7 @@
   group: c605809a8fe63a3b
   name: list - device - table - en
   label: ''
-  order: 10
+  order: 12
   width: 0
   height: 0
   maxrows: 0
@@ -852,7 +853,7 @@
   group: c605809a8fe63a3b
   name: list - component - table - en
   label: ''
-  order: 12
+  order: 14
   width: 0
   height: 0
   maxrows: '50'
@@ -1003,6 +1004,7 @@
     - f1491390ad3bbec6
     - 69f9c115d9959785
     - 1b3e234bed8047a0
+    - a3c49917e391987c
   x: 145
   'y': 240
   wires:
@@ -1020,6 +1022,7 @@
     - 30d9b3b967fbbc14
     - baa9eb973e71311f
     - 17e7a0d50bf546d9
+    - 09987068f1a0d8a4
   x: 555
   'y': 180
   wires: []
@@ -1696,6 +1699,10 @@
         msg = await node.linkcall('kernel - delete', msg);
         
         return [ msg, null, null ];
+    } else if (msg.action === 'button_click' && msg.column === 'reset') {
+        msg = await node.linkcall('kernel - reset', msg);
+
+        return [ msg, null, null ];
     }
 
     if (typeof msg.list !== 'string' || msg.list === '') {
@@ -1891,7 +1898,7 @@
   group: c605809a8fe63a3b
   name: list - holiday - table - fr
   label: ''
-  order: 13
+  order: 15
   width: 0
   height: 0
   maxrows: 0
@@ -1934,7 +1941,7 @@
   group: c605809a8fe63a3b
   name: list - holiday - table - en
   label: ''
-  order: 14
+  order: 16
   width: 0
   height: 0
   maxrows: 0
@@ -2014,6 +2021,327 @@
   x: 835
   'y': 1800
   wires: []
+- id: fa98f46bfd60fed6
+  type: group
+  z: e97c6f12735a13c1
+  name: list - counter
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 09987068f1a0d8a4
+    - 3a0957e2bd9d6687
+    - a3c49917e391987c
+    - c9b961ddc408d64b
+    - 4ebdec161d1f6212
+    - 624274f1aa6fcfb5
+  x: 104
+  'y': 1999
+  w: 752
+  h: 209.5
+- id: 09987068f1a0d8a4
+  type: link in
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  name: list - counter
+  links:
+    - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
+  x: 145
+  'y': 2047.5
+  wires:
+    - - 3a0957e2bd9d6687
+- id: 3a0957e2bd9d6687
+  type: function
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  name: data
+  func: |-
+    // Parse counters
+
+    msg.payload = [];
+
+    node.send([null, msg, msg]);
+
+    msg.class = '';
+    msg.enabled = true;
+
+    if (msg.list === 'counter') {
+        const meters = global.get('kernel.meter') || {};
+        const counters = global.get('kernel.counters') || {};
+        const plant = global.get('form["' + msg.hmi.id + '"]["plant"]');
+        let i = 0;
+
+        for (const entity in meters) {
+            let row  = {};
+            let esplit = entity.split('|');
+
+            row.entity = entity;
+            row.equipment = esplit[0];
+            row.counter = esplit[1];
+            row.family = global.get('kernel.families["' + row.equipment + '"]') || '';
+            row.line = global.get('kernel.equipments["' + row.equipment + '"]') || '';
+            row.plant = global.get('kernel.lines["' + row.line + '"]') || '';
+
+            const definition = global.get('kernel.counter["' + row.counter + '"]');
+
+            if (row.plant !== plant || row.family === '' || counters[row.counter] !== row.family || typeof definition !== 'string') {
+
+                continue;
+            }
+
+            let csplit = definition.split('|');
+
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]') || '';
+            row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';
+            row.line_name = global.get('kernel.line["'  + row.line + '"]') || '';
+            row.line_full = row.line_name + ' (' + row.line + ')';
+            row.family_name = global.get('kernel.family["' + row.family + '"]') || '';
+            row.family_full = row.family_name + ' (' + row.family + ')';
+            row.counter_name = csplit.slice(1).join('|');
+            row.counter_full = row.counter_name + ' (' + row.counter + ')';
+            row.state = Math.round((Number(String(meters[entity]).split('|')[0]) || 0) * 10) / 10;
+            row.state_limit = Number(csplit[0]) || 0;
+            row.percent = row.state_limit > 0 ? Math.round(row.state * 100 / row.state_limit) : 0;
+            row.percent_full = row.percent.toString() + '%';
+            row.state_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);
+            row.reset = (msg.dictionary.option_action.reset) || 'Reset';
+
+            msg.payload[i++] = row;
+        }
+
+        // Records title
+        msg.total = i;
+        node.send([msg, null, null]);
+
+        if (i > 0) {
+            msg.payload.sort((a, b) => a.percent < b.percent ? 1 : -1);
+
+            if (msg.hmi.lang === 'fr') {
+
+                return [null, msg, null];
+            } else {
+
+                return [null, null, msg];
+            }
+        }
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 2047.5
+  wires:
+    - - a3c49917e391987c
+    - - c9b961ddc408d64b
+    - - 4ebdec161d1f6212
+- id: a3c49917e391987c
+  type: link out
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  name: list - counter
+  mode: link
+  links:
+    - 468277bb16c8903c
+  x: 815
+  'y': 2047.5
+  wires: []
+- id: c9b961ddc408d64b
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  group: c605809a8fe63a3b
+  name: list - counter - table - fr
+  label: ''
+  order: 9
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Etat
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
+    - title: Ligne
+      key: line_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipement
+      key: equipment_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Famille
+      key: family_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Compteur
+      key: counter_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Actuel
+      key: state
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Limite
+      key: state_limit
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Usure
+      key: percent_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: reset
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 470
+  'y': 2107.5
+  wires:
+    - - 624274f1aa6fcfb5
+- id: 624274f1aa6fcfb5
+  type: function
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  name: data
+  func: |-
+    // Do action
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    if (msg.action === 'button_click' && msg.column === 'reset') {
+        msg.kernel = {
+            'type': 'meter',
+            'entity': msg.payload.entity,
+            'value': '',
+            'loop': false
+        };
+        msg.list = 'counter';
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 690
+  'y': 2107.5
+  wires:
+    - - a3c49917e391987c
+- id: 4ebdec161d1f6212
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  group: c605809a8fe63a3b
+  name: list - counter - table - en
+  label: ''
+  order: 10
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: State
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: start
+    - title: Line
+      key: line_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipment
+      key: equipment_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Family
+      key: family_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Counter
+      key: counter_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Current
+      key: state
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Limit
+      key: state_limit
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Wear
+      key: percent_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: reset
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 480
+  'y': 2167.5
+  wires:
+    - - 624274f1aa6fcfb5
 - id: 710944fdb5c12852
   type: function
   z: e97c6f12735a13c1
@@ -2049,6 +2377,10 @@
         {
             'label': msg.dictionary.option_name.alerts,
             'value': 'alert'
+        },
+        {
+            'label': msg.dictionary.option_name.counters,
+            'value': 'counter'
         },
         {
             'label': msg.dictionary.option_name.devices,
