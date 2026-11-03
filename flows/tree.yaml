@@ -2769,6 +2769,7 @@
     - 0c0a9473fb5ff8b7
     - 3933b0d493ef8317
     - 688910aee534864e
+    - fcd145d2e50a721e
   x: 755
   'y': 180
   wires: []
@@ -7198,6 +7199,1543 @@
   wires:
     - - 5a6ef6e756d4e4c4
     - - 62f2d49640022020
+- id: bb18e6a5e2a71ba1
+  type: group
+  z: 64ce08af468b8197
+  name: tree - counter
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - fcd145d2e50a721e
+    - c649885d5cd174c3
+    - 725c2c9212a95ad4
+    - aa236f4908588df2
+    - ff4837447653ade8
+    - 7df17cbe315fc66f
+    - f1fee9cbf8b77892
+    - aabc10a887612c3b
+    - 35ebfd374f0091d3
+    - 0a769c25d88bec18
+    - 86cf981ef38c75e5
+    - b9eea76b0c2644d4
+    - 950e3e490b8eec8e
+    - 544d275e7cdce5c4
+    - 4d0aeadfb72a24e6
+    - '81e6829031399880'
+    - 149622c70b5c1c30
+    - cbad417060eb4529
+    - e9a8b996689b8dd4
+    - 0067742edaf2b787
+    - d70b6ac7de75f9db
+    - 134aaabd84080c78
+    - ab4a2c1845d5a82a
+    - 85fdc314a495d121
+    - 6498c8e4abdcd78f
+    - ec2b663c5e617b24
+    - 1ce37a82f383fce9
+    - d98aecc88bef3773
+    - b8504f52c174fb65
+    - f2c1584ee15beea4
+    - c78d1e3e8f750e6f
+    - 4fb52b883a46a382
+    - 7d3d3774efdf3e53
+    - d18db0e1acb91eee
+    - 24fab73a1275941c
+    - b64afadea5ed67ac
+    - cfb59932b540ca11
+    - c0a2300550cbadd0
+    - 34ffd115d9155b9c
+    - 360450341ac0e826
+    - dbbb096f15134c06
+    - 751359d8967d65cb
+    - 17705f575d8b26d2
+  x: 1394
+  'y': 1819
+  w: 862
+  h: 870
+- id: fcd145d2e50a721e
+  type: link in
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: tree - counter
+  links:
+    - d5a2492cd9b261b1
+    - 134aaabd84080c78
+  x: 1505
+  'y': 1868
+  wires:
+    - - c649885d5cd174c3
+- id: c649885d5cd174c3
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.list !== 'counter') {
+
+        return;
+    }
+
+    msg.payload = '';
+    msg.class = 'remove';
+    msg.enabled = false;
+
+    node.send([null, msg]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        msg = await node.linkcall('ui - latency', msg);
+        msg.class = '';
+        msg.enabled = true;
+        msg.options = [
+            {
+                'label': '',
+                'value': ''
+            },
+            {
+                'label': msg.dictionary.option_action.add,
+                'value': 'addcounter'
+            },
+            {
+                'label': msg.dictionary.option_action.delete,
+                'value': 'delcounter'
+            },
+            {
+                'label': msg.dictionary.option_action.edit,
+                'value': 'editcounter'
+            }
+        ];
+
+        msg.ui_update = {
+            'label': msg.dictionary.option_select.action
+        }
+
+        return [msg, null];
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 1868
+  wires:
+    - - 725c2c9212a95ad4
+    - - aa236f4908588df2
+- id: 725c2c9212a95ad4
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - action
+  label: ''
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1830
+  'y': 1868
+  wires:
+    - - ff4837447653ade8
+      - aa236f4908588df2
+- id: aa236f4908588df2
+  type: change
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: '-'
+  rules:
+    - p: class
+      pt: msg
+      t: set
+      to: remove
+      tot: str
+    - p: enabled
+      pt: msg
+      t: set
+      to: 'false'
+      tot: bool
+    - p: payload
+      pt: msg
+      t: set
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1630
+  'y': 1928
+  wires:
+    - - aabc10a887612c3b
+      - 86cf981ef38c75e5
+      - 544d275e7cdce5c4
+      - 149622c70b5c1c30
+      - 0067742edaf2b787
+      - 85fdc314a495d121
+      - 1ce37a82f383fce9
+      - f2c1584ee15beea4
+      - 7d3d3774efdf3e53
+      - b64afadea5ed67ac
+      - 34ffd115d9155b9c
+      - 751359d8967d65cb
+- id: ff4837447653ade8
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
+    const action = msg.payload;
+
+    form[msg.hmi.id] = {
+        'action': action,
+        'time': Date.now()
+    };
+
+    msg.class= '';
+    msg.enabled = true;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 1928
+  wires:
+    - - 7df17cbe315fc66f
+- id: 7df17cbe315fc66f
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+
+    const action = msg.payload;
+
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+
+    switch (action) {
+        case 'addcounter': node.send([msg, null, null]); break;
+        case 'delcounter': node.send([null, msg, null]); break;
+        case 'editcounter': node.send([null, null, msg]); break;
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1470
+  'y': 1988
+  wires:
+    - - f1fee9cbf8b77892
+    - - ab4a2c1845d5a82a
+    - - b8504f52c174fb65
+- id: f1fee9cbf8b77892
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+
+    // Get options
+    msg = await node.linkcall('option - family', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 1988
+  wires:
+    - - aabc10a887612c3b
+- id: aabc10a887612c3b
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - add - family
+  label: ''
+  tooltip: ''
+  order: 2
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1850
+  'y': 1988
+  wires:
+    - - 35ebfd374f0091d3
+- id: 35ebfd374f0091d3
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const family = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["family"]', family);
+
+    // Disabled counter form
+    msg.payload = family;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 1988
+  wires:
+    - - f1fee9cbf8b77892
+    - - 0a769c25d88bec18
+- id: 0a769c25d88bec18
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    // Suggest next free counter key (CO0000, CO0001, ...)
+    if (msg.enabled === true && msg.payload === '') {
+        const counters = global.get('kernel.counter') || { };
+        let i = 0;
+        let id = '';
+        do {
+            id = 'CO' + String(i++).padStart(4, '0');
+        } while (typeof counters[id] !== 'undefined');
+
+        msg.payload = id;
+    }
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.counter_ident || 'Counter ident'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2048
+  wires:
+    - - 86cf981ef38c75e5
+- id: 86cf981ef38c75e5
+  type: ui-text-input
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - add - id
+  label: ''
+  order: 3
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1850
+  'y': 2048
+  wires:
+    - - b9eea76b0c2644d4
+- id: b9eea76b0c2644d4
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const id = String(msg.payload).trim();
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check value
+    if (id === '' || /[\/|#+"\s]/.test(id)) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.ident_fail || 'Invalid identifier';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    // Counter already exists
+    if (typeof global.get('kernel.counter["' + id + '"]') === 'string') {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.counter_exists || 'Counter already exists';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    global.set('form["' + msg.hmi.id + '"]["id"]', id);
+
+    // Disabled counter form
+    msg.payload = id;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2048
+  wires:
+    - - 0a769c25d88bec18
+    - - 950e3e490b8eec8e
+- id: 950e3e490b8eec8e
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.tree.counter_hours || 'Number of hours'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2108
+  wires:
+    - - 544d275e7cdce5c4
+- id: 544d275e7cdce5c4
+  type: ui-number-input
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - add - hours
+  label: ''
+  order: 4
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  min: '1'
+  max: ''
+  step: 1
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  spinner: default
+  x: 1850
+  'y': 2108
+  wires:
+    - - 4d0aeadfb72a24e6
+- id: 4d0aeadfb72a24e6
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const hours = Number(msg.payload);
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check value
+    if (!Number.isFinite(hours) || hours <= 0) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.hours_fail || 'Invalid number of hours';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    global.set('form["' + msg.hmi.id + '"]["hours"]', hours);
+
+    // Disabled counter form
+    msg.payload = hours;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2108
+  wires:
+    - - 950e3e490b8eec8e
+    - - '81e6829031399880'
+- id: '81e6829031399880'
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.tree.counter_text || 'Definition text'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2168
+  wires:
+    - - 149622c70b5c1c30
+- id: 149622c70b5c1c30
+  type: ui-text-input
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - add - text
+  label: ''
+  order: 5
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1850
+  'y': 2168
+  wires:
+    - - cbad417060eb4529
+- id: cbad417060eb4529
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const text = String(msg.payload).trim();
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check value
+    if (text === '' || text.includes('|')) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.text_fail || 'Invalid text';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    global.set('form["' + msg.hmi.id + '"]["text"]', text);
+
+    // Disabled counter form
+    msg.payload = text;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2168
+  wires:
+    - - '81e6829031399880'
+    - - e9a8b996689b8dd4
+- id: e9a8b996689b8dd4
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.add
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2228
+  wires:
+    - - 0067742edaf2b787
+- id: 0067742edaf2b787
+  type: ui-button
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - add - save
+  label: ''
+  order: 6
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 1850
+  'y': 2228
+  wires:
+    - - d70b6ac7de75f9db
+- id: d70b6ac7de75f9db
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    // Add counter
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled counter form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        let form = global.get('form["' + msg.hmi.id + '"]') || {};
+
+        // counter (hours|text)
+        let counterMsg = {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'counter',
+                'entity': form.id,
+                'value': form.hours + '|' + form.text,
+                'loop': false
+            }
+        };
+        node.send([null, counterMsg]);
+
+        // counters (counter => family)
+        let countersMsg = {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'counters',
+                'entity': form.id,
+                'value': form.family,
+                'loop': false
+            }
+        };
+        node.send([null, countersMsg]);
+
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2228
+  wires:
+    - - e9a8b996689b8dd4
+    - - 134aaabd84080c78
+- id: 134aaabd84080c78
+  type: link out
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: tree - counter
+  mode: link
+  links:
+    - e60e4ab7617738c3
+    - fcd145d2e50a721e
+  x: 2215
+  'y': 2228
+  wires: []
+- id: ab4a2c1845d5a82a
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+
+    // Get options
+    msg = await node.linkcall('option - counter', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2288
+  wires:
+    - - 85fdc314a495d121
+- id: 85fdc314a495d121
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - delete - counter
+  label: ''
+  tooltip: ''
+  order: 7
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1850
+  'y': 2288
+  wires:
+    - - 6498c8e4abdcd78f
+- id: 6498c8e4abdcd78f
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const id = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["id"]', id);
+
+    // Disabled counter form
+    msg.payload = id;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2288
+  wires:
+    - - ab4a2c1845d5a82a
+    - - ec2b663c5e617b24
+- id: ec2b663c5e617b24
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.delete
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2348
+  wires:
+    - - 1ce37a82f383fce9
+- id: 1ce37a82f383fce9
+  type: ui-button
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - delete - save
+  label: ''
+  order: 8
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 1850
+  'y': 2348
+  wires:
+    - - d98aecc88bef3773
+- id: d98aecc88bef3773
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    // Delete counter
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled counter form
+    msg.payload = '';
+    msg.enabled = false;
+
+    node.send([msg]);
+
+    msg.kernel = {
+        'type': 'counter',
+        'entity': global.get('form["' + msg.hmi.id + '"]["id"]') || '-',
+        'value': '',
+        'loop': false,
+        'delete': true
+    };
+
+    // Do delete
+    msg = await node.linkcall('kernel - delete', msg);
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2348
+  wires:
+    - - ec2b663c5e617b24
+- id: b8504f52c174fb65
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+
+    // Get options
+    msg = await node.linkcall('option - counter', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2408
+  wires:
+    - - f2c1584ee15beea4
+- id: f2c1584ee15beea4
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - edit - counter
+  label: ''
+  tooltip: ''
+  order: 9
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1850
+  'y': 2408
+  wires:
+    - - c78d1e3e8f750e6f
+- id: c78d1e3e8f750e6f
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: >-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+
+    const id = msg.payload;
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    global.set('form["' + msg.hmi.id + '"]["id"]', id);
+
+
+    // Disabled counter form
+
+    msg.payload = id;
+
+    msg.class = '';
+
+    msg.enabled = false;
+
+    node.send([msg, null]);
+
+
+    // Go to next form
+
+    msg.payload = Number(String(global.get('kernel.counter["' + id + '"]') ||
+    '').split('|')[0]) || '';
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    node.send([null, msg]);
+
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2408
+  wires:
+    - - b8504f52c174fb65
+    - - 4fb52b883a46a382
+- id: 4fb52b883a46a382
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.tree.counter_hours || 'Number of hours'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2468
+  wires:
+    - - 7d3d3774efdf3e53
+- id: 7d3d3774efdf3e53
+  type: ui-number-input
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - edit - hours
+  label: ''
+  order: 10
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  min: '1'
+  max: ''
+  step: 1
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  spinner: default
+  x: 1850
+  'y': 2468
+  wires:
+    - - d18db0e1acb91eee
+- id: d18db0e1acb91eee
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: >-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+
+    const hours = Number(msg.payload);
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Check value
+
+    if (!Number.isFinite(hours) || hours <= 0) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.hours_fail || 'Invalid number of hours';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+
+    global.set('form["' + msg.hmi.id + '"]["hours"]', hours);
+
+
+    // Disabled counter form
+
+    msg.payload = hours;
+
+    msg.class = '';
+
+    msg.enabled = false;
+
+    node.send([msg, null]);
+
+
+    // Go to next form
+
+    msg.payload = String(global.get('kernel.counter["' + (global.get('form["' +
+    msg.hmi.id + '"]["id"]') || '-') + '"]') ||
+    '').split('|').slice(1).join('|');
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    node.send([null, msg]);
+
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2468
+  wires:
+    - - 4fb52b883a46a382
+    - - 24fab73a1275941c
+- id: 24fab73a1275941c
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.tree.counter_text || 'Definition text'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2528
+  wires:
+    - - b64afadea5ed67ac
+- id: b64afadea5ed67ac
+  type: ui-text-input
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - edit - text
+  label: ''
+  order: 11
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1850
+  'y': 2528
+  wires:
+    - - cfb59932b540ca11
+- id: cfb59932b540ca11
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const text = String(msg.payload).trim();
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check value
+    if (text === '' || text.includes('|')) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.text_fail || 'Invalid text';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    global.set('form["' + msg.hmi.id + '"]["text"]', text);
+
+    // Disabled counter form
+    msg.payload = text;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2528
+  wires:
+    - - 24fab73a1275941c
+    - - c0a2300550cbadd0
+- id: c0a2300550cbadd0
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+
+    // Preselect current counter family on form opening
+    if (msg.enabled === true) {
+        let form = global.get('form'); // autoupdate
+
+        form[msg.hmi.id]['family'] = global.get('kernel.counters["' + (form[msg.hmi.id]['id'] || '-') + '"]') || '';
+        msg.payload = form[msg.hmi.id]['family'];
+    }
+
+    // Get options
+    msg = await node.linkcall('option - family', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2588
+  wires:
+    - - 34ffd115d9155b9c
+- id: 34ffd115d9155b9c
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - edit - family
+  label: ''
+  tooltip: ''
+  order: 12
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 1850
+  'y': 2588
+  wires:
+    - - 360450341ac0e826
+- id: 360450341ac0e826
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const family = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["family"]', family);
+
+    // Disabled counter form
+    msg.payload = family;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2588
+  wires:
+    - - c0a2300550cbadd0
+    - - dbbb096f15134c06
+- id: dbbb096f15134c06
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.edit
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1630
+  'y': 2648
+  wires:
+    - - 751359d8967d65cb
+- id: 751359d8967d65cb
+  type: ui-button
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - edit - save
+  label: ''
+  order: 13
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 1850
+  'y': 2648
+  wires:
+    - - 17705f575d8b26d2
+- id: 17705f575d8b26d2
+  type: function
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: data
+  func: |-
+    // Edit counter
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled counter form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        let form = global.get('form["' + msg.hmi.id + '"]') || {};
+
+        // counter (hours|text)
+        let counterMsg = {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'counter',
+                'entity': form.id,
+                'value': form.hours + '|' + form.text,
+                'loop': false
+            }
+        };
+        node.send([null, counterMsg]);
+
+        // counters (counter => family)
+        let countersMsg = {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'counters',
+                'entity': form.id,
+                'value': form.family,
+                'loop': false
+            }
+        };
+        node.send([null, countersMsg]);
+
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2090
+  'y': 2648
+  wires:
+    - - dbbb096f15134c06
+    - - 134aaabd84080c78
 - id: c9047b0df9225569
   type: function
   z: 64ce08af468b8197
@@ -13162,6 +14700,9 @@
             'equipment_name':"Nom de l'équipement",
             'family_ident':'Identifiant de la famille',
             'family_name':'Nom de la famille',
+            'counter_ident':'Identifiant du compteur',
+            'counter_hours':"Nombre d'heures",
+            'counter_text':'Texte de définition',
             'device_ident':'Identifiant du matériel',
             'start_time':'Heure de début',
             'stop_time':'Heure de fin',
@@ -13230,6 +14771,7 @@
         'line': msg.dictionary.option_name.lines,
         'equipment': msg.dictionary.option_name.equipments,
         'family': msg.dictionary.option_name.families,
+        'counter': msg.dictionary.option_name.counters,
         'device': msg.dictionary.option_name.devices,
         'component': msg.dictionary.option_name.components,
         'alert': msg.dictionary.option_name.alerts,

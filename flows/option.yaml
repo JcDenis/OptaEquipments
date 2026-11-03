@@ -121,10 +121,11 @@
     - f4772c8ec8d416b2
     - 0d469617a9c645ef
     - 718eb1a3d27ed7e0
+    - 39b768c987f87fa7
   x: 518
   'y': 253
   w: 384
-  h: 974
+  h: 1094
 - id: 25545e8158bac1cf
   type: group
   z: adb9fbf379118d77
@@ -1935,6 +1936,102 @@
   links: []
   x: 835
   'y': 1160
+  wires: []
+- id: 39b768c987f87fa7
+  type: group
+  z: adb9fbf379118d77
+  g: d6c1ebf8add349c2
+  name: option - counter
+  style:
+    label: true
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    stroke: '#92d04f'
+  nodes:
+    - 60e4f22456b7487e
+    - c4f4ab9a69de1521
+    - 3abf765fcc273e63
+  x: 544
+  'y': 1239
+  w: 332
+  h: 82
+- id: 60e4f22456b7487e
+  type: link in
+  z: adb9fbf379118d77
+  g: 39b768c987f87fa7
+  name: option - counter
+  links: []
+  x: 585
+  'y': 1280
+  wires:
+    - - c4f4ab9a69de1521
+- id: c4f4ab9a69de1521
+  type: function
+  z: adb9fbf379118d77
+  g: 39b768c987f87fa7
+  name: data
+  func: >-
+    msg.options = [{
+        'label': '',
+        'value': '',
+        'dropdown': 'counter'
+    }];
+
+
+    let i = 1;
+
+    const counters = global.get('kernel.counter') || { };
+
+
+    for (const counter in counters) {
+        let counter_family = global.get('kernel.counters["' + counter + '"]') || '';
+        if (typeof msg.limit_family === 'undefined' || msg.limit_family === counter_family) {
+            let csplit = String(counters[counter]).split('|');
+            msg.options[i++] = {
+                'label': csplit.slice(1).join('|') + ' - ' + csplit[0] + ' h (' + counter + ')',
+                'value': counter,
+                'dropdown': 'counter'
+            }
+        }
+    }
+
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = { };
+    }
+
+    msg.ui_update.label = msg.dictionary.option_select.counter || 'Select a
+    counter';
+
+
+    delete msg.limit_family;
+
+
+    // Clean options
+
+    msg = await node.linkcall('option - clean', msg);
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 710
+  'y': 1280
+  wires:
+    - - 3abf765fcc273e63
+- id: 3abf765fcc273e63
+  type: link out
+  z: adb9fbf379118d77
+  g: 39b768c987f87fa7
+  name: option - counter
+  mode: return
+  links: []
+  x: 835
+  'y': 1280
   wires: []
 - id: 4700c24d1c1221d1
   type: function
