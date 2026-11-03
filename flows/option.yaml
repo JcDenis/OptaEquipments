@@ -120,10 +120,11 @@
     - 111bcae539ab0233
     - f4772c8ec8d416b2
     - 0d469617a9c645ef
+    - 718eb1a3d27ed7e0
   x: 518
   'y': 253
   w: 384
-  h: 854
+  h: 974
 - id: 25545e8158bac1cf
   type: group
   z: adb9fbf379118d77
@@ -1832,6 +1833,109 @@
   'y': 1040
   wires:
     - - 48f4aa09c9e72792
+- id: 718eb1a3d27ed7e0
+  type: group
+  z: adb9fbf379118d77
+  g: d6c1ebf8add349c2
+  name: option - family
+  style:
+    label: true
+    fill: '#92d04f'
+    fill-opacity: '0.05'
+    stroke: '#92d04f'
+  nodes:
+    - 40d2580e3bdb4748
+    - 1a0f62fea7cd41cb
+    - 1b018ccfdaf0f73d
+  x: 544
+  'y': 1119
+  w: 332
+  h: 82
+- id: 40d2580e3bdb4748
+  type: link in
+  z: adb9fbf379118d77
+  g: 718eb1a3d27ed7e0
+  name: option - family
+  links: []
+  x: 585
+  'y': 1160
+  wires:
+    - - 1a0f62fea7cd41cb
+- id: 1a0f62fea7cd41cb
+  type: function
+  z: adb9fbf379118d77
+  g: 718eb1a3d27ed7e0
+  name: data
+  func: >-
+    msg.options = [{
+        'label': '',
+        'value': '',
+        'dropdown': 'family'
+    }];
+
+
+    let i = 1;
+
+    const families = global.get('kernel.family') || { };
+
+
+    for (const family in families) {
+        msg.options[i++] = {
+            'label': families[family] + ' (' + family + ')',
+            'value': family,
+            'dropdown': 'family'
+        }
+    }
+
+
+    // Add "no family" option on demand
+
+    if (msg.family_none === true) {
+        msg.options[i++] = {
+            'label': msg.dictionary.option_name.family_none || 'No family',
+            'value': '-',
+            'dropdown': 'family'
+        }
+    }
+
+
+    if (typeof msg.ui_update === 'undefined') {
+        msg.ui_update = { };
+    }
+
+    msg.ui_update.label = msg.dictionary.option_select.family || 'Select a
+    family';
+
+
+    delete msg.family_none;
+
+
+    // Clean options
+
+    msg = await node.linkcall('option - clean', msg);
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 710
+  'y': 1160
+  wires:
+    - - 1b018ccfdaf0f73d
+- id: 1b018ccfdaf0f73d
+  type: link out
+  z: adb9fbf379118d77
+  g: 718eb1a3d27ed7e0
+  name: option - family
+  mode: return
+  links: []
+  x: 835
+  'y': 1160
+  wires: []
 - id: 4700c24d1c1221d1
   type: function
   z: adb9fbf379118d77
