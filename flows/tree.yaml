@@ -7744,7 +7744,7 @@
     msg = await node.linkcall('kernel - hmi', msg);
 
     // Check value
-    if (!Number.isFinite(hours) || hours <= 0) {
+    if (!Number.isFinite(hours) || hours < 100 || hours > 5000) {
         // UI notice
         msg.notice = msg.dictionary.option_notice.hours_fail || 'Invalid number of hours';
         msg = await node.linkcall('ui - notice', msg);
@@ -8372,7 +8372,7 @@
 
     // Check value
 
-    if (!Number.isFinite(hours) || hours <= 0) {
+    if (!Number.isFinite(hours) || hours < 100 || hours > 5000) {
         // UI notice
         msg.notice = msg.dictionary.option_notice.hours_fail || 'Invalid number of hours';
         msg = await node.linkcall('ui - notice', msg);
