@@ -1,0 +1,532 @@
+- id: 3782b10e2580f9d3
+  type: tab
+  label: counter
+  disabled: false
+  info: ''
+  env: []
+- id: c1761abac2b91695
+  type: group
+  z: 3782b10e2580f9d3
+  name: counter - list
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 83e01cd921e3fdd4
+    - 6c52fad3f3db703c
+    - c03b2f72d0d9d21b
+    - c80d078e18010311
+    - 8c1ea3cbf7a64475
+    - aa3219d1f64707a2
+    - ab90461b22691286
+    - f12ed9d12246ade2
+    - 455e27cde33b4dd6
+    - 33bb0d9e9d4569b1
+  x: 104
+  'y': 139
+  w: 1342
+  h: 142
+- id: c8a2a1f0fba572d0
+  type: group
+  z: 3782b10e2580f9d3
+  name: counter - register
+  style:
+    fill: '#ff0000'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 22b287ab0097cc42
+    - 235c38bb6e2c2193
+  x: 104
+  'y': 19
+  w: 242
+  h: 82
+- id: c03b2f72d0d9d21b
+  type: ui-dropdown
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  group: b62700ad5a84b7b9
+  name: counter - plant
+  label: ''
+  tooltip: ''
+  order: 1
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options:
+    - label: plant
+      value: ''
+      type: str
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 450
+  'y': 240
+  wires:
+    - - c80d078e18010311
+- id: aa3219d1f64707a2
+  type: ui-table
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  group: b62700ad5a84b7b9
+  name: counter - table - fr
+  label: ''
+  order: 2
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Etat
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Ligne
+      key: line_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipement
+      key: equipment_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Famille
+      key: family_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Compteur
+      key: counter_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Maintenance
+      key: diff_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Usure
+      key: percent_full
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: Heures
+      key: hours_full
+      keyType: key
+      type: text
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 980
+  'y': 180
+  wires:
+    - - f12ed9d12246ade2
+- id: 455e27cde33b4dd6
+  type: link out
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: counter - list
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 1295
+  'y': 180
+  wires: []
+- id: 83e01cd921e3fdd4
+  type: link in
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: counter - page
+  links:
+    - 575b91a30deac00d
+    - 7bba6594f41302c2
+  x: 145
+  'y': 180
+  wires:
+    - - 6c52fad3f3db703c
+- id: ab90461b22691286
+  type: ui-table
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  group: b62700ad5a84b7b9
+  name: counter - table - en
+  label: ''
+  order: 3
+  width: 0
+  height: 0
+  maxrows: 0
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: State
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Line
+      key: line_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipment
+      key: equipment_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Family
+      key: family_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Counter
+      key: counter_name
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Alert
+      key: diff_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Wear
+      key: percent_full
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: Hours
+      key: hours_full
+      keyType: key
+      type: text
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 980
+  'y': 240
+  wires:
+    - - f12ed9d12246ade2
+- id: 8c1ea3cbf7a64475
+  type: function
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: data
+  func: |-
+    // Get plant counters
+
+    // Reset UI
+    if (msg.enabled !== true) {
+
+        return [ msg, msg ];
+    }
+
+    msg.payload = [];
+    let i = 0;
+
+    // Get memories
+    const plant = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
+    const meters = global.get('kernel.meter') || { };
+    const counters = global.get('kernel.counters') || { };
+
+    // Rows
+    for (const meter in meters) {
+        let msplit = meter.split('|');
+        let row = {};
+        row.entity = meter;
+        row.equipment = msplit[0];
+        row.counter = msplit[1];
+        row.family = global.get('kernel.families["' + row.equipment + '"]') || '';
+        row.line = global.get('kernel.equipments["' + row.equipment + '"]') || '';
+        row.plant = global.get('kernel.lines["' + row.line + '"]') || '';
+
+        const definition = global.get('kernel.counter["' + row.counter + '"]');
+
+        if (plant === row.plant
+            && row.family !== ''
+            && counters[row.counter] === row.family
+            && typeof definition === 'string'
+        ) {
+            let csplit = definition.split('|');
+            let state = row.equipment + '|run';
+
+            row.plant_name = global.get('kernel.plant["' + row.plant + '"]') || '';
+            row.line_name = global.get('kernel.line["' + row.line + '"]') || '';
+            row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]') || '';
+            row.family_name = global.get('kernel.family["' + row.family + '"]') || '';
+            row.counter_name = csplit.slice(1).join('|');
+            row.limit = Number(csplit[0]) || 0;
+            row.hours = Math.round((Number(String(meters[meter]).split('|')[0]) || 0) * 10) / 10;
+            row.hours_full = row.hours + ' / ' + row.limit + ' h';
+            row.percent = row.limit > 0 ? Math.round(row.hours * 100 / row.limit) : 0;
+            row.percent_full = row.percent.toString() + '%';
+            row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);
+            row.state = global.get('kernel.state["' + state + '"]') || 0;
+            row.state_color = row.state > 0 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off;
+
+            // chek if device is offline
+            let ssplit = (global.get('kernel.link["' + state + '"]') || '').split('|');
+            if (global.get('kernel.device["' + ssplit[0] + '|' + ssplit[1] + '"]') !== 1) {
+                row.state_color = msg.dictionary.option_color.none;
+            }
+
+            msg.payload[i++] = row;
+        }
+    }
+
+    // sort
+    if (i > 0) {
+        msg.class = '';
+        msg.enabled = true;
+        msg.payload.sort((a, b) => a.percent < b.percent ? 1 : -1);
+    }
+
+    // lang
+    if (msg.hmi.lang === 'fr') {
+
+        return [ msg, null ];
+    }
+
+    return [ null, msg ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 180
+  wires:
+    - - aa3219d1f64707a2
+    - - ab90461b22691286
+- id: 6c52fad3f3db703c
+  type: function
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: data
+  func: |-
+    // Get user plants
+
+    // Check if required page is current flow
+    msg.flow = env.get('NR_FLOW_NAME');
+    msg = await node.linkcall('ui - tab', msg);
+
+    // Reset UI
+    if (msg.enabled !== true) {
+        // page is disabled
+        msg.class = 'remove';
+        msg.enabled = false;
+        msg.payload = '';
+
+        return [ msg, msg ];
+    }
+
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
+    // Plant was not defined for the user
+    if (msg.hmi.plant === '') {
+        // admin can select a plant
+        msg.payload = form[msg.hmi.id]['plant'] || '';
+
+        // Get plants for form
+        msg = await node.linkcall('option - plant', msg);
+
+        // user must selected a plant
+        if (msg.payload === '') {
+
+            return [ null, msg ];
+        }
+        // show selected plant
+
+        return [ msg, msg ];
+    }
+
+    // Plant is defined for the user
+    msg.payload = msg.hmi.plant;
+
+    form[msg.hmi.id]['plant'] = msg.payload;
+
+    return [ msg, null ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 180
+  wires:
+    - - 8c1ea3cbf7a64475
+    - - c03b2f72d0d9d21b
+- id: f12ed9d12246ade2
+  type: function
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: data
+  func: |-
+    // Compute user form
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get user form
+    let form = global.get('form'); // autoupdate
+
+    // Should not happened
+    if (typeof form[msg.hmi.id] !== 'object') {
+        form[msg.hmi.id] = { };
+    }
+
+    // Update form
+    form[msg.hmi.id]['plant'] = msg.payload.plant;
+    form[msg.hmi.id]['line'] = msg.payload.line;
+    form[msg.hmi.id]['equipment'] = msg.payload.equipment;
+
+    delete msg.action;
+
+    // UI redirect
+    msg.hmi.tab = global.get('describe.pages.detail.tab') || '';
+    msg.hmi.name = global.get('describe.pages.detail.page') || '';
+    msg.payload = msg.hmi.tab;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1170
+  'y': 180
+  wires:
+    - - 455e27cde33b4dd6
+      - 33bb0d9e9d4569b1
+- id: 33bb0d9e9d4569b1
+  type: debug
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: counter - list
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1340
+  'y': 240
+  wires: []
+- id: c80d078e18010311
+  type: function
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: data
+  func: |-
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get plant
+    msg = await node.linkcall('form - plant', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 630
+  'y': 240
+  wires:
+    - - 8c1ea3cbf7a64475
+- id: 22b287ab0097cc42
+  type: link in
+  z: 3782b10e2580f9d3
+  g: c8a2a1f0fba572d0
+  name: counter - register
+  links:
+    - edd7a86184b16415
+  x: 145
+  'y': 60
+  wires:
+    - - 235c38bb6e2c2193
+- id: 235c38bb6e2c2193
+  type: function
+  z: 3782b10e2580f9d3
+  g: c8a2a1f0fba572d0
+  name: data
+  func: |-
+
+    msg.flow = env.get('NR_FLOW_NAME');
+
+    msg.payload = {
+        'tab': 3,
+        'id': 'ff65e4906cd91a61',
+        'name': 'ui - page - counter',
+        'icon': 'mdi-counter',
+        'level': {
+            'admin': true,
+            'rt': true,
+            'tech': true,
+            'rp': true,
+            'prod': true
+        }
+    };
+
+    msg = await node.linkcall('kernel - page', msg);
+
+    // Register page dictionary
+    msg.payload = {
+        'fr': {
+        }
+    };
+
+    msg = await node.linkcall('kernel - dictionary', msg);
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 270
+  'y': 60
+  wires:
+    - []
