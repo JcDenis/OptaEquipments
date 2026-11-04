@@ -1562,9 +1562,9 @@
             "b26118d774fd82d4"
         ],
         "x": 68,
-        "y": 3373,
+        "y": 3313,
         "w": 974,
-        "h": 1554
+        "h": 1614
     },
     {
         "id": "23adbb4a30523ae7",
@@ -3245,7 +3245,7 @@
             "89bd63c1cca31299"
         ],
         "x": 104,
-        "y": 3399,
+        "y": 3339,
         "w": 332,
         "h": 82
     },
@@ -3448,12 +3448,13 @@
         "nodes": [
             "8c540395a0e469f7",
             "88c5aeadbe80be20",
-            "c026a3bb27b7e4d4"
+            "c026a3bb27b7e4d4",
+            "12cc31cfe2c02c02"
         ],
         "x": 104,
-        "y": 3519,
+        "y": 3459,
         "w": 332,
-        "h": 82
+        "h": 142
     },
     {
         "id": "f2e8ec3eee090fa7",
@@ -5281,7 +5282,8 @@
             "575b91a30deac00d",
             "ed53bb28b7006772",
             "57dca1419d2bbcea",
-            "455e27cde33b4dd6"
+            "455e27cde33b4dd6",
+            "12cc31cfe2c02c02"
         ],
         "x": 145,
         "y": 3740,
@@ -6035,7 +6037,7 @@
         "name": "kernel - hmi",
         "links": [],
         "x": 145,
-        "y": 3440,
+        "y": 3380,
         "wires": [
             [
                 "89bd63c1cca31299"
@@ -6051,7 +6053,7 @@
         "mode": "return",
         "links": [],
         "x": 395,
-        "y": 3440,
+        "y": 3380,
         "wires": []
     },
     {
@@ -6999,18 +7001,21 @@
         "z": "f6f2187d.f17ca8",
         "g": "5621e43ca08d7164",
         "name": "data",
-        "func": "// Check requested ui page according to user level\n\nif (typeof msg.flow === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.flow + '\"][\"tab\"]')\n    && global.get('describe.pages[\"' + msg.flow + '\"][\"level\"][\"' + msg.hmi.level + '\"]') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n    msg.payload = '';\n} else {\n\n    msg.topic = '';\n    msg.payload = ''; \n    msg.class = 'remove';\n    msg.enabled = false;\n}\n\nreturn msg;",
-        "outputs": 1,
+        "func": "// Check requested ui page according to user level\n\n// User is not connected, go to authentication page\nif (msg.hmi.level === '') {\n\n    msg.payload = global.get('describe.pages.auth.name');\n\n    node.send([null, msg]);\n}\n\nif (typeof msg.flow === 'string'\n    && msg.hmi.level !== ''\n    && msg.hmi.tab === global.get('describe.pages[\"' + msg.flow + '\"][\"tab\"]')\n    && global.get('describe.pages[\"' + msg.flow + '\"][\"level\"][\"' + msg.hmi.level + '\"]') === true\n) {\n    msg.class = '';\n    msg.enabled = true;\n} else {\n\n    msg.topic = '';\n    msg.class = 'remove';\n    msg.enabled = false;\n}\n\nmsg.payload = ''; \n\nreturn [msg, null];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 3560,
+        "y": 3500,
         "wires": [
             [
                 "c026a3bb27b7e4d4"
+            ],
+            [
+                "12cc31cfe2c02c02"
             ]
         ]
     },
@@ -7022,7 +7027,7 @@
         "name": "ui - tab",
         "links": [],
         "x": 145,
-        "y": 3560,
+        "y": 3500,
         "wires": [
             [
                 "8c540395a0e469f7"
@@ -7038,7 +7043,7 @@
         "mode": "return",
         "links": [],
         "x": 395,
-        "y": 3560,
+        "y": 3500,
         "wires": []
     },
     {
@@ -7527,7 +7532,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 3440,
+        "y": 3380,
         "wires": [
             [
                 "7214e26c1a5974bd"
@@ -8499,6 +8504,20 @@
         "links": [],
         "x": 795,
         "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "12cc31cfe2c02c02",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "5621e43ca08d7164",
+        "name": "ui - tab - auth",
+        "mode": "link",
+        "links": [
+            "00818f8c0686b556"
+        ],
+        "x": 395,
+        "y": 3560,
         "wires": []
     },
     {
@@ -9766,36 +9785,6 @@
         "links": [],
         "x": 1715,
         "y": 740,
-        "wires": []
-    },
-    {
-        "id": "2cd3e627b5a9d947",
-        "type": "link in",
-        "z": "adb9fbf379118d77",
-        "name": "option - boot",
-        "links": [],
-        "x": 775,
-        "y": 100,
-        "wires": [
-            [
-                "1eb40b2312b077cb"
-            ]
-        ]
-    },
-    {
-        "id": "1eb40b2312b077cb",
-        "type": "function",
-        "z": "adb9fbf379118d77",
-        "name": "data",
-        "func": "\nreturn;",
-        "outputs": 0,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 890,
-        "y": 100,
         "wires": []
     },
     {
@@ -15265,7 +15254,7 @@
         "z": "05f6b695d75a73cf",
         "g": "b572d13bd275e8da",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 1,\n    'id': 'ded8ef092f5c6531',\n    'name': 'ui - page - map',\n    'icon': 'mdi-map',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 1,\n    'id': 'ded8ef092f5c6531',\n    'name': 'ui - page - map',\n    'icon': 'mdi-map-marker',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
