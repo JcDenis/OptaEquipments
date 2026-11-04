@@ -4500,7 +4500,7 @@
 
     if ((msg.req.params.rnd || '-').toString() === (global.get('random') ||
     '').toString()) {
-        msg.payload = { ...(global.get('auth') || { }) };
+        msg.payload = JSON.stringify(global.get('auth'), null, 2 );
         msg.headers = {
             'Content-Type': 'application/json',
             'Content-Disposition': 'attachment; filename="user.backup.json"',
@@ -4538,7 +4538,7 @@
 
     if ((msg.req.params.rnd || '-').toString() === (global.get('random') ||
     '').toString()) {
-        msg.payload = JSON.stringify(global.get('kernel'));
+        msg.payload = JSON.stringify(global.get('kernel'), null, 2);
         msg.headers = {
             'Content-Type': 'application/json',
             'Content-Disposition': 'attachment; filename="kernel.backup.json"',

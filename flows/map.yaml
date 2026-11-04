@@ -286,14 +286,20 @@
             // Get line equipements
             for (const e in equipments) {
                 if (equipments[e] === l) {
-                    let cycle = global.get('kernel.state["' + e + '|cycle"]');
-                    if (typeof cycle === 'number') {
+                    if (typeof global.get('kernel.state["' + e + '|cycle"]') === 'number') {
                         msg.equipment = e;
                         msg = await node.linkcall('map - cycle', msg);
                         if (msg.equipment === 1) {
                             cycle_on++;
                         }
                     }
+                    else if (typeof global.get('kernel.state["' + e + '|voltage"]') === 'number') {
+                        // If equipment has no cycle, check voltage
+                        if (global.get('kernel.state["' + e + '|voltage"]') > 0) {
+                            cycle_on++;
+                        }
+                    }
+
                     let heat = global.get('kernel.state["' + e + '|heat"]');
                     if (typeof heat === 'number') {
                         if (heat === 1) {
