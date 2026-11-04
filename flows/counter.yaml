@@ -25,7 +25,7 @@
     - 33bb0d9e9d4569b1
   x: 104
   'y': 139
-  w: 1342
+  w: 1352
   h: 142
 - id: c8a2a1f0fba572d0
   type: group
@@ -81,7 +81,7 @@
   order: 2
   width: 0
   height: 0
-  maxrows: 0
+  maxrows: '50'
   passthru: false
   autocols: false
   showSearch: true
@@ -177,7 +177,7 @@
   order: 3
   width: 0
   height: 0
-  maxrows: 0
+  maxrows: '50'
   passthru: false
   autocols: false
   showSearch: true
@@ -290,7 +290,7 @@
             row.counter_name = csplit.slice(1).join('|');
             row.limit = Number(csplit[0]) || 0;
             row.hours = Math.round((Number(String(meters[meter]).split('|')[0]) || 0) * 10) / 10;
-            row.hours_full = row.hours + ' / ' + row.limit + ' h';
+            row.hours_full = row.hours + ' / ' + row.limit;
             row.percent = row.limit > 0 ? Math.round(row.hours * 100 / row.limit) : 0;
             row.percent_full = row.percent.toString() + '%';
             row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);
