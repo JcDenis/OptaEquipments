@@ -64,19 +64,21 @@
 - id: c5aa438b6dcec795
   type: group
   z: 44465f18e06bb58d
-  name: system - page
+  name: system - select
   style:
-    fill: '#ff0000'
+    fill: '#6f2fa0'
     fill-opacity: '0.05'
     label: true
   nodes:
     - fbeb08a94e71e7bf
     - 0c83fe1f9690e061
     - 570387b36904e75f
+    - 02df6f1a39f929d1
+    - b85fe87d7fc1a07a
   x: 104
   'y': 139
-  w: 332
-  h: 82
+  w: 692
+  h: 142
 - id: 6ed9fb5c0b268c66
   type: group
   z: 44465f18e06bb58d
@@ -403,15 +405,93 @@
   type: link out
   z: 44465f18e06bb58d
   g: c5aa438b6dcec795
-  name: system - page
+  name: system - select
   mode: link
   links:
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
     - eba6e18370fbfe76
-  x: 395
+  x: 755
   'y': 180
   wires: []
+- id: 02df6f1a39f929d1
+  type: ui-button-group
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: system - menu
+  group: 856dad5ec2974160
+  order: 1
+  width: '0'
+  height: '0'
+  label: ''
+  className: ''
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: option_0
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: option_1
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  x: 450
+  'y': 240
+  wires:
+    - - b85fe87d7fc1a07a
+- id: b85fe87d7fc1a07a
+  type: function
+  z: 44465f18e06bb58d
+  g: c5aa438b6dcec795
+  name: data
+  func: |-
+    const selected = msg.payload;
+    msg.payload = '';
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    msg.hide = [];
+    msg.show = [];
+
+    // User menu groups saved on page build
+    const menu = global.get('menu["' + msg.hmi.id + '"]["system"]') || { };
+
+    for (const k in menu) {
+        if (k === selected) {
+            msg.show.push(menu[k]);
+        }
+        else {
+            msg.hide.push(menu[k]);
+        }
+    }
+
+    msg = await node.linkcall('ui - group', msg);
+    msg = await node.linkcall('ui - latency', msg);
+
+    // Go to sections
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    delete msg.ui_update;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 630
+  'y': 240
+  wires:
+    - - 0c83fe1f9690e061
 - id: 2d0be523be6aa3e3
   type: ui-button
   z: 44465f18e06bb58d
@@ -1130,13 +1210,67 @@
   g: c5aa438b6dcec795
   name: data
   func: |-
+    // Build menu selector
 
     // Check if required page is current flow
     msg.flow = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
-    return msg;
-  outputs: 1
+    // key => ui group name and button label
+    msg.menu = {
+        'app': {
+            'group': 'Application',
+            'label': (msg.dictionary.system || { }).menu_app || 'Application'
+        },
+        'tree': {
+            'group': 'Arborescence',
+            'label': (msg.dictionary.system || { }).menu_tree || 'Tree structure'
+        },
+        'ota': {
+            'group': 'Firmware OPTA',
+            'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'
+        }
+    };
+
+    // Hide all groups
+    msg.hide = [];
+    for (const k in msg.menu) {
+        msg.hide.push(msg.menu[k]['group']);
+    }
+
+    msg = await node.linkcall('ui - group', msg);
+
+    if (!msg.enabled) {
+
+        return [msg, msg];
+    }
+
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    msg.ui_update = {
+        'options': []
+    };
+
+    // Keep user menu groups for menu click (msg.menu is lost on click)
+    if (typeof global.get('menu') !== 'object') {
+        global.set('menu', { });
+    }
+    let menu = global.get('menu'); // autoupdate
+    menu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'system': { } };
+
+    for (const k in msg.menu) {
+        msg.ui_update.options.push({
+            'value': k,
+            'label': msg.menu[k]['label']
+        });
+        menu[msg.hmi.id]['system'][k] = msg.menu[k]['group'];
+    }
+
+    delete msg.menu;
+
+    return [null, msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -1146,6 +1280,7 @@
   'y': 180
   wires:
     - - 0c83fe1f9690e061
+    - - 02df6f1a39f929d1
 - id: 069e252219475256
   type: function
   z: 44465f18e06bb58d
@@ -1646,179 +1781,3 @@
   x: 270
   'y': 60
   wires: []
-- id: d7af7a6a4dfac3ed
-  type: group
-  z: 44465f18e06bb58d
-  name: system - menu
-  style:
-    fill: '#6f2fa0'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - 7993526078a15147
-    - ca794823122fe648
-    - 734e6bcc9bdf532e
-    - ee8c3d989a785e8a
-  x: 474
-  'y': 139
-  w: 552
-  h: 142
-- id: 7993526078a15147
-  type: link in
-  z: 44465f18e06bb58d
-  g: d7af7a6a4dfac3ed
-  name: system - menu
-  links:
-    - 575b91a30deac00d
-    - 7bba6594f41302c2
-  x: 515
-  'y': 180
-  wires:
-    - - ca794823122fe648
-- id: ca794823122fe648
-  type: function
-  z: 44465f18e06bb58d
-  g: d7af7a6a4dfac3ed
-  name: data
-  func: |-
-    // Build menu selector
-
-    // Check if required page is current flow
-    msg.flow = env.get('NR_FLOW_NAME');
-    msg = await node.linkcall('ui - tab', msg);
-
-    // key => ui group name and button label
-    msg.menu = {
-        'app': {
-            'group': 'Application',
-            'label': (msg.dictionary.system || { }).menu_app || 'Application'
-        },
-        'tree': {
-            'group': 'Arborescence',
-            'label': (msg.dictionary.system || { }).menu_tree || 'Tree structure'
-        },
-        'ota': {
-            'group': 'Firmware OPTA',
-            'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'
-        }
-    };
-
-    // Hide all groups
-    msg.hide = [];
-    for (const k in msg.menu) {
-        msg.hide.push(msg.menu[k]['group']);
-    }
-
-    msg = await node.linkcall('ui - group', msg);
-
-    if (!msg.enabled) {
-
-        return msg;
-    }
-
-    msg.payload = '';
-    msg.class = '';
-    msg.enabled = true;
-    msg.ui_update = {
-        'options': []
-    };
-
-    // Keep user menu groups for menu click (msg.menu is lost on click)
-    if (typeof global.get('menu') !== 'object') {
-        global.set('menu', { });
-    }
-    let menu = global.get('menu'); // autoupdate
-    menu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'system': { } };
-
-    for (const k in msg.menu) {
-        msg.ui_update.options.push({
-            'value': k,
-            'label': msg.menu[k]['label']
-        });
-        menu[msg.hmi.id]['system'][k] = msg.menu[k]['group'];
-    }
-
-    delete msg.menu;
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 640
-  'y': 180
-  wires:
-    - - 734e6bcc9bdf532e
-- id: 734e6bcc9bdf532e
-  type: ui-button-group
-  z: 44465f18e06bb58d
-  g: d7af7a6a4dfac3ed
-  name: system - menu
-  group: 22a561dd61544a4d
-  order: 1
-  width: '0'
-  height: '0'
-  label: ''
-  className: ''
-  rounded: false
-  useThemeColors: true
-  passthru: false
-  options:
-    - label: ''
-      icon: ''
-      value: option_0
-      valueType: str
-      color: '#009933'
-    - label: ''
-      icon: ''
-      value: option_1
-      valueType: str
-      color: '#999999'
-  topic: topic
-  topicType: msg
-  x: 790
-  'y': 240
-  wires:
-    - - ee8c3d989a785e8a
-- id: ee8c3d989a785e8a
-  type: function
-  z: 44465f18e06bb58d
-  g: d7af7a6a4dfac3ed
-  name: data
-  func: |-
-    const selected = msg.payload;
-    msg.payload = '';
-
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    msg.hide = [];
-    msg.show = [];
-
-    // User menu groups saved on page build
-    const menu = global.get('menu["' + msg.hmi.id + '"]["system"]') || { };
-
-    for (const k in menu) {
-        if (k === selected) {
-            msg.show.push(menu[k]);
-        }
-        else {
-            msg.hide.push(menu[k]);
-        }
-    }
-
-    msg = await node.linkcall('ui - group', msg);
-
-    return;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 970
-  'y': 240
-  wires:
-    - []

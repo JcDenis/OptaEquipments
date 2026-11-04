@@ -7,19 +7,21 @@
 - id: 6e3f77a2a72d0fa8
   type: group
   z: adb48ef35d9453c0
-  name: user - page
+  name: user - select
   style:
-    fill: '#ff0000'
+    fill: '#6f2fa0'
     fill-opacity: '0.05'
     label: true
   nodes:
     - 6304fe8d08f0cf47
     - 6b2108622867d8a4
     - f73269ad9421c5fa
+    - fc19c6ad95310174
+    - 433855741a2ae71e
   x: 104
   'y': 139
-  w: 332
-  h: 82
+  w: 692
+  h: 142
 - id: 7a7d35c0913aed9f
   type: group
   z: adb48ef35d9453c0
@@ -139,16 +141,94 @@
   type: link out
   z: adb48ef35d9453c0
   g: 6e3f77a2a72d0fa8
-  name: user - page
+  name: user - select
   mode: link
   links:
     - 922d6d1c4163d169
     - 30571b6d70631747
     - ef2a2e8f65ff707e
     - feb590d38372e404
-  x: 395
+  x: 755
   'y': 180
   wires: []
+- id: fc19c6ad95310174
+  type: ui-button-group
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: user - menu
+  group: 55dc26a2576eb97b
+  order: 1
+  width: '0'
+  height: '0'
+  label: ''
+  className: ''
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: option_0
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: option_1
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  x: 450
+  'y': 240
+  wires:
+    - - 433855741a2ae71e
+- id: 433855741a2ae71e
+  type: function
+  z: adb48ef35d9453c0
+  g: 6e3f77a2a72d0fa8
+  name: data
+  func: |-
+    const selected = msg.payload;
+    msg.payload = '';
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    msg.hide = [];
+    msg.show = [];
+
+    // User menu groups saved on page build
+    const menu = global.get('menu["' + msg.hmi.id + '"]["users"]') || { };
+
+    for (const k in menu) {
+        if (k === selected) {
+            msg.show.push(menu[k]);
+        }
+        else {
+            msg.hide.push(menu[k]);
+        }
+    }
+
+    msg = await node.linkcall('ui - group', msg);
+    msg = await node.linkcall('ui - latency', msg);
+
+    // Go to sections
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    delete msg.ui_update;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 630
+  'y': 240
+  wires:
+    - - 6b2108622867d8a4
 - id: 922d6d1c4163d169
   type: link in
   z: adb48ef35d9453c0
@@ -722,15 +802,71 @@
   g: 6e3f77a2a72d0fa8
   name: data
   func: |-
+    // Build menu selector
 
     // Check if required page is current flow
     msg.flow = env.get('NR_FLOW_NAME');
     msg = await node.linkcall('ui - tab', msg);
 
-    delete msg.ui_update;
+    // key => ui group name and button label
+    msg.menu = {
+        'list': {
+            'group': 'Liste des utilisateurs',
+            'label': (msg.dictionary.users || { }).menu_list || 'Users'
+        },
+        'edit': {
+            'group': 'Modifier un utilisateur',
+            'label': (msg.dictionary.users || { }).menu_edit || 'Edit a user'
+        },
+        'add': {
+            'group': 'Ajouter un utilisateur',
+            'label': (msg.dictionary.users || { }).menu_add || 'Add a user'
+        },
+        'backup': {
+            'group': 'Import / Export',
+            'label': (msg.dictionary.users || { }).menu_backup || 'Backup users'
+        }
+    };
 
-    return msg;
-  outputs: 1
+    // Hide all groups
+    msg.hide = [];
+    for (const k in msg.menu) {
+        msg.hide.push(msg.menu[k]['group']);
+    }
+
+    msg = await node.linkcall('ui - group', msg);
+
+    if (!msg.enabled) {
+
+        return [msg, msg];
+    }
+
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    msg.ui_update = {
+        'options': []
+    };
+
+    // Keep user menu groups for menu click (msg.menu is lost on click)
+    if (typeof global.get('menu') !== 'object') {
+        global.set('menu', { });
+    }
+    let menu = global.get('menu'); // autoupdate
+    menu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'users': { } };
+
+    for (const k in msg.menu) {
+        msg.ui_update.options.push({
+            'value': k,
+            'label': msg.menu[k]['label']
+        });
+        menu[msg.hmi.id]['users'][k] = msg.menu[k]['group'];
+    }
+
+    delete msg.menu;
+
+    return [null, msg];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -740,6 +876,7 @@
   'y': 180
   wires:
     - - 6b2108622867d8a4
+    - - fc19c6ad95310174
 - id: e28be1d1aa7033af
   type: function
   z: adb48ef35d9453c0
@@ -1263,183 +1400,3 @@
   x: 270
   'y': 60
   wires: []
-- id: 11455a8b65f4db80
-  type: group
-  z: adb48ef35d9453c0
-  name: user - menu
-  style:
-    fill: '#6f2fa0'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - fffc947c75734f7c
-    - 474cb57c606a9ad8
-    - 7556c350d33ecc43
-    - b73d3778a8e1af5a
-  x: 474
-  'y': 139
-  w: 552
-  h: 142
-- id: fffc947c75734f7c
-  type: link in
-  z: adb48ef35d9453c0
-  g: 11455a8b65f4db80
-  name: user - menu
-  links:
-    - 575b91a30deac00d
-    - 7bba6594f41302c2
-  x: 515
-  'y': 180
-  wires:
-    - - 474cb57c606a9ad8
-- id: 474cb57c606a9ad8
-  type: function
-  z: adb48ef35d9453c0
-  g: 11455a8b65f4db80
-  name: data
-  func: |-
-    // Build menu selector
-
-    // Check if required page is current flow
-    msg.flow = env.get('NR_FLOW_NAME');
-    msg = await node.linkcall('ui - tab', msg);
-
-    // key => ui group name and button label
-    msg.menu = {
-        'list': {
-            'group': 'Liste des utilisateurs',
-            'label': (msg.dictionary.users || { }).menu_list || 'Users'
-        },
-        'edit': {
-            'group': 'Modifier un utilisateur',
-            'label': (msg.dictionary.users || { }).menu_edit || 'Edit a user'
-        },
-        'add': {
-            'group': 'Ajouter un utilisateur',
-            'label': (msg.dictionary.users || { }).menu_add || 'Add a user'
-        },
-        'backup': {
-            'group': 'Import / Export',
-            'label': (msg.dictionary.users || { }).menu_backup || 'Backup users'
-        }
-    };
-
-    // Hide all groups
-    msg.hide = [];
-    for (const k in msg.menu) {
-        msg.hide.push(msg.menu[k]['group']);
-    }
-
-    msg = await node.linkcall('ui - group', msg);
-
-    if (!msg.enabled) {
-
-        return msg;
-    }
-
-    msg.payload = '';
-    msg.class = '';
-    msg.enabled = true;
-    msg.ui_update = {
-        'options': []
-    };
-
-    // Keep user menu groups for menu click (msg.menu is lost on click)
-    if (typeof global.get('menu') !== 'object') {
-        global.set('menu', { });
-    }
-    let menu = global.get('menu'); // autoupdate
-    menu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'users': { } };
-
-    for (const k in msg.menu) {
-        msg.ui_update.options.push({
-            'value': k,
-            'label': msg.menu[k]['label']
-        });
-        menu[msg.hmi.id]['users'][k] = msg.menu[k]['group'];
-    }
-
-    delete msg.menu;
-
-    return msg;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 640
-  'y': 180
-  wires:
-    - - 7556c350d33ecc43
-- id: 7556c350d33ecc43
-  type: ui-button-group
-  z: adb48ef35d9453c0
-  g: 11455a8b65f4db80
-  name: user - menu
-  group: 525e8ffc0d87e0f6
-  order: 1
-  width: '0'
-  height: '0'
-  label: ''
-  className: ''
-  rounded: false
-  useThemeColors: true
-  passthru: false
-  options:
-    - label: ''
-      icon: ''
-      value: option_0
-      valueType: str
-      color: '#009933'
-    - label: ''
-      icon: ''
-      value: option_1
-      valueType: str
-      color: '#999999'
-  topic: topic
-  topicType: msg
-  x: 790
-  'y': 240
-  wires:
-    - - b73d3778a8e1af5a
-- id: b73d3778a8e1af5a
-  type: function
-  z: adb48ef35d9453c0
-  g: 11455a8b65f4db80
-  name: data
-  func: |-
-    const selected = msg.payload;
-    msg.payload = '';
-
-    // Get user from UI element
-    msg = await node.linkcall('kernel - hmi', msg);
-
-    msg.hide = [];
-    msg.show = [];
-
-    // User menu groups saved on page build
-    const menu = global.get('menu["' + msg.hmi.id + '"]["users"]') || { };
-
-    for (const k in menu) {
-        if (k === selected) {
-            msg.show.push(menu[k]);
-        }
-        else {
-            msg.hide.push(menu[k]);
-        }
-    }
-
-    msg = await node.linkcall('ui - group', msg);
-
-    return;
-  outputs: 1
-  timeout: 0
-  noerr: 0
-  initialize: ''
-  finalize: ''
-  libs: []
-  x: 970
-  'y': 240
-  wires:
-    - []

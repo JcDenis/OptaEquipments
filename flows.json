@@ -1172,21 +1172,23 @@
         "id": "c5aa438b6dcec795",
         "type": "group",
         "z": "44465f18e06bb58d",
-        "name": "system - page",
+        "name": "system - select",
         "style": {
-            "fill": "#ff0000",
+            "fill": "#6f2fa0",
             "fill-opacity": "0.05",
             "label": true
         },
         "nodes": [
             "fbeb08a94e71e7bf",
             "0c83fe1f9690e061",
-            "570387b36904e75f"
+            "570387b36904e75f",
+            "02df6f1a39f929d1",
+            "b85fe87d7fc1a07a"
         ],
         "x": 104,
         "y": 139,
-        "w": 332,
-        "h": 82
+        "w": 692,
+        "h": 142
     },
     {
         "id": "744a665a3304c311",
@@ -1319,21 +1321,23 @@
         "id": "6e3f77a2a72d0fa8",
         "type": "group",
         "z": "adb48ef35d9453c0",
-        "name": "user - page",
+        "name": "user - select",
         "style": {
-            "fill": "#ff0000",
+            "fill": "#6f2fa0",
             "fill-opacity": "0.05",
             "label": true
         },
         "nodes": [
             "6304fe8d08f0cf47",
             "6b2108622867d8a4",
-            "f73269ad9421c5fa"
+            "f73269ad9421c5fa",
+            "fc19c6ad95310174",
+            "433855741a2ae71e"
         ],
         "x": 104,
         "y": 139,
-        "w": 332,
-        "h": 82
+        "w": 692,
+        "h": 142
     },
     {
         "id": "7a7d35c0913aed9f",
@@ -4108,7 +4112,7 @@
         "groupType": "default"
     },
     {
-        "id": "22a561dd61544a4d",
+        "id": "856dad5ec2974160",
         "type": "ui-group",
         "name": "ui - group - system - menu",
         "page": "1ac335c1e0a24a11",
@@ -4436,7 +4440,7 @@
         "groupType": "default"
     },
     {
-        "id": "525e8ffc0d87e0f6",
+        "id": "55dc26a2576eb97b",
         "type": "ui-group",
         "name": "ui - group - users - menu",
         "page": "ed8b7656d516b26d",
@@ -4863,9 +4867,7 @@
             "bf3da41c4b5bd219",
             "61872228c92c7235",
             "1d8d13781c0d578e",
-            "83e01cd921e3fdd4",
-            "fffc947c75734f7c",
-            "7993526078a15147"
+            "83e01cd921e3fdd4"
         ],
         "x": 475,
         "y": 440,
@@ -5293,9 +5295,7 @@
             "6304fe8d08f0cf47",
             "bf3da41c4b5bd219",
             "1d8d13781c0d578e",
-            "83e01cd921e3fdd4",
-            "fffc947c75734f7c",
-            "7993526078a15147"
+            "83e01cd921e3fdd4"
         ],
         "x": 595,
         "y": 3740,
@@ -36781,7 +36781,7 @@
         "type": "link out",
         "z": "adb48ef35d9453c0",
         "g": "6e3f77a2a72d0fa8",
-        "name": "user - page",
+        "name": "user - select",
         "mode": "link",
         "links": [
             "922d6d1c4163d169",
@@ -36789,9 +36789,71 @@
             "ef2a2e8f65ff707e",
             "feb590d38372e404"
         ],
-        "x": 395,
+        "x": 755,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "fc19c6ad95310174",
+        "type": "ui-button-group",
+        "z": "adb48ef35d9453c0",
+        "g": "6e3f77a2a72d0fa8",
+        "name": "user - menu",
+        "group": "55dc26a2576eb97b",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "label": "",
+        "className": "",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_0",
+                "valueType": "str",
+                "color": "#009933"
+            },
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_1",
+                "valueType": "str",
+                "color": "#999999"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "433855741a2ae71e"
+            ]
+        ]
+    },
+    {
+        "id": "433855741a2ae71e",
+        "type": "function",
+        "z": "adb48ef35d9453c0",
+        "g": "6e3f77a2a72d0fa8",
+        "name": "data",
+        "func": "const selected = msg.payload;\nmsg.payload = '';\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nmsg.hide = [];\nmsg.show = [];\n\n// User menu groups saved on page build\nconst menu = global.get('menu[\"' + msg.hmi.id + '\"][\"users\"]') || { };\n\nfor (const k in menu) {\n    if (k === selected) {\n        msg.show.push(menu[k]);\n    }\n    else {\n        msg.hide.push(menu[k]);\n    }\n}\n\nmsg = await node.linkcall('ui - group', msg);\nmsg = await node.linkcall('ui - latency', msg);\n\n// Go to sections\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\ndelete msg.ui_update;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 240,
+        "wires": [
+            [
+                "6b2108622867d8a4"
+            ]
+        ]
     },
     {
         "id": "922d6d1c4163d169",
@@ -37471,8 +37533,8 @@
         "z": "adb48ef35d9453c0",
         "g": "6e3f77a2a72d0fa8",
         "name": "data",
-        "func": "\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\ndelete msg.ui_update;\n\nreturn msg;",
-        "outputs": 1,
+        "func": "// Build menu selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// key => ui group name and button label\nmsg.menu = {\n    'list': {\n        'group': 'Liste des utilisateurs',\n        'label': (msg.dictionary.users || { }).menu_list || 'Users'\n    },\n    'edit': {\n        'group': 'Modifier un utilisateur',\n        'label': (msg.dictionary.users || { }).menu_edit || 'Edit a user'\n    },\n    'add': {\n        'group': 'Ajouter un utilisateur',\n        'label': (msg.dictionary.users || { }).menu_add || 'Add a user'\n    },\n    'backup': {\n        'group': 'Import / Export',\n        'label': (msg.dictionary.users || { }).menu_backup || 'Backup users'\n    }\n};\n\n// Hide all groups\nmsg.hide = [];\nfor (const k in msg.menu) {\n    msg.hide.push(msg.menu[k]['group']);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nif (!msg.enabled) {\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu groups for menu click (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'users': { } };\n\nfor (const k in msg.menu) {\n    msg.ui_update.options.push({\n        'value': k,\n        'label': msg.menu[k]['label']\n    });\n    menu[msg.hmi.id]['users'][k] = msg.menu[k]['group'];\n}\n\ndelete msg.menu;\n\nreturn [null, msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -37483,6 +37545,9 @@
         "wires": [
             [
                 "6b2108622867d8a4"
+            ],
+            [
+                "fc19c6ad95310174"
             ]
         ]
     },
@@ -37764,126 +37829,6 @@
         "x": 270,
         "y": 60,
         "wires": []
-    },
-    {
-        "id": "11455a8b65f4db80",
-        "type": "group",
-        "z": "adb48ef35d9453c0",
-        "name": "user - menu",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "fffc947c75734f7c",
-            "474cb57c606a9ad8",
-            "7556c350d33ecc43",
-            "b73d3778a8e1af5a"
-        ],
-        "x": 474,
-        "y": 139,
-        "w": 552,
-        "h": 142
-    },
-    {
-        "id": "fffc947c75734f7c",
-        "type": "link in",
-        "z": "adb48ef35d9453c0",
-        "g": "11455a8b65f4db80",
-        "name": "user - menu",
-        "links": [
-            "575b91a30deac00d",
-            "7bba6594f41302c2"
-        ],
-        "x": 515,
-        "y": 180,
-        "wires": [
-            [
-                "474cb57c606a9ad8"
-            ]
-        ]
-    },
-    {
-        "id": "474cb57c606a9ad8",
-        "type": "function",
-        "z": "adb48ef35d9453c0",
-        "g": "11455a8b65f4db80",
-        "name": "data",
-        "func": "// Build menu selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// key => ui group name and button label\nmsg.menu = {\n    'list': {\n        'group': 'Liste des utilisateurs',\n        'label': (msg.dictionary.users || { }).menu_list || 'Users'\n    },\n    'edit': {\n        'group': 'Modifier un utilisateur',\n        'label': (msg.dictionary.users || { }).menu_edit || 'Edit a user'\n    },\n    'add': {\n        'group': 'Ajouter un utilisateur',\n        'label': (msg.dictionary.users || { }).menu_add || 'Add a user'\n    },\n    'backup': {\n        'group': 'Import / Export',\n        'label': (msg.dictionary.users || { }).menu_backup || 'Backup users'\n    }\n};\n\n// Hide all groups\nmsg.hide = [];\nfor (const k in msg.menu) {\n    msg.hide.push(msg.menu[k]['group']);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nif (!msg.enabled) {\n\n    return msg;\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu groups for menu click (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'users': { } };\n\nfor (const k in msg.menu) {\n    msg.ui_update.options.push({\n        'value': k,\n        'label': msg.menu[k]['label']\n    });\n    menu[msg.hmi.id]['users'][k] = msg.menu[k]['group'];\n}\n\ndelete msg.menu;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 180,
-        "wires": [
-            [
-                "7556c350d33ecc43"
-            ]
-        ]
-    },
-    {
-        "id": "7556c350d33ecc43",
-        "type": "ui-button-group",
-        "z": "adb48ef35d9453c0",
-        "g": "11455a8b65f4db80",
-        "name": "user - menu",
-        "group": "525e8ffc0d87e0f6",
-        "order": 1,
-        "width": "0",
-        "height": "0",
-        "label": "",
-        "className": "",
-        "rounded": false,
-        "useThemeColors": true,
-        "passthru": false,
-        "options": [
-            {
-                "label": "",
-                "icon": "",
-                "value": "option_0",
-                "valueType": "str",
-                "color": "#009933"
-            },
-            {
-                "label": "",
-                "icon": "",
-                "value": "option_1",
-                "valueType": "str",
-                "color": "#999999"
-            }
-        ],
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 790,
-        "y": 240,
-        "wires": [
-            [
-                "b73d3778a8e1af5a"
-            ]
-        ]
-    },
-    {
-        "id": "b73d3778a8e1af5a",
-        "type": "function",
-        "z": "adb48ef35d9453c0",
-        "g": "11455a8b65f4db80",
-        "name": "data",
-        "func": "const selected = msg.payload;\nmsg.payload = '';\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nmsg.hide = [];\nmsg.show = [];\n\n// User menu groups saved on page build\nconst menu = global.get('menu[\"' + msg.hmi.id + '\"][\"users\"]') || { };\n\nfor (const k in menu) {\n    if (k === selected) {\n        msg.show.push(menu[k]);\n    }\n    else {\n        msg.hide.push(menu[k]);\n    }\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nreturn;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 240,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "67a829c8d69b7b01",
@@ -38225,16 +38170,78 @@
         "type": "link out",
         "z": "44465f18e06bb58d",
         "g": "c5aa438b6dcec795",
-        "name": "system - page",
+        "name": "system - select",
         "mode": "link",
         "links": [
             "c344b98bc4ee57db",
             "dd8ce7e8d8c17c91",
             "eba6e18370fbfe76"
         ],
-        "x": 395,
+        "x": 755,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "02df6f1a39f929d1",
+        "type": "ui-button-group",
+        "z": "44465f18e06bb58d",
+        "g": "c5aa438b6dcec795",
+        "name": "system - menu",
+        "group": "856dad5ec2974160",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "label": "",
+        "className": "",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_0",
+                "valueType": "str",
+                "color": "#009933"
+            },
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_1",
+                "valueType": "str",
+                "color": "#999999"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "b85fe87d7fc1a07a"
+            ]
+        ]
+    },
+    {
+        "id": "b85fe87d7fc1a07a",
+        "type": "function",
+        "z": "44465f18e06bb58d",
+        "g": "c5aa438b6dcec795",
+        "name": "data",
+        "func": "const selected = msg.payload;\nmsg.payload = '';\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nmsg.hide = [];\nmsg.show = [];\n\n// User menu groups saved on page build\nconst menu = global.get('menu[\"' + msg.hmi.id + '\"][\"system\"]') || { };\n\nfor (const k in menu) {\n    if (k === selected) {\n        msg.show.push(menu[k]);\n    }\n    else {\n        msg.hide.push(menu[k]);\n    }\n}\n\nmsg = await node.linkcall('ui - group', msg);\nmsg = await node.linkcall('ui - latency', msg);\n\n// Go to sections\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\ndelete msg.ui_update;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 240,
+        "wires": [
+            [
+                "0c83fe1f9690e061"
+            ]
+        ]
     },
     {
         "id": "2d0be523be6aa3e3",
@@ -38940,8 +38947,8 @@
         "z": "44465f18e06bb58d",
         "g": "c5aa438b6dcec795",
         "name": "data",
-        "func": "\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nreturn msg;",
-        "outputs": 1,
+        "func": "// Build menu selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// key => ui group name and button label\nmsg.menu = {\n    'app': {\n        'group': 'Application',\n        'label': (msg.dictionary.system || { }).menu_app || 'Application'\n    },\n    'tree': {\n        'group': 'Arborescence',\n        'label': (msg.dictionary.system || { }).menu_tree || 'Tree structure'\n    },\n    'ota': {\n        'group': 'Firmware OPTA',\n        'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'\n    }\n};\n\n// Hide all groups\nmsg.hide = [];\nfor (const k in msg.menu) {\n    msg.hide.push(msg.menu[k]['group']);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nif (!msg.enabled) {\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu groups for menu click (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'system': { } };\n\nfor (const k in msg.menu) {\n    msg.ui_update.options.push({\n        'value': k,\n        'label': msg.menu[k]['label']\n    });\n    menu[msg.hmi.id]['system'][k] = msg.menu[k]['group'];\n}\n\ndelete msg.menu;\n\nreturn [null, msg];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -38952,6 +38959,9 @@
         "wires": [
             [
                 "0c83fe1f9690e061"
+            ],
+            [
+                "02df6f1a39f929d1"
             ]
         ]
     },
@@ -39317,125 +39327,5 @@
         "x": 270,
         "y": 60,
         "wires": []
-    },
-    {
-        "id": "d7af7a6a4dfac3ed",
-        "type": "group",
-        "z": "44465f18e06bb58d",
-        "name": "system - menu",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "7993526078a15147",
-            "ca794823122fe648",
-            "734e6bcc9bdf532e",
-            "ee8c3d989a785e8a"
-        ],
-        "x": 474,
-        "y": 139,
-        "w": 552,
-        "h": 142
-    },
-    {
-        "id": "7993526078a15147",
-        "type": "link in",
-        "z": "44465f18e06bb58d",
-        "g": "d7af7a6a4dfac3ed",
-        "name": "system - menu",
-        "links": [
-            "575b91a30deac00d",
-            "7bba6594f41302c2"
-        ],
-        "x": 515,
-        "y": 180,
-        "wires": [
-            [
-                "ca794823122fe648"
-            ]
-        ]
-    },
-    {
-        "id": "ca794823122fe648",
-        "type": "function",
-        "z": "44465f18e06bb58d",
-        "g": "d7af7a6a4dfac3ed",
-        "name": "data",
-        "func": "// Build menu selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// key => ui group name and button label\nmsg.menu = {\n    'app': {\n        'group': 'Application',\n        'label': (msg.dictionary.system || { }).menu_app || 'Application'\n    },\n    'tree': {\n        'group': 'Arborescence',\n        'label': (msg.dictionary.system || { }).menu_tree || 'Tree structure'\n    },\n    'ota': {\n        'group': 'Firmware OPTA',\n        'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'\n    }\n};\n\n// Hide all groups\nmsg.hide = [];\nfor (const k in msg.menu) {\n    msg.hide.push(msg.menu[k]['group']);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nif (!msg.enabled) {\n\n    return msg;\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu groups for menu click (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'system': { } };\n\nfor (const k in msg.menu) {\n    msg.ui_update.options.push({\n        'value': k,\n        'label': msg.menu[k]['label']\n    });\n    menu[msg.hmi.id]['system'][k] = msg.menu[k]['group'];\n}\n\ndelete msg.menu;\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 180,
-        "wires": [
-            [
-                "734e6bcc9bdf532e"
-            ]
-        ]
-    },
-    {
-        "id": "734e6bcc9bdf532e",
-        "type": "ui-button-group",
-        "z": "44465f18e06bb58d",
-        "g": "d7af7a6a4dfac3ed",
-        "name": "system - menu",
-        "group": "22a561dd61544a4d",
-        "order": 1,
-        "width": "0",
-        "height": "0",
-        "label": "",
-        "className": "",
-        "rounded": false,
-        "useThemeColors": true,
-        "passthru": false,
-        "options": [
-            {
-                "label": "",
-                "icon": "",
-                "value": "option_0",
-                "valueType": "str",
-                "color": "#009933"
-            },
-            {
-                "label": "",
-                "icon": "",
-                "value": "option_1",
-                "valueType": "str",
-                "color": "#999999"
-            }
-        ],
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 790,
-        "y": 240,
-        "wires": [
-            [
-                "ee8c3d989a785e8a"
-            ]
-        ]
-    },
-    {
-        "id": "ee8c3d989a785e8a",
-        "type": "function",
-        "z": "44465f18e06bb58d",
-        "g": "d7af7a6a4dfac3ed",
-        "name": "data",
-        "func": "const selected = msg.payload;\nmsg.payload = '';\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nmsg.hide = [];\nmsg.show = [];\n\n// User menu groups saved on page build\nconst menu = global.get('menu[\"' + msg.hmi.id + '\"][\"system\"]') || { };\n\nfor (const k in menu) {\n    if (k === selected) {\n        msg.show.push(menu[k]);\n    }\n    else {\n        msg.hide.push(menu[k]);\n    }\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nreturn;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 240,
-        "wires": [
-            []
-        ]
     }
 ]
