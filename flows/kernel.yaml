@@ -4382,17 +4382,30 @@
   func: |-
     // Get HTTP response for opta ota firmware response
 
+    // Stored firmware can be a Buffer (memory cache) or a serialized Buffer {type:'Buffer',data:[...]} (file context after restart)
+    const stored = global.get('opta.buffer', 'file');
+    let firmware = null;
+    if (Buffer.isBuffer(stored)) {
+        firmware = stored;
+    } else if (stored && stored.type === 'Buffer' && Array.isArray(stored.data)) {
+        firmware = Buffer.from(stored.data);
+    } else if (Array.isArray(stored)) {
+        firmware = Buffer.from(stored);
+    }
+
     if ((global.get('opta.version', 'file') || 0) > 0
-        && (global.get('opta.buffer', 'file') || '') !== ''
+        && firmware !== null
+        && firmware.length > 0
     ) {
-        msg.payload = [ ...(global.get('opta.buffer', 'file') || []) ];
+        // Payload MUST be a Buffer, otherwise http response node sends it as JSON text
+        msg.payload = firmware;
 
         msg.headers = {
             'Accept-Ranges':'bytes',
             'Content-Type':'application/octet-stream',
-            'Content-Length':msg.payload.length,
+            'Content-Length':firmware.length,
             'Connection':'close',
-            'Content-Disposition':' attachment; filename="' + global.get('opta.version', 'file') + '.ota"'
+            'Content-Disposition':'attachment; filename="' + global.get('opta.version', 'file') + '.ota"'
         };
 
         return [msg, null];
