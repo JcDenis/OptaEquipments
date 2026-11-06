@@ -2527,11 +2527,14 @@
             "ab90461b22691286",
             "f12ed9d12246ade2",
             "455e27cde33b4dd6",
-            "33bb0d9e9d4569b1"
+            "33bb0d9e9d4569b1",
+            "f37593ae4f3648ae",
+            "68c7b6ce73effd6a",
+            "a1439ffcc29eb544"
         ],
         "x": 104,
         "y": 139,
-        "w": 1352,
+        "w": 1812,
         "h": 142
     },
     {
@@ -4197,8 +4200,8 @@
         "tabs": [],
         "order": 4,
         "className": "",
-        "visible": "false",
-        "disabled": "false"
+        "visible": false,
+        "disabled": false
     },
     {
         "id": "ab8ef19cd1ae9d09",
@@ -4221,7 +4224,7 @@
         "page": "ff65e4906cd91a61",
         "width": "6",
         "height": 1,
-        "order": 1,
+        "order": 2,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -4756,6 +4759,21 @@
         "visible": "true",
         "disabled": "false",
         "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "02a15efc6f4423ca",
+        "type": "ui-group",
+        "name": "ui - dialog - counter - confirm",
+        "page": "ff65e4906cd91a61",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "false",
+        "disabled": "false",
+        "groupType": "dialog",
         "tab": ""
     },
     {
@@ -7559,7 +7577,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "data",
-        "func": "// Prepare HMI\n\n// Get memories\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet pages = global.get('describe.pages') || { };\n\n// Initalize hmi if required\nif (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\n// Clean request\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\n// Clean user\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    if (typeof user[msg.hmi.id] === 'object') {\n        user[msg.hmi.id].time = Date.now(); // auto\n        msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);\n\n        if (typeof form[msg.hmi.id] !== 'object') {\n            form[msg.hmi.id] = { }; // auto\n        }\n\n        node.status({\n            'text': msg.hmi.id\n        })\n    }\n}\n\nconst dictionary = global.get('dictionary');\nmsg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];\n\n// Should not happened\ndelete msg.reset; //???\n\nreturn msg;",
+        "func": "// Prepare HMI\n\n// Get memories\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet pages = global.get('describe.pages') || { };\n\n// Initalize hmi if required\nif (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\n// Clean request\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\n// Clean user\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    if (typeof user[msg.hmi.id] === 'object') {\n        user[msg.hmi.id].time = Date.now(); // auto\n        msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);\n\n        if (typeof form[msg.hmi.id] !== 'object') {\n            form[msg.hmi.id] = { }; // auto\n        }\n\n        node.status({\n            'text': msg.hmi.id\n        })\n    }\n}\n\n// Register default dictionary\nmsg.old_payload = RED.util.cloneMessage(msg.payload);\nmsg.payload = {};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nconst dictionary = global.get('dictionary');\nmsg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];\n\nmsg.payload = RED.util.cloneMessage(msg.old_payload);\ndelete msg.old_payload;\n\n// Should not happened\ndelete msg.reset; //???\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15790,7 +15808,7 @@
         "y": 180,
         "wires": [
             [
-                "f12ed9d12246ade2"
+                "f37593ae4f3648ae"
             ]
         ]
     },
@@ -15804,7 +15822,7 @@
         "links": [
             "00818f8c0686b556"
         ],
-        "x": 1295,
+        "x": 1755,
         "y": 180,
         "wires": []
     },
@@ -15909,7 +15927,7 @@
         "y": 240,
         "wires": [
             [
-                "f12ed9d12246ade2"
+                "f37593ae4f3648ae"
             ]
         ]
     },
@@ -15967,14 +15985,14 @@
         "z": "3782b10e2580f9d3",
         "g": "c1761abac2b91695",
         "name": "data",
-        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Reset button: reset counter and refresh list\nif (msg.action === 'button_click' && msg.column === 'reset') {\n    msg.kernel = {\n        'type': 'meter',\n        'entity': msg.payload.entity,\n        'value': '',\n        'loop': false\n    };\n    msg = await node.linkcall('kernel - reset', msg);\n\n    delete msg.action;\n    delete msg.column;\n    delete msg.success;\n\n    msg.payload = '';\n    msg.class = '';\n    msg.enabled = true;\n\n    return [null, msg];\n}\n\n// Get user form\nlet form = global.get('form'); // autoupdate\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\nform[msg.hmi.id]['plant'] = msg.payload.plant;\nform[msg.hmi.id]['line'] = msg.payload.line;\nform[msg.hmi.id]['equipment'] = msg.payload.equipment;\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn [msg, null];",
+        "func": "// Compute user form\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Show dialog\nmsg.hide = ['ui - dialog - counter - confirm'];\nmsg = await node.linkcall('ui - group', msg);\n\nif (msg.payload !== true) {\n\n    return;\n}\n\n// Get user form\nlet form = global.get('form'); // autoupdate\n\n// Regain table values\nmsg.action = form[msg.hmi.id]['confirm']['action'];\nmsg.column = form[msg.hmi.id]['confirm']['column'];\nmsg.payload = form[msg.hmi.id]['confirm']['payload'];\n\ndelete form[msg.hmi.id]['confirm'];\ndelete msg.ui_update;\n\n// Reset button: reset counter and refresh list\nif (msg.action === 'button_click' && msg.column === 'reset') {\n    msg.kernel = {\n        'type': 'meter',\n        'entity': msg.payload.entity,\n        'value': '',\n        'loop': false\n    };\n    msg = await node.linkcall('kernel - reset', msg);\n\n    delete msg.action;\n    delete msg.column;\n    delete msg.success;\n\n    msg.payload = '';\n    msg.class = '';\n    msg.enabled = true;\n\n    return [null, msg];\n}\n\n// Should not happened\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// Update form\nform[msg.hmi.id]['plant'] = msg.payload.plant;\nform[msg.hmi.id]['line'] = msg.payload.line;\nform[msg.hmi.id]['equipment'] = msg.payload.equipment;\n\ndelete msg.action;\n\n// UI redirect\nmsg.hmi.tab = global.get('describe.pages.detail.tab') || '';\nmsg.hmi.name = global.get('describe.pages.detail.page') || '';\nmsg.payload = msg.hmi.tab;\n\nreturn [msg, null];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1170,
+        "x": 1610,
         "y": 180,
         "wires": [
             [
@@ -16000,7 +16018,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1340,
+        "x": 1800,
         "y": 240,
         "wires": []
     },
@@ -16048,7 +16066,7 @@
         "z": "3782b10e2580f9d3",
         "g": "c8a2a1f0fba572d0",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 3,\n    'id': 'ff65e4906cd91a61',\n    'name': 'ui - page - counter',\n    'icon': 'mdi-counter',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 3,\n    'id': 'ff65e4906cd91a61',\n    'name': 'ui - page - counter',\n    'icon': 'mdi-counter',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'confirm_query': 'Etes vous sure de vouloir faire ça ?',\n        'confirm_yes': 'Oui',\n        'confirm_no': 'Non'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -16059,6 +16077,96 @@
         "y": 60,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "f37593ae4f3648ae",
+        "type": "function",
+        "z": "3782b10e2580f9d3",
+        "g": "c1761abac2b91695",
+        "name": "data",
+        "func": "\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Check level\nif (!['admin', 'rt', 'tech'].includes(msg.hmi.level)) {\n\n    return;\n}\n\n// Show dialog\nmsg.show = ['ui - dialog - counter - confirm'];\nmsg = await node.linkcall('ui - group', msg);\n\n// Wait ui update\nmsg = await node.linkcall('ui - latency', msg);\n\n// Save to pass form\nglobal.set('form[\"' + msg.hmi.id + '\"][\"confirm\"]', {\n    'action': msg.action,\n    'column': msg.column,\n    'payload': msg.payload\n});\n\n// Set dialog title\nmsg.payload = msg.dictionary.counter.confirm_query || 'Are you sure to do this?';\nmsg.uit_update = {\n    'label': ''\n};\n\nnode.send([msg, null]);\n\n// Set form buttons\nmsg.payload = '';\nmsg.ui_update = {\n    'options': [\n        {\n            'value': true,\n            'label': msg.dictionary.confirm_yes ||'Yes'\n        },\n        {\n            'value': false,\n            'label': msg.dictionary.confirm_no ||'No'\n        }\n    ],\n    'label': ''\n};\n\nreturn [null, msg];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 180,
+        "wires": [
+            [
+                "68c7b6ce73effd6a"
+            ],
+            [
+                "a1439ffcc29eb544"
+            ]
+        ]
+    },
+    {
+        "id": "68c7b6ce73effd6a",
+        "type": "ui-text",
+        "z": "3782b10e2580f9d3",
+        "g": "c1761abac2b91695",
+        "group": "02a15efc6f4423ca",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "counter - confirm - title",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1380,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a1439ffcc29eb544",
+        "type": "ui-button-group",
+        "z": "3782b10e2580f9d3",
+        "g": "c1761abac2b91695",
+        "name": "counter - confirm - save",
+        "group": "02a15efc6f4423ca",
+        "order": 2,
+        "width": "3",
+        "height": 1,
+        "label": "",
+        "className": "oe-center",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_0",
+                "valueType": "str",
+                "color": "#009933"
+            },
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_1",
+                "valueType": "str",
+                "color": "#999999"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1390,
+        "y": 240,
+        "wires": [
+            [
+                "f12ed9d12246ade2"
+            ]
         ]
     },
     {

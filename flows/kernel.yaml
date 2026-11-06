@@ -4643,8 +4643,17 @@
         }
     }
 
+    // Register default dictionary
+    msg.old_payload = RED.util.cloneMessage(msg.payload);
+    msg.payload = {};
+
+    msg = await node.linkcall('kernel - dictionary', msg);
+
     const dictionary = global.get('dictionary');
     msg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];
+
+    msg.payload = RED.util.cloneMessage(msg.old_payload);
+    delete msg.old_payload;
 
     // Should not happened
     delete msg.reset; //???

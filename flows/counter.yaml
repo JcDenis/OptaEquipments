@@ -23,9 +23,12 @@
     - f12ed9d12246ade2
     - 455e27cde33b4dd6
     - 33bb0d9e9d4569b1
+    - f37593ae4f3648ae
+    - 68c7b6ce73effd6a
+    - a1439ffcc29eb544
   x: 104
   'y': 139
-  w: 1352
+  w: 1812
   h: 142
 - id: c8a2a1f0fba572d0
   type: group
@@ -137,7 +140,7 @@
   x: 980
   'y': 180
   wires:
-    - - f12ed9d12246ade2
+    - - f37593ae4f3648ae
 - id: 455e27cde33b4dd6
   type: link out
   z: 3782b10e2580f9d3
@@ -146,7 +149,7 @@
   mode: link
   links:
     - 00818f8c0686b556
-  x: 1295
+  x: 1755
   'y': 180
   wires: []
 - id: 83e01cd921e3fdd4
@@ -227,7 +230,7 @@
   x: 980
   'y': 240
   wires:
-    - - f12ed9d12246ade2
+    - - f37593ae4f3648ae
 - id: 8c1ea3cbf7a64475
   type: function
   z: 3782b10e2580f9d3
@@ -392,6 +395,26 @@
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
 
+    // Show dialog
+    msg.hide = ['ui - dialog - counter - confirm'];
+    msg = await node.linkcall('ui - group', msg);
+
+    if (msg.payload !== true) {
+
+        return;
+    }
+
+    // Get user form
+    let form = global.get('form'); // autoupdate
+
+    // Regain table values
+    msg.action = form[msg.hmi.id]['confirm']['action'];
+    msg.column = form[msg.hmi.id]['confirm']['column'];
+    msg.payload = form[msg.hmi.id]['confirm']['payload'];
+
+    delete form[msg.hmi.id]['confirm'];
+    delete msg.ui_update;
+
     // Reset button: reset counter and refresh list
     if (msg.action === 'button_click' && msg.column === 'reset') {
         msg.kernel = {
@@ -412,9 +435,6 @@
 
         return [null, msg];
     }
-
-    // Get user form
-    let form = global.get('form'); // autoupdate
 
     // Should not happened
     if (typeof form[msg.hmi.id] !== 'object') {
@@ -440,7 +460,7 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 1170
+  x: 1610
   'y': 180
   wires:
     - - 455e27cde33b4dd6
@@ -459,7 +479,7 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1340
+  x: 1800
   'y': 240
   wires: []
 - id: c80d078e18010311
@@ -525,6 +545,9 @@
     // Register page dictionary
     msg.payload = {
         'fr': {
+            'confirm_query': 'Etes vous sure de vouloir faire ça ?',
+            'confirm_yes': 'Oui',
+            'confirm_no': 'Non'
         }
     };
 
@@ -541,3 +564,142 @@
   'y': 60
   wires:
     - []
+- id: f37593ae4f3648ae
+  type: function
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: data
+  func: >-
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Check level
+
+    if (!['admin', 'rt', 'tech'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+
+    // Show dialog
+
+    msg.show = ['ui - dialog - counter - confirm'];
+
+    msg = await node.linkcall('ui - group', msg);
+
+
+    // Wait ui update
+
+    msg = await node.linkcall('ui - latency', msg);
+
+
+    // Save to pass form
+
+    global.set('form["' + msg.hmi.id + '"]["confirm"]', {
+        'action': msg.action,
+        'column': msg.column,
+        'payload': msg.payload
+    });
+
+
+    // Set dialog title
+
+    msg.payload = msg.dictionary.counter.confirm_query || 'Are you sure to do
+    this?';
+
+    msg.uit_update = {
+        'label': ''
+    };
+
+
+    node.send([msg, null]);
+
+
+    // Set form buttons
+
+    msg.payload = '';
+
+    msg.ui_update = {
+        'options': [
+            {
+                'value': true,
+                'label': msg.dictionary.confirm_yes ||'Yes'
+            },
+            {
+                'value': false,
+                'label': msg.dictionary.confirm_no ||'No'
+            }
+        ],
+        'label': ''
+    };
+
+
+    return [null, msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1170
+  'y': 180
+  wires:
+    - - 68c7b6ce73effd6a
+    - - a1439ffcc29eb544
+- id: 68c7b6ce73effd6a
+  type: ui-text
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  group: 02a15efc6f4423ca
+  order: 1
+  width: 0
+  height: 0
+  name: counter - confirm - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: payload
+  valueType: msg
+  x: 1380
+  'y': 180
+  wires: []
+- id: a1439ffcc29eb544
+  type: ui-button-group
+  z: 3782b10e2580f9d3
+  g: c1761abac2b91695
+  name: counter - confirm - save
+  group: 02a15efc6f4423ca
+  order: 2
+  width: '3'
+  height: 1
+  label: ''
+  className: oe-center
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: option_0
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: option_1
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  x: 1390
+  'y': 240
+  wires:
+    - - f12ed9d12246ade2
