@@ -6561,7 +6561,7 @@
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
-        "finalize": "",
+        "finalize": "// On Node-RED stop or redeploy, write kernel to backup\n// (once, no extra disk write while running)\nconst kernel = global.get('kernel', 'default');\n\nif (typeof kernel === 'object' && kernel !== null && typeof kernel.link === 'object') {\n    global.set('kernel_bk', RED.util.cloneMessage(kernel), 'file');\n}\n",
         "libs": [],
         "x": 270,
         "y": 1100,
