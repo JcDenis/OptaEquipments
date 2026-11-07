@@ -1,0 +1,17 @@
+# Set update schedule for Node-RED packages and Docker images
+# Dependabot opens a pull request for each available update
+
+version: 2
+updates:
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      # Check for updates to Node-RED packages (package.json) every week
+      interval: "weekly"
+
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      # Check for updates to Docker images (docker-compose.yaml) every week
+      interval: "weekly"
