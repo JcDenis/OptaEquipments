@@ -257,12 +257,28 @@
   z: 27841aa886edd1cd
   g: 90f47fc795048184
   name: data
-  func: |-
+  func: >-
     // Disconnect user
+
     let user = global.get('user'); // autoupdate
 
-    delete user[ msg._client.socketId ];
+
+    // Session id, see kernel - hmi
+
+    const session = (typeof msg._client.clientId === 'string' &&
+    msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;
+
+    delete user[session];
+
     delete msg.ui_update;
+
+
+    // Redirect every tab of this browser
+
+    if (session !== msg._client.socketId) {
+        msg._client = { 'clientId': session };
+    }
+
 
     return msg;
   outputs: 1

@@ -27,7 +27,7 @@
     - 07f0ee724dbe2db8
     - 2fdf6a9ba5514acd
   x: 104
-  'y': 1399
+  'y': 1459
   w: 1142
   h: 202
 - id: 43bcc4020c29e03d
@@ -55,10 +55,11 @@
     - fae357aaa0b7bf86
     - 38445bd7ada1b14b
     - 44d0125af7abe861
+    - 566c357740c4408f
   x: 104
   'y': 919
   w: 912
-  h: 442
+  h: 502
 - id: c5aa438b6dcec795
   type: group
   z: 44465f18e06bb58d
@@ -155,7 +156,7 @@
   iconPosition: left
   iconInnerPosition: inside
   x: 480
-  'y': 1440
+  'y': 1500
   wires:
     - - 07f0ee724dbe2db8
 - id: d508633aa0105203
@@ -175,7 +176,7 @@
   accept: .ota
   className: ''
   x: 470
-  'y': 1500
+  'y': 1560
   wires:
     - - 503347ecac974f61
 - id: 80e11615d0347342
@@ -193,7 +194,7 @@
   expiry: ''
   broker: f516c1341f0f634c
   x: 1090
-  'y': 1560
+  'y': 1620
   wires: []
 - id: 248ee86020acb7f2
   type: link in
@@ -203,7 +204,7 @@
   links:
     - 6dfb47bfe7905913
   x: 145
-  'y': 1560
+  'y': 1620
   wires:
     - - 5c30ac5806d00156
 - id: c344b98bc4ee57db
@@ -214,7 +215,7 @@
   links:
     - 0c83fe1f9690e061
   x: 145
-  'y': 1440
+  'y': 1500
   wires:
     - - ab47a91101bee735
       - 8231842dd80b938e
@@ -232,7 +233,7 @@
   statusVal: ''
   statusType: auto
   x: 1050
-  'y': 1440
+  'y': 1500
   wires: []
 - id: a31a6d118c265f83
   type: ui-button
@@ -614,6 +615,11 @@
       type: number
       required: true
       rows: null
+    - label: Session duration
+      key: session
+      type: dropdown
+      required: true
+      rows: null
     - label: Reload application
       key: reload
       type: checkbox
@@ -633,6 +639,7 @@
     vendor: ''
     title: ''
     watchdog: ''
+    session: ''
     reload: false
     frommqtt: false
     tomqtt: false
@@ -676,7 +683,7 @@
   expiry: ''
   broker: f516c1341f0f634c
   x: 1040
-  'y': 1500
+  'y': 1560
   wires: []
 - id: 1c423cb24f5a5aed
   type: function
@@ -771,7 +778,7 @@
         'topic': '',
         'payload': '',
         'kernel': {
-            'type':' app',
+            'type': 'app',
             'entity': 'tomqtt',
             'value': msg.payload.tomqtt,
             'loop': false
@@ -823,7 +830,7 @@
         'topic': '',
         'payload': '',
         'kernel': {
-            'type':' app',
+            'type': 'app',
             'entity': 'watchdog',
             'value': Number(msg.payload.watchdog),
             'loop': false
@@ -1408,6 +1415,7 @@
       - c58b883c9be07c8f
       - af97c0473e39e9c9
       - 44d0125af7abe861
+      - 566c357740c4408f
 - id: 38445bd7ada1b14b
   type: function
   z: 44465f18e06bb58d
@@ -1420,6 +1428,16 @@
         'tomqtt': global.get('kernel.app.tomqtt') || false,
         'frommqtt': global.get('kernel.app.frommqtt') || false,
         'watchdog': global.get('kernel.app.watchdog') || 120,
+        'session': String(global.get('kernel.app.session') || 24),
+    };
+
+    // Session duration choices (hours)
+    msg.ui_update = {
+        'dropdownOptions': [6, 24, 720].map((h) => ({
+            'label': (msg.dictionary?.option_session || { })[h] || (h + ' h'),
+            'value': String(h),
+            'dropdown': 'session'
+        }))
     };
 
     return msg;
@@ -1484,7 +1502,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 1560
+  'y': 1620
   wires:
     - - 2fdf6a9ba5514acd
 - id: ab47a91101bee735
@@ -1515,7 +1533,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 1440
+  'y': 1500
   wires:
     - - 67a829c8d69b7b01
 - id: 8231842dd80b938e
@@ -1535,7 +1553,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 1500
+  'y': 1560
   wires:
     - - d508633aa0105203
 - id: 503347ecac974f61
@@ -1567,7 +1585,7 @@
   finalize: ''
   libs: []
   x: 690
-  'y': 1500
+  'y': 1560
   wires:
     - - 8231842dd80b938e
       - 2fdf6a9ba5514acd
@@ -1618,7 +1636,7 @@
   finalize: ''
   libs: []
   x: 690
-  'y': 1440
+  'y': 1500
   wires:
     - - a4fb301472039371
       - 80e11615d0347342
@@ -1645,7 +1663,7 @@
   finalize: ''
   libs: []
   x: 850
-  'y': 1560
+  'y': 1620
   wires:
     - - a4fb301472039371
       - 80e11615d0347342
@@ -1706,3 +1724,37 @@
   x: 270
   'y': 60
   wires: []
+- id: 566c357740c4408f
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: session
+  func: |-
+    // Session duration in hours (see kernel - hmi and user - clean)
+    const hours = Number(msg.payload.session);
+
+    if (![6, 24, 720].includes(hours)) {
+
+        return;
+    }
+
+    return {
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': 'app',
+            'entity': 'session',
+            'value': hours,
+            'loop': false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 1380
+  wires:
+    - - 301bb73805b7e405

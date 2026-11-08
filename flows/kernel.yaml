@@ -1179,6 +1179,7 @@
     - 57dca1419d2bbcea
     - 455e27cde33b4dd6
     - 12cc31cfe2c02c02
+    - 6f50a89f3f460e5c
   x: 145
   'y': 3740
   wires:
@@ -1255,14 +1256,6 @@
                     const el = document.body.querySelector("#app").prepend(div);
                 }
         
-                // Prevent refresh
-                document.addEventListener('keydown', (e) => {
-                    e = e || window.event;
-                    if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){
-                        e.preventDefault();
-                    }
-                });
-
                 this.mounted = true;
             },
             methods: {
@@ -2068,26 +2061,30 @@
   z: f6f2187d.f17ca8
   g: ec05c59aee9e7dba
   name: data
-  func: |-
+  func: >-
     // Check active users on ui
 
-    /* Limit to 1 hour */
-    let limit = Date.now() - (60*60*1000);
+
+    // Session duration (hours) from system app settings, 24 hours by default
+
+    let limit = Date.now() - (global.get('kernel.app.session') || 24) * 60 * 60
+    * 1000;
+
     msg.topic = limit;
 
+
     let removed = 0;
+
     let user = global.get('user') || { };
-    let form = global.get('form') || { };
-    let menu = global.get('menu') || { };
+
 
     for (const u in user) {
         if (typeof global.get('auth["' + user[u]["login"] + '"]["level"]') !== 'string' 
         || user[u]["time"] < limit 
         || (typeof msg.login === 'string' && msg.login === user[u]["login"])
         ) {
+            // forms and menus are by tab, cleaned on tab lost (see kernel -ui)
             delete user[u];
-            delete form[u];
-            delete menu[u];
 
             msg.payload = u;
             node.send(msg);
@@ -2096,10 +2093,14 @@
         }
     }
 
+
     //global.set('user', user); // autoupdate
+
     //global.set('form', form); // autoupdate
 
+
     msg.payload = removed + ' cleaned';
+
 
     return msg;
   outputs: 1
@@ -2235,21 +2236,39 @@
     }
 
 
-    // On unwanted state, stop here
+    // On unwanted state (ex: dashboard client-connected, client-gone events),
+    stop here
 
     if (!['connect', 'change', 'lost'].includes(msg.payload)) {
+
+        return;
+    }
+
+
+    // Tab closed, clean its memories, the session is kept for page refresh and
+    other tabs
+
+    if (msg.payload === 'lost') {
         if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {
-            delete user[msg.hmi.id];
+            let menu = global.get('menu') || { }; // autoupdate
+
             delete form[msg.hmi.id];
+            delete menu[msg.hmi.id];
         }
 
         return;
     }
 
 
-    // On connect or lost connection, go to auth page
+    // On connect, go to auth page
 
-    if (['connect', 'lost'].includes(msg.payload)) {
+    if (msg.payload === 'connect') {
+        // Session still opened (page refresh), stay on the page, change event checks page rights
+        if ((msg.hmi.login || '') !== '') {
+
+            return;
+        }
+
         msg.payload = pages.auth.name || '';
         msg.hmi.page = msg.payload;
 
@@ -2698,7 +2717,7 @@
     // Set and clean required memories
     global.set('dictionary', { });
     global.set('auth', { });
-    global.set('user', { });
+    // user (sessions) is restored by kernel - memory
     global.set('form', { });
     global.set('menu', { });
 
@@ -2789,9 +2808,13 @@
         };
         // on (re)boot, check kernel structure and load kernel backup
         global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');
+        // and users sessions backup
+        global.set('user', RED.util.cloneMessage(global.get('user_bk', 'file') || { }), 'default');
     } else {
         // on cron, write kernel to backup
         global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');
+        // and users sessions
+        global.set('user_bk', RED.util.cloneMessage(global.get('user', 'default') || { }), 'file');
     }
 
     delete msg.boot;
@@ -2812,6 +2835,16 @@
     if (typeof kernel === 'object' && kernel !== null && typeof kernel.link ===
     'object') {
         global.set('kernel_bk', RED.util.cloneMessage(kernel), 'file');
+    }
+
+
+    // and users sessions
+
+    const user = global.get('user', 'default');
+
+
+    if (typeof user === 'object' && user !== null) {
+        global.set('user_bk', RED.util.cloneMessage(user), 'file');
     }
   libs: []
   x: 270
@@ -3758,12 +3791,20 @@
   z: f6f2187d.f17ca8
   g: bd007f48192aa2f3
   name: data
-  func: |-
+  func: >-
     // Add connected user in memory
+
 
     let user = global.get('user') || { };
 
-    user[msg._client.socketId] = {
+
+    // Session id, see kernel - hmi
+
+    const session = (typeof msg._client.clientId === 'string' &&
+    msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;
+
+
+    user[session] = {
         'login': msg.login,
         'level': global.get('auth["' + msg.login + '"]["level"]') || '',
         'plant': global.get('auth["' + msg.login + '"]["plant"]') || '',
@@ -3771,12 +3812,17 @@
         'time': Date.now()
     };
 
+
     //global.set('user', user); // autoupdate
 
+
     delete msg.login;
+
     delete msg.pass;
 
+
     msg.payload = true;
+
 
     return msg;
   outputs: 1
@@ -3794,19 +3840,32 @@
   z: f6f2187d.f17ca8
   g: bd007f48192aa2f3
   name: data
-  func: |-
+  func: >-
     // Remove connected user from memory
+
 
     let user = global.get('user') || { };
 
-    delete user[msg._client.socketId];
+
+    // Session id, see kernel - hmi
+
+    const session = (typeof msg._client.clientId === 'string' &&
+    msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;
+
+
+    delete user[session];
+
 
     //global.set('user', user); // autoupdate
 
+
     delete msg.login;
+
     delete msg.pass;
 
+
     msg.payload = false;
+
 
     return msg;
   outputs: 1
@@ -4628,6 +4687,7 @@
             'tab': 99,
             'page': '',
             'id': '',
+            'session': '',
             'login': '',
             'level': '',
             'plant': '',
@@ -4650,11 +4710,20 @@
         if (typeof browser_lang === 'string') {
             msg.hmi.lang = browser_lang;
         }
+        // Tab id (forms, menus, pages states)
         msg.hmi.id = msg._client.socketId;
 
-        if (typeof user[msg.hmi.id] === 'object') {
-            user[msg.hmi.id].time = Date.now(); // auto
-            msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);
+        // Session id: dashboard client id shared by browser tabs and kept on page refresh, tab id as fallback
+        msg.hmi.session = (typeof msg._client.clientId === 'string' && msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;
+
+        // Expired session (duration in hours from system app settings)
+        if (typeof user[msg.hmi.session] === 'object' && (user[msg.hmi.session].time || 0) < Date.now() - (global.get('kernel.app.session') || 24) * 60 * 60 * 1000) {
+            delete user[msg.hmi.session]; // auto
+        }
+
+        if (typeof user[msg.hmi.session] === 'object') {
+            user[msg.hmi.session].time = Date.now(); // auto
+            msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.session]);
 
             if (typeof form[msg.hmi.id] !== 'object') {
                 form[msg.hmi.id] = { }; // auto
@@ -5919,6 +5988,11 @@
                     '30':'30 minuts',
                     '60':'1 hour'
                 },
+                'option_session':{
+                    '6':'6 hours',
+                    '24':'24 hours',
+                    '720':'30 days'
+                },
                 'option_level':{
                     'prod':'Production',
                     'rp':'Production manager',
@@ -6080,6 +6154,11 @@
                     '15': '15 minutes',
                     '30': '30 minuts',
                     '60': '1 heure'
+                },
+                'option_session': {
+                    '6': '6 heures',
+                    '24': '24 heures',
+                    '720': '30 jours'
                 },
                 'option_level': {
                     'prod': 'Production',

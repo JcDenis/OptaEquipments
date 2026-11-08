@@ -872,7 +872,7 @@
             "2fdf6a9ba5514acd"
         ],
         "x": 104,
-        "y": 1399,
+        "y": 1459,
         "w": 1142,
         "h": 202
     },
@@ -902,12 +902,13 @@
             "9cbc4017d398ba50",
             "fae357aaa0b7bf86",
             "38445bd7ada1b14b",
-            "44d0125af7abe861"
+            "44d0125af7abe861",
+            "566c357740c4408f"
         ],
         "x": 104,
         "y": 919,
         "w": 912,
-        "h": 442
+        "h": 502
     },
     {
         "id": "6083e6018629a109",
@@ -1360,7 +1361,7 @@
             "acaf126dcfe36e1a"
         ],
         "x": 104,
-        "y": 859,
+        "y": 919,
         "w": 1072,
         "h": 142
     },
@@ -1479,12 +1480,13 @@
             "421bd90f81361dfe",
             "9673105b1ce8621f",
             "e28be1d1aa7033af",
-            "033f97308b43c4d8"
+            "033f97308b43c4d8",
+            "6f50a89f3f460e5c"
         ],
         "x": 104,
         "y": 319,
         "w": 752,
-        "h": 142
+        "h": 202
     },
     {
         "id": "4c2194718c72648c",
@@ -1507,7 +1509,7 @@
             "12883887fa2d9417"
         ],
         "x": 104,
-        "y": 499,
+        "y": 559,
         "w": 1022,
         "h": 142
     },
@@ -1532,7 +1534,7 @@
             "499dcc1cfe3b1ea8"
         ],
         "x": 104,
-        "y": 679,
+        "y": 739,
         "w": 1032,
         "h": 142
     },
@@ -5335,7 +5337,8 @@
             "ed53bb28b7006772",
             "57dca1419d2bbcea",
             "455e27cde33b4dd6",
-            "12cc31cfe2c02c02"
+            "12cc31cfe2c02c02",
+            "6f50a89f3f460e5c"
         ],
         "x": 145,
         "y": 3740,
@@ -5377,7 +5380,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"oe_page.id\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"oe_page.title\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"oe_page.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false,\n                oe_buttons: [],\n                oe_page: {\n                    id: 'none',\n                    title: '',\n                    lang: 'en',\n                    vendor: 'none',\n                    header: 'none'\n                }\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            // Prevent refresh\n            document.addEventListener('keydown', (e) => {\n                e = e || window.event;\n                if(e.keyCode == 116) { //} || (e.ctrlKey && e.keyCode == 82)){\n                    e.preventDefault();\n                }\n            });\n\n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                if (typeof msg.page_data !== 'object' || msg.page_data.title === '') {\n\n                    return;\n                }\n\n                this.oe_page = { ...msg.page_data };\n\n                document.documentElement.setAttribute(\"lang\", this.oe_page.lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = this.oe_page.header + ' - ' + this.oe_page.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"oe_page.id\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"oe_page.title\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"oe_page.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false,\n                oe_buttons: [],\n                oe_page: {\n                    id: 'none',\n                    title: '',\n                    lang: 'en',\n                    vendor: 'none',\n                    header: 'none'\n                }\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                if (typeof msg.page_data !== 'object' || msg.page_data.title === '') {\n\n                    return;\n                }\n\n                this.oe_page = { ...msg.page_data };\n\n                document.documentElement.setAttribute(\"lang\", this.oe_page.lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = this.oe_page.header + ' - ' + this.oe_page.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
         "noerr": 0,
         "storeOutMessages": true,
         "passthru": false,
@@ -6268,7 +6271,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "ec05c59aee9e7dba",
         "name": "data",
-        "func": "// Check active users on ui\n\n/* Limit to 1 hour */\nlet limit = Date.now() - (60*60*1000);\nmsg.topic = limit;\n\nlet removed = 0;\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet menu = global.get('menu') || { };\n\nfor (const u in user) {\n    if (typeof global.get('auth[\"' + user[u][\"login\"] + '\"][\"level\"]') !== 'string' \n    || user[u][\"time\"] < limit \n    || (typeof msg.login === 'string' && msg.login === user[u][\"login\"])\n    ) {\n        delete user[u];\n        delete form[u];\n        delete menu[u];\n\n        msg.payload = u;\n        node.send(msg);\n\n        removed++;\n    }\n}\n\n//global.set('user', user); // autoupdate\n//global.set('form', form); // autoupdate\n\nmsg.payload = removed + ' cleaned';\n\nreturn msg;",
+        "func": "// Check active users on ui\n\n// Session duration (hours) from system app settings, 24 hours by default\nlet limit = Date.now() - (global.get('kernel.app.session') || 24) * 60 * 60 * 1000;\nmsg.topic = limit;\n\nlet removed = 0;\nlet user = global.get('user') || { };\n\nfor (const u in user) {\n    if (typeof global.get('auth[\"' + user[u][\"login\"] + '\"][\"level\"]') !== 'string' \n    || user[u][\"time\"] < limit \n    || (typeof msg.login === 'string' && msg.login === user[u][\"login\"])\n    ) {\n        // forms and menus are by tab, cleaned on tab lost (see kernel -ui)\n        delete user[u];\n\n        msg.payload = u;\n        node.send(msg);\n\n        removed++;\n    }\n}\n\n//global.set('user', user); // autoupdate\n//global.set('form', form); // autoupdate\n\nmsg.payload = removed + ' cleaned';\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6332,7 +6335,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "data",
-        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state, stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        delete user[msg.hmi.id];\n        delete form[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect or lost connection, go to auth page\nif (['connect', 'lost'].includes(msg.payload)) {\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\nmsg.page_data = {\n    'id': 'auth',\n    'title': '',\n    'vendor': 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor')),\n    'header': global.get('kernel.app.title') || global.get('describe.app.title'),\n    'lang': 'en'\n};\n\n// Check user page right\nlet allowed = false;\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': msg.dictionary.option_page[page] || pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_data.lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.page_data.id = page;\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page_data.title = msg.hmi.page;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\ndelete msg.page_data;\n\nreturn [null, newMsg, null];",
+        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state (ex: dashboard client-connected, client-gone events), stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n\n    return;\n}\n\n// Tab closed, clean its memories, the session is kept for page refresh and other tabs\nif (msg.payload === 'lost') {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        let menu = global.get('menu') || { }; // autoupdate\n\n        delete form[msg.hmi.id];\n        delete menu[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect, go to auth page\nif (msg.payload === 'connect') {\n    // Session still opened (page refresh), stay on the page, change event checks page rights\n    if ((msg.hmi.login || '') !== '') {\n\n        return;\n    }\n\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\nmsg.page_data = {\n    'id': 'auth',\n    'title': '',\n    'vendor': 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor')),\n    'header': global.get('kernel.app.title') || global.get('describe.app.title'),\n    'lang': 'en'\n};\n\n// Check user page right\nlet allowed = false;\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': msg.dictionary.option_page[page] || pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_data.lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.page_data.id = page;\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page_data.title = msg.hmi.page;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\ndelete msg.page_data;\n\nreturn [null, newMsg, null];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -6532,7 +6535,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "dcb47b97829a1b78",
         "name": "data",
-        "func": "// Prepare app context\n\n// Backup or restore between file and default memories\nmsg = await node.linkcall('kernel - memory', msg);\n\n// Set describe\nglobal.set('describe', {\n    'app': {\n        'automate': 'optaequipments',\n        'version': '0.6.0',\n        'title': 'Live Equipments',\n        'vendor': 'Opta Equipments by JcDenis'\n    },\n    'pages': {\n        // @see kernel - page\n    },\n    'groups': {\n        'run': [ 'run','runmeter', 'runmetertotal', 'runreset', 'runmirror' ],\n        'cycle': [ 'cycle', 'cyclemeter', 'cyclemetertotal', 'cyclereset', 'cyclemirror' ],\n        'heat': [ 'heat', 'heatswitch' ],\n        'uptime': [ 'uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter' ],\n        'voltage': [ 'voltage', 'power' ]\n    },\n});\n\n// Set and clean required memories\nglobal.set('dictionary', { });\nglobal.set('auth', { });\nglobal.set('user', { });\nglobal.set('form', { });\nglobal.set('menu', { });\n\n// Various\nmsg = {\n    'topic': '',\n    'payload': '',\n    'options': [ { 'label':'', 'value':'' } ]\n};\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// build reverse links\nmsg = await node.linkcall('kernel - rlink', msg);\n\n// Go to pages registration\nnode.send([msg, null]);\n\n// Wait registration end\nawait new Promise(resolve => setTimeout(resolve, 100));\n\n// Regain pages order\nlet describe = global.get('describe'); // autoupdate\nlet tabs = [];\nfor (const k in describe.pages) {\n    tabs.push({\n        'tab': describe.pages[k]['tab'],\n        'page': k,\n        'data' : describe.pages[k]\n    });\n}\ntabs.sort((a, b) => a.tab - b.tab);\ndescribe.pages = {};\nfor (let i = 0; i< tabs.length; i++) {\n    describe.pages[tabs[i]['page']] = tabs[i]['data'];\n}\n\n// Go on\nreturn [null, msg];",
+        "func": "// Prepare app context\n\n// Backup or restore between file and default memories\nmsg = await node.linkcall('kernel - memory', msg);\n\n// Set describe\nglobal.set('describe', {\n    'app': {\n        'automate': 'optaequipments',\n        'version': '0.6.0',\n        'title': 'Live Equipments',\n        'vendor': 'Opta Equipments by JcDenis'\n    },\n    'pages': {\n        // @see kernel - page\n    },\n    'groups': {\n        'run': [ 'run','runmeter', 'runmetertotal', 'runreset', 'runmirror' ],\n        'cycle': [ 'cycle', 'cyclemeter', 'cyclemetertotal', 'cyclereset', 'cyclemirror' ],\n        'heat': [ 'heat', 'heatswitch' ],\n        'uptime': [ 'uptime', 'load1meter', 'load5meter', 'load15meter', 'memorymeter', 'diskmeter' ],\n        'voltage': [ 'voltage', 'power' ]\n    },\n});\n\n// Set and clean required memories\nglobal.set('dictionary', { });\nglobal.set('auth', { });\n// user (sessions) is restored by kernel - memory\nglobal.set('form', { });\nglobal.set('menu', { });\n\n// Various\nmsg = {\n    'topic': '',\n    'payload': '',\n    'options': [ { 'label':'', 'value':'' } ]\n};\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// build reverse links\nmsg = await node.linkcall('kernel - rlink', msg);\n\n// Go to pages registration\nnode.send([msg, null]);\n\n// Wait registration end\nawait new Promise(resolve => setTimeout(resolve, 100));\n\n// Regain pages order\nlet describe = global.get('describe'); // autoupdate\nlet tabs = [];\nfor (const k in describe.pages) {\n    tabs.push({\n        'tab': describe.pages[k]['tab'],\n        'page': k,\n        'data' : describe.pages[k]\n    });\n}\ntabs.sort((a, b) => a.tab - b.tab);\ndescribe.pages = {};\nfor (let i = 0; i< tabs.length; i++) {\n    describe.pages[tabs[i]['page']] = tabs[i]['data'];\n}\n\n// Go on\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -6556,12 +6559,12 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "data",
-        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
+        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n    // and users sessions backup\n    global.set('user', RED.util.cloneMessage(global.get('user_bk', 'file') || { }), 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n    // and users sessions\n    global.set('user_bk', RED.util.cloneMessage(global.get('user', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
-        "finalize": "// On Node-RED stop or redeploy, write kernel to backup\n// (once, no extra disk write while running)\nconst kernel = global.get('kernel', 'default');\n\nif (typeof kernel === 'object' && kernel !== null && typeof kernel.link === 'object') {\n    global.set('kernel_bk', RED.util.cloneMessage(kernel), 'file');\n}\n",
+        "finalize": "// On Node-RED stop or redeploy, write kernel to backup\n// (once, no extra disk write while running)\nconst kernel = global.get('kernel', 'default');\n\nif (typeof kernel === 'object' && kernel !== null && typeof kernel.link === 'object') {\n    global.set('kernel_bk', RED.util.cloneMessage(kernel), 'file');\n}\n\n// and users sessions\nconst user = global.get('user', 'default');\n\nif (typeof user === 'object' && user !== null) {\n    global.set('user_bk', RED.util.cloneMessage(user), 'file');\n}\n",
         "libs": [],
         "x": 270,
         "y": 1100,
@@ -7010,7 +7013,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "bd007f48192aa2f3",
         "name": "data",
-        "func": "// Add connected user in memory\n\nlet user = global.get('user') || { };\n\nuser[msg._client.socketId] = {\n    'login': msg.login,\n    'level': global.get('auth[\"' + msg.login + '\"][\"level\"]') || '',\n    'plant': global.get('auth[\"' + msg.login + '\"][\"plant\"]') || '',\n    'lang': global.get('auth[\"' + msg.login + '\"][\"lang\"]') || '',\n    'time': Date.now()\n};\n\n//global.set('user', user); // autoupdate\n\ndelete msg.login;\ndelete msg.pass;\n\nmsg.payload = true;\n\nreturn msg;",
+        "func": "// Add connected user in memory\n\nlet user = global.get('user') || { };\n\n// Session id, see kernel - hmi\nconst session = (typeof msg._client.clientId === 'string' && msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;\n\nuser[session] = {\n    'login': msg.login,\n    'level': global.get('auth[\"' + msg.login + '\"][\"level\"]') || '',\n    'plant': global.get('auth[\"' + msg.login + '\"][\"plant\"]') || '',\n    'lang': global.get('auth[\"' + msg.login + '\"][\"lang\"]') || '',\n    'time': Date.now()\n};\n\n//global.set('user', user); // autoupdate\n\ndelete msg.login;\ndelete msg.pass;\n\nmsg.payload = true;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7031,7 +7034,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "bd007f48192aa2f3",
         "name": "data",
-        "func": "// Remove connected user from memory\n\nlet user = global.get('user') || { };\n\ndelete user[msg._client.socketId];\n\n//global.set('user', user); // autoupdate\n\ndelete msg.login;\ndelete msg.pass;\n\nmsg.payload = false;\n\nreturn msg;",
+        "func": "// Remove connected user from memory\n\nlet user = global.get('user') || { };\n\n// Session id, see kernel - hmi\nconst session = (typeof msg._client.clientId === 'string' && msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;\n\ndelete user[session];\n\n//global.set('user', user); // autoupdate\n\ndelete msg.login;\ndelete msg.pass;\n\nmsg.payload = false;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7576,7 +7579,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "8cc9a474d6cd27ec",
         "name": "data",
-        "func": "// Prepare HMI\n\n// Get memories\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet pages = global.get('describe.pages') || { };\n\n// Initalize hmi if required\nif (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\n// Clean request\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\n// Clean user\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    msg.hmi.id = msg._client.socketId;\n\n    if (typeof user[msg.hmi.id] === 'object') {\n        user[msg.hmi.id].time = Date.now(); // auto\n        msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.id]);\n\n        if (typeof form[msg.hmi.id] !== 'object') {\n            form[msg.hmi.id] = { }; // auto\n        }\n\n        node.status({\n            'text': msg.hmi.id\n        })\n    }\n}\n\n// Register default dictionary\nmsg.old_payload = RED.util.cloneMessage(msg.payload);\nmsg.payload = {};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nconst dictionary = global.get('dictionary');\nmsg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];\n\nmsg.payload = RED.util.cloneMessage(msg.old_payload);\ndelete msg.old_payload;\n\n// Should not happened\ndelete msg.reset; //???\n\nreturn msg;",
+        "func": "// Prepare HMI\n\n// Get memories\nlet user = global.get('user') || { };\nlet form = global.get('form') || { };\nlet pages = global.get('describe.pages') || { };\n\n// Initalize hmi if required\nif (typeof msg.hmi === 'undefined') {\n    msg.hmi = {\n        'tab': 99,\n        'page': '',\n        'id': '',\n        'session': '',\n        'login': '',\n        'level': '',\n        'plant': '',\n        'lang': 'en',\n        'time': Date.now()\n    };\n}\n\n// Clean request\nif (typeof msg.tab === 'number' && typeof msg.name === 'string') {\n    msg.hmi.tab = msg.tab;\n    msg.hmi.page = msg.name;\n    delete msg.tab;\n    delete msg.name;\n}\n\n// Clean user\nif (typeof msg._client?.socketId === 'string') {\n    let browser_lang = global.get('browser[\"' + msg._client.socketId + '\"][\"lang\"]');\n    if (typeof browser_lang === 'string') {\n        msg.hmi.lang = browser_lang;\n    }\n    // Tab id (forms, menus, pages states)\n    msg.hmi.id = msg._client.socketId;\n\n    // Session id: dashboard client id shared by browser tabs and kept on page refresh, tab id as fallback\n    msg.hmi.session = (typeof msg._client.clientId === 'string' && msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;\n\n    // Expired session (duration in hours from system app settings)\n    if (typeof user[msg.hmi.session] === 'object' && (user[msg.hmi.session].time || 0) < Date.now() - (global.get('kernel.app.session') || 24) * 60 * 60 * 1000) {\n        delete user[msg.hmi.session]; // auto\n    }\n\n    if (typeof user[msg.hmi.session] === 'object') {\n        user[msg.hmi.session].time = Date.now(); // auto\n        msg.hmi = Object.assign({}, msg.hmi, user[msg.hmi.session]);\n\n        if (typeof form[msg.hmi.id] !== 'object') {\n            form[msg.hmi.id] = { }; // auto\n        }\n\n        node.status({\n            'text': msg.hmi.id\n        })\n    }\n}\n\n// Register default dictionary\nmsg.old_payload = RED.util.cloneMessage(msg.payload);\nmsg.payload = {};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nconst dictionary = global.get('dictionary');\nmsg.dictionary = dictionary[msg.hmi.lang] || dictionary['en'];\n\nmsg.payload = RED.util.cloneMessage(msg.old_payload);\ndelete msg.old_payload;\n\n// Should not happened\ndelete msg.reset; //???\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8531,7 +8534,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "9eded20dfe6c1a19",
         "name": "data",
-        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_page':{\n                'auth':'Authentication',\n                'map': 'Map',\n                'alert':'Alerts',\n                'counter':'Counters',\n                'period':'Programs',\n                'detail':'Detail',\n                'list':'List',\n                'tree':'Tree',\n                'users':'Users',\n                'system':'System'\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'device_noempty': 'Device is not empty',\n                'family_noempty': 'Family is used by equipments',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_page': {\n                'auth': 'Authentification',\n                'map': 'Implantation',\n                'alert': 'Alertes',\n                'counter': 'Compteurs',\n                'period': 'Programmes',\n                'detail': 'Detail',\n                'list': 'Liste',\n                'tree': 'Arborescence',\n                'users': 'Utilisateurs',\n                'system': 'Système'\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment exists': 'Cet équipement existe déjà',\n                'device_noempty': \"Ce matériel n'est pas vide\",\n                'family_noempty': 'Cette famille est utilisée par des équipements',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
+        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_page':{\n                'auth':'Authentication',\n                'map': 'Map',\n                'alert':'Alerts',\n                'counter':'Counters',\n                'period':'Programs',\n                'detail':'Detail',\n                'list':'List',\n                'tree':'Tree',\n                'users':'Users',\n                'system':'System'\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'device_noempty': 'Device is not empty',\n                'family_noempty': 'Family is used by equipments',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_page': {\n                'auth': 'Authentification',\n                'map': 'Implantation',\n                'alert': 'Alertes',\n                'counter': 'Compteurs',\n                'period': 'Programmes',\n                'detail': 'Detail',\n                'list': 'Liste',\n                'tree': 'Arborescence',\n                'users': 'Utilisateurs',\n                'system': 'Système'\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment exists': 'Cet équipement existe déjà',\n                'device_noempty': \"Ce matériel n'est pas vide\",\n                'family_noempty': 'Cette famille est utilisée par des équipements',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14380,7 +14383,7 @@
         "z": "27841aa886edd1cd",
         "g": "90f47fc795048184",
         "name": "data",
-        "func": "// Disconnect user\nlet user = global.get('user'); // autoupdate\n\ndelete user[ msg._client.socketId ];\ndelete msg.ui_update;\n\nreturn msg;",
+        "func": "// Disconnect user\nlet user = global.get('user'); // autoupdate\n\n// Session id, see kernel - hmi\nconst session = (typeof msg._client.clientId === 'string' && msg._client.clientId !== '') ? msg._client.clientId : msg._client.socketId;\ndelete user[session];\ndelete msg.ui_update;\n\n// Redirect every tab of this browser\nif (session !== msg._client.socketId) {\n    msg._client = { 'clientId': session };\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15144,7 +15147,7 @@
         "z": "05f6b695d75a73cf",
         "g": "0e5ee31c1122d84d",
         "name": "data",
-        "func": "// Try to limit loop\nif ((msg.plant || '') !== '' \n    && (msg.plant || 'none') !== 'none' \n    && (msg.hmi.id || '') !== '' \n    && (global.get('user[\"' + msg.hmi.id + '\"][\"login\"]') || '') !== ''\n) {\n\n    msg.payload = msg.plant;\n    \n    return msg;\n}\n\nreturn;",
+        "func": "// Try to limit loop\nif ((msg.plant || '') !== '' \n    && (msg.plant || 'none') !== 'none' \n    && (msg.hmi.id || '') !== '' \n    && (global.get('user[\"' + msg.hmi.session + '\"][\"login\"]') || '') !== ''\n) {\n\n    msg.payload = msg.plant;\n    \n    return msg;\n}\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -36955,7 +36958,7 @@
             "6b2108622867d8a4"
         ],
         "x": 145,
-        "y": 960,
+        "y": 1020,
         "wires": [
             [
                 "99ab0ed3b70c7262"
@@ -36977,7 +36980,7 @@
         "outputs": 1,
         "rounds": 10,
         "x": 810,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "12883887fa2d9417"
@@ -37017,7 +37020,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 480,
-        "y": 900,
+        "y": 960,
         "wires": [
             [
                 "a05272b8664a08a5"
@@ -37042,7 +37045,7 @@
         "accept": ".json",
         "className": "",
         "x": 480,
-        "y": 960,
+        "y": 1020,
         "wires": [
             [
                 "acaf126dcfe36e1a"
@@ -37060,7 +37063,7 @@
             "00818f8c0686b556"
         ],
         "x": 815,
-        "y": 900,
+        "y": 960,
         "wires": []
     },
     {
@@ -37073,7 +37076,7 @@
         "action": "",
         "pretty": false,
         "x": 850,
-        "y": 960,
+        "y": 1020,
         "wires": [
             [
                 "30d032935f880160"
@@ -37093,7 +37096,7 @@
             "b75938c74c41ca5e"
         ],
         "x": 1135,
-        "y": 960,
+        "y": 1020,
         "wires": []
     },
     {
@@ -37146,7 +37149,7 @@
         "passthru": false,
         "dropdownOptions": [],
         "x": 460,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "8311af3d037b80ba"
@@ -37199,7 +37202,7 @@
             "ef14c5282b0aa8ba"
         ],
         "x": 145,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "4bf8095e72340f81"
@@ -37217,7 +37220,7 @@
             "0502ea2e9ef0f780"
         ],
         "x": 1085,
-        "y": 540,
+        "y": 600,
         "wires": []
     },
     {
@@ -37232,7 +37235,7 @@
             "ef2a2e8f65ff707e"
         ],
         "x": 1085,
-        "y": 600,
+        "y": 660,
         "wires": []
     },
     {
@@ -37246,7 +37249,7 @@
             "6b2108622867d8a4"
         ],
         "x": 145,
-        "y": 780,
+        "y": 840,
         "wires": [
             [
                 "b67c67f8062c26a4"
@@ -37268,7 +37271,7 @@
         "outputs": 1,
         "rounds": 10,
         "x": 810,
-        "y": 780,
+        "y": 840,
         "wires": [
             [
                 "499dcc1cfe3b1ea8"
@@ -37286,7 +37289,7 @@
             "0502ea2e9ef0f780"
         ],
         "x": 1095,
-        "y": 720,
+        "y": 780,
         "wires": []
     },
     {
@@ -37363,7 +37366,7 @@
         "passthru": false,
         "dropdownOptions": [],
         "x": 460,
-        "y": 780,
+        "y": 840,
         "wires": [
             [
                 "069b5e2011d3aa79"
@@ -37383,7 +37386,7 @@
             "30571b6d70631747"
         ],
         "x": 1095,
-        "y": 780,
+        "y": 840,
         "wires": []
     },
     {
@@ -37509,7 +37512,7 @@
         "finalize": "",
         "libs": [],
         "x": 1010,
-        "y": 960,
+        "y": 1020,
         "wires": [
             [
                 "0a619717ada5bdb5"
@@ -37546,7 +37549,7 @@
         "z": "adb48ef35d9453c0",
         "g": "a69df92e27bcc577",
         "name": "data",
-        "func": "if (!msg.enabled) {\n\n    return msg;\n}\n\nconst users = global.get('user');\nconst auth = global.get('auth');\n\nmsg.payload = { };\n\nfor (const u in auth) {\n    msg.payload[u] = { ...auth[u] };\n    msg.payload[u].login = u;\n    msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant[\"' + msg.payload[u].plant + '\"]') || '');\n    msg.payload[u].delete = msg.dictionary.option_action.delete;\n    msg.payload[u].disconnect = msg.dictionary.option_action.disconnect;\n    msg.payload[u].session = '-';\n    msg.payload[u].session_color = msg.dictionary.option_color.off;\n    msg.payload[u].level_full = msg.payload[u].level === '' ? '' : (msg.dictionary.option_level[msg.payload[u].level] || msg.payload[u].level);\n\n    for (const user in users) {\n        if (users[user][\"login\"] === msg.payload[u].login) {\n            msg.payload[u].session = user;\n            msg.payload[u].session_color = msg.dictionary.option_color.on;\n        }\n    }\n}\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = Object.values(msg.payload);\nmsg.payload.sort((a, b) => a.login.localeCompare(b.login));\n\nreturn msg;",
+        "func": "if (!msg.enabled) {\n\n    return msg;\n}\n\nconst users = global.get('user');\nconst auth = global.get('auth');\n\nmsg.payload = { };\n\nfor (const u in auth) {\n    msg.payload[u] = { ...auth[u] };\n    msg.payload[u].login = u;\n    msg.payload[u].plant_full = msg.payload[u].plant === '' ? '' : (global.get('kernel.plant[\"' + msg.payload[u].plant + '\"]') || '');\n    msg.payload[u].delete = msg.dictionary.option_action.delete;\n    msg.payload[u].disconnect = msg.dictionary.option_action.disconnect;\n    msg.payload[u].session = '-';\n    msg.payload[u].session_color = msg.dictionary.option_color.off;\n    msg.payload[u].level_full = msg.payload[u].level === '' ? '' : (msg.dictionary.option_level[msg.payload[u].level] || msg.payload[u].level);\n\n    // Opened sessions (by browser, see kernel - hmi)\n    for (const user in users) {\n        if (users[user][\"login\"] === msg.payload[u].login) {\n            msg.payload[u].session = msg.payload[u].session === '-' ? 1 : msg.payload[u].session + 1;\n            msg.payload[u].session_color = msg.dictionary.option_color.on;\n        }\n    }\n}\n\nmsg.class = '';\nmsg.enabled = true;\nmsg.payload = Object.values(msg.payload);\nmsg.payload.sort((a, b) => a.login.localeCompare(b.login));\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -37567,8 +37570,8 @@
         "z": "adb48ef35d9453c0",
         "g": "a69df92e27bcc577",
         "name": "data",
-        "func": "if (msg.action !== 'button_click') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Check user right (and prevent self deletion)\nif (![ 'admin' ].includes(msg.hmi.level) || msg.hmi.login === msg.payload.login) {\n\n    return;\n}\n\nif (msg.column === 'delete') {\n    // Do not delete default admin\n    if (msg.payload.login === env.get('OPTA_ADMIN_USERNAME')) {\n        // UI notice\n        msg.notice = 'Admin is not deletable';\n        msg = await node.linkcall('ui - notice', msg);\n\n        return;\n    }\n    else {\n        // Get memories\n        let auth = global.get('auth'); // autoupdate\n\n        delete auth[msg.payload.login];\n\n        // UI notice\n        msg.notice = 'Successfully updated';\n        msg = await node.linkcall('ui - notice', msg);\n\n        // Wait ui update\n        msg = await node.linkcall('ui - latency', msg);\n\n        msg.enabled = true;\n\n        return [ msg, msg ];\n    }\n}\nelse if (msg.column === 'disconnect') {\n    // Get memories\n    let user = global.get('user'); // autoupdate\n\n    delete user[msg.payload.session];\n\n    // UI notice\n    msg.notice = 'Successfully updated';\n    msg = await node.linkcall('ui - notice', msg);\n\n    // Wait ui update\n    msg = await node.linkcall('ui - latency', msg);\n\n    msg.enabled = true;\n\n    return [ null, msg ];\n}\n\nreturn;",
-        "outputs": 2,
+        "func": "if (msg.action !== 'button_click') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Check user right (and prevent self deletion)\nif (![ 'admin' ].includes(msg.hmi.level) || msg.hmi.login === msg.payload.login) {\n\n    return;\n}\n\nif (msg.column === 'delete') {\n    // Do not delete default admin\n    if (msg.payload.login === env.get('OPTA_ADMIN_USERNAME')) {\n        // UI notice\n        msg.notice = 'Admin is not deletable';\n        msg = await node.linkcall('ui - notice', msg);\n\n        return;\n    }\n    else {\n        // Get memories\n        let auth = global.get('auth'); // autoupdate\n\n        delete auth[msg.payload.login];\n\n        // UI notice\n        msg.notice = 'Successfully updated';\n        msg = await node.linkcall('ui - notice', msg);\n\n        // Wait ui update\n        msg = await node.linkcall('ui - latency', msg);\n\n        msg.enabled = true;\n\n        return [ msg, msg, null ];\n    }\n}\nelse if (msg.column === 'disconnect') {\n    // Get memories\n    let user = global.get('user'); // autoupdate\n\n    // Close every session of this user and send its browsers back to the auth page\n    // (session id is a dashboard client id, or a tab id as fallback, see kernel - hmi)\n    const page = global.get('describe.pages.auth.name') || '';\n    for (const s in user) {\n        if ((user[s] || {})['login'] === msg.payload.login) {\n            delete user[s];\n\n            node.send([ null, null, { 'payload': page, '_client': { 'clientId': s } } ]);\n            node.send([ null, null, { 'payload': page, '_client': { 'socketId': s } } ]);\n        }\n    }\n\n    // UI notice\n    msg.notice = 'Successfully updated';\n    msg = await node.linkcall('ui - notice', msg);\n\n    // Wait ui update\n    msg = await node.linkcall('ui - latency', msg);\n\n    msg.enabled = true;\n\n    return [ null, msg, null ];\n}\n\nreturn;",
+        "outputs": 3,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -37582,6 +37585,9 @@
             ],
             [
                 "9673105b1ce8621f"
+            ],
+            [
+                "6f50a89f3f460e5c"
             ]
         ]
     },
@@ -37599,7 +37605,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "5090288d785383e7"
@@ -37620,7 +37626,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "4974eda3bfeeee8c"
@@ -37641,7 +37647,7 @@
         "finalize": "",
         "libs": [],
         "x": 970,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "cc9e5c04bf64876b"
@@ -37665,7 +37671,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 780,
+        "y": 840,
         "wires": [
             [
                 "7b0c5efa0173470c"
@@ -37686,7 +37692,7 @@
         "finalize": "",
         "libs": [],
         "x": 650,
-        "y": 780,
+        "y": 840,
         "wires": [
             [
                 "589bb1e2cd6497c2"
@@ -37707,7 +37713,7 @@
         "finalize": "",
         "libs": [],
         "x": 970,
-        "y": 780,
+        "y": 840,
         "wires": [
             [
                 "eff93c702165abd0"
@@ -37731,7 +37737,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 960,
+        "y": 1020,
         "wires": [
             [
                 "eaf6fbb998a28d10",
@@ -37753,7 +37759,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 900,
+        "y": 960,
         "wires": [
             [
                 "9436213abf2c9241"
@@ -37774,7 +37780,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 960,
+        "y": 1020,
         "wires": [
             [
                 "4c08c3e633d35558"
@@ -37816,6 +37822,20 @@
         "wires": []
     },
     {
+        "id": "6f50a89f3f460e5c",
+        "type": "link out",
+        "z": "adb48ef35d9453c0",
+        "g": "a69df92e27bcc577",
+        "name": "user - list - control",
+        "mode": "link",
+        "links": [
+            "00818f8c0686b556"
+        ],
+        "x": 815,
+        "y": 480,
+        "wires": []
+    },
+    {
         "id": "67a829c8d69b7b01",
         "type": "ui-text-input",
         "z": "44465f18e06bb58d",
@@ -37842,7 +37862,7 @@
         "iconPosition": "left",
         "iconInnerPosition": "inside",
         "x": 480,
-        "y": 1440,
+        "y": 1500,
         "wires": [
             [
                 "07f0ee724dbe2db8"
@@ -37867,7 +37887,7 @@
         "accept": ".ota",
         "className": "",
         "x": 470,
-        "y": 1500,
+        "y": 1560,
         "wires": [
             [
                 "503347ecac974f61"
@@ -37890,7 +37910,7 @@
         "expiry": "",
         "broker": "f516c1341f0f634c",
         "x": 1090,
-        "y": 1560,
+        "y": 1620,
         "wires": []
     },
     {
@@ -37903,7 +37923,7 @@
             "6dfb47bfe7905913"
         ],
         "x": 145,
-        "y": 1560,
+        "y": 1620,
         "wires": [
             [
                 "5c30ac5806d00156"
@@ -37920,7 +37940,7 @@
             "0c83fe1f9690e061"
         ],
         "x": 145,
-        "y": 1440,
+        "y": 1500,
         "wires": [
             [
                 "ab47a91101bee735",
@@ -37943,7 +37963,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1050,
-        "y": 1440,
+        "y": 1500,
         "wires": []
     },
     {
@@ -38388,6 +38408,13 @@
                 "rows": null
             },
             {
+                "label": "Session duration",
+                "key": "session",
+                "type": "dropdown",
+                "required": true,
+                "rows": null
+            },
+            {
                 "label": "Reload application",
                 "key": "reload",
                 "type": "checkbox",
@@ -38413,6 +38440,7 @@
             "vendor": "",
             "title": "",
             "watchdog": "",
+            "session": "",
             "reload": false,
             "frommqtt": false,
             "tomqtt": false
@@ -38465,7 +38493,7 @@
         "expiry": "",
         "broker": "f516c1341f0f634c",
         "x": 1040,
-        "y": 1500,
+        "y": 1560,
         "wires": []
     },
     {
@@ -38537,7 +38565,7 @@
         "z": "44465f18e06bb58d",
         "g": "43bcc4020c29e03d",
         "name": "tomqtt",
-        "func": "return {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type':' app',\n        'entity': 'tomqtt',\n        'value': msg.payload.tomqtt,\n        'loop': false\n    }\n};",
+        "func": "return {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type': 'app',\n        'entity': 'tomqtt',\n        'value': msg.payload.tomqtt,\n        'loop': false\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -38579,7 +38607,7 @@
         "z": "44465f18e06bb58d",
         "g": "43bcc4020c29e03d",
         "name": "watchdog",
-        "func": "return {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type':' app',\n        'entity': 'watchdog',\n        'value': Number(msg.payload.watchdog),\n        'loop': false\n    }\n};",
+        "func": "return {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type': 'app',\n        'entity': 'watchdog',\n        'value': Number(msg.payload.watchdog),\n        'loop': false\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -39022,7 +39050,8 @@
                 "e63131037fb16dd4",
                 "c58b883c9be07c8f",
                 "af97c0473e39e9c9",
-                "44d0125af7abe861"
+                "44d0125af7abe861",
+                "566c357740c4408f"
             ]
         ]
     },
@@ -39032,7 +39061,7 @@
         "z": "44465f18e06bb58d",
         "g": "43bcc4020c29e03d",
         "name": "data",
-        "func": "msg.payload =  {\n    'vendor': global.get('kernel.app.vendor') || '',\n    'title': global.get('kernel.app.title') || '',\n    'tomqtt': global.get('kernel.app.tomqtt') || false,\n    'frommqtt': global.get('kernel.app.frommqtt') || false,\n    'watchdog': global.get('kernel.app.watchdog') || 120,\n};\n\nreturn msg;",
+        "func": "msg.payload =  {\n    'vendor': global.get('kernel.app.vendor') || '',\n    'title': global.get('kernel.app.title') || '',\n    'tomqtt': global.get('kernel.app.tomqtt') || false,\n    'frommqtt': global.get('kernel.app.frommqtt') || false,\n    'watchdog': global.get('kernel.app.watchdog') || 120,\n    'session': String(global.get('kernel.app.session') || 24),\n};\n\n// Session duration choices (hours)\nmsg.ui_update = {\n    'dropdownOptions': [6, 24, 720].map((h) => ({\n        'label': (msg.dictionary?.option_session || { })[h] || (h + ' h'),\n        'value': String(h),\n        'dropdown': 'session'\n    }))\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -39082,7 +39111,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 1560,
+        "y": 1620,
         "wires": [
             [
                 "2fdf6a9ba5514acd"
@@ -39103,7 +39132,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 1440,
+        "y": 1500,
         "wires": [
             [
                 "67a829c8d69b7b01"
@@ -39124,7 +39153,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 1500,
+        "y": 1560,
         "wires": [
             [
                 "d508633aa0105203"
@@ -39145,7 +39174,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 1500,
+        "y": 1560,
         "wires": [
             [
                 "8231842dd80b938e",
@@ -39167,7 +39196,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 1440,
+        "y": 1500,
         "wires": [
             [
                 "a4fb301472039371",
@@ -39193,7 +39222,7 @@
         "finalize": "",
         "libs": [],
         "x": 850,
-        "y": 1560,
+        "y": 1620,
         "wires": [
             [
                 "a4fb301472039371",
@@ -39234,5 +39263,26 @@
         "x": 270,
         "y": 60,
         "wires": []
+    },
+    {
+        "id": "566c357740c4408f",
+        "type": "function",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "session",
+        "func": "// Session duration in hours (see kernel - hmi and user - clean)\nconst hours = Number(msg.payload.session);\n\nif (![6, 24, 720].includes(hours)) {\n\n    return;\n}\n\nreturn {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type': 'app',\n        'entity': 'session',\n        'value': hours,\n        'loop': false\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 1380,
+        "wires": [
+            [
+                "301bb73805b7e405"
+            ]
+        ]
     }
 ]

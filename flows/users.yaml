@@ -42,7 +42,7 @@
     - a05272b8664a08a5
     - acaf126dcfe36e1a
   x: 104
-  'y': 859
+  'y': 919
   w: 1072
   h: 142
 - id: a69df92e27bcc577
@@ -60,10 +60,11 @@
     - 9673105b1ce8621f
     - e28be1d1aa7033af
     - 033f97308b43c4d8
+    - 6f50a89f3f460e5c
   x: 104
   'y': 319
   w: 752
-  h: 142
+  h: 202
 - id: 4c2194718c72648c
   type: group
   z: adb48ef35d9453c0
@@ -82,7 +83,7 @@
     - 8311af3d037b80ba
     - 12883887fa2d9417
   x: 104
-  'y': 499
+  'y': 559
   w: 1022
   h: 142
 - id: bb8597f031aabc08
@@ -103,7 +104,7 @@
     - 069b5e2011d3aa79
     - 499dcc1cfe3b1ea8
   x: 104
-  'y': 679
+  'y': 739
   w: 1032
   h: 142
 - id: 21ae321a75b0d52e
@@ -234,7 +235,7 @@
     - 0a619717ada5bdb5
     - 6b2108622867d8a4
   x: 145
-  'y': 960
+  'y': 1020
   wires:
     - - 99ab0ed3b70c7262
 - id: 4974eda3bfeeee8c
@@ -251,7 +252,7 @@
   outputs: 1
   rounds: 10
   x: 810
-  'y': 600
+  'y': 660
   wires:
     - - 12883887fa2d9417
 - id: eaf6fbb998a28d10
@@ -286,7 +287,7 @@
   pointerupPayload: ''
   pointerupPayloadType: str
   x: 480
-  'y': 900
+  'y': 960
   wires:
     - - a05272b8664a08a5
 - id: ba2c0a6c4e22a220
@@ -306,7 +307,7 @@
   accept: .json
   className: ''
   x: 480
-  'y': 960
+  'y': 1020
   wires:
     - - acaf126dcfe36e1a
 - id: 9436213abf2c9241
@@ -318,7 +319,7 @@
   links:
     - 00818f8c0686b556
   x: 815
-  'y': 900
+  'y': 960
   wires: []
 - id: 4c08c3e633d35558
   type: json
@@ -329,7 +330,7 @@
   action: ''
   pretty: false
   x: 850
-  'y': 960
+  'y': 1020
   wires:
     - - 30d032935f880160
 - id: 0a619717ada5bdb5
@@ -343,7 +344,7 @@
     - 922d6d1c4163d169
     - b75938c74c41ca5e
   x: 1135
-  'y': 960
+  'y': 1020
   wires: []
 - id: 5090288d785383e7
   type: ui-form
@@ -386,7 +387,7 @@
   passthru: false
   dropdownOptions: []
   x: 460
-  'y': 600
+  'y': 660
   wires:
     - - 8311af3d037b80ba
 - id: 30571b6d70631747
@@ -424,7 +425,7 @@
     - 6b2108622867d8a4
     - ef14c5282b0aa8ba
   x: 145
-  'y': 600
+  'y': 660
   wires:
     - - 4bf8095e72340f81
 - id: cc9e5c04bf64876b
@@ -436,7 +437,7 @@
   links:
     - 0502ea2e9ef0f780
   x: 1085
-  'y': 540
+  'y': 600
   wires: []
 - id: ef14c5282b0aa8ba
   type: link out
@@ -448,7 +449,7 @@
     - b75938c74c41ca5e
     - ef2a2e8f65ff707e
   x: 1085
-  'y': 600
+  'y': 660
   wires: []
 - id: feb590d38372e404
   type: link in
@@ -459,7 +460,7 @@
     - b9f317153008cccc
     - 6b2108622867d8a4
   x: 145
-  'y': 780
+  'y': 840
   wires:
     - - b67c67f8062c26a4
 - id: 589bb1e2cd6497c2
@@ -476,7 +477,7 @@
   outputs: 1
   rounds: 10
   x: 810
-  'y': 780
+  'y': 840
   wires:
     - - 499dcc1cfe3b1ea8
 - id: eff93c702165abd0
@@ -488,7 +489,7 @@
   links:
     - 0502ea2e9ef0f780
   x: 1095
-  'y': 720
+  'y': 780
   wires: []
 - id: 7b0c5efa0173470c
   type: ui-form
@@ -549,7 +550,7 @@
   passthru: false
   dropdownOptions: []
   x: 460
-  'y': 780
+  'y': 840
   wires:
     - - 069b5e2011d3aa79
 - id: b9f317153008cccc
@@ -563,7 +564,7 @@
     - feb590d38372e404
     - 30571b6d70631747
   x: 1095
-  'y': 780
+  'y': 840
   wires: []
 - id: 421bd90f81361dfe
   type: ui-table
@@ -697,7 +698,7 @@
   finalize: ''
   libs: []
   x: 1010
-  'y': 960
+  'y': 1020
   wires:
     - - 0a619717ada5bdb5
 - id: f73269ad9421c5fa
@@ -807,9 +808,10 @@
         msg.payload[u].session_color = msg.dictionary.option_color.off;
         msg.payload[u].level_full = msg.payload[u].level === '' ? '' : (msg.dictionary.option_level[msg.payload[u].level] || msg.payload[u].level);
 
+        // Opened sessions (by browser, see kernel - hmi)
         for (const user in users) {
             if (users[user]["login"] === msg.payload[u].login) {
-                msg.payload[u].session = user;
+                msg.payload[u].session = msg.payload[u].session === '-' ? 1 : msg.payload[u].session + 1;
                 msg.payload[u].session_color = msg.dictionary.option_color.on;
             }
         }
@@ -881,7 +883,7 @@
 
             msg.enabled = true;
 
-            return [ msg, msg ];
+            return [ msg, msg, null ];
         }
     }
 
@@ -889,7 +891,17 @@
         // Get memories
         let user = global.get('user'); // autoupdate
 
-        delete user[msg.payload.session];
+        // Close every session of this user and send its browsers back to the auth page
+        // (session id is a dashboard client id, or a tab id as fallback, see kernel - hmi)
+        const page = global.get('describe.pages.auth.name') || '';
+        for (const s in user) {
+            if ((user[s] || {})['login'] === msg.payload.login) {
+                delete user[s];
+
+                node.send([ null, null, { 'payload': page, '_client': { 'clientId': s } } ]);
+                node.send([ null, null, { 'payload': page, '_client': { 'socketId': s } } ]);
+            }
+        }
 
         // UI notice
         msg.notice = 'Successfully updated';
@@ -900,12 +912,12 @@
 
         msg.enabled = true;
 
-        return [ null, msg ];
+        return [ null, msg, null ];
     }
 
 
     return;
-  outputs: 2
+  outputs: 3
   timeout: 0
   noerr: 0
   initialize: ''
@@ -916,6 +928,7 @@
   wires:
     - - ae02a3d5cbedb090
     - - 9673105b1ce8621f
+    - - 6f50a89f3f460e5c
 - id: 4bf8095e72340f81
   type: function
   z: adb48ef35d9453c0
@@ -945,7 +958,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 600
+  'y': 660
   wires:
     - - 5090288d785383e7
 - id: 8311af3d037b80ba
@@ -982,7 +995,7 @@
   finalize: ''
   libs: []
   x: 650
-  'y': 600
+  'y': 660
   wires:
     - - 4974eda3bfeeee8c
 - id: 12883887fa2d9417
@@ -1027,7 +1040,7 @@
   finalize: ''
   libs: []
   x: 970
-  'y': 600
+  'y': 660
   wires:
     - - cc9e5c04bf64876b
     - - ef14c5282b0aa8ba
@@ -1070,7 +1083,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 780
+  'y': 840
   wires:
     - - 7b0c5efa0173470c
 - id: 069b5e2011d3aa79
@@ -1106,7 +1119,7 @@
   finalize: ''
   libs: []
   x: 650
-  'y': 780
+  'y': 840
   wires:
     - - 589bb1e2cd6497c2
 - id: 499dcc1cfe3b1ea8
@@ -1152,7 +1165,7 @@
   finalize: ''
   libs: []
   x: 970
-  'y': 780
+  'y': 840
   wires:
     - - eff93c702165abd0
     - - b9f317153008cccc
@@ -1171,7 +1184,7 @@
   finalize: ''
   libs: []
   x: 270
-  'y': 960
+  'y': 1020
   wires:
     - - eaf6fbb998a28d10
       - ba2c0a6c4e22a220
@@ -1208,7 +1221,7 @@
   finalize: ''
   libs: []
   x: 690
-  'y': 900
+  'y': 960
   wires:
     - - 9436213abf2c9241
 - id: acaf126dcfe36e1a
@@ -1235,7 +1248,7 @@
   finalize: ''
   libs: []
   x: 690
-  'y': 960
+  'y': 1020
   wires:
     - - 4c08c3e633d35558
 - id: 137a3c12476d24d0
@@ -1301,4 +1314,15 @@
   libs: []
   x: 270
   'y': 60
+  wires: []
+- id: 6f50a89f3f460e5c
+  type: link out
+  z: adb48ef35d9453c0
+  g: a69df92e27bcc577
+  name: user - list - control
+  mode: link
+  links:
+    - 00818f8c0686b556
+  x: 815
+  'y': 480
   wires: []

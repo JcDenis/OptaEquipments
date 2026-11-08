@@ -1135,7 +1135,7 @@
     if ((msg.plant || '') !== '' 
         && (msg.plant || 'none') !== 'none' 
         && (msg.hmi.id || '') !== '' 
-        && (global.get('user["' + msg.hmi.id + '"]["login"]') || '') !== ''
+        && (global.get('user["' + msg.hmi.session + '"]["login"]') || '') !== ''
     ) {
 
         msg.payload = msg.plant;
