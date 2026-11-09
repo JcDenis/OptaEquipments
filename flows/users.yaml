@@ -940,6 +940,9 @@
         return msg;
     }
 
+    // Do not edit admin account
+    msg.admin_limit = true;
+
     msg = await node.linkcall('option - auth', msg);
 
     msg.payload = '';
@@ -970,6 +973,12 @@
 
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
+
+    // Do not edit admin account
+    if (msg.payload.login.toLowerCase() === 'admin') {
+
+        return;
+    }
 
     const auth = global.get('auth');
 

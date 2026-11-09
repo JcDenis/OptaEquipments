@@ -948,17 +948,15 @@
     }];
 
 
-    let i = 1;
-
     const plants = global.get('kernel.plant') || { };
 
 
     for (const plant in plants) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': plants[plant] + ' (' + plant + ')',
             'value': plant,
             'dropdown': 'plant'
-        }
+        });
     }
 
 
@@ -998,17 +996,16 @@
         'dropdown': 'line'
     }];
 
-    let i = 1;
     const lines = global.get('kernel.line') || { };
 
     for (const line in lines) {
         let line_plant = global.get('kernel.lines["' + line + '"]') || '';
         if (typeof msg.limit_plant === 'undefined' || msg.limit_plant === line_plant) {
-            msg.options[i++] = {
+            msg.options.push({
                 'label': lines[line] + ' (' + line + ')',
                 'value': line,
                 'dropdown': 'line'
-            }
+            });
         }
     }
 
@@ -1046,19 +1043,17 @@
     }];
 
 
-    let i = 1;
-
     const equipments = global.get('kernel.equipment') || { };
 
 
     for (const equipment in equipments) {
         let equipment_line = global.get('kernel.equipments["' + equipment + '"]') || '';
         if (typeof msg.limit_line === 'undefined' || msg.limit_line === equipment_line) {
-            msg.options[i++] = {
+            msg.options.push({
                 'label': equipments[equipment] + ' (' + equipment + ')',
                 'value': equipment,
                 'dropdown': 'equipment'
-            }
+            });
         }
     }
 
@@ -1103,18 +1098,16 @@
     }];
 
 
-    let i = 1;
-
     const models = global.get('describe.model') || { };
 
 
     for (const model in models) {
         if (typeof msg.limit_component === 'undefined' || typeof global.get('describe.convert["' + model + '"]["' + msg.limit_component + '"]') === 'string') {
-            msg.options[i++] = {
+            msg.options.push({
                 'label': models[model] + ' (' + model + ')',
                 'value': model,
                 'dropdown': 'model'
-            }
+            });
         }
     }
 
@@ -1155,15 +1148,14 @@
         'dropdown': 'team'
     }];
 
-    let i = 1;
     const teams = msg.dictionary.option_team || { };
 
     for (const team in teams) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': teams[team] + ' (' + team + ')',
             'value': team,
             'dropdown': 'team'
-        }
+        });
     }
 
     if (typeof msg.ui_update === 'undefined') {
@@ -1199,15 +1191,14 @@
         'dropdown': 'resolution'
     }];
 
-    let i = 1;
     const resolutions = msg.dictionary.option_resolution || { };
 
     for (const resolution in resolutions) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': resolutions[resolution],
             'value': resolution,
             'dropdown': 'resolution'
-        }
+        });
     }
 
     msg.nosort = true;
@@ -1238,15 +1229,14 @@
         'dropdown': 'level'
     }];
 
-    let i = 1;
     const levels = msg.dictionary.option_level || { };
 
     for (const level in levels) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': levels[level],
             'value': level,
             'dropdown': 'level'
-        }
+        });
     }
 
     // Clean options
@@ -1275,15 +1265,14 @@
         'dropdown': 'lang'
     }];
 
-    let i = 1;
     const langs = msg.dictionary.option_lang || { };
 
     for (const lang in langs) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': langs[lang] + ' (' + lang + ')',
             'value': lang,
             'dropdown': 'lang'
-        }
+        });
     }
 
     // Clean options
@@ -1312,19 +1301,24 @@
         'dropdown': 'login'
     }];
 
-    let i = 1;
     const logins = global.get('auth') || { };
 
     for (const login in logins) {
-        msg.options[i++] = {
+        if (typeof msg.admin_limit === 'boolean' && msg.admin_limit === true && login.toLowerCase() === 'admin') {
+
+            continue;
+        }
+        msg.options.push({
             'label': login,
             'value': login,
             'dropdown': 'login'
-        }
+        });
     }
 
     // Clean options
     msg = await node.linkcall('option - clean', msg);
+
+    delete msg.admin_limit;
 
     return msg;
   outputs: 1
@@ -1350,8 +1344,6 @@
     }];
 
 
-    let i = 1;
-
     const alerts = global.get('kernel.alert') || { };
 
 
@@ -1359,11 +1351,11 @@
         const split = alert.split("|");
         if (typeof msg.limit_equipment === 'undefined' || msg.limit_equipment === split[0]) {
             let name = msg.dictionary.option_component[split[1]];
-            msg.options[i++] = {
+            msg.options.push({
                 'label': name + ' (' + alert + ')',
                 'value': alert,
                 'dropdown': 'alert'
-            }
+            });
         }
     }
 
@@ -1407,16 +1399,15 @@
         'dropdown': 'component'
     }];
 
-    let i = 1;
     const components = msg.dictionary?.option_component || { };
 
     for (const component in components) {
         if (typeof msg.limit_component === 'undefined' || component.match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {
-            msg.options[i++] = {
+            msg.options.push({
                 'label': components[component] + ' (' + component + ')',
                 'value': component,
                 'dropdown': 'component'
-            }
+            });
         }
     }
 
@@ -1453,17 +1444,16 @@
 
 
     if (typeof msg.limit_model !== 'undefined') {
-        let i = 1;
         const  devices = global.get('kernel.device') || { };
         for (const device in devices) {
             /* 0 = model, 1 = device */
             let split = device.split("|");
             if (msg.limit_model === split[0]) {
-                msg.options[i++] = {
+                msg.options.push({
                     'label': split[1],
                     'value': split[1],
                     'dropdown': 'device'
-                }
+                });
             }
         }
     }
@@ -1505,7 +1495,6 @@
         'dropdown': 'link'
     }];
 
-    let i = 1;
     const links = global.get('kernel.link') ||{ };
     for (const link in links) {
         /* 0 = equipment, 1 = component */
@@ -1513,11 +1502,11 @@
         if (typeof msg.limit_component === 'undefined' || split[1].match((new RegExp('^(' + msg.limit_component + ')$'))) !== null) {
             if (typeof msg.limit_equipment === 'undefined' || split[0].match((new RegExp('^(' + msg.limit_equipment + ')$'))) !== null) {
                 let name = msg.dictionary.option_component[split[1]];
-                msg.options[i++] = {
+                msg.options.push({
                     'label': name + ' (' + link + ')',
                     'value': link,
                     'dropdown': 'link'
-                }
+                });
             }
         }
     }
@@ -1647,11 +1636,11 @@
 
     for (const group in groups) {
         if (typeof msg.limit_group === 'undefined' || group.match((new RegExp('^(' + msg.limit_group + ')$'))) !== null) {
-            msg.options[i++] = {
+            msg.options.push({
                 'label': groups[group] + ' (' + group + ')',
                 'value': group,
                 'dropdown': 'group'
-            }
+            });
         }
     }
 
@@ -1835,18 +1824,17 @@
         'dropdown': 'holiday'
     }];
 
-    let i = 0;
     const holidays = global.get('kernel.holiday') || { };
 
     for (const holiday in holidays) {
         if (typeof msg.limit_plant === 'undefined' || holiday === msg.limit_plant) {
             let sholidays = holidays[holiday].split('|');
             for (const sholiday in sholidays) {
-                msg.options[i++] = {
+                msg.options.push({
                     'label': sholidays[sholiday],
                     'value': sholidays[sholiday],
                     'dropdown': 'holiday'
-                }
+                });
             }
         }
     }
@@ -1893,28 +1881,26 @@
     }];
 
 
-    let i = 1;
-
     const families = global.get('kernel.family') || { };
 
 
     for (const family in families) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': families[family] + ' (' + family + ')',
             'value': family,
             'dropdown': 'family'
-        }
+        });
     }
 
 
     // Add "no family" option on demand
 
     if (msg.family_none === true) {
-        msg.options[i++] = {
+        msg.options.push({
             'label': msg.dictionary.option_name.family_none || 'No family',
             'value': '-',
             'dropdown': 'family'
-        }
+        });
     }
 
 
@@ -1978,8 +1964,6 @@
     }];
 
 
-    let i = 1;
-
     const counters = global.get('kernel.counter') || { };
 
 
@@ -1987,11 +1971,11 @@
         let counter_family = global.get('kernel.counters["' + counter + '"]') || '';
         if (typeof msg.limit_family === 'undefined' || msg.limit_family === counter_family) {
             let csplit = String(counters[counter]).split('|');
-            msg.options[i++] = {
+            msg.options.push({
                 'label': csplit.slice(1).join('|') + ' - ' + csplit[0] + ' h (' + counter + ')',
                 'value': counter,
                 'dropdown': 'counter'
-            }
+            });
         }
     }
 
