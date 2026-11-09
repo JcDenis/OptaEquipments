@@ -3101,126 +3101,79 @@
     if (msg.hmi.level !== 'admin') {
         msg.payload = msg.dictionary.option_notice.level_fail;
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {
-        // reserved plant and line
-        msg.noline_plant = msg.kernel.entity;
+        const plant = msg.kernel.entity;
+
+        // reserved plant and lines
+        msg.noline_plant = plant;
         msg = await node.linkcall('kernel - noline', msg);
-        const noline = msg.noline.lines[msg.kernel.entity];
+        const noplant = msg.noline.plant;
+        const noline = msg.noline.lines[plant];
+        const target = msg.noline.lines[noplant];
+        delete msg.noline;
 
-        let is_empty = true;
-        // kernel.lines (reserved line of the plant does not count)
-        const lines = global.get('kernel.lines');
-        for (const line in lines) {
-            if (lines[line] === msg.kernel.entity && line !== noline) {
-                is_empty = false;
+        const send = (type, entity, value, del) => {
+            let kernel = {
+                'type': type,
+                'entity': entity,
+                'value': value,
+                'loop': false
+            };
+            if (del === true) {
+                kernel.delete = true;
             }
-        }
-        // but reserved line must be empty
-        if (Object.values(global.get('kernel.equipments') || { }).includes(noline)) {
-            is_empty = false;
-        }
-
-        if (msg.kernel.entity === msg.noline.plant) {
-            is_empty = false;
-            msg.reserved = true;
-        }
-
-        if (is_empty === true) {
-            // kernel.plant
             node.send([{
                 'topic': '',
                 'payload': '',
-                'kernel': {
-                    'type': 'plant',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
-                }
+                'kernel': kernel
             }]);
+        };
 
-            // kernel.map
-            node.send([{
-                'topic': '',
-                'payload': '',
-                'kernel': {
-                    'type': 'map',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
+        if (plant === noplant) {
+            msg.payload = msg.dictionary.option_notice.plant_reserved || msg.dictionary.option_notice.update_fail;
+        } else {
+            // move lines of the plant to the reserved plant
+            let moved = 0;
+            const lines = global.get('kernel.lines') || { };
+            for (const line in lines) {
+                if (lines[line] === plant && line !== noline) {
+                    send('lines', line, noplant);
+                    moved++;
                 }
-            }]);
+            }
 
-            // kernel.tz
-            node.send([{
-                'topic': '',
-                'payload': '',
-                'kernel': {
-                    'type': 'tz',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
+            // move equipments of the plant reserved line to the reserved plant reserved line
+            const equipments = global.get('kernel.equipments') || { };
+            for (const equipment in equipments) {
+                if (equipments[equipment] === noline) {
+                    send('equipments', equipment, target);
                 }
-            }]);
+            }
 
-            // kernel.day
-            node.send([{
-                'topic': '',
-                'payload': '',
-                'kernel': {
-                    'type': 'day',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
+            // plant and its settings
+            for (const type of ['plant', 'map', 'tz', 'day', 'holiday']) {
+                if (typeof (global.get('kernel.' + type) || { })[plant] !== 'undefined') {
+                    send(type, plant, '', true);
                 }
-            }]);
-
-            // kernel.team
-            const teams = global.get('kernel.team');
+            }
+            const teams = global.get('kernel.team') || { };
             for (const team in teams) {
-                let tsplit = team.split('|');
-                if (tsplit[0] === msg.kernel.entity) {
-                    node.send([{
-                        'topic': '',
-                        'payload': '',
-                        'kernel': {
-                            'type': 'team',
-                            'entity': team,
-                            'value': '',
-                            'loop': false,
-                            'delete': true
-                        }
-                    }]);
+                if (team.split('|')[0] === plant) {
+                    send('team', team, '', true);
                 }
             }
 
             // reserved line of the plant
             for (const type of ['lines', 'line', 'location', 'period', 'disabled']) {
-                node.send([{
-                    'topic': '',
-                    'payload': '',
-                    'kernel': {
-                        'type': type,
-                        'entity': noline,
-                        'value': '',
-                        'loop': false,
-                        'delete': true
-                    }
-                }]);
+                if (typeof (global.get('kernel.' + type) || { })[noline] !== 'undefined') {
+                    send(type, noline, '', true);
+                }
             }
 
-            msg.payload = msg.dictionary.option_notice.update_success;
+            msg.payload = moved > 0
+                ? (msg.dictionary.option_notice.plant_moved || '%n line(s) moved to reserved plant').replace('%n', moved)
+                : msg.dictionary.option_notice.update_success;
             msg.success = true;
-        } else if (msg.reserved === true) {
-            msg.payload = msg.dictionary.option_notice.plant_reserved || msg.dictionary.option_notice.update_fail;
-        } else {
-            msg.payload = msg.dictionary.option_notice.plant_noempty || msg.dictionary.option_notice.update_fail;
         }
-
-        delete msg.noline;
-        delete msg.reserved;
     }
 
     delete msg.kernel;
@@ -3285,102 +3238,56 @@
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {
+        const line = msg.kernel.entity;
+
         // reserved lines
         msg = await node.linkcall('kernel - noline', msg);
-        const reserved = Object.values(msg.noline.lines).includes(msg.kernel.entity);
+        const reserved = Object.values(msg.noline.lines).includes(line);
+        const plant = (global.get('kernel.lines') || { })[line] || '';
+        const target = msg.noline.lines[plant] || msg.noline.lines[msg.noline.plant];
         delete msg.noline;
 
-        let is_empty = !reserved;
-        // kernel.lines
-        const equipments = global.get('kernel.equipments');
-        for (const equipment in equipments) {
-            if (equipments[equipment] === msg.kernel.entity) {
-                is_empty = false;
+        const send = (type, entity, value, del) => {
+            let kernel = {
+                'type': type,
+                'entity': entity,
+                'value': value,
+                'loop': false
+            };
+            if (del === true) {
+                kernel.delete = true;
             }
-        }
-
-        if (is_empty === true) {
-            // kernel.lines
             node.send([{
                 'topic': '',
                 'payload': '',
-                'kernel': {
-                    'type': 'lines',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
-                }
+                'kernel': kernel
             }]);
+        };
 
-            // kernel.line
-            node.send([{
-                'topic': '',
-                'payload': '',
-                'kernel': {
-                    'type': 'line',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
-                }
-            }]);
-
-            // kernel.location
-            node.send([{
-                'topic': '',
-                'payload': '',
-                'kernel': {
-                    'type': 'location',
-                    'entity': msg.kernel.entity,
-                    'value': '',
-                    'loop': false,
-                    'delete': true
-                }
-            }]);
-
-            // kernel.period
-            const periods = global.get('kernel.period');
-            for (const period in periods) {
-                if (period === msg.kernel.entity) {
-                    node.send([{
-                        'topic': '',
-                        'payload': '',
-                        'kernel': {
-                            'type': 'period',
-                            'entity': msg.kernel.entity,
-                            'value': '',
-                            'loop': false,
-                            'delete': true
-                        }
-                    }]);
-                }
-            }
-
-            // kernel.disabled
-            const disableds = global.get('kernel.disabled');
-            for (const disabled in disableds) {
-                if (disabled === msg.kernel.entity) {
-                    node.send([{
-                        'topic': '',
-                        'payload': '',
-                        'kernel': {
-                            'type': 'disabled',
-                            'entity': msg.kernel.entity,
-                            'value': '',
-                            'loop': false,
-                            'delete': true
-                        }
-                    }]);
-                }
-            }
-
-            msg.payload = msg.dictionary.option_notice.update_success;
-            msg.success = true;
-        } else if (reserved) {
+        if (reserved) {
             msg.payload = msg.dictionary.option_notice.line_reserved || msg.dictionary.option_notice.update_fail;
         } else {
-            msg.payload = msg.dictionary.option_notice.line_noempty || msg.dictionary.option_notice.update_fail;
+            // move equipments of the line to the reserved line of its plant
+            let moved = 0;
+            const equipments = global.get('kernel.equipments') || { };
+            for (const equipment in equipments) {
+                if (equipments[equipment] === line) {
+                    send('equipments', equipment, target);
+                    moved++;
+                }
+            }
+
+            // line and its settings
+            for (const type of ['lines', 'line', 'location', 'period', 'disabled']) {
+                if (typeof (global.get('kernel.' + type) || { })[line] !== 'undefined') {
+                    send(type, line, '', true);
+                }
+            }
+
+            msg.payload = moved > 0
+                ? (msg.dictionary.option_notice.line_moved || '%n equipment(s) moved to reserved line').replace('%n', moved)
+                : msg.dictionary.option_notice.update_success;
+            msg.success = true;
         }
     }
 
@@ -4237,56 +4144,61 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - family
-  func: >-
+  func: |-
     msg.payload = msg.dictionary.option_notice.update_fail;
-
     msg.success = false;
-
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
-    'family') {
-        let is_empty = true;
-        // kernel.families
-        const families = global.get('kernel.families') || { };
-        for (const equipment in families) {
-            if (families[equipment] === msg.kernel.entity) {
-                is_empty = false;
-            }
-        }
-        // kernel.counters
-        const counters = global.get('kernel.counters') || { };
-        for (const counter in counters) {
-            if (counters[counter] === msg.kernel.entity) {
-                is_empty = false;
-            }
-        }
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'family') {
+        const family = msg.kernel.entity;
 
-        if (is_empty === true) {
+        // family with counters cannot be deleted
+        const counters = global.get('kernel.counters') || { };
+        if (Object.values(counters).includes(family)) {
+            msg.payload = msg.dictionary.option_notice.family_noempty || msg.dictionary.option_notice.update_fail;
+        } else {
+            // equipments of the family become without family
+            let removed = 0;
+            const families = global.get('kernel.families') || { };
+            for (const equipment in families) {
+                if (families[equipment] === family) {
+                    node.send([{
+                        'topic': '',
+                        'payload': '',
+                        'kernel': {
+                            'type': 'families',
+                            'entity': equipment,
+                            'value': '',
+                            'loop': false,
+                            'delete': true
+                        }
+                    }]);
+                    removed++;
+                }
+            }
+
             // kernel.family
             node.send([{
                 'topic': '',
                 'payload': '',
                 'kernel': {
                     'type': 'family',
-                    'entity': msg.kernel.entity,
+                    'entity': family,
                     'value': '',
                     'loop': false,
                     'delete': true
                 }
             }]);
 
-            msg.payload = msg.dictionary.option_notice.update_success;
+            msg.payload = removed > 0
+                ? (msg.dictionary.option_notice.family_removed || '%n equipment(s) without family').replace('%n', removed)
+                : msg.dictionary.option_notice.update_success;
             msg.success = true;
-        } else {
-            msg.payload = msg.dictionary.option_notice.family_noempty || msg.dictionary.option_notice.update_fail;
         }
     }
 
-
     delete msg.kernel;
-
 
     return msg;
   outputs: 1
@@ -6144,7 +6056,10 @@
                     'line_noempty': 'Line contains equipments',
                     'equipment_noempty': 'Equipment has components',
                     'device_noempty': 'Device is used by components',
-                    'family_noempty': 'Family is used by equipments or counters',
+                    'family_noempty': 'Family has maintenance counters',
+                    'plant_moved': 'Plant deleted, %n line(s) moved to reserved plant',
+                    'line_moved': 'Line deleted, %n equipment(s) moved to reserved line',
+                    'family_removed': 'Family deleted, %n equipment(s) now without family',
                     'plant_reserved': 'This plant is reserved for orphan lines, it cannot be deleted',
                     'line_reserved': 'This line is reserved for equipments without line, it cannot be deleted',
                     'family_exists': 'Family exists',
@@ -6308,7 +6223,10 @@
                     'line_noempty': 'Cette ligne contient des équipements',
                     'equipment_noempty': 'Cet équipement a des composants',
                     'device_noempty': 'Ce matériel est utilisé par des composants',
-                    'family_noempty': 'Cette famille est utilisée par des équipements ou des compteurs',
+                    'family_noempty': 'Cette famille a des compteurs de maintenance',
+                    'plant_moved': 'Usine supprimée, %n ligne(s) déplacée(s) vers l\'usine réservée',
+                    'line_moved': 'Ligne supprimée, %n équipement(s) déplacé(s) vers « Sans ligne »',
+                    'family_removed': 'Famille supprimée, %n équipement(s) désormais sans famille',
                     'plant_reserved': 'Cette usine est réservée aux lignes orphelines, elle ne peut pas être supprimée',
                     'line_reserved': 'Cette ligne est réservée aux équipements sans ligne, elle ne peut pas être supprimée',
                     'family_exists': 'Cette famille existe déjà',

@@ -1663,6 +1663,9 @@
         // Wait ui update
         msg = await node.linkcall('ui - latency', msg);
 
+        // Wait kernel loop (100 messages per second) to apply deletion cascade
+        await new Promise(resolve => setTimeout(resolve, 300));
+
         return msg;
     }
 
