@@ -5279,7 +5279,8 @@
   name: data
   func: |-
 
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    // Fallback must answer before linkcall timeout (5s)
+    await new Promise(resolve => setTimeout(resolve, 4000));
 
     return msg;
   outputs: 1
