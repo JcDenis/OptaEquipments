@@ -15274,8 +15274,16 @@
     }];
 
     csv.header.forEach((title, index) => {
+        let label = title !== '' ? title : '#' + (index + 1);
+
+        // Add first non empty value of the column as example
+        const row = (csv.rows || []).find(r => String(r[index] || '').trim() !== '');
+        if (row) {
+            label += ' (' + String(row[index]).trim() + ')';
+        }
+
         msg.options.push({
-            'label': title !== '' ? title : '#' + (index + 1),
+            'label': label,
             'value': String(index)
         });
     });
@@ -15384,8 +15392,16 @@
     }];
 
     csv.header.forEach((title, index) => {
+        let label = title !== '' ? title : '#' + (index + 1);
+
+        // Add first non empty value of the column as example
+        const row = (csv.rows || []).find(r => String(r[index] || '').trim() !== '');
+        if (row) {
+            label += ' (' + String(row[index]).trim() + ')';
+        }
+
         msg.options.push({
-            'label': title !== '' ? title : '#' + (index + 1),
+            'label': label,
             'value': String(index)
         });
     });
