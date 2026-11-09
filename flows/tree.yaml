@@ -319,6 +319,7 @@
     - 4bce8008fe79b7ce
     - 4d050dfae423336c
     - f4ace73ff45b1f0c
+    - f30b11f2d2ec0660
   x: 2624
   'y': 3499
   w: 1732
@@ -446,6 +447,7 @@
     - 66cd836b115c30bc
     - 84951e8e19873637
     - cb9fd1d3ef888a24
+    - 332002d1ff6409d7
   x: 2714
   'y': 731.5
   w: 872
@@ -660,6 +662,7 @@
     - 17705f575d8b26d2
     - 410c0e009272a75e
     - 860d6fe611db8e6f
+    - 14b8a395c965f90d
   x: 1394
   'y': 1819
   w: 862
@@ -2667,7 +2670,27 @@
       - 8d45202212d385b9
       - 5bb94e2c2cd79ac6
       - cb28ad66e7da1c26
-      - b47a452c3a323b37
+      - f30b11f2d2ec0660
+- id: f30b11f2d2ec0660
+  type: change
+  z: 64ce08af468b8197
+  g: 20722623c07d09d8
+  name: '- number'
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 2980
+  'y': 3600
+  wires:
+    - - b47a452c3a323b37
       - ce78931234e72d07
 - id: 1bd9c70a5be52bdc
   type: link in
@@ -4416,6 +4439,11 @@
         'label': msg.dictionary.option_select.input
     };
 
+    // Number input requires a number
+    if (!Number.isFinite(msg.payload)) {
+        msg.payload = -1;
+    }
+
     return msg;
   outputs: 1
   timeout: 0
@@ -4436,7 +4464,7 @@
     msg.ui_update = {
         'label': msg.dictionary.option_select.output
     };
-    msg.payload = msg.payload ? msg.payload : -1
+    msg.payload = Number.isFinite(msg.payload) ? msg.payload : -1;
 
     return msg;
   outputs: 1
@@ -5274,7 +5302,7 @@
   height: 0
   topic: topic
   topicType: msg
-  label: ''
+  label: Plan de l'usine
   icon: ''
   allowMultiple: false
   accept: ''
@@ -7148,16 +7176,36 @@
   wires:
     - - aabc10a887612c3b
       - 86cf981ef38c75e5
-      - 544d275e7cdce5c4
       - 149622c70b5c1c30
       - 0067742edaf2b787
       - 85fdc314a495d121
       - 1ce37a82f383fce9
       - f2c1584ee15beea4
-      - 7d3d3774efdf3e53
       - b64afadea5ed67ac
       - 34ffd115d9155b9c
       - 751359d8967d65cb
+      - 14b8a395c965f90d
+- id: 14b8a395c965f90d
+  type: change
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  name: '- number'
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1750
+  'y': 1920
+  wires:
+    - - 544d275e7cdce5c4
+      - 7d3d3774efdf3e53
 - id: ff4837447653ade8
   type: function
   z: 64ce08af468b8197
@@ -7448,6 +7496,11 @@
     msg.ui_update = {
         'label': msg.dictionary.tree.counter_hours || 'Number of hours'
     };
+
+    // Number input requires a number
+    if (!Number.isFinite(msg.payload)) {
+        msg.payload = 100;
+    }
 
     return msg;
   outputs: 1
@@ -8071,6 +8124,11 @@
     msg.ui_update = {
         'label': msg.dictionary.tree.counter_hours || 'Number of hours'
     };
+
+    // Number input requires a number
+    if (!Number.isFinite(msg.payload)) {
+        msg.payload = 100;
+    }
 
     return msg;
   outputs: 1
@@ -14500,8 +14558,28 @@
   'y': 780
   wires:
     - - d973896cabdc89e1
-      - 6ca53b431ccfbd51
       - 3f07a0ef93bef0ea
+      - 332002d1ff6409d7
+- id: 332002d1ff6409d7
+  type: change
+  z: 64ce08af468b8197
+  g: 2c0384adc9ef91fe
+  name: '- number'
+  rules:
+    - t: set
+      p: payload
+      pt: msg
+      to: '0'
+      tot: num
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 3160
+  'y': 780
+  wires:
+    - - 6ca53b431ccfbd51
 - id: 5a97ab34da5b6f74
   type: link in
   z: 64ce08af468b8197
@@ -15136,7 +15214,7 @@
   height: 0
   topic: topic
   topicType: msg
-  label: ''
+  label: Fichier CSV
   icon: ''
   allowMultiple: false
   accept: .csv

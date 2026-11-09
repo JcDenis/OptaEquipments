@@ -442,7 +442,8 @@
             "daacdcccbf69eacd",
             "4bce8008fe79b7ce",
             "4d050dfae423336c",
-            "f4ace73ff45b1f0c"
+            "f4ace73ff45b1f0c",
+            "f30b11f2d2ec0660"
         ],
         "x": 2624,
         "y": 3499,
@@ -1306,7 +1307,8 @@
             "523000e5afd4d5ae",
             "66cd836b115c30bc",
             "84951e8e19873637",
-            "cb9fd1d3ef888a24"
+            "cb9fd1d3ef888a24",
+            "332002d1ff6409d7"
         ],
         "x": 2714,
         "y": 731.5,
@@ -2518,7 +2520,8 @@
             "751359d8967d65cb",
             "17705f575d8b26d2",
             "410c0e009272a75e",
-            "860d6fe611db8e6f"
+            "860d6fe611db8e6f",
+            "14b8a395c965f90d"
         ],
         "x": 1394,
         "y": 1819,
@@ -5422,7 +5425,7 @@
         "width": 0,
         "height": 0,
         "head": "",
-        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"oe_page.id\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"oe_page.title\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"oe_page.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false,\n                oe_buttons: [],\n                oe_page: {\n                    id: 'none',\n                    title: '',\n                    lang: 'en',\n                    vendor: 'none',\n                    header: 'none'\n                }\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            this.mounted = true;\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                if (typeof msg.page_data !== 'object' || msg.page_data.title === '') {\n\n                    return;\n                }\n\n                this.oe_page = { ...msg.page_data };\n\n                document.documentElement.setAttribute(\"lang\", this.oe_page.lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = this.oe_page.header + ' - ' + this.oe_page.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#oe-header\">\n        <v-toolbar class=\"oe-nav\"> \n        <v-btn-toggle v-model=\"oe_page.id\" color=\"primary\" variant=\"outlined\" divided mandatory>\n            <v-btn v-for=\"btn in oe_buttons\" :value=\"btn.id\" :icon=\"btn.icon\" :title=\"btn.title\" @click=\"oe_nav(btn)\"></v-btn>\n        </v-btn-toggle>\n        <v-toolbar-title :text=\"oe_page.title\"></v-toolbar-title>\n        </v-toolbar>\n    </Teleport>\n    \n    <Teleport v-if=\"mounted\" to=\"main\">\n        <v-btn class=\"oe-vendor\" href=\"https://github.com/JcDenis/OptaEquipments\"><img height=\"32px\" src=\"/icon.png\" :title=\"oe_page.vendor\"></img></v-btn>\n    </Teleport>\n</template>\n\n<script>\n    export default {\n        data() {\n            return {\n                mounted: false,\n                oe_buttons: [],\n                oe_page: {\n                    id: 'none',\n                    title: '',\n                    lang: 'en',\n                    vendor: 'none',\n                    header: 'none'\n                }\n            }\n        },\n        mounted() {\n            // Default lang\n            const blang = navigator.language || navigator.userLanguage;\n            this.send(blang);\n\n            // Navigation bar\n            if (!document.querySelector(\"#oe-header\")) {\n                let div = document.createElement(\"div\");\n                div.id=\"oe-header\";\n                const el = document.body.querySelector(\"#app\").prepend(div);\n            }\n    \n            this.mounted = true;\n\n            // Widgets states (visibility, labels, options) are lost on socket reconnection\n            // and the new socket has no form memory, so reload the page to rebuild it\n            this.$socket.on('connect', () => {\n                window.location.reload();\n            });\n        },\n        methods: {\n            oe_nav: function (btn) {\n                this.send(btn.id)\n            }\n        },\n        watch: {\n            msg: function (msg) {\n                if (typeof msg.page_data !== 'object' || msg.page_data.title === '') {\n\n                    return;\n                }\n\n                this.oe_page = { ...msg.page_data };\n\n                document.documentElement.setAttribute(\"lang\", this.oe_page.lang);\n                document.documentElement.setAttribute(\"translate\", \"no\");\n                document.title = this.oe_page.header + ' - ' + this.oe_page.title;\n\n                // Populate menu\n                if (Array.isArray(msg.buttons)) {\n                    this.oe_buttons = msg.buttons\n                }\n            }\n        }\n    }\n\n</script>",
         "noerr": 0,
         "storeOutMessages": true,
         "passthru": false,
@@ -9761,7 +9764,7 @@
         "z": "adb9fbf379118d77",
         "g": "6083e6018629a109",
         "name": "data",
-        "func": "// No options\nif (!Array.isArray(msg.options)) {\n\n    // UI notice\n    msg.notice = msg.dictionary.common_notice_no_option || 'No options';\n    msg = await node.linkcall('ui - notice', msg);\n\n    // Set a default option\n    msg.options = [\n        {\n            'label': msg.payload,\n            'value':' '\n        }\n    ];\n    msg.payload = '';\n    msg.enabled = 'false;'\n} else {\n    // Sort options on demand\n    if (typeof msg.nosort !== 'boolean' || msg.nosort === false) {\n        msg.options.sort((a, b) => a.label.localeCompare(b.label));\n    }\n}\n\n// Selected option\nif (msg.payload === '') {\n    msg.payload = msg.options[0]['value'] || '';\n}\n\nreturn msg;",
+        "func": "// No options\nif (!Array.isArray(msg.options)) {\n\n    // UI notice\n    msg.notice = msg.dictionary.common_notice_no_option || 'No options';\n    msg = await node.linkcall('ui - notice', msg);\n\n    // Set a default option\n    msg.options = [\n        {\n            'label': msg.payload,\n            'value':' '\n        }\n    ];\n    msg.payload = '';\n    msg.enabled = false;\n} else {\n    // Sort options on demand\n    if (typeof msg.nosort !== 'boolean' || msg.nosort === false) {\n        msg.options.sort((a, b) => a.label.localeCompare(b.label));\n    }\n}\n\n// Selected option\nif (msg.payload === '') {\n    msg.payload = msg.options[0]['value'] || '';\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -27469,6 +27472,34 @@
                 "8d45202212d385b9",
                 "5bb94e2c2cd79ac6",
                 "cb28ad66e7da1c26",
+                "f30b11f2d2ec0660"
+            ]
+        ]
+    },
+    {
+        "id": "f30b11f2d2ec0660",
+        "type": "change",
+        "z": "64ce08af468b8197",
+        "g": "20722623c07d09d8",
+        "name": "- number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2980,
+        "y": 3600,
+        "wires": [
+            [
                 "b47a452c3a323b37",
                 "ce78931234e72d07"
             ]
@@ -29393,7 +29424,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "label",
-        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.input\n};\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.input\n};\n\n// Number input requires a number\nif (!Number.isFinite(msg.payload)) {\n    msg.payload = -1;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -29414,7 +29445,7 @@
         "z": "64ce08af468b8197",
         "g": "20722623c07d09d8",
         "name": "label",
-        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.output\n};\nmsg.payload = msg.payload ? msg.payload : -1\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.output\n};\nmsg.payload = Number.isFinite(msg.payload) ? msg.payload : -1;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -30109,7 +30140,7 @@
         "height": 0,
         "topic": "topic",
         "topicType": "msg",
-        "label": "",
+        "label": "Plan de l'usine",
         "icon": "",
         "allowMultiple": false,
         "accept": "",
@@ -31696,16 +31727,44 @@
             [
                 "aabc10a887612c3b",
                 "86cf981ef38c75e5",
-                "544d275e7cdce5c4",
                 "149622c70b5c1c30",
                 "0067742edaf2b787",
                 "85fdc314a495d121",
                 "1ce37a82f383fce9",
                 "f2c1584ee15beea4",
-                "7d3d3774efdf3e53",
                 "b64afadea5ed67ac",
                 "34ffd115d9155b9c",
-                "751359d8967d65cb"
+                "751359d8967d65cb",
+                "14b8a395c965f90d"
+            ]
+        ]
+    },
+    {
+        "id": "14b8a395c965f90d",
+        "type": "change",
+        "z": "64ce08af468b8197",
+        "g": "bb18e6a5e2a71ba1",
+        "name": "- number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1750,
+        "y": 1920,
+        "wires": [
+            [
+                "544d275e7cdce5c4",
+                "7d3d3774efdf3e53"
             ]
         ]
     },
@@ -31918,7 +31977,7 @@
         "z": "64ce08af468b8197",
         "g": "bb18e6a5e2a71ba1",
         "name": "label",
-        "func": "msg.ui_update = {\n    'label': msg.dictionary.tree.counter_hours || 'Number of hours'\n};\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.tree.counter_hours || 'Number of hours'\n};\n\n// Number input requires a number\nif (!Number.isFinite(msg.payload)) {\n    msg.payload = 100;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -32412,7 +32471,7 @@
         "z": "64ce08af468b8197",
         "g": "bb18e6a5e2a71ba1",
         "name": "label",
-        "func": "msg.ui_update = {\n    'label': msg.dictionary.tree.counter_hours || 'Number of hours'\n};\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.tree.counter_hours || 'Number of hours'\n};\n\n// Number input requires a number\nif (!Number.isFinite(msg.payload)) {\n    msg.payload = 100;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -36389,8 +36448,36 @@
         "wires": [
             [
                 "d973896cabdc89e1",
-                "6ca53b431ccfbd51",
-                "3f07a0ef93bef0ea"
+                "3f07a0ef93bef0ea",
+                "332002d1ff6409d7"
+            ]
+        ]
+    },
+    {
+        "id": "332002d1ff6409d7",
+        "type": "change",
+        "z": "64ce08af468b8197",
+        "g": "2c0384adc9ef91fe",
+        "name": "- number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3160,
+        "y": 780,
+        "wires": [
+            [
+                "6ca53b431ccfbd51"
             ]
         ]
     },
@@ -37058,7 +37145,7 @@
         "height": 0,
         "topic": "topic",
         "topicType": "msg",
-        "label": "",
+        "label": "Fichier CSV",
         "icon": "",
         "allowMultiple": false,
         "accept": ".csv",

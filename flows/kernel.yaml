@@ -1261,6 +1261,12 @@
                 }
         
                 this.mounted = true;
+
+                // Widgets states (visibility, labels, options) are lost on socket reconnection
+                // and the new socket has no form memory, so reload the page to rebuild it
+                this.$socket.on('connect', () => {
+                    window.location.reload();
+                });
             },
             methods: {
                 oe_nav: function (btn) {
