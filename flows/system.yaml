@@ -407,6 +407,7 @@
     - c344b98bc4ee57db
     - dd8ce7e8d8c17c91
     - eba6e18370fbfe76
+    - 505480cb0e3079f8
   x: 755
   'y': 180
   wires: []
@@ -475,6 +476,7 @@
     msg.payload = '';
     msg.class = '';
     msg.enabled = true;
+    msg.selected = selected;
     delete msg.ui_update;
 
     return msg;
@@ -1161,6 +1163,10 @@
         'ota': {
             'group': 'ui - group - system - opta',
             'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'
+        },
+        'orphan': {
+            'group': 'ui - group - system - orphans',
+            'label': (msg.dictionary.system || { }).menu_orphan || 'Orphans'
         }
     };
 
@@ -1708,7 +1714,19 @@
         'fr': {
             'menu_app': 'Application',
             'menu_tree': 'Arborescence',
-            'menu_ota': 'Firmware OPTA'
+            'menu_ota': 'Firmware OPTA',
+            'menu_orphan': 'Orphelins',
+            'orphan_link': "Composant d'un équipement inconnu",
+            'orphan_component': "Valeur d'un composant inconnu",
+            'orphan_line': "Réglage d'une ligne inconnue",
+            'orphan_plant': "Réglage d'une usine inconnue",
+            'orphan_device': "Chien de garde d'un matériel inconnu",
+            'orphan_counter': "Compteur d'une famille inconnue",
+            'orphan_meter': "Valeur de compteur d'un équipement ou d'un compteur inconnu",
+            'orphan_families': "Famille d'un équipement inconnu, ou famille inconnue",
+            'orphan_clean': 'Tout nettoyer',
+            'orphan_none': 'Aucun élément orphelin',
+            'orphan_cleaned': '%n élément(s) orphelin(s) supprimé(s)'
         }
     };
 
@@ -1758,3 +1776,481 @@
   'y': 1380
   wires:
     - - 301bb73805b7e405
+- id: 9b721894958e4019
+  type: group
+  z: 44465f18e06bb58d
+  name: system - orphan
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 505480cb0e3079f8
+    - 31bfab192e2ed76c
+    - 5b5e9a2220b1b062
+    - d6730a00d39b815a
+    - e808b2d0f038606b
+    - 4e2673a49fda749b
+    - 3524ea127575a179
+    - 7d204be423155f87
+    - f115ea35c799ae8a
+    - fcbf5b7adea30d86
+    - 9fc7fa689859e74b
+    - 6fe4fe933a866620
+  x: 104
+  'y': 1699
+  w: 1102
+  h: 322
+- id: 505480cb0e3079f8
+  type: link in
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: system - orphan
+  links:
+    - 0c83fe1f9690e061
+    - f115ea35c799ae8a
+  x: 145
+  'y': 1740
+  wires:
+    - - 31bfab192e2ed76c
+- id: 31bfab192e2ed76c
+  type: function
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: data
+  func: |-
+    // Orphans section
+
+    const hide = (payload) => ({ ...msg, 'payload': payload, 'class': 'remove', 'enabled': false });
+
+    if (msg.enabled !== true || msg.selected !== 'orphan') {
+
+        return [hide([]), hide([]), hide('')];
+    }
+
+    msg = await node.linkcall('system - orphan - list', msg);
+
+    const rows = msg.orphans.map(row => ({ ...row, 'delete': msg.dictionary.option_action.delete || 'Delete' }));
+    delete msg.orphans;
+
+    if (rows.length === 0) {
+        msg.notice = (msg.dictionary.system || { }).orphan_none || 'No orphan';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return [hide([]), hide([]), hide('')];
+    }
+
+    let table = { ...msg, 'payload': rows, 'class': '', 'enabled': true };
+    let button = { ...msg, 'payload': '', 'class': '', 'enabled': true };
+    button.ui_update = {
+        'label': ((msg.dictionary.system || { }).orphan_clean || 'Clean all') + ' (' + rows.length + ')'
+    };
+
+    if (msg.hmi.lang === 'fr') {
+
+        return [table, hide([]), button];
+    }
+
+    return [hide([]), table, button];
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 1740
+  wires:
+    - - 5b5e9a2220b1b062
+    - - d6730a00d39b815a
+    - - e808b2d0f038606b
+- id: 5b5e9a2220b1b062
+  type: ui-table
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  group: 930925a398ab9d53
+  name: system - orphan - table - fr
+  label: ''
+  order: 2
+  width: 0
+  height: 0
+  maxrows: '20'
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Type
+      key: type
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Entité
+      key: entity
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Raison
+      key: reason
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 600
+  'y': 1740
+  wires:
+    - - 4e2673a49fda749b
+- id: d6730a00d39b815a
+  type: ui-table
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  group: 930925a398ab9d53
+  name: system - orphan - table - en
+  label: ''
+  order: 3
+  width: 0
+  height: 0
+  maxrows: '20'
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Type
+      key: type
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Entity
+      key: entity
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Reason
+      key: reason
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 600
+  'y': 1800
+  wires:
+    - - 4e2673a49fda749b
+- id: e808b2d0f038606b
+  type: ui-button
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  group: 930925a398ab9d53
+  name: system - orphan - clean
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 600
+  'y': 1860
+  wires:
+    - - 3524ea127575a179
+- id: 4e2673a49fda749b
+  type: function
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: delete
+  func: |-
+    // Delete one orphan
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check user right
+    if (!['admin'].includes(msg.hmi.level) || msg.action !== 'button_click' || msg.column !== 'delete') {
+
+        return;
+    }
+
+    node.send([{
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': msg.payload.type,
+            'entity': msg.payload.entity,
+            'value': '',
+            'loop': false,
+            'delete': true
+        }
+    }, null]);
+
+    // Wait kernel and ui update, then refresh list
+    msg = await node.linkcall('ui - latency', msg);
+
+    delete msg.action;
+    delete msg.column;
+    msg.payload = '';
+    msg.selected = 'orphan';
+    msg.enabled = true;
+
+    return [null, msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 850
+  'y': 1770
+  wires:
+    - - 7d204be423155f87
+    - - f115ea35c799ae8a
+- id: 3524ea127575a179
+  type: function
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: clean
+  func: |-
+    // Delete all orphans
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check user right
+    if (!['admin'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+    msg = await node.linkcall('system - orphan - list', msg);
+
+    for (const row of msg.orphans) {
+        node.send([{
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': row.type,
+                'entity': row.entity,
+                'value': '',
+                'loop': false,
+                'delete': true
+            }
+        }, null]);
+    }
+
+    // Kernel loop handles 100 messages per second
+    const count = msg.orphans.length;
+    await new Promise(resolve => setTimeout(resolve, Math.min(4000, count * 12 + 200)));
+
+    msg.notice = ((msg.dictionary.system || { }).orphan_cleaned || '%n deleted').replace('%n', count);
+    delete msg.orphans;
+    msg = await node.linkcall('ui - notice', msg);
+
+    // Wait kernel and ui update, then refresh list
+    msg = await node.linkcall('ui - latency', msg);
+
+    msg.payload = '';
+    msg.selected = 'orphan';
+    msg.enabled = true;
+
+    return [null, msg];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 850
+  'y': 1860
+  wires:
+    - - 7d204be423155f87
+    - - f115ea35c799ae8a
+- id: 7d204be423155f87
+  type: link out
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: system - orphan - kernel
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 1095
+  'y': 1800
+  wires: []
+- id: f115ea35c799ae8a
+  type: link out
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: system - orphan - loop
+  mode: link
+  links:
+    - 505480cb0e3079f8
+  x: 1095
+  'y': 1740
+  wires: []
+- id: fcbf5b7adea30d86
+  type: link in
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: system - orphan - list
+  links: []
+  x: 145
+  'y': 1960
+  wires:
+    - - 9fc7fa689859e74b
+- id: 9fc7fa689859e74b
+  type: function
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: list
+  func: |-
+    // List orphan kernel entries (other than lines and equipments, see kernel - noline)
+
+    const kernel = global.get('kernel') || { };
+    const has = (type, entity) => Object.prototype.hasOwnProperty.call(kernel[type] || { }, entity);
+    const text = (key, def) => (msg.dictionary.system || { })[key] || def;
+
+    let rows = [];
+    const add = (type, entity, reason) => rows.push({ 'type': type, 'entity': entity, 'reason': reason });
+
+    // Components of an unknown equipment (and so their values)
+    let deadLinks = { };
+    for (const link in (kernel.link || { })) {
+        if (!has('equipment', link.split('|')[0])) {
+            add('link', link, text('orphan_link', 'Component of an unknown equipment'));
+            deadLinks[link] = true;
+        }
+    }
+    for (const type of ['state', 'reverse', 'alert']) {
+        for (const entity in (kernel[type] || { })) {
+            if (!has('link', entity) || deadLinks[entity] === true) {
+                add(type, entity, text('orphan_component', 'Value of an unknown component'));
+            }
+        }
+    }
+
+    // Settings of an unknown line
+    for (const type of ['period', 'disabled', 'location']) {
+        for (const entity in (kernel[type] || { })) {
+            if (!has('line', entity)) {
+                add(type, entity, text('orphan_line', 'Setting of an unknown line'));
+            }
+        }
+    }
+
+    // Settings of an unknown plant
+    for (const type of ['map', 'tz', 'day', 'holiday']) {
+        for (const entity in (kernel[type] || { })) {
+            if (!has('plant', entity)) {
+                add(type, entity, text('orphan_plant', 'Setting of an unknown plant'));
+            }
+        }
+    }
+    for (const entity in (kernel.team || { })) {
+        if (!has('plant', entity.split('|')[0])) {
+            add('team', entity, text('orphan_plant', 'Setting of an unknown plant'));
+        }
+    }
+
+    // Watchdogs of an unknown device
+    for (const entity in (kernel.watchdog || { })) {
+        if (!has('device', entity)) {
+            add('watchdog', entity, text('orphan_device', 'Watchdog of an unknown device'));
+        }
+    }
+
+    // Counters of an unknown family, or incomplete counters
+    let deadCounters = { };
+    for (const counter in (kernel.counters || { })) {
+        if (!has('family', kernel.counters[counter]) || !has('counter', counter)) {
+            add('counters', counter, text('orphan_counter', 'Counter of an unknown family'));
+            deadCounters[counter] = true;
+        }
+    }
+    for (const counter in (kernel.counter || { })) {
+        if (!has('counters', counter) || deadCounters[counter] === true) {
+            add('counter', counter, text('orphan_counter', 'Counter of an unknown family'));
+            deadCounters[counter] = true;
+        }
+    }
+
+    // Meters of an unknown equipment or counter
+    for (const entity in (kernel.meter || { })) {
+        const msplit = entity.split('|');
+        if (!has('equipment', msplit[0]) || !has('counter', msplit[1]) || deadCounters[msplit[1]] === true) {
+            add('meter', entity, text('orphan_meter', 'Meter of an unknown equipment or counter'));
+        }
+    }
+
+    // Family of an unknown equipment, or unknown family
+    for (const entity in (kernel.families || { })) {
+        if (!has('equipment', entity) || !has('family', kernel.families[entity])) {
+            add('families', entity, text('orphan_families', 'Family of an unknown equipment, or unknown family'));
+        }
+    }
+
+    rows.sort((a, b) => (a.type + '|' + a.entity).localeCompare(b.type + '|' + b.entity));
+    msg.orphans = rows;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 1960
+  wires:
+    - - 6fe4fe933a866620
+- id: 6fe4fe933a866620
+  type: link out
+  z: 44465f18e06bb58d
+  g: 9b721894958e4019
+  name: system - orphan - list
+  mode: return
+  links: []
+  x: 495
+  'y': 1960
+  wires: []

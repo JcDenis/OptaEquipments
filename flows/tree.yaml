@@ -3275,6 +3275,30 @@
         };
         node.send([null, tzMsg]);
 
+        // reserved line for equipments without line
+        msg.noline_plant = form.id;
+        msg = await node.linkcall('kernel - noline', msg);
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'line',
+                'entity': msg.noline.lines[form.id],
+                'value': 'Sans ligne',
+                'loop': false
+            }
+        }]);
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'lines',
+                'entity': msg.noline.lines[form.id],
+                'value': form.id,
+                'loop': false
+            }
+        }]);
+
         // UI notice
         msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
         msg = await node.linkcall('ui - notice', msg);

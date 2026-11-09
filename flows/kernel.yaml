@@ -671,6 +671,8 @@
     - 134aaabd84080c78
     - 910fcd1dc9c36741
     - 377212556c27659a
+    - 178e115dbc98ccd8
+    - 7d204be423155f87
   x: 145
   'y': 680
   wires:
@@ -738,6 +740,7 @@
     - 61872228c92c7235
     - 1d8d13781c0d578e
     - 83e01cd921e3fdd4
+    - 45596f4f396f8130
   x: 475
   'y': 440
   wires: []
@@ -1118,6 +1121,7 @@
     - e2fa90f82ccf222d
     - 030a2f2eac3f5f35
     - 2314d737e13a181c
+    - 45596f4f396f8130
   x: 335
   'y': 200
   wires: []
@@ -3097,13 +3101,27 @@
     if (msg.hmi.level !== 'admin') {
         msg.payload = msg.dictionary.option_notice.level_fail;
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {
+        // reserved plant and line
+        msg.noline_plant = msg.kernel.entity;
+        msg = await node.linkcall('kernel - noline', msg);
+        const noline = msg.noline.lines[msg.kernel.entity];
+
         let is_empty = true;
-        // kernel.lines
+        // kernel.lines (reserved line of the plant does not count)
         const lines = global.get('kernel.lines');
         for (const line in lines) {
-            if (lines[line] === msg.kernel.entity) {
+            if (lines[line] === msg.kernel.entity && line !== noline) {
                 is_empty = false;
             }
+        }
+        // but reserved line must be empty
+        if (Object.values(global.get('kernel.equipments') || { }).includes(noline)) {
+            is_empty = false;
+        }
+
+        if (msg.kernel.entity === msg.noline.plant) {
+            is_empty = false;
+            msg.reserved = true;
         }
 
         if (is_empty === true) {
@@ -3178,11 +3196,31 @@
                 }
             }
 
+            // reserved line of the plant
+            for (const type of ['lines', 'line', 'location', 'period', 'disabled']) {
+                node.send([{
+                    'topic': '',
+                    'payload': '',
+                    'kernel': {
+                        'type': type,
+                        'entity': noline,
+                        'value': '',
+                        'loop': false,
+                        'delete': true
+                    }
+                }]);
+            }
+
             msg.payload = msg.dictionary.option_notice.update_success;
             msg.success = true;
+        } else if (msg.reserved === true) {
+            msg.payload = msg.dictionary.option_notice.plant_reserved || msg.dictionary.option_notice.update_fail;
         } else {
             msg.payload = msg.dictionary.option_notice.plant_noempty || msg.dictionary.option_notice.update_fail;
         }
+
+        delete msg.noline;
+        delete msg.reserved;
     }
 
     delete msg.kernel;
@@ -3247,7 +3285,12 @@
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
     } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {
-        let is_empty = true;
+        // reserved lines
+        msg = await node.linkcall('kernel - noline', msg);
+        const reserved = Object.values(msg.noline.lines).includes(msg.kernel.entity);
+        delete msg.noline;
+
+        let is_empty = !reserved;
         // kernel.lines
         const equipments = global.get('kernel.equipments');
         for (const equipment in equipments) {
@@ -3334,6 +3377,8 @@
 
             msg.payload = msg.dictionary.option_notice.update_success;
             msg.success = true;
+        } else if (reserved) {
+            msg.payload = msg.dictionary.option_notice.line_reserved || msg.dictionary.option_notice.update_fail;
         } else {
             msg.payload = msg.dictionary.option_notice.line_noempty || msg.dictionary.option_notice.update_fail;
         }
@@ -6100,6 +6145,8 @@
                     'equipment_noempty': 'Equipment has components',
                     'device_noempty': 'Device is used by components',
                     'family_noempty': 'Family is used by equipments or counters',
+                    'plant_reserved': 'This plant is reserved for orphan lines, it cannot be deleted',
+                    'line_reserved': 'This line is reserved for equipments without line, it cannot be deleted',
                     'family_exists': 'Family exists',
                     'ident_fail': 'Invalid identifier',
                     'counter_exists': 'Counter exists',
@@ -6262,6 +6309,8 @@
                     'equipment_noempty': 'Cet équipement a des composants',
                     'device_noempty': 'Ce matériel est utilisé par des composants',
                     'family_noempty': 'Cette famille est utilisée par des équipements ou des compteurs',
+                    'plant_reserved': 'Cette usine est réservée aux lignes orphelines, elle ne peut pas être supprimée',
+                    'line_reserved': 'Cette ligne est réservée aux équipements sans ligne, elle ne peut pas être supprimée',
                     'family_exists': 'Cette famille existe déjà',
                     'ident_fail': 'Identifiant invalide',
                     'counter_exists': 'Ce compteur existe déjà',
@@ -6374,4 +6423,201 @@
     - 00818f8c0686b556
   x: 395
   'y': 3560
+  wires: []
+- id: 5b51a1eef43d09f0
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - noline
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - d8fbc51e570cb5ed
+    - 42be665f2c13aa52
+    - 2f0b5a80949c835c
+    - 45596f4f396f8130
+    - ac6469339128acd9
+    - 178e115dbc98ccd8
+  x: 104
+  'y': 4967
+  w: 700
+  h: 142
+- id: d8fbc51e570cb5ed
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 5b51a1eef43d09f0
+  name: kernel - noline
+  links: []
+  x: 145
+  'y': 5008
+  wires:
+    - - 42be665f2c13aa52
+- id: 42be665f2c13aa52
+  type: function
+  z: f6f2187d.f17ca8
+  g: 5b51a1eef43d09f0
+  name: data
+  func: |-
+    // Reserved plant and lines for orphan lines and equipments
+
+    const noplant = 'S99';
+    // Reserved line of a plant: S05 => L05L0000, other => <plant>-L0000
+    const nolineOf = (plant) => /^S\d+$/.test(plant) ? 'L' + plant.slice(1) + 'L0000' : plant + '-L0000';
+
+    let plants = Object.keys(global.get('kernel.plant') || { });
+    plants.push(noplant);
+    if (typeof msg.noline_plant === 'string' && msg.noline_plant !== '') {
+        plants.push(msg.noline_plant);
+    }
+
+    msg.noline = {
+        'plant': noplant,
+        'lines': { }
+    };
+    for (const plant of plants) {
+        msg.noline.lines[plant] = nolineOf(plant);
+    }
+
+    delete msg.noline_plant;
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 5008
+  wires:
+    - - 2f0b5a80949c835c
+- id: 2f0b5a80949c835c
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 5b51a1eef43d09f0
+  name: kernel - noline
+  mode: return
+  links: []
+  x: 495
+  'y': 5008
+  wires: []
+- id: 45596f4f396f8130
+  type: link in
+  z: f6f2187d.f17ca8
+  g: 5b51a1eef43d09f0
+  name: kernel - noline - check
+  links:
+    - 575b91a30deac00d
+    - 9d694324cf6b8842
+  x: 145
+  'y': 5068
+  wires:
+    - - ac6469339128acd9
+- id: ac6469339128acd9
+  type: function
+  z: f6f2187d.f17ca8
+  g: 5b51a1eef43d09f0
+  name: check
+  func: |-
+    // Create reserved plant and lines, and attach orphan lines and equipments to them
+
+    msg = await node.linkcall('kernel - noline', msg);
+
+    const kernel = global.get('kernel') || { };
+    const plants = kernel.plant || { };
+    const tzs = kernel.tz || { };
+    const lines = kernel.line || { };
+    const linePlants = kernel.lines || { };
+    const equipments = kernel.equipment || { };
+    const equipmentLines = kernel.equipments || { };
+    const noplant = msg.noline.plant;
+    const reserved = Object.values(msg.noline.lines);
+
+    let count = 0;
+    const send = (type, entity, value) => {
+        count++;
+        node.send({
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': type,
+                'entity': entity,
+                'value': value,
+                'loop': false
+            }
+        });
+    };
+
+    // Reserved plant
+    if (typeof plants[noplant] !== 'string') {
+        send('plant', noplant, 'Sans usine');
+    }
+    if (typeof tzs[noplant] !== 'string') {
+        send('tz', noplant, Object.values(tzs)[0] || 'Europe/Paris');
+    }
+
+    // Reserved line of each plant
+    for (const plant in msg.noline.lines) {
+        const line = msg.noline.lines[plant];
+        if (typeof lines[line] !== 'string') {
+            send('line', line, 'Sans ligne');
+        }
+        if (linePlants[line] !== plant) {
+            send('lines', line, plant);
+        }
+    }
+
+    // Lines without plant or with an unknown plant
+    for (const line in lines) {
+        if (!reserved.includes(line) && typeof plants[linePlants[line]] !== 'string') {
+            send('lines', line, noplant);
+        }
+    }
+    // Lines attached to a plant but without name
+    for (const line in linePlants) {
+        if (typeof lines[line] !== 'string') {
+            send('line', line, line);
+        }
+    }
+
+    // Equipments without line or with an unknown line
+    for (const equipment in equipments) {
+        if (typeof lines[equipmentLines[equipment]] !== 'string' && !reserved.includes(equipmentLines[equipment])) {
+            send('equipments', equipment, msg.noline.lines[noplant]);
+        }
+    }
+    // Equipments attached to a line but without name
+    for (const equipment in equipmentLines) {
+        if (typeof equipments[equipment] !== 'string') {
+            send('equipment', equipment, equipment);
+        }
+    }
+
+    node.status({
+        'fill': count > 0 ? 'yellow' : 'green',
+        'text': count + ' update(s) - ' + new Date().toLocaleTimeString()
+    });
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 5068
+  wires:
+    - - 178e115dbc98ccd8
+- id: 178e115dbc98ccd8
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 5b51a1eef43d09f0
+  name: kernel - noline - check
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 655
+  'y': 5068
   wires: []
