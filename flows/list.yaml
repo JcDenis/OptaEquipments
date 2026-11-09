@@ -2379,7 +2379,22 @@
         'label': ''//msg.dictionary.option_select.list
     };
 
-    return [ null, msg ];
+    // Keep previously selected list and refresh it for the new plant
+    const list = global.get('form["' + msg.hmi.id + '"]["list"]') || '';
+    msg.payload = list;
+    node.send([ null, msg ]);
+
+    if (list !== '') {
+        msg.list = list;
+        msg.payload = '';
+        msg.class = 'remove';
+        msg.enabled = false;
+        delete msg.ui_update;
+
+        return [ msg, null ];
+    }
+
+    return;
   outputs: 2
   timeout: 0
   noerr: 0
@@ -2404,6 +2419,9 @@
 
     // Get user from UI element
     msg = await node.linkcall('kernel - hmi', msg);
+
+    // Remember selected list to keep it on plant change
+    global.set('form["' + msg.hmi.id + '"]["list"]', msg.list);
 
     return msg;
   outputs: 1
