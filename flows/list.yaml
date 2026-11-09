@@ -32,7 +32,6 @@
     fill-opacity: '0.05'
     label: true
   nodes:
-    - 408a810a7266e6fe
     - 1b3e234bed8047a0
     - d6b390ca9da4bedf
     - cd2737f508858dca
@@ -40,6 +39,7 @@
     - 5fb8b8994d1a5691
     - 05107d400a502297
     - 9f1b6bdcf4adfae1
+    - 1abc627f86d245a6
   x: 104
   'y': 379
   w: 1292
@@ -193,32 +193,6 @@
   'y': 1999
   w: 752
   h: 209.5
-- id: 408a810a7266e6fe
-  type: ui-dropdown
-  z: e97c6f12735a13c1
-  g: 1c2d5f046ccecc9d
-  group: c605809a8fe63a3b
-  name: list - select - type
-  label: ''
-  tooltip: ''
-  order: 2
-  width: 0
-  height: 0
-  passthru: false
-  multiple: false
-  chips: false
-  clearable: false
-  options: []
-  payload: ''
-  topic: topic
-  topicType: msg
-  className: ''
-  typeIsComboBox: true
-  msgTrigger: onChange
-  x: 1030
-  'y': 480
-  wires:
-    - - 5fb8b8994d1a5691
 - id: 1b3e234bed8047a0
   type: link out
   z: e97c6f12735a13c1
@@ -256,7 +230,7 @@
   group: c605809a8fe63a3b
   name: list - equipment - table - fr
   label: ''
-  order: 5
+  order: 4
   width: 0
   height: 0
   maxrows: '50'
@@ -323,7 +297,7 @@
   group: c605809a8fe63a3b
   name: list - device - table - fr
   label: ''
-  order: 11
+  order: 10
   width: 0
   height: 0
   maxrows: '50'
@@ -396,7 +370,7 @@
   group: c605809a8fe63a3b
   name: list - component - table - fr
   label: ''
-  order: 13
+  order: 12
   width: 0
   height: 0
   maxrows: '50'
@@ -488,7 +462,7 @@
   group: c605809a8fe63a3b
   name: list - alert - table - fr
   label: ''
-  order: 7
+  order: 6
   width: 0
   height: 0
   maxrows: '50'
@@ -627,7 +601,7 @@
   group: c605809a8fe63a3b
   name: list - line - table - fr
   label: ''
-  order: 3
+  order: 2
   width: 0
   height: 0
   maxrows: '50'
@@ -691,7 +665,7 @@
   z: e97c6f12735a13c1
   g: ac0595b45d9786aa
   group: c605809a8fe63a3b
-  order: 17
+  order: 16
   width: 0
   height: 0
   name: list - total
@@ -716,7 +690,7 @@
   group: c605809a8fe63a3b
   name: list - line - table - en
   label: ''
-  order: 4
+  order: 3
   width: 0
   height: 0
   maxrows: '50'
@@ -759,7 +733,7 @@
   group: c605809a8fe63a3b
   name: list - equipment - table - en
   label: ''
-  order: 6
+  order: 5
   width: 0
   height: 0
   maxrows: '50'
@@ -814,7 +788,7 @@
   group: c605809a8fe63a3b
   name: list - device - table - en
   label: ''
-  order: 12
+  order: 11
   width: 0
   height: 0
   maxrows: '50'
@@ -875,7 +849,7 @@
   group: c605809a8fe63a3b
   name: list - component - table - en
   label: ''
-  order: 14
+  order: 13
   width: 0
   height: 0
   maxrows: '50'
@@ -943,7 +917,7 @@
   group: c605809a8fe63a3b
   name: list - alert - table - en
   label: ''
-  order: 8
+  order: 7
   width: 0
   height: 0
   maxrows: '50'
@@ -1923,7 +1897,7 @@
   group: c605809a8fe63a3b
   name: list - holiday - table - fr
   label: ''
-  order: 15
+  order: 14
   width: 0
   height: 0
   maxrows: '0'
@@ -1966,7 +1940,7 @@
   group: c605809a8fe63a3b
   name: list - holiday - table - en
   label: ''
-  order: 16
+  order: 15
   width: 0
   height: 0
   maxrows: 0
@@ -2165,7 +2139,7 @@
   group: c605809a8fe63a3b
   name: list - counter - table - fr
   label: ''
-  order: 9
+  order: 8
   width: 0
   height: 0
   maxrows: '50'
@@ -2276,7 +2250,7 @@
   group: c605809a8fe63a3b
   name: list - counter - table - en
   label: ''
-  order: 10
+  order: 9
   width: 0
   height: 0
   maxrows: '50'
@@ -2371,40 +2345,39 @@
     msg.class = '';
     msg.enabled = true;
 
-    msg.options = [
-        {
-            'label': msg.dictionary.option_name.lines,
-            'value': 'line'
-        },
-        {
-            'label': msg.dictionary.option_name.equipments,
-            'value': 'equipment'
-        },/*
-        {
-            'label': msg.dictionary.option_name.alerts,
-            'value': 'alert'
-        },//*/
-        {
-            'label': msg.dictionary.option_name.counters,
-            'value': 'counter'
-        },
-        {
-            'label': msg.dictionary.option_name.devices,
-            'value': 'device'
-        },
-        {
-            'label': msg.dictionary.option_name.components,
-            'value': 'component'
-        },
-        {
-            'label': msg.dictionary.option_name.holidays,
-            'value': 'holiday'
-        }
-    ]
-
     msg.ui_update = {
-        'label':  msg.dictionary.option_select.list
-    }
+        'options': [
+            {
+                'label': msg.dictionary.option_name.lines,
+                'value': 'line'
+            },
+            {
+                'label': msg.dictionary.option_name.equipments,
+                'value': 'equipment'
+            },/*
+            {
+                'label': msg.dictionary.option_name.alerts,
+                'value': 'alert'
+            },//*/
+            {
+                'label': msg.dictionary.option_name.counters,
+                'value': 'counter'
+            },
+            {
+                'label': msg.dictionary.option_name.devices,
+                'value': 'device'
+            },
+            {
+                'label': msg.dictionary.option_name.components,
+                'value': 'component'
+            },
+            {
+                'label': msg.dictionary.option_name.holidays,
+                'value': 'holiday'
+            }
+        ],
+        'label': ''//msg.dictionary.option_select.list
+    };
 
     return [ null, msg ];
   outputs: 2
@@ -2417,7 +2390,7 @@
   'y': 420
   wires:
     - - 1b3e234bed8047a0
-    - - 408a810a7266e6fe
+    - - 1abc627f86d245a6
 - id: 5fb8b8994d1a5691
   type: function
   z: e97c6f12735a13c1
@@ -2522,3 +2495,34 @@
   x: 270
   'y': 60
   wires: []
+- id: 1abc627f86d245a6
+  type: ui-button-group
+  z: e97c6f12735a13c1
+  g: 1c2d5f046ccecc9d
+  name: list - select - type
+  group: 8bb4d735957b49bc
+  order: 1
+  width: 6
+  height: 1
+  label: ''
+  className: oe-center
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: option_0
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: option_1
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  x: 1030
+  'y': 480
+  wires:
+    - - 5fb8b8994d1a5691
