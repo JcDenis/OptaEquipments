@@ -1239,7 +1239,6 @@
         },
         "nodes": [
             "2e622bfdffcf772f",
-            "05ba4b7f6680f576",
             "f33a1e795377137b",
             "40a83c7330953a8a",
             "e7949d3e2c1f6a1d",
@@ -1256,7 +1255,8 @@
             "f8c6350c8aae6806",
             "d842a6f41cf51e4b",
             "cb1bf0cd7dc36566",
-            "814cb1aa2cc4fa17"
+            "814cb1aa2cc4fa17",
+            "f4e38e6eaba7efb1"
         ],
         "x": 104,
         "y": 5771.5,
@@ -27545,37 +27545,6 @@
         ]
     },
     {
-        "id": "05ba4b7f6680f576",
-        "type": "ui-dropdown",
-        "z": "64ce08af468b8197",
-        "g": "1ac161d9a8075225",
-        "group": "b143f8e751f77524",
-        "name": "tree - team - team",
-        "label": "",
-        "tooltip": "",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "multiple": false,
-        "chips": false,
-        "clearable": false,
-        "options": [],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "typeIsComboBox": true,
-        "msgTrigger": "onChange",
-        "x": 630,
-        "y": 5940,
-        "wires": [
-            [
-                "f8c6350c8aae6806"
-            ]
-        ]
-    },
-    {
         "id": "f33a1e795377137b",
         "type": "ui-text-input",
         "z": "64ce08af468b8197",
@@ -29650,7 +29619,7 @@
         "z": "64ce08af468b8197",
         "g": "2c0384adc9ef91fe",
         "name": "label",
-        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.day_starttime\n};\n\nreturn msg;",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_select.day_starttime\n};\n\nif (!msg.payload) {\n    msg.payload = global.get('kernel.day[\"' + (global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]') || '-') + '\"]') || 0;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -34837,7 +34806,7 @@
         "z": "64ce08af468b8197",
         "g": "1ac161d9a8075225",
         "name": "data",
-        "func": "\n// Get options\nmsg = await node.linkcall('option - team', msg);\n\nreturn msg;",
+        "func": "\n// Get options\nmsg = await node.linkcall('option - team', msg);\n\nmsg.options.shift();\nmsg.ui_update = {\n    'options': msg.options,\n    'label': ''\n};\ndelete msg.options;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -34848,7 +34817,7 @@
         "y": 5940,
         "wires": [
             [
-                "05ba4b7f6680f576"
+                "f4e38e6eaba7efb1"
             ]
         ]
     },
@@ -34858,7 +34827,7 @@
         "z": "64ce08af468b8197",
         "g": "1ac161d9a8075225",
         "name": "data",
-        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst team = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\nform[msg.hmi.id]['team'] = team;\n\n// Disabled plant form\nmsg.payload = team;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Wait UI to be disablde\nmsg = await node.linkcall('ui - latency', msg);\n\n// Go to next form\nmsg.limit_plant = form[msg.hmi.id]['plant'];\nmsg.limit_team = form[msg.hmi.id]['team'];\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst team = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\nform[msg.hmi.id]['team'] = team;\n/*\n// Disabled plant form\nmsg.payload = team;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n*/\n// Wait UI to be disablde\nmsg = await node.linkcall('ui - latency', msg);\n\n// Go to next form\nmsg.limit_plant = form[msg.hmi.id]['plant'];\nmsg.limit_team = form[msg.hmi.id]['team'];\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -36349,10 +36318,10 @@
         "wires": [
             [
                 "40a83c7330953a8a",
-                "05ba4b7f6680f576",
                 "f33a1e795377137b",
                 "e7949d3e2c1f6a1d",
-                "9fbbba627c2116fb"
+                "9fbbba627c2116fb",
+                "f4e38e6eaba7efb1"
             ]
         ]
     },
@@ -36875,6 +36844,47 @@
             [
                 "aa236f4908588df2",
                 "ff4837447653ade8"
+            ]
+        ]
+    },
+    {
+        "id": "f4e38e6eaba7efb1",
+        "type": "ui-button-group",
+        "z": "64ce08af468b8197",
+        "g": "1ac161d9a8075225",
+        "name": "tree - team - team",
+        "group": "b143f8e751f77524",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "label": "",
+        "className": "oe-center",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_0",
+                "valueType": "str",
+                "color": "#009933"
+            },
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_1",
+                "valueType": "str",
+                "color": "#999999"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 630,
+        "y": 5940,
+        "wires": [
+            [
+                "f8c6350c8aae6806"
             ]
         ]
     },

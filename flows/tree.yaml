@@ -382,7 +382,6 @@
     label: true
   nodes:
     - 2e622bfdffcf772f
-    - 05ba4b7f6680f576
     - f33a1e795377137b
     - 40a83c7330953a8a
     - e7949d3e2c1f6a1d
@@ -400,6 +399,7 @@
     - d842a6f41cf51e4b
     - cb1bf0cd7dc36566
     - 814cb1aa2cc4fa17
+    - f4e38e6eaba7efb1
   x: 104
   'y': 5771.5
   w: 912
@@ -2704,32 +2704,6 @@
   'y': 5820
   wires:
     - - 91f5242b5b0cbf62
-- id: 05ba4b7f6680f576
-  type: ui-dropdown
-  z: 64ce08af468b8197
-  g: 1ac161d9a8075225
-  group: b143f8e751f77524
-  name: tree - team - team
-  label: ''
-  tooltip: ''
-  order: 2
-  width: 0
-  height: 0
-  passthru: false
-  multiple: false
-  chips: false
-  clearable: false
-  options: []
-  payload: ''
-  topic: topic
-  topicType: msg
-  className: ''
-  typeIsComboBox: true
-  msgTrigger: onChange
-  x: 630
-  'y': 5940
-  wires:
-    - - f8c6350c8aae6806
 - id: f33a1e795377137b
   type: ui-text-input
   z: 64ce08af468b8197
@@ -4662,6 +4636,10 @@
     msg.ui_update = {
         'label': msg.dictionary.option_select.day_starttime
     };
+
+    if (!msg.payload) {
+        msg.payload = global.get('kernel.day["' + (global.get('form["' + msg.hmi.id + '"]["plant"]') || '-') + '"]') || 0;
+    }
 
     return msg;
   outputs: 1
@@ -11903,6 +11881,13 @@
     // Get options
     msg = await node.linkcall('option - team', msg);
 
+    msg.options.shift();
+    msg.ui_update = {
+        'options': msg.options,
+        'label': ''
+    };
+    delete msg.options;
+
     return msg;
   outputs: 1
   timeout: 0
@@ -11913,7 +11898,7 @@
   x: 430
   'y': 5940
   wires:
-    - - 05ba4b7f6680f576
+    - - f4e38e6eaba7efb1
 - id: f8c6350c8aae6806
   type: function
   z: 64ce08af468b8197
@@ -11934,13 +11919,13 @@
     let form = global.get('form'); // autoupdate
 
     form[msg.hmi.id]['team'] = team;
-
+    /*
     // Disabled plant form
     msg.payload = team;
     msg.class = '';
     msg.enabled = false;
     node.send([msg, null]);
-
+    */
     // Wait UI to be disablde
     msg = await node.linkcall('ui - latency', msg);
 
@@ -14439,10 +14424,10 @@
   'y': 5820
   wires:
     - - 40a83c7330953a8a
-      - 05ba4b7f6680f576
       - f33a1e795377137b
       - e7949d3e2c1f6a1d
       - 9fbbba627c2116fb
+      - f4e38e6eaba7efb1
 - id: 84951e8e19873637
   type: change
   z: 64ce08af468b8197
@@ -14950,3 +14935,34 @@
   wires:
     - - aa236f4908588df2
       - ff4837447653ade8
+- id: f4e38e6eaba7efb1
+  type: ui-button-group
+  z: 64ce08af468b8197
+  g: 1ac161d9a8075225
+  name: tree - team - team
+  group: b143f8e751f77524
+  order: 2
+  width: 6
+  height: 1
+  label: ''
+  className: oe-center
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: option_0
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: option_1
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  x: 630
+  'y': 5940
+  wires:
+    - - f8c6350c8aae6806
