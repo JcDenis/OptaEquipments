@@ -101,10 +101,25 @@
     - bacc5ee07121d84e
     - 7b504fcffb174abe
     - 97914656e2ebfb5f
+    - a6b24483440870d3
+    - 4d2b3f0e2cba24d3
+    - 0a9c64be63a94357
+    - feed863083dc3c1f
+    - d6f1150ca9cb3e0f
+    - b969b5b5b1bc800b
+    - be418e6d05a570ec
+    - 55a1d0d8374ced46
+    - 7411ee932b1f0e8f
+    - e79687108fb4aaef
+    - 453dcbc4fc030fae
+    - 05cabd2ba27132ab
+    - dca5b9199c0c501a
+    - 9b2644872cf5080b
+    - b0c1274525228b5e
   x: 94
   'y': 1099
   w: 842
-  h: 742
+  h: 1042
 - id: 7e8f13051c405b1e
   type: group
   z: 64ce08af468b8197
@@ -1011,6 +1026,11 @@
       - 76f250cb71462a7d
       - c285c05b82d4c355
       - ce8bd7a98fc62b88
+      - 4d2b3f0e2cba24d3
+      - d6f1150ca9cb3e0f
+      - 55a1d0d8374ced46
+      - 453dcbc4fc030fae
+      - 9b2644872cf5080b
 - id: 964137a9cf949388
   type: ui-dropdown
   z: 64ce08af468b8197
@@ -8836,7 +8856,7 @@
     - - d86b6a7675bb451d
     - - 3be8c55f9dfa5c94
     - - 3f2b2b65bd8686c5
-    - []
+    - - a6b24483440870d3
 - id: ddb48da6979d5e5a
   type: function
   z: 64ce08af468b8197
@@ -14536,7 +14556,15 @@
             'start_time':'Heure de début',
             'stop_time':'Heure de fin',
             'day_starttime':'Heure de début de la première équipe du jour',
-            'holiday_day':'Jour'
+            'holiday_day':'Jour',
+            'import_file':'Fichier CSV à importer',
+            'import_ident_column':"Colonne de l'identifiant de la ligne",
+            'import_name_column':'Colonne du nom de la ligne',
+            'import_replace':'Lignes déjà existantes',
+            'import_replace_no':'Conserver les lignes existantes',
+            'import_replace_yes':'Remplacer les lignes existantes',
+            'import_empty':'Le fichier ne contient aucune ligne de données',
+            'import_result':'%added% ajoutée(s), %replaced% remplacée(s), %ignored% ignorée(s)'
         }
     };
 
@@ -15076,3 +15104,667 @@
   x: 2215
   'y': 1860
   wires: []
+- id: a6b24483440870d3
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.tree.import_file || 'CSV file to import'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 1860
+  wires:
+    - - 4d2b3f0e2cba24d3
+- id: 4d2b3f0e2cba24d3
+  type: ui-file-input
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  group: cfa197a6dc4a8bf3
+  name: tree - line - import - file
+  order: 12
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  label: ''
+  icon: ''
+  allowMultiple: false
+  accept: .csv
+  className: ''
+  x: 540
+  'y': 1860
+  wires:
+    - - 0a9c64be63a94357
+- id: 0a9c64be63a94357
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null || typeof msg.payload === 'undefined') {
+
+        return;
+    }
+
+    let raw = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Check user right
+    if (!['admin', 'rt'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+    // Decode file content (UTF-8 with or without BOM, fallback to latin1)
+    let text = '';
+    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' && Array.isArray(raw.data)) {
+        raw = Buffer.from(raw.data);
+    }
+    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer || ArrayBuffer.isView(raw)) {
+        const buffer = Buffer.from(raw);
+        text = buffer.toString('utf8');
+        if (text.includes('\uFFFD')) {
+            text = buffer.toString('latin1');
+        }
+    } else {
+        text = String(raw);
+    }
+    text = text.replace(/^\uFEFF/, '');
+
+    // Parse CSV with ";" separator and optional double quotes
+    let rows = [];
+    let row = [];
+    let field = '';
+    let quoted = false;
+    for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        if (quoted) {
+            if (c === '"') {
+                if (text[i + 1] === '"') {
+                    field += '"';
+                    i++;
+                } else {
+                    quoted = false;
+                }
+            } else {
+                field += c;
+            }
+        } else if (c === '"' && field === '') {
+            quoted = true;
+        } else if (c === ';') {
+            row.push(field);
+            field = '';
+        } else if (c === '\n') {
+            row.push(field);
+            rows.push(row);
+            row = [];
+            field = '';
+        } else if (c !== '\r') {
+            field += c;
+        }
+    }
+    if (field !== '' || row.length > 0) {
+        row.push(field);
+        rows.push(row);
+    }
+
+    // Remove empty rows
+    rows = rows.filter(r => r.some(f => f.trim() !== ''));
+
+    // Need a title row and at least one data row
+    if (rows.length < 2) {
+        msg.notice = msg.dictionary.tree.import_empty || 'File has no data rows';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    global.set('form["' + msg.hmi.id + '"]["csv"]', {
+        'header': rows[0].map(h => h.trim()),
+        'rows': rows.slice(1)
+    });
+
+    // Disabled file form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 770
+  'y': 1860
+  wires:
+    - - a6b24483440870d3
+    - - feed863083dc3c1f
+- id: feed863083dc3c1f
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+
+    msg.options = [{
+        'label': '',
+        'value': ''
+    }];
+
+    csv.header.forEach((title, index) => {
+        msg.options.push({
+            'label': title !== '' ? title : '#' + (index + 1),
+            'value': String(index)
+        });
+    });
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.import_ident_column || 'Column of line ident'
+    };
+
+    // Keep file columns order
+    msg.nosort = true;
+    msg.payload = '';
+
+    // Clean options
+    msg = await node.linkcall('option - clean', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 1920
+  wires:
+    - - d6f1150ca9cb3e0f
+- id: d6f1150ca9cb3e0f
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  group: cfa197a6dc4a8bf3
+  name: tree - line - import - id
+  label: ''
+  tooltip: ''
+  order: 13
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 540
+  'y': 1920
+  wires:
+    - - b969b5b5b1bc800b
+- id: b969b5b5b1bc800b
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const column = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["idcol"]', Number(column));
+
+    // Disabled column form
+    msg.payload = column;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 770
+  'y': 1920
+  wires:
+    - - feed863083dc3c1f
+    - - be418e6d05a570ec
+- id: be418e6d05a570ec
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+
+    msg.options = [{
+        'label': '',
+        'value': ''
+    }];
+
+    csv.header.forEach((title, index) => {
+        msg.options.push({
+            'label': title !== '' ? title : '#' + (index + 1),
+            'value': String(index)
+        });
+    });
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.import_name_column || 'Column of line name'
+    };
+
+    // Keep file columns order
+    msg.nosort = true;
+    msg.payload = '';
+
+    // Clean options
+    msg = await node.linkcall('option - clean', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 1980
+  wires:
+    - - 55a1d0d8374ced46
+- id: 55a1d0d8374ced46
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  group: cfa197a6dc4a8bf3
+  name: tree - line - import - name
+  label: ''
+  tooltip: ''
+  order: 14
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 540
+  'y': 1980
+  wires:
+    - - 7411ee932b1f0e8f
+- id: 7411ee932b1f0e8f
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const column = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["namecol"]', Number(column));
+
+    // Disabled column form
+    msg.payload = column;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 770
+  'y': 1980
+  wires:
+    - - be418e6d05a570ec
+    - - e79687108fb4aaef
+- id: e79687108fb4aaef
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    msg.options = [
+        {
+            'label': '',
+            'value': ''
+        },
+        {
+            'label': msg.dictionary.tree.import_replace_no || 'Keep existing lines',
+            'value': 'no'
+        },
+        {
+            'label': msg.dictionary.tree.import_replace_yes || 'Replace existing lines',
+            'value': 'yes'
+        }
+    ];
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.import_replace || 'Existing lines'
+    };
+
+    // Keep options order
+    msg.nosort = true;
+    msg.payload = '';
+
+    // Clean options
+    msg = await node.linkcall('option - clean', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 2040
+  wires:
+    - - 453dcbc4fc030fae
+- id: 453dcbc4fc030fae
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  group: cfa197a6dc4a8bf3
+  name: tree - line - import - replace
+  label: ''
+  tooltip: ''
+  order: 15
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 540
+  'y': 2040
+  wires:
+    - - 05cabd2ba27132ab
+- id: 05cabd2ba27132ab
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const replace = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["replace"]', replace === 'yes');
+
+    // Disabled replace form
+    msg.payload = replace;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 770
+  'y': 2040
+  wires:
+    - - e79687108fb4aaef
+    - - dca5b9199c0c501a
+- id: dca5b9199c0c501a
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: label
+  func: |-
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.import || 'Import'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 2100
+  wires:
+    - - 9b2644872cf5080b
+- id: 9b2644872cf5080b
+  type: ui-button
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  group: cfa197a6dc4a8bf3
+  name: tree - line - import - save
+  label: ''
+  order: 16
+  width: 0
+  height: 0
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  x: 540
+  'y': 2100
+  wires:
+    - - b0c1274525228b5e
+- id: b0c1274525228b5e
+  type: function
+  z: 64ce08af468b8197
+  g: d8d8a361ac715076
+  name: data
+  func: |-
+    // Import lines from CSV file
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled import form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    if (!['admin', 'rt'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+    let form = global.get('form["' + msg.hmi.id + '"]') || {};
+
+    // Check form
+    if (typeof form.csv !== 'object'
+        || !Array.isArray(form.csv.rows)
+        || !Number.isInteger(form.idcol)
+        || !Number.isInteger(form.namecol)
+        || typeof form.plant !== 'string'
+        || form.plant === ''
+    ) {
+        msg.notice = msg.dictionary.option_notice.update_fail || 'Update failed';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    const lines = global.get('kernel.line') || {};
+    const plants = global.get('kernel.lines') || {};
+    const replace = form.replace === true;
+    let seen = {};
+    let count = {
+        'added': 0,
+        'replaced': 0,
+        'ignored': 0
+    };
+
+    for (const row of form.csv.rows) {
+        const id = String(row[form.idcol] || '').trim();
+        const name = String(row[form.namecol] || '').trim();
+
+        // Invalid or duplicated ident, or empty name
+        if (id === '' || /[\/|#+"\s]/.test(id) || name === '' || seen[id] === true) {
+            count.ignored++;
+
+            continue;
+        }
+        seen[id] = true;
+
+        if (typeof lines[id] === 'string') {
+            const plant = plants[id] || '';
+
+            // Keep existing line, or line from another plant
+            if (!replace || (plant !== '' && plant !== form.plant)) {
+                count.ignored++;
+
+                continue;
+            }
+            count.replaced++;
+        } else {
+            count.added++;
+        }
+
+        // lines
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'lines',
+                'entity': id,
+                'value': form.plant,
+                'loop': false
+            }
+        }]);
+
+        // line
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'line',
+                'entity': id,
+                'value': name,
+                'loop': false
+            }
+        }]);
+    }
+
+    // Free memory
+    global.set('form["' + msg.hmi.id + '"]["csv"]', undefined);
+
+    // UI notice
+    msg.notice = (msg.dictionary.tree.import_result || '%added% added, %replaced% replaced, %ignored% ignored')
+        .replace('%added%', count.added)
+        .replace('%replaced%', count.replaced)
+        .replace('%ignored%', count.ignored);
+    msg = await node.linkcall('ui - notice', msg);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 770
+  'y': 2100
+  wires:
+    - - dca5b9199c0c501a
+      - 97914656e2ebfb5f
+    - - 3cc5c7bd4abc1cb9

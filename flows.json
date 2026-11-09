@@ -212,12 +212,27 @@
             "93f3b05d8fa24407",
             "bacc5ee07121d84e",
             "7b504fcffb174abe",
-            "97914656e2ebfb5f"
+            "97914656e2ebfb5f",
+            "a6b24483440870d3",
+            "4d2b3f0e2cba24d3",
+            "0a9c64be63a94357",
+            "feed863083dc3c1f",
+            "d6f1150ca9cb3e0f",
+            "b969b5b5b1bc800b",
+            "be418e6d05a570ec",
+            "55a1d0d8374ced46",
+            "7411ee932b1f0e8f",
+            "e79687108fb4aaef",
+            "453dcbc4fc030fae",
+            "05cabd2ba27132ab",
+            "dca5b9199c0c501a",
+            "9b2644872cf5080b",
+            "b0c1274525228b5e"
         ],
         "x": 94,
         "y": 1099,
         "w": 842,
-        "h": 742
+        "h": 1042
     },
     {
         "id": "7e8f13051c405b1e",
@@ -25491,7 +25506,12 @@
                 "a0e032a9434aedf1",
                 "76f250cb71462a7d",
                 "c285c05b82d4c355",
-                "ce8bd7a98fc62b88"
+                "ce8bd7a98fc62b88",
+                "4d2b3f0e2cba24d3",
+                "d6f1150ca9cb3e0f",
+                "55a1d0d8374ced46",
+                "453dcbc4fc030fae",
+                "9b2644872cf5080b"
             ]
         ]
     },
@@ -32950,7 +32970,9 @@
             [
                 "3f2b2b65bd8686c5"
             ],
-            []
+            [
+                "a6b24483440870d3"
+            ]
         ]
     },
     {
@@ -36395,7 +36417,7 @@
         "z": "64ce08af468b8197",
         "g": "b18407a573bfa291",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'family_ident':'Identifiant de la famille',\n        'family_name':'Nom de la famille',\n        'counter_ident':'Identifiant du compteur',\n        'counter_hours':\"Nombre d'heures\",\n        'counter_text':'Texte de définition',\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'family_ident':'Identifiant de la famille',\n        'family_name':'Nom de la famille',\n        'counter_ident':'Identifiant du compteur',\n        'counter_hours':\"Nombre d'heures\",\n        'counter_text':'Texte de définition',\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour',\n        'import_file':'Fichier CSV à importer',\n        'import_ident_column':\"Colonne de l'identifiant de la ligne\",\n        'import_name_column':'Colonne du nom de la ligne',\n        'import_replace':'Lignes déjà existantes',\n        'import_replace_no':'Conserver les lignes existantes',\n        'import_replace_yes':'Remplacer les lignes existantes',\n        'import_empty':'Le fichier ne contient aucune ligne de données',\n        'import_result':'%added% ajoutée(s), %replaced% remplacée(s), %ignored% ignorée(s)'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -37002,6 +37024,390 @@
         "x": 2215,
         "y": 1860,
         "wires": []
+    },
+    {
+        "id": "a6b24483440870d3",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "label",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.tree.import_file || 'CSV file to import'\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1860,
+        "wires": [
+            [
+                "4d2b3f0e2cba24d3"
+            ]
+        ]
+    },
+    {
+        "id": "4d2b3f0e2cba24d3",
+        "type": "ui-file-input",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "group": "cfa197a6dc4a8bf3",
+        "name": "tree - line - import - file",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "topic": "topic",
+        "topicType": "msg",
+        "label": "",
+        "icon": "",
+        "allowMultiple": false,
+        "accept": ".csv",
+        "className": "",
+        "x": 540,
+        "y": 1860,
+        "wires": [
+            [
+                "0a9c64be63a94357"
+            ]
+        ]
+    },
+    {
+        "id": "0a9c64be63a94357",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "if (msg.payload === '' || msg.payload === null || typeof msg.payload === 'undefined') {\n\n    return;\n}\n\nlet raw = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Check user right\nif (!['admin', 'rt'].includes(msg.hmi.level)) {\n\n    return;\n}\n\n// Decode file content (UTF-8 with or without BOM, fallback to latin1)\nlet text = '';\nif (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' && Array.isArray(raw.data)) {\n    raw = Buffer.from(raw.data);\n}\nif (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer || ArrayBuffer.isView(raw)) {\n    const buffer = Buffer.from(raw);\n    text = buffer.toString('utf8');\n    if (text.includes('\\uFFFD')) {\n        text = buffer.toString('latin1');\n    }\n} else {\n    text = String(raw);\n}\ntext = text.replace(/^\\uFEFF/, '');\n\n// Parse CSV with \";\" separator and optional double quotes\nlet rows = [];\nlet row = [];\nlet field = '';\nlet quoted = false;\nfor (let i = 0; i < text.length; i++) {\n    const c = text[i];\n    if (quoted) {\n        if (c === '\"') {\n            if (text[i + 1] === '\"') {\n                field += '\"';\n                i++;\n            } else {\n                quoted = false;\n            }\n        } else {\n            field += c;\n        }\n    } else if (c === '\"' && field === '') {\n        quoted = true;\n    } else if (c === ';') {\n        row.push(field);\n        field = '';\n    } else if (c === '\\n') {\n        row.push(field);\n        rows.push(row);\n        row = [];\n        field = '';\n    } else if (c !== '\\r') {\n        field += c;\n    }\n}\nif (field !== '' || row.length > 0) {\n    row.push(field);\n    rows.push(row);\n}\n\n// Remove empty rows\nrows = rows.filter(r => r.some(f => f.trim() !== ''));\n\n// Need a title row and at least one data row\nif (rows.length < 2) {\n    msg.notice = msg.dictionary.tree.import_empty || 'File has no data rows';\n    msg = await node.linkcall('ui - notice', msg);\n\n    return;\n}\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"csv\"]', {\n    'header': rows[0].map(h => h.trim()),\n    'rows': rows.slice(1)\n});\n\n// Disabled file form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1860,
+        "wires": [
+            [
+                "a6b24483440870d3"
+            ],
+            [
+                "feed863083dc3c1f"
+            ]
+        ]
+    },
+    {
+        "id": "feed863083dc3c1f",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "const csv = global.get('form[\"' + msg.hmi.id + '\"][\"csv\"]') || { 'header': [] };\n\nmsg.options = [{\n    'label': '',\n    'value': ''\n}];\n\ncsv.header.forEach((title, index) => {\n    msg.options.push({\n        'label': title !== '' ? title : '#' + (index + 1),\n        'value': String(index)\n    });\n});\n\nmsg.ui_update = {\n    'label': msg.dictionary.tree.import_ident_column || 'Column of line ident'\n};\n\n// Keep file columns order\nmsg.nosort = true;\nmsg.payload = '';\n\n// Clean options\nmsg = await node.linkcall('option - clean', msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1920,
+        "wires": [
+            [
+                "d6f1150ca9cb3e0f"
+            ]
+        ]
+    },
+    {
+        "id": "d6f1150ca9cb3e0f",
+        "type": "ui-dropdown",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "group": "cfa197a6dc4a8bf3",
+        "name": "tree - line - import - id",
+        "label": "",
+        "tooltip": "",
+        "order": 13,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 540,
+        "y": 1920,
+        "wires": [
+            [
+                "b969b5b5b1bc800b"
+            ]
+        ]
+    },
+    {
+        "id": "b969b5b5b1bc800b",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst column = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"idcol\"]', Number(column));\n\n// Disabled column form\nmsg.payload = column;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1920,
+        "wires": [
+            [
+                "feed863083dc3c1f"
+            ],
+            [
+                "be418e6d05a570ec"
+            ]
+        ]
+    },
+    {
+        "id": "be418e6d05a570ec",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "const csv = global.get('form[\"' + msg.hmi.id + '\"][\"csv\"]') || { 'header': [] };\n\nmsg.options = [{\n    'label': '',\n    'value': ''\n}];\n\ncsv.header.forEach((title, index) => {\n    msg.options.push({\n        'label': title !== '' ? title : '#' + (index + 1),\n        'value': String(index)\n    });\n});\n\nmsg.ui_update = {\n    'label': msg.dictionary.tree.import_name_column || 'Column of line name'\n};\n\n// Keep file columns order\nmsg.nosort = true;\nmsg.payload = '';\n\n// Clean options\nmsg = await node.linkcall('option - clean', msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1980,
+        "wires": [
+            [
+                "55a1d0d8374ced46"
+            ]
+        ]
+    },
+    {
+        "id": "55a1d0d8374ced46",
+        "type": "ui-dropdown",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "group": "cfa197a6dc4a8bf3",
+        "name": "tree - line - import - name",
+        "label": "",
+        "tooltip": "",
+        "order": 14,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 540,
+        "y": 1980,
+        "wires": [
+            [
+                "7411ee932b1f0e8f"
+            ]
+        ]
+    },
+    {
+        "id": "7411ee932b1f0e8f",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst column = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"namecol\"]', Number(column));\n\n// Disabled column form\nmsg.payload = column;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1980,
+        "wires": [
+            [
+                "be418e6d05a570ec"
+            ],
+            [
+                "e79687108fb4aaef"
+            ]
+        ]
+    },
+    {
+        "id": "e79687108fb4aaef",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "msg.options = [\n    {\n        'label': '',\n        'value': ''\n    },\n    {\n        'label': msg.dictionary.tree.import_replace_no || 'Keep existing lines',\n        'value': 'no'\n    },\n    {\n        'label': msg.dictionary.tree.import_replace_yes || 'Replace existing lines',\n        'value': 'yes'\n    }\n];\n\nmsg.ui_update = {\n    'label': msg.dictionary.tree.import_replace || 'Existing lines'\n};\n\n// Keep options order\nmsg.nosort = true;\nmsg.payload = '';\n\n// Clean options\nmsg = await node.linkcall('option - clean', msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 2040,
+        "wires": [
+            [
+                "453dcbc4fc030fae"
+            ]
+        ]
+    },
+    {
+        "id": "453dcbc4fc030fae",
+        "type": "ui-dropdown",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "group": "cfa197a6dc4a8bf3",
+        "name": "tree - line - import - replace",
+        "label": "",
+        "tooltip": "",
+        "order": 15,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 540,
+        "y": 2040,
+        "wires": [
+            [
+                "05cabd2ba27132ab"
+            ]
+        ]
+    },
+    {
+        "id": "05cabd2ba27132ab",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst replace = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"replace\"]', replace === 'yes');\n\n// Disabled replace form\nmsg.payload = replace;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 2040,
+        "wires": [
+            [
+                "e79687108fb4aaef"
+            ],
+            [
+                "dca5b9199c0c501a"
+            ]
+        ]
+    },
+    {
+        "id": "dca5b9199c0c501a",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "label",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_action.import || 'Import'\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 2100,
+        "wires": [
+            [
+                "9b2644872cf5080b"
+            ]
+        ]
+    },
+    {
+        "id": "9b2644872cf5080b",
+        "type": "ui-button",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "group": "cfa197a6dc4a8bf3",
+        "name": "tree - line - import - save",
+        "label": "",
+        "order": 16,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 540,
+        "y": 2100,
+        "wires": [
+            [
+                "b0c1274525228b5e"
+            ]
+        ]
+    },
+    {
+        "id": "b0c1274525228b5e",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "g": "d8d8a361ac715076",
+        "name": "data",
+        "func": "// Import lines from CSV file\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled import form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nif (!['admin', 'rt'].includes(msg.hmi.level)) {\n\n    return;\n}\n\nlet form = global.get('form[\"' + msg.hmi.id + '\"]') || {};\n\n// Check form\nif (typeof form.csv !== 'object'\n    || !Array.isArray(form.csv.rows)\n    || !Number.isInteger(form.idcol)\n    || !Number.isInteger(form.namecol)\n    || typeof form.plant !== 'string'\n    || form.plant === ''\n) {\n    msg.notice = msg.dictionary.option_notice.update_fail || 'Update failed';\n    msg = await node.linkcall('ui - notice', msg);\n\n    return;\n}\n\nconst lines = global.get('kernel.line') || {};\nconst plants = global.get('kernel.lines') || {};\nconst replace = form.replace === true;\nlet seen = {};\nlet count = {\n    'added': 0,\n    'replaced': 0,\n    'ignored': 0\n};\n\nfor (const row of form.csv.rows) {\n    const id = String(row[form.idcol] || '').trim();\n    const name = String(row[form.namecol] || '').trim();\n\n    // Invalid or duplicated ident, or empty name\n    if (id === '' || /[\\/|#+\"\\s]/.test(id) || name === '' || seen[id] === true) {\n        count.ignored++;\n\n        continue;\n    }\n    seen[id] = true;\n\n    if (typeof lines[id] === 'string') {\n        const plant = plants[id] || '';\n\n        // Keep existing line, or line from another plant\n        if (!replace || (plant !== '' && plant !== form.plant)) {\n            count.ignored++;\n\n            continue;\n        }\n        count.replaced++;\n    } else {\n        count.added++;\n    }\n\n    // lines\n    node.send([null, {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'lines',\n            'entity': id,\n            'value': form.plant,\n            'loop': false\n        }\n    }]);\n\n    // line\n    node.send([null, {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'line',\n            'entity': id,\n            'value': name,\n            'loop': false\n        }\n    }]);\n}\n\n// Free memory\nglobal.set('form[\"' + msg.hmi.id + '\"][\"csv\"]', undefined);\n\n// UI notice\nmsg.notice = (msg.dictionary.tree.import_result || '%added% added, %replaced% replaced, %ignored% ignored')\n    .replace('%added%', count.added)\n    .replace('%replaced%', count.replaced)\n    .replace('%ignored%', count.ignored);\nmsg = await node.linkcall('ui - notice', msg);\n\nreturn;",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 2100,
+        "wires": [
+            [
+                "dca5b9199c0c501a",
+                "97914656e2ebfb5f"
+            ],
+            [
+                "3cc5c7bd4abc1cb9"
+            ]
+        ]
     },
     {
         "id": "6304fe8d08f0cf47",
