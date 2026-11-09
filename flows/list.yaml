@@ -208,6 +208,7 @@
     - 17e7a0d50bf546d9
     - 468277bb16c8903c
     - 09987068f1a0d8a4
+    - 222a4d282e6eb3f4
   x: 1355
   'y': 420
   wires: []
@@ -665,7 +666,7 @@
   z: e97c6f12735a13c1
   g: ac0595b45d9786aa
   group: c605809a8fe63a3b
-  order: 15
+  order: 17
   width: 0
   height: 0
   name: list - total
@@ -1002,6 +1003,7 @@
     - 69f9c115d9959785
     - 1b3e234bed8047a0
     - a3c49917e391987c
+    - 2191f5f76d432d83
   x: 145
   'y': 240
   wires:
@@ -1020,6 +1022,7 @@
     - baa9eb973e71311f
     - 17e7a0d50bf546d9
     - 09987068f1a0d8a4
+    - 222a4d282e6eb3f4
   x: 555
   'y': 180
   wires: []
@@ -2354,6 +2357,10 @@
             {
                 'label': msg.dictionary.option_name.equipments,
                 'value': 'equipment'
+            },
+            {
+                'label': msg.dictionary.option_name.families,
+                'value': 'family'
             },/*
             {
                 'label': msg.dictionary.option_name.alerts,
@@ -2544,3 +2551,240 @@
   'y': 480
   wires:
     - - 5fb8b8994d1a5691
+- id: 24edc6d4f589fdeb
+  type: group
+  z: e97c6f12735a13c1
+  name: list - family
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 222a4d282e6eb3f4
+    - 66796b868c39d8f8
+    - 2191f5f76d432d83
+    - 8fb5ca57fc7b5a7e
+    - 166e2618cc3cc324
+    - 9a901a8471d20aec
+  x: 104
+  'y': 2239
+  w: 732
+  h: 209.5
+- id: 222a4d282e6eb3f4
+  type: link in
+  z: e97c6f12735a13c1
+  g: 24edc6d4f589fdeb
+  name: list - family
+  links:
+    - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
+  x: 145
+  'y': 2287.5
+  wires:
+    - - 9a901a8471d20aec
+- id: 66796b868c39d8f8
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: 24edc6d4f589fdeb
+  group: c605809a8fe63a3b
+  name: list - family - table - fr
+  label: ''
+  order: 15
+  width: 0
+  height: 0
+  maxrows: '50'
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Famille
+      key: family_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipements
+      key: equipment_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: Compteurs
+      key: counter_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 470
+  'y': 2347.5
+  wires:
+    - - 166e2618cc3cc324
+- id: 2191f5f76d432d83
+  type: link out
+  z: e97c6f12735a13c1
+  g: 24edc6d4f589fdeb
+  name: list - family
+  mode: link
+  links:
+    - 468277bb16c8903c
+  x: 795
+  'y': 2287.5
+  wires: []
+- id: 8fb5ca57fc7b5a7e
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: 24edc6d4f589fdeb
+  group: c605809a8fe63a3b
+  name: list - family - table - en
+  label: ''
+  order: 16
+  width: 0
+  height: 0
+  maxrows: '50'
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Family
+      key: family_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Equipments
+      key: equipment_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: Counters
+      key: counter_count
+      keyType: key
+      type: text
+      width: ''
+      align: center
+    - title: ''
+      key: delete
+      keyType: key
+      type: button
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 470
+  'y': 2407.5
+  wires:
+    - - 166e2618cc3cc324
+- id: 166e2618cc3cc324
+  type: function
+  z: e97c6f12735a13c1
+  g: 24edc6d4f589fdeb
+  name: data
+  func: |-
+    // Do action
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    if (msg.action === 'button_click' && msg.column === 'delete') {
+        msg.kernel = {
+            'type': 'family',
+            'entity': msg.payload.family,
+            'value': '',
+            'loop': false,
+            'delete': true
+        };
+        msg.list = 'family';
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 670
+  'y': 2347.5
+  wires:
+    - - 2191f5f76d432d83
+- id: 9a901a8471d20aec
+  type: function
+  z: e97c6f12735a13c1
+  g: 24edc6d4f589fdeb
+  name: data
+  func: |-
+    // Parse families
+
+    msg.payload = [ ];
+
+    node.send([ null, msg, msg ]);
+
+    msg.class = '';
+    msg.enabled = true;
+
+    if (msg.list === 'family') {
+        const families = global.get('kernel.family') || { };
+        const equipments = global.get('kernel.families') || { };
+        const counters = global.get('kernel.counters') || { };
+        let i = 0;
+
+        // Families are shared by all plants
+        for (const family in families) {
+            let row  = { };
+
+            row.family = family;
+            row.family_name = families[family];
+            row.family_full = row.family_name + ' (' + family + ')';
+            row.equipment_count = Object.values(equipments).filter(f => f === family).length;
+            row.counter_count = Object.values(counters).filter(f => f === family).length;
+            row.delete = (msg.dictionary.option_action.delete) || 'Delete';
+
+            msg.payload[i++] = row;
+        }
+
+        // Records title
+        msg.total = i;
+        node.send([ msg, null, null ]);
+
+        if (i > 0) {
+            msg.payload.sort((a, b) => a.family_name.localeCompare(b.family_name));
+
+            if (msg.hmi.lang === 'fr') {
+
+                return [ null, msg, null ];
+            }
+
+            return [ null, null, msg ];
+        }
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 290
+  'y': 2287.5
+  wires:
+    - - 2191f5f76d432d83
+    - - 66796b868c39d8f8
+    - - 8fb5ca57fc7b5a7e

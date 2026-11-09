@@ -6742,7 +6742,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - plant",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {\n    let is_empty = true;\n    // kernel.lines\n    const lines = global.get('kernel.lines');\n    for (const line in lines) {\n        if (lines[line] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.plant\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'plant',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.map\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'map',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.tz\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'tz',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.day\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'day',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.team\n        const teams = global.get('kernel.team');\n        for (const team in teams) {\n            let tsplit = team.split('|');\n            if (tsplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'team',\n                        'entity': team,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {\n    let is_empty = true;\n    // kernel.lines\n    const lines = global.get('kernel.lines');\n    for (const line in lines) {\n        if (lines[line] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.plant\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'plant',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.map\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'map',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.tz\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'tz',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.day\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'day',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.team\n        const teams = global.get('kernel.team');\n        for (const team in teams) {\n            let tsplit = team.split('|');\n            if (tsplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'team',\n                        'entity': team,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    } else {\n        msg.payload = msg.dictionary.option_notice.plant_noempty || msg.dictionary.option_notice.update_fail;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6807,7 +6807,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - line",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {\n    let is_empty = true;\n    // kernel.lines\n    const equipments = global.get('kernel.equipments');\n    for (const equipment in equipments) {\n        if (equipments[equipment] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.lines\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'lines',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.line\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'line',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.location\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'location',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.period\n        const periods = global.get('kernel.period');\n        for (const period in periods) {\n            if (period === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'period',\n                        'entity': msg.kernel.entity,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.disabled\n        const disableds = global.get('kernel.disabled');\n        for (const disabled in disableds) {\n            if (disabled === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'disabled',\n                        'entity': msg.kernel.entity,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {\n    let is_empty = true;\n    // kernel.lines\n    const equipments = global.get('kernel.equipments');\n    for (const equipment in equipments) {\n        if (equipments[equipment] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.lines\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'lines',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.line\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'line',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.location\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'location',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.period\n        const periods = global.get('kernel.period');\n        for (const period in periods) {\n            if (period === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'period',\n                        'entity': msg.kernel.entity,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.disabled\n        const disableds = global.get('kernel.disabled');\n        for (const disabled in disableds) {\n            if (disabled === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'disabled',\n                        'entity': msg.kernel.entity,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    } else {\n        msg.payload = msg.dictionary.option_notice.line_noempty || msg.dictionary.option_notice.update_fail;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6828,7 +6828,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - equipment",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {\n    let is_empty = true;\n    // kernel.link\n    const links = global.get('kernel.link');\n    for (const link in links) {\n        let lsplit = link.split('|');\n        if (lsplit[0] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.equipments\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipments',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.equipment\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipment',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.meter\n        const meters = global.get('kernel.meter') || { };\n        for (const meter in meters) {\n            let msplit = meter.split('|');\n            if (msplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'meter',\n                        'entity': meter,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.families\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {\n    let is_empty = true;\n    // kernel.link\n    const links = global.get('kernel.link');\n    for (const link in links) {\n        let lsplit = link.split('|');\n        if (lsplit[0] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.equipments\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipments',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.equipment\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipment',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.meter\n        const meters = global.get('kernel.meter') || { };\n        for (const meter in meters) {\n            let msplit = meter.split('|');\n            if (msplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'meter',\n                        'entity': meter,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.families\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    } else {\n        msg.payload = msg.dictionary.option_notice.equipment_noempty || msg.dictionary.option_notice.update_fail;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6960,7 +6960,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - device",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'device') {\n    let is_empty = true;\n    // rlink (component)\n    const rlinks = global.get('rlink') || { };\n    for (const rlink in rlinks) {\n        let rsplit = rlink.split('|');\n        if ((rsplit[0] + '|' + rsplit[1]) === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.watchdog\n        node.send([{\n            'topic':' ',\n            'payload': '',\n            'kernel': {\n                'type': 'watchdog',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.device\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'device',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.link and kernel.rlink must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'device') {\n    let is_empty = true;\n    // rlink (component)\n    const rlinks = global.get('rlink') || { };\n    for (const rlink in rlinks) {\n        let rsplit = rlink.split('|');\n        if ((rsplit[0] + '|' + rsplit[1]) === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.watchdog\n        node.send([{\n            'topic':' ',\n            'payload': '',\n            'kernel': {\n                'type': 'watchdog',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.device\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'device',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.link and kernel.rlink must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    } else {\n        msg.payload = msg.dictionary.option_notice.device_noempty || msg.dictionary.option_notice.update_fail;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8580,7 +8580,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "9eded20dfe6c1a19",
         "name": "data",
-        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_page':{\n                'auth':'Authentication',\n                'map': 'Map',\n                'alert':'Alerts',\n                'counter':'Counters',\n                'period':'Programs',\n                'detail':'Detail',\n                'list':'List',\n                'tree':'Tree',\n                'users':'Users',\n                'system':'System'\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'import': 'Import',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'device_noempty': 'Device is not empty',\n                'family_noempty': 'Family is used by equipments',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_page': {\n                'auth': 'Authentification',\n                'map': 'Implantation',\n                'alert': 'Alertes',\n                'counter': 'Compteurs',\n                'period': 'Programmes',\n                'detail': 'Detail',\n                'list': 'Liste',\n                'tree': 'Arborescence',\n                'users': 'Utilisateurs',\n                'system': 'Système'\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'import': 'Importer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment exists': 'Cet équipement existe déjà',\n                'device_noempty': \"Ce matériel n'est pas vide\",\n                'family_noempty': 'Cette famille est utilisée par des équipements',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
+        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_page':{\n                'auth':'Authentication',\n                'map': 'Map',\n                'alert':'Alerts',\n                'counter':'Counters',\n                'period':'Programs',\n                'detail':'Detail',\n                'list':'List',\n                'tree':'Tree',\n                'users':'Users',\n                'system':'System'\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'import': 'Import',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line_exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'plant_noempty': 'Plant contains lines',\n                'line_noempty': 'Line contains equipments',\n                'equipment_noempty': 'Equipment has components',\n                'device_noempty': 'Device is used by components',\n                'family_noempty': 'Family is used by equipments or counters',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_page': {\n                'auth': 'Authentification',\n                'map': 'Implantation',\n                'alert': 'Alertes',\n                'counter': 'Compteurs',\n                'period': 'Programmes',\n                'detail': 'Detail',\n                'list': 'Liste',\n                'tree': 'Arborescence',\n                'users': 'Utilisateurs',\n                'system': 'Système'\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'import': 'Importer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment_exists': 'Cet équipement existe déjà',\n                'plant_noempty': 'Cette usine contient des lignes',\n                'line_noempty': 'Cette ligne contient des équipements',\n                'equipment_noempty': 'Cet équipement a des composants',\n                'device_noempty': 'Ce matériel est utilisé par des composants',\n                'family_noempty': 'Cette famille est utilisée par des équipements ou des compteurs',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -23065,7 +23065,8 @@
             "f66528f67c8d7cfd",
             "17e7a0d50bf546d9",
             "468277bb16c8903c",
-            "09987068f1a0d8a4"
+            "09987068f1a0d8a4",
+            "222a4d282e6eb3f4"
         ],
         "x": 1355,
         "y": 420,
@@ -23668,7 +23669,7 @@
         "z": "e97c6f12735a13c1",
         "g": "ac0595b45d9786aa",
         "group": "c605809a8fe63a3b",
-        "order": 15,
+        "order": 17,
         "width": 0,
         "height": 0,
         "name": "list - total",
@@ -24095,7 +24096,8 @@
             "f1491390ad3bbec6",
             "69f9c115d9959785",
             "1b3e234bed8047a0",
-            "a3c49917e391987c"
+            "a3c49917e391987c",
+            "2191f5f76d432d83"
         ],
         "x": 145,
         "y": 240,
@@ -24119,7 +24121,8 @@
             "30d9b3b967fbbc14",
             "baa9eb973e71311f",
             "17e7a0d50bf546d9",
-            "09987068f1a0d8a4"
+            "09987068f1a0d8a4",
+            "222a4d282e6eb3f4"
         ],
         "x": 555,
         "y": 180,
@@ -24938,7 +24941,7 @@
         "z": "e97c6f12735a13c1",
         "g": "1c2d5f046ccecc9d",
         "name": "data",
-        "func": "let old_payload = msg.payload;\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.payload = '';\n\nnode.send([ msg, msg ]);\n\nif (old_payload === '') {\n\n    return;\n}\n\nmsg.topic = '';\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nmsg.ui_update = {\n    'options': [\n        {\n            'label': msg.dictionary.option_name.lines,\n            'value': 'line'\n        },\n        {\n            'label': msg.dictionary.option_name.equipments,\n            'value': 'equipment'\n        },/*\n        {\n            'label': msg.dictionary.option_name.alerts,\n            'value': 'alert'\n        },//*/\n        {\n            'label': msg.dictionary.option_name.counters,\n            'value': 'counter'\n        },\n        {\n            'label': msg.dictionary.option_name.devices,\n            'value': 'device'\n        },\n        {\n            'label': msg.dictionary.option_name.components,\n            'value': 'component'\n        },\n        {\n            'label': msg.dictionary.option_name.holidays,\n            'value': 'holiday'\n        }\n    ],\n    'label': ''//msg.dictionary.option_select.list\n};\n\n// Keep previously selected list and refresh it for the new plant\nconst list = global.get('form[\"' + msg.hmi.id + '\"][\"list\"]') || '';\nmsg.payload = list;\nnode.send([ null, msg ]);\n\nif (list !== '') {\n    msg.list = list;\n    msg.payload = '';\n    msg.class = 'remove';\n    msg.enabled = false;\n    delete msg.ui_update;\n\n    return [ msg, null ];\n}\n\nreturn;",
+        "func": "let old_payload = msg.payload;\nmsg.class = 'remove';\nmsg.enabled = false;\nmsg.payload = '';\n\nnode.send([ msg, msg ]);\n\nif (old_payload === '') {\n\n    return;\n}\n\nmsg.topic = '';\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nmsg.ui_update = {\n    'options': [\n        {\n            'label': msg.dictionary.option_name.lines,\n            'value': 'line'\n        },\n        {\n            'label': msg.dictionary.option_name.equipments,\n            'value': 'equipment'\n        },\n        {\n            'label': msg.dictionary.option_name.families,\n            'value': 'family'\n        },/*\n        {\n            'label': msg.dictionary.option_name.alerts,\n            'value': 'alert'\n        },//*/\n        {\n            'label': msg.dictionary.option_name.counters,\n            'value': 'counter'\n        },\n        {\n            'label': msg.dictionary.option_name.devices,\n            'value': 'device'\n        },\n        {\n            'label': msg.dictionary.option_name.components,\n            'value': 'component'\n        },\n        {\n            'label': msg.dictionary.option_name.holidays,\n            'value': 'holiday'\n        }\n    ],\n    'label': ''//msg.dictionary.option_select.list\n};\n\n// Keep previously selected list and refresh it for the new plant\nconst list = global.get('form[\"' + msg.hmi.id + '\"][\"list\"]') || '';\nmsg.payload = list;\nnode.send([ null, msg ]);\n\nif (list !== '') {\n    msg.list = list;\n    msg.payload = '';\n    msg.class = 'remove';\n    msg.enabled = false;\n    delete msg.ui_update;\n\n    return [ msg, null ];\n}\n\nreturn;",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -25070,6 +25073,235 @@
         "wires": [
             [
                 "5fb8b8994d1a5691"
+            ]
+        ]
+    },
+    {
+        "id": "24edc6d4f589fdeb",
+        "type": "group",
+        "z": "e97c6f12735a13c1",
+        "name": "list - family",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "222a4d282e6eb3f4",
+            "66796b868c39d8f8",
+            "2191f5f76d432d83",
+            "8fb5ca57fc7b5a7e",
+            "166e2618cc3cc324",
+            "9a901a8471d20aec"
+        ],
+        "x": 104,
+        "y": 2239,
+        "w": 732,
+        "h": 209.5
+    },
+    {
+        "id": "222a4d282e6eb3f4",
+        "type": "link in",
+        "z": "e97c6f12735a13c1",
+        "g": "24edc6d4f589fdeb",
+        "name": "list - family",
+        "links": [
+            "1b3e234bed8047a0",
+            "b8fd1cbbd582e7cb"
+        ],
+        "x": 145,
+        "y": 2287.5,
+        "wires": [
+            [
+                "9a901a8471d20aec"
+            ]
+        ]
+    },
+    {
+        "id": "66796b868c39d8f8",
+        "type": "ui-table",
+        "z": "e97c6f12735a13c1",
+        "g": "24edc6d4f589fdeb",
+        "group": "c605809a8fe63a3b",
+        "name": "list - family - table - fr",
+        "label": "",
+        "order": 15,
+        "width": 0,
+        "height": 0,
+        "maxrows": "50",
+        "passthru": false,
+        "autocols": false,
+        "showSearch": true,
+        "deselect": true,
+        "selectionType": "click",
+        "columns": [
+            {
+                "title": "Famille",
+                "key": "family_full",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Equipements",
+                "key": "equipment_count",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "center"
+            },
+            {
+                "title": "Compteurs",
+                "key": "counter_count",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "center"
+            },
+            {
+                "title": "",
+                "key": "delete",
+                "keyType": "key",
+                "type": "button",
+                "width": "",
+                "align": "start"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 470,
+        "y": 2347.5,
+        "wires": [
+            [
+                "166e2618cc3cc324"
+            ]
+        ]
+    },
+    {
+        "id": "2191f5f76d432d83",
+        "type": "link out",
+        "z": "e97c6f12735a13c1",
+        "g": "24edc6d4f589fdeb",
+        "name": "list - family",
+        "mode": "link",
+        "links": [
+            "468277bb16c8903c"
+        ],
+        "x": 795,
+        "y": 2287.5,
+        "wires": []
+    },
+    {
+        "id": "8fb5ca57fc7b5a7e",
+        "type": "ui-table",
+        "z": "e97c6f12735a13c1",
+        "g": "24edc6d4f589fdeb",
+        "group": "c605809a8fe63a3b",
+        "name": "list - family - table - en",
+        "label": "",
+        "order": 16,
+        "width": 0,
+        "height": 0,
+        "maxrows": "50",
+        "passthru": false,
+        "autocols": false,
+        "showSearch": true,
+        "deselect": true,
+        "selectionType": "click",
+        "columns": [
+            {
+                "title": "Family",
+                "key": "family_full",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Equipments",
+                "key": "equipment_count",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "center"
+            },
+            {
+                "title": "Counters",
+                "key": "counter_count",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "center"
+            },
+            {
+                "title": "",
+                "key": "delete",
+                "keyType": "key",
+                "type": "button",
+                "width": "",
+                "align": "start"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 470,
+        "y": 2407.5,
+        "wires": [
+            [
+                "166e2618cc3cc324"
+            ]
+        ]
+    },
+    {
+        "id": "166e2618cc3cc324",
+        "type": "function",
+        "z": "e97c6f12735a13c1",
+        "g": "24edc6d4f589fdeb",
+        "name": "data",
+        "func": "// Do action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.action === 'button_click' && msg.column === 'delete') {\n    msg.kernel = {\n        'type': 'family',\n        'entity': msg.payload.family,\n        'value': '',\n        'loop': false,\n        'delete': true\n    };\n    msg.list = 'family';\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 2347.5,
+        "wires": [
+            [
+                "2191f5f76d432d83"
+            ]
+        ]
+    },
+    {
+        "id": "9a901a8471d20aec",
+        "type": "function",
+        "z": "e97c6f12735a13c1",
+        "g": "24edc6d4f589fdeb",
+        "name": "data",
+        "func": "// Parse families\n\nmsg.payload = [ ];\n\nnode.send([ null, msg, msg ]);\n\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.list === 'family') {\n    const families = global.get('kernel.family') || { };\n    const equipments = global.get('kernel.families') || { };\n    const counters = global.get('kernel.counters') || { };\n    let i = 0;\n\n    // Families are shared by all plants\n    for (const family in families) {\n        let row  = { };\n\n        row.family = family;\n        row.family_name = families[family];\n        row.family_full = row.family_name + ' (' + family + ')';\n        row.equipment_count = Object.values(equipments).filter(f => f === family).length;\n        row.counter_count = Object.values(counters).filter(f => f === family).length;\n        row.delete = (msg.dictionary.option_action.delete) || 'Delete';\n\n        msg.payload[i++] = row;\n    }\n\n    // Records title\n    msg.total = i;\n    node.send([ msg, null, null ]);\n\n    if (i > 0) {\n        msg.payload.sort((a, b) => a.family_name.localeCompare(b.family_name));\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [ null, msg, null ];\n        }\n\n        return [ null, null, msg ];\n    }\n}\n\nreturn;",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 2287.5,
+        "wires": [
+            [
+                "2191f5f76d432d83"
+            ],
+            [
+                "66796b868c39d8f8"
+            ],
+            [
+                "8fb5ca57fc7b5a7e"
             ]
         ]
     },

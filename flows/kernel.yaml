@@ -3090,16 +3090,13 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - plant
-  func: >-
+  func: |-
     msg.payload = msg.dictionary.option_notice.update_fail;
-
     msg.success = false;
-
 
     if (msg.hmi.level !== 'admin') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
-    'plant') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {
         let is_empty = true;
         // kernel.lines
         const lines = global.get('kernel.lines');
@@ -3183,12 +3180,12 @@
 
             msg.payload = msg.dictionary.option_notice.update_success;
             msg.success = true;
+        } else {
+            msg.payload = msg.dictionary.option_notice.plant_noempty || msg.dictionary.option_notice.update_fail;
         }
     }
 
-
     delete msg.kernel;
-
 
     return msg;
   outputs: 1
@@ -3243,16 +3240,13 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - line
-  func: >-
+  func: |-
     msg.payload = msg.dictionary.option_notice.update_fail;
-
     msg.success = false;
-
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
-    'line') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {
         let is_empty = true;
         // kernel.lines
         const equipments = global.get('kernel.equipments');
@@ -3340,12 +3334,12 @@
 
             msg.payload = msg.dictionary.option_notice.update_success;
             msg.success = true;
+        } else {
+            msg.payload = msg.dictionary.option_notice.line_noempty || msg.dictionary.option_notice.update_fail;
         }
     }
 
-
     delete msg.kernel;
-
 
     return msg;
   outputs: 1
@@ -3363,16 +3357,13 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - equipment
-  func: >-
+  func: |-
     msg.payload = msg.dictionary.option_notice.update_fail;
-
     msg.success = false;
-
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
-    'equipment') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {
         let is_empty = true;
         // kernel.link
         const links = global.get('kernel.link');
@@ -3446,12 +3437,12 @@
 
             msg.payload = msg.dictionary.option_notice.update_success;
             msg.success = true;
+        } else {
+            msg.payload = msg.dictionary.option_notice.equipment_noempty || msg.dictionary.option_notice.update_fail;
         }
     }
 
-
     delete msg.kernel;
-
 
     return msg;
   outputs: 1
@@ -3531,16 +3522,13 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - device
-  func: >-
+  func: |-
     msg.payload = msg.dictionary.option_notice.update_fail;
-
     msg.success = false;
-
 
     if (msg.hmi.level !== 'admin') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
-    'device') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'device') {
         let is_empty = true;
         // rlink (component)
         const rlinks = global.get('rlink') || { };
@@ -3582,12 +3570,12 @@
 
             msg.payload = msg.dictionary.option_notice.update_success;
             msg.success = true;
+        } else {
+            msg.payload = msg.dictionary.option_notice.device_noempty || msg.dictionary.option_notice.update_fail;
         }
     }
 
-
     delete msg.kernel;
-
 
     return msg;
   outputs: 1
@@ -6105,10 +6093,13 @@
                     'update_fail': 'Update failed',
                     'update_success': 'Successfully updated',
                     'plant_exists': 'Plant exists',
-                    'line exists': 'Line exists',
+                    'line_exists': 'Line exists',
                     'equipment_exists': 'Equipment exists',
-                    'device_noempty': 'Device is not empty',
-                    'family_noempty': 'Family is used by equipments',
+                    'plant_noempty': 'Plant contains lines',
+                    'line_noempty': 'Line contains equipments',
+                    'equipment_noempty': 'Equipment has components',
+                    'device_noempty': 'Device is used by components',
+                    'family_noempty': 'Family is used by equipments or counters',
                     'family_exists': 'Family exists',
                     'ident_fail': 'Invalid identifier',
                     'counter_exists': 'Counter exists',
@@ -6265,9 +6256,12 @@
                     'update_success': 'Mise à jour avec succès',
                     'plant_exists': 'Cette usine existe déjà',
                     'line_exists': 'Cette ligne existe déjà',
-                    'equipment exists': 'Cet équipement existe déjà',
-                    'device_noempty': "Ce matériel n'est pas vide",
-                    'family_noempty': 'Cette famille est utilisée par des équipements',
+                    'equipment_exists': 'Cet équipement existe déjà',
+                    'plant_noempty': 'Cette usine contient des lignes',
+                    'line_noempty': 'Cette ligne contient des équipements',
+                    'equipment_noempty': 'Cet équipement a des composants',
+                    'device_noempty': 'Ce matériel est utilisé par des composants',
+                    'family_noempty': 'Cette famille est utilisée par des équipements ou des compteurs',
                     'family_exists': 'Cette famille existe déjà',
                     'ident_fail': 'Identifiant invalide',
                     'counter_exists': 'Ce compteur existe déjà',
