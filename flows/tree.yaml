@@ -667,6 +667,66 @@
   'y': 1819
   w: 862
   h: 862
+- id: 3e348d3298353d48
+  type: group
+  z: 64ce08af468b8197
+  name: tree - family - import
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 9ef489e89b67f274
+    - e6e13f6fa9b9ba55
+    - c6ac73a8a272c297
+    - 81486df01c995788
+    - e38c8ba220021935
+    - 54b1dae61b9f0cfc
+    - 6ac9b6573fb5ce01
+    - d1fc92c40324fd78
+    - e36370dda8c9ba3c
+    - bbc50745a1a44db9
+    - 21f9046ead88648f
+    - 3043bb19c91e5b61
+    - 3d868b2d1788f601
+    - 1d2206250c7c124a
+  x: 3754
+  'y': 319
+  w: 662
+  h: 322
+- id: 0387dbcd7afb2bf0
+  type: group
+  z: 64ce08af468b8197
+  name: tree - equipment - import
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 4e839f35646403bc
+    - 18b48345107046d6
+    - e16b55f4dc877fd6
+    - dbcab24372cbbf24
+    - 6bfb16e119e92ce5
+    - 1f6f8c0d4465889a
+    - c50265644104080b
+    - c514d93a561f44aa
+    - b094580c1b27d3c1
+    - 2cfd647dffeea2fe
+    - 433ecbc9d1e4eb54
+    - 0be0895424752755
+    - 8ba9828e21b68a8d
+    - 2823bcc5bcd7fbb5
+    - 56de6a914b19a9bf
+    - 8c63a40b0140ebac
+    - 8c31f6df7da86c89
+    - 554f34b036bd0f7c
+    - 445da040d374d8b7
+    - dbd57c9371e999e3
+  x: 3754
+  'y': 1819
+  w: 662
+  h: 442
 - id: be594973267232f5
   type: link in
   z: 64ce08af468b8197
@@ -14703,7 +14763,11 @@
 
     // Register page dictionary
     msg.payload = {
+        'en': {
+            'page': 'Tree'
+        },
         'fr': {
+            'page': 'Arborescence',
             'plant_ident':"Identifiant de l'usine",
             'plant_name':"Nom de l'usine",
             'line_ident':'Identifiant de la ligne',
@@ -15326,29 +15390,41 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   name: data
-  func: |-
-    if (msg.payload === '' || msg.payload === null || typeof msg.payload === 'undefined') {
+  func: >-
+    if (msg.payload === '' || msg.payload === null || typeof msg.payload ===
+    'undefined') {
 
         return;
     }
 
+
     let raw = msg.payload;
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Check user right
+
     if (!['admin', 'rt'].includes(msg.hmi.level)) {
 
         return;
     }
 
+
     // Decode file content (UTF-8 with or without BOM, fallback to latin1)
+
     let text = '';
-    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' && Array.isArray(raw.data)) {
+
+    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' &&
+    Array.isArray(raw.data)) {
         raw = Buffer.from(raw.data);
     }
-    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer || ArrayBuffer.isView(raw)) {
+
+    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer ||
+    ArrayBuffer.isView(raw)) {
         const buffer = Buffer.from(raw);
         text = buffer.toString('utf8');
         if (text.includes('\uFFFD')) {
@@ -15357,13 +15433,20 @@
     } else {
         text = String(raw);
     }
+
     text = text.replace(/^\uFEFF/, '');
 
+
     // Parse CSV with ";" separator and optional double quotes
+
     let rows = [];
+
     let row = [];
+
     let field = '';
+
     let quoted = false;
+
     for (let i = 0; i < text.length; i++) {
         const c = text[i];
         if (quoted) {
@@ -15391,15 +15474,20 @@
             field += c;
         }
     }
+
     if (field !== '' || row.length > 0) {
         row.push(field);
         rows.push(row);
     }
 
+
     // Remove empty rows
+
     rows = rows.filter(r => r.some(f => f.trim() !== ''));
 
+
     // Need a title row and at least one data row
+
     if (rows.length < 2) {
         msg.notice = msg.dictionary.tree.import_empty || 'File has no data rows';
         msg = await node.linkcall('ui - notice', msg);
@@ -15407,22 +15495,34 @@
         return;
     }
 
+
     global.set('form["' + msg.hmi.id + '"]["csv"]', {
         'header': rows[0].map(h => h.trim()),
         'rows': rows.slice(1)
     });
 
+
     // Disabled file form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
 
+
     // Go to next form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = true;
+
     node.send([null, msg]);
+
 
     return;
   outputs: 2
@@ -15441,13 +15541,16 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
 
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
@@ -15464,19 +15567,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_ident_column || 'Column of line ident'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -15562,13 +15673,16 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
 
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
@@ -15585,19 +15699,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_name_column || 'Column of line name'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -15853,25 +15975,35 @@
   z: 64ce08af468b8197
   g: d8d8a361ac715076
   name: data
-  func: |-
+  func: >-
     // Import lines from CSV file
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Disabled import form
+
     msg.payload = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
+
 
     if (!['admin', 'rt'].includes(msg.hmi.level)) {
 
         return;
     }
 
+
     let form = global.get('form["' + msg.hmi.id + '"]') || {};
 
+
     // Check form
+
     if (typeof form.csv !== 'object'
         || !Array.isArray(form.csv.rows)
         || !Number.isInteger(form.idcol)
@@ -15885,15 +16017,21 @@
         return;
     }
 
+
     const lines = global.get('kernel.line') || {};
+
     const plants = global.get('kernel.lines') || {};
+
     const replace = form.replace === true;
+
     let seen = {};
+
     let count = {
         'added': 0,
         'replaced': 0,
         'ignored': 0
     };
+
 
     for (const row of form.csv.rows) {
         const id = String(row[form.idcol] || '').trim();
@@ -15946,15 +16084,21 @@
         }]);
     }
 
+
     // Free memory
+
     global.set('form["' + msg.hmi.id + '"]["csv"]', undefined);
 
+
     // UI notice
-    msg.notice = (msg.dictionary.tree.import_result || '%added% added, %replaced% replaced, %ignored% ignored')
+
+    msg.notice = (msg.dictionary.tree.import_result || '%added% added,
+    %replaced% replaced, %ignored% ignored')
         .replace('%added%', count.added)
         .replace('%replaced%', count.replaced)
         .replace('%ignored%', count.ignored);
     msg = await node.linkcall('ui - notice', msg);
+
 
     return;
   outputs: 2
@@ -15969,33 +16113,6 @@
     - - dca5b9199c0c501a
       - 97914656e2ebfb5f
     - - 3cc5c7bd4abc1cb9
-- id: 3e348d3298353d48
-  type: group
-  z: 64ce08af468b8197
-  name: tree - family - import
-  style:
-    fill: '#6f2fa0'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - 9ef489e89b67f274
-    - e6e13f6fa9b9ba55
-    - c6ac73a8a272c297
-    - 81486df01c995788
-    - e38c8ba220021935
-    - 54b1dae61b9f0cfc
-    - 6ac9b6573fb5ce01
-    - d1fc92c40324fd78
-    - e36370dda8c9ba3c
-    - bbc50745a1a44db9
-    - 21f9046ead88648f
-    - 3043bb19c91e5b61
-    - 3d868b2d1788f601
-    - 1d2206250c7c124a
-  x: 3700
-  'y': 319
-  w: 800
-  h: 322
 - id: 9ef489e89b67f274
   type: ui-file-input
   z: 64ce08af468b8197
@@ -16021,29 +16138,41 @@
   z: 64ce08af468b8197
   g: 3e348d3298353d48
   name: data
-  func: |-
-    if (msg.payload === '' || msg.payload === null || typeof msg.payload === 'undefined') {
+  func: >-
+    if (msg.payload === '' || msg.payload === null || typeof msg.payload ===
+    'undefined') {
 
         return;
     }
 
+
     let raw = msg.payload;
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Check user right
+
     if (!['admin', 'rt'].includes(msg.hmi.level)) {
 
         return;
     }
 
+
     // Decode file content (UTF-8 with or without BOM, fallback to latin1)
+
     let text = '';
-    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' && Array.isArray(raw.data)) {
+
+    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' &&
+    Array.isArray(raw.data)) {
         raw = Buffer.from(raw.data);
     }
-    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer || ArrayBuffer.isView(raw)) {
+
+    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer ||
+    ArrayBuffer.isView(raw)) {
         const buffer = Buffer.from(raw);
         text = buffer.toString('utf8');
         if (text.includes('\uFFFD')) {
@@ -16052,13 +16181,20 @@
     } else {
         text = String(raw);
     }
+
     text = text.replace(/^\uFEFF/, '');
 
+
     // Parse CSV with ";" separator and optional double quotes
+
     let rows = [];
+
     let row = [];
+
     let field = '';
+
     let quoted = false;
+
     for (let i = 0; i < text.length; i++) {
         const c = text[i];
         if (quoted) {
@@ -16086,15 +16222,20 @@
             field += c;
         }
     }
+
     if (field !== '' || row.length > 0) {
         row.push(field);
         rows.push(row);
     }
 
+
     // Remove empty rows
+
     rows = rows.filter(r => r.some(f => f.trim() !== ''));
 
+
     // Need a title row and at least one data row
+
     if (rows.length < 2) {
         msg.notice = msg.dictionary.tree.import_empty || 'File has no data rows';
         msg = await node.linkcall('ui - notice', msg);
@@ -16102,22 +16243,34 @@
         return;
     }
 
+
     global.set('form["' + msg.hmi.id + '"]["csv"]', {
         'header': rows[0].map(h => h.trim()),
         'rows': rows.slice(1)
     });
 
+
     // Disabled file form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
 
+
     // Go to next form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = true;
+
     node.send([null, msg]);
+
 
     return;
   outputs: 2
@@ -16136,13 +16289,16 @@
   z: 64ce08af468b8197
   g: 3e348d3298353d48
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
 
@@ -16158,19 +16314,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_family_ident_column || 'Column of family ident'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -16256,13 +16420,16 @@
   z: 64ce08af468b8197
   g: 3e348d3298353d48
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
 
@@ -16278,19 +16445,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_family_name_column || 'Column of family name'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -16546,25 +16721,35 @@
   z: 64ce08af468b8197
   g: 3e348d3298353d48
   name: data
-  func: |-
+  func: >-
     // Import families from CSV file
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Disabled import form
+
     msg.payload = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
+
 
     if (!['admin', 'rt'].includes(msg.hmi.level)) {
 
         return;
     }
 
+
     let form = global.get('form["' + msg.hmi.id + '"]') || {};
 
+
     // Check form
+
     if (typeof form.csv !== 'object'
         || !Array.isArray(form.csv.rows)
         || !Number.isInteger(form.idcol)
@@ -16576,14 +16761,19 @@
         return;
     }
 
+
     const families = global.get('kernel.family') || {};
+
     const replace = form.replace === true;
+
     let seen = {};
+
     let count = {
         'added': 0,
         'replaced': 0,
         'ignored': 0
     };
+
 
     for (const row of form.csv.rows) {
         const id = String(row[form.idcol] || '').trim();
@@ -16622,15 +16812,21 @@
         }]);
     }
 
+
     // Free memory
+
     global.set('form["' + msg.hmi.id + '"]["csv"]', undefined);
 
+
     // UI notice
-    msg.notice = (msg.dictionary.tree.import_result || '%added% added, %replaced% replaced, %ignored% ignored')
+
+    msg.notice = (msg.dictionary.tree.import_result || '%added% added,
+    %replaced% replaced, %ignored% ignored')
         .replace('%added%', count.added)
         .replace('%replaced%', count.replaced)
         .replace('%ignored%', count.ignored);
     msg = await node.linkcall('ui - notice', msg);
+
 
     return;
   outputs: 2
@@ -16645,39 +16841,6 @@
     - - 3043bb19c91e5b61
       - 2a16706507eacd33
     - - 21c130ed56315b01
-- id: 0387dbcd7afb2bf0
-  type: group
-  z: 64ce08af468b8197
-  name: tree - equipment - import
-  style:
-    fill: '#6f2fa0'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - 4e839f35646403bc
-    - 18b48345107046d6
-    - e16b55f4dc877fd6
-    - dbcab24372cbbf24
-    - 6bfb16e119e92ce5
-    - 1f6f8c0d4465889a
-    - c50265644104080b
-    - c514d93a561f44aa
-    - b094580c1b27d3c1
-    - 2cfd647dffeea2fe
-    - 433ecbc9d1e4eb54
-    - 0be0895424752755
-    - 8ba9828e21b68a8d
-    - 2823bcc5bcd7fbb5
-    - 56de6a914b19a9bf
-    - 8c63a40b0140ebac
-    - 8c31f6df7da86c89
-    - 554f34b036bd0f7c
-    - 445da040d374d8b7
-    - dbd57c9371e999e3
-  x: 3700
-  'y': 1819
-  w: 800
-  h: 442
 - id: 4e839f35646403bc
   type: ui-file-input
   z: 64ce08af468b8197
@@ -16703,29 +16866,41 @@
   z: 64ce08af468b8197
   g: 0387dbcd7afb2bf0
   name: data
-  func: |-
-    if (msg.payload === '' || msg.payload === null || typeof msg.payload === 'undefined') {
+  func: >-
+    if (msg.payload === '' || msg.payload === null || typeof msg.payload ===
+    'undefined') {
 
         return;
     }
 
+
     let raw = msg.payload;
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Check user right
+
     if (!['admin', 'rt'].includes(msg.hmi.level)) {
 
         return;
     }
 
+
     // Decode file content (UTF-8 with or without BOM, fallback to latin1)
+
     let text = '';
-    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' && Array.isArray(raw.data)) {
+
+    if (raw !== null && typeof raw === 'object' && raw.type === 'Buffer' &&
+    Array.isArray(raw.data)) {
         raw = Buffer.from(raw.data);
     }
-    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer || ArrayBuffer.isView(raw)) {
+
+    if (Buffer.isBuffer(raw) || raw instanceof ArrayBuffer ||
+    ArrayBuffer.isView(raw)) {
         const buffer = Buffer.from(raw);
         text = buffer.toString('utf8');
         if (text.includes('\uFFFD')) {
@@ -16734,13 +16909,20 @@
     } else {
         text = String(raw);
     }
+
     text = text.replace(/^\uFEFF/, '');
 
+
     // Parse CSV with ";" separator and optional double quotes
+
     let rows = [];
+
     let row = [];
+
     let field = '';
+
     let quoted = false;
+
     for (let i = 0; i < text.length; i++) {
         const c = text[i];
         if (quoted) {
@@ -16768,15 +16950,20 @@
             field += c;
         }
     }
+
     if (field !== '' || row.length > 0) {
         row.push(field);
         rows.push(row);
     }
 
+
     // Remove empty rows
+
     rows = rows.filter(r => r.some(f => f.trim() !== ''));
 
+
     // Need a title row and at least one data row
+
     if (rows.length < 2) {
         msg.notice = msg.dictionary.tree.import_empty || 'File has no data rows';
         msg = await node.linkcall('ui - notice', msg);
@@ -16784,22 +16971,34 @@
         return;
     }
 
+
     global.set('form["' + msg.hmi.id + '"]["csv"]', {
         'header': rows[0].map(h => h.trim()),
         'rows': rows.slice(1)
     });
 
+
     // Disabled file form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
 
+
     // Go to next form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = true;
+
     node.send([null, msg]);
+
 
     return;
   outputs: 2
@@ -16818,13 +17017,16 @@
   z: 64ce08af468b8197
   g: 0387dbcd7afb2bf0
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
 
@@ -16840,19 +17042,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_equipment_ident_column || 'Column of equipment ident'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -16938,13 +17148,16 @@
   z: 64ce08af468b8197
   g: 0387dbcd7afb2bf0
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
 
@@ -16960,19 +17173,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_equipment_name_column || 'Column of equipment name'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -17058,13 +17279,16 @@
   z: 64ce08af468b8197
   g: 0387dbcd7afb2bf0
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
 
@@ -17080,19 +17304,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_equipment_line_column || 'Column of line ident'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -17178,17 +17410,21 @@
   z: 64ce08af468b8197
   g: 0387dbcd7afb2bf0
   name: data
-  func: |-
-    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header': [] };
+  func: >-
+    const csv = global.get('form["' + msg.hmi.id + '"]["csv"]') || { 'header':
+    [] };
+
 
     msg.options = [{
         'label': '',
         'value': ''
     }];
+
     msg.options.push({
         'label': msg.dictionary.tree.import_equipment_family_none || 'No family',
         'value': '-1'
     });
+
 
     csv.header.forEach((title, index) => {
         let label = title !== '' ? title : '#' + (index + 1);
@@ -17205,19 +17441,27 @@
         });
     });
 
+
     msg.ui_update = {
         'label': msg.dictionary.tree.import_equipment_family_column || 'Column of family ident'
     };
 
+
     // Keep file columns order
+
     msg.nosort = true;
+
     // Keep selected value when the form is disabled
+
     if (msg.enabled !== false) {
         msg.payload = '';
     }
 
+
     // Clean options
+
     msg = await node.linkcall('option - clean', msg);
+
 
     return msg;
   outputs: 1
@@ -17473,25 +17717,35 @@
   z: 64ce08af468b8197
   g: 0387dbcd7afb2bf0
   name: data
-  func: |-
+  func: >-
     // Import equipments from CSV file
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Disabled import form
+
     msg.payload = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
+
 
     if (!['admin', 'rt'].includes(msg.hmi.level)) {
 
         return;
     }
 
+
     let form = global.get('form["' + msg.hmi.id + '"]') || {};
 
+
     // Check form
+
     if (typeof form.csv !== 'object'
         || !Array.isArray(form.csv.rows)
         || !Number.isInteger(form.idcol)
@@ -17507,18 +17761,27 @@
         return;
     }
 
+
     const equipments = global.get('kernel.equipment') || {};
+
     const equipmentLines = global.get('kernel.equipments') || {};
+
     const lines = global.get('kernel.line') || {};
+
     const linePlants = global.get('kernel.lines') || {};
+
     const families = global.get('kernel.family') || {};
+
     const replace = form.replace === true;
+
     let seen = {};
+
     let count = {
         'added': 0,
         'replaced': 0,
         'ignored': 0
     };
+
 
     for (const row of form.csv.rows) {
         const id = String(row[form.idcol] || '').trim();
@@ -17589,15 +17852,21 @@
         }
     }
 
+
     // Free memory
+
     global.set('form["' + msg.hmi.id + '"]["csv"]', undefined);
 
+
     // UI notice
-    msg.notice = (msg.dictionary.tree.import_result || '%added% added, %replaced% replaced, %ignored% ignored')
+
+    msg.notice = (msg.dictionary.tree.import_result || '%added% added,
+    %replaced% replaced, %ignored% ignored')
         .replace('%added%', count.added)
         .replace('%replaced%', count.replaced)
         .replace('%ignored%', count.ignored);
     msg = await node.linkcall('ui - notice', msg);
+
 
     return;
   outputs: 2

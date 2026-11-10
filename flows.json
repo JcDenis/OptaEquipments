@@ -2625,6 +2625,149 @@
         "h": 209.5
     },
     {
+        "id": "5b51a1eef43d09f0",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "name": "kernel - noline",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "d8fbc51e570cb5ed",
+            "42be665f2c13aa52",
+            "2f0b5a80949c835c",
+            "45596f4f396f8130",
+            "ac6469339128acd9",
+            "178e115dbc98ccd8"
+        ],
+        "x": 104,
+        "y": 4967,
+        "w": 592,
+        "h": 142
+    },
+    {
+        "id": "24edc6d4f589fdeb",
+        "type": "group",
+        "z": "e97c6f12735a13c1",
+        "name": "list - family",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "222a4d282e6eb3f4",
+            "66796b868c39d8f8",
+            "2191f5f76d432d83",
+            "8fb5ca57fc7b5a7e",
+            "166e2618cc3cc324",
+            "9a901a8471d20aec"
+        ],
+        "x": 104,
+        "y": 2239,
+        "w": 732,
+        "h": 209.5
+    },
+    {
+        "id": "3e348d3298353d48",
+        "type": "group",
+        "z": "64ce08af468b8197",
+        "name": "tree - family - import",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "9ef489e89b67f274",
+            "e6e13f6fa9b9ba55",
+            "c6ac73a8a272c297",
+            "81486df01c995788",
+            "e38c8ba220021935",
+            "54b1dae61b9f0cfc",
+            "6ac9b6573fb5ce01",
+            "d1fc92c40324fd78",
+            "e36370dda8c9ba3c",
+            "bbc50745a1a44db9",
+            "21f9046ead88648f",
+            "3043bb19c91e5b61",
+            "3d868b2d1788f601",
+            "1d2206250c7c124a"
+        ],
+        "x": 3754,
+        "y": 319,
+        "w": 662,
+        "h": 322
+    },
+    {
+        "id": "0387dbcd7afb2bf0",
+        "type": "group",
+        "z": "64ce08af468b8197",
+        "name": "tree - equipment - import",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "4e839f35646403bc",
+            "18b48345107046d6",
+            "e16b55f4dc877fd6",
+            "dbcab24372cbbf24",
+            "6bfb16e119e92ce5",
+            "1f6f8c0d4465889a",
+            "c50265644104080b",
+            "c514d93a561f44aa",
+            "b094580c1b27d3c1",
+            "2cfd647dffeea2fe",
+            "433ecbc9d1e4eb54",
+            "0be0895424752755",
+            "8ba9828e21b68a8d",
+            "2823bcc5bcd7fbb5",
+            "56de6a914b19a9bf",
+            "8c63a40b0140ebac",
+            "8c31f6df7da86c89",
+            "554f34b036bd0f7c",
+            "445da040d374d8b7",
+            "dbd57c9371e999e3"
+        ],
+        "x": 3754,
+        "y": 1819,
+        "w": 662,
+        "h": 442
+    },
+    {
+        "id": "9b721894958e4019",
+        "type": "group",
+        "z": "44465f18e06bb58d",
+        "name": "system - orphan",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "505480cb0e3079f8",
+            "31bfab192e2ed76c",
+            "5b5e9a2220b1b062",
+            "d6730a00d39b815a",
+            "e808b2d0f038606b",
+            "4e2673a49fda749b",
+            "3524ea127575a179",
+            "7d204be423155f87",
+            "f115ea35c799ae8a",
+            "fcbf5b7adea30d86",
+            "9fc7fa689859e74b",
+            "6fe4fe933a866620"
+        ],
+        "x": 104,
+        "y": 1691.5,
+        "w": 1032,
+        "h": 309.5
+    },
+    {
         "id": "fa94e5dda0432e95",
         "type": "group",
         "z": "adb9fbf379118d77",
@@ -6398,7 +6541,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "32da9b1ae024e8bb",
         "name": "data",
-        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state (ex: dashboard client-connected, client-gone events), stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n\n    return;\n}\n\n// Tab closed, clean its memories, the session is kept for page refresh and other tabs\nif (msg.payload === 'lost') {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        let menu = global.get('menu') || { }; // autoupdate\n\n        delete form[msg.hmi.id];\n        delete menu[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect, go to auth page\nif (msg.payload === 'connect') {\n    // Session still opened (page refresh), stay on the page, change event checks page rights\n    if ((msg.hmi.login || '') !== '') {\n\n        return;\n    }\n\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\nmsg.page_data = {\n    'id': 'auth',\n    'title': '',\n    'vendor': 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor')),\n    'header': global.get('kernel.app.title') || global.get('describe.app.title'),\n    'lang': 'en'\n};\n\n// Check user page right\nlet allowed = false;\nfor (const page in pages) {\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': msg.dictionary.option_page[page] || pages[page]['name']\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_data.lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.page_data.id = page;\n        msg.hmi.page = msg.dictionary.option_page[page];\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.option_page.auth;\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page_data.title = msg.hmi.page;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\ndelete msg.page_data;\n\nreturn [null, newMsg, null];",
+        "func": "// Check ui page action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet user = global.get('user'); // autoupdate\nlet form = global.get('form'); // autoupdate\nlet pages = global.get('describe.pages');\n\n// Initialize some variables\nif (typeof form[msg.hmi.id] !== 'object') {\n    form[msg.hmi.id] = { };\n}\n\n// On unwanted state (ex: dashboard client-connected, client-gone events), stop here\nif (!['connect', 'change', 'lost'].includes(msg.payload)) {\n\n    return;\n}\n\n// Tab closed, clean its memories, the session is kept for page refresh and other tabs\nif (msg.payload === 'lost') {\n    if (typeof msg.hmi.id === 'string' && msg.hmi.id !== '') {\n        let menu = global.get('menu') || { }; // autoupdate\n\n        delete form[msg.hmi.id];\n        delete menu[msg.hmi.id];\n    }\n\n    return;\n}\n\n// On connect, go to auth page\nif (msg.payload === 'connect') {\n    // Session still opened (page refresh), stay on the page, change event checks page rights\n    if ((msg.hmi.login || '') !== '') {\n\n        return;\n    }\n\n    msg.payload = pages.auth.name || '';\n    msg.hmi.page = msg.payload;\n\n    node.send([null, null, msg]);\n    //return;\n}\n\n// Prepare\nmsg.buttons = [];\nmsg.payload = {\n    'pages': {\n        'show': [],\n        'hide': []\n    }\n};\nmsg.page_data = {\n    'id': 'auth',\n    'title': '',\n    'vendor': 'OptaEquipments v' + (global.get('describe.app.version') || '0.0.0') + ' for ' + (global.get('kernel.app.vendor') || global.get('describe.app.vendor')),\n    'header': global.get('kernel.app.title') || global.get('describe.app.title'),\n    'lang': 'en'\n};\n\n// Check user page right\nlet allowed = false;\nfor (const page in pages) {\n    let title = typeof msg.dictionary[page] === 'object' && typeof msg.dictionary[page]['page'] === 'string' ? msg.dictionary[page][\"page\"] : pages[page]['name'];\n\n    if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {\n        msg.buttons.push({\n            'id': page,\n            'icon': pages[page]['icon'],\n            'title': title\n        });\n        msg.payload.pages.show.push(pages[page]['name']);\n    }\n    else {\n        msg.payload.pages.hide.push(pages[page]['name']);\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab) {\n        msg.page_data.lang = msg.dictionary.lang;\n    }\n\n    if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {\n        msg.page_data.id = page;\n        msg.hmi.page = title;\n        allowed = true;\n    }\n}\n\nif (allowed === false) {\n    msg.hmi.tab = pages.auth.tab || 99;\n    msg.hmi.page = msg.dictionary.auth.page || 'Authnetication';\n}\n\n// user plant\nif (msg.hmi.plant !== '' && msg.hmi.plant !== (form[msg.hmi.id][\"plant\"] || '-')) {\n    form[msg.hmi.id][\"plant\"] = msg.hmi.plant;\n    form[msg.hmi.id][\"line\"] = '';\n    form[msg.hmi.id][\"equipment\"] = '';\n}\nform[msg.hmi.id][\"ts\"] = Date.now();\n\n// page process\nlet newMsg = {\n    'topic': '',\n    'payload': msg.hmi.page,\n    'options': [{ 'label': '', 'value': '' }],\n    'hmi': msg.hmi,\n    'dictionary': msg.dictionary,\n    '_client': msg._client\n};\n\n// UI menu\nmsg.page_data.title = msg.hmi.page;\n\ndelete msg.dictionary;\n\nnode.send([msg, null, null]);\n\ndelete msg.page_data;\n\nreturn [null, newMsg, null];",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -8598,7 +8741,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "9eded20dfe6c1a19",
         "name": "data",
-        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_page':{\n                'auth':'Authentication',\n                'map': 'Map',\n                'alert':'Alerts',\n                'counter':'Counters',\n                'period':'Programs',\n                'detail':'Detail',\n                'list':'List',\n                'tree':'Tree',\n                'users':'Users',\n                'system':'System'\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'import': 'Import',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line_exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'plant_noempty': 'Plant contains lines',\n                'line_noempty': 'Line contains equipments',\n                'equipment_noempty': 'Equipment has components',\n                'device_noempty': 'Device is used by components',\n                'family_noempty': 'Family has maintenance counters',\n                'plant_moved': 'Plant deleted, %n line(s) moved to reserved plant',\n                'line_moved': 'Line deleted, %n equipment(s) moved to reserved line',\n                'family_removed': 'Family deleted, %n equipment(s) now without family',\n                'plant_reserved': 'This plant is reserved for orphan lines, it cannot be deleted',\n                'line_reserved': 'This line is reserved for equipments without line, it cannot be deleted',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_page': {\n                'auth': 'Authentification',\n                'map': 'Implantation',\n                'alert': 'Alertes',\n                'counter': 'Compteurs',\n                'period': 'Programmes',\n                'detail': 'Detail',\n                'list': 'Liste',\n                'tree': 'Arborescence',\n                'users': 'Utilisateurs',\n                'system': 'Système'\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'import': 'Importer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment_exists': 'Cet équipement existe déjà',\n                'plant_noempty': 'Cette usine contient des lignes',\n                'line_noempty': 'Cette ligne contient des équipements',\n                'equipment_noempty': 'Cet équipement a des composants',\n                'device_noempty': 'Ce matériel est utilisé par des composants',\n                'family_noempty': 'Cette famille a des compteurs de maintenance',\n                'plant_moved': 'Usine supprimée, %n ligne(s) déplacée(s) vers l\\'usine réservée',\n                'line_moved': 'Ligne supprimée, %n équipement(s) déplacé(s) vers « Sans ligne »',\n                'family_removed': 'Famille supprimée, %n équipement(s) désormais sans famille',\n                'plant_reserved': 'Cette usine est réservée aux lignes orphelines, elle ne peut pas être supprimée',\n                'line_reserved': 'Cette ligne est réservée aux équipements sans ligne, elle ne peut pas être supprimée',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
+        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'import': 'Import',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line_exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'plant_noempty': 'Plant contains lines',\n                'line_noempty': 'Line contains equipments',\n                'equipment_noempty': 'Equipment has components',\n                'device_noempty': 'Device is used by components',\n                'family_noempty': 'Family has maintenance counters',\n                'plant_moved': 'Plant deleted, %n line(s) moved to reserved plant',\n                'line_moved': 'Line deleted, %n equipment(s) moved to reserved line',\n                'family_removed': 'Family deleted, %n equipment(s) now without family',\n                'plant_reserved': 'This plant is reserved for orphan lines, it cannot be deleted',\n                'line_reserved': 'This line is reserved for equipments without line, it cannot be deleted',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'import': 'Importer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment_exists': 'Cet équipement existe déjà',\n                'plant_noempty': 'Cette usine contient des lignes',\n                'line_noempty': 'Cette ligne contient des équipements',\n                'equipment_noempty': 'Cet équipement a des composants',\n                'device_noempty': 'Ce matériel est utilisé par des composants',\n                'family_noempty': 'Cette famille a des compteurs de maintenance',\n                'plant_moved': 'Usine supprimée, %n ligne(s) déplacée(s) vers l\\'usine réservée',\n                'line_moved': 'Ligne supprimée, %n équipement(s) déplacé(s) vers « Sans ligne »',\n                'family_removed': 'Famille supprimée, %n équipement(s) désormais sans famille',\n                'plant_reserved': 'Cette usine est réservée aux lignes orphelines, elle ne peut pas être supprimée',\n                'line_reserved': 'Cette ligne est réservée aux équipements sans ligne, elle ne peut pas être supprimée',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8638,29 +8781,6 @@
         "x": 395,
         "y": 3560,
         "wires": []
-    },
-    {
-        "id": "5b51a1eef43d09f0",
-        "type": "group",
-        "z": "f6f2187d.f17ca8",
-        "name": "kernel - noline",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "d8fbc51e570cb5ed",
-            "42be665f2c13aa52",
-            "2f0b5a80949c835c",
-            "45596f4f396f8130",
-            "ac6469339128acd9",
-            "178e115dbc98ccd8"
-        ],
-        "x": 104,
-        "y": 4967,
-        "w": 700,
-        "h": 142
     },
     {
         "id": "d8fbc51e570cb5ed",
@@ -14647,7 +14767,7 @@
         "z": "27841aa886edd1cd",
         "g": "65989ffcddd6ae81",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\n// Register page definition\nmsg.payload = {\n    'tab': 0,\n    'id': '64fe17ae4a406472',\n    'name': 'ui - page - auth',\n    'icon': 'mdi-login',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'user': 'Utilisateur : ',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\n// Register page definition\nmsg.payload = {\n    'tab': 0,\n    'id': '64fe17ae4a406472',\n    'name': 'ui - page - auth',\n    'icon': 'mdi-login',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Authentication'\n    },\n    'fr': {\n        'page': 'Auhtentification',\n        'user': 'Utilisateur : ',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -15497,7 +15617,7 @@
         "z": "05f6b695d75a73cf",
         "g": "b572d13bd275e8da",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 1,\n    'id': 'ded8ef092f5c6531',\n    'name': 'ui - page - map',\n    'icon': 'mdi-map-marker',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 1,\n    'id': 'ded8ef092f5c6531',\n    'name': 'ui - page - map',\n    'icon': 'mdi-map-marker',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Map'\n    },\n    'fr': {\n        'page': 'Implantation',\n        'help_on': 'La ligne est en chauffe',\n        'help_off': \"La ligne n'est pas en chauffe\",\n        'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',\n        'help_stop': \"La ligne est à l'arrêt\",\n        'help_ready': 'La ligne est prête',\n        'help_cycle': 'La ligne est en cycle'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -15867,7 +15987,7 @@
         "z": "476eb6fc04c55cec",
         "g": "d9c84cf8592b1630",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 2,\n    'id': 'a19160517715b70b',\n    'name': 'ui - page - alert',\n    'icon': 'mdi-wrench',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 2,\n    'id': 'a19160517715b70b',\n    'name': 'ui - page - alert',\n    'icon': 'mdi-wrench',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Alerts'\n    },\n    'fr': {\n        'page': 'Alertes',\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -16218,7 +16338,7 @@
         "z": "3782b10e2580f9d3",
         "g": "c8a2a1f0fba572d0",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 3,\n    'id': 'ff65e4906cd91a61',\n    'name': 'ui - page - counter',\n    'icon': 'mdi-counter',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'confirm_query': 'Voulez vous remettre à zéro ce compteur ?',\n        'confirm_yes': 'Oui',\n        'confirm_no': 'Non'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 3,\n    'id': 'ff65e4906cd91a61',\n    'name': 'ui - page - counter',\n    'icon': 'mdi-counter',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Counters'\n    },\n    'fr': {\n        'page': 'Compteurs',\n        'confirm_query': 'Voulez vous remettre à zéro ce compteur ?',\n        'confirm_yes': 'Oui',\n        'confirm_no': 'Non'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -17056,7 +17176,7 @@
         "z": "51c4b2897d2c318c",
         "g": "46483f79a033d950",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 4,\n    'id': '4d7d40fad3a281d3',\n    'name': 'ui - page - period',\n    'icon': 'mdi-clock',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'enable': '►',\n        'disable': 'X',\n        'state_title':'Etat actuel : ',\n        'state_help':'► est activé,  X est désactivé',\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 4,\n    'id': '4d7d40fad3a281d3',\n    'name': 'ui - page - period',\n    'icon': 'mdi-clock',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Programs'\n    },\n    'fr': {\n        'page': 'Programmes',\n        'enable': '►',\n        'disable': 'X',\n        'state_title':'Etat actuel : ',\n        'state_help':'► est activé,  X est désactivé',\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -18651,7 +18771,7 @@
         "color": "#717171",
         "wrapText": false,
         "className": "oe-title",
-        "value": "dictionary.option_page.alert",
+        "value": "dictionary.alert.page",
         "valueType": "msg",
         "x": 470,
         "y": 3540,
@@ -19396,7 +19516,7 @@
         "color": "#717171",
         "wrapText": false,
         "className": "oe-title",
-        "value": "dictionary.option_page.period",
+        "value": "dictionary.period.page",
         "valueType": "msg",
         "x": 490,
         "y": 4200,
@@ -21266,7 +21386,7 @@
         "color": "#717171",
         "wrapText": false,
         "className": "oe-title",
-        "value": "dictionary.option_page.counter",
+        "value": "dictionary.counter.page",
         "valueType": "msg",
         "x": 500,
         "y": 3900,
@@ -23181,7 +23301,7 @@
         "z": "852390cb9559e176",
         "g": "f576ed605b3c16a1",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 5,\n    'id': '71ccb6fab20261e2',\n    'name': 'ui - page - detail',\n    'icon': 'mdi-magnify',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'live_title': 'Direct',\n        'live_run': 'Fonctionnement',\n        'live_runmeter': 'Heures partieles',\n        'live_runmetertotal': 'Herures totales',\n        'live_runreset': \"RAZ compteur d'heures\",\n        'live_cycle': 'Cycle',\n        'live_cyclemeter': 'Cycles partiels',\n        'live_cyclemetertotal': 'Cycles totals',\n        'live_cyclereset': 'RAZ compteur de cycles',\n        'live_heat': 'Chauffe',\n        'live_heatswitchon': 'Activer la chauffe',\n        'live_heatswitchoff': 'Désactiver la chauffe',\n        'live_heattoggle': 'Inverser la chauffe',\n        'live_voltage': 'Tension',\n        'live_power': 'Puissance',\n        'live_load1meter': 'Charge à 1m',\n        'live_load5meter': 'Charge à 5m',\n        'live_load15meter': 'Charge à 15m',\n        'live_memorymeter': 'Utilisation mémoire',\n        'live_diskmeter': 'Utilisation disque',\n        'live_uptimemeter': 'Durée',\n        'chart_title': 'Graphique',\n        'chart_historic': 'Historique',\n        'chart_refresh': 'Rafraichir',\n        'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',\n        'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',\n        'chart_rundate': 'Etat de fonctionnement moyen suivant résolution'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 5,\n    'id': '71ccb6fab20261e2',\n    'name': 'ui - page - detail',\n    'icon': 'mdi-magnify',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': true,\n        'prod': true\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Detail'\n    },\n    'fr': {\n        'page': 'Détail',\n        'live_title': 'Direct',\n        'live_run': 'Fonctionnement',\n        'live_runmeter': 'Heures partieles',\n        'live_runmetertotal': 'Herures totales',\n        'live_runreset': \"RAZ compteur d'heures\",\n        'live_cycle': 'Cycle',\n        'live_cyclemeter': 'Cycles partiels',\n        'live_cyclemetertotal': 'Cycles totals',\n        'live_cyclereset': 'RAZ compteur de cycles',\n        'live_heat': 'Chauffe',\n        'live_heatswitchon': 'Activer la chauffe',\n        'live_heatswitchoff': 'Désactiver la chauffe',\n        'live_heattoggle': 'Inverser la chauffe',\n        'live_voltage': 'Tension',\n        'live_power': 'Puissance',\n        'live_load1meter': 'Charge à 1m',\n        'live_load5meter': 'Charge à 5m',\n        'live_load15meter': 'Charge à 15m',\n        'live_memorymeter': 'Utilisation mémoire',\n        'live_diskmeter': 'Utilisation disque',\n        'live_uptimemeter': 'Durée',\n        'chart_title': 'Graphique',\n        'chart_historic': 'Historique',\n        'chart_refresh': 'Rafraichir',\n        'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',\n        'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',\n        'chart_rundate': 'Etat de fonctionnement moyen suivant résolution'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -25166,7 +25286,7 @@
         "z": "e97c6f12735a13c1",
         "g": "b16372546e0c5ee1",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 6,\n    'id': '297c38d08e523a55',\n    'name': 'ui - page - list',\n    'icon': 'mdi-format-list-bulleted-square',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'records': \"Nombre total d'enregistrements: \"\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 6,\n    'id': '297c38d08e523a55',\n    'name': 'ui - page - list',\n    'icon': 'mdi-format-list-bulleted-square',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': true,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'List'\n    },\n    'fr': {\n        'page': 'Liste',\n        'records': \"Nombre total d'enregistrements: \"\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -25217,29 +25337,6 @@
                 "5fb8b8994d1a5691"
             ]
         ]
-    },
-    {
-        "id": "24edc6d4f589fdeb",
-        "type": "group",
-        "z": "e97c6f12735a13c1",
-        "name": "list - family",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "222a4d282e6eb3f4",
-            "66796b868c39d8f8",
-            "2191f5f76d432d83",
-            "8fb5ca57fc7b5a7e",
-            "166e2618cc3cc324",
-            "9a901a8471d20aec"
-        ],
-        "x": 104,
-        "y": 2239,
-        "w": 732,
-        "h": 209.5
     },
     {
         "id": "222a4d282e6eb3f4",
@@ -36896,7 +36993,7 @@
         "z": "64ce08af468b8197",
         "g": "b18407a573bfa291",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'family_ident':'Identifiant de la famille',\n        'family_name':'Nom de la famille',\n        'counter_ident':'Identifiant du compteur',\n        'counter_hours':\"Nombre d'heures\",\n        'counter_text':'Texte de définition',\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour',\n        'import_file':'Fichier CSV à importer',\n        'import_ident_column':\"Colonne de l'identifiant de la ligne\",\n        'import_name_column':'Colonne du nom de la ligne',\n        'import_replace':'Lignes déjà existantes',\n        'import_replace_no':'Conserver les lignes existantes',\n        'import_replace_yes':'Remplacer les lignes existantes',\n        'import_empty':'Le fichier ne contient aucune ligne de données',\n        'import_result':'%added% ajoutée(s), %replaced% remplacée(s), %ignored% ignorée(s)',\n        'import_family_ident_column':\"Colonne de l'identifiant de la famille\",\n        'import_family_name_column':'Colonne du nom de la famille',\n        'import_family_replace':'Familles déjà existantes',\n        'import_family_replace_no':'Conserver les familles existantes',\n        'import_family_replace_yes':'Remplacer les familles existantes',\n        'import_equipment_ident_column':\"Colonne de l'identifiant de l'équipement\",\n        'import_equipment_name_column':\"Colonne du nom de l'équipement\",\n        'import_equipment_line_column':\"Colonne de l'identifiant de la ligne\",\n        'import_equipment_family_column':\"Colonne de l'identifiant de la famille\",\n        'import_equipment_family_none':'Aucune famille',\n        'import_equipment_replace':'Equipements déjà existants',\n        'import_equipment_replace_no':'Conserver les équipements existants',\n        'import_equipment_replace_yes':'Remplacer les équipements existants'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Tree'\n    },\n    'fr': {\n        'page': 'Arborescence',\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'family_ident':'Identifiant de la famille',\n        'family_name':'Nom de la famille',\n        'counter_ident':'Identifiant du compteur',\n        'counter_hours':\"Nombre d'heures\",\n        'counter_text':'Texte de définition',\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour',\n        'import_file':'Fichier CSV à importer',\n        'import_ident_column':\"Colonne de l'identifiant de la ligne\",\n        'import_name_column':'Colonne du nom de la ligne',\n        'import_replace':'Lignes déjà existantes',\n        'import_replace_no':'Conserver les lignes existantes',\n        'import_replace_yes':'Remplacer les lignes existantes',\n        'import_empty':'Le fichier ne contient aucune ligne de données',\n        'import_result':'%added% ajoutée(s), %replaced% remplacée(s), %ignored% ignorée(s)',\n        'import_family_ident_column':\"Colonne de l'identifiant de la famille\",\n        'import_family_name_column':'Colonne du nom de la famille',\n        'import_family_replace':'Familles déjà existantes',\n        'import_family_replace_no':'Conserver les familles existantes',\n        'import_family_replace_yes':'Remplacer les familles existantes',\n        'import_equipment_ident_column':\"Colonne de l'identifiant de l'équipement\",\n        'import_equipment_name_column':\"Colonne du nom de l'équipement\",\n        'import_equipment_line_column':\"Colonne de l'identifiant de la ligne\",\n        'import_equipment_family_column':\"Colonne de l'identifiant de la famille\",\n        'import_equipment_family_none':'Aucune famille',\n        'import_equipment_replace':'Equipements déjà existants',\n        'import_equipment_replace_no':'Conserver les équipements existants',\n        'import_equipment_replace_yes':'Remplacer les équipements existants'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -37889,37 +37986,6 @@
         ]
     },
     {
-        "id": "3e348d3298353d48",
-        "type": "group",
-        "z": "64ce08af468b8197",
-        "name": "tree - family - import",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "9ef489e89b67f274",
-            "e6e13f6fa9b9ba55",
-            "c6ac73a8a272c297",
-            "81486df01c995788",
-            "e38c8ba220021935",
-            "54b1dae61b9f0cfc",
-            "6ac9b6573fb5ce01",
-            "d1fc92c40324fd78",
-            "e36370dda8c9ba3c",
-            "bbc50745a1a44db9",
-            "21f9046ead88648f",
-            "3043bb19c91e5b61",
-            "3d868b2d1788f601",
-            "1d2206250c7c124a"
-        ],
-        "x": 3700,
-        "y": 319,
-        "w": 800,
-        "h": 322
-    },
-    {
         "id": "9ef489e89b67f274",
         "type": "ui-file-input",
         "z": "64ce08af468b8197",
@@ -38281,43 +38347,6 @@
                 "21c130ed56315b01"
             ]
         ]
-    },
-    {
-        "id": "0387dbcd7afb2bf0",
-        "type": "group",
-        "z": "64ce08af468b8197",
-        "name": "tree - equipment - import",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "4e839f35646403bc",
-            "18b48345107046d6",
-            "e16b55f4dc877fd6",
-            "dbcab24372cbbf24",
-            "6bfb16e119e92ce5",
-            "1f6f8c0d4465889a",
-            "c50265644104080b",
-            "c514d93a561f44aa",
-            "b094580c1b27d3c1",
-            "2cfd647dffeea2fe",
-            "433ecbc9d1e4eb54",
-            "0be0895424752755",
-            "8ba9828e21b68a8d",
-            "2823bcc5bcd7fbb5",
-            "56de6a914b19a9bf",
-            "8c63a40b0140ebac",
-            "8c31f6df7da86c89",
-            "554f34b036bd0f7c",
-            "445da040d374d8b7",
-            "dbd57c9371e999e3"
-        ],
-        "x": 3700,
-        "y": 1819,
-        "w": 800,
-        "h": 442
     },
     {
         "id": "4e839f35646403bc",
@@ -39794,7 +39823,7 @@
         "z": "adb48ef35d9453c0",
         "g": "21ae321a75b0d52e",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 8,\n    'id': 'ed8b7656d516b26d',\n    'name': 'ui - page - users',\n    'icon': 'mdi-account',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant': 'Usine',\n        'telegram': 'Telegram',\n        'menu_list': 'Liste des utilisateurs',\n        'menu_edit': 'Modifier un utilisateur',\n        'menu_add': 'Ajouter un utilisateur',\n        'menu_backup': 'Import / Export'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 8,\n    'id': 'ed8b7656d516b26d',\n    'name': 'ui - page - users',\n    'icon': 'mdi-account',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Users'\n    },\n    'fr': {\n        'page': 'Utilisateurs',\n        'login': 'Identifiant',\n        'pass': 'Mot de passe',\n        'lang': 'Langue',\n        'level': 'Niveau',\n        'plant': 'Usine',\n        'telegram': 'Telegram',\n        'menu_list': 'Liste des utilisateurs',\n        'menu_edit': 'Modifier un utilisateur',\n        'menu_add': 'Ajouter un utilisateur',\n        'menu_backup': 'Import / Export'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -41238,7 +41267,7 @@
         "z": "44465f18e06bb58d",
         "g": "93bc0fc1f391abe1",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 9,\n    'id': '1ac335c1e0a24a11',\n    'name': 'ui - page - system',\n    'icon': 'mdi-cog',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'fr': {\n        'menu_app': 'Application',\n        'menu_tree': 'Arborescence',\n        'menu_ota': 'Firmware OPTA',\n        'menu_orphan': 'Orphelins',\n        'orphan_link': \"Composant d'un équipement inconnu\",\n        'orphan_component': \"Valeur d'un composant inconnu\",\n        'orphan_line': \"Réglage d'une ligne inconnue\",\n        'orphan_plant': \"Réglage d'une usine inconnue\",\n        'orphan_device': \"Chien de garde d'un matériel inconnu\",\n        'orphan_counter': \"Compteur d'une famille inconnue\",\n        'orphan_meter': \"Valeur de compteur d'un équipement ou d'un compteur inconnu\",\n        'orphan_families': \"Famille d'un équipement inconnu, ou famille inconnue\",\n        'orphan_clean': 'Tout nettoyer',\n        'orphan_none': 'Aucun élément orphelin',\n        'orphan_cleaned': '%n élément(s) orphelin(s) supprimé(s)'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 9,\n    'id': '1ac335c1e0a24a11',\n    'name': 'ui - page - system',\n    'icon': 'mdi-cog',\n    'level': {\n        'admin': true,\n        'rt': false,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'System'\n    },\n    'fr': {\n        'page': 'Système',\n        'menu_app': 'Application',\n        'menu_tree': 'Arborescence',\n        'menu_ota': 'Firmware OPTA',\n        'menu_orphan': 'Orphelins',\n        'orphan_link': \"Composant d'un équipement inconnu\",\n        'orphan_component': \"Valeur d'un composant inconnu\",\n        'orphan_line': \"Réglage d'une ligne inconnue\",\n        'orphan_plant': \"Réglage d'une usine inconnue\",\n        'orphan_device': \"Chien de garde d'un matériel inconnu\",\n        'orphan_counter': \"Compteur d'une famille inconnue\",\n        'orphan_meter': \"Valeur de compteur d'un équipement ou d'un compteur inconnu\",\n        'orphan_families': \"Famille d'un équipement inconnu, ou famille inconnue\",\n        'orphan_clean': 'Tout nettoyer',\n        'orphan_none': 'Aucun élément orphelin',\n        'orphan_cleaned': '%n élément(s) orphelin(s) supprimé(s)'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -41269,35 +41298,6 @@
                 "301bb73805b7e405"
             ]
         ]
-    },
-    {
-        "id": "9b721894958e4019",
-        "type": "group",
-        "z": "44465f18e06bb58d",
-        "name": "system - orphan",
-        "style": {
-            "fill": "#6f2fa0",
-            "fill-opacity": "0.05",
-            "label": true
-        },
-        "nodes": [
-            "505480cb0e3079f8",
-            "31bfab192e2ed76c",
-            "5b5e9a2220b1b062",
-            "d6730a00d39b815a",
-            "e808b2d0f038606b",
-            "4e2673a49fda749b",
-            "3524ea127575a179",
-            "7d204be423155f87",
-            "f115ea35c799ae8a",
-            "fcbf5b7adea30d86",
-            "9fc7fa689859e74b",
-            "6fe4fe933a866620"
-        ],
-        "x": 104,
-        "y": 1699,
-        "w": 1102,
-        "h": 322
     },
     {
         "id": "505480cb0e3079f8",

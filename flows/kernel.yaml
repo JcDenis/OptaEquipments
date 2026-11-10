@@ -93,6 +93,25 @@
   'y': 13
   w: 1534
   h: 1934
+- id: 5b51a1eef43d09f0
+  type: group
+  z: f6f2187d.f17ca8
+  name: kernel - noline
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - d8fbc51e570cb5ed
+    - 42be665f2c13aa52
+    - 2f0b5a80949c835c
+    - 45596f4f396f8130
+    - ac6469339128acd9
+    - 178e115dbc98ccd8
+  x: 104
+  'y': 4967
+  w: 592
+  h: 142
 - id: 216f821485a9eb19
   type: group
   z: f6f2187d.f17ca8
@@ -2316,11 +2335,13 @@
     let allowed = false;
 
     for (const page in pages) {
+        let title = typeof msg.dictionary[page] === 'object' && typeof msg.dictionary[page]['page'] === 'string' ? msg.dictionary[page]["page"] : pages[page]['name'];
+
         if (page === 'auth' || pages[page]['level'][msg.hmi.level] === true) {
             msg.buttons.push({
                 'id': page,
                 'icon': pages[page]['icon'],
-                'title': msg.dictionary.option_page[page] || pages[page]['name']
+                'title': title
             });
             msg.payload.pages.show.push(pages[page]['name']);
         }
@@ -2334,7 +2355,7 @@
 
         if (pages[page]['tab'] === msg.hmi.tab && pages[page]['level'][msg.hmi.level] === true) {
             msg.page_data.id = page;
-            msg.hmi.page = msg.dictionary.option_page[page];
+            msg.hmi.page = title;
             allowed = true;
         }
     }
@@ -2342,7 +2363,7 @@
 
     if (allowed === false) {
         msg.hmi.tab = pages.auth.tab || 99;
-        msg.hmi.page = msg.dictionary.option_page.auth;
+        msg.hmi.page = msg.dictionary.auth.page || 'Authnetication';
     }
 
 
@@ -3094,13 +3115,16 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - plant
-  func: |-
+  func: >-
     msg.payload = msg.dictionary.option_notice.update_fail;
+
     msg.success = false;
+
 
     if (msg.hmi.level !== 'admin') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'plant') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
+    'plant') {
         const plant = msg.kernel.entity;
 
         // reserved plant and lines
@@ -3176,7 +3200,9 @@
         }
     }
 
+
     delete msg.kernel;
+
 
     return msg;
   outputs: 1
@@ -3231,13 +3257,16 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - line
-  func: |-
+  func: >-
     msg.payload = msg.dictionary.option_notice.update_fail;
+
     msg.success = false;
+
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'line') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
+    'line') {
         const line = msg.kernel.entity;
 
         // reserved lines
@@ -3291,7 +3320,9 @@
         }
     }
 
+
     delete msg.kernel;
+
 
     return msg;
   outputs: 1
@@ -3309,13 +3340,16 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - equipment
-  func: |-
+  func: >-
     msg.payload = msg.dictionary.option_notice.update_fail;
+
     msg.success = false;
+
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
+    'equipment') {
         let is_empty = true;
         // kernel.link
         const links = global.get('kernel.link');
@@ -3394,7 +3428,9 @@
         }
     }
 
+
     delete msg.kernel;
+
 
     return msg;
   outputs: 1
@@ -3474,13 +3510,16 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - device
-  func: |-
+  func: >-
     msg.payload = msg.dictionary.option_notice.update_fail;
+
     msg.success = false;
+
 
     if (msg.hmi.level !== 'admin') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'device') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
+    'device') {
         let is_empty = true;
         // rlink (component)
         const rlinks = global.get('rlink') || { };
@@ -3527,7 +3566,9 @@
         }
     }
 
+
     delete msg.kernel;
+
 
     return msg;
   outputs: 1
@@ -4144,13 +4185,16 @@
   z: f6f2187d.f17ca8
   g: 11d028449aaa105b
   name: delete - family
-  func: |-
+  func: >-
     msg.payload = msg.dictionary.option_notice.update_fail;
+
     msg.success = false;
+
 
     if (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {
         msg.payload = msg.dictionary.option_notice.level_fail;
-    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'family') {
+    } else if (typeof msg.kernel.entity === 'string' && msg.kernel.type ===
+    'family') {
         const family = msg.kernel.entity;
 
         // family with counters cannot be deleted
@@ -4198,7 +4242,9 @@
         }
     }
 
+
     delete msg.kernel;
+
 
     return msg;
   outputs: 1
@@ -5925,18 +5971,6 @@
                 'common': {
                     'locales':'en-GB',
                 },
-                'option_page':{
-                    'auth':'Authentication',
-                    'map': 'Map',
-                    'alert':'Alerts',
-                    'counter':'Counters',
-                    'period':'Programs',
-                    'detail':'Detail',
-                    'list':'List',
-                    'tree':'Tree',
-                    'users':'Users',
-                    'system':'System'
-                },
                 'option_resolution':{
                     '1':'1 minute',
                     '2':'2 minutes',
@@ -6100,18 +6134,6 @@
             'fr': {
                 'common': {
                     'lang': 'fr',
-                },
-                'option_page': {
-                    'auth': 'Authentification',
-                    'map': 'Implantation',
-                    'alert': 'Alertes',
-                    'counter': 'Compteurs',
-                    'period': 'Programmes',
-                    'detail': 'Detail',
-                    'list': 'Liste',
-                    'tree': 'Arborescence',
-                    'users': 'Utilisateurs',
-                    'system': 'Système'
                 },
                 'option_resolution': {
                     '1': '1 minute',
@@ -6342,25 +6364,6 @@
   x: 395
   'y': 3560
   wires: []
-- id: 5b51a1eef43d09f0
-  type: group
-  z: f6f2187d.f17ca8
-  name: kernel - noline
-  style:
-    fill: '#6f2fa0'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - d8fbc51e570cb5ed
-    - 42be665f2c13aa52
-    - 2f0b5a80949c835c
-    - 45596f4f396f8130
-    - ac6469339128acd9
-    - 178e115dbc98ccd8
-  x: 104
-  'y': 4967
-  w: 700
-  h: 142
 - id: d8fbc51e570cb5ed
   type: link in
   z: f6f2187d.f17ca8
@@ -6376,28 +6379,39 @@
   z: f6f2187d.f17ca8
   g: 5b51a1eef43d09f0
   name: data
-  func: |-
+  func: >-
     // Reserved plant and lines for orphan lines and equipments
 
+
     const noplant = 'S99';
+
     // Reserved line of a plant: S05 => L05L0000, other => <plant>-L0000
-    const nolineOf = (plant) => /^S\d+$/.test(plant) ? 'L' + plant.slice(1) + 'L0000' : plant + '-L0000';
+
+    const nolineOf = (plant) => /^S\d+$/.test(plant) ? 'L' + plant.slice(1) +
+    'L0000' : plant + '-L0000';
+
 
     let plants = Object.keys(global.get('kernel.plant') || { });
+
     plants.push(noplant);
+
     if (typeof msg.noline_plant === 'string' && msg.noline_plant !== '') {
         plants.push(msg.noline_plant);
     }
+
 
     msg.noline = {
         'plant': noplant,
         'lines': { }
     };
+
     for (const plant of plants) {
         msg.noline.lines[plant] = nolineOf(plant);
     }
 
+
     delete msg.noline_plant;
+
 
     return msg;
   outputs: 1
@@ -6437,22 +6451,35 @@
   z: f6f2187d.f17ca8
   g: 5b51a1eef43d09f0
   name: check
-  func: |-
-    // Create reserved plant and lines, and attach orphan lines and equipments to them
+  func: >-
+    // Create reserved plant and lines, and attach orphan lines and equipments
+    to them
+
 
     msg = await node.linkcall('kernel - noline', msg);
 
+
     const kernel = global.get('kernel') || { };
+
     const plants = kernel.plant || { };
+
     const tzs = kernel.tz || { };
+
     const lines = kernel.line || { };
+
     const linePlants = kernel.lines || { };
+
     const equipments = kernel.equipment || { };
+
     const equipmentLines = kernel.equipments || { };
+
     const noplant = msg.noline.plant;
+
     const reserved = Object.values(msg.noline.lines);
 
+
     let count = 0;
+
     const send = (type, entity, value) => {
         count++;
         node.send({
@@ -6467,15 +6494,20 @@
         });
     };
 
+
     // Reserved plant
+
     if (typeof plants[noplant] !== 'string') {
         send('plant', noplant, 'Sans usine');
     }
+
     if (typeof tzs[noplant] !== 'string') {
         send('tz', noplant, Object.values(tzs)[0] || 'Europe/Paris');
     }
 
+
     // Reserved line of each plant
+
     for (const plant in msg.noline.lines) {
         const line = msg.noline.lines[plant];
         if (typeof lines[line] !== 'string') {
@@ -6486,36 +6518,46 @@
         }
     }
 
+
     // Lines without plant or with an unknown plant
+
     for (const line in lines) {
         if (!reserved.includes(line) && typeof plants[linePlants[line]] !== 'string') {
             send('lines', line, noplant);
         }
     }
+
     // Lines attached to a plant but without name
+
     for (const line in linePlants) {
         if (typeof lines[line] !== 'string') {
             send('line', line, line);
         }
     }
 
+
     // Equipments without line or with an unknown line
+
     for (const equipment in equipments) {
         if (typeof lines[equipmentLines[equipment]] !== 'string' && !reserved.includes(equipmentLines[equipment])) {
             send('equipments', equipment, msg.noline.lines[noplant]);
         }
     }
+
     // Equipments attached to a line but without name
+
     for (const equipment in equipmentLines) {
         if (typeof equipments[equipment] !== 'string') {
             send('equipment', equipment, equipment);
         }
     }
 
+
     node.status({
         'fill': count > 0 ? 'yellow' : 'green',
         'text': count + ' update(s) - ' + new Date().toLocaleTimeString()
     });
+
 
     return;
   outputs: 1
