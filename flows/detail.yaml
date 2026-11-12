@@ -6193,17 +6193,34 @@
   z: 852390cb9559e176
   g: 1c87eaf6a557f02d
   name: data
-  func: |-
+  func: >-
     msg.ui_update = {
         'label': ''
     };
 
+
     msg.form.component = 'cycle';
+
 
     delete msg.delay;
 
-    return msg;
-  outputs: 1
+
+    // Linx printers record one point per poll, not one per print: no cadence
+    charts
+
+    const linxfamily = global.get('kernel.app.linxfamily') || '';
+
+    if (linxfamily !== '' && global.get('kernel.families["' + msg.form.equipment
+    + '"]') === linxfamily) {
+        msg.payload = [];
+        msg.class = 'remove';
+
+        return [ null, msg ];
+    }
+
+
+    return [ msg, null ];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -6213,6 +6230,10 @@
   'y': 3180
   wires:
     - - ad5bda6bab168115
+    - - d8dbd2db52e7c87f
+      - 05e9830a69ebbf3f
+      - f3a4fbd1914b8411
+      - f1452be045243e11
 - id: acb7047c142b68bc
   type: function
   z: 852390cb9559e176

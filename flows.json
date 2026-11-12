@@ -23613,8 +23613,8 @@
         "z": "852390cb9559e176",
         "g": "1c87eaf6a557f02d",
         "name": "data",
-        "func": "msg.ui_update = {\n    'label': ''\n};\n\nmsg.form.component = 'cycle';\n\ndelete msg.delay;\n\nreturn msg;",
-        "outputs": 1,
+        "func": "msg.ui_update = {\n    'label': ''\n};\n\nmsg.form.component = 'cycle';\n\ndelete msg.delay;\n\n// Linx printers record one point per poll, not one per print: no cadence charts\nconst linxfamily = global.get('kernel.app.linxfamily') || '';\nif (linxfamily !== '' && global.get('kernel.families[\"' + msg.form.equipment + '\"]') === linxfamily) {\n    msg.payload = [];\n    msg.class = 'remove';\n\n    return [ null, msg ];\n}\n\nreturn [ msg, null ];",
+        "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -23625,6 +23625,12 @@
         "wires": [
             [
                 "ad5bda6bab168115"
+            ],
+            [
+                "d8dbd2db52e7c87f",
+                "05e9830a69ebbf3f",
+                "f3a4fbd1914b8411",
+                "f1452be045243e11"
             ]
         ]
     },
