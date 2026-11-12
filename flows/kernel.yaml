@@ -2708,17 +2708,40 @@
   z: f6f2187d.f17ca8
   g: dcb47b97829a1b78
   name: data
-  func: |-
+  func: >-
     // Prepare app context
 
+
     // Backup or restore between file and default memories
+
     msg = await node.linkcall('kernel - memory', msg);
 
+
+    // App version follows package.json (project file first, then its copy made
+    at container start)
+
+    let version = '0.0.0';
+
+    for (const file of ['/data/projects/OptaEquipments/package.json',
+    '/data/package.json']) {
+        try {
+            const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+            if (pkg.name === 'OptaEquipments' && typeof pkg.version === 'string') {
+                version = pkg.version;
+                break;
+            }
+        } catch (e) {
+            // try next file
+        }
+    }
+
+
     // Set describe
+
     global.set('describe', {
         'app': {
             'automate': 'optaequipments',
-            'version': '0.8.0',
+            'version': version,
             'title': 'Live Equipments',
             'vendor': 'Opta Equipments by JcDenis'
         },
@@ -2734,35 +2757,55 @@
         },
     });
 
+
     // Set and clean required memories
+
     global.set('dictionary', { });
+
     global.set('auth', { });
+
     // user (sessions) is restored by kernel - memory
+
     global.set('form', { });
+
     global.set('menu', { });
 
+
     // Various
+
     msg = {
         'topic': '',
         'payload': '',
         'options': [ { 'label':'', 'value':'' } ]
     };
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // build reverse links
+
     msg = await node.linkcall('kernel - rlink', msg);
 
+
     // Go to pages registration
+
     node.send([msg, null]);
 
+
     // Wait registration end
+
     await new Promise(resolve => setTimeout(resolve, 100));
 
+
     // Regain pages order
+
     let describe = global.get('describe'); // autoupdate
+
     let tabs = [];
+
     for (const k in describe.pages) {
         tabs.push({
             'tab': describe.pages[k]['tab'],
@@ -2770,20 +2813,27 @@
             'data' : describe.pages[k]
         });
     }
+
     tabs.sort((a, b) => a.tab - b.tab);
+
     describe.pages = {};
+
     for (let i = 0; i< tabs.length; i++) {
         describe.pages[tabs[i]['page']] = tabs[i]['data'];
     }
 
+
     // Go on
+
     return [null, msg];
   outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
   finalize: ''
-  libs: []
+  libs:
+    - var: fs
+      module: fs
   x: 350
   'y': 440
   wires:
