@@ -155,6 +155,33 @@
   'y': 459
   w: 872
   h: 382
+- id: 13b89ff228831775
+  type: group
+  z: 135b7308617dad08
+  name: model - linx
+  style:
+    fill: '#0070c0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 3bd4f702a097d872
+    - d737e77c7567094c
+    - 1bd9da63723fb198
+    - 01170d92005d6d64
+    - dd124e0a33129886
+    - 85d0c3f92dbc08eb
+    - 4972b58ce57982e2
+    - c7f2c4f0aae58f19
+    - 01265aa1343b7daf
+    - 29de1fc14e638dde
+    - bfa660718e9c55bd
+    - f2ee479e42a74303
+    - d2ff6157b4d6ff46
+    - 082ced0e38a97f19
+  x: 74
+  'y': 1779
+  w: 1192
+  h: 322
 - id: 10af438fbe88a4a2
   type: link in
   z: 135b7308617dad08
@@ -2336,46 +2363,21 @@
   x: 1270
   'y': 240
   wires: []
-- id: 13b89ff228831775
-  type: group
-  z: 135b7308617dad08
-  name: model - linx
-  style:
-    fill: '#0070c0'
-    fill-opacity: '0.05'
-    label: true
-  nodes:
-    - 3bd4f702a097d872
-    - d737e77c7567094c
-    - 1bd9da63723fb198
-    - 01170d92005d6d64
-    - dd124e0a33129886
-    - 85d0c3f92dbc08eb
-    - 4972b58ce57982e2
-    - c7f2c4f0aae58f19
-    - 01265aa1343b7daf
-    - 29de1fc14e638dde
-    - bfa660718e9c55bd
-    - f2ee479e42a74303
-    - d2ff6157b4d6ff46
-    - 082ced0e38a97f19
-  x: 94
-  'y': 1780
-  w: 1172
-  h: 362
 - id: 3bd4f702a097d872
   type: link in
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: model - linx - describe
   links:
     - 575b91a30deac00d
-  x: 209
+  x: 145
   'y': 1820
   wires:
     - - d737e77c7567094c
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: d737e77c7567094c
   type: change
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: describe
   rules:
     - t: set
@@ -2393,14 +2395,14 @@
   from: ''
   to: ''
   reg: false
-  x: 374
+  x: 280
   'y': 1820
   wires:
     - []
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 1bd9da63723fb198
   type: inject
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: 10 s
   props:
     - p: topic
@@ -2410,14 +2412,14 @@
   once: true
   onceDelay: '5'
   topic: tick
-  x: 224
-  'y': 1900
+  x: 170
+  'y': 1940
   wires:
     - - 01170d92005d6d64
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 01170d92005d6d64
   type: function
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: rci
   func: >
     // Linx CIJ printers polling over RCI (Linx RCI Reference Manual MP65969-9,
@@ -2959,16 +2961,16 @@
     context.set('timers', { });
     context.set('sessions', { });
   libs: []
-  x: 424
+  x: 330
   'y': 1940
   wires:
     - - dd124e0a33129886
     - - 4972b58ce57982e2
       - c7f2c4f0aae58f19
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: dd124e0a33129886
   type: tcp request
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: linx - rci
   server: ''
   port: ''
@@ -2978,14 +2980,14 @@
   newline: ''
   trim: false
   tls: ''
-  x: 634
-  'y': 1900
+  x: 500
+  'y': 1880
   wires:
     - - 85d0c3f92dbc08eb
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 85d0c3f92dbc08eb
   type: change
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: rx
   rules:
     - t: set
@@ -2998,25 +3000,25 @@
   from: ''
   to: ''
   reg: false
-  x: 824
-  'y': 1900
+  x: 670
+  'y': 1880
   wires:
     - - 01170d92005d6d64
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 4972b58ce57982e2
   type: link out
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: model - linx - in
   mode: link
   links:
     - c9b77de2e18e7767
-  x: 679
-  'y': 1980
+  x: 455
+  'y': 1940
   wires: []
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: c7f2c4f0aae58f19
   type: debug
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: model - linx - in
   active: false
   tosidebar: true
@@ -3026,25 +3028,25 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 714
-  'y': 2020
+  x: 520
+  'y': 2000
   wires: []
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 01265aa1343b7daf
   type: catch
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: model - linx - catch
   scope:
     - dd124e0a33129886
   uncaught: false
-  x: 944
-  'y': 1960
+  x: 490
+  'y': 1820
   wires:
     - - 29de1fc14e638dde
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 29de1fc14e638dde
   type: debug
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: model - linx - tcp error
   active: false
   tosidebar: true
@@ -3054,25 +3056,25 @@
   targetType: full
   statusVal: ''
   statusType: auto
-  x: 1144
-  'y': 1960
+  x: 740
+  'y': 1820
   wires: []
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: bfa660718e9c55bd
   type: link in
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: model - linx - notice
   links:
     - dafa461a59bb8265
     - 3a480aa1e21cc756
-  x: 239
-  'y': 2080
+  x: 145
+  'y': 2000
   wires:
     - - f2ee479e42a74303
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: f2ee479e42a74303
   type: function
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: info
   func: >
     // Linx device information
@@ -3148,14 +3150,14 @@
   initialize: ''
   finalize: ''
   libs: []
-  x: 384
-  'y': 2080
+  x: 270
+  'y': 2000
   wires:
     - []
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: d2ff6157b4d6ff46
   type: comment
+  z: 135b7308617dad08
+  g: 13b89ff228831775
   name: >-
     Linx CIJ printers - Remote Communications Interface (RCI) MP65969-9, TCP
     29043
@@ -3179,17 +3181,15 @@
     - runmetertotal: jet running hours
 
     - servicemeter: hours left before service
-  x: 924
-  'y': 1820
+  x: 410
+  'y': 2060
   wires: []
-  z: 135b7308617dad08
-  g: 13b89ff228831775
 - id: 082ced0e38a97f19
   type: comment
-  name: 'Linx printers must have "RCI over Ethernet" enabled, checksum on'
-  info: ''
-  x: 924
-  'y': 1860
-  wires: []
   z: 135b7308617dad08
   g: 13b89ff228831775
+  name: 'Linx printers must have "RCI over Ethernet" enabled, checksum on'
+  info: ''
+  x: 1000
+  'y': 2060
+  wires: []
