@@ -12,6 +12,10 @@ A live equipment dashboard application built with Node-RED, leveraging real-time
 
 **Finder Arduino Opta** devices MUST use [OptaLinker](https://github.com/JcDenis/OptaLinker) firwmare. Then point Opta MQTT broker to the OptaEquipments address. That's it.
 
+## Using the dashboard
+
+Once installed, see the [user guide](docs/README.md) for the dashboard pages, from daily monitoring to administration.
+
 ## Prerequisites
 
 Before installing Opta Equipments, ensure you have:
@@ -110,6 +114,7 @@ OptaEquipments/
 ├── flow-manager-cfg.json          # Flow manager configuration
 ├── flow-manager-nodes-order.json  # Node ordering configuration
 ├── config-nodes.yaml              # Node-RED config nodes
+├── docs/                          # Dashboard user guide
 ├── data/                          # Data and configuration files
 └── flows/                         # Flow directory
 ```
