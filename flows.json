@@ -5050,6 +5050,21 @@
         "tab": ""
     },
     {
+        "id": "6d1eb0f0c8f5dd02",
+        "type": "ui-group",
+        "name": "ui - group - tree - linx",
+        "page": "5287a3b059e7b4ce",
+        "width": 6,
+        "height": 1,
+        "order": 15,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
         "id": "e60e4ab7617738c3",
         "type": "link in",
         "z": "f6f2187d.f17ca8",
@@ -5078,7 +5093,8 @@
             "910fcd1dc9c36741",
             "377212556c27659a",
             "178e115dbc98ccd8",
-            "7d204be423155f87"
+            "7d204be423155f87",
+            "4b71242de75478cd"
         ],
         "x": 145,
         "y": 800,
@@ -5162,7 +5178,8 @@
             "61872228c92c7235",
             "1d8d13781c0d578e",
             "83e01cd921e3fdd4",
-            "45596f4f396f8130"
+            "45596f4f396f8130",
+            "3bd4f702a097d872"
         ],
         "x": 475,
         "y": 440,
@@ -6836,7 +6853,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "data",
-        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n    // and users sessions backup\n    global.set('user', RED.util.cloneMessage(global.get('user_bk', 'file') || { }), 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n    // and users sessions\n    global.set('user_bk', RED.util.cloneMessage(global.get('user', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
+        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { },\n        'linx': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n    // and users sessions backup\n    global.set('user', RED.util.cloneMessage(global.get('user_bk', 'file') || { }), 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n    // and users sessions\n    global.set('user_bk', RED.util.cloneMessage(global.get('user', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7046,7 +7063,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "11d028449aaa105b",
         "name": "delete - equipment",
-        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {\n    let is_empty = true;\n    // kernel.link\n    const links = global.get('kernel.link');\n    for (const link in links) {\n        let lsplit = link.split('|');\n        if (lsplit[0] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.equipments\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipments',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.equipment\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipment',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.meter\n        const meters = global.get('kernel.meter') || { };\n        for (const meter in meters) {\n            let msplit = meter.split('|');\n            if (msplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'meter',\n                        'entity': meter,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.families\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    } else {\n        msg.payload = msg.dictionary.option_notice.equipment_noempty || msg.dictionary.option_notice.update_fail;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
+        "func": "msg.payload = msg.dictionary.option_notice.update_fail;\nmsg.success = false;\n\nif (msg.hmi.level !== 'admin' && msg.hmi.level !== 'rt') {\n    msg.payload = msg.dictionary.option_notice.level_fail;\n} else if (typeof msg.kernel.entity === 'string' && msg.kernel.type === 'equipment') {\n    let is_empty = true;\n    // kernel.link\n    const links = global.get('kernel.link');\n    for (const link in links) {\n        let lsplit = link.split('|');\n        if (lsplit[0] === msg.kernel.entity) {\n            is_empty = false;\n        }\n    }\n\n    if (is_empty === true) {\n        // kernel.equipments\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipments',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.equipment\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'equipment',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.meter\n        const meters = global.get('kernel.meter') || { };\n        for (const meter in meters) {\n            let msplit = meter.split('|');\n            if (msplit[0] === msg.kernel.entity) {\n                node.send([{\n                    'topic': '',\n                    'payload': '',\n                    'kernel': {\n                        'type': 'meter',\n                        'entity': meter,\n                        'value': '',\n                        'loop': false,\n                        'delete': true\n                    }\n                }]);\n            }\n        }\n\n        // kernel.families\n        node.send([{\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'families',\n                'entity': msg.kernel.entity,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n\n        // kernel.linx\n        if (typeof global.get('kernel.linx[\"' + msg.kernel.entity + '\"]') === 'string') {\n            node.send([{\n                'topic': '',\n                'payload': '',\n                'kernel': {\n                    'type': 'linx',\n                    'entity': msg.kernel.entity,\n                    'value': '',\n                    'loop': false,\n                    'delete': true\n                }\n            }]);\n        }\n\n        // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component\n\n        msg.payload = msg.dictionary.option_notice.update_success;\n        msg.success = true;\n    } else {\n        msg.payload = msg.dictionary.option_notice.equipment_noempty || msg.dictionary.option_notice.update_fail;\n    }\n}\n\ndelete msg.kernel;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7374,7 +7391,8 @@
             "3635210474545f29",
             "83e2c0eb499a9ef4",
             "ac509dada2597e3c",
-            "e5d1a8af91104af6"
+            "e5d1a8af91104af6",
+            "4972b58ce57982e2"
         ],
         "x": 145,
         "y": 620,
@@ -8798,7 +8816,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "9eded20dfe6c1a19",
         "name": "data",
-        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'import': 'Import',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line_exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'plant_noempty': 'Plant contains lines',\n                'line_noempty': 'Line contains equipments',\n                'equipment_noempty': 'Equipment has components',\n                'device_noempty': 'Device is used by components',\n                'family_noempty': 'Family has maintenance counters',\n                'plant_moved': 'Plant deleted, %n line(s) moved to reserved plant',\n                'line_moved': 'Line deleted, %n equipment(s) moved to reserved line',\n                'family_removed': 'Family deleted, %n equipment(s) now without family',\n                'plant_reserved': 'This plant is reserved for orphan lines, it cannot be deleted',\n                'line_reserved': 'This line is reserved for equipments without line, it cannot be deleted',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'import': 'Importer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment_exists': 'Cet équipement existe déjà',\n                'plant_noempty': 'Cette usine contient des lignes',\n                'line_noempty': 'Cette ligne contient des équipements',\n                'equipment_noempty': 'Cet équipement a des composants',\n                'device_noempty': 'Ce matériel est utilisé par des composants',\n                'family_noempty': 'Cette famille a des compteurs de maintenance',\n                'plant_moved': 'Usine supprimée, %n ligne(s) déplacée(s) vers l\\'usine réservée',\n                'line_moved': 'Ligne supprimée, %n équipement(s) déplacé(s) vers « Sans ligne »',\n                'family_removed': 'Famille supprimée, %n équipement(s) désormais sans famille',\n                'plant_reserved': 'Cette usine est réservée aux lignes orphelines, elle ne peut pas être supprimée',\n                'line_reserved': 'Cette ligne est réservée aux équipements sans ligne, elle ne peut pas être supprimée',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
+        "func": "// Default dictionary (en)\nif (typeof global.get('dictionary.en') !== 'object') {\n    global.set('dictionary', {\n        'en':  {\n            'common': {\n                'locales':'en-GB',\n            },\n            'option_resolution':{\n                '1':'1 minute',\n                '2':'2 minutes',\n                '5':'5 minutes',\n                '15':'15 minutes',\n                '30':'30 minuts',\n                '60':'1 hour'\n            },\n            'option_session':{\n                '6':'6 hours',\n                '24':'24 hours',\n                '720':'30 days'\n            },\n            'option_level':{\n                'prod':'Production',\n                'rp':'Production manager',\n                'tech':'Technician',\n                'rt':'Technician manager',\n                'admin':'Administrator'\n            },\n            'option_team':{\n                'm':'Morning',\n                'a':'Afternoon',\n                'n':'Night',\n                'd':'Day',\n                's':'Saturday'\n            },\n            'option_lang':{\n                'en':'English',\n                'fr':'French'\n            },\n            'option_group':{\n                'run': 'Run',\n                'cycle': 'Pulse',\n                'heat': 'Heat',\n                'uptime': 'System',\n                'voltage': 'Power'\n            },\n            'option_component':{\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink':'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_color': {\n                'on': '#008000',\n                'off': '#FF0000',\n                'median': '#F08000',\n                'none': '#808000',\n                'theme': '#073d87',\n                'empty': '#999999',\n                'hidden': '#EEEEEE'\n            },\n            'option_select': {\n                'plant': 'Select a plant',\n                'line': 'Select a line',\n                'equipment': 'Select an equipment',\n                'family': 'Select a family',\n                'counter': 'Select a counter',\n                'model': 'Selet a model',\n                'device': 'Select a device',\n                'link': 'Select a link',\n                'component': 'Select a component',\n                'group': 'Select a group',\n                'team': 'Select a team',\n                'day': 'Select a day',\n                'timezone': 'Select a timezone',\n                'contact': 'Select contact type',\n                'list': 'Select a list',\n                'action': 'Select an action',\n                'input': 'Select an input',\n                'output': 'Select an output',\n                'limit': 'Select a limit',\n                'start_time': 'Select start time',\n                'stop_time': 'Select stop time',\n                'day_starttime': 'Select start time of the first team of the day',\n                'holiday_day': 'Day'\n            },\n            'option_action': {\n                'delete': 'Delete',\n                'add': 'Add',\n                'edit': 'Edit',\n                'save': 'Save',\n                'import': 'Import',\n                'disconnect': 'Disconnect',\n                'reset': 'Reset'\n            },\n            'option_notice': {\n                'login_fail': 'Wrong login or password',\n                'level_fail': 'You are not authorized to do this action',\n                'update_fail': 'Update failed',\n                'update_success': 'Successfully updated',\n                'plant_exists': 'Plant exists',\n                'line_exists': 'Line exists',\n                'equipment_exists': 'Equipment exists',\n                'plant_noempty': 'Plant contains lines',\n                'line_noempty': 'Line contains equipments',\n                'equipment_noempty': 'Equipment has components',\n                'device_noempty': 'Device is used by components',\n                'family_noempty': 'Family has maintenance counters',\n                'plant_moved': 'Plant deleted, %n line(s) moved to reserved plant',\n                'line_moved': 'Line deleted, %n equipment(s) moved to reserved line',\n                'family_removed': 'Family deleted, %n equipment(s) now without family',\n                'plant_reserved': 'This plant is reserved for orphan lines, it cannot be deleted',\n                'line_reserved': 'This line is reserved for equipments without line, it cannot be deleted',\n                'family_exists': 'Family exists',\n                'ident_fail': 'Invalid identifier',\n                'counter_exists': 'Counter exists',\n                'hours_fail': 'Invalid number of hours',\n                'text_fail': 'Invalid text'\n            },\n            'option_name': {\n                'plants': 'Plants',\n                'lines': 'Lines',\n                'equipments': 'Equipments',\n                'families': 'Equipment families',\n                'family_none': 'No family',\n                'linx': 'Linx printers',\n                'counters': 'Counters',\n                'devices': 'Devices',\n                'components': 'Components',\n                'alerts': 'Alerts',\n                'teams': 'Teams',\n                'day': 'Day change',\n                'holidays': 'Holidays',\n                'maps': 'Plant map',\n                'locations': 'Line map',\n                'team_morning': 'Morning',\n                'team_afternoon': 'Afternoon',\n                'team_night': 'Night',\n                'team_day': 'Day',\n                'team_saturday': 'Saturday',\n                'login': 'Login',\n                'pass': 'Password',\n                'lang': 'Lang',\n                'level': 'Level',\n                'plant': 'Plant',\n                'watchdog': 'Watchdog',\n                'telegram': 'Telegram',\n            }\n        },\n        'fr': {\n            'common': {\n                'lang': 'fr',\n            },\n            'option_resolution': {\n                '1': '1 minute',\n                '2': '2 minutes',\n                '5': '5 minutes',\n                '15': '15 minutes',\n                '30': '30 minuts',\n                '60': '1 heure'\n            },\n            'option_session': {\n                '6': '6 heures',\n                '24': '24 heures',\n                '720': '30 jours'\n            },\n            'option_level': {\n                'prod': 'Production',\n                'rp': 'Responsable production',\n                'tech': 'Technicien',\n                'rt': 'Responsable technique',\n                'admin': 'Administrateur'\n            },\n            'option_team': {\n                'm': 'Matin',\n                'a': 'Après-midi',\n                'n': 'Nuit',\n                'd': 'Journée',\n                's': 'Samedi'\n            },\n            'option_lang': {\n                'en': 'Anglais',\n                'fr': 'Français'\n            },\n            'option_group': {\n                'run': 'Fonctionnement',\n                'cycle':'Impulsion',\n                'heat': 'Chauffe',\n                'uptime': 'Système',\n                'voltage': 'Puissance',\n                'mirror': 'Mirroir'\n            },\n            'option_component': {\n                'run': 'Lecture état de fonctionnement',\n                'heat': 'Lecture état de chauffe',\n                'voltage': 'Lecture de tension',\n                'power': 'Lecture de puisance',\n                '1wh': \"Lecture d'impulsion de puissance par Wh\",\n                'cycle': \"Lecture d'impulsion de cycle\",\n                'cyclemeter': \"Lecture de compteur partiel d'impulsions\",\n                'runmeter': \"Lecture de compteur partiel d'heures\",\n                'cyclemetertotal': \"Lecture de compteur total d'impulsions\",\n                'runmetertotal': \"Lecture de compteur total d'heures\",\n                'cyclemirror': 'Commande de cycle mirroir',\n                'runmirror': 'Command de fonctionnement mirroir',\n                'heatswitch': 'Commande de chauffe permanente libre',\n                'heattoggle': 'Commande de chauffe inverseur libre',\n                'heatlink': 'Commande de chauffe inverseur liée à une mesure',\n                'heatpulse': 'Commande de chauffe pulsé liée à une mesure',\n                'runreset': \"Commande de RAZ compteur partiel d'heures\",\n                'cyclereset': \"Commande de RAZ compteur partiel d'impulsions\",\n                'load1meter': 'Charge système à 1 minute',\n                'load5meter': 'Charge système à 5 minutes',\n                'load15meter': 'Charge système à 15 minutes',\n                'memorymeter': 'Utilisation mémoire',\n                'diskmeter': 'Utilisation disque',\n                'uptimemeter': 'Durée de fonctionnement'\n            },\n            'option_select': {\n                'plant': 'Sélectionner une usine',\n                'line': 'Sélectionner une ligne',\n                'equipment': 'Sélectionner un équipement',\n                'family': 'Sélectionner une famille',\n                'counter': 'Sélectionner un compteur',\n                'model': 'Sélectionner un modèle',\n                'device': 'Sélectionner un matériel',\n                'link': 'Sélectionner un lien',\n                'component': 'Sélectionner un composant',\n                'group': 'Sélectionner un groupe',\n                'team': 'Sélectionner une équipe',\n                'day': 'Sélectionner un jour',\n                'timezone': 'Sélectionner une zone horaire',\n                'contact': 'Sélectionner un type de contact',\n                'list': 'Sélectionner une liste',\n                'action': 'Sélectionner une action',\n                'input': 'Sélectionner une entrée',\n                'output': 'Sélectionner une sortie',\n                'limit': 'Sélectionner une limite',\n                'start_time': \"Sélectionner l'heure de début\",\n                'stop_time': \"Sélectionner l'heure de fin\",\n                'day_starttime': \"Sélectionner l'heure de début de la première équipe du jour\"\n            },\n            'option_action': {\n                'delete': 'Supprimer',\n                'add': 'Ajouter',\n                'edit': 'Modifier',\n                'save': 'Enregistrer',\n                'import': 'Importer',\n                'disconnect': 'Déconnecter',\n                'reset': 'RAZ'\n            },\n            'option_notice': {\n                'login_fail': 'Mauvais identifiant ou mot de passe',\n                'level_fail': \"Vous n'êtes pas autorisé à effectuer cette action\",\n                'update_fail': 'La mise à jour a échoué',\n                'update_success': 'Mise à jour avec succès',\n                'plant_exists': 'Cette usine existe déjà',\n                'line_exists': 'Cette ligne existe déjà',\n                'equipment_exists': 'Cet équipement existe déjà',\n                'plant_noempty': 'Cette usine contient des lignes',\n                'line_noempty': 'Cette ligne contient des équipements',\n                'equipment_noempty': 'Cet équipement a des composants',\n                'device_noempty': 'Ce matériel est utilisé par des composants',\n                'family_noempty': 'Cette famille a des compteurs de maintenance',\n                'plant_moved': 'Usine supprimée, %n ligne(s) déplacée(s) vers l\\'usine réservée',\n                'line_moved': 'Ligne supprimée, %n équipement(s) déplacé(s) vers « Sans ligne »',\n                'family_removed': 'Famille supprimée, %n équipement(s) désormais sans famille',\n                'plant_reserved': 'Cette usine est réservée aux lignes orphelines, elle ne peut pas être supprimée',\n                'line_reserved': 'Cette ligne est réservée aux équipements sans ligne, elle ne peut pas être supprimée',\n                'family_exists': 'Cette famille existe déjà',\n                'ident_fail': 'Identifiant invalide',\n                'counter_exists': 'Ce compteur existe déjà',\n                'hours_fail': \"Nombre d'heures invalide\",\n                'text_fail': 'Texte invalide'\n            },\n            'option_name': {\n                'plants': 'Usines',\n                'lines': 'Lignes',\n                'equipments': 'Equipements',\n                'families': \"Familles d'équipements\",\n                'family_none': 'Aucune famille',\n                'linx': \"Jets d'encre Linx\",\n                'counters': 'Compteurs',\n                'devices': 'Matériels',\n                'components': 'Composants',\n                'alerts': 'Alertes',\n                'teams': 'Equipes',\n                'day': 'Changement de jour',\n                'holidays': 'Jours fériés',\n                'maps': \"Plans d'usines\",\n                'locations': 'Implantation des lignes',\n                'team_morning': 'Matin',\n                'team_afternoon': 'Après-midi',\n                'team_night': 'Nuit',\n                'team_day': 'Journée',\n                'team_saturday': 'Samedi',\n                'login': 'Identifiant',\n                'pass': 'Mot de passe',\n                'lang': 'Langue',\n                'level': 'Niveau',\n                'plant':' Usine',\n                'watchdog': 'Chien de garde',\n                'telegram': 'Telegram',\n            },\n        }\n    });\n}\n\nif (typeof msg.payload !== 'object') {\n\n    return msg;\n}\n\nlet dictionary = global.get('dictionary');\n\n// Add current page\nif (typeof dictionary['en'][msg.flow] !== 'object') {\n    dictionary['en'][msg.flow] = {};\n}\n\n// Fill default lang with default en\nfor (const lang in dictionary) {\n    if (lang !== 'en') {\n        for (const option in dictionary['en']) {\n            dictionary[lang][option] = { ...dictionary['en'][option], ...(dictionary[lang][option] || { }) };\n        }\n    }\n}\n\n// Merge dictionary xx to en\nfor (const lang in msg.payload) {\n\n    // Only supported lang\n    if (typeof dictionary[lang] !== 'object') {\n\n        continue;\n    }\n\n    // Create page for current lang\n    if (typeof dictionary[lang][msg.flow] !== 'object') {\n        dictionary[lang][msg.flow] = { };\n    }\n\n    // Fill current lang\n    for (const k in msg.payload[lang]) {\n        if (typeof msg.payload[lang][k] === 'string') {\n            dictionary[lang][msg.flow][k] = msg.payload[lang][k];\n        }\n    }\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14451,7 +14469,7 @@
         "z": "135b7308617dad08",
         "g": "44d39e7547289d97",
         "name": "info",
-        "func": "let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]');\nif (typeof device === 'object') {\n    let dt = global.get('kernel.watchdog[\"' + msg.payload.entity  + '\"]')||0;\n    msg.notice =\n        \"<strong>Model: </strong>\" + global.get('describe.model[\"' + msg.payload.entity.split('|')[0] + '\"]') + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota: </strong>\" + states[device.ota] + \" <br />\\n\" +\n        \"<strong>Ping: </strong>\" + (new Date(dt*1000).toISOString()) + \" <br />\\n\"\n        ;\n} else {\n    msg.notice = \"Aucune information disponible\";\n}\n\n// UI notice\nmsg = await node.linkcall('ui - notice', msg);\n\nreturn msg;",
+        "func": "if (msg.payload?.entity?.split('|')[0] !== 'opta') {\n\n    return;\n}\n\nlet states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];\nmsg.topic = '';\nlet device = flow.get('devices[\"' + msg.payload.entity + '\"]');\nif (typeof device === 'object') {\n    let dt = global.get('kernel.watchdog[\"' + msg.payload.entity  + '\"]')||0;\n    msg.notice =\n        \"<strong>Model: </strong>\" + global.get('describe.model[\"' + msg.payload.entity.split('|')[0] + '\"]') + \" <br />\\n\" +\n        \"<strong>Type: </strong>\" + device.type + \" <br />\\n\" +\n        \"<strong>ID: </strong>\" + msg.payload.device + \" <br />\\n\" +\n        \"<strong>IP: </strong><a href=\\\"http://\" + device.ip + \"\\\">\" + device.ip + \"</a> <br />\\n\" +\n        \"<strong>Revision: </strong>\" + device.revision + \" <br />\\n\" +\n        \"<strong>Ota: </strong>\" + states[device.ota] + \" <br />\\n\" +\n        \"<strong>Ping: </strong>\" + (new Date(dt*1000).toISOString()) + \" <br />\\n\"\n        ;\n} else {\n    msg.notice = \"Aucune information disponible\";\n}\n\n// UI notice\nmsg = await node.linkcall('ui - notice', msg);\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -14525,6 +14543,313 @@
         "x": 1270,
         "y": 240,
         "wires": []
+    },
+    {
+        "id": "13b89ff228831775",
+        "type": "group",
+        "z": "135b7308617dad08",
+        "name": "model - linx",
+        "style": {
+            "fill": "#0070c0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "3bd4f702a097d872",
+            "d737e77c7567094c",
+            "1bd9da63723fb198",
+            "01170d92005d6d64",
+            "dd124e0a33129886",
+            "85d0c3f92dbc08eb",
+            "4972b58ce57982e2",
+            "c7f2c4f0aae58f19",
+            "01265aa1343b7daf",
+            "29de1fc14e638dde",
+            "bfa660718e9c55bd",
+            "f2ee479e42a74303",
+            "d2ff6157b4d6ff46",
+            "082ced0e38a97f19"
+        ],
+        "x": 94,
+        "y": 1780,
+        "w": 1172,
+        "h": 362
+    },
+    {
+        "id": "3bd4f702a097d872",
+        "type": "link in",
+        "name": "model - linx - describe",
+        "links": [
+            "575b91a30deac00d"
+        ],
+        "x": 209,
+        "y": 1820,
+        "wires": [
+            [
+                "d737e77c7567094c"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "d737e77c7567094c",
+        "type": "change",
+        "name": "describe",
+        "rules": [
+            {
+                "t": "set",
+                "p": "describe.model.linx",
+                "pt": "global",
+                "to": "Linx CIJ printer (RCI)",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "describe.convert.linx",
+                "pt": "global",
+                "to": "{\t    'run':'print',\t    'cycle':'cycle',\t    'cyclemeter':'messagecount',\t    'cyclemetertotal':'printcount',\t    'heat':'jet'\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 374,
+        "y": 1820,
+        "wires": [
+            []
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "1bd9da63723fb198",
+        "type": "inject",
+        "name": "10 s",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "tick",
+        "x": 224,
+        "y": 1900,
+        "wires": [
+            [
+                "01170d92005d6d64"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "01170d92005d6d64",
+        "type": "function",
+        "name": "rci",
+        "func": "// Linx CIJ printers polling over RCI (Linx RCI Reference Manual MP65969-9, TCP 29043)\n//\n// Linx printers are the equipments of the family kernel.app.linxfamily\n// having an IP address in kernel.linx[equipment].\n// Each Linx is the device \"linx|<equipment>\", components are linked to it\n// on any terminal (0 is advised) with these converts:\n//   heat            <- jet running\n//   run             <- printing enabled (printing or waiting for trigger)\n//   cycle           <- 1 when prints occurred since last poll, else 0\n//   cyclemeter      <- current message print count\n//   cyclemetertotal <- total print count\n//\n// Inputs:\n//   msg.topic = 'tick'  : poll cycle (inject)\n//   msg.linxRx = true   : bytes received from \"tcp request\" (msg.equipment)\n// Outputs:\n//   1 : to \"tcp request\"\n//   2 : kernel messages (watchdog and states)\n\nconst ESC = 0x1B, STX = 0x02, ETX = 0x03, ACK = 0x06, NAK = 0x15;\nconst PORT = 29043;\nconst TIMEOUT = 3000;     // ms without reply => offline\nconst SLOW = 6;           // slow requests every SLOW cycles\nconst REFRESH = 60000;    // ms, states are resent at least at this rate\n\nconst JET_STATES = ['Jet en marche', 'Démarrage du jet', 'Arrêt du jet', 'Jet arrêté', 'Défaut jet'];\nconst PRINT_STATES = ['Impression', 'Indéfini', 'Repos', 'Génération', 'Attente', 'Dernière impression', 'Impression'];\nconst P_STATUS = {\n    0: 'Aucun défaut', 1: 'Print Head Temperature', 2: 'EHT Trip', 3: 'Phase Failure', 4: 'Time of Flight',\n    5: '300V Power Supply / Modulation Amplifier Trip', 6: 'Hardware Safety Trip', 7: 'Ink Tank/System Empty',\n    8: 'Internal Spillage', 10: 'Solvent Tank/System Empty', 11: 'Jet Misaligned', 12: 'Pressure Limit',\n    13: 'Viscosity', 20: 'Printer Over Temperature', 21: 'Service Module Removed', 22: 'Unable to fill Service Module',\n    23: 'Charge Amplifier Trip', 24: 'RAM Low Fault', 25: 'Flash Memory Low Fault', 26: 'Service Module Requires Replacement',\n    27: 'Valid UNIC Chip Not Found', 28: 'Pump Drive Failure', 29: 'Pressure Reading At Maximum', 30: 'Pressure Reading Suspect',\n    31: 'Pressure Reading At Minimum', 32: 'Valve Drive 1 Failure', 33: 'Valve Drive 2 Failure', 34: 'Pump Stalled',\n    35: 'Unable to Fill Solvent Buffer Tank', 36: 'Printhead Fault', 37: 'Valve Drive 3 Failure', 38: 'Valve Drive 4 Failure',\n    39: 'Valve Overdrive 1 and 2', 40: 'Valve Overdrive 3 and 4', 41: 'Alarm Overdrive', 255: 'Other Fault'\n};\nconst WARNINGS = {\n    0: '3.20 No Time of Flight', 1: '3.01 Shutdown Incomplete', 2: '3.05 Over Speed (Print Trigger)', 3: '3.03 Ink Low',\n    4: '3.04 Solvent Low', 5: '3.29 Over Speed (No Remote Data)', 6: '3.35 Printer Requires Scheduled Maintenance',\n    7: '3.12 Printhead Cover Off', 8: '3.06 Over Speed (Synchronous Data)', 9: '3.08 Over Speed (Line Speed)',\n    10: '3.09 Over Speed (Compensation)', 11: '3.15 Safety Override Active', 12: '3.18 Low Pressure',\n    13: '3.10 Under Speed (Line Speed)', 14: '3.07 Over Speed (Asynchronous Data)', 16: 'User Data Corrupt',\n    17: '3.02 Memory Corrupt', 18: 'No Message in Memory', 20: '3.30 Remote Error', 22: '4.28 Corrupt Program Data',\n    27: 'Print Go After Schedule End'\n};\nconst EXT_WARNINGS = {\n    0: '3.13 Cover Override Active', 1: '3.14 Power Override Active', 2: '3.16 Gutter Override Active',\n    3: '3.17 Gate Array Test Mode Active', 4: '3.19 Valid UNIC Chip Not Found', 5: '3.31 Message Memory Full',\n    6: '3.30 Message Name Exists', 7: '3.35 Service Due Within 1 Month', 8: '2.15 Service Overdue by 3 Months'\n};\nconst ENH_WARNINGS_1 = {\n    0: '3.24 Restart In Progress', 1: '3.41 Service Module Removed', 2: '3.42 Service Module Requires Commissioning',\n    3: '3.75 Solvent Tank Needs Commissioning', 4: '3.45 Service Module Replacement Due Within One Month',\n    5: '3.46 Pump Pressure Failure', 6: '3.47 Pump RPM Failure', 7: '3.48 Pump RPM Limit Reached',\n    8: '3.49 Pump Current Limit Exceeded', 9: '3.50 Valve Supply', 10: '3.51 Pump Oscillating', 11: '3.52 Pump Power Limit Reached',\n    14: '3.56 Printhead Over Temperature', 15: '3.57 EHT Trip', 16: '3.58 Internal Spillage', 17: '3.59 Low Battery',\n    18: '3.60 Reset System Clock', 19: '3.65 Reverted To System Settings From Last Successful Powerdown',\n    20: '3.66 System Settings Not Found, Reverted To Defaults', 21: '3.68 Field Truncation', 22: '3.69 Remote Field Not Found',\n    23: '3.71 Jet Start Failure - Do Not Switch Off!', 24: '3.73 Ink Cartridge Not Found', 25: '3.74 Solvent Cartridge Not Found',\n    26: '3.79 Invalid Ink Cartridge', 27: '3.80 Invalid Solvent Cartridge', 28: '3.81 Ink Cartridge Expired',\n    29: '3.82 Solvent Cartridge Expired'\n};\nconst ENH_WARNINGS_2 = {\n    0: '3.83 Wrong Ink Type', 1: '3.84 Wrong Solvent Type', 2: '3.85 Easi-Change Service Key Not Found',\n    3: '3.86 Invalid Easi-Change Service Key', 4: '3.87 Easi-Change Service Key Already Used', 5: '3.89 Daylight Saving Time Started',\n    6: '3.90 Daylight Saving Time Ended', 7: '3.91 Over Speed (Line Sensor)', 8: '3.92 Under Speed (Line Sensor)',\n    9: '3.93 Line Sensor Missing', 10: '3.94 Line Object Error (Line Sensor)', 11: '3.95 Service Module Replacement Recommended',\n    12: '3.96 Air Filter Cleaning Recommended', 13: '3.97 Over Speed (Delay-Update Missed)', 14: '3.98 Over Speed (Delay-Update Late)',\n    15: '3.99 Check Custom Date Format', 16: '3.100 Commissioning Required', 17: '3.101 Incorrect Easi-Change Service Key',\n    18: '3.103 Service Module High', 19: '3.104 Service Module Full', 20: '3.102 Software Upgrade Available',\n    21: '3.105 Remote Upgrade Ready', 22: '3.106 Trigger Rate Too High', 23: '3.107 Incorrect Service Module Type',\n    24: '3.111 Line Rolling Back', 25: '3.112 Rollback Limit Reached or Exceeded', 26: '3.113 Unable to Fill Solvent Buffer tank'\n};\n\n// ---------------------------------------------------------------- frames\n\nfunction frame(cmd, data) {\n    const body = [cmd].concat(data || []);\n    const out = [ESC, STX];\n    let sum = STX;\n    for (const b of body) {\n        sum += b;\n        if (b === ESC) out.push(ESC);\n        out.push(b);\n    }\n    out.push(ESC, ETX);\n    sum += ETX;\n    const ck = (0x100 - (sum & 0xFF)) & 0xFF;\n    if (ck === ESC) out.push(ESC);\n    out.push(ck);\n\n    return Buffer.from(out);\n}\n\n// Extract complete replies from a byte stream, return { frames, rest }\nfunction parse(bytes) {\n    const frames = [];\n    let i = 0, start = 0;\n    outer:\n    while (i < bytes.length) {\n        if (bytes[i] !== ESC) { i++; start = i; continue; }\n        if (i + 1 >= bytes.length) break;\n        const kind = bytes[i + 1];\n        if (kind !== ACK && kind !== NAK) { i++; start = i; continue; }\n        start = i;\n        let j = i + 2;\n        const content = [];\n        let sum = kind;\n        while (true) {\n            if (j >= bytes.length) break outer;\n            const b = bytes[j];\n            if (b === ESC) {\n                if (j + 1 >= bytes.length) break outer;\n                const n = bytes[j + 1];\n                if (n === ESC) { content.push(ESC); sum += ESC; j += 2; continue; }\n                if (n === ETX) { sum += ETX; j += 2; break; }\n                j += 2;\n                continue;\n            }\n            content.push(b);\n            sum += b;\n            j++;\n        }\n        if (j >= bytes.length) break;\n        let ck = bytes[j];\n        if (ck === ESC) {\n            if (j + 1 >= bytes.length) break;\n            ck = bytes[j + 1];\n            j++;\n        }\n        j++;\n        frames.push({\n            ack: kind === ACK,\n            checksum: ((sum + ck) & 0xFF) === 0,\n            pStatus: content[0],\n            cStatus: content[1],\n            cmd: content[2],\n            data: Buffer.from(content.slice(3))\n        });\n        i = j;\n        start = j;\n    }\n\n    return { frames: frames, rest: bytes.slice(start) };\n}\n\nconst u32 = (b, o) => (b.length >= o + 4 ? b.readUInt32LE(o) : null);\nconst u16 = (b, o) => (b.length >= o + 2 ? b.readUInt16LE(o) : null);\nconst str = (b, o, n) => b.slice(o, o + n).toString('latin1').split('\\0')[0].trim();\nfunction bits(mask, table) {\n    let list = [];\n    for (let b = 0; b < 31; b++) {\n        if (mask & (1 << b)) {\n            list.push(table[b] || ('Bit ' + b));\n        }\n    }\n\n    return list;\n}\n\n// ---------------------------------------------------------------- sessions\n\nlet sessions = context.get('sessions') || { };\ncontext.set('sessions', sessions);\nlet timers = context.get('timers') || { };\ncontext.set('timers', timers);\n\nfunction enqueue(s, cmd, data) {\n    s.queue.push({ 'cmd': cmd, 'data': data || [] });\n}\n\nfunction decode(s, f) {\n    const d = f.data;\n    let st = s.status;\n    switch (f.cmd) {\n        case 0x14: { // Printer Status Request\n            const mask = u32(d, 2) >>> 0;\n            st.jet = d[0];\n            st.jet_label = JET_STATES[d[0]] || '?';\n            st.print = d[1];\n            st.print_label = PRINT_STATES[d[1]] || '?';\n            st.warnings = bits(mask, WARNINGS);\n            if (mask & 0x80000000) {\n                enqueue(s, 0x81);\n            } else {\n                st.extended = [];\n                st.enhanced = [];\n            }\n            break;\n        }\n        case 0x08: // Total Print Count\n            st.printcount = u32(d, 0);\n            break;\n        case 0x1F: // Request Print Message\n            st.message = str(d, 0, 16);\n            break;\n        case 0x8D: // Message Print Count\n            st.messagecount = u32(d, 0);\n            break;\n        case 0x0E: // Time and Date\n            if (d.length >= 7) {\n                const p = (n) => String(n).padStart(2, '0');\n                st.clock = '20' + p(d[6]) + '-' + p(d[5]) + '-' + p(d[4]) + ' ' + p(d[2]) + ':' + p(d[1]) + ':' + p(d[0]);\n            }\n            break;\n        case 0x30: // System Times\n            st.runtime = u32(d, 0);\n            st.jettime = u32(d, 4);\n            st.servicetime = u32(d, 12);\n            break;\n        case 0x98: // Serial Number\n            st.serial = str(d, 0, 9);\n            break;\n        case 0x9B: // Recent Consumables (seconds)\n            st.inkbottles = u32(d, 16);\n            st.solventbottles = u32(d, 20);\n            st.inkremaining = u32(d, 48);\n            st.solventremaining = u32(d, 52);\n            break;\n        case 0x81: { // Extended Error Request\n            const ext = u32(d, 4) >>> 0;\n            st.extended = bits(ext, EXT_WARNINGS);\n            if (ext & 0x80000000) {\n                enqueue(s, 0xAE);\n            } else {\n                st.enhanced = [];\n            }\n            break;\n        }\n        case 0xAE: // Enhanced Error Request (8800/8900)\n            st.enhanced = bits(u32(d, 0) >>> 0, ENH_WARNINGS_1).concat(bits(u32(d, 4) >>> 0, ENH_WARNINGS_2));\n            break;\n        case 0xA3: { // Current Events (8800/8900)\n            let events = [];\n            for (let o = 0; o + 24 <= d.length; o += 24) {\n                events.push(d.slice(o, o + 24).toString('latin1').trim());\n            }\n            st.events = events;\n            break;\n        }\n    }\n}\n\n// Publish kernel messages of a finished cycle\nfunction publish(equipment, s) {\n    const device = 'linx|' + equipment;\n    const st = s.status;\n    st.date = Date.now();\n    flow.set('linx[\"' + equipment + '\"]', RED.util.cloneMessage(st));\n\n    if (!st.online) {\n        return;\n    }\n\n    // watchdog\n    node.send([null, {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'watchdog',\n            'entity': device,\n            'value': Math.round(Date.now() / 1000),\n            'loop': false\n        }\n    }]);\n\n    // components linked to the device: rlink[\"linx|<equipment>|<terminal>|<convert>\"] = \"<equipment>|<component>\"\n    let printed = 0;\n    if (typeof st.printcount === 'number') {\n        if (typeof s.lastcount === 'number' && st.printcount > s.lastcount) {\n            printed = 1;\n        }\n        s.lastcount = st.printcount;\n    }\n    const values = {\n        'jet': st.jet === 0 ? 1 : 0,\n        'print': [0, 3, 4, 5, 6].includes(st.print) ? 1 : 0,\n        'cycle': printed,\n        'messagecount': st.messagecount,\n        'printcount': st.printcount\n    };\n    const rlinks = global.get('rlink') || { };\n    for (const rlink in rlinks) {\n        const rsplit = rlink.split('|');\n        if (rsplit.length !== 4 || rsplit[0] !== 'linx' || rsplit[1] !== equipment) {\n            continue;\n        }\n        const value = values[rsplit[3]];\n        if (typeof value !== 'number') {\n            continue;\n        }\n        const entity = rlinks[rlink];\n        const last = s.sent[entity];\n        if (last && last.value === value && Date.now() - last.date < REFRESH) {\n            continue;\n        }\n        s.sent[entity] = { 'value': value, 'date': Date.now() };\n        node.send([null, {\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'state',\n                'entity': entity,\n                'value': value,\n                'loop': false\n            }\n        }]);\n    }\n}\n\nfunction sendNext(equipment) {\n    let s = sessions[equipment];\n    if (!s || s.pending !== null) {\n        return;\n    }\n    if (s.queue.length === 0) {\n        if (s.open) {\n            s.open = false;\n            publish(equipment, s);\n        }\n\n        return;\n    }\n    const c = s.queue.shift();\n    s.pending = c.cmd;\n    timers[equipment] = setTimeout(() => onTimeout(equipment), TIMEOUT);\n    node.send([{\n        'topic': '',\n        'host': s.host,\n        'port': PORT,\n        'equipment': equipment,\n        'payload': frame(c.cmd, c.data)\n    }, null]);\n}\n\nfunction onTimeout(equipment) {\n    let s = sessions[equipment];\n    if (!s) {\n        return;\n    }\n    s.pending = null;\n    s.queue = [];\n    s.rx = [];\n    s.status.online = false;\n    s.status.error = 'Pas de réponse de ' + s.host + ':' + PORT;\n    sendNext(equipment);\n}\n\nfunction clear(equipment) {\n    clearTimeout(timers[equipment]);\n    delete timers[equipment];\n    if (sessions[equipment]) {\n        // close the TCP connection\n        node.send([{ 'reset': sessions[equipment].host + ':' + PORT }, null]);\n        delete sessions[equipment];\n    }\n}\n\n// ---------------------------------------------------------------- reply\n\nif (msg.linxRx === true) {\n    const equipment = msg.equipment;\n    let s = sessions[equipment];\n    if (!s) {\n        return;\n    }\n    const r = parse(s.rx.concat(Array.from(msg.payload || [])));\n    s.rx = r.rest;\n    for (const f of r.frames) {\n        if (f.cmd !== s.pending) {\n            continue;\n        }\n        clearTimeout(timers[equipment]);\n        s.pending = null;\n        s.status.online = true;\n        delete s.status.error;\n        s.status.fault = f.pStatus;\n        s.status.fault_label = P_STATUS[f.pStatus] || ('Défaut ' + f.pStatus);\n        if (f.ack && f.checksum) {\n            decode(s, f);\n        }\n    }\n    node.status({ 'fill': 'green', 'shape': 'dot', 'text': equipment + ' - ' + (s.status.jet_label || '') });\n    sendNext(equipment);\n\n    return;\n}\n\n// ---------------------------------------------------------------- poll\n\nconst family = global.get('kernel.app.linxfamily') || '';\nconst families = global.get('kernel.families') || { };\nconst ips = global.get('kernel.linx') || { };\n\n// Linx printers to poll\nlet targets = { };\nif (family !== '') {\n    for (const equipment in ips) {\n        if (families[equipment] === family && /^(\\d{1,3}\\.){3}\\d{1,3}$/.test(ips[equipment])) {\n            targets[equipment] = ips[equipment];\n        }\n    }\n}\n\n// Removed or moved printers\nfor (const equipment in sessions) {\n    if (targets[equipment] !== sessions[equipment].host) {\n        clear(equipment);\n    }\n}\n\nfor (const equipment in targets) {\n    if (!sessions[equipment]) {\n        sessions[equipment] = {\n            'host': targets[equipment],\n            'queue': [],\n            'pending': null,\n            'rx': [],\n            'open': false,\n            'cycle': 0,\n            'sent': { },\n            'status': { 'ip': targets[equipment], 'online': false }\n        };\n    }\n    let s = sessions[equipment];\n\n    // previous cycle not finished\n    if (s.pending !== null || s.queue.length > 0) {\n        continue;\n    }\n\n    s.open = true;\n    s.cycle++;\n    enqueue(s, 0x14);                        // jet, print, warnings\n    enqueue(s, 0x08);                        // total print count\n    enqueue(s, 0x1F);                        // current message\n    enqueue(s, 0x8D, new Array(16).fill(0)); // current message print count\n    if (s.cycle % SLOW === 1) {\n        enqueue(s, 0x98);                    // serial number\n        enqueue(s, 0x0E);                    // printer clock\n        enqueue(s, 0x30);                    // system times\n        enqueue(s, 0x9B);                    // consumables\n        enqueue(s, 0xA3);                    // current events (8800/8900, NAK on 7900)\n    }\n    sendNext(equipment);\n}\n\nnode.status({ 'fill': 'blue', 'shape': 'ring', 'text': Object.keys(targets).length + ' Linx' });\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "const timers = context.get('timers') || { };\nfor (const t in timers) {\n    clearTimeout(timers[t]);\n}\ncontext.set('timers', { });\ncontext.set('sessions', { });\n",
+        "libs": [],
+        "x": 424,
+        "y": 1940,
+        "wires": [
+            [
+                "dd124e0a33129886"
+            ],
+            [
+                "4972b58ce57982e2",
+                "c7f2c4f0aae58f19"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "dd124e0a33129886",
+        "type": "tcp request",
+        "name": "linx - rci",
+        "server": "",
+        "port": "",
+        "out": "sit",
+        "ret": "buffer",
+        "splitc": " ",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 634,
+        "y": 1900,
+        "wires": [
+            [
+                "85d0c3f92dbc08eb"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "85d0c3f92dbc08eb",
+        "type": "change",
+        "name": "rx",
+        "rules": [
+            {
+                "t": "set",
+                "p": "linxRx",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 824,
+        "y": 1900,
+        "wires": [
+            [
+                "01170d92005d6d64"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "4972b58ce57982e2",
+        "type": "link out",
+        "name": "model - linx - in",
+        "mode": "link",
+        "links": [
+            "c9b77de2e18e7767"
+        ],
+        "x": 679,
+        "y": 1980,
+        "wires": [],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "c7f2c4f0aae58f19",
+        "type": "debug",
+        "name": "model - linx - in",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 714,
+        "y": 2020,
+        "wires": [],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "01265aa1343b7daf",
+        "type": "catch",
+        "name": "model - linx - catch",
+        "scope": [
+            "dd124e0a33129886"
+        ],
+        "uncaught": false,
+        "x": 944,
+        "y": 1960,
+        "wires": [
+            [
+                "29de1fc14e638dde"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "29de1fc14e638dde",
+        "type": "debug",
+        "name": "model - linx - tcp error",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1144,
+        "y": 1960,
+        "wires": [],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "bfa660718e9c55bd",
+        "type": "link in",
+        "name": "model - linx - notice",
+        "links": [
+            "dafa461a59bb8265"
+        ],
+        "x": 239,
+        "y": 2080,
+        "wires": [
+            [
+                "f2ee479e42a74303"
+            ]
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "f2ee479e42a74303",
+        "type": "function",
+        "name": "info",
+        "func": "// Linx device information\nif (typeof msg.payload?.entity !== 'string' || msg.payload.entity.split('|')[0] !== 'linx') {\n\n    return;\n}\n\nconst equipment = msg.payload.entity.split('|')[1];\nconst st = flow.get('linx[\"' + equipment + '\"]');\nconst ip = global.get('kernel.linx[\"' + equipment + '\"]') || '-';\nconst name = global.get('kernel.equipment[\"' + equipment + '\"]') || '';\nconst duration = (s) => typeof s === 'number' ? Math.floor(s / 3600) + ' h ' + String(Math.floor(s % 3600 / 60)).padStart(2, '0') + ' min' : '-';\nconst list = (l) => Array.isArray(l) && l.length > 0 ? l.join(', ') : 'Aucun';\nconst line = (label, value) => '<strong>' + label + ': </strong>' + (typeof value === 'undefined' || value === null || value === '' ? '-' : value) + ' <br />\\n';\n\nmsg.topic = '';\nmsg.notice =\n    line('Modèle', global.get('describe.model.linx')) +\n    line('Equipement', name + ' (' + equipment + ')') +\n    line('IP', ip);\n\nif (typeof st !== 'object') {\n    msg.notice += 'Aucune information disponible';\n} else if (!st.online) {\n    msg.notice +=\n        line('Etat', 'Hors ligne') +\n        line('Erreur', st.error) +\n        line('Dernière tentative', new Date(st.date).toLocaleString('fr-FR'));\n} else {\n    msg.notice +=\n        line('N° de série', st.serial) +\n        line('Jet', st.jet_label) +\n        line('Impression', st.print_label) +\n        line('Défaut', st.fault_label) +\n        line('Alertes', list([].concat(st.warnings || [], st.extended || [], st.enhanced || []))) +\n        line('Message', st.message) +\n        line('Compteur message', st.messagecount) +\n        line('Compteur total', st.printcount) +\n        line('Encre restante (estimation)', duration(st.inkremaining)) +\n        line('Solvant restant (estimation)', duration(st.solventremaining)) +\n        line('Temps de jet', st.jettime) +\n        line('Horloge imprimante', st.clock) +\n        line('Mise à jour', new Date(st.date).toLocaleString('fr-FR'));\n}\n\n// UI notice\nmsg = await node.linkcall('ui - notice', msg);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 384,
+        "y": 2080,
+        "wires": [
+            []
+        ],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "d2ff6157b4d6ff46",
+        "type": "comment",
+        "name": "Linx CIJ printers - Remote Communications Interface (RCI) MP65969-9, TCP 29043",
+        "info": "Linx printers are equipments of the family kernel.app.linxfamily with an IP address in kernel.linx[equipment].\nEach one is the device linx|<equipment>. Link components to it on terminal 0:\n- heat: jet running\n- run: printing enabled (printing or waiting for trigger)\n- cycle: 1 when prints occurred since last poll\n- cyclemeter: current message print count\n- cyclemetertotal: total print count",
+        "x": 924,
+        "y": 1820,
+        "wires": [],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
+    },
+    {
+        "id": "082ced0e38a97f19",
+        "type": "comment",
+        "name": "Linx printers must have \"RCI over Ethernet\" enabled, checksum on",
+        "info": "",
+        "x": 924,
+        "y": 1860,
+        "wires": [],
+        "z": "135b7308617dad08",
+        "g": "13b89ff228831775"
     },
     {
         "id": "9833ea0e831ff8c7",
@@ -24745,7 +25070,8 @@
         "name": "list - device - detail",
         "mode": "link",
         "links": [
-            "31f72f6c4d5ded3b"
+            "31f72f6c4d5ded3b",
+            "bfa660718e9c55bd"
         ],
         "x": 815,
         "y": 1140,
@@ -28075,7 +28401,8 @@
             "0c0a9473fb5ff8b7",
             "3933b0d493ef8317",
             "688910aee534864e",
-            "fcd145d2e50a721e"
+            "fcd145d2e50a721e",
+            "931a59bf8a5f7de4"
         ],
         "x": 755,
         "y": 180,
@@ -37047,7 +37374,7 @@
         "z": "64ce08af468b8197",
         "g": "b18407a573bfa291",
         "name": "data",
-        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Tree'\n    },\n    'fr': {\n        'page': 'Arborescence',\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'family_ident':'Identifiant de la famille',\n        'family_name':'Nom de la famille',\n        'counter_ident':'Identifiant du compteur',\n        'counter_hours':\"Nombre d'heures\",\n        'counter_text':'Texte de définition',\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour',\n        'import_file':'Fichier CSV à importer',\n        'import_ident_column':\"Colonne de l'identifiant de la ligne\",\n        'import_name_column':'Colonne du nom de la ligne',\n        'import_replace':'Lignes déjà existantes',\n        'import_replace_no':'Conserver les lignes existantes',\n        'import_replace_yes':'Remplacer les lignes existantes',\n        'import_empty':'Le fichier ne contient aucune ligne de données',\n        'import_result':'%added% ajoutée(s), %replaced% remplacée(s), %ignored% ignorée(s)',\n        'import_family_ident_column':\"Colonne de l'identifiant de la famille\",\n        'import_family_name_column':'Colonne du nom de la famille',\n        'import_family_replace':'Familles déjà existantes',\n        'import_family_replace_no':'Conserver les familles existantes',\n        'import_family_replace_yes':'Remplacer les familles existantes',\n        'import_equipment_ident_column':\"Colonne de l'identifiant de l'équipement\",\n        'import_equipment_name_column':\"Colonne du nom de l'équipement\",\n        'import_equipment_line_column':\"Colonne de l'identifiant de la ligne\",\n        'import_equipment_family_column':\"Colonne de l'identifiant de la famille\",\n        'import_equipment_family_none':'Aucune famille',\n        'import_equipment_replace':'Equipements déjà existants',\n        'import_equipment_replace_no':'Conserver les équipements existants',\n        'import_equipment_replace_yes':'Remplacer les équipements existants'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
+        "func": "\nmsg.flow = env.get('NR_FLOW_NAME');\n\nmsg.payload = {\n    'tab': 7,\n    'id': '5287a3b059e7b4ce',\n    'name': 'ui - page - tree',\n    'icon': 'mdi-file-tree',\n    'level': {\n        'admin': true,\n        'rt': true,\n        'tech': false,\n        'rp': false,\n        'prod': false\n    }\n};\n\nmsg = await node.linkcall('kernel - page', msg);\n\n// Register page dictionary\nmsg.payload = {\n    'en': {\n        'page': 'Tree',\n        'linx_action_family': 'Family',\n        'linx_action_ip': 'IP address',\n        'linx_action_delete': 'Remove IP address',\n        'linx_family': 'Linx printers family',\n        'linx_equipment': 'Linx printer',\n        'linx_ip': 'IP address',\n        'linx_nofamily': 'Select first the Linx printers family',\n        'linx_ip_fail': 'Invalid IP address',\n        'linx_ip_exists': 'IP address already used by %s'\n    },\n    'fr': {\n        'page': 'Arborescence',\n        'plant_ident':\"Identifiant de l'usine\",\n        'plant_name':\"Nom de l'usine\",\n        'line_ident':'Identifiant de la ligne',\n        'line_name':'Nom de la ligne',\n        'equipment_ident':\"Identifiant de l'équipement\",\n        'equipment_name':\"Nom de l'équipement\",\n        'family_ident':'Identifiant de la famille',\n        'family_name':'Nom de la famille',\n        'counter_ident':'Identifiant du compteur',\n        'counter_hours':\"Nombre d'heures\",\n        'counter_text':'Texte de définition',\n        'device_ident':'Identifiant du matériel',\n        'start_time':'Heure de début',\n        'stop_time':'Heure de fin',\n        'day_starttime':'Heure de début de la première équipe du jour',\n        'holiday_day':'Jour',\n        'import_file':'Fichier CSV à importer',\n        'import_ident_column':\"Colonne de l'identifiant de la ligne\",\n        'import_name_column':'Colonne du nom de la ligne',\n        'import_replace':'Lignes déjà existantes',\n        'import_replace_no':'Conserver les lignes existantes',\n        'import_replace_yes':'Remplacer les lignes existantes',\n        'import_empty':'Le fichier ne contient aucune ligne de données',\n        'import_result':'%added% ajoutée(s), %replaced% remplacée(s), %ignored% ignorée(s)',\n        'import_family_ident_column':\"Colonne de l'identifiant de la famille\",\n        'import_family_name_column':'Colonne du nom de la famille',\n        'import_family_replace':'Familles déjà existantes',\n        'import_family_replace_no':'Conserver les familles existantes',\n        'import_family_replace_yes':'Remplacer les familles existantes',\n        'import_equipment_ident_column':\"Colonne de l'identifiant de l'équipement\",\n        'import_equipment_name_column':\"Colonne du nom de l'équipement\",\n        'import_equipment_line_column':\"Colonne de l'identifiant de la ligne\",\n        'import_equipment_family_column':\"Colonne de l'identifiant de la famille\",\n        'import_equipment_family_none':'Aucune famille',\n        'import_equipment_replace':'Equipements déjà existants',\n        'import_equipment_replace_no':'Conserver les équipements existants',\n        'import_equipment_replace_yes':'Remplacer les équipements existants',\n        'linx_action_family': 'Famille',\n        'linx_action_ip': 'Adresse IP',\n        'linx_action_delete': \"Retirer l'adresse IP\",\n        'linx_family': \"Famille des jets d'encre Linx\",\n        'linx_equipment': \"Jet d'encre Linx\",\n        'linx_ip': \"Adresse IP du jet d'encre\",\n        'linx_nofamily': \"Choisissez d'abord la famille des jets d'encre Linx\",\n        'linx_ip_fail': 'Adresse IP invalide',\n        'linx_ip_exists': 'Adresse IP déjà utilisée par %s'\n    }\n};\n\nmsg = await node.linkcall('kernel - dictionary', msg);\n\nreturn;",
         "outputs": 0,
         "timeout": 0,
         "noerr": 0,
@@ -37105,7 +37432,7 @@
         "z": "64ce08af468b8197",
         "g": "1b6332baa80f468b",
         "name": "data",
-        "func": "// Build list selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nmsg.menu = {\n    'plant': msg.dictionary.option_name.plants,\n    'line': msg.dictionary.option_name.lines,\n    'equipment': msg.dictionary.option_name.equipments,\n    'family': msg.dictionary.option_name.families,\n    'counter': msg.dictionary.option_name.counters,\n    'device': msg.dictionary.option_name.devices,\n    'component': msg.dictionary.option_name.components,\n    //'alert': msg.dictionary.option_name.alerts,\n    'team': msg.dictionary.option_name.teams,\n    'day': msg.dictionary.option_name.day,\n    'holiday': msg.dictionary.option_name.holidays,\n    'map': msg.dictionary.option_name.maps,\n    'location': msg.dictionary.option_name.locations\n};\n\nconst limit = ['plant', 'device', 'map', 'holiday'];\n\nmsg.hide = [];\n\nfor (const k in msg.menu) {\n    msg.hide.push('ui - group - tree - ' + k);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\n//node.send([msg, msg]);\n\nif (!msg.enabled) {\n    msg.list = '';\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu keys for tree - menu (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'tree': [] };\n\nfor (const k in msg.menu) {\n    if (msg.hmi.level !== 'admin' && limit.includes(k)) {\n\n        continue;\n    }\n\n    msg.ui_update.options.push({ \n        'value': k,\n        'label': msg.menu[k]\n    });\n    menu[msg.hmi.id]['tree'].push(k);\n}\n\nreturn [ null, msg ];",
+        "func": "// Build list selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\nmsg.menu = {\n    'plant': msg.dictionary.option_name.plants,\n    'line': msg.dictionary.option_name.lines,\n    'equipment': msg.dictionary.option_name.equipments,\n    'family': msg.dictionary.option_name.families,\n    'linx': msg.dictionary.option_name.linx || 'Linx',\n    'counter': msg.dictionary.option_name.counters,\n    'device': msg.dictionary.option_name.devices,\n    'component': msg.dictionary.option_name.components,\n    //'alert': msg.dictionary.option_name.alerts,\n    'team': msg.dictionary.option_name.teams,\n    'day': msg.dictionary.option_name.day,\n    'holiday': msg.dictionary.option_name.holidays,\n    'map': msg.dictionary.option_name.maps,\n    'location': msg.dictionary.option_name.locations\n};\n\nconst limit = ['plant', 'device', 'map', 'holiday'];\n\nmsg.hide = [];\n\nfor (const k in msg.menu) {\n    msg.hide.push('ui - group - tree - ' + k);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\n//node.send([msg, msg]);\n\nif (!msg.enabled) {\n    msg.list = '';\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu keys for tree - menu (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'tree': [] };\n\nfor (const k in msg.menu) {\n    if (msg.hmi.level !== 'admin' && limit.includes(k)) {\n\n        continue;\n    }\n\n    msg.ui_update.options.push({ \n        'value': k,\n        'label': msg.menu[k]\n    });\n    menu[msg.hmi.id]['tree'].push(k);\n}\n\nreturn [ null, msg ];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -38916,6 +39243,815 @@
                 "9ca41d82ae49b0f7"
             ]
         ]
+    },
+    {
+        "id": "a20f1f9fa75b9735",
+        "type": "group",
+        "z": "64ce08af468b8197",
+        "name": "tree - linx",
+        "style": {
+            "fill": "#6f2fa0",
+            "fill-opacity": "0.05",
+            "label": true
+        },
+        "nodes": [
+            "931a59bf8a5f7de4",
+            "1204e20ba067b627",
+            "4b71242de75478cd",
+            "02c6c5ef6e06b442",
+            "3f75c44e23761ef0",
+            "d9b055618f44651e",
+            "4fe2089089e3cf99",
+            "31475bae675ed88b",
+            "8946b04da33c3cbf",
+            "cd5b4743c998b572",
+            "c1caa8cd204bff48",
+            "12e1342178fffca4",
+            "0b66b0af2f9433f7",
+            "005b8721b316bab0",
+            "4d6abd3f2b6aea06",
+            "c64a55190369dc47",
+            "49456aa2dbc8ff51",
+            "288f0ad231f1e4d6",
+            "7184a4f60b99498b",
+            "109318da1ec8c07f",
+            "e42fdd3ce6face09",
+            "bce9018337708455",
+            "23424bbfb0e52ca0",
+            "00abdee85d9a585b",
+            "ab193b843c9f5bb7",
+            "2b048464e8109be6",
+            "9325831539a05dd9",
+            "a90c10c89a5d2df9",
+            "6d3a85f5702d02c7"
+        ],
+        "x": 1394,
+        "y": 2720,
+        "w": 1002,
+        "h": 662
+    },
+    {
+        "id": "931a59bf8a5f7de4",
+        "type": "link in",
+        "z": "64ce08af468b8197",
+        "name": "tree - linx",
+        "links": [
+            "1204e20ba067b627",
+            "d5a2492cd9b261b1"
+        ],
+        "x": 1509,
+        "y": 2760,
+        "wires": [
+            [
+                "02c6c5ef6e06b442"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "1204e20ba067b627",
+        "type": "link out",
+        "z": "64ce08af468b8197",
+        "name": "tree - linx - loop",
+        "mode": "link",
+        "links": [
+            "931a59bf8a5f7de4"
+        ],
+        "x": 2349,
+        "y": 2760,
+        "wires": [],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "4b71242de75478cd",
+        "type": "link out",
+        "z": "64ce08af468b8197",
+        "name": "tree - linx",
+        "mode": "link",
+        "links": [
+            "e60e4ab7617738c3"
+        ],
+        "x": 2349,
+        "y": 2820,
+        "wires": [],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "02c6c5ef6e06b442",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "if (msg.list !== 'linx') {\n\n    return;\n}\n\nmsg.payload = '';\nmsg.class = 'remove';\nmsg.enabled = false;\n\nnode.send([null, msg]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    msg = await node.linkcall('ui - latency', msg);\n    msg.class = '';\n    msg.enabled = true;\n    msg.ui_update = {\n        'options': [\n            {\n                'label': msg.dictionary.tree.linx_action_family || 'Family',\n                'value': 'linxfamily'\n            },\n            {\n                'label': msg.dictionary.tree.linx_action_ip || 'IP address',\n                'value': 'linxip'\n            },\n            {\n                'label': msg.dictionary.tree.linx_action_delete || 'Remove IP address',\n                'value': 'linxdelete'\n            }\n        ],\n        'label': ''\n    }\n\n    return [msg, null];\n}\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 2760,
+        "wires": [
+            [
+                "3f75c44e23761ef0"
+            ],
+            [
+                "d9b055618f44651e"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "3f75c44e23761ef0",
+        "type": "ui-button-group",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - action",
+        "label": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 2760,
+        "wires": [
+            [
+                "d9b055618f44651e",
+                "4fe2089089e3cf99"
+            ]
+        ],
+        "className": "oe-center",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_0",
+                "valueType": "str",
+                "color": "#009933"
+            },
+            {
+                "label": "",
+                "icon": "",
+                "value": "option_1",
+                "valueType": "str",
+                "color": "#999999"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "d9b055618f44651e",
+        "type": "change",
+        "z": "64ce08af468b8197",
+        "name": "-",
+        "rules": [
+            {
+                "t": "set",
+                "p": "class",
+                "pt": "msg",
+                "to": "remove",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1634,
+        "y": 2820,
+        "wires": [
+            [
+                "8946b04da33c3cbf",
+                "12e1342178fffca4",
+                "4d6abd3f2b6aea06",
+                "288f0ad231f1e4d6",
+                "e42fdd3ce6face09",
+                "00abdee85d9a585b",
+                "9325831539a05dd9"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "4fe2089089e3cf99",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Get memories\nlet form = global.get('form'); // autoupdate\n\nconst action = msg.payload;\n\nform[msg.hmi.id] = {\n    'action': action,\n    'time': Date.now()\n};\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\n\nswitch (action) {\n    case 'linxfamily': node.send([msg, null, null]); break;\n    case 'linxip': node.send([null, msg, null]); break;\n    case 'linxdelete': node.send([null, null, msg]); break;\n}\n\nreturn;\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 2760,
+        "wires": [
+            [
+                "31475bae675ed88b"
+            ],
+            [
+                "005b8721b316bab0"
+            ],
+            [
+                "23424bbfb0e52ca0"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "31475bae675ed88b",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "// Linx family options, preselect current Linx family on first display\nif (msg.enabled === true && msg.payload === '') {\n    msg.payload = global.get('kernel.app.linxfamily') || '';\n}\n\nmsg.family_none = true;\nmsg = await node.linkcall('option - family', msg);\nmsg.ui_update.label = msg.dictionary.tree.linx_family || 'Linx printers family';\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 2880,
+        "wires": [
+            [
+                "8946b04da33c3cbf"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "8946b04da33c3cbf",
+        "type": "ui-dropdown",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - family",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 2880,
+        "wires": [
+            [
+                "cd5b4743c998b572"
+            ]
+        ],
+        "tooltip": "",
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "cd5b4743c998b572",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst family = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"linxfamily\"]', family);\n\n// Disabled family form\nmsg.payload = family;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 2880,
+        "wires": [
+            [
+                "31475bae675ed88b"
+            ],
+            [
+                "c1caa8cd204bff48"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "c1caa8cd204bff48",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "label",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_action.edit || 'Edit'\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 2940,
+        "wires": [
+            [
+                "12e1342178fffca4"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "12e1342178fffca4",
+        "type": "ui-button",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - family - save",
+        "label": "",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 2940,
+        "wires": [
+            [
+                "0b66b0af2f9433f7"
+            ]
+        ],
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "0b66b0af2f9433f7",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "// Save Linx printers family\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled family form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    const form = global.get('form[\"' + msg.hmi.id + '\"]') || {};\n    const family = form.linxfamily === '-' ? '' : (form.linxfamily || '');\n\n    node.send([null, {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'app',\n            'entity': 'linxfamily',\n            'value': family,\n            'loop': false\n        }\n    }]);\n\n    // UI notice\n    msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';\n    msg = await node.linkcall('ui - notice', msg);\n}\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 2940,
+        "wires": [
+            [
+                "c1caa8cd204bff48",
+                "1204e20ba067b627"
+            ],
+            [
+                "4b71242de75478cd"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "005b8721b316bab0",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "// Linx printers (equipments of the Linx family)\nconst family = global.get('kernel.app.linxfamily') || '';\nconst families = global.get('kernel.families') || { };\nconst equipments = global.get('kernel.equipment') || { };\nconst ips = global.get('kernel.linx') || { };\n\nmsg.options = [{\n    'label': '',\n    'value': '',\n    'dropdown': 'equipment'\n}];\n\nfor (const equipment in families) {\n    if (family !== '' && families[equipment] === family) {\n        msg.options.push({\n            'label': (equipments[equipment] || '') + ' (' + equipment + ')' + (ips[equipment] ? ' - ' + ips[equipment] : ''),\n            'value': equipment,\n            'dropdown': 'equipment'\n        });\n    }\n}\n\nif (family === '' && msg.enabled === true) {\n    // UI notice\n    msg.notice = msg.dictionary.tree.linx_nofamily || 'Select first the Linx printers family';\n    msg = await node.linkcall('ui - notice', msg);\n}\n\nmsg.ui_update = {\n    'label': msg.dictionary.tree.linx_equipment || 'Linx printer'\n};\n\n// Clean options\nmsg = await node.linkcall('option - clean', msg);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 3020,
+        "wires": [
+            [
+                "4d6abd3f2b6aea06"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "4d6abd3f2b6aea06",
+        "type": "ui-dropdown",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - ip - equipment",
+        "label": "",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 3020,
+        "wires": [
+            [
+                "c64a55190369dc47"
+            ]
+        ],
+        "tooltip": "",
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "c64a55190369dc47",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst equipment = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"linxequipment\"]', equipment);\n\n// Disabled equipment form\nmsg.payload = equipment;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form with current IP\nmsg.payload = global.get('kernel.linx[\"' + equipment + '\"]') || '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 3020,
+        "wires": [
+            [
+                "005b8721b316bab0"
+            ],
+            [
+                "49456aa2dbc8ff51"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "49456aa2dbc8ff51",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "label",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.tree.linx_ip || 'IP address'\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 3080,
+        "wires": [
+            [
+                "288f0ad231f1e4d6"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "288f0ad231f1e4d6",
+        "type": "ui-text-input",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - ip - address",
+        "label": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 3080,
+        "wires": [
+            [
+                "7184a4f60b99498b"
+            ]
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": false,
+        "sendOnDelay": false,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": false,
+        "sendOnClear": false,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "7184a4f60b99498b",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst ip = String(msg.payload).trim();\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Bad IPv4 address\nconst parts = ip.split('.');\nif (parts.length !== 4 || !parts.every(p => /^\\d{1,3}$/.test(p) && Number(p) <= 255)) {\n    // UI notice\n    msg.notice = msg.dictionary.tree.linx_ip_fail || 'Invalid IP address';\n    msg = await node.linkcall('ui - notice', msg);\n\n    return;\n}\n\n// IP already used by another Linx printer\nconst equipment = global.get('form[\"' + msg.hmi.id + '\"][\"linxequipment\"]') || '';\nconst ips = global.get('kernel.linx') || { };\nfor (const other in ips) {\n    if (other !== equipment && ips[other] === ip) {\n        // UI notice\n        msg.notice = (msg.dictionary.tree.linx_ip_exists || 'IP address already used by %s').replace('%s', other);\n        msg = await node.linkcall('ui - notice', msg);\n\n        return;\n    }\n}\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"linxip\"]', ip);\n\n// Disabled IP form\nmsg.payload = ip;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 3080,
+        "wires": [
+            [
+                "49456aa2dbc8ff51"
+            ],
+            [
+                "109318da1ec8c07f"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "109318da1ec8c07f",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "label",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_action.edit || 'Edit'\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 3140,
+        "wires": [
+            [
+                "e42fdd3ce6face09"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "e42fdd3ce6face09",
+        "type": "ui-button",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - ip - save",
+        "label": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 3140,
+        "wires": [
+            [
+                "bce9018337708455"
+            ]
+        ],
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "bce9018337708455",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "// Save Linx printer IP address\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled IP form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    const form = global.get('form[\"' + msg.hmi.id + '\"]') || {};\n\n    if (typeof form.linxequipment === 'string' && form.linxequipment !== '' && typeof form.linxip === 'string') {\n        // kernel.linx\n        node.send([null, {\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'linx',\n                'entity': form.linxequipment,\n                'value': form.linxip,\n                'loop': false\n            }\n        }]);\n\n        // kernel.device, the Linx printer is the device \"linx|<equipment>\"\n        const device = 'linx|' + form.linxequipment;\n        if (typeof global.get('kernel.device[\"' + device + '\"]') === 'undefined') {\n            node.send([null, {\n                'topic': '',\n                'payload': '',\n                'kernel': {\n                    'type': 'device',\n                    'entity': device,\n                    'value': 0,\n                    'loop': false\n                }\n            }]);\n        }\n\n        // UI notice\n        msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';\n    } else {\n        msg.notice = msg.dictionary.option_notice.update_fail || 'Update failed';\n    }\n    msg = await node.linkcall('ui - notice', msg);\n}\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 3140,
+        "wires": [
+            [
+                "109318da1ec8c07f",
+                "1204e20ba067b627"
+            ],
+            [
+                "4b71242de75478cd"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "23424bbfb0e52ca0",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "// Linx printers with an IP address\nconst equipments = global.get('kernel.equipment') || { };\nconst ips = global.get('kernel.linx') || { };\n\nmsg.options = [{\n    'label': '',\n    'value': '',\n    'dropdown': 'equipment'\n}];\n\nfor (const equipment in ips) {\n    msg.options.push({\n        'label': (equipments[equipment] || '') + ' (' + equipment + ') - ' + ips[equipment],\n        'value': equipment,\n        'dropdown': 'equipment'\n    });\n}\n\nmsg.ui_update = {\n    'label': msg.dictionary.tree.linx_equipment || 'Linx printer'\n};\n\n// Clean options\nmsg = await node.linkcall('option - clean', msg);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 3220,
+        "wires": [
+            [
+                "00abdee85d9a585b"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "00abdee85d9a585b",
+        "type": "ui-dropdown",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - delete - equipment",
+        "label": "",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 3220,
+        "wires": [
+            [
+                "ab193b843c9f5bb7"
+            ]
+        ],
+        "tooltip": "",
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "ab193b843c9f5bb7",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "if (msg.payload === '') {\n\n    return;\n}\n\nconst equipment = msg.payload;\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"linxequipment\"]', equipment);\n\n// Disabled equipment form\nmsg.payload = equipment;\nmsg.class = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\n// Go to next form\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nnode.send([null, msg]);\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 3220,
+        "wires": [
+            [
+                "23424bbfb0e52ca0"
+            ],
+            [
+                "2b048464e8109be6"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "2b048464e8109be6",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "label",
+        "func": "msg.ui_update = {\n    'label': msg.dictionary.option_action.delete || 'Delete'\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1634,
+        "y": 3280,
+        "wires": [
+            [
+                "9325831539a05dd9"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "9325831539a05dd9",
+        "type": "ui-button",
+        "z": "64ce08af468b8197",
+        "group": "6d1eb0f0c8f5dd02",
+        "name": "tree - linx - delete - save",
+        "label": "",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "x": 1834,
+        "y": 3280,
+        "wires": [
+            [
+                "a90c10c89a5d2df9"
+            ]
+        ],
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "a90c10c89a5d2df9",
+        "type": "function",
+        "z": "64ce08af468b8197",
+        "name": "data",
+        "func": "// Remove Linx printer IP address, the device \"linx|<equipment>\" is kept with its components\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\n// Disabled delete form\nmsg.payload = '';\nmsg.enabled = false;\nnode.send([msg, null]);\n\nif (['admin', 'rt'].includes(msg.hmi.level)) {\n    const equipment = global.get('form[\"' + msg.hmi.id + '\"][\"linxequipment\"]') || '';\n\n    if (equipment !== '') {\n        node.send([null, {\n            'topic': '',\n            'payload': '',\n            'kernel': {\n                'type': 'linx',\n                'entity': equipment,\n                'value': '',\n                'loop': false,\n                'delete': true\n            }\n        }]);\n    }\n\n    // UI notice\n    msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';\n    msg = await node.linkcall('ui - notice', msg);\n}\n\nreturn;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2034,
+        "y": 3280,
+        "wires": [
+            [
+                "2b048464e8109be6",
+                "1204e20ba067b627"
+            ],
+            [
+                "4b71242de75478cd"
+            ]
+        ],
+        "g": "a20f1f9fa75b9735"
+    },
+    {
+        "id": "6d3a85f5702d02c7",
+        "type": "comment",
+        "z": "64ce08af468b8197",
+        "name": "Linx printers: family in kernel.app.linxfamily, IP address in kernel.linx[equipment]",
+        "info": "",
+        "x": 1774,
+        "y": 3340,
+        "wires": [],
+        "g": "a20f1f9fa75b9735"
     },
     {
         "id": "6304fe8d08f0cf47",

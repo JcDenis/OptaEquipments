@@ -677,6 +677,7 @@
     - 377212556c27659a
     - 178e115dbc98ccd8
     - 7d204be423155f87
+    - 4b71242de75478cd
   x: 145
   'y': 800
   wires:
@@ -745,6 +746,7 @@
     - 1d8d13781c0d578e
     - 83e01cd921e3fdd4
     - 45596f4f396f8130
+    - 3bd4f702a097d872
   x: 475
   'y': 440
   wires: []
@@ -2824,7 +2826,8 @@
             'alert': { },
             'holiday': { },
             'map': { },
-            'location': { }
+            'location': { },
+            'linx': { }
         };
         // on (re)boot, check kernel structure and load kernel backup
         global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');
@@ -3393,6 +3396,21 @@
                 }
             }]);
 
+            // kernel.linx
+            if (typeof global.get('kernel.linx["' + msg.kernel.entity + '"]') === 'string') {
+                node.send([{
+                    'topic': '',
+                    'payload': '',
+                    'kernel': {
+                        'type': 'linx',
+                        'entity': msg.kernel.entity,
+                        'value': '',
+                        'loop': false,
+                        'delete': true
+                    }
+                }]);
+            }
+
             // kernel.state and kernel.alert and kernel.reverse and kernel.link must be deleted from component
 
             msg.payload = msg.dictionary.option_notice.update_success;
@@ -3918,6 +3936,7 @@
     - 83e2c0eb499a9ef4
     - ac509dada2597e3c
     - e5d1a8af91104af6
+    - 4972b58ce57982e2
   x: 145
   'y': 620
   wires:
@@ -6082,6 +6101,7 @@
                     'equipments': 'Equipments',
                     'families': 'Equipment families',
                     'family_none': 'No family',
+                    'linx': 'Linx printers',
                     'counters': 'Counters',
                     'devices': 'Devices',
                     'components': 'Components',
@@ -6237,6 +6257,7 @@
                     'equipments': 'Equipements',
                     'families': "Familles d'équipements",
                     'family_none': 'Aucune famille',
+                    'linx': "Jets d'encre Linx",
                     'counters': 'Compteurs',
                     'devices': 'Matériels',
                     'components': 'Composants',

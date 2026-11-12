@@ -2247,6 +2247,11 @@
   g: 44d39e7547289d97
   name: info
   func: |-
+    if (msg.payload?.entity?.split('|')[0] !== 'opta') {
+
+        return;
+    }
+
     let states = ['Sleep','Request','Skip','Success','Ongoing','Fail'];
     msg.topic = '';
     let device = flow.get('devices["' + msg.payload.entity + '"]');
@@ -2331,3 +2336,847 @@
   x: 1270
   'y': 240
   wires: []
+- id: 13b89ff228831775
+  type: group
+  z: 135b7308617dad08
+  name: model - linx
+  style:
+    fill: '#0070c0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 3bd4f702a097d872
+    - d737e77c7567094c
+    - 1bd9da63723fb198
+    - 01170d92005d6d64
+    - dd124e0a33129886
+    - 85d0c3f92dbc08eb
+    - 4972b58ce57982e2
+    - c7f2c4f0aae58f19
+    - 01265aa1343b7daf
+    - 29de1fc14e638dde
+    - bfa660718e9c55bd
+    - f2ee479e42a74303
+    - d2ff6157b4d6ff46
+    - 082ced0e38a97f19
+  x: 94
+  'y': 1780
+  w: 1172
+  h: 362
+- id: 3bd4f702a097d872
+  type: link in
+  name: model - linx - describe
+  links:
+    - 575b91a30deac00d
+  x: 209
+  'y': 1820
+  wires:
+    - - d737e77c7567094c
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: d737e77c7567094c
+  type: change
+  name: describe
+  rules:
+    - t: set
+      p: describe.model.linx
+      pt: global
+      to: Linx CIJ printer (RCI)
+      tot: str
+    - t: set
+      p: describe.convert.linx
+      pt: global
+      to: "{\t    'run':'print',\t    'cycle':'cycle',\t    'cyclemeter':'messagecount',\t    'cyclemetertotal':'printcount',\t    'heat':'jet'\t}"
+      tot: jsonata
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 374
+  'y': 1820
+  wires:
+    - []
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 1bd9da63723fb198
+  type: inject
+  name: 10 s
+  props:
+    - p: topic
+      vt: str
+  repeat: '10'
+  crontab: ''
+  once: true
+  onceDelay: '5'
+  topic: tick
+  x: 224
+  'y': 1900
+  wires:
+    - - 01170d92005d6d64
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 01170d92005d6d64
+  type: function
+  name: rci
+  func: >
+    // Linx CIJ printers polling over RCI (Linx RCI Reference Manual MP65969-9,
+    TCP 29043)
+
+    //
+
+    // Linx printers are the equipments of the family kernel.app.linxfamily
+
+    // having an IP address in kernel.linx[equipment].
+
+    // Each Linx is the device "linx|<equipment>", components are linked to it
+
+    // on any terminal (0 is advised) with these converts:
+
+    //   heat            <- jet running
+
+    //   run             <- printing enabled (printing or waiting for trigger)
+
+    //   cycle           <- 1 when prints occurred since last poll, else 0
+
+    //   cyclemeter      <- current message print count
+
+    //   cyclemetertotal <- total print count
+
+    //
+
+    // Inputs:
+
+    //   msg.topic = 'tick'  : poll cycle (inject)
+
+    //   msg.linxRx = true   : bytes received from "tcp request" (msg.equipment)
+
+    // Outputs:
+
+    //   1 : to "tcp request"
+
+    //   2 : kernel messages (watchdog and states)
+
+
+    const ESC = 0x1B, STX = 0x02, ETX = 0x03, ACK = 0x06, NAK = 0x15;
+
+    const PORT = 29043;
+
+    const TIMEOUT = 3000;     // ms without reply => offline
+
+    const SLOW = 6;           // slow requests every SLOW cycles
+
+    const REFRESH = 60000;    // ms, states are resent at least at this rate
+
+
+    const JET_STATES = ['Jet en marche', 'Démarrage du jet', 'Arrêt du jet',
+    'Jet arrêté', 'Défaut jet'];
+
+    const PRINT_STATES = ['Impression', 'Indéfini', 'Repos', 'Génération',
+    'Attente', 'Dernière impression', 'Impression'];
+
+    const P_STATUS = {
+        0: 'Aucun défaut', 1: 'Print Head Temperature', 2: 'EHT Trip', 3: 'Phase Failure', 4: 'Time of Flight',
+        5: '300V Power Supply / Modulation Amplifier Trip', 6: 'Hardware Safety Trip', 7: 'Ink Tank/System Empty',
+        8: 'Internal Spillage', 10: 'Solvent Tank/System Empty', 11: 'Jet Misaligned', 12: 'Pressure Limit',
+        13: 'Viscosity', 20: 'Printer Over Temperature', 21: 'Service Module Removed', 22: 'Unable to fill Service Module',
+        23: 'Charge Amplifier Trip', 24: 'RAM Low Fault', 25: 'Flash Memory Low Fault', 26: 'Service Module Requires Replacement',
+        27: 'Valid UNIC Chip Not Found', 28: 'Pump Drive Failure', 29: 'Pressure Reading At Maximum', 30: 'Pressure Reading Suspect',
+        31: 'Pressure Reading At Minimum', 32: 'Valve Drive 1 Failure', 33: 'Valve Drive 2 Failure', 34: 'Pump Stalled',
+        35: 'Unable to Fill Solvent Buffer Tank', 36: 'Printhead Fault', 37: 'Valve Drive 3 Failure', 38: 'Valve Drive 4 Failure',
+        39: 'Valve Overdrive 1 and 2', 40: 'Valve Overdrive 3 and 4', 41: 'Alarm Overdrive', 255: 'Other Fault'
+    };
+
+    const WARNINGS = {
+        0: '3.20 No Time of Flight', 1: '3.01 Shutdown Incomplete', 2: '3.05 Over Speed (Print Trigger)', 3: '3.03 Ink Low',
+        4: '3.04 Solvent Low', 5: '3.29 Over Speed (No Remote Data)', 6: '3.35 Printer Requires Scheduled Maintenance',
+        7: '3.12 Printhead Cover Off', 8: '3.06 Over Speed (Synchronous Data)', 9: '3.08 Over Speed (Line Speed)',
+        10: '3.09 Over Speed (Compensation)', 11: '3.15 Safety Override Active', 12: '3.18 Low Pressure',
+        13: '3.10 Under Speed (Line Speed)', 14: '3.07 Over Speed (Asynchronous Data)', 16: 'User Data Corrupt',
+        17: '3.02 Memory Corrupt', 18: 'No Message in Memory', 20: '3.30 Remote Error', 22: '4.28 Corrupt Program Data',
+        27: 'Print Go After Schedule End'
+    };
+
+    const EXT_WARNINGS = {
+        0: '3.13 Cover Override Active', 1: '3.14 Power Override Active', 2: '3.16 Gutter Override Active',
+        3: '3.17 Gate Array Test Mode Active', 4: '3.19 Valid UNIC Chip Not Found', 5: '3.31 Message Memory Full',
+        6: '3.30 Message Name Exists', 7: '3.35 Service Due Within 1 Month', 8: '2.15 Service Overdue by 3 Months'
+    };
+
+    const ENH_WARNINGS_1 = {
+        0: '3.24 Restart In Progress', 1: '3.41 Service Module Removed', 2: '3.42 Service Module Requires Commissioning',
+        3: '3.75 Solvent Tank Needs Commissioning', 4: '3.45 Service Module Replacement Due Within One Month',
+        5: '3.46 Pump Pressure Failure', 6: '3.47 Pump RPM Failure', 7: '3.48 Pump RPM Limit Reached',
+        8: '3.49 Pump Current Limit Exceeded', 9: '3.50 Valve Supply', 10: '3.51 Pump Oscillating', 11: '3.52 Pump Power Limit Reached',
+        14: '3.56 Printhead Over Temperature', 15: '3.57 EHT Trip', 16: '3.58 Internal Spillage', 17: '3.59 Low Battery',
+        18: '3.60 Reset System Clock', 19: '3.65 Reverted To System Settings From Last Successful Powerdown',
+        20: '3.66 System Settings Not Found, Reverted To Defaults', 21: '3.68 Field Truncation', 22: '3.69 Remote Field Not Found',
+        23: '3.71 Jet Start Failure - Do Not Switch Off!', 24: '3.73 Ink Cartridge Not Found', 25: '3.74 Solvent Cartridge Not Found',
+        26: '3.79 Invalid Ink Cartridge', 27: '3.80 Invalid Solvent Cartridge', 28: '3.81 Ink Cartridge Expired',
+        29: '3.82 Solvent Cartridge Expired'
+    };
+
+    const ENH_WARNINGS_2 = {
+        0: '3.83 Wrong Ink Type', 1: '3.84 Wrong Solvent Type', 2: '3.85 Easi-Change Service Key Not Found',
+        3: '3.86 Invalid Easi-Change Service Key', 4: '3.87 Easi-Change Service Key Already Used', 5: '3.89 Daylight Saving Time Started',
+        6: '3.90 Daylight Saving Time Ended', 7: '3.91 Over Speed (Line Sensor)', 8: '3.92 Under Speed (Line Sensor)',
+        9: '3.93 Line Sensor Missing', 10: '3.94 Line Object Error (Line Sensor)', 11: '3.95 Service Module Replacement Recommended',
+        12: '3.96 Air Filter Cleaning Recommended', 13: '3.97 Over Speed (Delay-Update Missed)', 14: '3.98 Over Speed (Delay-Update Late)',
+        15: '3.99 Check Custom Date Format', 16: '3.100 Commissioning Required', 17: '3.101 Incorrect Easi-Change Service Key',
+        18: '3.103 Service Module High', 19: '3.104 Service Module Full', 20: '3.102 Software Upgrade Available',
+        21: '3.105 Remote Upgrade Ready', 22: '3.106 Trigger Rate Too High', 23: '3.107 Incorrect Service Module Type',
+        24: '3.111 Line Rolling Back', 25: '3.112 Rollback Limit Reached or Exceeded', 26: '3.113 Unable to Fill Solvent Buffer tank'
+    };
+
+
+    // ---------------------------------------------------------------- frames
+
+
+    function frame(cmd, data) {
+        const body = [cmd].concat(data || []);
+        const out = [ESC, STX];
+        let sum = STX;
+        for (const b of body) {
+            sum += b;
+            if (b === ESC) out.push(ESC);
+            out.push(b);
+        }
+        out.push(ESC, ETX);
+        sum += ETX;
+        const ck = (0x100 - (sum & 0xFF)) & 0xFF;
+        if (ck === ESC) out.push(ESC);
+        out.push(ck);
+
+        return Buffer.from(out);
+    }
+
+
+    // Extract complete replies from a byte stream, return { frames, rest }
+
+    function parse(bytes) {
+        const frames = [];
+        let i = 0, start = 0;
+        outer:
+        while (i < bytes.length) {
+            if (bytes[i] !== ESC) { i++; start = i; continue; }
+            if (i + 1 >= bytes.length) break;
+            const kind = bytes[i + 1];
+            if (kind !== ACK && kind !== NAK) { i++; start = i; continue; }
+            start = i;
+            let j = i + 2;
+            const content = [];
+            let sum = kind;
+            while (true) {
+                if (j >= bytes.length) break outer;
+                const b = bytes[j];
+                if (b === ESC) {
+                    if (j + 1 >= bytes.length) break outer;
+                    const n = bytes[j + 1];
+                    if (n === ESC) { content.push(ESC); sum += ESC; j += 2; continue; }
+                    if (n === ETX) { sum += ETX; j += 2; break; }
+                    j += 2;
+                    continue;
+                }
+                content.push(b);
+                sum += b;
+                j++;
+            }
+            if (j >= bytes.length) break;
+            let ck = bytes[j];
+            if (ck === ESC) {
+                if (j + 1 >= bytes.length) break;
+                ck = bytes[j + 1];
+                j++;
+            }
+            j++;
+            frames.push({
+                ack: kind === ACK,
+                checksum: ((sum + ck) & 0xFF) === 0,
+                pStatus: content[0],
+                cStatus: content[1],
+                cmd: content[2],
+                data: Buffer.from(content.slice(3))
+            });
+            i = j;
+            start = j;
+        }
+
+        return { frames: frames, rest: bytes.slice(start) };
+    }
+
+
+    const u32 = (b, o) => (b.length >= o + 4 ? b.readUInt32LE(o) : null);
+
+    const u16 = (b, o) => (b.length >= o + 2 ? b.readUInt16LE(o) : null);
+
+    const str = (b, o, n) => b.slice(o, o +
+    n).toString('latin1').split('\0')[0].trim();
+
+    function bits(mask, table) {
+        let list = [];
+        for (let b = 0; b < 31; b++) {
+            if (mask & (1 << b)) {
+                list.push(table[b] || ('Bit ' + b));
+            }
+        }
+
+        return list;
+    }
+
+
+    // ---------------------------------------------------------------- sessions
+
+
+    let sessions = context.get('sessions') || { };
+
+    context.set('sessions', sessions);
+
+    let timers = context.get('timers') || { };
+
+    context.set('timers', timers);
+
+
+    function enqueue(s, cmd, data) {
+        s.queue.push({ 'cmd': cmd, 'data': data || [] });
+    }
+
+
+    function decode(s, f) {
+        const d = f.data;
+        let st = s.status;
+        switch (f.cmd) {
+            case 0x14: { // Printer Status Request
+                const mask = u32(d, 2) >>> 0;
+                st.jet = d[0];
+                st.jet_label = JET_STATES[d[0]] || '?';
+                st.print = d[1];
+                st.print_label = PRINT_STATES[d[1]] || '?';
+                st.warnings = bits(mask, WARNINGS);
+                if (mask & 0x80000000) {
+                    enqueue(s, 0x81);
+                } else {
+                    st.extended = [];
+                    st.enhanced = [];
+                }
+                break;
+            }
+            case 0x08: // Total Print Count
+                st.printcount = u32(d, 0);
+                break;
+            case 0x1F: // Request Print Message
+                st.message = str(d, 0, 16);
+                break;
+            case 0x8D: // Message Print Count
+                st.messagecount = u32(d, 0);
+                break;
+            case 0x0E: // Time and Date
+                if (d.length >= 7) {
+                    const p = (n) => String(n).padStart(2, '0');
+                    st.clock = '20' + p(d[6]) + '-' + p(d[5]) + '-' + p(d[4]) + ' ' + p(d[2]) + ':' + p(d[1]) + ':' + p(d[0]);
+                }
+                break;
+            case 0x30: // System Times
+                st.runtime = u32(d, 0);
+                st.jettime = u32(d, 4);
+                st.servicetime = u32(d, 12);
+                break;
+            case 0x98: // Serial Number
+                st.serial = str(d, 0, 9);
+                break;
+            case 0x9B: // Recent Consumables (seconds)
+                st.inkbottles = u32(d, 16);
+                st.solventbottles = u32(d, 20);
+                st.inkremaining = u32(d, 48);
+                st.solventremaining = u32(d, 52);
+                break;
+            case 0x81: { // Extended Error Request
+                const ext = u32(d, 4) >>> 0;
+                st.extended = bits(ext, EXT_WARNINGS);
+                if (ext & 0x80000000) {
+                    enqueue(s, 0xAE);
+                } else {
+                    st.enhanced = [];
+                }
+                break;
+            }
+            case 0xAE: // Enhanced Error Request (8800/8900)
+                st.enhanced = bits(u32(d, 0) >>> 0, ENH_WARNINGS_1).concat(bits(u32(d, 4) >>> 0, ENH_WARNINGS_2));
+                break;
+            case 0xA3: { // Current Events (8800/8900)
+                let events = [];
+                for (let o = 0; o + 24 <= d.length; o += 24) {
+                    events.push(d.slice(o, o + 24).toString('latin1').trim());
+                }
+                st.events = events;
+                break;
+            }
+        }
+    }
+
+
+    // Publish kernel messages of a finished cycle
+
+    function publish(equipment, s) {
+        const device = 'linx|' + equipment;
+        const st = s.status;
+        st.date = Date.now();
+        flow.set('linx["' + equipment + '"]', RED.util.cloneMessage(st));
+
+        if (!st.online) {
+            return;
+        }
+
+        // watchdog
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'watchdog',
+                'entity': device,
+                'value': Math.round(Date.now() / 1000),
+                'loop': false
+            }
+        }]);
+
+        // components linked to the device: rlink["linx|<equipment>|<terminal>|<convert>"] = "<equipment>|<component>"
+        let printed = 0;
+        if (typeof st.printcount === 'number') {
+            if (typeof s.lastcount === 'number' && st.printcount > s.lastcount) {
+                printed = 1;
+            }
+            s.lastcount = st.printcount;
+        }
+        const values = {
+            'jet': st.jet === 0 ? 1 : 0,
+            'print': [0, 3, 4, 5, 6].includes(st.print) ? 1 : 0,
+            'cycle': printed,
+            'messagecount': st.messagecount,
+            'printcount': st.printcount
+        };
+        const rlinks = global.get('rlink') || { };
+        for (const rlink in rlinks) {
+            const rsplit = rlink.split('|');
+            if (rsplit.length !== 4 || rsplit[0] !== 'linx' || rsplit[1] !== equipment) {
+                continue;
+            }
+            const value = values[rsplit[3]];
+            if (typeof value !== 'number') {
+                continue;
+            }
+            const entity = rlinks[rlink];
+            const last = s.sent[entity];
+            if (last && last.value === value && Date.now() - last.date < REFRESH) {
+                continue;
+            }
+            s.sent[entity] = { 'value': value, 'date': Date.now() };
+            node.send([null, {
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'state',
+                    'entity': entity,
+                    'value': value,
+                    'loop': false
+                }
+            }]);
+        }
+    }
+
+
+    function sendNext(equipment) {
+        let s = sessions[equipment];
+        if (!s || s.pending !== null) {
+            return;
+        }
+        if (s.queue.length === 0) {
+            if (s.open) {
+                s.open = false;
+                publish(equipment, s);
+            }
+
+            return;
+        }
+        const c = s.queue.shift();
+        s.pending = c.cmd;
+        timers[equipment] = setTimeout(() => onTimeout(equipment), TIMEOUT);
+        node.send([{
+            'topic': '',
+            'host': s.host,
+            'port': PORT,
+            'equipment': equipment,
+            'payload': frame(c.cmd, c.data)
+        }, null]);
+    }
+
+
+    function onTimeout(equipment) {
+        let s = sessions[equipment];
+        if (!s) {
+            return;
+        }
+        s.pending = null;
+        s.queue = [];
+        s.rx = [];
+        s.status.online = false;
+        s.status.error = 'Pas de réponse de ' + s.host + ':' + PORT;
+        sendNext(equipment);
+    }
+
+
+    function clear(equipment) {
+        clearTimeout(timers[equipment]);
+        delete timers[equipment];
+        if (sessions[equipment]) {
+            // close the TCP connection
+            node.send([{ 'reset': sessions[equipment].host + ':' + PORT }, null]);
+            delete sessions[equipment];
+        }
+    }
+
+
+    // ---------------------------------------------------------------- reply
+
+
+    if (msg.linxRx === true) {
+        const equipment = msg.equipment;
+        let s = sessions[equipment];
+        if (!s) {
+            return;
+        }
+        const r = parse(s.rx.concat(Array.from(msg.payload || [])));
+        s.rx = r.rest;
+        for (const f of r.frames) {
+            if (f.cmd !== s.pending) {
+                continue;
+            }
+            clearTimeout(timers[equipment]);
+            s.pending = null;
+            s.status.online = true;
+            delete s.status.error;
+            s.status.fault = f.pStatus;
+            s.status.fault_label = P_STATUS[f.pStatus] || ('Défaut ' + f.pStatus);
+            if (f.ack && f.checksum) {
+                decode(s, f);
+            }
+        }
+        node.status({ 'fill': 'green', 'shape': 'dot', 'text': equipment + ' - ' + (s.status.jet_label || '') });
+        sendNext(equipment);
+
+        return;
+    }
+
+
+    // ---------------------------------------------------------------- poll
+
+
+    const family = global.get('kernel.app.linxfamily') || '';
+
+    const families = global.get('kernel.families') || { };
+
+    const ips = global.get('kernel.linx') || { };
+
+
+    // Linx printers to poll
+
+    let targets = { };
+
+    if (family !== '') {
+        for (const equipment in ips) {
+            if (families[equipment] === family && /^(\d{1,3}\.){3}\d{1,3}$/.test(ips[equipment])) {
+                targets[equipment] = ips[equipment];
+            }
+        }
+    }
+
+
+    // Removed or moved printers
+
+    for (const equipment in sessions) {
+        if (targets[equipment] !== sessions[equipment].host) {
+            clear(equipment);
+        }
+    }
+
+
+    for (const equipment in targets) {
+        if (!sessions[equipment]) {
+            sessions[equipment] = {
+                'host': targets[equipment],
+                'queue': [],
+                'pending': null,
+                'rx': [],
+                'open': false,
+                'cycle': 0,
+                'sent': { },
+                'status': { 'ip': targets[equipment], 'online': false }
+            };
+        }
+        let s = sessions[equipment];
+
+        // previous cycle not finished
+        if (s.pending !== null || s.queue.length > 0) {
+            continue;
+        }
+
+        s.open = true;
+        s.cycle++;
+        enqueue(s, 0x14);                        // jet, print, warnings
+        enqueue(s, 0x08);                        // total print count
+        enqueue(s, 0x1F);                        // current message
+        enqueue(s, 0x8D, new Array(16).fill(0)); // current message print count
+        if (s.cycle % SLOW === 1) {
+            enqueue(s, 0x98);                    // serial number
+            enqueue(s, 0x0E);                    // printer clock
+            enqueue(s, 0x30);                    // system times
+            enqueue(s, 0x9B);                    // consumables
+            enqueue(s, 0xA3);                    // current events (8800/8900, NAK on 7900)
+        }
+        sendNext(equipment);
+    }
+
+
+    node.status({ 'fill': 'blue', 'shape': 'ring', 'text':
+    Object.keys(targets).length + ' Linx' });
+
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: |
+    const timers = context.get('timers') || { };
+    for (const t in timers) {
+        clearTimeout(timers[t]);
+    }
+    context.set('timers', { });
+    context.set('sessions', { });
+  libs: []
+  x: 424
+  'y': 1940
+  wires:
+    - - dd124e0a33129886
+    - - 4972b58ce57982e2
+      - c7f2c4f0aae58f19
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: dd124e0a33129886
+  type: tcp request
+  name: linx - rci
+  server: ''
+  port: ''
+  out: sit
+  ret: buffer
+  splitc: ' '
+  newline: ''
+  trim: false
+  tls: ''
+  x: 634
+  'y': 1900
+  wires:
+    - - 85d0c3f92dbc08eb
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 85d0c3f92dbc08eb
+  type: change
+  name: rx
+  rules:
+    - t: set
+      p: linxRx
+      pt: msg
+      to: 'true'
+      tot: bool
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 824
+  'y': 1900
+  wires:
+    - - 01170d92005d6d64
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 4972b58ce57982e2
+  type: link out
+  name: model - linx - in
+  mode: link
+  links:
+    - c9b77de2e18e7767
+  x: 679
+  'y': 1980
+  wires: []
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: c7f2c4f0aae58f19
+  type: debug
+  name: model - linx - in
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 714
+  'y': 2020
+  wires: []
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 01265aa1343b7daf
+  type: catch
+  name: model - linx - catch
+  scope:
+    - dd124e0a33129886
+  uncaught: false
+  x: 944
+  'y': 1960
+  wires:
+    - - 29de1fc14e638dde
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 29de1fc14e638dde
+  type: debug
+  name: model - linx - tcp error
+  active: false
+  tosidebar: true
+  console: false
+  tostatus: false
+  complete: 'true'
+  targetType: full
+  statusVal: ''
+  statusType: auto
+  x: 1144
+  'y': 1960
+  wires: []
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: bfa660718e9c55bd
+  type: link in
+  name: model - linx - notice
+  links:
+    - dafa461a59bb8265
+  x: 239
+  'y': 2080
+  wires:
+    - - f2ee479e42a74303
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: f2ee479e42a74303
+  type: function
+  name: info
+  func: >
+    // Linx device information
+
+    if (typeof msg.payload?.entity !== 'string' ||
+    msg.payload.entity.split('|')[0] !== 'linx') {
+
+        return;
+    }
+
+
+    const equipment = msg.payload.entity.split('|')[1];
+
+    const st = flow.get('linx["' + equipment + '"]');
+
+    const ip = global.get('kernel.linx["' + equipment + '"]') || '-';
+
+    const name = global.get('kernel.equipment["' + equipment + '"]') || '';
+
+    const duration = (s) => typeof s === 'number' ? Math.floor(s / 3600) + ' h '
+    + String(Math.floor(s % 3600 / 60)).padStart(2, '0') + ' min' : '-';
+
+    const list = (l) => Array.isArray(l) && l.length > 0 ? l.join(', ') :
+    'Aucun';
+
+    const line = (label, value) => '<strong>' + label + ': </strong>' + (typeof
+    value === 'undefined' || value === null || value === '' ? '-' : value) + '
+    <br />\n';
+
+
+    msg.topic = '';
+
+    msg.notice =
+        line('Modèle', global.get('describe.model.linx')) +
+        line('Equipement', name + ' (' + equipment + ')') +
+        line('IP', ip);
+
+    if (typeof st !== 'object') {
+        msg.notice += 'Aucune information disponible';
+    } else if (!st.online) {
+        msg.notice +=
+            line('Etat', 'Hors ligne') +
+            line('Erreur', st.error) +
+            line('Dernière tentative', new Date(st.date).toLocaleString('fr-FR'));
+    } else {
+        msg.notice +=
+            line('N° de série', st.serial) +
+            line('Jet', st.jet_label) +
+            line('Impression', st.print_label) +
+            line('Défaut', st.fault_label) +
+            line('Alertes', list([].concat(st.warnings || [], st.extended || [], st.enhanced || []))) +
+            line('Message', st.message) +
+            line('Compteur message', st.messagecount) +
+            line('Compteur total', st.printcount) +
+            line('Encre restante (estimation)', duration(st.inkremaining)) +
+            line('Solvant restant (estimation)', duration(st.solventremaining)) +
+            line('Temps de jet', st.jettime) +
+            line('Horloge imprimante', st.clock) +
+            line('Mise à jour', new Date(st.date).toLocaleString('fr-FR'));
+    }
+
+
+    // UI notice
+
+    msg = await node.linkcall('ui - notice', msg);
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 384
+  'y': 2080
+  wires:
+    - []
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: d2ff6157b4d6ff46
+  type: comment
+  name: >-
+    Linx CIJ printers - Remote Communications Interface (RCI) MP65969-9, TCP
+    29043
+  info: >-
+    Linx printers are equipments of the family kernel.app.linxfamily with an IP
+    address in kernel.linx[equipment].
+
+    Each one is the device linx|<equipment>. Link components to it on terminal
+    0:
+
+    - heat: jet running
+
+    - run: printing enabled (printing or waiting for trigger)
+
+    - cycle: 1 when prints occurred since last poll
+
+    - cyclemeter: current message print count
+
+    - cyclemetertotal: total print count
+  x: 924
+  'y': 1820
+  wires: []
+  z: 135b7308617dad08
+  g: 13b89ff228831775
+- id: 082ced0e38a97f19
+  type: comment
+  name: 'Linx printers must have "RCI over Ethernet" enabled, checksum on'
+  info: ''
+  x: 924
+  'y': 1860
+  wires: []
+  z: 135b7308617dad08
+  g: 13b89ff228831775

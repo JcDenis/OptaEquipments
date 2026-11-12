@@ -2791,6 +2791,7 @@
     - 3933b0d493ef8317
     - 688910aee534864e
     - fcd145d2e50a721e
+    - 931a59bf8a5f7de4
   x: 755
   'y': 180
   wires: []
@@ -14764,7 +14765,16 @@
     // Register page dictionary
     msg.payload = {
         'en': {
-            'page': 'Tree'
+            'page': 'Tree',
+            'linx_action_family': 'Family',
+            'linx_action_ip': 'IP address',
+            'linx_action_delete': 'Remove IP address',
+            'linx_family': 'Linx printers family',
+            'linx_equipment': 'Linx printer',
+            'linx_ip': 'IP address',
+            'linx_nofamily': 'Select first the Linx printers family',
+            'linx_ip_fail': 'Invalid IP address',
+            'linx_ip_exists': 'IP address already used by %s'
         },
         'fr': {
             'page': 'Arborescence',
@@ -14804,7 +14814,16 @@
             'import_equipment_family_none':'Aucune famille',
             'import_equipment_replace':'Equipements déjà existants',
             'import_equipment_replace_no':'Conserver les équipements existants',
-            'import_equipment_replace_yes':'Remplacer les équipements existants'
+            'import_equipment_replace_yes':'Remplacer les équipements existants',
+            'linx_action_family': 'Famille',
+            'linx_action_ip': 'Adresse IP',
+            'linx_action_delete': "Retirer l'adresse IP",
+            'linx_family': "Famille des jets d'encre Linx",
+            'linx_equipment': "Jet d'encre Linx",
+            'linx_ip': "Adresse IP du jet d'encre",
+            'linx_nofamily': "Choisissez d'abord la famille des jets d'encre Linx",
+            'linx_ip_fail': 'Adresse IP invalide',
+            'linx_ip_exists': 'Adresse IP déjà utilisée par %s'
         }
     };
 
@@ -14868,6 +14887,7 @@
         'line': msg.dictionary.option_name.lines,
         'equipment': msg.dictionary.option_name.equipments,
         'family': msg.dictionary.option_name.families,
+        'linx': msg.dictionary.option_name.linx || 'Linx',
         'counter': msg.dictionary.option_name.counters,
         'device': msg.dictionary.option_name.devices,
         'component': msg.dictionary.option_name.components,
@@ -17881,3 +17901,1073 @@
     - - 554f34b036bd0f7c
       - 0d6ac44b658e5c65
     - - 9ca41d82ae49b0f7
+- id: a20f1f9fa75b9735
+  type: group
+  z: 64ce08af468b8197
+  name: tree - linx
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 931a59bf8a5f7de4
+    - 1204e20ba067b627
+    - 4b71242de75478cd
+    - 02c6c5ef6e06b442
+    - 3f75c44e23761ef0
+    - d9b055618f44651e
+    - 4fe2089089e3cf99
+    - 31475bae675ed88b
+    - 8946b04da33c3cbf
+    - cd5b4743c998b572
+    - c1caa8cd204bff48
+    - 12e1342178fffca4
+    - 0b66b0af2f9433f7
+    - 005b8721b316bab0
+    - 4d6abd3f2b6aea06
+    - c64a55190369dc47
+    - 49456aa2dbc8ff51
+    - 288f0ad231f1e4d6
+    - 7184a4f60b99498b
+    - 109318da1ec8c07f
+    - e42fdd3ce6face09
+    - bce9018337708455
+    - 23424bbfb0e52ca0
+    - 00abdee85d9a585b
+    - ab193b843c9f5bb7
+    - 2b048464e8109be6
+    - 9325831539a05dd9
+    - a90c10c89a5d2df9
+    - 6d3a85f5702d02c7
+  x: 1394
+  'y': 2720
+  w: 1002
+  h: 662
+- id: 931a59bf8a5f7de4
+  type: link in
+  z: 64ce08af468b8197
+  name: tree - linx
+  links:
+    - 1204e20ba067b627
+    - d5a2492cd9b261b1
+  x: 1509
+  'y': 2760
+  wires:
+    - - 02c6c5ef6e06b442
+  g: a20f1f9fa75b9735
+- id: 1204e20ba067b627
+  type: link out
+  z: 64ce08af468b8197
+  name: tree - linx - loop
+  mode: link
+  links:
+    - 931a59bf8a5f7de4
+  x: 2349
+  'y': 2760
+  wires: []
+  g: a20f1f9fa75b9735
+- id: 4b71242de75478cd
+  type: link out
+  z: 64ce08af468b8197
+  name: tree - linx
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 2349
+  'y': 2820
+  wires: []
+  g: a20f1f9fa75b9735
+- id: 02c6c5ef6e06b442
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    if (msg.list !== 'linx') {
+
+        return;
+    }
+
+    msg.payload = '';
+    msg.class = 'remove';
+    msg.enabled = false;
+
+    node.send([null, msg]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        msg = await node.linkcall('ui - latency', msg);
+        msg.class = '';
+        msg.enabled = true;
+        msg.ui_update = {
+            'options': [
+                {
+                    'label': msg.dictionary.tree.linx_action_family || 'Family',
+                    'value': 'linxfamily'
+                },
+                {
+                    'label': msg.dictionary.tree.linx_action_ip || 'IP address',
+                    'value': 'linxip'
+                },
+                {
+                    'label': msg.dictionary.tree.linx_action_delete || 'Remove IP address',
+                    'value': 'linxdelete'
+                }
+            ],
+            'label': ''
+        }
+
+        return [msg, null];
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 2760
+  wires:
+    - - 3f75c44e23761ef0
+    - - d9b055618f44651e
+  g: a20f1f9fa75b9735
+- id: 3f75c44e23761ef0
+  type: ui-button-group
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - action
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  x: 1834
+  'y': 2760
+  wires:
+    - - d9b055618f44651e
+      - 4fe2089089e3cf99
+  className: oe-center
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: option_0
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: option_1
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  g: a20f1f9fa75b9735
+- id: d9b055618f44651e
+  type: change
+  z: 64ce08af468b8197
+  name: '-'
+  rules:
+    - t: set
+      p: class
+      pt: msg
+      to: remove
+      tot: str
+    - t: set
+      p: enabled
+      pt: msg
+      to: 'false'
+      tot: bool
+    - t: set
+      p: payload
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1634
+  'y': 2820
+  wires:
+    - - 8946b04da33c3cbf
+      - 12e1342178fffca4
+      - 4d6abd3f2b6aea06
+      - 288f0ad231f1e4d6
+      - e42fdd3ce6face09
+      - 00abdee85d9a585b
+      - 9325831539a05dd9
+  g: a20f1f9fa75b9735
+- id: 4fe2089089e3cf99
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Get memories
+    let form = global.get('form'); // autoupdate
+
+    const action = msg.payload;
+
+    form[msg.hmi.id] = {
+        'action': action,
+        'time': Date.now()
+    };
+
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+
+    switch (action) {
+        case 'linxfamily': node.send([msg, null, null]); break;
+        case 'linxip': node.send([null, msg, null]); break;
+        case 'linxdelete': node.send([null, null, msg]); break;
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 2760
+  wires:
+    - - 31475bae675ed88b
+    - - 005b8721b316bab0
+    - - 23424bbfb0e52ca0
+  g: a20f1f9fa75b9735
+- id: 31475bae675ed88b
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: >
+    // Linx family options, preselect current Linx family on first display
+
+    if (msg.enabled === true && msg.payload === '') {
+        msg.payload = global.get('kernel.app.linxfamily') || '';
+    }
+
+
+    msg.family_none = true;
+
+    msg = await node.linkcall('option - family', msg);
+
+    msg.ui_update.label = msg.dictionary.tree.linx_family || 'Linx printers
+    family';
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 2880
+  wires:
+    - - 8946b04da33c3cbf
+  g: a20f1f9fa75b9735
+- id: 8946b04da33c3cbf
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - family
+  label: ''
+  order: 2
+  width: 0
+  height: 0
+  x: 1834
+  'y': 2880
+  wires:
+    - - cd5b4743c998b572
+  tooltip: ''
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  g: a20f1f9fa75b9735
+- id: cd5b4743c998b572
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const family = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["linxfamily"]', family);
+
+    // Disabled family form
+    msg.payload = family;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 2880
+  wires:
+    - - 31475bae675ed88b
+    - - c1caa8cd204bff48
+  g: a20f1f9fa75b9735
+- id: c1caa8cd204bff48
+  type: function
+  z: 64ce08af468b8197
+  name: label
+  func: |
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.edit || 'Edit'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 2940
+  wires:
+    - - 12e1342178fffca4
+  g: a20f1f9fa75b9735
+- id: 12e1342178fffca4
+  type: ui-button
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - family - save
+  label: ''
+  order: 3
+  width: 0
+  height: 0
+  x: 1834
+  'y': 2940
+  wires:
+    - - 0b66b0af2f9433f7
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  g: a20f1f9fa75b9735
+- id: 0b66b0af2f9433f7
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    // Save Linx printers family
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled family form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        const form = global.get('form["' + msg.hmi.id + '"]') || {};
+        const family = form.linxfamily === '-' ? '' : (form.linxfamily || '');
+
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'app',
+                'entity': 'linxfamily',
+                'value': family,
+                'loop': false
+            }
+        }]);
+
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 2940
+  wires:
+    - - c1caa8cd204bff48
+      - 1204e20ba067b627
+    - - 4b71242de75478cd
+  g: a20f1f9fa75b9735
+- id: 005b8721b316bab0
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    // Linx printers (equipments of the Linx family)
+    const family = global.get('kernel.app.linxfamily') || '';
+    const families = global.get('kernel.families') || { };
+    const equipments = global.get('kernel.equipment') || { };
+    const ips = global.get('kernel.linx') || { };
+
+    msg.options = [{
+        'label': '',
+        'value': '',
+        'dropdown': 'equipment'
+    }];
+
+    for (const equipment in families) {
+        if (family !== '' && families[equipment] === family) {
+            msg.options.push({
+                'label': (equipments[equipment] || '') + ' (' + equipment + ')' + (ips[equipment] ? ' - ' + ips[equipment] : ''),
+                'value': equipment,
+                'dropdown': 'equipment'
+            });
+        }
+    }
+
+    if (family === '' && msg.enabled === true) {
+        // UI notice
+        msg.notice = msg.dictionary.tree.linx_nofamily || 'Select first the Linx printers family';
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.linx_equipment || 'Linx printer'
+    };
+
+    // Clean options
+    msg = await node.linkcall('option - clean', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3020
+  wires:
+    - - 4d6abd3f2b6aea06
+  g: a20f1f9fa75b9735
+- id: 4d6abd3f2b6aea06
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - ip - equipment
+  label: ''
+  order: 4
+  width: 0
+  height: 0
+  x: 1834
+  'y': 3020
+  wires:
+    - - c64a55190369dc47
+  tooltip: ''
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  g: a20f1f9fa75b9735
+- id: c64a55190369dc47
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const equipment = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["linxequipment"]', equipment);
+
+    // Disabled equipment form
+    msg.payload = equipment;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form with current IP
+    msg.payload = global.get('kernel.linx["' + equipment + '"]') || '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3020
+  wires:
+    - - 005b8721b316bab0
+    - - 49456aa2dbc8ff51
+  g: a20f1f9fa75b9735
+- id: 49456aa2dbc8ff51
+  type: function
+  z: 64ce08af468b8197
+  name: label
+  func: |
+    msg.ui_update = {
+        'label': msg.dictionary.tree.linx_ip || 'IP address'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3080
+  wires:
+    - - 288f0ad231f1e4d6
+  g: a20f1f9fa75b9735
+- id: 288f0ad231f1e4d6
+  type: ui-text-input
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - ip - address
+  label: ''
+  order: 5
+  width: 0
+  height: 0
+  x: 1834
+  'y': 3080
+  wires:
+    - - 7184a4f60b99498b
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  sendOnClear: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  g: a20f1f9fa75b9735
+- id: 7184a4f60b99498b
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: >
+    if (msg.payload === '') {
+
+        return;
+    }
+
+
+    const ip = String(msg.payload).trim();
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Bad IPv4 address
+
+    const parts = ip.split('.');
+
+    if (parts.length !== 4 || !parts.every(p => /^\d{1,3}$/.test(p) && Number(p)
+    <= 255)) {
+        // UI notice
+        msg.notice = msg.dictionary.tree.linx_ip_fail || 'Invalid IP address';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+
+    // IP already used by another Linx printer
+
+    const equipment = global.get('form["' + msg.hmi.id + '"]["linxequipment"]')
+    || '';
+
+    const ips = global.get('kernel.linx') || { };
+
+    for (const other in ips) {
+        if (other !== equipment && ips[other] === ip) {
+            // UI notice
+            msg.notice = (msg.dictionary.tree.linx_ip_exists || 'IP address already used by %s').replace('%s', other);
+            msg = await node.linkcall('ui - notice', msg);
+
+            return;
+        }
+    }
+
+
+    global.set('form["' + msg.hmi.id + '"]["linxip"]', ip);
+
+
+    // Disabled IP form
+
+    msg.payload = ip;
+
+    msg.class = '';
+
+    msg.enabled = false;
+
+    node.send([msg, null]);
+
+
+    // Go to next form
+
+    msg.payload = '';
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+    node.send([null, msg]);
+
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3080
+  wires:
+    - - 49456aa2dbc8ff51
+    - - 109318da1ec8c07f
+  g: a20f1f9fa75b9735
+- id: 109318da1ec8c07f
+  type: function
+  z: 64ce08af468b8197
+  name: label
+  func: |
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.edit || 'Edit'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3140
+  wires:
+    - - e42fdd3ce6face09
+  g: a20f1f9fa75b9735
+- id: e42fdd3ce6face09
+  type: ui-button
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - ip - save
+  label: ''
+  order: 6
+  width: 0
+  height: 0
+  x: 1834
+  'y': 3140
+  wires:
+    - - bce9018337708455
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  g: a20f1f9fa75b9735
+- id: bce9018337708455
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    // Save Linx printer IP address
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled IP form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        const form = global.get('form["' + msg.hmi.id + '"]') || {};
+
+        if (typeof form.linxequipment === 'string' && form.linxequipment !== '' && typeof form.linxip === 'string') {
+            // kernel.linx
+            node.send([null, {
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'linx',
+                    'entity': form.linxequipment,
+                    'value': form.linxip,
+                    'loop': false
+                }
+            }]);
+
+            // kernel.device, the Linx printer is the device "linx|<equipment>"
+            const device = 'linx|' + form.linxequipment;
+            if (typeof global.get('kernel.device["' + device + '"]') === 'undefined') {
+                node.send([null, {
+                    'topic': '',
+                    'payload': '',
+                    'kernel': {
+                        'type': 'device',
+                        'entity': device,
+                        'value': 0,
+                        'loop': false
+                    }
+                }]);
+            }
+
+            // UI notice
+            msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        } else {
+            msg.notice = msg.dictionary.option_notice.update_fail || 'Update failed';
+        }
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3140
+  wires:
+    - - 109318da1ec8c07f
+      - 1204e20ba067b627
+    - - 4b71242de75478cd
+  g: a20f1f9fa75b9735
+- id: 23424bbfb0e52ca0
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    // Linx printers with an IP address
+    const equipments = global.get('kernel.equipment') || { };
+    const ips = global.get('kernel.linx') || { };
+
+    msg.options = [{
+        'label': '',
+        'value': '',
+        'dropdown': 'equipment'
+    }];
+
+    for (const equipment in ips) {
+        msg.options.push({
+            'label': (equipments[equipment] || '') + ' (' + equipment + ') - ' + ips[equipment],
+            'value': equipment,
+            'dropdown': 'equipment'
+        });
+    }
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.linx_equipment || 'Linx printer'
+    };
+
+    // Clean options
+    msg = await node.linkcall('option - clean', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3220
+  wires:
+    - - 00abdee85d9a585b
+  g: a20f1f9fa75b9735
+- id: 00abdee85d9a585b
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - delete - equipment
+  label: ''
+  order: 7
+  width: 0
+  height: 0
+  x: 1834
+  'y': 3220
+  wires:
+    - - ab193b843c9f5bb7
+  tooltip: ''
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  g: a20f1f9fa75b9735
+- id: ab193b843c9f5bb7
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |
+    if (msg.payload === '') {
+
+        return;
+    }
+
+    const equipment = msg.payload;
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["linxequipment"]', equipment);
+
+    // Disabled equipment form
+    msg.payload = equipment;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3220
+  wires:
+    - - 23424bbfb0e52ca0
+    - - 2b048464e8109be6
+  g: a20f1f9fa75b9735
+- id: 2b048464e8109be6
+  type: function
+  z: 64ce08af468b8197
+  name: label
+  func: |
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.delete || 'Delete'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3280
+  wires:
+    - - 9325831539a05dd9
+  g: a20f1f9fa75b9735
+- id: 9325831539a05dd9
+  type: ui-button
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - delete - save
+  label: ''
+  order: 8
+  width: 0
+  height: 0
+  x: 1834
+  'y': 3280
+  wires:
+    - - a90c10c89a5d2df9
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  g: a20f1f9fa75b9735
+- id: a90c10c89a5d2df9
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: >
+    // Remove Linx printer IP address, the device "linx|<equipment>" is kept
+    with its components
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Disabled delete form
+
+    msg.payload = '';
+
+    msg.enabled = false;
+
+    node.send([msg, null]);
+
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        const equipment = global.get('form["' + msg.hmi.id + '"]["linxequipment"]') || '';
+
+        if (equipment !== '') {
+            node.send([null, {
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'linx',
+                    'entity': equipment,
+                    'value': '',
+                    'loop': false,
+                    'delete': true
+                }
+            }]);
+        }
+
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3280
+  wires:
+    - - 2b048464e8109be6
+      - 1204e20ba067b627
+    - - 4b71242de75478cd
+  g: a20f1f9fa75b9735
+- id: 6d3a85f5702d02c7
+  type: comment
+  z: 64ce08af468b8197
+  name: >-
+    Linx printers: family in kernel.app.linxfamily, IP address in
+    kernel.linx[equipment]
+  info: ''
+  x: 1774
+  'y': 3340
+  wires: []
+  g: a20f1f9fa75b9735
