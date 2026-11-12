@@ -2386,7 +2386,7 @@
     - t: set
       p: describe.convert.linx
       pt: global
-      to: "{\t    'run':'print',\t    'cycle':'cycle',\t    'cyclemeter':'messagecount',\t    'cyclemetertotal':'printcount',\t    'heat':'jet'\t}"
+      to: "{\t    'run':'print',\t    'cycle':'cycle',\t    'cyclemeter':'messagecount',\t    'cyclemetertotal':'printcount',\t    'heat':'jet',\t    'runmetertotal':'jettime',\t    'servicemeter':'servicetime'\t}"
       tot: jsonata
   action: ''
   property: ''
@@ -2442,6 +2442,10 @@
     //   cyclemeter      <- current message print count
 
     //   cyclemetertotal <- total print count
+
+    //   runmetertotal   <- jet running hours
+
+    //   servicemeter    <- service time
 
     //
 
@@ -2751,7 +2755,9 @@
             'print': [0, 3, 4, 5, 6].includes(st.print) ? 1 : 0,
             'cycle': printed,
             'messagecount': st.messagecount,
-            'printcount': st.printcount
+            'printcount': st.printcount,
+            'jettime': st.jettime,
+            'servicetime': st.servicetime
         };
         const rlinks = global.get('rlink') || { };
         for (const rlink in rlinks) {
@@ -3121,7 +3127,8 @@
             line('Compteur total', st.printcount) +
             line('Encre restante (estimation)', duration(st.inkremaining)) +
             line('Solvant restant (estimation)', duration(st.solventremaining)) +
-            line('Temps de jet', st.jettime) +
+            line('Temps de jet', typeof st.jettime === 'number' ? st.jettime + ' h' : '-') +
+            line('Temps de service', st.servicetime) +
             line('Horloge imprimante', st.clock) +
             line('Mise à jour', new Date(st.date).toLocaleString('fr-FR'));
     }
@@ -3166,6 +3173,10 @@
     - cyclemeter: current message print count
 
     - cyclemetertotal: total print count
+
+    - runmetertotal: jet running hours
+
+    - servicemeter: service time
   x: 924
   'y': 1820
   wires: []
