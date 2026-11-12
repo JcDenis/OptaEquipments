@@ -2445,7 +2445,7 @@
 
     //   runmetertotal   <- jet running hours
 
-    //   servicemeter    <- service time
+    //   servicemeter    <- hours left before service
 
     //
 
@@ -3128,7 +3128,7 @@
             line('Encre restante (estimation)', duration(st.inkremaining)) +
             line('Solvant restant (estimation)', duration(st.solventremaining)) +
             line('Temps de jet', typeof st.jettime === 'number' ? st.jettime + ' h' : '-') +
-            line('Temps de service', st.servicetime) +
+            line('Maintenance dans', typeof st.servicetime === 'number' ? st.servicetime + ' h' : '-') +
             line('Horloge imprimante', st.clock) +
             line('Mise à jour', new Date(st.date).toLocaleString('fr-FR'));
     }
@@ -3176,7 +3176,7 @@
 
     - runmetertotal: jet running hours
 
-    - servicemeter: service time
+    - servicemeter: hours left before service
   x: 924
   'y': 1820
   wires: []
