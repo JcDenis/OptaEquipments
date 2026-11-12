@@ -3303,6 +3303,14 @@
 
         let line = global.get('form["' + msg.hmi.id + '"]["line"]') || '-';
         let period = global.get('kernel.period["' + line + '"]');
+
+        // Linx printers have no periods
+        const equipment = global.get('form["' + msg.hmi.id + '"]["equipment"]') || '';
+        const linxfamily = global.get('kernel.app.linxfamily') || '';
+        if (linxfamily !== '' && global.get('kernel.families["' + equipment + '"]') === linxfamily) {
+            period = undefined;
+        }
+
         if (typeof period === 'string') {
             msg.show = ['ui - group - detail - period'];
             msg = await node.linkcall('ui - group', msg);
@@ -5694,7 +5702,7 @@
             'ts': msg.payload[j]._time,
             'date': msg.payload[j].date,
             'component': msg.payload[j]._field,
-            'component_name': msg.dictionary.option_component[msg.payload[j]._field],
+            'component_name': ((global.get('kernel.link["' + msg.row.equipment + '|' + msg.payload[j]._field + '"]') || '').split('|')[0] === 'linx' ? msg.dictionary.detail['live_linx_' + msg.payload[j]._field] : '') || msg.dictionary.option_component[msg.payload[j]._field],
             'value': msg.payload[j]._value,
             'value_name': msg.payload[j]._value === 1 ? 'on ':'off',
             'value_color': msg.payload[j]._value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off
