@@ -4494,7 +4494,7 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_run || 'Run',
+        'label': (msg.kernel.device === 'linx' ? (msg.dictionary.detail.live_linx_run || 'Printing') : msg.dictionary.detail.live_run || 'Run'),
         'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : (msg.kernel.value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off),
         'icon': msg.kernel.value === 1 ? 'numeric-1-circle' : 'numeric-0-circle-outline'
     }
@@ -4526,7 +4526,7 @@
     msg = await node.linkcall('map - cycle', msg);
 
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_cycle = 'Cycle',
+        'label': (msg.kernel.device === 'linx' ? (msg.dictionary.detail.live_linx_cycle || 'Print cycle') : msg.dictionary.detail.live_cycle = 'Cycle'),
         'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : (msg.equipment === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off),
         'icon': msg.equipment === 1 ? 'numeric-1-circle' : 'numeric-0-circle-outline'
     }
@@ -4580,7 +4580,7 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_heat || 'Heat',
+        'label': (msg.kernel.device === 'linx' ? (msg.dictionary.detail.live_linx_heat || 'Jet') : msg.dictionary.detail.live_heat || 'Heat'),
         'buttonColor': msg.kernel.watchdog === 0 ? msg.dictionary.option_color.none : (msg.kernel.value === 1 ? msg.dictionary.option_color.on : msg.dictionary.option_color.off),
         'icon': msg.kernel.value === 1 ? 'numeric-1-circle' : 'numeric-0-circle-outline'
     }
@@ -4825,7 +4825,7 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_runmetertotal || 'Total hours'
+        'label': (msg.kernel.device === 'linx' ? (msg.dictionary.detail.live_linx_runmetertotal || 'Jet hours') : msg.dictionary.detail.live_runmetertotal || 'Total hours')
     }
     msg.payload = Math.round(msg.kernel.value * 10) / 10;
     msg.enabled = false;
@@ -4873,7 +4873,7 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_cyclemeter || 'Partial cycles'
+        'label': (msg.kernel.device === 'linx' ? (msg.dictionary.detail.live_linx_cyclemeter || 'Message prints') : msg.dictionary.detail.live_cyclemeter || 'Partial cycles')
     }
     msg.payload = msg.kernel.value;
     msg.enabled = false;
@@ -4897,7 +4897,7 @@
   name: label
   func: |-
     msg.ui_update = {
-        'label': msg.dictionary.detail.live_cyclemetertotal || 'Total cycles'
+        'label': (msg.kernel.device === 'linx' ? (msg.dictionary.detail.live_linx_cyclemetertotal || 'Total prints') : msg.dictionary.detail.live_cyclemetertotal || 'Total cycles')
     }
     msg.payload = msg.kernel.value;
     msg.enabled = false;
@@ -6374,7 +6374,13 @@
             'live_runmeter': 'Heures partieles',
             'live_runmetertotal': 'Heures totales',
             'live_runreset': "RAZ compteur d'heures",
-            'live_servicemeter': 'Heures avant maintenance',
+            'live_servicemeter': 'Maintenance dans',
+            'live_linx_run': 'Impression active',
+            'live_linx_cycle': "Cycle d'impression",
+            'live_linx_heat': 'Jet',
+            'live_linx_runmetertotal': 'Heures de jet',
+            'live_linx_cyclemeter': 'Impressions message',
+            'live_linx_cyclemetertotal': 'Impressions totales',
             'live_cycle': 'Cycle',
             'live_cyclemeter': 'Cycles partiels',
             'live_cyclemetertotal': 'Cycles totals',
