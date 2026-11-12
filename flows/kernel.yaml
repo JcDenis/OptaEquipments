@@ -2717,13 +2717,13 @@
     msg = await node.linkcall('kernel - memory', msg);
 
 
-    // App version follows package.json (project file first, then its copy made
-    at container start)
+    // App version follows package.json (file of the application image, else
+    project file, else its copy made at container start)
 
     let version = '0.0.0';
 
-    for (const file of ['/data/projects/OptaEquipments/package.json',
-    '/data/package.json']) {
+    for (const file of [env.get('OPTA_PACKAGE') || '',
+    '/data/projects/OptaEquipments/package.json', '/data/package.json']) {
         try {
             const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
             if (pkg.name === 'OptaEquipments' && typeof pkg.version === 'string') {

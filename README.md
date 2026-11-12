@@ -81,6 +81,24 @@ docker-compose ps
 
 All containers should show `healthy` or `running` status.
 
+## Running with prebuilt images
+
+The default `docker-compose.yaml` clones this repository and installs the packages at each container start, which suits development. `docker-compose.prod.yaml` runs prebuilt images instead: nothing is downloaded at start and the version is fixed.
+
+```bash
+# same .env file as above, optionally with OPTA_VERSION=0.8.0
+docker compose -f docker-compose.prod.yaml up -d
+```
+
+| Image | Content |
+|---|---|
+| `ghcr.io/jcdenis/optaequipments` | Node-RED with the flows, settings and packages |
+| `ghcr.io/jcdenis/optaequipments-mqtt` | Eclipse Mosquitto with its configuration, the MQTT user is created from `OPTA_USERNAME` / `OPTA_PASSWORD` |
+
+Both are built by the `Docker images` GitHub workflow when the version of `package.json` changes on `master`, and tagged with this version and `latest`. InfluxDB uses its official image. The volumes are the same as with the default compose file.
+
+In these images the flows are read-only: they are replaced at each update of the image, so changes made in the Node-RED editor are not kept.
+
 ## Accessing the Services
 
 ### Node-RED Dashboard
