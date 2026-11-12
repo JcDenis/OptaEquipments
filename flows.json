@@ -502,7 +502,8 @@
             "f84a1943480e45cb",
             "9051b334f33e9c0b",
             "06c4a3cc69a25734",
-            "4e235d7225c08043"
+            "4e235d7225c08043",
+            "4dca52c2c7d8835c"
         ],
         "x": 94,
         "y": 39,
@@ -912,7 +913,8 @@
             "8231842dd80b938e",
             "503347ecac974f61",
             "07f0ee724dbe2db8",
-            "2fdf6a9ba5514acd"
+            "2fdf6a9ba5514acd",
+            "3a5011bc85861dc7"
         ],
         "x": 104,
         "y": 1459,
@@ -946,7 +948,8 @@
             "fae357aaa0b7bf86",
             "38445bd7ada1b14b",
             "44d0125af7abe861",
-            "566c357740c4408f"
+            "566c357740c4408f",
+            "f4b90ced69d96f53"
         ],
         "x": 104,
         "y": 919,
@@ -1043,7 +1046,8 @@
             "22c14be2e7946e80",
             "646cb6874a24fd76",
             "4ac5879e40df9f2b",
-            "cae4fb60a956e73b"
+            "cae4fb60a956e73b",
+            "76fe41398640da54"
         ],
         "x": 94,
         "y": 879,
@@ -12260,6 +12264,27 @@
         "wires": []
     },
     {
+        "id": "4dca52c2c7d8835c",
+        "type": "function",
+        "z": "135b7308617dad08",
+        "g": "44d39e7547289d97",
+        "name": "commands",
+        "func": "// Commands to devices can be disabled (System > Application, or OPTA_COMMANDS=false)\nif (env.get('OPTA_COMMANDS') === 'false' || global.get('kernel.app.commands') === false) {\n    node.status({ 'fill': 'red', 'shape': 'ring', 'text': 'commands disabled' });\n\n    return;\n}\n\nnode.status({ });\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 160,
+        "wires": [
+            [
+                "7c5f93321a4b2009"
+            ]
+        ]
+    },
+    {
         "id": "d6d4db548fefad53",
         "type": "debug",
         "z": "135b7308617dad08",
@@ -12388,6 +12413,27 @@
         "wires": [
             [
                 "f53e9cf22eb4309b"
+            ]
+        ]
+    },
+    {
+        "id": "76fe41398640da54",
+        "type": "function",
+        "z": "135b7308617dad08",
+        "g": "c0b72044a49a3f76",
+        "name": "commands",
+        "func": "// Commands to devices can be disabled (System > Application, or OPTA_COMMANDS=false)\nif (env.get('OPTA_COMMANDS') === 'false' || global.get('kernel.app.commands') === false) {\n    node.status({ 'fill': 'red', 'shape': 'ring', 'text': 'commands disabled' });\n\n    return;\n}\n\nnode.status({ });\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 1000,
+        "wires": [
+            [
+                "88c665fa97189006"
             ]
         ]
     },
@@ -14261,7 +14307,7 @@
         "wires": [
             [
                 "06c4a3cc69a25734",
-                "7c5f93321a4b2009"
+                "4dca52c2c7d8835c"
             ]
         ]
     },
@@ -14418,7 +14464,7 @@
         "wires": [
             [
                 "06c4a3cc69a25734",
-                "7c5f93321a4b2009"
+                "4dca52c2c7d8835c"
             ]
         ]
     },
@@ -14482,7 +14528,7 @@
         "y": 1040,
         "wires": [
             [
-                "88c665fa97189006"
+                "76fe41398640da54"
             ]
         ]
     },
@@ -14509,8 +14555,8 @@
         "y": 280,
         "wires": [
             [
-                "7c5f93321a4b2009",
-                "d6d4db548fefad53"
+                "d6d4db548fefad53",
+                "4dca52c2c7d8835c"
             ]
         ]
     },
@@ -42179,6 +42225,13 @@
                 "type": "checkbox",
                 "required": false,
                 "rows": null
+            },
+            {
+                "label": "Enable commands to devices",
+                "key": "commands",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
             }
         ],
         "formValue": {
@@ -42188,7 +42241,8 @@
             "session": "",
             "reload": false,
             "frommqtt": false,
-            "tomqtt": false
+            "tomqtt": false,
+            "commands": true
         },
         "payload": "",
         "submit": "►",
@@ -42240,6 +42294,28 @@
         "x": 1040,
         "y": 1560,
         "wires": []
+    },
+    {
+        "id": "3a5011bc85861dc7",
+        "type": "function",
+        "z": "44465f18e06bb58d",
+        "g": "7c224f2f2afc76d3",
+        "name": "commands",
+        "func": "// Commands to devices can be disabled (System > Application, or OPTA_COMMANDS=false)\nif (env.get('OPTA_COMMANDS') === 'false' || global.get('kernel.app.commands') === false) {\n    node.status({ 'fill': 'red', 'shape': 'ring', 'text': 'commands disabled' });\n\n    return;\n}\n\nnode.status({ });\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 1520,
+        "wires": [
+            [
+                "a4fb301472039371",
+                "80e11615d0347342"
+            ]
+        ]
     },
     {
         "id": "1c423cb24f5a5aed",
@@ -42319,6 +42395,27 @@
         "libs": [],
         "x": 830,
         "y": 1140,
+        "wires": [
+            [
+                "301bb73805b7e405"
+            ]
+        ]
+    },
+    {
+        "id": "f4b90ced69d96f53",
+        "type": "function",
+        "z": "44465f18e06bb58d",
+        "g": "43bcc4020c29e03d",
+        "name": "commands",
+        "func": "// Commands to devices (see \"commands\" nodes in model and system flows)\nif (msg.payload.commands === true && env.get('OPTA_COMMANDS') === 'false') {\n    // UI notice\n    msg.notice = 'Commands are disabled by OPTA_COMMANDS environment variable';\n    msg = await node.linkcall('ui - notice', msg);\n\n    return;\n}\n\nreturn {\n    'topic': '',\n    'payload': '',\n    'kernel': {\n        'type': 'app',\n        'entity': 'commands',\n        'value': msg.payload.commands === true,\n        'loop': false\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 1420,
         "wires": [
             [
                 "301bb73805b7e405"
@@ -42796,7 +42893,8 @@
                 "c58b883c9be07c8f",
                 "af97c0473e39e9c9",
                 "44d0125af7abe861",
-                "566c357740c4408f"
+                "566c357740c4408f",
+                "f4b90ced69d96f53"
             ]
         ]
     },
@@ -42806,7 +42904,7 @@
         "z": "44465f18e06bb58d",
         "g": "43bcc4020c29e03d",
         "name": "data",
-        "func": "msg.payload =  {\n    'vendor': global.get('kernel.app.vendor') || '',\n    'title': global.get('kernel.app.title') || '',\n    'tomqtt': global.get('kernel.app.tomqtt') || false,\n    'frommqtt': global.get('kernel.app.frommqtt') || false,\n    'watchdog': global.get('kernel.app.watchdog') || 120,\n    'session': String(global.get('kernel.app.session') || 24),\n};\n\n// Session duration choices (hours)\nmsg.ui_update = {\n    'dropdownOptions': [6, 24, 720].map((h) => ({\n        'label': (msg.dictionary?.option_session || { })[h] || (h + ' h'),\n        'value': String(h),\n        'dropdown': 'session'\n    }))\n};\n\nreturn msg;",
+        "func": "msg.payload =  {\n    'vendor': global.get('kernel.app.vendor') || '',\n    'title': global.get('kernel.app.title') || '',\n    'tomqtt': global.get('kernel.app.tomqtt') || false,\n    'frommqtt': global.get('kernel.app.frommqtt') || false,\n    'watchdog': global.get('kernel.app.watchdog') || 120,\n    'session': String(global.get('kernel.app.session') || 24),\n    'commands': env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false,\n};\n\n// Session duration choices (hours)\nmsg.ui_update = {\n    'dropdownOptions': [6, 24, 720].map((h) => ({\n        'label': (msg.dictionary?.option_session || { })[h] || (h + ' h'),\n        'value': String(h),\n        'dropdown': 'session'\n    }))\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -42944,9 +43042,8 @@
         "y": 1500,
         "wires": [
             [
-                "a4fb301472039371",
-                "80e11615d0347342",
-                "3ef1ad4d211cdc1a"
+                "3ef1ad4d211cdc1a",
+                "3a5011bc85861dc7"
             ],
             [
                 "d508633aa0105203"
@@ -42970,8 +43067,7 @@
         "y": 1620,
         "wires": [
             [
-                "a4fb301472039371",
-                "80e11615d0347342"
+                "3a5011bc85861dc7"
             ]
         ]
     },

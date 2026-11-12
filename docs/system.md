@@ -12,6 +12,7 @@ The **System** page is reserved to administrators.
 - **Watchdog**: number of seconds without news after which a device is considered offline (120 by default).
 - **Session duration**: 6 hours, 24 hours or 30 days.
 - **Update to MQTT / from MQTT**: publish every change of the application data to the MQTT broker, and accept changes coming from it.
+- **Enable commands to devices**: when unchecked, the application keeps reading the devices but sends them nothing: no output command, no counter reset, no watchdog and no firmware update to the Opta devices, no relay command to the Teracom modules. Use it to run a second instance beside the production one. Setting the environment variable `OPTA_COMMANDS=false` disables commands whatever this option says.
 - **Reload application**: restarts the application logic.
 
 ## Tree structure

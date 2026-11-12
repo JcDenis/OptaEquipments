@@ -55,6 +55,8 @@ OPTA_TELEGRAM_BOT=your_telegram_bot_token
 OPTA_TELEGRAM_CHAT=your_authorized_telegram_chat_id
 ```
 
+To run an instance that only reads the devices, for example a test instance beside the production one, add `OPTA_COMMANDS=false` to the `.env` file: no command is then sent to the devices.
+
 **⚠️ Security Note:** Use strong passwords, especially for `OPTA_ADMIN_PASSWORD` and `OPTA_SECRET`. Do not commit the `.env` file to version control.
 
 ### Step 3: Start the Services

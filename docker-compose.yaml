@@ -6,6 +6,8 @@
 # - OPTA_ADMIN_USERNAME
 # - OPTA_TELEGRAM_BOT
 # - OPTA_TELEGRAM_CHAT
+# Optional:
+# - OPTA_COMMANDS (false to never send commands to devices)
 #
 name: OptaEquipments
 
@@ -120,6 +122,7 @@ services:
       OPTA_ADMIN_PASSWORD: ${OPTA_ADMIN_PASSWORD}
       OPTA_TELEGRAM_BOT: ${OPTA_TELEGRAM_BOT}
       OPTA_TELEGRAM_CHAT: ${OPTA_TELEGRAM_CHAT}
+      OPTA_COMMANDS: ${OPTA_COMMANDS:-true}
     entrypoint: >
       /bin/sh -c '
         if [ -n "$(git ls-remote https://github.com/JcDenis/OptaEquipments master)" ]; then echo "> Deleting old projects" && rm -Rf /data/projects/OptaEquipments; fi;

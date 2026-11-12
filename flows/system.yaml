@@ -26,6 +26,7 @@
     - 503347ecac974f61
     - 07f0ee724dbe2db8
     - 2fdf6a9ba5514acd
+    - 3a5011bc85861dc7
   x: 104
   'y': 1459
   w: 1142
@@ -56,6 +57,7 @@
     - 38445bd7ada1b14b
     - 44d0125af7abe861
     - 566c357740c4408f
+    - f4b90ced69d96f53
   x: 104
   'y': 919
   w: 912
@@ -662,6 +664,11 @@
       type: checkbox
       required: false
       rows: null
+    - label: Enable commands to devices
+      key: commands
+      type: checkbox
+      required: false
+      rows: null
   formValue:
     vendor: ''
     title: ''
@@ -670,6 +677,7 @@
     reload: false
     frommqtt: false
     tomqtt: false
+    commands: true
   payload: ''
   submit: ►
   cancel: ''
@@ -712,6 +720,38 @@
   x: 1040
   'y': 1560
   wires: []
+- id: 3a5011bc85861dc7
+  type: function
+  z: 44465f18e06bb58d
+  g: 7c224f2f2afc76d3
+  name: commands
+  func: >-
+    // Commands to devices can be disabled (System > Application, or
+    OPTA_COMMANDS=false)
+
+    if (env.get('OPTA_COMMANDS') === 'false' ||
+    global.get('kernel.app.commands') === false) {
+        node.status({ 'fill': 'red', 'shape': 'ring', 'text': 'commands disabled' });
+
+        return;
+    }
+
+
+    node.status({ });
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1020
+  'y': 1520
+  wires:
+    - - a4fb301472039371
+      - 80e11615d0347342
 - id: 1c423cb24f5a5aed
   type: function
   z: 44465f18e06bb58d
@@ -819,6 +859,41 @@
   libs: []
   x: 830
   'y': 1140
+  wires:
+    - - 301bb73805b7e405
+- id: f4b90ced69d96f53
+  type: function
+  z: 44465f18e06bb58d
+  g: 43bcc4020c29e03d
+  name: commands
+  func: |-
+    // Commands to devices (see "commands" nodes in model and system flows)
+    if (msg.payload.commands === true && env.get('OPTA_COMMANDS') === 'false') {
+        // UI notice
+        msg.notice = 'Commands are disabled by OPTA_COMMANDS environment variable';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    return {
+        'topic': '',
+        'payload': '',
+        'kernel': {
+            'type': 'app',
+            'entity': 'commands',
+            'value': msg.payload.commands === true,
+            'loop': false
+        }
+    };
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 830
+  'y': 1420
   wires:
     - - 301bb73805b7e405
 - id: c58b883c9be07c8f
@@ -1447,6 +1522,7 @@
       - af97c0473e39e9c9
       - 44d0125af7abe861
       - 566c357740c4408f
+      - f4b90ced69d96f53
 - id: 38445bd7ada1b14b
   type: function
   z: 44465f18e06bb58d
@@ -1460,6 +1536,7 @@
         'frommqtt': global.get('kernel.app.frommqtt') || false,
         'watchdog': global.get('kernel.app.watchdog') || 120,
         'session': String(global.get('kernel.app.session') || 24),
+        'commands': env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false,
     };
 
     // Session duration choices (hours)
@@ -1669,9 +1746,8 @@
   x: 690
   'y': 1500
   wires:
-    - - a4fb301472039371
-      - 80e11615d0347342
-      - 3ef1ad4d211cdc1a
+    - - 3ef1ad4d211cdc1a
+      - 3a5011bc85861dc7
     - - d508633aa0105203
 - id: 2fdf6a9ba5514acd
   type: function
@@ -1696,8 +1772,7 @@
   x: 850
   'y': 1620
   wires:
-    - - a4fb301472039371
-      - 80e11615d0347342
+    - - 3a5011bc85861dc7
 - id: 7e6955d71b23c41a
   type: link in
   z: 44465f18e06bb58d

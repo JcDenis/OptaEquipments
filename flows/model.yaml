@@ -34,6 +34,7 @@
     - 9051b334f33e9c0b
     - 06c4a3cc69a25734
     - 4e235d7225c08043
+    - 4dca52c2c7d8835c
   x: 94
   'y': 39
   w: 1472
@@ -65,6 +66,7 @@
     - 646cb6874a24fd76
     - 4ac5879e40df9f2b
     - cae4fb60a956e73b
+    - 76fe41398640da54
   x: 94
   'y': 879
   w: 1272
@@ -290,6 +292,37 @@
   x: 890
   'y': 200
   wires: []
+- id: 4dca52c2c7d8835c
+  type: function
+  z: 135b7308617dad08
+  g: 44d39e7547289d97
+  name: commands
+  func: >-
+    // Commands to devices can be disabled (System > Application, or
+    OPTA_COMMANDS=false)
+
+    if (env.get('OPTA_COMMANDS') === 'false' ||
+    global.get('kernel.app.commands') === false) {
+        node.status({ 'fill': 'red', 'shape': 'ring', 'text': 'commands disabled' });
+
+        return;
+    }
+
+
+    node.status({ });
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 870
+  'y': 160
+  wires:
+    - - 7c5f93321a4b2009
 - id: d6d4db548fefad53
   type: debug
   z: 135b7308617dad08
@@ -391,6 +424,37 @@
   'y': 1040
   wires:
     - - f53e9cf22eb4309b
+- id: 76fe41398640da54
+  type: function
+  z: 135b7308617dad08
+  g: c0b72044a49a3f76
+  name: commands
+  func: >-
+    // Commands to devices can be disabled (System > Application, or
+    OPTA_COMMANDS=false)
+
+    if (env.get('OPTA_COMMANDS') === 'false' ||
+    global.get('kernel.app.commands') === false) {
+        node.status({ 'fill': 'red', 'shape': 'ring', 'text': 'commands disabled' });
+
+        return;
+    }
+
+
+    node.status({ });
+
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 450
+  'y': 1000
+  wires:
+    - - 88c665fa97189006
 - id: 1f369f9dec67f5b5
   type: link in
   z: 135b7308617dad08
@@ -1852,7 +1916,7 @@
   'y': 200
   wires:
     - - 06c4a3cc69a25734
-      - 7c5f93321a4b2009
+      - 4dca52c2c7d8835c
 - id: 0b1c1ba728d3208a
   type: function
   z: 135b7308617dad08
@@ -2093,7 +2157,7 @@
   'y': 260
   wires:
     - - 06c4a3cc69a25734
-      - 7c5f93321a4b2009
+      - 4dca52c2c7d8835c
 - id: 646cb6874a24fd76
   type: function
   z: 135b7308617dad08
@@ -2224,7 +2288,7 @@
   x: 280
   'y': 1040
   wires:
-    - - 88c665fa97189006
+    - - 76fe41398640da54
 - id: 268afb141777587b
   type: delay
   z: 135b7308617dad08
@@ -2246,8 +2310,8 @@
   x: 710
   'y': 280
   wires:
-    - - 7c5f93321a4b2009
-      - d6d4db548fefad53
+    - - d6d4db548fefad53
+      - 4dca52c2c7d8835c
 - id: cfd036160380a8a6
   type: comment
   z: 135b7308617dad08

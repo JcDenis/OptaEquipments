@@ -7,6 +7,7 @@
 # - OPTA_TELEGRAM_BOT, OPTA_TELEGRAM_CHAT    Telegram bot
 # Optional:
 # - OPTA_VERSION                             image version to run (default: latest)
+# - OPTA_COMMANDS                            false to never send commands to devices (default: true)
 #
 #   docker compose -f docker-compose.prod.yaml up -d
 #
@@ -76,6 +77,7 @@ services:
       OPTA_ADMIN_PASSWORD: ${OPTA_ADMIN_PASSWORD}
       OPTA_TELEGRAM_BOT: ${OPTA_TELEGRAM_BOT}
       OPTA_TELEGRAM_CHAT: ${OPTA_TELEGRAM_CHAT}
+      OPTA_COMMANDS: ${OPTA_COMMANDS:-true}
     ports:
       - 1880:1880
     networks:
