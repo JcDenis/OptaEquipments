@@ -228,6 +228,7 @@
     - 468277bb16c8903c
     - 09987068f1a0d8a4
     - 222a4d282e6eb3f4
+    - 9de787ca8e3c3652
   x: 1355
   'y': 420
   wires: []
@@ -1023,6 +1024,7 @@
     - 1b3e234bed8047a0
     - a3c49917e391987c
     - 2191f5f76d432d83
+    - bed8c704e209b167
   x: 145
   'y': 240
   wires:
@@ -1042,6 +1044,7 @@
     - 17e7a0d50bf546d9
     - 09987068f1a0d8a4
     - 222a4d282e6eb3f4
+    - 9de787ca8e3c3652
   x: 555
   'y': 180
   wires: []
@@ -2384,6 +2387,10 @@
             {
                 'label': msg.dictionary.option_name.families,
                 'value': 'family'
+            },
+            {
+                'label': msg.dictionary.option_name.linx || 'Linx',
+                'value': 'linx'
             },/*
             {
                 'label': msg.dictionary.option_name.alerts,
@@ -2796,3 +2803,341 @@
     - - 2191f5f76d432d83
     - - 66796b868c39d8f8
     - - 8fb5ca57fc7b5a7e
+- id: c8c30e8d4ce8ce4a
+  type: group
+  z: e97c6f12735a13c1
+  name: list - linx
+  style:
+    fill: '#6f2fa0'
+    fill-opacity: '0.05'
+    label: true
+  nodes:
+    - 9de787ca8e3c3652
+    - 7d5e1a10001d55b9
+    - 35e6c2c1e10aa59f
+    - e2d2cf2382f0ba86
+    - 9497f7e1343f71dd
+    - bed8c704e209b167
+    - 3a480aa1e21cc756
+  x: 104
+  'y': 2471.5
+  w: 772
+  h: 209.5
+- id: 9de787ca8e3c3652
+  type: link in
+  name: list - linx
+  links:
+    - 1b3e234bed8047a0
+    - b8fd1cbbd582e7cb
+  x: 215
+  'y': 2520
+  wires:
+    - - 7d5e1a10001d55b9
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a
+- id: 7d5e1a10001d55b9
+  type: function
+  name: data
+  func: |
+    // Parse Linx printers of the selected plant
+
+    msg.payload = [ ];
+
+    node.send([ null, msg, msg ]);
+
+    msg.class = '';
+    msg.enabled = true;
+
+    if (msg.list === 'linx') {
+        const family = global.get('kernel.app.linxfamily') || '';
+        const limit = Number(global.get('kernel.app.linxlimit')) || 500;
+        const families = global.get('kernel.families') || { };
+        const ips = global.get('kernel.linx') || { };
+        const plant = global.get('form["' + msg.hmi.id + '"]["plant"]') || '';
+        const colors = msg.dictionary.option_color;
+        let i = 0;
+
+        for (const equipment in families) {
+            if (family === '' || families[equipment] !== family) {
+                continue;
+            }
+
+            let row = { };
+            row.equipment = equipment;
+            row.equipment_name = global.get('kernel.equipment["' + equipment + '"]') || '';
+            row.equipment_full = row.equipment_name + ' (' + equipment + ')';
+            row.line = global.get('kernel.equipments["' + equipment + '"]') || '';
+            row.line_name = global.get('kernel.line["' + row.line + '"]') || '';
+            row.line_full = row.line_name + ' (' + row.line + ')';
+            row.plant = global.get('kernel.lines["' + row.line + '"]') || '-';
+
+            if (row.plant !== plant) {
+                continue;
+            }
+
+            const st = global.get('linx["' + equipment + '"]');
+            const online = typeof st === 'object' && st.online === true;
+
+            row.ip = ips[equipment] || '-';
+            row.state_color = colors.empty;
+            row.message = '-';
+            row.printcount = '-';
+            row.jettime = '-';
+            row.servicetime = '-';
+            row.service_color = colors.empty;
+            row.alerts = '-';
+
+            if (typeof st === 'object' && row.ip !== '-') {
+                row.state_color = !online ? colors.none : (st.jet === 0 ? colors.on : colors.off);
+                if (online) {
+                    row.message = st.message || '-';
+                    row.printcount = typeof st.printcount === 'number' ? st.printcount : '-';
+                    row.jettime = typeof st.jettime === 'number' ? st.jettime + ' h' : '-';
+                    row.alerts = [].concat(st.warnings || [], st.extended || [], st.enhanced || []).length;
+                    if (typeof st.servicetime === 'number') {
+                        row.servicetime = st.servicetime + ' h';
+                        row.service_color = st.servicetime < limit ? colors.off : colors.on;
+                    }
+                }
+            }
+
+            msg.payload[i++] = row;
+        }
+
+        // Records title
+        msg.total = i;
+        node.send([ msg, null, null ]);
+
+        if (i > 0) {
+            msg.payload.sort((a, b) => a.equipment_full.localeCompare(b.equipment_full));
+
+            if (msg.hmi.lang === 'fr') {
+
+                return [ null, msg, null ];
+            }
+
+            return [ null, null, msg ];
+        }
+    }
+
+    return;
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 360
+  'y': 2520
+  wires:
+    - - bed8c704e209b167
+    - - 35e6c2c1e10aa59f
+    - - e2d2cf2382f0ba86
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a
+- id: 35e6c2c1e10aa59f
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a
+  group: c605809a8fe63a3b
+  name: list - linx - table - fr
+  label: ''
+  order: 18
+  width: 0
+  height: 0
+  maxrows: '50'
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: Etat
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Equipement
+      key: equipment_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: IP
+      key: ip
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Impressions
+      key: printcount
+      keyType: key
+      type: text
+      width: ''
+      align: end
+    - title: Heures de jet
+      key: jettime
+      keyType: key
+      type: text
+      width: ''
+      align: end
+    - title: Maintenance
+      key: service_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Maintenance dans
+      key: servicetime
+      keyType: key
+      type: text
+      width: ''
+      align: end
+    - title: Alertes
+      key: alerts
+      keyType: key
+      type: text
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 560
+  'y': 2520
+  wires:
+    - - 9497f7e1343f71dd
+- id: e2d2cf2382f0ba86
+  type: ui-table
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a
+  group: c605809a8fe63a3b
+  name: list - linx - table - en
+  label: ''
+  order: 19
+  width: 0
+  height: 0
+  maxrows: '50'
+  passthru: false
+  autocols: false
+  showSearch: true
+  deselect: true
+  selectionType: click
+  columns:
+    - title: State
+      key: state_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Equipment
+      key: equipment_full
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: IP
+      key: ip
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: Prints
+      key: printcount
+      keyType: key
+      type: text
+      width: ''
+      align: end
+    - title: Jet hours
+      key: jettime
+      keyType: key
+      type: text
+      width: ''
+      align: end
+    - title: Maintenance
+      key: service_color
+      keyType: key
+      type: color
+      width: ''
+      align: center
+    - title: Maintenance in
+      key: servicetime
+      keyType: key
+      type: text
+      width: ''
+      align: end
+    - title: Alerts
+      key: alerts
+      keyType: key
+      type: text
+      width: ''
+      align: center
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 560
+  'y': 2580
+  wires:
+    - - 9497f7e1343f71dd
+- id: 9497f7e1343f71dd
+  type: function
+  name: data
+  func: >
+    // Do action
+
+
+    // Get user from UI element
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    // Show Linx printer information
+
+    if (msg.action === 'row_click' && typeof msg.payload?.equipment ===
+    'string') {
+        msg.payload = {
+            'entity': 'linx|' + msg.payload.equipment
+        };
+
+        return [ null, msg ];
+    }
+
+
+    return [ msg, null ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 760
+  'y': 2550
+  wires:
+    - - bed8c704e209b167
+    - - 3a480aa1e21cc756
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a
+- id: bed8c704e209b167
+  type: link out
+  name: list - linx
+  mode: link
+  links:
+    - 468277bb16c8903c
+  x: 835
+  'y': 2520
+  wires: []
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a
+- id: 3a480aa1e21cc756
+  type: link out
+  name: list - linx - detail
+  mode: link
+  links:
+    - bfa660718e9c55bd
+  x: 835
+  'y': 2600
+  wires: []
+  z: e97c6f12735a13c1
+  g: c8c30e8d4ce8ce4a

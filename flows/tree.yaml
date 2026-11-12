@@ -14774,7 +14774,9 @@
             'linx_ip': 'IP address',
             'linx_nofamily': 'Select first the Linx printers family',
             'linx_ip_fail': 'Invalid IP address',
-            'linx_ip_exists': 'IP address already used by %s'
+            'linx_ip_exists': 'IP address already used by %s',
+            'linx_action_limit': 'Maintenance threshold',
+            'linx_limit': 'Maintenance threshold (hours left)'
         },
         'fr': {
             'page': 'Arborescence',
@@ -14823,7 +14825,9 @@
             'linx_ip': "Adresse IP du jet d'encre",
             'linx_nofamily': "Choisissez d'abord la famille des jets d'encre Linx",
             'linx_ip_fail': 'Adresse IP invalide',
-            'linx_ip_exists': 'Adresse IP déjà utilisée par %s'
+            'linx_ip_exists': 'Adresse IP déjà utilisée par %s',
+            'linx_action_limit': 'Seuil de maintenance',
+            'linx_limit': 'Seuil de maintenance (heures restantes)'
         }
     };
 
@@ -17939,10 +17943,16 @@
     - 9325831539a05dd9
     - a90c10c89a5d2df9
     - 6d3a85f5702d02c7
+    - 13be2f8d1fc21feb
+    - c7948adaeccf8eeb
+    - f280642e12cc02d8
+    - ece0295a00117717
+    - 633ddc012194f8f6
+    - f2c3c31d251cb2ca
   x: 1394
   'y': 2720
   w: 1002
-  h: 662
+  h: 802
 - id: 931a59bf8a5f7de4
   type: link in
   z: 64ce08af468b8197
@@ -18010,6 +18020,10 @@
                 {
                     'label': msg.dictionary.tree.linx_action_delete || 'Remove IP address',
                     'value': 'linxdelete'
+                },
+                {
+                    'label': msg.dictionary.tree.linx_action_limit || 'Maintenance threshold',
+                    'value': 'linxlimit'
                 }
             ],
             'label': ''
@@ -18098,6 +18112,8 @@
       - e42fdd3ce6face09
       - 00abdee85d9a585b
       - 9325831539a05dd9
+      - c7948adaeccf8eeb
+      - 633ddc012194f8f6
   g: a20f1f9fa75b9735
 - id: 4fe2089089e3cf99
   type: function
@@ -18127,13 +18143,14 @@
     msg.enabled = true;
 
     switch (action) {
-        case 'linxfamily': node.send([msg, null, null]); break;
-        case 'linxip': node.send([null, msg, null]); break;
-        case 'linxdelete': node.send([null, null, msg]); break;
+        case 'linxfamily': node.send([msg, null, null, null]); break;
+        case 'linxip': node.send([null, msg, null, null]); break;
+        case 'linxdelete': node.send([null, null, msg, null]); break;
+        case 'linxlimit': node.send([null, null, null, msg]); break;
     }
 
     return;
-  outputs: 3
+  outputs: 4
   timeout: 0
   noerr: 0
   initialize: ''
@@ -18145,6 +18162,7 @@
     - - 31475bae675ed88b
     - - 005b8721b316bab0
     - - 23424bbfb0e52ca0
+    - - 13be2f8d1fc21feb
   g: a20f1f9fa75b9735
 - id: 31475bae675ed88b
   type: function
@@ -18960,14 +18978,219 @@
       - 1204e20ba067b627
     - - 4b71242de75478cd
   g: a20f1f9fa75b9735
+- id: 13be2f8d1fc21feb
+  type: function
+  z: 64ce08af468b8197
+  g: a20f1f9fa75b9735
+  name: label
+  func: |
+    // Current maintenance threshold
+    if (msg.enabled === true) {
+        msg.payload = Number(global.get('kernel.app.linxlimit')) || 500;
+    }
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.linx_limit || 'Maintenance threshold (hours)'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3360
+  wires:
+    - - c7948adaeccf8eeb
+- id: c7948adaeccf8eeb
+  type: ui-number-input
+  z: 64ce08af468b8197
+  g: a20f1f9fa75b9735
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - limit - hours
+  label: ''
+  order: 9
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  min: '0'
+  max: '20000'
+  step: '10'
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: false
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: false
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  spinner: default
+  x: 1834
+  'y': 3360
+  wires:
+    - - f280642e12cc02d8
+- id: f280642e12cc02d8
+  type: function
+  z: 64ce08af468b8197
+  g: a20f1f9fa75b9735
+  name: data
+  func: |
+    const limit = Number(msg.payload);
+
+    if (!Number.isInteger(limit) || limit < 0 || limit > 20000) {
+
+        return;
+    }
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["linxlimit"]', limit);
+
+    // Disabled threshold form
+    msg.payload = limit;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3360
+  wires:
+    - - 13be2f8d1fc21feb
+    - - ece0295a00117717
+- id: ece0295a00117717
+  type: function
+  z: 64ce08af468b8197
+  g: a20f1f9fa75b9735
+  name: label
+  func: |
+    msg.ui_update = {
+        'label': msg.dictionary.option_action.edit || 'Edit'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 1634
+  'y': 3420
+  wires:
+    - - 633ddc012194f8f6
+- id: 633ddc012194f8f6
+  type: ui-button
+  z: 64ce08af468b8197
+  group: 6d1eb0f0c8f5dd02
+  name: tree - linx - limit - save
+  label: ''
+  order: 10
+  width: 0
+  height: 0
+  x: 1834
+  'y': 3420
+  wires:
+    - - f2c3c31d251cb2ca
+  emulateClick: false
+  tooltip: ''
+  color: ''
+  bgcolor: ''
+  className: ''
+  icon: ''
+  iconPosition: left
+  payload: ''
+  payloadType: str
+  topic: topic
+  topicType: msg
+  buttonColor: ''
+  textColor: ''
+  iconColor: ''
+  enableClick: true
+  enablePointerdown: false
+  pointerdownPayload: ''
+  pointerdownPayloadType: str
+  enablePointerup: false
+  pointerupPayload: ''
+  pointerupPayloadType: str
+  g: a20f1f9fa75b9735
+- id: f2c3c31d251cb2ca
+  type: function
+  z: 64ce08af468b8197
+  g: a20f1f9fa75b9735
+  name: data
+  func: |
+    // Save Linx maintenance threshold
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    // Disabled threshold form
+    msg.payload = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    if (['admin', 'rt'].includes(msg.hmi.level)) {
+        const limit = global.get('form["' + msg.hmi.id + '"]["linxlimit"]');
+
+        if (typeof limit === 'number') {
+            node.send([null, {
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'app',
+                    'entity': 'linxlimit',
+                    'value': limit,
+                    'loop': false
+                }
+            }]);
+            msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
+        } else {
+            msg.notice = msg.dictionary.option_notice.update_fail || 'Update failed';
+        }
+        msg = await node.linkcall('ui - notice', msg);
+    }
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2034
+  'y': 3420
+  wires:
+    - - ece0295a00117717
+      - 1204e20ba067b627
+    - - 4b71242de75478cd
 - id: 6d3a85f5702d02c7
   type: comment
   z: 64ce08af468b8197
   name: >-
     Linx printers: family in kernel.app.linxfamily, IP address in
-    kernel.linx[equipment]
+    kernel.linx[equipment], maintenance threshold in kernel.app.linxlimit
   info: ''
   x: 1774
-  'y': 3340
+  'y': 3480
   wires: []
   g: a20f1f9fa75b9735

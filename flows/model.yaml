@@ -2724,7 +2724,7 @@
         const device = 'linx|' + equipment;
         const st = s.status;
         st.date = Date.now();
-        flow.set('linx["' + equipment + '"]', RED.util.cloneMessage(st));
+        global.set('linx["' + equipment + '"]', RED.util.cloneMessage(st));
 
         if (!st.online) {
             return;
@@ -2832,6 +2832,7 @@
     function clear(equipment) {
         clearTimeout(timers[equipment]);
         delete timers[equipment];
+        global.set('linx["' + equipment + '"]', undefined);
         if (sessions[equipment]) {
             // close the TCP connection
             node.send([{ 'reset': sessions[equipment].host + ':' + PORT }, null]);
@@ -3063,6 +3064,7 @@
   name: model - linx - notice
   links:
     - dafa461a59bb8265
+    - 3a480aa1e21cc756
   x: 239
   'y': 2080
   wires:
@@ -3084,7 +3086,7 @@
 
     const equipment = msg.payload.entity.split('|')[1];
 
-    const st = flow.get('linx["' + equipment + '"]');
+    const st = global.get('linx["' + equipment + '"]');
 
     const ip = global.get('kernel.linx["' + equipment + '"]') || '-';
 
@@ -3128,7 +3130,7 @@
             line('Encre restante (estimation)', duration(st.inkremaining)) +
             line('Solvant restant (estimation)', duration(st.solventremaining)) +
             line('Temps de jet', typeof st.jettime === 'number' ? st.jettime + ' h' : '-') +
-            line('Maintenance dans', typeof st.servicetime === 'number' ? st.servicetime + ' h' : '-') +
+            line('Maintenance dans', typeof st.servicetime === 'number' ? st.servicetime + ' h' + (st.servicetime < (Number(global.get('kernel.app.linxlimit')) || 500) ? ' (seuil atteint)' : '') : '-') +
             line('Horloge imprimante', st.clock) +
             line('Mise à jour', new Date(st.date).toLocaleString('fr-FR'));
     }
