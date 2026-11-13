@@ -96,10 +96,13 @@ docker compose -f docker-compose.prod.yaml up -d
 |---|---|
 | `ghcr.io/jcdenis/optaequipments` | Node-RED with the flows, settings and packages |
 | `ghcr.io/jcdenis/optaequipments-mqtt` | Eclipse Mosquitto with its configuration, the MQTT user is created from `OPTA_USERNAME` / `OPTA_PASSWORD` |
+| `ghcr.io/jcdenis/optaequipments-dev` | Node-RED in project mode, used by `docker-compose.dev.yaml` |
 
-Both are built by the `Docker images` GitHub workflow when the version of `package.json` changes on `master`, and tagged with this version and `latest`. InfluxDB uses its official image. The volumes are the same as with the default compose file.
+They are built by the `Docker images` GitHub workflow when the version of `package.json` or the `docker/` folder changes on `master`, and tagged with this version and `latest`. InfluxDB uses its official image. The volumes are the same as with the default compose file.
 
-In these images the flows are read-only: they are replaced at each update of the image, so changes made in the Node-RED editor are not kept.
+`docker-compose.dev.yaml` is the development counterpart: it does the same as the default `docker-compose.yaml` (project cloned and packages installed at each start, flows editable from the Node-RED editor), with the start scripts moved into the images. Set `OPTA_BRANCH` to clone another branch than `master`.
+
+In the `optaequipments` image the flows are read-only: they are replaced at each update of the image, so changes made in the Node-RED editor are not kept.
 
 ## Accessing the Services
 

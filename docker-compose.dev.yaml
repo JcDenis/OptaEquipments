@@ -1,0 +1,111 @@
+# OptaEquipments for development, with prebuilt images.
+# Node-RED runs in project mode: at each start the project is cloned from GitHub and
+# its packages are installed, flows can be edited and pushed from the Node-RED editor.
+# It does the same as docker-compose.yaml, the scripts being in the images.
+#
+# Required environment variables (.env file):
+# - OPTA_USERNAME, OPTA_PASSWORD             MQTT user
+# - OPTA_ADMIN_USERNAME, OPTA_ADMIN_PASSWORD Node-RED, dashboard and InfluxDB administrator
+# - OPTA_SECRET                              Node-RED credentials secret and InfluxDB token
+# - OPTA_TELEGRAM_BOT, OPTA_TELEGRAM_CHAT    Telegram bot
+# Optional:
+# - OPTA_VERSION                             image version to run (default: latest)
+# - OPTA_BRANCH                              branch of the project to clone (default: master)
+# - OPTA_COMMANDS                            false to never send commands to devices (default: true)
+#
+#   docker compose -f docker-compose.dev.yaml up -d
+#
+name: OptaEquipments
+
+x-logging: &logging
+  driver: "json-file"
+  options:
+    max-size: "20m"
+    max-file: "5"
+
+services:
+  mosquitto:
+    image: ghcr.io/jcdenis/optaequipments-mqtt:${OPTA_VERSION:-latest}
+    container_name: mqtt
+    restart: unless-stopped
+    environment:
+      OPTA_USERNAME: ${OPTA_USERNAME}
+      OPTA_PASSWORD: ${OPTA_PASSWORD}
+    ports:
+      - 1883:1883
+    networks:
+      - optanet
+    volumes:
+      - mosquitto_config:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    logging: *logging
+
+  influxdb:
+    image: influxdb:2.9.1-alpine
+    container_name: influxdb
+    restart: unless-stopped
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${OPTA_ADMIN_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${OPTA_ADMIN_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: optaequipments
+      DOCKER_INFLUXDB_INIT_BUCKET: state
+      DOCKER_INFLUXDB_INIT_RETENTION: 700d
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${OPTA_SECRET}
+    ports:
+      - 8086:8086
+    networks:
+      - optanet
+    volumes:
+      - influxdb_etc:/etc/influxdb2
+      - influxdb_lib:/var/lib/influxdb2
+    healthcheck:
+      test: "curl -f http://localhost:8086/ping"
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    logging: *logging
+
+  nodered:
+    image: ghcr.io/jcdenis/optaequipments-dev:${OPTA_VERSION:-latest}
+    container_name: nodered
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+    environment:
+      TZ: Europe/Paris
+      OPTA_BRANCH: ${OPTA_BRANCH:-master}
+      OPTA_USERNAME: ${OPTA_USERNAME}
+      OPTA_PASSWORD: ${OPTA_PASSWORD}
+      OPTA_SECRET: ${OPTA_SECRET}
+      OPTA_ADMIN_USERNAME: ${OPTA_ADMIN_USERNAME}
+      OPTA_ADMIN_PASSWORD: ${OPTA_ADMIN_PASSWORD}
+      OPTA_TELEGRAM_BOT: ${OPTA_TELEGRAM_BOT}
+      OPTA_TELEGRAM_CHAT: ${OPTA_TELEGRAM_CHAT}
+      OPTA_COMMANDS: ${OPTA_COMMANDS:-true}
+    ports:
+      - 1880:1880
+      - 502:502 # modbus
+    networks:
+      - optanet
+    volumes:
+      - nodered_data:/data
+    depends_on:
+      - mosquitto
+      - influxdb
+    logging: *logging
+
+networks:
+  optanet:
+
+volumes:
+  mosquitto_config:
+  mosquitto_data:
+  mosquitto_log:
+  influxdb_etc:
+  influxdb_lib:
+  nodered_data:
