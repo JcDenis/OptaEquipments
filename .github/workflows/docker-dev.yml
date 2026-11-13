@@ -1,0 +1,58 @@
+name: Docker development image
+
+# Builds and publishes the development image to GitHub Container Registry,
+# every night when master received commits during the last 24 hours, or on demand.
+on:
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 50
+
+      - name: Read version and look for recent commits
+        id: meta
+        run: |
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "owner=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
+          commits=$(git log --since="24 hours ago" --oneline | wc -l)
+          echo "Commits during the last 24 hours: $commits"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$commits" -gt 0 ]; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: docker/setup-qemu-action@v3
+        if: steps.meta.outputs.build == 'true'
+      - uses: docker/setup-buildx-action@v3
+        if: steps.meta.outputs.build == 'true'
+
+      - uses: docker/login-action@v3
+        if: steps.meta.outputs.build == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Development image
+        if: steps.meta.outputs.build == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/nodered-dev/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ steps.meta.outputs.owner }}/optaequipments-dev:${{ steps.meta.outputs.version }}
+            ghcr.io/${{ steps.meta.outputs.owner }}/optaequipments-dev:latest

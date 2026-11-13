@@ -1,14 +1,14 @@
 name: Docker images
 
-# Builds and publishes the application, development and MQTT images to GitHub Container Registry,
+# Builds and publishes the application and MQTT images to GitHub Container Registry,
 # tagged with the version of package.json and "latest".
 on:
   push:
     branches: [master]
     paths:
       - package.json
-      - docker/**
-      - .github/workflows/docker.yml
+      - docker/nodered/**
+      - docker/mosquitto/**
   workflow_dispatch:
 
 permissions:
@@ -57,14 +57,3 @@ jobs:
           tags: |
             ghcr.io/${{ steps.meta.outputs.owner }}/optaequipments-mqtt:${{ steps.meta.outputs.version }}
             ghcr.io/${{ steps.meta.outputs.owner }}/optaequipments-mqtt:latest
-
-      - name: Development image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: docker/nodered-dev/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            ghcr.io/${{ steps.meta.outputs.owner }}/optaequipments-dev:${{ steps.meta.outputs.version }}
-            ghcr.io/${{ steps.meta.outputs.owner }}/optaequipments-dev:latest
