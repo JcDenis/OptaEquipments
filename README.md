@@ -98,7 +98,7 @@ docker compose -f docker-compose.prod.yaml up -d
 | `ghcr.io/jcdenis/optaequipments-mqtt` | Eclipse Mosquitto with its configuration, the MQTT user is created from `OPTA_USERNAME` / `OPTA_PASSWORD` |
 | `ghcr.io/jcdenis/optaequipments-dev` | Node-RED in project mode, used by `docker-compose.dev.yaml` |
 
-The application and MQTT images are built by the `Docker images` GitHub workflow when the version of `package.json` or their `docker/` folder changes on `master`. The development image is built by the `Docker development image` workflow, every night when `master` received commits during the last 24 hours, or on demand from the Actions tab. They are, and tagged with this version and `latest`. InfluxDB uses its official image. The volumes are the same as with the default compose file.
+The application and MQTT images are built by the `Docker images` GitHub workflow when the version of `package.json` or their `docker/` folder changes on `master`. The development image is built by the `Docker development image` workflow, every night when `master` received commits during the last 24 hours, or on demand from the Actions tab. All are tagged with this version and `latest`. InfluxDB uses its official image. The volumes are the same as with the default compose file.
 
 `docker-compose.dev.yaml` is the development counterpart: it does the same as the default `docker-compose.yaml` (project cloned and packages installed at each start, flows editable from the Node-RED editor), with the start scripts moved into the images. Set `OPTA_BRANCH` to clone another branch than `master`.
 
