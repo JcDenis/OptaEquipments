@@ -1972,7 +1972,7 @@
         if (typeof msg.limit_family === 'undefined' || msg.limit_family === counter_family) {
             let csplit = String(counters[counter]).split('|');
             msg.options.push({
-                'label': csplit.slice(1).join('|') + ' - ' + csplit[0] + ' h (' + counter + ')',
+                'label': csplit.slice(1).join('|') + ' - ' + (parseFloat(csplit[0]) || 0) + (/d$/.test(csplit[0]) ? (msg.hmi?.lang === 'fr' ? ' j' : ' d') : ' h') + ' (' + counter + ')',
                 'value': counter,
                 'dropdown': 'counter'
             });

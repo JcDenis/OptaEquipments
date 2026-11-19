@@ -132,10 +132,12 @@
     - ac6469339128acd9
     - 6fa7284670443dd9
     - 8e9269dd3c4b5b8f
+    - 97e3dcb2d4bb92c9
+    - 222aa7e58026c4c7
   x: 104
   'y': 519
   w: 1462
-  h: 502
+  h: 561
 - id: dcb47b97829a1b78
   type: group
   z: f6f2187d.f17ca8
@@ -3048,6 +3050,9 @@
     // kernel.meter["equipment|counter"] = "hours|last runmetertotal|last update
     timestamp"
 
+    // Calendar counters: kernel.meter["equipment|counter"] = "0|0|last reset
+    timestamp", see calendar function
+
 
     if (msg.kernel?.type !== 'state' || msg.kernel?.component !==
     'runmetertotal') {
@@ -3077,6 +3082,12 @@
 
     for (const counter in kernel.counters) {
         if (kernel.counters[counter] !== family) {
+
+            continue;
+        }
+
+        // Calendar counters (limit in days, as "180d|text") do not depend on run meter
+        if (/d$/.test(String(kernel.counter?.[counter] ?? '').split('|')[0])) {
 
             continue;
         }
@@ -3135,6 +3146,72 @@
   'y': 680
   wires:
     - - d3c22873709318bb
+- id: 97e3dcb2d4bb92c9
+  type: function
+  z: f6f2187d.f17ca8
+  name: calendar
+  func: |-
+    // Calendar counters: limit in days since the last reset
+    // kernel.counter["counter"] = "180d|text"
+    // kernel.meter["equipment|counter"] = "0|0|last reset timestamp"
+    // Create missing meters for equipments of the counter family, starting now
+
+    const kernel = global.get('kernel') || { };
+    const now = Date.now();
+
+    for (const counter in (kernel.counters || { })) {
+        if (!/d$/.test(String(kernel.counter?.[counter] ?? '').split('|')[0])) {
+
+            continue;
+        }
+
+        for (const equipment in (kernel.families || { })) {
+            const entity = equipment + '|' + counter;
+            if (kernel.families[equipment] !== kernel.counters[counter] || typeof kernel.meter?.[entity] !== 'undefined') {
+
+                continue;
+            }
+
+            node.send({
+                'topic': '',
+                'payload': '',
+                'kernel': {
+                    'type': 'meter',
+                    'entity': entity,
+                    'value': '0|0|' + now,
+                    'loop': false
+                }
+            });
+        }
+    }
+
+    return;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 1040
+  wires:
+    - - d3c22873709318bb
+  g: 216f821485a9eb19
+- id: 222aa7e58026c4c7
+  type: inject
+  z: f6f2187d.f17ca8
+  name: 30 s
+  props: []
+  repeat: '30'
+  crontab: ''
+  once: true
+  onceDelay: '20'
+  topic: ''
+  x: 450
+  'y': 1040
+  wires:
+    - - 97e3dcb2d4bb92c9
+  g: 216f821485a9eb19
 - id: 694d0770f102a4d3
   type: function
   z: f6f2187d.f17ca8
@@ -6142,6 +6219,7 @@
                     'ident_fail': 'Invalid identifier',
                     'counter_exists': 'Counter exists',
                     'hours_fail': 'Invalid number of hours',
+                    'days_fail': 'Invalid number of days',
                     'text_fail': 'Invalid text'
                 },
                 'option_name': {
@@ -6299,6 +6377,7 @@
                     'ident_fail': 'Identifiant invalide',
                     'counter_exists': 'Ce compteur existe déjà',
                     'hours_fail': "Nombre d'heures invalide",
+                    'days_fail': 'Nombre de jours invalide',
                     'text_fail': 'Texte invalide'
                 },
                 'option_name': {

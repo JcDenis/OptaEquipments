@@ -114,7 +114,7 @@
       type: text
       width: ''
       align: center
-    - title: Heures
+    - title: Avancement
       key: hours_full
       keyType: key
       type: text
@@ -198,7 +198,7 @@
       type: text
       width: ''
       align: center
-    - title: Hours
+    - title: Progress
       key: hours_full
       keyType: key
       type: text
@@ -266,9 +266,14 @@
             row.equipment_name = global.get('kernel.equipment["' + row.equipment + '"]') || '';
             row.family_name = global.get('kernel.family["' + row.family + '"]') || '';
             row.counter_name = csplit.slice(1).join('|');
-            row.limit = Number(csplit[0]) || 0;
-            row.hours = Math.round((Number(String(meters[meter]).split('|')[0]) || 0) * 10) / 10;
-            row.hours_full = row.hours + ' / ' + row.limit;
+            // Hours counter (from run meter) or calendar counter (days since last reset)
+            const calendar = /d$/.test(csplit[0]);
+            const unit = calendar ? (msg.hmi.lang === 'fr' ? ' j' : ' d') : ' h';
+            row.limit = parseFloat(csplit[0]) || 0;
+            row.hours = calendar
+                ? Math.max(0, Math.floor((Date.now() - (Number(String(meters[meter]).split('|')[2]) || Date.now())) / 86400000))
+                : Math.round((Number(String(meters[meter]).split('|')[0]) || 0) * 10) / 10;
+            row.hours_full = row.hours + ' / ' + row.limit + unit;
             row.percent = row.limit > 0 ? Math.round(row.hours * 100 / row.limit) : 0;
             row.percent_full = row.percent.toString() + '%';
             row.diff_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);

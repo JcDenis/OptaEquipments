@@ -699,6 +699,9 @@
     - 410c0e009272a75e
     - 860d6fe611db8e6f
     - 14b8a395c965f90d
+    - 1eedb1bdb16d3c4a
+    - d61ff24be9e93bd0
+    - d8c7dd0f4dd26ef9
   x: 94
   'y': 4699
   w: 862
@@ -7312,6 +7315,7 @@
       - 34ffd115d9155b9c
       - 751359d8967d65cb
       - 14b8a395c965f90d
+      - d61ff24be9e93bd0
 - id: 14b8a395c965f90d
   type: change
   z: 64ce08af468b8197
@@ -7613,20 +7617,127 @@
   'y': 4920
   wires:
     - - 0a769c25d88bec18
+    - - 1eedb1bdb16d3c4a
+- id: 1eedb1bdb16d3c4a
+  type: function
+  z: 64ce08af468b8197
+  name: label
+  func: |-
+    // Counter unit: hours of operation or days since the last reset
+    msg.options = [
+        {
+            'label': '',
+            'value': ''
+        },
+        {
+            'label': msg.dictionary.tree.counter_unit_hours || 'Hours of operation',
+            'value': 'h'
+        },
+        {
+            'label': msg.dictionary.tree.counter_unit_days || 'Days (calendar)',
+            'value': 'd'
+        }
+    ];
+
+    msg.ui_update = {
+        'label': msg.dictionary.tree.counter_unit || 'Counter type'
+    };
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 330
+  'y': 4950
+  wires:
+    - - d61ff24be9e93bd0
+  g: bb18e6a5e2a71ba1
+- id: d61ff24be9e93bd0
+  type: ui-dropdown
+  z: 64ce08af468b8197
+  g: bb18e6a5e2a71ba1
+  group: c233cfc836154e44
+  name: tree - counter - add - unit
+  label: ''
+  tooltip: ''
+  order: 4
+  width: 0
+  height: 0
+  passthru: false
+  multiple: false
+  chips: false
+  clearable: false
+  options: []
+  payload: ''
+  topic: topic
+  topicType: msg
+  className: ''
+  typeIsComboBox: true
+  msgTrigger: onChange
+  x: 560
+  'y': 4950
+  wires:
+    - - d8c7dd0f4dd26ef9
+- id: d8c7dd0f4dd26ef9
+  type: function
+  z: 64ce08af468b8197
+  name: data
+  func: |-
+    if (msg.payload === '' || msg.payload === null) {
+
+        return;
+    }
+
+    const unit = msg.payload === 'd' ? 'd' : 'h';
+
+    // Get user from UI element
+    msg = await node.linkcall('kernel - hmi', msg);
+
+    global.set('form["' + msg.hmi.id + '"]["unit"]', unit);
+
+    // Disabled unit form
+    msg.payload = unit;
+    msg.class = '';
+    msg.enabled = false;
+    node.send([msg, null]);
+
+    // Go to next form
+    msg.payload = '';
+    msg.class = '';
+    msg.enabled = true;
+    node.send([null, msg]);
+
+    return;
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 790
+  'y': 4950
+  wires:
+    - - 1eedb1bdb16d3c4a
     - - 950e3e490b8eec8e
+  g: bb18e6a5e2a71ba1
 - id: 950e3e490b8eec8e
   type: function
   z: 64ce08af468b8197
   g: bb18e6a5e2a71ba1
   name: label
   func: |-
+    const calendar = global.get('form["' + msg.hmi?.id + '"]["unit"]') === 'd';
+
     msg.ui_update = {
-        'label': msg.dictionary.tree.counter_hours || 'Number of hours'
+        'label': calendar ? (msg.dictionary.tree.counter_days || 'Number of days') : (msg.dictionary.tree.counter_hours || 'Number of hours')
     };
 
     // Number input requires a number
     if (!Number.isFinite(msg.payload)) {
-        msg.payload = 100;
+        msg.payload = calendar ? 30 : 100;
     }
 
     return msg;
@@ -7647,14 +7758,14 @@
   group: c233cfc836154e44
   name: tree - counter - add - hours
   label: ''
-  order: 4
+  order: 5
   width: 0
   height: 0
   topic: topic
   topicType: msg
-  min: '100'
+  min: '1'
   max: '10000'
-  step: '100'
+  step: '1'
   tooltip: ''
   delay: 300
   passthru: false
@@ -7676,19 +7787,35 @@
   z: 64ce08af468b8197
   g: bb18e6a5e2a71ba1
   name: data
-  func: |-
+  func: >-
     if (msg.payload === '' || msg.payload === null) {
 
         return;
     }
 
+
     const hours = Number(msg.payload);
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
 
+
     // Check value
-    if (!Number.isFinite(hours) || hours < 100 || hours > 10000) {
+
+    const calendar = global.get('form["' + msg.hmi.id + '"]["unit"]') === 'd';
+
+    if (calendar && (!Number.isInteger(hours) || hours < 1 || hours > 3650)) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.days_fail || 'Invalid number of days';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    if (!calendar && (!Number.isFinite(hours) || hours < 100 || hours > 10000))
+    {
         // UI notice
         msg.notice = msg.dictionary.option_notice.hours_fail || 'Invalid number of hours';
         msg = await node.linkcall('ui - notice', msg);
@@ -7696,19 +7823,31 @@
         return;
     }
 
+
     global.set('form["' + msg.hmi.id + '"]["hours"]', hours);
 
+
     // Disabled counter form
+
     msg.payload = hours;
+
     msg.class = '';
+
     msg.enabled = false;
+
     node.send([msg, null]);
 
+
     // Go to next form
+
     msg.payload = '';
+
     msg.class = '';
+
     msg.enabled = true;
+
     node.send([null, msg]);
+
 
     return;
   outputs: 2
@@ -7750,7 +7889,7 @@
   group: c233cfc836154e44
   name: tree - counter - add - text
   label: ''
-  order: 5
+  order: 6
   width: 0
   height: 0
   topic: topic
@@ -7851,7 +7990,7 @@
   group: c233cfc836154e44
   name: tree - counter - add - save
   label: ''
-  order: 6
+  order: 7
   width: 0
   height: 0
   emulateClick: false
@@ -7898,14 +8037,14 @@
     if (['admin', 'rt'].includes(msg.hmi.level)) {
         let form = global.get('form["' + msg.hmi.id + '"]') || {};
 
-        // counter (hours|text)
+        // counter (hours|text, or daysd|text for a calendar counter)
         let counterMsg = {
             'topic': '',
             'payload': '',
             'kernel': {
                 'type': 'counter',
                 'entity': form.id,
-                'value': form.hours + '|' + form.text,
+                'value': form.hours + (form.unit === 'd' ? 'd' : '') + '|' + form.text,
                 'loop': false
             }
         };
@@ -7923,6 +8062,26 @@
             }
         };
         node.send([null, countersMsg]);
+
+        // meters of a calendar counter start at its creation
+        if (form.unit === 'd') {
+            const families = global.get('kernel.families') || { };
+            const now = Date.now();
+            for (const equipment in families) {
+                if (families[equipment] === form.family) {
+                    node.send([null, {
+                        'topic': '',
+                        'payload': '',
+                        'kernel': {
+                            'type': 'meter',
+                            'entity': equipment + '|' + form.id,
+                            'value': '0|0|' + now,
+                            'loop': false
+                        }
+                    }]);
+                }
+            }
+        }
 
         // UI notice
         msg.notice = msg.dictionary.option_notice.update_success || 'Successfully updated';
@@ -7982,7 +8141,7 @@
   name: tree - counter - delete - counter
   label: ''
   tooltip: ''
-  order: 7
+  order: 8
   width: 0
   height: 0
   passthru: false
@@ -8070,7 +8229,7 @@
   group: c233cfc836154e44
   name: tree - counter - delete - save
   label: ''
-  order: 8
+  order: 9
   width: 0
   height: 0
   emulateClick: false
@@ -8166,7 +8325,7 @@
   name: tree - counter - edit - counter
   label: ''
   tooltip: ''
-  order: 9
+  order: 10
   width: 0
   height: 0
   passthru: false
@@ -8207,6 +8366,15 @@
     global.set('form["' + msg.hmi.id + '"]["id"]', id);
 
 
+    // Unit of a counter (hours or days) can not be changed
+
+    const limit = String(global.get('kernel.counter["' + id + '"]') ||
+    '').split('|')[0];
+
+    global.set('form["' + msg.hmi.id + '"]["unit"]', /d$/.test(limit) ? 'd' :
+    'h');
+
+
     // Disabled counter form
 
     msg.payload = id;
@@ -8220,8 +8388,7 @@
 
     // Go to next form
 
-    msg.payload = Number(String(global.get('kernel.counter["' + id + '"]') ||
-    '').split('|')[0]) || '';
+    msg.payload = parseFloat(limit) || '';
 
     msg.class = '';
 
@@ -8248,13 +8415,15 @@
   g: bb18e6a5e2a71ba1
   name: label
   func: |-
+    const calendar = global.get('form["' + msg.hmi?.id + '"]["unit"]') === 'd';
+
     msg.ui_update = {
-        'label': msg.dictionary.tree.counter_hours || 'Number of hours'
+        'label': calendar ? (msg.dictionary.tree.counter_days || 'Number of days') : (msg.dictionary.tree.counter_hours || 'Number of hours')
     };
 
     // Number input requires a number
     if (!Number.isFinite(msg.payload)) {
-        msg.payload = 100;
+        msg.payload = calendar ? 30 : 100;
     }
 
     return msg;
@@ -8275,14 +8444,14 @@
   group: c233cfc836154e44
   name: tree - counter - edit - hours
   label: ''
-  order: 10
+  order: 11
   width: 0
   height: 0
   topic: topic
   topicType: msg
-  min: '100'
+  min: '1'
   max: '10000'
-  step: '100'
+  step: '1'
   tooltip: ''
   delay: 300
   passthru: false
@@ -8321,7 +8490,18 @@
 
     // Check value
 
-    if (!Number.isFinite(hours) || hours < 100 || hours > 10000) {
+    const calendar = global.get('form["' + msg.hmi.id + '"]["unit"]') === 'd';
+
+    if (calendar && (!Number.isInteger(hours) || hours < 1 || hours > 3650)) {
+        // UI notice
+        msg.notice = msg.dictionary.option_notice.days_fail || 'Invalid number of days';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+    if (!calendar && (!Number.isFinite(hours) || hours < 100 || hours > 10000))
+    {
         // UI notice
         msg.notice = msg.dictionary.option_notice.hours_fail || 'Invalid number of hours';
         msg = await node.linkcall('ui - notice', msg);
@@ -8397,7 +8577,7 @@
   group: c233cfc836154e44
   name: tree - counter - edit - text
   label: ''
-  order: 11
+  order: 12
   width: 0
   height: 0
   topic: topic
@@ -8507,7 +8687,7 @@
   name: tree - counter - edit - family
   label: ''
   tooltip: ''
-  order: 12
+  order: 13
   width: 0
   height: 0
   passthru: false
@@ -8595,7 +8775,7 @@
   group: c233cfc836154e44
   name: tree - counter - edit - save
   label: ''
-  order: 13
+  order: 14
   width: 0
   height: 0
   emulateClick: false
@@ -8642,14 +8822,14 @@
     if (['admin', 'rt'].includes(msg.hmi.level)) {
         let form = global.get('form["' + msg.hmi.id + '"]') || {};
 
-        // counter (hours|text)
+        // counter (hours|text, or daysd|text for a calendar counter)
         let counterMsg = {
             'topic': '',
             'payload': '',
             'kernel': {
                 'type': 'counter',
                 'entity': form.id,
-                'value': form.hours + '|' + form.text,
+                'value': form.hours + (form.unit === 'd' ? 'd' : '') + '|' + form.text,
                 'loop': false
             }
         };
@@ -14814,6 +14994,10 @@
             'family_name':'Nom de la famille',
             'counter_ident':'Identifiant du compteur',
             'counter_hours':"Nombre d'heures",
+            'counter_days':'Nombre de jours',
+            'counter_unit':'Type de compteur',
+            'counter_unit_hours':'Heures de fonctionnement',
+            'counter_unit_days':'Jours (calendaire)',
             'counter_text':'Texte de définition',
             'device_ident':'Identifiant du matériel',
             'start_time':'Heure de début',

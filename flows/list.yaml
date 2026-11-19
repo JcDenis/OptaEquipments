@@ -2130,9 +2130,16 @@
             row.family_full = row.family_name + ' (' + row.family + ')';
             row.counter_name = csplit.slice(1).join('|');
             row.counter_full = row.counter_name + ' (' + row.counter + ')';
-            row.state = Math.round((Number(String(meters[entity]).split('|')[0]) || 0) * 10) / 10;
-            row.state_limit = Number(csplit[0]) || 0;
-            row.percent = row.state_limit > 0 ? Math.round(row.state * 100 / row.state_limit) : 0;
+            // Hours counter (from run meter) or calendar counter (days since last reset)
+            const calendar = /d$/.test(csplit[0]);
+            const unit = calendar ? (msg.hmi.lang === 'fr' ? ' j' : ' d') : ' h';
+            const limit = parseFloat(csplit[0]) || 0;
+            const current = calendar
+                ? Math.max(0, Math.floor((Date.now() - (Number(String(meters[entity]).split('|')[2]) || Date.now())) / 86400000))
+                : Math.round((Number(String(meters[entity]).split('|')[0]) || 0) * 10) / 10;
+            row.state = current + unit;
+            row.state_limit = limit + unit;
+            row.percent = limit > 0 ? Math.round(current * 100 / limit) : 0;
             row.percent_full = row.percent.toString() + '%';
             row.state_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);
             row.reset = (msg.dictionary.option_action.reset) || 'Reset';

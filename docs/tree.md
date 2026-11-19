@@ -36,7 +36,7 @@ After choosing the file, select which column holds each piece of data (identifie
 
 ## Counters
 
-A [maintenance counter](counters.md) belongs to a family and has an identifier, a number of hours (100 to 10 000) and a text describing the operation.
+A [maintenance counter](counters.md) belongs to a family and has an identifier, a type, a limit and a text describing the operation. The type is either *Hours of operation* (limit of 100 to 10 000 hours) or *Days (calendar)* (limit of 1 to 3 650 days). The type cannot be changed afterwards.
 
 ## Devices
 
