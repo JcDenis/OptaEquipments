@@ -621,7 +621,40 @@
 
     const states = global.get('kernel.state') || { }; // read
 
-    const alerts = global.get('kernel.alert') || { }; // read
+    const meters = global.get('kernel.meter') || { }; // read
+
+    const counters = global.get('kernel.counters') || { }; // read
+
+    const definitions = global.get('kernel.counter') || { }; // read
+
+    const families = global.get('kernel.families') || { }; // read
+
+
+    // Worst counter usage (in percent) by equipment, hidden counters are
+    ignored
+
+    let worst = { };
+
+    for (const entity in meters) {
+        const esplit = entity.split('|');
+        const msplit = String(meters[entity]).split('|');
+        const family = families[esplit[0]] || '';
+
+        if (family === '' || counters[esplit[1]] !== family || typeof definitions[esplit[1]] !== 'string' || msplit[3] === 'off') {
+
+            continue;
+        }
+
+        const csplit = definitions[esplit[1]].split('|');
+        const limit = parseFloat(csplit[0]) || 0;
+        // Hours counter (from run meter) or calendar counter (days since last reset)
+        const current = /d$/.test(csplit[0])
+            ? Math.max(0, Math.floor((Date.now() - (Number(msplit[2]) || Date.now())) / 86400000))
+            : Math.round((Number(msplit[0]) || 0) * 10) / 10;
+        const percent = limit > 0 ? Math.round(current * 100 / limit) : 0;
+
+        worst[esplit[0]] = Math.max(worst[esplit[0]] === undefined ? 0 : worst[esplit[0]], percent);
+    }
 
 
     let c = 0;
@@ -634,10 +667,10 @@
             continue;
         }
 
-        let meter = typeof states[e + '|runmeter'] === 'number' ? states[e + '|runmeter'] : 0;
-
-        let alert = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] < meter ? msg.dictionary.option_color.on : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;
-        let alert_icon = typeof alerts[e + '|runmeter'] === 'number' ? (alerts[e + '|runmeter'] > meter ? 'wrench-check' : 'wrench-clock') : 'wrench';
+        // Counters: green under 75%, orange from 75%, red from 100%, hidden without counter
+        let alert = typeof worst[e] === 'number' ? (worst[e] < 75 ? msg.dictionary.option_color.on : (worst[e] < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off)) : msg.dictionary.option_color.hidden;
+        let alert_icon = typeof worst[e] === 'number' ? (worst[e] < 75 ? 'wrench-check' : (worst[e] < 100 ? 'wrench-clock' : 'wrench')) : 'wrench';
+        let alert_title = typeof worst[e] === 'number' ? worst[e] + '%' : '';
 
         let heat = typeof states[e + '|heat'] === 'number' ? (states[e + '|heat'] ? msg.dictionary.option_color.on : msg.dictionary.option_color.empty) : msg.dictionary.option_color.hidden;
         let heat_icon = typeof states[e + '|heat'] === 'number' ? ( states[e + '|heat'] ? 'radiator' : 'radiator-off') : 'heat-wave';
@@ -646,7 +679,7 @@
             'line': msg.line,
             'equipment': e,
             'name': global.get('kernel.equipment["' + e + '"]') || e,
-            'alert': '<i class="icon-in-row mdi mdi-' + alert_icon + '" style="font-size: 2.2em; color: ' + alert + '" title="alert"></i>',
+            'alert': '<i class="icon-in-row mdi mdi-' + alert_icon + '" style="font-size: 2.2em; color: ' + alert + '" title="' + alert_title + '"></i>',
             'heat': '<i class="icon-in-row mdi mdi-' + heat_icon + '" style="font-size: 2.2em; color: '+ heat + '" title="heat"></i>'
         };
     }
