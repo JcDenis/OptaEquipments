@@ -241,6 +241,9 @@
         'ready': '',
         'cycle': ''
     };
+    msg.counters = {
+        'show': false
+    };
     msg.payload = { };
 
     // Reset UI
@@ -345,6 +348,46 @@
         }
     }
 
+    // Plant counters summary, hidden counters are ignored
+    const meters = global.get('kernel.meter') || { }; // Read
+    const counters = global.get('kernel.counters') || { }; // Read
+    const definitions = global.get('kernel.counter') || { }; // Read
+    const families = global.get('kernel.families') || { }; // Read
+    let counters_total = 0;
+    let counters_over = 0;
+
+    for (const entity in meters) {
+        const esplit = entity.split('|');
+        const msplit = String(meters[entity]).split('|');
+        const family = families[esplit[0]] || '';
+
+        if (lines[equipments[esplit[0]]] !== msg.plant || family === '' || counters[esplit[1]] !== family || typeof definitions[esplit[1]] !== 'string' || msplit[3] === 'off') {
+
+            continue;
+        }
+
+        const csplit = definitions[esplit[1]].split('|');
+        const limit = parseFloat(csplit[0]) || 0;
+        // Hours counter (from run meter) or calendar counter (days since last reset)
+        const current = /d$/.test(csplit[0])
+            ? Math.max(0, Math.floor((Date.now() - (Number(msplit[2]) || Date.now())) / 86400000))
+            : Math.round((Number(msplit[0]) || 0) * 10) / 10;
+
+        counters_total++;
+        if (limit > 0 && Math.round(current * 100 / limit) >= 75) {
+            counters_over++;
+        }
+    }
+
+    msg.counters = {
+        'show': true,
+        'total': counters_total,
+        'over': counters_over,
+        'color': counters_over > 0 ? msg.dictionary.option_color.median : msg.dictionary.option_color.on,
+        'total_label': msg.dictionary.map.counters_total || 'Counters',
+        'over_label': msg.dictionary.map.counters_over || 'Counters over 75%'
+    };
+
     msg.help = {
         'color': [msg.dictionary.option_color.on + 'BB', msg.dictionary.option_color.off + 'BB', msg.dictionary.option_color.median + 'BB'],
         'on': msg.dictionary.map.help_on || 'Line is heating',
@@ -384,6 +427,10 @@
         <Teleport v-if="mounted" to="#nrdb-page-ded8ef092f5c6531">
             <div id="oe-map-group">
                 <!-- <div class="oe-map-wait"><p>Waiting...</p></div> -->
+                <table v-if="counters.show" class="oe-map-counters">
+                    <tr><th>{{ counters.total_label }}</th><th>{{ counters.over_label }}</th></tr>
+                    <tr><td>{{ counters.total }}</td><td><span class="oe-map-counters-state" :style="{ background: counters.color }"></span> {{ counters.over }}</td></tr>
+                </table>
                 <svg viewBox="0 0 720 400" width="100%" height="100%">
                     <image x="0" y="0" width="100%" height="100%">
                 </svg>
@@ -405,6 +452,9 @@
             data() {
                 return {
                     mounted: false,
+                    counters: {
+                        show: false
+                    },
                     help: {
                         on: '',
                         off: '',
@@ -421,6 +471,8 @@
             },
             watch: {
                 msg: function (msg) {
+
+                    this.counters = msg.enabled && typeof msg.counters === 'object' ? msg.counters : { show: false };
 
                     if (!msg.enabled || !Object.keys(msg.payload).length) {
                         return;
@@ -1377,7 +1429,9 @@
             'help_half': 'Certains équipements de la ligne ne sont pas en chauffe',
             'help_stop': "La ligne est à l'arrêt",
             'help_ready': 'La ligne est prête',
-            'help_cycle': 'La ligne est en cycle'
+            'help_cycle': 'La ligne est en cycle',
+            'counters_total': 'Compteurs',
+            'counters_over': 'Compteurs à plus de 75%'
         }
     };
 

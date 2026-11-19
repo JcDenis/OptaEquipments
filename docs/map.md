@@ -6,6 +6,10 @@ The **Map** page is the home page after signing in. It shows the plan of the pla
 
 Users without plant first select a plant. The plan is shown only if an image was uploaded for this plant and at least one line was placed on it (see [Tree → Plant maps and Line locations](tree.md#plant-maps-and-line-locations)).
 
+## Counters summary
+
+Above the map, a small table gives the number of maintenance counters of the plant and how many of them are at 75% or more of their limit (counters hidden on an equipment are not counted). See [Counters](counters.md).
+
 ## Reading the map
 
 Each line is drawn as a rectangle whose colour gives its heating state:
@@ -18,4 +22,4 @@ The rectangle also tells if the line is stopped, ready or in cycle. A legend und
 
 ## Line dialog
 
-Click a line to open its dialog. It lists the equipments of the line with their heating and maintenance icons, and gives the same commands as the [Programs](programs.md) page for this line: one button per team, and the Auto / Manual button.
+Click a line to open its dialog. It lists the equipments of the line with their heating and maintenance icons (the wrench is green while every counter of the equipment is under 75%, orange from 75% and red from 100%), and gives the same commands as the [Programs](programs.md) page for this line: one button per team, and the Auto / Manual button.
