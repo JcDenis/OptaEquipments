@@ -35,7 +35,8 @@ Pick a date and a resolution, then **Refresh**:
 
 - mean rate in cycles per minute, on the chosen resolution;
 - mean rate in cycles per minute, per hour of the day;
-- mean running state.
+- mean running state;
+- mean voltage in volts, on the chosen resolution (only for equipments with a voltage component).
 
 ### Counters
 

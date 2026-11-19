@@ -175,10 +175,21 @@
     - 01a3e5a29c8942ad
     - acb7047c142b68bc
     - a8dad7d80b9a62e0
+    - afba491050a573dc
+    - 59e2462f763f8e23
+    - 60c87aa2ce136bd7
+    - 1a848edcf0d2a03c
+    - cce5e4a57a1cae54
+    - d6d4122da583d1ef
+    - c5c7a0b0ff7cb883
+    - e93d78bd14be3fe9
+    - 5516f54c684508c2
+    - 74dcabe7281b1535
+    - 560239f529267142
   x: 104
   'y': 2959
   w: 2902
-  h: 442
+  h: 562
 - id: af7c52c4b0905961
   type: group
   z: 852390cb9559e176
@@ -1431,6 +1442,8 @@
       - 05e9830a69ebbf3f
       - f1452be045243e11
       - 99425c83955d35dc
+      - e93d78bd14be3fe9
+      - 5516f54c684508c2
 - id: 57c986150b85f319
   type: change
   z: 852390cb9559e176
@@ -4750,7 +4763,7 @@
         for (const entity in states) {
             let esplit = entity.split('|');
 
-            if (form[msg.hmi.id]['equipment'] === esplit[0] && esplit[1].match((new RegExp('^(run|cycle)$'))) !== null) {
+            if (form[msg.hmi.id]['equipment'] === esplit[0] && esplit[1].match((new RegExp('^(run|cycle|voltage)$'))) !== null) {
                 msg.show = ['ui - group - detail - chart'];
                 msg = await node.linkcall('ui - group', msg);
                 msg = await node.linkcall('ui - latency', msg);
@@ -5937,6 +5950,7 @@
       - 01a3e5a29c8942ad
       - acb7047c142b68bc
       - a8dad7d80b9a62e0
+      - afba491050a573dc
 - id: f2916db2b04f939b
   type: function
   z: 852390cb9559e176
@@ -6287,6 +6301,323 @@
   'y': 3240
   wires:
     - - 38d76fb8bec3c348
+- id: afba491050a573dc
+  type: function
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: data
+  func: >-
+    msg.ui_update = {
+        'label': ''
+    };
+
+
+    msg.form.component = 'voltage';
+
+
+    delete msg.delay;
+
+
+    // Voltage chart only for equipments with a voltage component
+
+    if (typeof global.get('kernel.state["' + msg.form.equipment + '|voltage"]')
+    !== 'number') {
+        msg.payload = [];
+        msg.class = 'remove';
+
+        return [ null, msg ];
+    }
+
+
+    return [ msg, null ];
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 990
+  'y': 3420
+  wires:
+    - - 59e2462f763f8e23
+    - - e93d78bd14be3fe9
+      - 5516f54c684508c2
+- id: 59e2462f763f8e23
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - ts
+  topic: ''
+  input: payload
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '0'
+  adjType: days
+  adjDir: add
+  format: X
+  locale: en-US
+  output: form.ts
+  outputType: msg
+  outTz: Europe/Paris
+  x: 1160
+  'y': 3420
+  wires:
+    - - 60c87aa2ce136bd7
+- id: 60c87aa2ce136bd7
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: dec
+  rules:
+    - t: set
+      p: dec
+      pt: msg
+      to: 'kernel.day[msg.form.plant]'
+      tot: global
+    - t: set
+      p: dec
+      pt: msg
+      to: '6'
+      tot: num
+    - t: set
+      p: form.ts
+      pt: msg
+      to: '$string($round($number(msg.form.ts)+($number(msg.dec)*3600),0))'
+      tot: jsonata
+    - t: delete
+      p: dec
+      pt: msg
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1330
+  'y': 3420
+  wires:
+    - - 1a848edcf0d2a03c
+- id: 1a848edcf0d2a03c
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - start
+  topic: ''
+  input: form.ts
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '0'
+  adjType: days
+  adjDir: add
+  format: 'YYYY-MM-DDTHH:00:00Z'
+  locale: en-US
+  output: start
+  outputType: msg
+  outTz: Europe/Paris
+  x: 1510
+  'y': 3420
+  wires:
+    - - cce5e4a57a1cae54
+- id: cce5e4a57a1cae54
+  type: moment
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: time - stop
+  topic: ''
+  input: form.ts
+  inputType: msg
+  inTz: Europe/Paris
+  adjAmount: '1'
+  adjType: days
+  adjDir: add
+  format: 'YYYY-MM-DDTHH:00:00Z'
+  locale: en-US
+  output: stop
+  outputType: msg
+  outTz: Europe/Paris
+  x: 1710
+  'y': 3420
+  wires:
+    - - d6d4122da583d1ef
+- id: d6d4122da583d1ef
+  type: change
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: query
+  rules:
+    - t: set
+      p: query
+      pt: msg
+      to: "'from(bucket: \"state\")' &\t'  |> range(start: ' & msg.start & ', stop:' & msg.stop & ')' &\t'  |> filter(fn: (r) => r._measurement == \"' & msg.form.equipment & '\" and r._field == \"' & msg.form.component  & '\")' &\t'  |> aggregateWindow(every: ' & msg.form.resolution & 'm, fn: mean, createEmpty: false)' &\t'  |> yield(name: \"_value\")'"
+      tot: jsonata
+    - t: set
+      p: topic
+      pt: msg
+      to: ''
+      tot: str
+    - t: set
+      p: class
+      pt: msg
+      to: ''
+      tot: str
+  action: ''
+  property: ''
+  from: ''
+  to: ''
+  reg: false
+  x: 1890
+  'y': 3420
+  wires:
+    - - c5c7a0b0ff7cb883
+- id: c5c7a0b0ff7cb883
+  type: influxdb in
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  influxdb: 71289f771ef25fc5
+  name: ''
+  query: ''
+  rawOutput: false
+  precision: ''
+  retentionPolicy: ''
+  org: optaequipments
+  x: 2090
+  'y': 3420
+  wires:
+    - - 560239f529267142
+- id: e93d78bd14be3fe9
+  type: ui-chart
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 0aceebfaad2a81f2
+  name: detail - chart - voltage date
+  label: ''
+  order: 12
+  chartType: line
+  category: ''
+  categoryType: none
+  xAxisLabel: ''
+  xAxisProperty: _time
+  xAxisPropertyType: property
+  xAxisType: time
+  xAxisFormat: ''
+  xAxisFormatType: '{HH}:{mm}'
+  xmin: ''
+  xmax: ''
+  yAxisLabel: ''
+  yAxisProperty: _value
+  yAxisPropertyType: property
+  ymin: '0'
+  ymax: ''
+  bins: 10
+  action: replace
+  stackSeries: false
+  pointShape: 'false'
+  pointRadius: 4
+  showLegend: false
+  removeOlder: 1
+  removeOlderUnit: '604800'
+  removeOlderPoints: '1442'
+  colors:
+    - '#073d87'
+    - '#ff0000'
+    - '#ff7f0e'
+    - '#2ca02c'
+    - '#a347e1'
+    - '#d62728'
+    - '#ff9896'
+    - '#9467bd'
+    - '#c5b0d5'
+  textColor:
+    - '#666666'
+  textColorDefault: true
+  gridColor:
+    - '#e5e5e5'
+  gridColorDefault: true
+  width: '12'
+  height: '4'
+  className: ''
+  interpolation: linear
+  x: 2680
+  'y': 3420
+  wires:
+    - []
+- id: 5516f54c684508c2
+  type: function
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: data
+  func: |-
+    if (msg.enabled) {
+        msg.payload = msg.dictionary.detail.chart_voltagedate || 'Mean voltage on selected resolution (in volts)';
+    }
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2630
+  'y': 3420
+  wires:
+    - - 74dcabe7281b1535
+- id: 74dcabe7281b1535
+  type: ui-text
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  group: 0aceebfaad2a81f2
+  order: 11
+  width: 0
+  height: 0
+  name: detail - chart - voltage date title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: false
+  className: ''
+  value: payload
+  valueType: msg
+  x: 2860
+  'y': 3420
+  wires: []
+- id: 560239f529267142
+  type: function
+  z: 852390cb9559e176
+  g: 1c87eaf6a557f02d
+  name: data
+  func: |-
+    // No data, hide chart
+    if (msg.payload.length === 0) {
+        msg.payload = [];
+        msg.class = 'remove';
+
+        return msg;
+    }
+
+    // Data, round to one decimal
+    for (let k = 0; k < msg.payload.length; k++) {
+        msg.payload[k]['_value'] = Math.round(msg.payload[k]['_value'] * 10) / 10;
+    }
+
+    // Get chart colors
+    msg = await node.linkcall('option - chart - color', msg);
+
+    return msg;
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  x: 2470
+  'y': 3420
+  wires:
+    - - e93d78bd14be3fe9
+      - 5516f54c684508c2
 - id: fbf68fd4fc218d29
   type: link in
   z: 852390cb9559e176
@@ -6363,7 +6694,8 @@
             'chart_refresh': 'Rafraichir',
             'chart_cycledate':' Cadence moyenne suivant résolution (en cycles par minute)',
             'chart_cyclehour': 'Cadence moyenne par heure (en cycles par minute)',
-            'chart_rundate': 'Etat de fonctionnement moyen suivant résolution'
+            'chart_rundate': 'Etat de fonctionnement moyen suivant résolution',
+            'chart_voltagedate': 'Tension moyenne suivant résolution (en volts)'
         }
     };
 
