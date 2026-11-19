@@ -189,6 +189,7 @@
     - c9b961ddc408d64b
     - 4ebdec161d1f6212
     - 624274f1aa6fcfb5
+    - b66d1102d310730f
   x: 104
   'y': 1999
   w: 752
@@ -1746,6 +1747,10 @@
         msg = await node.linkcall('kernel - delete', msg);
         
         return [ msg, null, null ];
+    } else if (msg.action === 'button_click' && msg.column === 'toggle') {
+        // already done, refresh list
+
+        return [ msg, null, null ];
     } else if (msg.action === 'button_click' && msg.column === 'reset') {
         msg = await node.linkcall('kernel - reset', msg);
 
@@ -2134,15 +2139,27 @@
             const calendar = /d$/.test(csplit[0]);
             const unit = calendar ? (msg.hmi.lang === 'fr' ? ' j' : ' d') : ' h';
             const limit = parseFloat(csplit[0]) || 0;
+            const msplit = String(meters[entity]).split('|');
+            // Counter hidden on this equipment is frozen at its hide date
+            const hidden = msplit[3] === 'off';
+            const until = hidden ? (Number(msplit[4]) || Date.now()) : Date.now();
             const current = calendar
-                ? Math.max(0, Math.floor((Date.now() - (Number(String(meters[entity]).split('|')[2]) || Date.now())) / 86400000))
-                : Math.round((Number(String(meters[entity]).split('|')[0]) || 0) * 10) / 10;
+                ? Math.max(0, Math.floor((until - (Number(msplit[2]) || until)) / 86400000))
+                : Math.round((Number(msplit[0]) || 0) * 10) / 10;
             row.state = current + unit;
             row.state_limit = limit + unit;
             row.percent = limit > 0 ? Math.round(current * 100 / limit) : 0;
             row.percent_full = row.percent.toString() + '%';
             row.state_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);
             row.reset = (msg.dictionary.option_action.reset) || 'Reset';
+            row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.hide || 'Hide') : '';
+            row.order = row.percent;
+            if (hidden) {
+                row.state_color = msg.dictionary.option_color.empty;
+                row.reset = '';
+                row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.show || 'Show') : '';
+                row.order = -1;
+            }
 
             msg.payload[i++] = row;
         }
@@ -2152,7 +2169,7 @@
         node.send([msg, null, null]);
 
         if (i > 0) {
-            msg.payload.sort((a, b) => a.percent < b.percent ? 1 : -1);
+            msg.payload.sort((a, b) => a.order < b.order ? 1 : -1);
 
             if (msg.hmi.lang === 'fr') {
 
@@ -2259,6 +2276,12 @@
       type: button
       width: ''
       align: start
+    - title: ''
+      key: toggle
+      keyType: key
+      type: button
+      width: ''
+      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -2272,11 +2295,14 @@
   z: e97c6f12735a13c1
   g: fa98f46bfd60fed6
   name: data
-  func: |-
+  func: >-
     // Do action
 
+
     // Get user from UI element
+
     msg = await node.linkcall('kernel - hmi', msg);
+
 
     if (msg.action === 'button_click' && msg.column === 'reset') {
         msg.kernel = {
@@ -2288,8 +2314,55 @@
         msg.list = 'counter';
     }
 
-    return msg;
-  outputs: 1
+
+    // Hide or show a counter on an equipment
+
+    // kernel.meter["equipment|counter"] = "hours|last|timestamp|off|hide
+    timestamp" when hidden
+
+    if (msg.action === 'button_click' && msg.column === 'toggle') {
+        const entity = msg.payload.entity;
+        const meter = global.get('kernel.meter["' + entity + '"]');
+
+        if (!['admin', 'rt'].includes(msg.hmi.level) || typeof meter !== 'string') {
+
+            return;
+        }
+
+        const m = meter.split('|');
+        const now = Date.now();
+        let value = '';
+
+        if (m[3] !== 'off') {
+            // hide: freeze counter
+            value = m[0] + '|' + m[1] + '|' + m[2] + '|off|' + now;
+        } else if (/d$/.test(String(global.get('kernel.counter["' + entity.split('|')[1] + '"]') || '').split('|')[0])) {
+            // show calendar counter: days hidden are not counted
+            value = '0|0|' + ((Number(m[2]) || now) + now - (Number(m[4]) || now));
+        } else {
+            // show hours counter: hours run while hidden are not counted
+            const total = Number(global.get('kernel.state["' + entity.split('|')[0] + '|runmetertotal"]'));
+            value = m[0] + '|' + (Number.isFinite(total) && total > 0 ? total : m[1]) + '|' + now;
+        }
+
+        node.send([null, {
+            'topic': '',
+            'payload': '',
+            'kernel': {
+                'type': 'meter',
+                'entity': entity,
+                'value': value,
+                'loop': false
+            }
+        }]);
+
+        msg.list = 'counter';
+        msg.success = true;
+    }
+
+
+    return [msg, null];
+  outputs: 2
   timeout: 0
   noerr: 0
   initialize: ''
@@ -2299,6 +2372,18 @@
   'y': 2100
   wires:
     - - a3c49917e391987c
+    - - b66d1102d310730f
+- id: b66d1102d310730f
+  type: link out
+  z: e97c6f12735a13c1
+  g: fa98f46bfd60fed6
+  name: list - counter - kernel
+  mode: link
+  links:
+    - e60e4ab7617738c3
+  x: 815
+  'y': 2140
+  wires: []
 - id: 4ebdec161d1f6212
   type: ui-table
   z: e97c6f12735a13c1
@@ -2366,6 +2451,12 @@
       align: start
     - title: ''
       key: reset
+      keyType: key
+      type: button
+      width: ''
+      align: start
+    - title: ''
+      key: toggle
       keyType: key
       type: button
       width: ''

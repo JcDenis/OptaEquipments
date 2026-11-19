@@ -678,6 +678,7 @@
     - 377212556c27659a
     - 7d204be423155f87
     - 4b71242de75478cd
+    - b66d1102d310730f
   x: 145
   'y': 800
   wires:
@@ -3097,6 +3098,12 @@
         let hours = Number(msplit[0]) || 0;
         const last = msplit.length > 1 ? Number(msplit[1]) : NaN;
         const ts = msplit.length > 2 ? Number(msplit[2]) : NaN;
+
+        // Counter hidden on this equipment ("hours|last|timestamp|off|hide timestamp") is frozen
+        if (msplit[3] === 'off') {
+
+            continue;
+        }
 
         // Nothing new
         if (total === last) {
@@ -6195,7 +6202,9 @@
                     'save': 'Save',
                     'import': 'Import',
                     'disconnect': 'Disconnect',
-                    'reset': 'Reset'
+                    'reset': 'Reset',
+                    'hide': 'Hide',
+                    'show': 'Show'
                 },
                 'option_notice': {
                     'login_fail': 'Wrong login or password',
@@ -6353,7 +6362,9 @@
                     'save': 'Enregistrer',
                     'import': 'Importer',
                     'disconnect': 'Déconnecter',
-                    'reset': 'RAZ'
+                    'reset': 'RAZ',
+                    'hide': 'Masquer',
+                    'show': 'Afficher'
                 },
                 'option_notice': {
                     'login_fail': 'Mauvais identifiant ou mot de passe',

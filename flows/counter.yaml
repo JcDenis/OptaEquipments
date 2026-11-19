@@ -257,6 +257,7 @@
             && row.family !== ''
             && counters[row.counter] === row.family
             && typeof definition === 'string'
+            && String(meters[meter]).split('|')[3] !== 'off'
         ) {
             let csplit = definition.split('|');
             let state = row.equipment + '|run';

@@ -3980,7 +3980,7 @@
             const definition = global.get('kernel.counter["' + counter + '"]');
             const meter = meters[msg.equipment + '|' + counter];
 
-            if (family !== '' && counters[counter] === family && typeof definition === 'string' && typeof meter === 'string') {
+            if (family !== '' && counters[counter] === family && typeof definition === 'string' && typeof meter === 'string' && meter.split('|')[3] !== 'off') {
                 let row = {};
                 let csplit = definition.split('|');
 

@@ -25,4 +25,6 @@ The list is sorted with the most worn counters first, and can be filtered with t
 - Click a row to open the [Detail](detail.md) page of the equipment (Technician and above).
 - The **Reset** button asks for a confirmation. It is available to Technician, Technician manager and Administrator levels.
 
+A counter can be hidden on one equipment of the family, from the [List](list.md#actions) page.
+
 An equipment appears here only if it belongs to a family having counters. For a counter in hours of operation, it also needs a *total hour meter* component.
