@@ -6,10 +6,6 @@ The **Map** page is the home page after signing in. It shows the plan of the pla
 
 Users without plant first select a plant. The plan is shown only if an image was uploaded for this plant and at least one line was placed on it (see [Tree → Plant maps and Line locations](tree.md#plant-maps-and-line-locations)).
 
-## Counters summary
-
-Above the map, a small table gives the number of maintenance counters of the plant and how many of them are at 75% or more of their limit (counters hidden on an equipment are not counted). See [Counters](counters.md).
-
 ## Reading the map
 
 Each line is drawn as a rectangle whose colour gives its heating state:
@@ -19,6 +15,10 @@ Each line is drawn as a rectangle whose colour gives its heating state:
 - orange: only some equipments of the line are heating.
 
 The rectangle also tells if the line is stopped, ready or in cycle. A legend under the map recalls these states.
+
+## Counters summary
+
+Under the map, a small table gives the number of maintenance counters of the plant, how many are in pre-alert (from 75% to less than 100% of their limit) and how many are in alert (100% and more). Counters hidden on an equipment are not counted. See [Counters](counters.md).
 
 ## Line dialog
 

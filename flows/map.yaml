@@ -354,7 +354,8 @@
     const definitions = global.get('kernel.counter') || { }; // Read
     const families = global.get('kernel.families') || { }; // Read
     let counters_total = 0;
-    let counters_over = 0;
+    let counters_warning = 0;
+    let counters_alert = 0;
 
     for (const entity in meters) {
         const esplit = entity.split('|');
@@ -374,18 +375,25 @@
             : Math.round((Number(msplit[0]) || 0) * 10) / 10;
 
         counters_total++;
-        if (limit > 0 && Math.round(current * 100 / limit) >= 75) {
-            counters_over++;
+        // Pre-alert from 75% to less than 100%, alert from 100%
+        const percent = limit > 0 ? Math.round(current * 100 / limit) : 0;
+        if (percent >= 100) {
+            counters_alert++;
+        } else if (percent >= 75) {
+            counters_warning++;
         }
     }
 
     msg.counters = {
         'show': true,
         'total': counters_total,
-        'over': counters_over,
-        'color': counters_over > 0 ? msg.dictionary.option_color.median : msg.dictionary.option_color.on,
+        'warning': counters_warning,
+        'alert': counters_alert,
+        'warning_color': counters_warning > 0 ? msg.dictionary.option_color.median : msg.dictionary.option_color.on,
+        'alert_color': counters_alert > 0 ? msg.dictionary.option_color.off : msg.dictionary.option_color.on,
         'total_label': msg.dictionary.map.counters_total || 'Counters',
-        'over_label': msg.dictionary.map.counters_over || 'Counters over 75%'
+        'warning_label': msg.dictionary.map.counters_warning || 'Pre-alert (75% to 100%)',
+        'alert_label': msg.dictionary.map.counters_alert || 'Alert (100% and more)'
     };
 
     msg.help = {
@@ -427,13 +435,17 @@
         <Teleport v-if="mounted" to="#nrdb-page-ded8ef092f5c6531">
             <div id="oe-map-group">
                 <!-- <div class="oe-map-wait"><p>Waiting...</p></div> -->
-                <table v-if="counters.show" class="oe-map-counters">
-                    <tr><th>{{ counters.total_label }}</th><th>{{ counters.over_label }}</th></tr>
-                    <tr><td>{{ counters.total }}</td><td><span class="oe-map-counters-state" :style="{ background: counters.color }"></span> {{ counters.over }}</td></tr>
-                </table>
                 <svg viewBox="0 0 720 400" width="100%" height="100%">
                     <image x="0" y="0" width="100%" height="100%">
                 </svg>
+                <table v-if="counters.show" class="oe-map-counters">
+                    <tr><th>{{ counters.total_label }}</th><th>{{ counters.warning_label }}</th><th>{{ counters.alert_label }}</th></tr>
+                    <tr>
+                        <td>{{ counters.total }}</td>
+                        <td><span class="oe-map-counters-state" :style="{ background: counters.warning_color }"></span> {{ counters.warning }}</td>
+                        <td><span class="oe-map-counters-state" :style="{ background: counters.alert_color }"></span> {{ counters.alert }}</td>
+                    </tr>
+                </table>
                 <ul class="oe-map-help">
                     <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help.color[0]"></rect></svg> {{ help.on }}</li>
                     <li><svg viewBox="0 0 24 24" width="1em" height="1em"><rect x="0" y="0" width="100%" height="100%" :fill="help.color[1]"></rect></svg> {{ help.off }}</li>
@@ -1431,7 +1443,8 @@
             'help_ready': 'La ligne est prête',
             'help_cycle': 'La ligne est en cycle',
             'counters_total': 'Compteurs',
-            'counters_over': 'Compteurs à plus de 75%'
+            'counters_warning': 'En pré-alerte (75% à 100%)',
+            'counters_alert': 'En alerte (100% et plus)'
         }
     };
 
