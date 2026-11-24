@@ -30,7 +30,7 @@ Upload an OptaLinker firmware and its version number to update the Arduino Opta 
 
 ## GMAO
 
-Address, API key and daily send hour of the link with the maintenance management software, connection test, manual send and state of the link. See [GMAO link](gmao.md).
+Address, API key and daily send hour of the link with the maintenance management software, acceptance of the counter resets asked by the GMAO, connection test, manual send and state of the link. See [GMAO link](gmao.md).
 
 ## Orphans
 

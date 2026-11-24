@@ -2482,7 +2482,8 @@
         'url': s.url || '',
         'key': '',
         'hour': String(s.hour ?? 6),
-        'enabled': s.enabled === true
+        'enabled': s.enabled === true,
+        'accept_resets': s.accept_resets !== false
     };
 
     form.ui_update = {
@@ -2544,11 +2545,17 @@
       type: checkbox
       required: false
       rows: null
+    - label: Accept counter resets from the GMAO
+      key: accept_resets
+      type: checkbox
+      required: false
+      rows: null
   formValue:
     url: ''
     key: ''
     hour: ''
     enabled: false
+    accept_resets: true
   payload: ''
   submit: ►
   cancel: ''
@@ -2613,6 +2620,9 @@
     s.hour = Math.min(23, Math.max(0, Number(msg.payload.hour) || 0));
 
     s.enabled = msg.payload.enabled === true;
+
+
+    s.accept_resets = msg.payload.accept_resets === true;
 
     global.set('gmao', s, 'file');
 
@@ -2757,6 +2767,10 @@
         msg = await node.linkcall('gmao - queue', msg);
         msg = await node.linkcall('gmao - flush', msg);
         msg.notice = msg.gmao_result;
+        msg = await node.linkcall('gmao - pull', msg);
+        if (msg.gmao_pull > 0) {
+            msg.notice += ' / ' + (fr ? 'remises à zéro appliquées : ' : 'resets applied: ') + msg.gmao_pull;
+        }
     } else {
 
         return;
