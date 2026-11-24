@@ -5162,6 +5162,34 @@
         "tab": ""
     },
     {
+        "id": "7482c5f6d428f102",
+        "type": "ui-group",
+        "name": "ui - group - system - gmao",
+        "page": "1ac335c1e0a24a11",
+        "width": 6,
+        "height": 1,
+        "order": 6,
+        "showTitle": false,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "676969c859c500ab",
+        "type": "ui-group",
+        "name": "ui - dialog - list - gmao",
+        "page": "297c38d08e523a55",
+        "width": "6",
+        "height": 1,
+        "order": 20,
+        "showTitle": false,
+        "className": "",
+        "visible": "false",
+        "disabled": "false",
+        "groupType": "dialog"
+    },
+    {
         "id": "e60e4ab7617738c3",
         "type": "link in",
         "z": "f6f2187d.f17ca8",
@@ -6774,8 +6802,8 @@
         "z": "f6f2187d.f17ca8",
         "g": "216f821485a9eb19",
         "name": "data",
-        "func": "// Compute loop message\n\ndelete msg.qos;\ndelete msg.retain;\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    let kernel = global.get('kernel'); // autoupdate\n\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        delete kernel[msg.kernel.type ][msg.kernel.entity];\n    } else if (typeof kernel[msg.kernel.type] === 'object') {\n        kernel[msg.kernel.type][msg.kernel.entity] = msg.kernel.value;\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            if (typeof kernel['link'][msg.kernel.entity] === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = kernel['link'][msg.kernel.entity].split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]')||'';\n\n                // Mirror components repeat input state to output\n                let mirror = msg.kernel.equipment + '|' + msg.kernel.component + 'mirror';\n                if (kernel['link'][mirror] === 'string') {\n                    let mirrorMsg = {\n                        'topic': '',\n                        'payload': '',\n                        'kernel': {\n                            'type': msg.kernel.type,\n                            'entity': mirror,\n                            'value': msg.kernel.value,\n                            'loop': false\n                        }\n                    };\n\n                    node.status({ \n                        'fill': 'blue',\n                        'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value\n                    });\n\n                    node.send([null, null, null, mirrorMsg]);\n                }\n            }\n        }\n\n        let newMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': msg.kernel\n        };\n\n        node.status({\n            'fill': msg.kernel.loop === false ? 'green' : 'yellow',\n            'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + (msg.kernel.component || 'watchdog') + ' = ' + msg.kernel.value\n        });\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null,\n            // mirror\n            null\n        ];\n    }\n}\n\nreturn;",
-        "outputs": 4,
+        "func": "// Compute loop message\n\ndelete msg.qos;\ndelete msg.retain;\n\n/* check kernel message */\nif (typeof msg.kernel === 'object'\n    && typeof msg.kernel.type === 'string'\n    && typeof msg.kernel.entity === 'string'\n    && typeof msg.kernel.value !== 'undefined'\n    && typeof msg.kernel.loop === 'boolean'\n) {\n    let kernel = global.get('kernel'); // autoupdate\n\n    // GMAO: a counter linked to the GMAO changes (local change only), see gmao flow\n    if (msg.kernel.type === 'meter' && msg.kernel.loop === false && msg.kernel.delete !== true\n        && typeof kernel.gmao === 'object' && kernel.gmao !== null && String(kernel.gmao[msg.kernel.entity] || '') !== '') {\n        node.send([null, null, null, null, {\n            'topic': '',\n            'payload': '',\n            'gmao': {\n                'entity': msg.kernel.entity,\n                'before': kernel.meter[msg.kernel.entity],\n                'after': msg.kernel.value,\n                'time': Date.now()\n            }\n        }]);\n    }\n\n    /* deletion requested */\n    if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {\n        delete kernel[msg.kernel.type ][msg.kernel.entity];\n    } else if (typeof kernel[msg.kernel.type] === 'object') {\n        kernel[msg.kernel.type][msg.kernel.entity] = msg.kernel.value;\n\n        delete msg.kernel.model;\n        if (msg.kernel.type === 'state') {\n            // For kernel state, retrieve component definition\n            if (typeof kernel['link'][msg.kernel.entity] === 'string') {\n                let csplit = msg.kernel.entity.split(\"|\");\n                msg.kernel.equipment = csplit[0];\n                msg.kernel.component = csplit[1];\n\n                let tsplit = kernel['link'][msg.kernel.entity].split(\"|\");\n                msg.kernel.model = tsplit[0];\n                msg.kernel.device = tsplit[1];\n                msg.kernel.terminal = tsplit[2];\n                msg.kernel.convert = global.get('describe.convert[\"' + msg.kernel.model + '\"][\"' + msg.kernel.component + '\"]')||'';\n\n                // Mirror components repeat input state to output\n                let mirror = msg.kernel.equipment + '|' + msg.kernel.component + 'mirror';\n                if (kernel['link'][mirror] === 'string') {\n                    let mirrorMsg = {\n                        'topic': '',\n                        'payload': '',\n                        'kernel': {\n                            'type': msg.kernel.type,\n                            'entity': mirror,\n                            'value': msg.kernel.value,\n                            'loop': false\n                        }\n                    };\n\n                    node.status({ \n                        'fill': 'blue',\n                        'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + msg.kernel.component + ' = ' + msg.kernel.value\n                    });\n\n                    node.send([null, null, null, mirrorMsg]);\n                }\n            }\n        }\n\n        let newMsg = {\n            'topic': '',\n            'payload': '',\n            'kernel': msg.kernel\n        };\n\n        node.status({\n            'fill': msg.kernel.loop === false ? 'green' : 'yellow',\n            'text': msg.kernel.type + ' - ' + msg.kernel.equipment + ' - ' + (msg.kernel.component || 'watchdog') + ' = ' + msg.kernel.value\n        });\n\n        return [\n            // to kernel MQTT loop\n            msg.kernel.loop === false ? newMsg : null,\n            // to device loop\n            typeof msg.kernel.model === 'string' && msg.kernel.loop === false ? newMsg : null,\n            // to db\n            typeof msg.kernel.model === 'string' ? newMsg : null,\n            // mirror\n            null\n        ];\n    }\n}\n\nreturn;",
+        "outputs": 5,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -6795,8 +6823,25 @@
             ],
             [
                 "d3c22873709318bb"
+            ],
+            [
+                "d54dd54bea75db53"
             ]
         ]
+    },
+    {
+        "id": "d54dd54bea75db53",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "g": "216f821485a9eb19",
+        "name": "kernel - gmao",
+        "mode": "link",
+        "links": [
+            "99b7816e72dbebb7"
+        ],
+        "x": 1275,
+        "y": 800,
+        "wires": []
     },
     {
         "id": "1fdf8a4e8af306b6",
@@ -6954,7 +6999,7 @@
         "z": "f6f2187d.f17ca8",
         "g": "4be0becb29998d3a",
         "name": "data",
-        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { },\n        'linx': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n    // and users sessions backup\n    global.set('user', RED.util.cloneMessage(global.get('user_bk', 'file') || { }), 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n    // and users sessions\n    global.set('user_bk', RED.util.cloneMessage(global.get('user', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
+        "func": "// Backup and restore kernel to/from local file\n\nif (msg.boot === true) {\n    // Defautl structure\n    let structure = {\n        'app': { },\n        'state': { },\n        'plant': { },\n        'lines': { },\n        'line': { },\n        'equipment': { },\n        'equipments': '{ }',\n        'family': { },\n        'families': { },\n        'counter': { },\n        'counters': { },\n        'meter': { },\n        'device': { },\n        'reverse': {},\n        'disabled': { },\n        'period': { },\n        'team': { },\n        'day': { },\n        'tz': { },\n        'watchdog': { },\n        'link': { },\n        'alert': { },\n        'holiday': { },\n        'map': { },\n        'location': { },\n        'linx': { },\n        'gmao': { }\n    };\n    // on (re)boot, check kernel structure and load kernel backup\n    global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');\n    // and users sessions backup\n    global.set('user', RED.util.cloneMessage(global.get('user_bk', 'file') || { }), 'default');\n} else {\n    // on cron, write kernel to backup\n    global.set('kernel_bk', RED.util.cloneMessage(global.get('kernel', 'default') || { }), 'file');\n    // and users sessions\n    global.set('user_bk', RED.util.cloneMessage(global.get('user', 'default') || { }), 'file');\n}\n\ndelete msg.boot;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -25854,7 +25899,7 @@
         "z": "e97c6f12735a13c1",
         "g": "fa98f46bfd60fed6",
         "name": "data",
-        "func": "// Parse counters\n\nmsg.payload = [];\n\nnode.send([null, msg, msg]);\n\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.list === 'counter') {\n    const meters = global.get('kernel.meter') || {};\n    const counters = global.get('kernel.counters') || {};\n    const plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]');\n    let i = 0;\n\n    for (const entity in meters) {\n        let row  = {};\n        let esplit = entity.split('|');\n\n        row.entity = entity;\n        row.equipment = esplit[0];\n        row.counter = esplit[1];\n        row.family = global.get('kernel.families[\"' + row.equipment + '\"]') || '';\n        row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]') || '';\n        row.plant = global.get('kernel.lines[\"' + row.line + '\"]') || '';\n\n        const definition = global.get('kernel.counter[\"' + row.counter + '\"]');\n\n        if (row.plant !== plant || row.family === '' || counters[row.counter] !== row.family || typeof definition !== 'string') {\n\n            continue;\n        }\n\n        let csplit = definition.split('|');\n\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]') || '';\n        row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';\n        row.line_name = global.get('kernel.line[\"'  + row.line + '\"]') || '';\n        row.line_full = row.line_name + ' (' + row.line + ')';\n        row.family_name = global.get('kernel.family[\"' + row.family + '\"]') || '';\n        row.family_full = row.family_name + ' (' + row.family + ')';\n        row.counter_name = csplit.slice(1).join('|');\n        row.counter_full = row.counter_name + ' (' + row.counter + ')';\n        // Hours counter (from run meter) or calendar counter (days since last reset)\n        const calendar = /d$/.test(csplit[0]);\n        const unit = calendar ? (msg.hmi.lang === 'fr' ? ' j' : ' d') : ' h';\n        const limit = parseFloat(csplit[0]) || 0;\n        const msplit = String(meters[entity]).split('|');\n        // Counter hidden on this equipment is frozen at its hide date\n        const hidden = msplit[3] === 'off';\n        const until = hidden ? (Number(msplit[4]) || Date.now()) : Date.now();\n        const current = calendar\n            ? Math.max(0, Math.floor((until - (Number(msplit[2]) || until)) / 86400000))\n            : Math.round((Number(msplit[0]) || 0) * 10) / 10;\n        row.state = current + unit;\n        row.state_limit = limit + unit;\n        row.percent = limit > 0 ? Math.round(current * 100 / limit) : 0;\n        row.percent_full = row.percent.toString() + '%';\n        row.state_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);\n        row.reset = (msg.dictionary.option_action.reset) || 'Reset';\n        row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.hide || 'Hide') : '';\n        row.order = row.percent;\n        if (hidden) {\n            row.state_color = msg.dictionary.option_color.empty;\n            row.reset = '';\n            row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.show || 'Show') : '';\n            row.order = -1;\n        }\n\n        msg.payload[i++] = row;\n    }\n\n    // Records title\n    msg.total = i;\n    node.send([msg, null, null]);\n\n    if (i > 0) {\n        msg.payload.sort((a, b) => a.order < b.order ? 1 : -1);\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [null, msg, null];\n        } else {\n\n            return [null, null, msg];\n        }\n    }\n}\n\nreturn;",
+        "func": "// Parse counters\n\nmsg.payload = [];\n\nnode.send([null, msg, msg]);\n\nmsg.class = '';\nmsg.enabled = true;\n\nif (msg.list === 'counter') {\n    const meters = global.get('kernel.meter') || {};\n    const counters = global.get('kernel.counters') || {};\n    const plant = global.get('form[\"' + msg.hmi.id + '\"][\"plant\"]');\n    let i = 0;\n\n    for (const entity in meters) {\n        let row  = {};\n        let esplit = entity.split('|');\n\n        row.entity = entity;\n        row.equipment = esplit[0];\n        row.counter = esplit[1];\n        row.family = global.get('kernel.families[\"' + row.equipment + '\"]') || '';\n        row.line = global.get('kernel.equipments[\"' + row.equipment + '\"]') || '';\n        row.plant = global.get('kernel.lines[\"' + row.line + '\"]') || '';\n\n        const definition = global.get('kernel.counter[\"' + row.counter + '\"]');\n\n        if (row.plant !== plant || row.family === '' || counters[row.counter] !== row.family || typeof definition !== 'string') {\n\n            continue;\n        }\n\n        let csplit = definition.split('|');\n\n        row.equipment_name = global.get('kernel.equipment[\"' + row.equipment + '\"]') || '';\n        row.equipment_full = row.equipment_name + ' (' + row.equipment + ')';\n        row.line_name = global.get('kernel.line[\"'  + row.line + '\"]') || '';\n        row.line_full = row.line_name + ' (' + row.line + ')';\n        row.family_name = global.get('kernel.family[\"' + row.family + '\"]') || '';\n        row.family_full = row.family_name + ' (' + row.family + ')';\n        row.counter_name = csplit.slice(1).join('|');\n        row.counter_full = row.counter_name + ' (' + row.counter + ')';\n        // Hours counter (from run meter) or calendar counter (days since last reset)\n        const calendar = /d$/.test(csplit[0]);\n        const unit = calendar ? (msg.hmi.lang === 'fr' ? ' j' : ' d') : ' h';\n        const limit = parseFloat(csplit[0]) || 0;\n        const msplit = String(meters[entity]).split('|');\n        // Counter hidden on this equipment is frozen at its hide date\n        const hidden = msplit[3] === 'off';\n        const until = hidden ? (Number(msplit[4]) || Date.now()) : Date.now();\n        const current = calendar\n            ? Math.max(0, Math.floor((until - (Number(msplit[2]) || until)) / 86400000))\n            : Math.round((Number(msplit[0]) || 0) * 10) / 10;\n        row.state = current + unit;\n        row.state_limit = limit + unit;\n        row.percent = limit > 0 ? Math.round(current * 100 / limit) : 0;\n        row.percent_full = row.percent.toString() + '%';\n        row.state_color = row.percent < 75 ? msg.dictionary.option_color.on : (row.percent < 100 ? msg.dictionary.option_color.median : msg.dictionary.option_color.off);\n        row.reset = (msg.dictionary.option_action.reset) || 'Reset';\n        row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.hide || 'Hide') : '';\n        row.order = row.percent;\n        // GMAO counter link (see gmao flow)\n        const gmao = String((global.get('kernel.gmao') || { })[entity] || '');\n        row.gmao = gmao !== '' ? 'GMAO ' + gmao : (['admin', 'rt'].includes(msg.hmi.level) ? (msg.hmi.lang === 'fr' ? 'Lier GMAO' : 'Link GMAO') : '');\n        if (hidden) {\n            row.state_color = msg.dictionary.option_color.empty;\n            row.reset = '';\n            row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.show || 'Show') : '';\n            row.order = -1;\n        }\n\n        msg.payload[i++] = row;\n    }\n\n    // Records title\n    msg.total = i;\n    node.send([msg, null, null]);\n\n    if (i > 0) {\n        msg.payload.sort((a, b) => a.order < b.order ? 1 : -1);\n\n        if (msg.hmi.lang === 'fr') {\n\n            return [null, msg, null];\n        } else {\n\n            return [null, null, msg];\n        }\n    }\n}\n\nreturn;",
         "outputs": 3,
         "timeout": 0,
         "noerr": 0,
@@ -25970,6 +26015,14 @@
                 "type": "button",
                 "width": "",
                 "align": "start"
+            },
+            {
+                "title": "GMAO",
+                "key": "gmao",
+                "keyType": "key",
+                "type": "button",
+                "width": "",
+                "align": "start"
             }
         ],
         "mobileBreakpoint": "sm",
@@ -25990,8 +26043,8 @@
         "z": "e97c6f12735a13c1",
         "g": "fa98f46bfd60fed6",
         "name": "data",
-        "func": "// Do action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.action === 'button_click' && msg.column === 'reset') {\n    msg.kernel = {\n        'type': 'meter',\n        'entity': msg.payload.entity,\n        'value': '',\n        'loop': false\n    };\n    msg.list = 'counter';\n}\n\n// Hide or show a counter on an equipment\n// kernel.meter[\"equipment|counter\"] = \"hours|last|timestamp|off|hide timestamp\" when hidden\nif (msg.action === 'button_click' && msg.column === 'toggle') {\n    const entity = msg.payload.entity;\n    const meter = global.get('kernel.meter[\"' + entity + '\"]');\n\n    if (!['admin', 'rt'].includes(msg.hmi.level) || typeof meter !== 'string') {\n\n        return;\n    }\n\n    const m = meter.split('|');\n    const now = Date.now();\n    let value = '';\n\n    if (m[3] !== 'off') {\n        // hide: freeze counter\n        value = m[0] + '|' + m[1] + '|' + m[2] + '|off|' + now;\n    } else if (/d$/.test(String(global.get('kernel.counter[\"' + entity.split('|')[1] + '\"]') || '').split('|')[0])) {\n        // show calendar counter: days hidden are not counted\n        value = '0|0|' + ((Number(m[2]) || now) + now - (Number(m[4]) || now));\n    } else {\n        // show hours counter: hours run while hidden are not counted\n        const total = Number(global.get('kernel.state[\"' + entity.split('|')[0] + '|runmetertotal\"]'));\n        value = m[0] + '|' + (Number.isFinite(total) && total > 0 ? total : m[1]) + '|' + now;\n    }\n\n    node.send([null, {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'meter',\n            'entity': entity,\n            'value': value,\n            'loop': false\n        }\n    }]);\n\n    msg.list = 'counter';\n    msg.success = true;\n}\n\nreturn [msg, null];",
-        "outputs": 2,
+        "func": "// Do action\n\n// Get user from UI element\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (msg.action === 'button_click' && msg.column === 'reset') {\n    msg.kernel = {\n        'type': 'meter',\n        'entity': msg.payload.entity,\n        'value': '',\n        'loop': false\n    };\n    msg.list = 'counter';\n}\n\n// Hide or show a counter on an equipment\n// kernel.meter[\"equipment|counter\"] = \"hours|last|timestamp|off|hide timestamp\" when hidden\nif (msg.action === 'button_click' && msg.column === 'toggle') {\n    const entity = msg.payload.entity;\n    const meter = global.get('kernel.meter[\"' + entity + '\"]');\n\n    if (!['admin', 'rt'].includes(msg.hmi.level) || typeof meter !== 'string') {\n\n        return;\n    }\n\n    const m = meter.split('|');\n    const now = Date.now();\n    let value = '';\n\n    if (m[3] !== 'off') {\n        // hide: freeze counter\n        value = m[0] + '|' + m[1] + '|' + m[2] + '|off|' + now;\n    } else if (/d$/.test(String(global.get('kernel.counter[\"' + entity.split('|')[1] + '\"]') || '').split('|')[0])) {\n        // show calendar counter: days hidden are not counted\n        value = '0|0|' + ((Number(m[2]) || now) + now - (Number(m[4]) || now));\n    } else {\n        // show hours counter: hours run while hidden are not counted\n        const total = Number(global.get('kernel.state[\"' + entity.split('|')[0] + '|runmetertotal\"]'));\n        value = m[0] + '|' + (Number.isFinite(total) && total > 0 ? total : m[1]) + '|' + now;\n    }\n\n    node.send([null, {\n        'topic': '',\n        'payload': '',\n        'kernel': {\n            'type': 'meter',\n            'entity': entity,\n            'value': value,\n            'loop': false\n        }\n    }]);\n\n    msg.list = 'counter';\n    msg.success = true;\n}\n\n// GMAO counter link: open the dialog (see gmao flow)\nif (msg.action === 'button_click' && msg.column === 'gmao') {\n    if (!['admin', 'rt'].includes(msg.hmi.level)) {\n\n        return;\n    }\n\n    const row = msg.payload;\n    const current = String((global.get('kernel.gmao') || { })[row.entity] || '');\n    global.set('form[\"' + msg.hmi.id + '\"][\"gmao\"]', row.entity);\n    global.set('form[\"' + msg.hmi.id + '\"][\"gmao_id\"]', current);\n\n    msg.show = ['ui - dialog - list - gmao'];\n    msg = await node.linkcall('ui - group', msg);\n    msg = await node.linkcall('ui - latency', msg);\n\n    const fr = msg.hmi.lang === 'fr';\n    let title = { ...msg, 'payload': row.equipment_full + ' — ' + row.counter_full };\n    let input = { ...msg, 'payload': current };\n    input.ui_update = { 'label': fr ? 'ID du compteur dans la GMAO (vide pour délier)' : 'GMAO counter ID (empty to unlink)' };\n    let buttons = { ...msg, 'payload': '' };\n    buttons.ui_update = {\n        'options': [\n            { 'label': fr ? 'Enregistrer' : 'Save', 'value': 'save', 'valueType': 'str', 'icon': '', 'color': '#009933' },\n            { 'label': fr ? 'Annuler' : 'Cancel', 'value': 'cancel', 'valueType': 'str', 'icon': '', 'color': '#999999' }\n        ]\n    };\n\n    return [null, null, title, input, buttons];\n}\n\nreturn [msg, null];",
+        "outputs": 5,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
@@ -26005,6 +26058,15 @@
             ],
             [
                 "b66d1102d310730f"
+            ],
+            [
+                "73185faef26394ad"
+            ],
+            [
+                "ffdb29746e842c6b"
+            ],
+            [
+                "23b392f289941457"
             ]
         ]
     },
@@ -26099,6 +26161,14 @@
             {
                 "title": "",
                 "key": "toggle",
+                "keyType": "key",
+                "type": "button",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "GMAO",
+                "key": "gmao",
                 "keyType": "key",
                 "type": "button",
                 "width": "",
@@ -42452,7 +42522,8 @@
             "c344b98bc4ee57db",
             "dd8ce7e8d8c17c91",
             "eba6e18370fbfe76",
-            "505480cb0e3079f8"
+            "505480cb0e3079f8",
+            "ed82938bc73c9739"
         ],
         "x": 755,
         "y": 180,
@@ -43207,7 +43278,7 @@
         "z": "44465f18e06bb58d",
         "g": "c5aa438b6dcec795",
         "name": "data",
-        "func": "// Build menu selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// key => ui group name and button label\nmsg.menu = {\n    'app': {\n        'group': 'ui - group - system - application',\n        'label': (msg.dictionary.system || { }).menu_app || 'Application'\n    },\n    'tree': {\n        'group': 'ui - group - system - arborescence',\n        'label': (msg.dictionary.system || { }).menu_tree || 'Tree structure'\n    },\n    'ota': {\n        'group': 'ui - group - system - opta',\n        'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'\n    },\n    'orphan': {\n        'group': 'ui - group - system - orphans',\n        'label': (msg.dictionary.system || { }).menu_orphan || 'Orphans'\n    }\n};\n\n// Hide all groups\nmsg.hide = [];\nfor (const k in msg.menu) {\n    msg.hide.push(msg.menu[k]['group']);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nif (!msg.enabled) {\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu groups for menu click (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'system': { } };\n\nfor (const k in msg.menu) {\n    msg.ui_update.options.push({\n        'value': k,\n        'label': msg.menu[k]['label']\n    });\n    menu[msg.hmi.id]['system'][k] = msg.menu[k]['group'];\n}\n\ndelete msg.menu;\n\nreturn [null, msg];",
+        "func": "// Build menu selector\n\n// Check if required page is current flow\nmsg.flow = env.get('NR_FLOW_NAME');\nmsg = await node.linkcall('ui - tab', msg);\n\n// key => ui group name and button label\nmsg.menu = {\n    'app': {\n        'group': 'ui - group - system - application',\n        'label': (msg.dictionary.system || { }).menu_app || 'Application'\n    },\n    'tree': {\n        'group': 'ui - group - system - arborescence',\n        'label': (msg.dictionary.system || { }).menu_tree || 'Tree structure'\n    },\n    'ota': {\n        'group': 'ui - group - system - opta',\n        'label': (msg.dictionary.system || { }).menu_ota || 'Opta firmware'\n    },\n    'orphan': {\n        'group': 'ui - group - system - orphans',\n        'label': (msg.dictionary.system || { }).menu_orphan || 'Orphans'\n    },\n    'gmao': {\n        'group': 'ui - group - system - gmao',\n        'label': (msg.dictionary.system || { }).menu_gmao || 'GMAO'\n    }\n};\n\n// Hide all groups\nmsg.hide = [];\nfor (const k in msg.menu) {\n    msg.hide.push(msg.menu[k]['group']);\n}\n\nmsg = await node.linkcall('ui - group', msg);\n\nif (!msg.enabled) {\n\n    return [msg, msg];\n}\n\nmsg.payload = '';\nmsg.class = '';\nmsg.enabled = true;\nmsg.ui_update = {\n    'options': []\n};\n\n// Keep user menu groups for menu click (msg.menu is lost on click)\nif (typeof global.get('menu') !== 'object') {\n    global.set('menu', { });\n}\nlet menu = global.get('menu'); // autoupdate\nmenu[msg.hmi.id] = { ...(menu[msg.hmi.id] || { }), 'system': { } };\n\nfor (const k in msg.menu) {\n    msg.ui_update.options.push({\n        'value': k,\n        'label': msg.menu[k]['label']\n    });\n    menu[msg.hmi.id]['system'][k] = msg.menu[k]['group'];\n}\n\ndelete msg.menu;\n\nreturn [null, msg];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
@@ -43943,5 +44014,745 @@
         "x": 395,
         "y": 1920,
         "wires": []
+    },
+    {
+        "id": "4b1cb31503d721d9",
+        "type": "tab",
+        "label": "gmao",
+        "disabled": false,
+        "info": "Counters sent to the GMAO (SPIGMAO API): daily readings and dated resets.\nSee docs/gmao.md",
+        "env": []
+    },
+    {
+        "id": "a37b3ba67f460231",
+        "type": "link out",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - request",
+        "mode": "return",
+        "links": [],
+        "x": 610,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1c6f1b1c5a9730d2",
+        "type": "link in",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - request",
+        "links": [],
+        "x": 145,
+        "y": 60,
+        "wires": [
+            [
+                "07b105d04dfc15e9"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "http",
+                "module": "http"
+            },
+            {
+                "var": "https",
+                "module": "https"
+            },
+            {
+                "var": "url",
+                "module": "url"
+            }
+        ],
+        "id": "07b105d04dfc15e9",
+        "z": "4b1cb31503d721d9",
+        "name": "request",
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "a37b3ba67f460231"
+            ]
+        ],
+        "func": "// HTTP request to the GMAO API (SPIGMAO)\n// msg.gmao_request = { method, path, body } => msg.gmao_response = { status, body, error }\n// status 0 = not sent (missing setting, network error, timeout)\n\nconst s = global.get('gmao', 'file') || { };\nconst req = msg.gmao_request || { };\nconst base = String(s.url || '').trim().replace(/\\/+$/, '');\n\ndelete msg.gmao_request;\n\nif (base === '' || String(s.key || '') === '') {\n    msg.gmao_response = { 'status': 0, 'error': 'GMAO address or API key missing' };\n\n    return msg;\n}\n\nlet target;\ntry {\n    target = new url.URL(base + '/api/v1' + (req.path || ''));\n} catch (e) {\n    msg.gmao_response = { 'status': 0, 'error': 'Invalid GMAO address' };\n\n    return msg;\n}\n\nconst data = typeof req.body === 'undefined' ? null : JSON.stringify(req.body);\nconst headers = {\n    'X-Api-Key': String(s.key),\n    'Accept': 'application/json'\n};\nif (data !== null) {\n    headers['Content-Type'] = 'application/json';\n    headers['Content-Length'] = Buffer.byteLength(data);\n}\n\nmsg.gmao_response = await new Promise((resolve) => {\n    const lib = target.protocol === 'https:' ? https : http;\n    const r = lib.request(target, { 'method': req.method || 'GET', 'headers': headers, 'timeout': 20000 }, (res) => {\n        let text = '';\n        res.setEncoding('utf8');\n        res.on('data', (chunk) => { text += chunk; });\n        res.on('end', () => {\n            let body = null;\n            try {\n                body = JSON.parse(text);\n            } catch (e) {\n                body = null;\n            }\n            resolve({ 'status': res.statusCode, 'body': body, 'error': body === null ? 'Invalid answer from the GMAO (HTTP ' + res.statusCode + ')' : (body.ok === false ? body.message : '') });\n        });\n    });\n    r.on('timeout', () => r.destroy(new Error('timeout')));\n    r.on('error', (e) => resolve({ 'status': 0, 'body': null, 'error': e.message }));\n    if (data !== null) {\n        r.write(data);\n    }\n    r.end();\n});\n\nnode.status({ 'fill': msg.gmao_response.status === 200 ? 'green' : 'red', 'shape': 'dot', 'text': (req.method || 'GET') + ' ' + (req.path || '/') + ' => ' + (msg.gmao_response.status || msg.gmao_response.error) });\n\nreturn msg;"
+    },
+    {
+        "id": "09bc4780813664a3",
+        "type": "link out",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - queue",
+        "mode": "return",
+        "links": [],
+        "x": 610,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "81b4cf81ee427da9",
+        "type": "link in",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - queue",
+        "links": [],
+        "x": 145,
+        "y": 140,
+        "wires": [
+            [
+                "a6e87496507e4747"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "a6e87496507e4747",
+        "z": "4b1cb31503d721d9",
+        "name": "queue",
+        "x": 400,
+        "y": 140,
+        "wires": [
+            [
+                "09bc4780813664a3"
+            ]
+        ],
+        "func": "// Add msg.gmao_events to the send queue (file context, survives restarts)\n// reading: { type: 'reading', entity, compteur, valeur, date }\n// reset:   { type: 'reset', entity, compteur, date, valeur_avant, valeur_apres }\n\n// Sending is allowed only when commands are enabled (System > Application, or OPTA_COMMANDS=false)\nconst commands = env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false;\n\nconst events = Array.isArray(msg.gmao_events) ? msg.gmao_events : [];\nlet s = global.get('gmao', 'file') || { };\n\ndelete msg.gmao_events;\nmsg.gmao_queued = 0;\n\nif (s.enabled !== true || !commands || events.length === 0) {\n\n    return msg;\n}\n\nlet queue = (Array.isArray(s.queue) ? s.queue : []).concat(events);\n// Keep the queue bounded if the GMAO stays unreachable for a long time\nif (queue.length > 5000) {\n    s.dropped = (s.dropped || 0) + queue.length - 5000;\n    queue = queue.slice(queue.length - 5000);\n}\ns.queue = queue;\nglobal.set('gmao', s, 'file');\n\nmsg.gmao_queued = events.length;\nnode.status({ 'fill': 'blue', 'shape': 'dot', 'text': queue.length + ' waiting' });\n\nreturn msg;"
+    },
+    {
+        "id": "3242ef80b5cee240",
+        "type": "link out",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - read",
+        "mode": "return",
+        "links": [],
+        "x": 610,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8f154becfe494bd6",
+        "type": "link in",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - read",
+        "links": [],
+        "x": 145,
+        "y": 220,
+        "wires": [
+            [
+                "6693e829695bf3d1"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "6693e829695bf3d1",
+        "z": "4b1cb31503d721d9",
+        "name": "read",
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "3242ef80b5cee240"
+            ]
+        ],
+        "func": "// Current value of every counter linked to the GMAO => msg.gmao_events (readings)\n// kernel.gmao[\"equipment|counter\"] = \"GMAO counter id\"\n// kernel.meter[\"equipment|counter\"] = \"hours|last runmetertotal|timestamp[|off|hide timestamp]\"\n// Calendar counters: \"0|0|last reset timestamp\", value = days since last reset\n\nconst kernel = global.get('kernel') || { };\nconst links = kernel.gmao || { };\nconst now = Date.now();\nconst date = new Date(now).toISOString();\nlet events = [];\n\nfor (const entity in links) {\n    const id = Number(links[entity]);\n    const meter = (kernel.meter || { })[entity];\n    const [equipment, counter] = entity.split('|');\n    const definition = String((kernel.counter || { })[counter] ?? '');\n\n    if (!(id > 0) || typeof meter !== 'string' || meter === '' || definition === '') {\n\n        continue;\n    }\n    // counter no longer in the equipment family\n    if ((kernel.counters || { })[counter] !== (kernel.families || { })[equipment]) {\n\n        continue;\n    }\n    const m = meter.split('|');\n    // hidden counter on this equipment\n    if (m[3] === 'off') {\n\n        continue;\n    }\n    const calendar = /d$/.test(definition.split('|')[0]);\n    const valeur = calendar\n        ? Math.max(0, Math.floor((now - (Number(m[2]) || now)) / 86400000))\n        : Math.round((Number(m[0]) || 0) * 100) / 100;\n\n    events.push({ 'type': 'reading', 'entity': entity, 'compteur': id, 'valeur': valeur, 'date': date });\n}\n\nmsg.gmao_events = events;\n\nreturn msg;"
+    },
+    {
+        "id": "977f09bae20c4826",
+        "type": "link out",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - flush",
+        "mode": "return",
+        "links": [],
+        "x": 610,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "4f0a944e7bb6b591",
+        "type": "link in",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - flush",
+        "links": [],
+        "x": 145,
+        "y": 300,
+        "wires": [
+            [
+                "fe08fd4b8de05965"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "fe08fd4b8de05965",
+        "z": "4b1cb31503d721d9",
+        "name": "flush",
+        "x": 400,
+        "y": 300,
+        "wires": [
+            [
+                "977f09bae20c4826"
+            ]
+        ],
+        "func": "// Send the queue to the GMAO, in date order.\n// An event leaves the queue only when the GMAO confirms it (recorded, or already received),\n// or refuses it for good (the refusal is kept in the errors list). Otherwise it stays for the next try.\n\n// Sending is allowed only when commands are enabled (System > Application, or OPTA_COMMANDS=false)\nconst commands = env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false;\n\nconst lang = (msg.hmi || { }).lang === 'fr' ? 'fr' : 'en';\nconst t = (fr, en) => lang === 'fr' ? fr : en;\nlet s = global.get('gmao', 'file') || { };\n\n// One send at a time\nif (Date.now() - (global.get('gmao_lock') || 0) < 120000) {\n    msg.gmao_ok = false;\n    msg.gmao_result = t('Envoi déjà en cours', 'Already sending');\n\n    return msg;\n}\n\nif (s.enabled !== true || !commands) {\n    msg.gmao_ok = false;\n    msg.gmao_result = !commands ? t('Commandes désactivées : rien n\\'est envoyé', 'Commands are disabled: nothing is sent') : t('Envoi à la GMAO désactivé', 'Sending to the GMAO is disabled');\n\n    return msg;\n}\n\nglobal.set('gmao_lock', Date.now());\n\nlet queue = (Array.isArray(s.queue) ? s.queue : []).slice();\nqueue.sort((a, b) => a.date < b.date ? -1 : (a.date > b.date ? 1 : 0));\n\nlet sent = 0;\nlet refused = 0;\nlet failure = '';\nconst errors = [];\nconst save = () => {\n    s = global.get('gmao', 'file') || { };\n    s.queue = queue;\n    global.set('gmao', s, 'file');\n};\nconst refuse = (ev, message) => {\n    refused++;\n    errors.push({ 'time': Date.now(), 'entity': ev.entity, 'compteur': ev.compteur, 'date': ev.date, 'message': message });\n};\n// 4xx with an error code is a definitive refusal, except key and rights problems which need a fix and a retry\nconst definitive = (r) => r.status >= 400 && r.status < 500 && ![401, 403, 408, 429].includes(r.status) && r.body !== null && typeof r.body.erreur === 'string';\n\nwhile (queue.length > 0 && failure === '') {\n    if (queue[0].type === 'reset') {\n        const ev = queue[0];\n        msg.gmao_request = {\n            'method': 'POST',\n            'path': '/compteurs/' + ev.compteur + '/remise-a-zero',\n            'body': { 'date': ev.date, 'valeur_avant': ev.valeur_avant, 'valeur_apres': ev.valeur_apres }\n        };\n        msg = await node.linkcall('gmao - request', msg);\n        const r = msg.gmao_response;\n        delete msg.gmao_response;\n\n        if (r.status === 200) {\n            sent++;\n            queue.shift();\n        } else if (definitive(r)) {\n            refuse(ev, r.body.message);\n            queue.shift();\n        } else {\n            failure = r.error || ('HTTP ' + r.status);\n        }\n    } else {\n        // consecutive readings in one request\n        let batch = [];\n        while (queue.length > 0 && queue[0].type !== 'reset' && batch.length < 500) {\n            batch.push(queue.shift());\n        }\n        msg.gmao_request = {\n            'method': 'POST',\n            'path': '/releves',\n            'body': { 'releves': batch.map((ev) => ({ 'compteur': ev.compteur, 'valeur': ev.valeur, 'date': ev.date })) }\n        };\n        msg = await node.linkcall('gmao - request', msg);\n        const r = msg.gmao_response;\n        delete msg.gmao_response;\n\n        if (r.status === 200 && r.body !== null && Array.isArray(r.body.resultats)) {\n            // match each answer with its reading (the GMAO answers in date order)\n            let waiting = batch.slice();\n            for (const res of r.body.resultats) {\n                const i = waiting.findIndex((ev) => ev.compteur === res.compteur);\n                const ev = i >= 0 ? waiting.splice(i, 1)[0] : { 'compteur': res.compteur };\n                if (res.statut === 'enregistre' || res.statut === 'deja_recu') {\n                    sent++;\n                } else {\n                    refuse(ev, res.message || res.erreur || 'refused');\n                }\n            }\n            // readings without answer stay in the queue\n            queue = waiting.concat(queue);\n        } else if (definitive(r)) {\n            batch.forEach((ev) => refuse(ev, r.body.message));\n        } else {\n            queue = batch.concat(queue);\n            failure = r.error || ('HTTP ' + r.status);\n        }\n    }\n    save();\n}\n\ns = global.get('gmao', 'file') || { };\ns.queue = queue;\ns.last_try = Date.now();\nif (failure === '') {\n    s.last_ok = Date.now();\n}\ns.errors = errors.concat(Array.isArray(s.errors) ? s.errors : []).slice(0, 20);\nmsg.gmao_ok = failure === '';\nmsg.gmao_result = failure !== ''\n    ? t('Échec : ', 'Failed: ') + failure + ' (' + t('envoyés', 'sent') + ' ' + sent + ', ' + t('en attente', 'waiting') + ' ' + queue.length + ')'\n    : t('Envoyés : ', 'Sent: ') + sent + (refused > 0 ? ', ' + t('refusés : ', 'refused: ') + refused : '');\ns.last_result = msg.gmao_result;\nglobal.set('gmao', s, 'file');\nglobal.set('gmao_lock', 0);\n\nnode.status({ 'fill': failure === '' ? (refused > 0 ? 'yellow' : 'green') : 'red', 'shape': 'dot', 'text': msg.gmao_result });\n\nreturn msg;"
+    },
+    {
+        "id": "5d056cd98a0045c2",
+        "type": "link out",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - status",
+        "mode": "return",
+        "links": [],
+        "x": 610,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "b69f53046d506825",
+        "type": "link in",
+        "z": "4b1cb31503d721d9",
+        "name": "gmao - status",
+        "links": [],
+        "x": 145,
+        "y": 380,
+        "wires": [
+            [
+                "02d13598e83b6d95"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "02d13598e83b6d95",
+        "z": "4b1cb31503d721d9",
+        "name": "status",
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "5d056cd98a0045c2"
+            ]
+        ],
+        "func": "// GMAO link status => msg.gmao_status (rows for the System > GMAO table)\n\n// Sending is allowed only when commands are enabled (System > Application, or OPTA_COMMANDS=false)\nconst commands = env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false;\n\nconst lang = (msg.hmi || { }).lang === 'fr' ? 'fr' : 'en';\nconst t = (fr, en) => lang === 'fr' ? fr : en;\nconst s = global.get('gmao', 'file') || { };\nconst links = Object.values(global.get('kernel.gmao') || { }).filter((v) => String(v) !== '').length;\nconst when = (ts) => ts ? new Date(ts).toLocaleString(lang === 'fr' ? 'fr-FR' : 'en-GB', { 'timeZone': env.get('TZ') || 'Europe/Paris' }) : '-';\nconst queue = Array.isArray(s.queue) ? s.queue : [];\n\nlet state = t('Activé', 'Enabled');\nif (s.enabled !== true) {\n    state = t('Désactivé', 'Disabled');\n} else if (!commands) {\n    state = t('Commandes désactivées : rien n\\'est envoyé', 'Commands are disabled: nothing is sent');\n} else if (!s.url || !s.key) {\n    state = t('Adresse ou clé manquante', 'Address or key missing');\n}\n\nlet rows = [\n    { 'item': t('État', 'State'), 'value': state },\n    { 'item': t('Compteurs liés', 'Linked counters'), 'value': String(links) },\n    { 'item': t('Envoi quotidien', 'Daily send'), 'value': String(s.hour ?? 6).padStart(2, '0') + ':00' + (s.last_daily ? ' (' + t('dernier', 'last') + ' ' + s.last_daily + ')' : '') },\n    { 'item': t('Dernier envoi réussi', 'Last successful send'), 'value': when(s.last_ok) },\n    { 'item': t('Dernière tentative', 'Last try'), 'value': when(s.last_try) + (s.last_result ? ' : ' + s.last_result : '') },\n    { 'item': t('En attente', 'Waiting'), 'value': String(queue.length) + (s.dropped ? ' (' + s.dropped + ' ' + t('perdus', 'lost') + ')' : '') }\n];\nfor (const e of (Array.isArray(s.errors) ? s.errors : []).slice(0, 5)) {\n    rows.push({ 'item': t('Refus', 'Refusal') + ' ' + when(e.time), 'value': (e.entity || ('#' + e.compteur)) + ' : ' + e.message });\n}\n\nmsg.gmao_status = rows;\n\nreturn msg;"
+    },
+    {
+        "id": "a79a86fd3685ef64",
+        "type": "inject",
+        "z": "4b1cb31503d721d9",
+        "name": "15 min",
+        "props": [],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "60",
+        "topic": "",
+        "x": 170,
+        "y": 480,
+        "wires": [
+            [
+                "17b2636bba6aed1b"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "17b2636bba6aed1b",
+        "z": "4b1cb31503d721d9",
+        "name": "tick",
+        "x": 400,
+        "y": 480,
+        "wires": [
+            []
+        ],
+        "func": "// Once a day at the chosen hour: send the value of every linked counter.\n// Every hour: try again to send a waiting queue (GMAO unreachable).\n\n// Sending is allowed only when commands are enabled (System > Application, or OPTA_COMMANDS=false)\nconst commands = env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false;\n\nconst s = global.get('gmao', 'file') || { };\n\nif (s.enabled !== true || !commands || !s.url || !s.key) {\n    node.status({ 'fill': 'grey', 'shape': 'ring', 'text': !commands ? 'commands disabled' : 'disabled' });\n\n    return;\n}\n\nconst now = new Date();\nconst today = now.toLocaleDateString('sv-SE', { 'timeZone': env.get('TZ') || 'Europe/Paris' });\nconst hour = Number(now.toLocaleString('en-GB', { 'hour': '2-digit', 'hour12': false, 'timeZone': env.get('TZ') || 'Europe/Paris' }));\n\nif (s.last_daily !== today && hour >= Number(s.hour ?? 6)) {\n    msg = await node.linkcall('gmao - read', msg);\n    msg = await node.linkcall('gmao - queue', msg);\n    let s2 = global.get('gmao', 'file') || { };\n    s2.last_daily = today;\n    global.set('gmao', s2, 'file');\n    msg = await node.linkcall('gmao - flush', msg);\n} else if ((s.queue || []).length > 0 && Date.now() - (s.last_try || 0) >= 3600000) {\n    msg = await node.linkcall('gmao - flush', msg);\n}\n\nconst s3 = global.get('gmao', 'file') || { };\nnode.status({ 'fill': (s3.queue || []).length > 0 ? 'yellow' : 'green', 'shape': 'dot', 'text': (s3.last_result || 'waiting') + ' / ' + (s3.queue || []).length + ' waiting' });\n\nreturn;"
+    },
+    {
+        "id": "99b7816e72dbebb7",
+        "type": "link in",
+        "z": "4b1cb31503d721d9",
+        "name": "kernel - gmao",
+        "links": [
+            "d54dd54bea75db53"
+        ],
+        "x": 145,
+        "y": 580,
+        "wires": [
+            [
+                "3397cd83692a9f76"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "3397cd83692a9f76",
+        "z": "4b1cb31503d721d9",
+        "name": "reset",
+        "x": 400,
+        "y": 580,
+        "wires": [
+            []
+        ],
+        "func": "// A counter linked to the GMAO was reset: send the dated reset at once (see kernel - loop)\n// kernel.meter[\"equipment|counter\"] = \"hours|last runmetertotal|timestamp[|off|hide timestamp]\"\n// Calendar counters: \"0|0|last reset timestamp\"\n\nconst g = msg.gmao || { };\nconst kernel = global.get('kernel') || { };\nconst id = Number((kernel.gmao || { })[g.entity] || 0);\n\nif (!(id > 0) || typeof g.before !== 'string' || g.before === '') {\n\n    return;\n}\n\nconst before = g.before.split('|');\nconst after = String(g.after ?? '').split('|');\n\n// counter hidden, or shown again: not a reset\nif (before[3] === 'off' || after[3] === 'off') {\n\n    return;\n}\n\nconst definition = String((kernel.counter || { })[g.entity.split('|')[1]] ?? '');\nlet avant;\nlet apres;\nlet when;\n\nif (/d$/.test(definition.split('|')[0])) {\n    // calendar counter: days since last reset\n    const t0 = Number(before[2]) || 0;\n    const t1 = g.after === '' ? g.time : (Number(after[2]) || 0);\n    if (!(t0 > 0 && t1 > t0)) {\n\n        return;\n    }\n    avant = Math.max(0, Math.floor((t1 - t0) / 86400000));\n    apres = 0;\n    when = t1;\n} else {\n    // hours counter: hours only go up, except on reset\n    const h0 = Number(before[0]) || 0;\n    const h1 = g.after === '' ? 0 : (Number(after[0]) || 0);\n    if (!(h1 < h0)) {\n\n        return;\n    }\n    avant = Math.round(h0 * 100) / 100;\n    apres = Math.round(h1 * 100) / 100;\n    when = g.after === '' ? g.time : (Number(after[2]) || g.time);\n}\n\nmsg.gmao_events = [{ 'type': 'reset', 'entity': g.entity, 'compteur': id, 'date': new Date(when).toISOString(), 'valeur_avant': avant, 'valeur_apres': apres }];\ndelete msg.gmao;\n\nmsg = await node.linkcall('gmao - queue', msg);\nif (msg.gmao_queued > 0) {\n    msg = await node.linkcall('gmao - flush', msg);\n    node.status({ 'fill': msg.gmao_ok ? 'green' : 'yellow', 'shape': 'dot', 'text': g.entity + ' : ' + msg.gmao_result });\n}\n\nreturn;"
+    },
+    {
+        "id": "642c5e6c94ea2ef1",
+        "type": "group",
+        "z": "44465f18e06bb58d",
+        "name": "system - gmao",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "ed82938bc73c9739",
+            "2eb1c6e99d789361",
+            "27fffb11e5bfcc4d",
+            "62dd20c74e67194a",
+            "6b5d8d671d8085eb",
+            "006ee139ec04cb38",
+            "b9c26cc24fb0e3a1"
+        ],
+        "x": 94,
+        "y": 2179,
+        "w": 1092,
+        "h": 222
+    },
+    {
+        "id": "ed82938bc73c9739",
+        "type": "link in",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "name": "system - gmao",
+        "links": [],
+        "x": 135,
+        "y": 2220,
+        "wires": [
+            [
+                "2eb1c6e99d789361"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "2eb1c6e99d789361",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "name": "data",
+        "x": 270,
+        "y": 2220,
+        "wires": [
+            [
+                "27fffb11e5bfcc4d"
+            ],
+            [
+                "6b5d8d671d8085eb"
+            ],
+            [
+                "006ee139ec04cb38"
+            ]
+        ],
+        "func": "// GMAO section: settings, status, actions\n\nif (msg.enabled !== true || msg.selected !== 'gmao') {\n\n    return [null, null, null];\n}\n\nconst s = global.get('gmao', 'file') || { };\n\n// Form values (the API key is never shown back)\nlet form = { ...msg };\nform.payload = {\n    'url': s.url || '',\n    'key': '',\n    'hour': String(s.hour ?? 6),\n    'enabled': s.enabled === true\n};\nform.ui_update = {\n    'dropdownOptions': Array.from({ 'length': 24 }, (v, h) => ({\n        'label': String(h).padStart(2, '0') + ':00',\n        'value': String(h),\n        'dropdown': 'hour'\n    }))\n};\n\nmsg = await node.linkcall('gmao - status', msg);\nlet table = { ...msg, 'payload': msg.gmao_status, 'class': '', 'enabled': true };\ndelete table.gmao_status;\n\nlet buttons = { ...msg, 'payload': '', 'class': '', 'enabled': true };\nbuttons.ui_update = {\n    'options': [\n        { 'label': msg.hmi.lang === 'fr' ? 'Tester la connexion' : 'Test connection', 'value': 'test', 'valueType': 'str', 'icon': '', 'color': '#1f64c8' },\n        { 'label': msg.hmi.lang === 'fr' ? 'Envoyer maintenant' : 'Send now', 'value': 'send', 'valueType': 'str', 'icon': '', 'color': '#009933' }\n    ]\n};\n\nreturn [form, table, buttons];"
+    },
+    {
+        "id": "27fffb11e5bfcc4d",
+        "type": "ui-form",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "name": "system - gmao - form",
+        "group": "7482c5f6d428f102",
+        "label": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "GMAO address (ex: http://10.40.0.139:8080)",
+                "key": "url",
+                "type": "text",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "API key (empty = unchanged)",
+                "key": "key",
+                "type": "password",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Daily send hour",
+                "key": "hour",
+                "type": "dropdown",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Send counters to the GMAO",
+                "key": "enabled",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "url": "",
+            "key": "",
+            "hour": "",
+            "enabled": false
+        },
+        "payload": "",
+        "submit": "►",
+        "cancel": "",
+        "resetOnSubmit": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "passthru": false,
+        "dropdownOptions": [],
+        "x": 480,
+        "y": 2220,
+        "wires": [
+            [
+                "62dd20c74e67194a"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "62dd20c74e67194a",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "name": "data",
+        "x": 690,
+        "y": 2220,
+        "wires": [
+            [
+                "6b5d8d671d8085eb"
+            ]
+        ],
+        "func": "// Save GMAO settings (administrator)\n\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (!['admin'].includes(msg.hmi.level)) {\n\n    return;\n}\n\nlet s = global.get('gmao', 'file') || { };\nconst address = String(msg.payload.url || '').trim().replace(/\\/+$/, '');\n\nif (address !== '' && !/^https?:\\/\\/[^\\s/]+/.test(address)) {\n    msg.notice = msg.hmi.lang === 'fr' ? 'Adresse de la GMAO invalide (http://… attendu)' : 'Invalid GMAO address (http://… expected)';\n    msg = await node.linkcall('ui - notice', msg);\n\n    return;\n}\n\ns.url = address;\nif (String(msg.payload.key || '').trim() !== '') {\n    s.key = String(msg.payload.key).trim();\n}\ns.hour = Math.min(23, Math.max(0, Number(msg.payload.hour) || 0));\ns.enabled = msg.payload.enabled === true;\nglobal.set('gmao', s, 'file');\n\nconst commands = env.get('OPTA_COMMANDS') !== 'false' && global.get('kernel.app.commands') !== false;\nmsg.notice = s.enabled && !commands\n    ? (msg.hmi.lang === 'fr' ? 'Enregistré, mais les commandes sont désactivées : rien ne sera envoyé' : 'Saved, but commands are disabled: nothing will be sent')\n    : msg.dictionary.option_notice.update_success;\nmsg = await node.linkcall('ui - notice', msg);\n\nmsg = await node.linkcall('gmao - status', msg);\nmsg.payload = msg.gmao_status;\ndelete msg.gmao_status;\nmsg.class = '';\nmsg.enabled = true;\n\nreturn msg;"
+    },
+    {
+        "id": "6b5d8d671d8085eb",
+        "type": "ui-table",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "group": "7482c5f6d428f102",
+        "name": "system - gmao - status",
+        "label": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "maxrows": "20",
+        "passthru": false,
+        "autocols": false,
+        "showSearch": false,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [
+            {
+                "title": "",
+                "key": "item",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "",
+                "key": "value",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 920,
+        "y": 2280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "006ee139ec04cb38",
+        "type": "ui-button-group",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "name": "system - gmao - actions",
+        "group": "7482c5f6d428f102",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "label": "",
+        "className": "oe-center",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "Test connection",
+                "icon": "",
+                "value": "test",
+                "valueType": "str",
+                "color": "#1f64c8"
+            },
+            {
+                "label": "Send now",
+                "icon": "",
+                "value": "send",
+                "valueType": "str",
+                "color": "#009933"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 480,
+        "y": 2340,
+        "wires": [
+            [
+                "b9c26cc24fb0e3a1"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "b9c26cc24fb0e3a1",
+        "z": "44465f18e06bb58d",
+        "g": "642c5e6c94ea2ef1",
+        "name": "data",
+        "x": 690,
+        "y": 2340,
+        "wires": [
+            [
+                "6b5d8d671d8085eb"
+            ],
+            [
+                "006ee139ec04cb38"
+            ]
+        ],
+        "func": "// Test the connection, or send the counters now (administrator)\n\nmsg = await node.linkcall('kernel - hmi', msg);\n\nif (!['admin'].includes(msg.hmi.level)) {\n\n    return;\n}\n\nconst fr = msg.hmi.lang === 'fr';\nconst action = msg.payload;\n\nif (action === 'test') {\n    msg.gmao_request = { 'method': 'GET', 'path': '' };\n    msg = await node.linkcall('gmao - request', msg);\n    const r = msg.gmao_response;\n    delete msg.gmao_response;\n\n    if (r.status === 200 && r.body !== null && r.body.ok === true) {\n        msg.notice = (fr ? 'Connecté à ' : 'Connected to ') + r.body.application + (fr ? ' avec le compte ' : ' as ') + r.body.utilisateur\n            + (r.body.lecture_seule ? (fr ? ' (clé en lecture seule : les envois seront refusés)' : ' (read-only key: sending will be refused)') : '');\n    } else {\n        msg.notice = (fr ? 'Connexion impossible : ' : 'Connection failed: ') + (r.error || ('HTTP ' + r.status));\n    }\n} else if (action === 'send') {\n    msg = await node.linkcall('gmao - read', msg);\n    msg = await node.linkcall('gmao - queue', msg);\n    msg = await node.linkcall('gmao - flush', msg);\n    msg.notice = msg.gmao_result;\n} else {\n\n    return;\n}\n\nmsg = await node.linkcall('ui - notice', msg);\n\nmsg = await node.linkcall('gmao - status', msg);\nlet table = { ...msg, 'payload': msg.gmao_status, 'class': '', 'enabled': true };\ndelete table.gmao_status;\n\n// release the button group selection\nlet buttons = { ...msg, 'payload': '' };\n\nreturn [table, buttons];"
+    },
+    {
+        "id": "e5ade29d2dbdc1ea",
+        "type": "group",
+        "z": "e97c6f12735a13c1",
+        "name": "list - gmao",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "73185faef26394ad",
+            "ffdb29746e842c6b",
+            "502c1fdc9e6ffdba",
+            "23b392f289941457",
+            "52b84b67229a5ac2"
+        ],
+        "x": 914,
+        "y": 2279,
+        "w": 832,
+        "h": 202
+    },
+    {
+        "id": "73185faef26394ad",
+        "type": "ui-text",
+        "z": "e97c6f12735a13c1",
+        "g": "e5ade29d2dbdc1ea",
+        "group": "676969c859c500ab",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "list - gmao - title",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1080,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "ffdb29746e842c6b",
+        "type": "ui-text-input",
+        "z": "e97c6f12735a13c1",
+        "g": "e5ade29d2dbdc1ea",
+        "group": "676969c859c500ab",
+        "name": "list - gmao - id",
+        "label": "GMAO counter ID",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "topic": "topic",
+        "topicType": "msg",
+        "mode": "text",
+        "tooltip": "",
+        "delay": 300,
+        "passthru": false,
+        "sendOnDelay": true,
+        "sendOnBlur": true,
+        "sendOnEnter": true,
+        "className": "",
+        "clearable": true,
+        "sendOnClear": true,
+        "icon": "",
+        "iconPosition": "left",
+        "iconInnerPosition": "inside",
+        "x": 1070,
+        "y": 2380,
+        "wires": [
+            [
+                "502c1fdc9e6ffdba"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "502c1fdc9e6ffdba",
+        "z": "e97c6f12735a13c1",
+        "g": "e5ade29d2dbdc1ea",
+        "name": "data",
+        "x": 1290,
+        "y": 2380,
+        "wires": [
+            []
+        ],
+        "func": "// Keep the typed GMAO counter ID until Save\n\nmsg = await node.linkcall('kernel - hmi', msg);\n\nglobal.set('form[\"' + msg.hmi.id + '\"][\"gmao_id\"]', String(msg.payload ?? '').trim());\n\nreturn;"
+    },
+    {
+        "id": "23b392f289941457",
+        "type": "ui-button-group",
+        "z": "e97c6f12735a13c1",
+        "g": "e5ade29d2dbdc1ea",
+        "name": "list - gmao - save",
+        "group": "676969c859c500ab",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "label": "",
+        "className": "oe-center",
+        "rounded": false,
+        "useThemeColors": true,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "icon": "",
+                "value": "save",
+                "valueType": "str",
+                "color": "#009933"
+            },
+            {
+                "label": "",
+                "icon": "",
+                "value": "cancel",
+                "valueType": "str",
+                "color": "#999999"
+            }
+        ],
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1080,
+        "y": 2440,
+        "wires": [
+            [
+                "52b84b67229a5ac2"
+            ]
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "id": "52b84b67229a5ac2",
+        "z": "e97c6f12735a13c1",
+        "g": "e5ade29d2dbdc1ea",
+        "name": "data",
+        "x": 1290,
+        "y": 2440,
+        "wires": [
+            [
+                "a3c49917e391987c"
+            ],
+            [
+                "b66d1102d310730f"
+            ]
+        ],
+        "func": "// Save (or remove) the GMAO counter link, checked against the GMAO\n// kernel.gmao[\"equipment|counter\"] = \"GMAO counter id\"\n\nmsg = await node.linkcall('kernel - hmi', msg);\n\nmsg.hide = ['ui - dialog - list - gmao'];\nmsg = await node.linkcall('ui - group', msg);\n\nconst choice = msg.payload;\nconst fr = msg.hmi.lang === 'fr';\nconst entity = global.get('form[\"' + msg.hmi.id + '\"][\"gmao\"]') || '';\nconst value = String(global.get('form[\"' + msg.hmi.id + '\"][\"gmao_id\"]') || '').trim();\n\nif (choice !== 'save' || entity === '' || !['admin', 'rt'].includes(msg.hmi.level)) {\n\n    return;\n}\n\nconst notice = async (text) => {\n    msg.notice = text;\n    msg = await node.linkcall('ui - notice', msg);\n};\n\nif (value !== '' && !/^[1-9][0-9]{0,8}$/.test(value)) {\n    await notice(fr ? \"L'ID du compteur GMAO est un nombre\" : 'The GMAO counter ID is a number');\n\n    return;\n}\n\nlet text = fr ? 'Lien GMAO supprimé' : 'GMAO link removed';\n\nif (value !== '') {\n    msg.gmao_request = { 'method': 'GET', 'path': '/compteurs/' + value };\n    msg = await node.linkcall('gmao - request', msg);\n    const r = msg.gmao_response;\n    delete msg.gmao_response;\n\n    if (r.status === 404) {\n        await notice((fr ? 'Compteur ' + value + ' inconnu de la GMAO (ou d\\'un site non autorisé) : lien non enregistré' : 'Counter ' + value + ' unknown to the GMAO (or on a site not allowed): link not saved'));\n\n        return;\n    }\n    text = r.status === 200 && r.body !== null\n        ? (fr ? 'Lié au compteur GMAO ' : 'Linked to GMAO counter ') + value + ' : ' + r.body.equipement + ' · ' + r.body.type_nom + ' (' + r.body.unite + ')'\n        : (fr ? 'Lien enregistré, mais la GMAO ne l\\'a pas confirmé : ' : 'Link saved, but the GMAO did not confirm it: ') + (r.error || ('HTTP ' + r.status));\n}\n\n// kernel memory created on next boot for older installs\nlet kernel = global.get('kernel'); // autoupdate\nif (typeof kernel.gmao !== 'object' || kernel.gmao === null) {\n    kernel.gmao = { };\n}\n\nawait notice(text);\n\nconst update = {\n    'topic': '',\n    'payload': '',\n    'kernel': value === ''\n        ? { 'type': 'gmao', 'entity': entity, 'value': '', 'delete': true, 'loop': false }\n        : { 'type': 'gmao', 'entity': entity, 'value': value, 'loop': false }\n};\n\n// refresh the counters list\nmsg.payload = '';\nmsg.list = 'counter';\n\nreturn [msg, update];"
     }
 ]

@@ -2499,6 +2499,21 @@
     ) {
         let kernel = global.get('kernel'); // autoupdate
 
+        // GMAO: a counter linked to the GMAO changes (local change only), see gmao flow
+        if (msg.kernel.type === 'meter' && msg.kernel.loop === false && msg.kernel.delete !== true
+            && typeof kernel.gmao === 'object' && kernel.gmao !== null && String(kernel.gmao[msg.kernel.entity] || '') !== '') {
+            node.send([null, null, null, null, {
+                'topic': '',
+                'payload': '',
+                'gmao': {
+                    'entity': msg.kernel.entity,
+                    'before': kernel.meter[msg.kernel.entity],
+                    'after': msg.kernel.value,
+                    'time': Date.now()
+                }
+            }]);
+        }
+
         /* deletion requested */
         if (typeof msg.kernel.delete === 'boolean' && msg.kernel.delete === true) {
             delete kernel[msg.kernel.type ][msg.kernel.entity];
@@ -2568,7 +2583,7 @@
     }
 
     return;
-  outputs: 4
+  outputs: 5
   timeout: 0
   noerr: 0
   initialize: ''
@@ -2581,6 +2596,18 @@
     - - 613b0e80d05cf13a
     - - 11918aa3566a7384
     - - d3c22873709318bb
+    - - d54dd54bea75db53
+- id: d54dd54bea75db53
+  type: link out
+  z: f6f2187d.f17ca8
+  g: 216f821485a9eb19
+  name: kernel - gmao
+  mode: link
+  links:
+    - 99b7816e72dbebb7
+  x: 1275
+  'y': 800
+  wires: []
 - id: 1fdf8a4e8af306b6
   type: function
   z: f6f2187d.f17ca8
@@ -2902,7 +2929,8 @@
             'holiday': { },
             'map': { },
             'location': { },
-            'linx': { }
+            'linx': { },
+            'gmao': { }
         };
         // on (re)boot, check kernel structure and load kernel backup
         global.set('kernel', { ...structure, ...RED.util.cloneMessage(global.get('kernel_bk', 'file') || { }) }, 'default');

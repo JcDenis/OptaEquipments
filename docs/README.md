@@ -18,6 +18,7 @@ This guide explains how to use the Opta Equipments dashboard, from daily monitor
 | Linx inkjet printers | [linx.md](linx.md) | Technician manager, Administrator (setup) |
 | Users | [users.md](users.md) | Administrator |
 | System | [system.md](system.md) | Administrator |
+| GMAO link | [gmao.md](gmao.md) | Administrator (setup), Technician manager (counter links) |
 | Telegram bot | [telegram.md](telegram.md) | Users with a Telegram name |
 
 ## Vocabulary

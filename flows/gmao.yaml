@@ -1,0 +1,782 @@
+- id: 4b1cb31503d721d9
+  type: tab
+  label: gmao
+  disabled: false
+  info: |-
+    Counters sent to the GMAO (SPIGMAO API): daily readings and dated resets.
+    See docs/gmao.md
+  env: []
+- id: a37b3ba67f460231
+  type: link out
+  z: 4b1cb31503d721d9
+  name: gmao - request
+  mode: return
+  links: []
+  x: 610
+  'y': 60
+  wires: []
+- id: 1c6f1b1c5a9730d2
+  type: link in
+  z: 4b1cb31503d721d9
+  name: gmao - request
+  links: []
+  x: 145
+  'y': 60
+  wires:
+    - - 07b105d04dfc15e9
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs:
+    - var: http
+      module: http
+    - var: https
+      module: https
+    - var: url
+      module: url
+  id: 07b105d04dfc15e9
+  z: 4b1cb31503d721d9
+  name: request
+  x: 400
+  'y': 60
+  wires:
+    - - a37b3ba67f460231
+  func: >-
+    // HTTP request to the GMAO API (SPIGMAO)
+
+    // msg.gmao_request = { method, path, body } => msg.gmao_response = {
+    status, body, error }
+
+    // status 0 = not sent (missing setting, network error, timeout)
+
+
+    const s = global.get('gmao', 'file') || { };
+
+    const req = msg.gmao_request || { };
+
+    const base = String(s.url || '').trim().replace(/\/+$/, '');
+
+
+    delete msg.gmao_request;
+
+
+    if (base === '' || String(s.key || '') === '') {
+        msg.gmao_response = { 'status': 0, 'error': 'GMAO address or API key missing' };
+
+        return msg;
+    }
+
+
+    let target;
+
+    try {
+        target = new url.URL(base + '/api/v1' + (req.path || ''));
+    } catch (e) {
+        msg.gmao_response = { 'status': 0, 'error': 'Invalid GMAO address' };
+
+        return msg;
+    }
+
+
+    const data = typeof req.body === 'undefined' ? null :
+    JSON.stringify(req.body);
+
+    const headers = {
+        'X-Api-Key': String(s.key),
+        'Accept': 'application/json'
+    };
+
+    if (data !== null) {
+        headers['Content-Type'] = 'application/json';
+        headers['Content-Length'] = Buffer.byteLength(data);
+    }
+
+
+    msg.gmao_response = await new Promise((resolve) => {
+        const lib = target.protocol === 'https:' ? https : http;
+        const r = lib.request(target, { 'method': req.method || 'GET', 'headers': headers, 'timeout': 20000 }, (res) => {
+            let text = '';
+            res.setEncoding('utf8');
+            res.on('data', (chunk) => { text += chunk; });
+            res.on('end', () => {
+                let body = null;
+                try {
+                    body = JSON.parse(text);
+                } catch (e) {
+                    body = null;
+                }
+                resolve({ 'status': res.statusCode, 'body': body, 'error': body === null ? 'Invalid answer from the GMAO (HTTP ' + res.statusCode + ')' : (body.ok === false ? body.message : '') });
+            });
+        });
+        r.on('timeout', () => r.destroy(new Error('timeout')));
+        r.on('error', (e) => resolve({ 'status': 0, 'body': null, 'error': e.message }));
+        if (data !== null) {
+            r.write(data);
+        }
+        r.end();
+    });
+
+
+    node.status({ 'fill': msg.gmao_response.status === 200 ? 'green' : 'red',
+    'shape': 'dot', 'text': (req.method || 'GET') + ' ' + (req.path || '/') + '
+    => ' + (msg.gmao_response.status || msg.gmao_response.error) });
+
+
+    return msg;
+- id: 09bc4780813664a3
+  type: link out
+  z: 4b1cb31503d721d9
+  name: gmao - queue
+  mode: return
+  links: []
+  x: 610
+  'y': 140
+  wires: []
+- id: 81b4cf81ee427da9
+  type: link in
+  z: 4b1cb31503d721d9
+  name: gmao - queue
+  links: []
+  x: 145
+  'y': 140
+  wires:
+    - - a6e87496507e4747
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: a6e87496507e4747
+  z: 4b1cb31503d721d9
+  name: queue
+  x: 400
+  'y': 140
+  wires:
+    - - 09bc4780813664a3
+  func: >-
+    // Add msg.gmao_events to the send queue (file context, survives restarts)
+
+    // reading: { type: 'reading', entity, compteur, valeur, date }
+
+    // reset:   { type: 'reset', entity, compteur, date, valeur_avant,
+    valeur_apres }
+
+
+    // Sending is allowed only when commands are enabled (System > Application,
+    or OPTA_COMMANDS=false)
+
+    const commands = env.get('OPTA_COMMANDS') !== 'false' &&
+    global.get('kernel.app.commands') !== false;
+
+
+    const events = Array.isArray(msg.gmao_events) ? msg.gmao_events : [];
+
+    let s = global.get('gmao', 'file') || { };
+
+
+    delete msg.gmao_events;
+
+    msg.gmao_queued = 0;
+
+
+    if (s.enabled !== true || !commands || events.length === 0) {
+
+        return msg;
+    }
+
+
+    let queue = (Array.isArray(s.queue) ? s.queue : []).concat(events);
+
+    // Keep the queue bounded if the GMAO stays unreachable for a long time
+
+    if (queue.length > 5000) {
+        s.dropped = (s.dropped || 0) + queue.length - 5000;
+        queue = queue.slice(queue.length - 5000);
+    }
+
+    s.queue = queue;
+
+    global.set('gmao', s, 'file');
+
+
+    msg.gmao_queued = events.length;
+
+    node.status({ 'fill': 'blue', 'shape': 'dot', 'text': queue.length + '
+    waiting' });
+
+
+    return msg;
+- id: 3242ef80b5cee240
+  type: link out
+  z: 4b1cb31503d721d9
+  name: gmao - read
+  mode: return
+  links: []
+  x: 610
+  'y': 220
+  wires: []
+- id: 8f154becfe494bd6
+  type: link in
+  z: 4b1cb31503d721d9
+  name: gmao - read
+  links: []
+  x: 145
+  'y': 220
+  wires:
+    - - 6693e829695bf3d1
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 6693e829695bf3d1
+  z: 4b1cb31503d721d9
+  name: read
+  x: 400
+  'y': 220
+  wires:
+    - - 3242ef80b5cee240
+  func: >-
+    // Current value of every counter linked to the GMAO => msg.gmao_events
+    (readings)
+
+    // kernel.gmao["equipment|counter"] = "GMAO counter id"
+
+    // kernel.meter["equipment|counter"] = "hours|last
+    runmetertotal|timestamp[|off|hide timestamp]"
+
+    // Calendar counters: "0|0|last reset timestamp", value = days since last
+    reset
+
+
+    const kernel = global.get('kernel') || { };
+
+    const links = kernel.gmao || { };
+
+    const now = Date.now();
+
+    const date = new Date(now).toISOString();
+
+    let events = [];
+
+
+    for (const entity in links) {
+        const id = Number(links[entity]);
+        const meter = (kernel.meter || { })[entity];
+        const [equipment, counter] = entity.split('|');
+        const definition = String((kernel.counter || { })[counter] ?? '');
+
+        if (!(id > 0) || typeof meter !== 'string' || meter === '' || definition === '') {
+
+            continue;
+        }
+        // counter no longer in the equipment family
+        if ((kernel.counters || { })[counter] !== (kernel.families || { })[equipment]) {
+
+            continue;
+        }
+        const m = meter.split('|');
+        // hidden counter on this equipment
+        if (m[3] === 'off') {
+
+            continue;
+        }
+        const calendar = /d$/.test(definition.split('|')[0]);
+        const valeur = calendar
+            ? Math.max(0, Math.floor((now - (Number(m[2]) || now)) / 86400000))
+            : Math.round((Number(m[0]) || 0) * 100) / 100;
+
+        events.push({ 'type': 'reading', 'entity': entity, 'compteur': id, 'valeur': valeur, 'date': date });
+    }
+
+
+    msg.gmao_events = events;
+
+
+    return msg;
+- id: 977f09bae20c4826
+  type: link out
+  z: 4b1cb31503d721d9
+  name: gmao - flush
+  mode: return
+  links: []
+  x: 610
+  'y': 300
+  wires: []
+- id: 4f0a944e7bb6b591
+  type: link in
+  z: 4b1cb31503d721d9
+  name: gmao - flush
+  links: []
+  x: 145
+  'y': 300
+  wires:
+    - - fe08fd4b8de05965
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: fe08fd4b8de05965
+  z: 4b1cb31503d721d9
+  name: flush
+  x: 400
+  'y': 300
+  wires:
+    - - 977f09bae20c4826
+  func: >-
+    // Send the queue to the GMAO, in date order.
+
+    // An event leaves the queue only when the GMAO confirms it (recorded, or
+    already received),
+
+    // or refuses it for good (the refusal is kept in the errors list).
+    Otherwise it stays for the next try.
+
+
+    // Sending is allowed only when commands are enabled (System > Application,
+    or OPTA_COMMANDS=false)
+
+    const commands = env.get('OPTA_COMMANDS') !== 'false' &&
+    global.get('kernel.app.commands') !== false;
+
+
+    const lang = (msg.hmi || { }).lang === 'fr' ? 'fr' : 'en';
+
+    const t = (fr, en) => lang === 'fr' ? fr : en;
+
+    let s = global.get('gmao', 'file') || { };
+
+
+    // One send at a time
+
+    if (Date.now() - (global.get('gmao_lock') || 0) < 120000) {
+        msg.gmao_ok = false;
+        msg.gmao_result = t('Envoi déjà en cours', 'Already sending');
+
+        return msg;
+    }
+
+
+    if (s.enabled !== true || !commands) {
+        msg.gmao_ok = false;
+        msg.gmao_result = !commands ? t('Commandes désactivées : rien n\'est envoyé', 'Commands are disabled: nothing is sent') : t('Envoi à la GMAO désactivé', 'Sending to the GMAO is disabled');
+
+        return msg;
+    }
+
+
+    global.set('gmao_lock', Date.now());
+
+
+    let queue = (Array.isArray(s.queue) ? s.queue : []).slice();
+
+    queue.sort((a, b) => a.date < b.date ? -1 : (a.date > b.date ? 1 : 0));
+
+
+    let sent = 0;
+
+    let refused = 0;
+
+    let failure = '';
+
+    const errors = [];
+
+    const save = () => {
+        s = global.get('gmao', 'file') || { };
+        s.queue = queue;
+        global.set('gmao', s, 'file');
+    };
+
+    const refuse = (ev, message) => {
+        refused++;
+        errors.push({ 'time': Date.now(), 'entity': ev.entity, 'compteur': ev.compteur, 'date': ev.date, 'message': message });
+    };
+
+    // 4xx with an error code is a definitive refusal, except key and rights
+    problems which need a fix and a retry
+
+    const definitive = (r) => r.status >= 400 && r.status < 500 && ![401, 403,
+    408, 429].includes(r.status) && r.body !== null && typeof r.body.erreur ===
+    'string';
+
+
+    while (queue.length > 0 && failure === '') {
+        if (queue[0].type === 'reset') {
+            const ev = queue[0];
+            msg.gmao_request = {
+                'method': 'POST',
+                'path': '/compteurs/' + ev.compteur + '/remise-a-zero',
+                'body': { 'date': ev.date, 'valeur_avant': ev.valeur_avant, 'valeur_apres': ev.valeur_apres }
+            };
+            msg = await node.linkcall('gmao - request', msg);
+            const r = msg.gmao_response;
+            delete msg.gmao_response;
+
+            if (r.status === 200) {
+                sent++;
+                queue.shift();
+            } else if (definitive(r)) {
+                refuse(ev, r.body.message);
+                queue.shift();
+            } else {
+                failure = r.error || ('HTTP ' + r.status);
+            }
+        } else {
+            // consecutive readings in one request
+            let batch = [];
+            while (queue.length > 0 && queue[0].type !== 'reset' && batch.length < 500) {
+                batch.push(queue.shift());
+            }
+            msg.gmao_request = {
+                'method': 'POST',
+                'path': '/releves',
+                'body': { 'releves': batch.map((ev) => ({ 'compteur': ev.compteur, 'valeur': ev.valeur, 'date': ev.date })) }
+            };
+            msg = await node.linkcall('gmao - request', msg);
+            const r = msg.gmao_response;
+            delete msg.gmao_response;
+
+            if (r.status === 200 && r.body !== null && Array.isArray(r.body.resultats)) {
+                // match each answer with its reading (the GMAO answers in date order)
+                let waiting = batch.slice();
+                for (const res of r.body.resultats) {
+                    const i = waiting.findIndex((ev) => ev.compteur === res.compteur);
+                    const ev = i >= 0 ? waiting.splice(i, 1)[0] : { 'compteur': res.compteur };
+                    if (res.statut === 'enregistre' || res.statut === 'deja_recu') {
+                        sent++;
+                    } else {
+                        refuse(ev, res.message || res.erreur || 'refused');
+                    }
+                }
+                // readings without answer stay in the queue
+                queue = waiting.concat(queue);
+            } else if (definitive(r)) {
+                batch.forEach((ev) => refuse(ev, r.body.message));
+            } else {
+                queue = batch.concat(queue);
+                failure = r.error || ('HTTP ' + r.status);
+            }
+        }
+        save();
+    }
+
+
+    s = global.get('gmao', 'file') || { };
+
+    s.queue = queue;
+
+    s.last_try = Date.now();
+
+    if (failure === '') {
+        s.last_ok = Date.now();
+    }
+
+    s.errors = errors.concat(Array.isArray(s.errors) ? s.errors : []).slice(0,
+    20);
+
+    msg.gmao_ok = failure === '';
+
+    msg.gmao_result = failure !== ''
+        ? t('Échec : ', 'Failed: ') + failure + ' (' + t('envoyés', 'sent') + ' ' + sent + ', ' + t('en attente', 'waiting') + ' ' + queue.length + ')'
+        : t('Envoyés : ', 'Sent: ') + sent + (refused > 0 ? ', ' + t('refusés : ', 'refused: ') + refused : '');
+    s.last_result = msg.gmao_result;
+
+    global.set('gmao', s, 'file');
+
+    global.set('gmao_lock', 0);
+
+
+    node.status({ 'fill': failure === '' ? (refused > 0 ? 'yellow' : 'green') :
+    'red', 'shape': 'dot', 'text': msg.gmao_result });
+
+
+    return msg;
+- id: 5d056cd98a0045c2
+  type: link out
+  z: 4b1cb31503d721d9
+  name: gmao - status
+  mode: return
+  links: []
+  x: 610
+  'y': 380
+  wires: []
+- id: b69f53046d506825
+  type: link in
+  z: 4b1cb31503d721d9
+  name: gmao - status
+  links: []
+  x: 145
+  'y': 380
+  wires:
+    - - 02d13598e83b6d95
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 02d13598e83b6d95
+  z: 4b1cb31503d721d9
+  name: status
+  x: 400
+  'y': 380
+  wires:
+    - - 5d056cd98a0045c2
+  func: >-
+    // GMAO link status => msg.gmao_status (rows for the System > GMAO table)
+
+
+    // Sending is allowed only when commands are enabled (System > Application,
+    or OPTA_COMMANDS=false)
+
+    const commands = env.get('OPTA_COMMANDS') !== 'false' &&
+    global.get('kernel.app.commands') !== false;
+
+
+    const lang = (msg.hmi || { }).lang === 'fr' ? 'fr' : 'en';
+
+    const t = (fr, en) => lang === 'fr' ? fr : en;
+
+    const s = global.get('gmao', 'file') || { };
+
+    const links = Object.values(global.get('kernel.gmao') || { }).filter((v) =>
+    String(v) !== '').length;
+
+    const when = (ts) => ts ? new Date(ts).toLocaleString(lang === 'fr' ?
+    'fr-FR' : 'en-GB', { 'timeZone': env.get('TZ') || 'Europe/Paris' }) : '-';
+
+    const queue = Array.isArray(s.queue) ? s.queue : [];
+
+
+    let state = t('Activé', 'Enabled');
+
+    if (s.enabled !== true) {
+        state = t('Désactivé', 'Disabled');
+    } else if (!commands) {
+        state = t('Commandes désactivées : rien n\'est envoyé', 'Commands are disabled: nothing is sent');
+    } else if (!s.url || !s.key) {
+        state = t('Adresse ou clé manquante', 'Address or key missing');
+    }
+
+
+    let rows = [
+        { 'item': t('État', 'State'), 'value': state },
+        { 'item': t('Compteurs liés', 'Linked counters'), 'value': String(links) },
+        { 'item': t('Envoi quotidien', 'Daily send'), 'value': String(s.hour ?? 6).padStart(2, '0') + ':00' + (s.last_daily ? ' (' + t('dernier', 'last') + ' ' + s.last_daily + ')' : '') },
+        { 'item': t('Dernier envoi réussi', 'Last successful send'), 'value': when(s.last_ok) },
+        { 'item': t('Dernière tentative', 'Last try'), 'value': when(s.last_try) + (s.last_result ? ' : ' + s.last_result : '') },
+        { 'item': t('En attente', 'Waiting'), 'value': String(queue.length) + (s.dropped ? ' (' + s.dropped + ' ' + t('perdus', 'lost') + ')' : '') }
+    ];
+
+    for (const e of (Array.isArray(s.errors) ? s.errors : []).slice(0, 5)) {
+        rows.push({ 'item': t('Refus', 'Refusal') + ' ' + when(e.time), 'value': (e.entity || ('#' + e.compteur)) + ' : ' + e.message });
+    }
+
+
+    msg.gmao_status = rows;
+
+
+    return msg;
+- id: a79a86fd3685ef64
+  type: inject
+  z: 4b1cb31503d721d9
+  name: 15 min
+  props: []
+  repeat: '900'
+  crontab: ''
+  once: true
+  onceDelay: '60'
+  topic: ''
+  x: 170
+  'y': 480
+  wires:
+    - - 17b2636bba6aed1b
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 17b2636bba6aed1b
+  z: 4b1cb31503d721d9
+  name: tick
+  x: 400
+  'y': 480
+  wires:
+    - []
+  func: >-
+    // Once a day at the chosen hour: send the value of every linked counter.
+
+    // Every hour: try again to send a waiting queue (GMAO unreachable).
+
+
+    // Sending is allowed only when commands are enabled (System > Application,
+    or OPTA_COMMANDS=false)
+
+    const commands = env.get('OPTA_COMMANDS') !== 'false' &&
+    global.get('kernel.app.commands') !== false;
+
+
+    const s = global.get('gmao', 'file') || { };
+
+
+    if (s.enabled !== true || !commands || !s.url || !s.key) {
+        node.status({ 'fill': 'grey', 'shape': 'ring', 'text': !commands ? 'commands disabled' : 'disabled' });
+
+        return;
+    }
+
+
+    const now = new Date();
+
+    const today = now.toLocaleDateString('sv-SE', { 'timeZone': env.get('TZ') ||
+    'Europe/Paris' });
+
+    const hour = Number(now.toLocaleString('en-GB', { 'hour': '2-digit',
+    'hour12': false, 'timeZone': env.get('TZ') || 'Europe/Paris' }));
+
+
+    if (s.last_daily !== today && hour >= Number(s.hour ?? 6)) {
+        msg = await node.linkcall('gmao - read', msg);
+        msg = await node.linkcall('gmao - queue', msg);
+        let s2 = global.get('gmao', 'file') || { };
+        s2.last_daily = today;
+        global.set('gmao', s2, 'file');
+        msg = await node.linkcall('gmao - flush', msg);
+    } else if ((s.queue || []).length > 0 && Date.now() - (s.last_try || 0) >=
+    3600000) {
+        msg = await node.linkcall('gmao - flush', msg);
+    }
+
+
+    const s3 = global.get('gmao', 'file') || { };
+
+    node.status({ 'fill': (s3.queue || []).length > 0 ? 'yellow' : 'green',
+    'shape': 'dot', 'text': (s3.last_result || 'waiting') + ' / ' + (s3.queue ||
+    []).length + ' waiting' });
+
+
+    return;
+- id: 99b7816e72dbebb7
+  type: link in
+  z: 4b1cb31503d721d9
+  name: kernel - gmao
+  links:
+    - d54dd54bea75db53
+  x: 145
+  'y': 580
+  wires:
+    - - 3397cd83692a9f76
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 3397cd83692a9f76
+  z: 4b1cb31503d721d9
+  name: reset
+  x: 400
+  'y': 580
+  wires:
+    - []
+  func: >-
+    // A counter linked to the GMAO was reset: send the dated reset at once (see
+    kernel - loop)
+
+    // kernel.meter["equipment|counter"] = "hours|last
+    runmetertotal|timestamp[|off|hide timestamp]"
+
+    // Calendar counters: "0|0|last reset timestamp"
+
+
+    const g = msg.gmao || { };
+
+    const kernel = global.get('kernel') || { };
+
+    const id = Number((kernel.gmao || { })[g.entity] || 0);
+
+
+    if (!(id > 0) || typeof g.before !== 'string' || g.before === '') {
+
+        return;
+    }
+
+
+    const before = g.before.split('|');
+
+    const after = String(g.after ?? '').split('|');
+
+
+    // counter hidden, or shown again: not a reset
+
+    if (before[3] === 'off' || after[3] === 'off') {
+
+        return;
+    }
+
+
+    const definition = String((kernel.counter || { })[g.entity.split('|')[1]] ??
+    '');
+
+    let avant;
+
+    let apres;
+
+    let when;
+
+
+    if (/d$/.test(definition.split('|')[0])) {
+        // calendar counter: days since last reset
+        const t0 = Number(before[2]) || 0;
+        const t1 = g.after === '' ? g.time : (Number(after[2]) || 0);
+        if (!(t0 > 0 && t1 > t0)) {
+
+            return;
+        }
+        avant = Math.max(0, Math.floor((t1 - t0) / 86400000));
+        apres = 0;
+        when = t1;
+    } else {
+        // hours counter: hours only go up, except on reset
+        const h0 = Number(before[0]) || 0;
+        const h1 = g.after === '' ? 0 : (Number(after[0]) || 0);
+        if (!(h1 < h0)) {
+
+            return;
+        }
+        avant = Math.round(h0 * 100) / 100;
+        apres = Math.round(h1 * 100) / 100;
+        when = g.after === '' ? g.time : (Number(after[2]) || g.time);
+    }
+
+
+    msg.gmao_events = [{ 'type': 'reset', 'entity': g.entity, 'compteur': id,
+    'date': new Date(when).toISOString(), 'valeur_avant': avant, 'valeur_apres':
+    apres }];
+
+    delete msg.gmao;
+
+
+    msg = await node.linkcall('gmao - queue', msg);
+
+    if (msg.gmao_queued > 0) {
+        msg = await node.linkcall('gmao - flush', msg);
+        node.status({ 'fill': msg.gmao_ok ? 'green' : 'yellow', 'shape': 'dot', 'text': g.entity + ' : ' + msg.gmao_result });
+    }
+
+
+    return;

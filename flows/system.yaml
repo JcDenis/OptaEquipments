@@ -435,6 +435,7 @@
     - dd8ce7e8d8c17c91
     - eba6e18370fbfe76
     - 505480cb0e3079f8
+    - ed82938bc73c9739
   x: 755
   'y': 180
   wires: []
@@ -1267,6 +1268,10 @@
         'orphan': {
             'group': 'ui - group - system - orphans',
             'label': (msg.dictionary.system || { }).menu_orphan || 'Orphans'
+        },
+        'gmao': {
+            'group': 'ui - group - system - gmao',
+            'label': (msg.dictionary.system || { }).menu_gmao || 'GMAO'
         }
     };
 
@@ -2411,3 +2416,367 @@
   x: 395
   'y': 1920
   wires: []
+- id: 642c5e6c94ea2ef1
+  type: group
+  z: 44465f18e06bb58d
+  name: system - gmao
+  style:
+    label: true
+  nodes:
+    - ed82938bc73c9739
+    - 2eb1c6e99d789361
+    - 27fffb11e5bfcc4d
+    - 62dd20c74e67194a
+    - 6b5d8d671d8085eb
+    - 006ee139ec04cb38
+    - b9c26cc24fb0e3a1
+  x: 94
+  'y': 2179
+  w: 1092
+  h: 222
+- id: ed82938bc73c9739
+  type: link in
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  name: system - gmao
+  links: []
+  x: 135
+  'y': 2220
+  wires:
+    - - 2eb1c6e99d789361
+- type: function
+  outputs: 3
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 2eb1c6e99d789361
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  name: data
+  x: 270
+  'y': 2220
+  wires:
+    - - 27fffb11e5bfcc4d
+    - - 6b5d8d671d8085eb
+    - - 006ee139ec04cb38
+  func: >-
+    // GMAO section: settings, status, actions
+
+
+    if (msg.enabled !== true || msg.selected !== 'gmao') {
+
+        return [null, null, null];
+    }
+
+
+    const s = global.get('gmao', 'file') || { };
+
+
+    // Form values (the API key is never shown back)
+
+    let form = { ...msg };
+
+    form.payload = {
+        'url': s.url || '',
+        'key': '',
+        'hour': String(s.hour ?? 6),
+        'enabled': s.enabled === true
+    };
+
+    form.ui_update = {
+        'dropdownOptions': Array.from({ 'length': 24 }, (v, h) => ({
+            'label': String(h).padStart(2, '0') + ':00',
+            'value': String(h),
+            'dropdown': 'hour'
+        }))
+    };
+
+
+    msg = await node.linkcall('gmao - status', msg);
+
+    let table = { ...msg, 'payload': msg.gmao_status, 'class': '', 'enabled':
+    true };
+
+    delete table.gmao_status;
+
+
+    let buttons = { ...msg, 'payload': '', 'class': '', 'enabled': true };
+
+    buttons.ui_update = {
+        'options': [
+            { 'label': msg.hmi.lang === 'fr' ? 'Tester la connexion' : 'Test connection', 'value': 'test', 'valueType': 'str', 'icon': '', 'color': '#1f64c8' },
+            { 'label': msg.hmi.lang === 'fr' ? 'Envoyer maintenant' : 'Send now', 'value': 'send', 'valueType': 'str', 'icon': '', 'color': '#009933' }
+        ]
+    };
+
+
+    return [form, table, buttons];
+- id: 27fffb11e5bfcc4d
+  type: ui-form
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  name: system - gmao - form
+  group: 7482c5f6d428f102
+  label: ''
+  order: 1
+  width: 0
+  height: 0
+  options:
+    - label: 'GMAO address (ex: http://10.40.0.139:8080)'
+      key: url
+      type: text
+      required: false
+      rows: null
+    - label: API key (empty = unchanged)
+      key: key
+      type: password
+      required: false
+      rows: null
+    - label: Daily send hour
+      key: hour
+      type: dropdown
+      required: true
+      rows: null
+    - label: Send counters to the GMAO
+      key: enabled
+      type: checkbox
+      required: false
+      rows: null
+  formValue:
+    url: ''
+    key: ''
+    hour: ''
+    enabled: false
+  payload: ''
+  submit: ►
+  cancel: ''
+  resetOnSubmit: false
+  topic: topic
+  topicType: msg
+  splitLayout: ''
+  className: ''
+  passthru: false
+  dropdownOptions: []
+  x: 480
+  'y': 2220
+  wires:
+    - - 62dd20c74e67194a
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 62dd20c74e67194a
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  name: data
+  x: 690
+  'y': 2220
+  wires:
+    - - 6b5d8d671d8085eb
+  func: >-
+    // Save GMAO settings (administrator)
+
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    if (!['admin'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+
+    let s = global.get('gmao', 'file') || { };
+
+    const address = String(msg.payload.url || '').trim().replace(/\/+$/, '');
+
+
+    if (address !== '' && !/^https?:\/\/[^\s/]+/.test(address)) {
+        msg.notice = msg.hmi.lang === 'fr' ? 'Adresse de la GMAO invalide (http://… attendu)' : 'Invalid GMAO address (http://… expected)';
+        msg = await node.linkcall('ui - notice', msg);
+
+        return;
+    }
+
+
+    s.url = address;
+
+    if (String(msg.payload.key || '').trim() !== '') {
+        s.key = String(msg.payload.key).trim();
+    }
+
+    s.hour = Math.min(23, Math.max(0, Number(msg.payload.hour) || 0));
+
+    s.enabled = msg.payload.enabled === true;
+
+    global.set('gmao', s, 'file');
+
+
+    const commands = env.get('OPTA_COMMANDS') !== 'false' &&
+    global.get('kernel.app.commands') !== false;
+
+    msg.notice = s.enabled && !commands
+        ? (msg.hmi.lang === 'fr' ? 'Enregistré, mais les commandes sont désactivées : rien ne sera envoyé' : 'Saved, but commands are disabled: nothing will be sent')
+        : msg.dictionary.option_notice.update_success;
+    msg = await node.linkcall('ui - notice', msg);
+
+
+    msg = await node.linkcall('gmao - status', msg);
+
+    msg.payload = msg.gmao_status;
+
+    delete msg.gmao_status;
+
+    msg.class = '';
+
+    msg.enabled = true;
+
+
+    return msg;
+- id: 6b5d8d671d8085eb
+  type: ui-table
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  group: 7482c5f6d428f102
+  name: system - gmao - status
+  label: ''
+  order: 2
+  width: 0
+  height: 0
+  maxrows: '20'
+  passthru: false
+  autocols: false
+  showSearch: false
+  deselect: true
+  selectionType: none
+  columns:
+    - title: ''
+      key: item
+      keyType: key
+      type: text
+      width: ''
+      align: start
+    - title: ''
+      key: value
+      keyType: key
+      type: text
+      width: ''
+      align: start
+  mobileBreakpoint: sm
+  mobileBreakpointType: defaults
+  action: replace
+  className: ''
+  x: 920
+  'y': 2280
+  wires:
+    - []
+- id: 006ee139ec04cb38
+  type: ui-button-group
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  name: system - gmao - actions
+  group: 7482c5f6d428f102
+  order: 3
+  width: '0'
+  height: '0'
+  label: ''
+  className: oe-center
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: Test connection
+      icon: ''
+      value: test
+      valueType: str
+      color: '#1f64c8'
+    - label: Send now
+      icon: ''
+      value: send
+      valueType: str
+      color: '#009933'
+  topic: topic
+  topicType: msg
+  x: 480
+  'y': 2340
+  wires:
+    - - b9c26cc24fb0e3a1
+- type: function
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: b9c26cc24fb0e3a1
+  z: 44465f18e06bb58d
+  g: 642c5e6c94ea2ef1
+  name: data
+  x: 690
+  'y': 2340
+  wires:
+    - - 6b5d8d671d8085eb
+    - - 006ee139ec04cb38
+  func: >-
+    // Test the connection, or send the counters now (administrator)
+
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    if (!['admin'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+
+    const fr = msg.hmi.lang === 'fr';
+
+    const action = msg.payload;
+
+
+    if (action === 'test') {
+        msg.gmao_request = { 'method': 'GET', 'path': '' };
+        msg = await node.linkcall('gmao - request', msg);
+        const r = msg.gmao_response;
+        delete msg.gmao_response;
+
+        if (r.status === 200 && r.body !== null && r.body.ok === true) {
+            msg.notice = (fr ? 'Connecté à ' : 'Connected to ') + r.body.application + (fr ? ' avec le compte ' : ' as ') + r.body.utilisateur
+                + (r.body.lecture_seule ? (fr ? ' (clé en lecture seule : les envois seront refusés)' : ' (read-only key: sending will be refused)') : '');
+        } else {
+            msg.notice = (fr ? 'Connexion impossible : ' : 'Connection failed: ') + (r.error || ('HTTP ' + r.status));
+        }
+    } else if (action === 'send') {
+        msg = await node.linkcall('gmao - read', msg);
+        msg = await node.linkcall('gmao - queue', msg);
+        msg = await node.linkcall('gmao - flush', msg);
+        msg.notice = msg.gmao_result;
+    } else {
+
+        return;
+    }
+
+
+    msg = await node.linkcall('ui - notice', msg);
+
+
+    msg = await node.linkcall('gmao - status', msg);
+
+    let table = { ...msg, 'payload': msg.gmao_status, 'class': '', 'enabled':
+    true };
+
+    delete table.gmao_status;
+
+
+    // release the button group selection
+
+    let buttons = { ...msg, 'payload': '' };
+
+
+    return [table, buttons];

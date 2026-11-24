@@ -2154,6 +2154,9 @@
             row.reset = (msg.dictionary.option_action.reset) || 'Reset';
             row.toggle = ['admin', 'rt'].includes(msg.hmi.level) ? (msg.dictionary.option_action.hide || 'Hide') : '';
             row.order = row.percent;
+            // GMAO counter link (see gmao flow)
+            const gmao = String((global.get('kernel.gmao') || { })[entity] || '');
+            row.gmao = gmao !== '' ? 'GMAO ' + gmao : (['admin', 'rt'].includes(msg.hmi.level) ? (msg.hmi.lang === 'fr' ? 'Lier GMAO' : 'Link GMAO') : '');
             if (hidden) {
                 row.state_color = msg.dictionary.option_color.empty;
                 row.reset = '';
@@ -2270,6 +2273,12 @@
       type: button
       width: ''
       align: start
+    - title: GMAO
+      key: gmao
+      keyType: key
+      type: button
+      width: ''
+      align: start
   mobileBreakpoint: sm
   mobileBreakpointType: defaults
   action: replace
@@ -2349,8 +2358,41 @@
     }
 
 
+    // GMAO counter link: open the dialog (see gmao flow)
+
+    if (msg.action === 'button_click' && msg.column === 'gmao') {
+        if (!['admin', 'rt'].includes(msg.hmi.level)) {
+
+            return;
+        }
+
+        const row = msg.payload;
+        const current = String((global.get('kernel.gmao') || { })[row.entity] || '');
+        global.set('form["' + msg.hmi.id + '"]["gmao"]', row.entity);
+        global.set('form["' + msg.hmi.id + '"]["gmao_id"]', current);
+
+        msg.show = ['ui - dialog - list - gmao'];
+        msg = await node.linkcall('ui - group', msg);
+        msg = await node.linkcall('ui - latency', msg);
+
+        const fr = msg.hmi.lang === 'fr';
+        let title = { ...msg, 'payload': row.equipment_full + ' — ' + row.counter_full };
+        let input = { ...msg, 'payload': current };
+        input.ui_update = { 'label': fr ? 'ID du compteur dans la GMAO (vide pour délier)' : 'GMAO counter ID (empty to unlink)' };
+        let buttons = { ...msg, 'payload': '' };
+        buttons.ui_update = {
+            'options': [
+                { 'label': fr ? 'Enregistrer' : 'Save', 'value': 'save', 'valueType': 'str', 'icon': '', 'color': '#009933' },
+                { 'label': fr ? 'Annuler' : 'Cancel', 'value': 'cancel', 'valueType': 'str', 'icon': '', 'color': '#999999' }
+            ]
+        };
+
+        return [null, null, title, input, buttons];
+    }
+
+
     return [msg, null];
-  outputs: 2
+  outputs: 5
   timeout: 0
   noerr: 0
   initialize: ''
@@ -2361,6 +2403,9 @@
   wires:
     - - a3c49917e391987c
     - - b66d1102d310730f
+    - - 73185faef26394ad
+    - - ffdb29746e842c6b
+    - - 23b392f289941457
 - id: b66d1102d310730f
   type: link out
   z: e97c6f12735a13c1
@@ -2433,6 +2478,12 @@
       align: start
     - title: ''
       key: toggle
+      keyType: key
+      type: button
+      width: ''
+      align: start
+    - title: GMAO
+      key: gmao
       keyType: key
       type: button
       width: ''
@@ -3215,3 +3266,238 @@
   x: 795
   'y': 2580
   wires: []
+- id: e5ade29d2dbdc1ea
+  type: group
+  z: e97c6f12735a13c1
+  name: list - gmao
+  style:
+    label: true
+  nodes:
+    - 73185faef26394ad
+    - ffdb29746e842c6b
+    - 502c1fdc9e6ffdba
+    - 23b392f289941457
+    - 52b84b67229a5ac2
+  x: 914
+  'y': 2279
+  w: 832
+  h: 202
+- id: 73185faef26394ad
+  type: ui-text
+  z: e97c6f12735a13c1
+  g: e5ade29d2dbdc1ea
+  group: 676969c859c500ab
+  order: 1
+  width: 0
+  height: 0
+  name: list - gmao - title
+  label: ''
+  format: '{{msg.payload}}'
+  layout: row-center
+  style: false
+  font: ''
+  fontSize: 16
+  color: '#717171'
+  wrapText: true
+  className: ''
+  value: payload
+  valueType: msg
+  x: 1080
+  'y': 2320
+  wires: []
+- id: ffdb29746e842c6b
+  type: ui-text-input
+  z: e97c6f12735a13c1
+  g: e5ade29d2dbdc1ea
+  group: 676969c859c500ab
+  name: list - gmao - id
+  label: GMAO counter ID
+  order: 2
+  width: 0
+  height: 0
+  topic: topic
+  topicType: msg
+  mode: text
+  tooltip: ''
+  delay: 300
+  passthru: false
+  sendOnDelay: true
+  sendOnBlur: true
+  sendOnEnter: true
+  className: ''
+  clearable: true
+  sendOnClear: true
+  icon: ''
+  iconPosition: left
+  iconInnerPosition: inside
+  x: 1070
+  'y': 2380
+  wires:
+    - - 502c1fdc9e6ffdba
+- type: function
+  outputs: 1
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 502c1fdc9e6ffdba
+  z: e97c6f12735a13c1
+  g: e5ade29d2dbdc1ea
+  name: data
+  x: 1290
+  'y': 2380
+  wires:
+    - []
+  func: >-
+    // Keep the typed GMAO counter ID until Save
+
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    global.set('form["' + msg.hmi.id + '"]["gmao_id"]', String(msg.payload ??
+    '').trim());
+
+
+    return;
+- id: 23b392f289941457
+  type: ui-button-group
+  z: e97c6f12735a13c1
+  g: e5ade29d2dbdc1ea
+  name: list - gmao - save
+  group: 676969c859c500ab
+  order: 3
+  width: '0'
+  height: '0'
+  label: ''
+  className: oe-center
+  rounded: false
+  useThemeColors: true
+  passthru: false
+  options:
+    - label: ''
+      icon: ''
+      value: save
+      valueType: str
+      color: '#009933'
+    - label: ''
+      icon: ''
+      value: cancel
+      valueType: str
+      color: '#999999'
+  topic: topic
+  topicType: msg
+  x: 1080
+  'y': 2440
+  wires:
+    - - 52b84b67229a5ac2
+- type: function
+  outputs: 2
+  timeout: 0
+  noerr: 0
+  initialize: ''
+  finalize: ''
+  libs: []
+  id: 52b84b67229a5ac2
+  z: e97c6f12735a13c1
+  g: e5ade29d2dbdc1ea
+  name: data
+  x: 1290
+  'y': 2440
+  wires:
+    - - a3c49917e391987c
+    - - b66d1102d310730f
+  func: >-
+    // Save (or remove) the GMAO counter link, checked against the GMAO
+
+    // kernel.gmao["equipment|counter"] = "GMAO counter id"
+
+
+    msg = await node.linkcall('kernel - hmi', msg);
+
+
+    msg.hide = ['ui - dialog - list - gmao'];
+
+    msg = await node.linkcall('ui - group', msg);
+
+
+    const choice = msg.payload;
+
+    const fr = msg.hmi.lang === 'fr';
+
+    const entity = global.get('form["' + msg.hmi.id + '"]["gmao"]') || '';
+
+    const value = String(global.get('form["' + msg.hmi.id + '"]["gmao_id"]') ||
+    '').trim();
+
+
+    if (choice !== 'save' || entity === '' || !['admin',
+    'rt'].includes(msg.hmi.level)) {
+
+        return;
+    }
+
+
+    const notice = async (text) => {
+        msg.notice = text;
+        msg = await node.linkcall('ui - notice', msg);
+    };
+
+
+    if (value !== '' && !/^[1-9][0-9]{0,8}$/.test(value)) {
+        await notice(fr ? "L'ID du compteur GMAO est un nombre" : 'The GMAO counter ID is a number');
+
+        return;
+    }
+
+
+    let text = fr ? 'Lien GMAO supprimé' : 'GMAO link removed';
+
+
+    if (value !== '') {
+        msg.gmao_request = { 'method': 'GET', 'path': '/compteurs/' + value };
+        msg = await node.linkcall('gmao - request', msg);
+        const r = msg.gmao_response;
+        delete msg.gmao_response;
+
+        if (r.status === 404) {
+            await notice((fr ? 'Compteur ' + value + ' inconnu de la GMAO (ou d\'un site non autorisé) : lien non enregistré' : 'Counter ' + value + ' unknown to the GMAO (or on a site not allowed): link not saved'));
+
+            return;
+        }
+        text = r.status === 200 && r.body !== null
+            ? (fr ? 'Lié au compteur GMAO ' : 'Linked to GMAO counter ') + value + ' : ' + r.body.equipement + ' · ' + r.body.type_nom + ' (' + r.body.unite + ')'
+            : (fr ? 'Lien enregistré, mais la GMAO ne l\'a pas confirmé : ' : 'Link saved, but the GMAO did not confirm it: ') + (r.error || ('HTTP ' + r.status));
+    }
+
+
+    // kernel memory created on next boot for older installs
+
+    let kernel = global.get('kernel'); // autoupdate
+
+    if (typeof kernel.gmao !== 'object' || kernel.gmao === null) {
+        kernel.gmao = { };
+    }
+
+
+    await notice(text);
+
+
+    const update = {
+        'topic': '',
+        'payload': '',
+        'kernel': value === ''
+            ? { 'type': 'gmao', 'entity': entity, 'value': '', 'delete': true, 'loop': false }
+            : { 'type': 'gmao', 'entity': entity, 'value': value, 'loop': false }
+    };
+
+
+    // refresh the counters list
+
+    msg.payload = '';
+
+    msg.list = 'counter';
+
+
+    return [msg, update];

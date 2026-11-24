@@ -28,6 +28,10 @@ A last form deletes one single entry of the application data by its type and ide
 
 Upload an OptaLinker firmware and its version number to update the Arduino Opta devices over the air.
 
+## GMAO
+
+Address, API key and daily send hour of the link with the maintenance management software, connection test, manual send and state of the link. See [GMAO link](gmao.md).
+
 ## Orphans
 
 Lists the data left behind by deleted items (component of an unknown equipment, setting of an unknown line, counter of an unknown family…) and cleans them, one by one or all at once.
